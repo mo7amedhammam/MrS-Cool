@@ -28,6 +28,8 @@
 		C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11C72ADD9EB70051715F /* SignInView.swift */; };
 		C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11C92ADDA2310051715F /* Helper.swift */; };
 		C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11CB2ADDA2920051715F /* SignInModel.swift */; };
+		C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11D12ADDAD070051715F /* ColorConstants.swift */; };
+		C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11D32ADDADD10051715F /* FontsExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		C8FB11CB2ADDA2920051715F /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
 		C8FB11CD2ADDA65B0051715F /* MrS-Cool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MrS-Cool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8FB11CE2ADDA6610051715F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8FB11D12ADDAD070051715F /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
+		C8FB11D32ADDADD10051715F /* FontsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 		C89EA9042ADD906300891D41 /* MrS-Cool */ = {
 			isa = PBXGroup;
 			children = (
+				C8FB11CE2ADDA6610051715F /* Info.plist */,
 				C8FB11832ADD91BA0051715F /* AppMain */,
 				C8FB11882ADD99800051715F /* AppModules */,
 				C89EA90B2ADD906800891D41 /* Preview Content */,
@@ -119,7 +124,6 @@
 		C8FB11832ADD91BA0051715F /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
-				C8FB11CE2ADDA6610051715F /* Info.plist */,
 				C89EA9092ADD906800891D41 /* Assets.xcassets */,
 				C89EA9052ADD906300891D41 /* MrS_CoolApp.swift */,
 				C89EA9072ADD906300891D41 /* ContentView.swift */,
@@ -188,6 +192,7 @@
 		C8FB11972ADD99800051715F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C8FB11D02ADDACD50051715F /* ColorConstants */,
 				C8FB11982ADD99800051715F /* Fonts */,
 			);
 			path = Resources;
@@ -201,6 +206,7 @@
 				C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */,
 				C8FB119C2ADD99800051715F /* RobotoRegular.ttf */,
 				C8FB119D2ADD99800051715F /* SoraRegular.ttf */,
+				C8FB11D32ADDADD10051715F /* FontsExtension.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -260,6 +266,14 @@
 				C8FB11CB2ADDA2920051715F /* SignInModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C8FB11D02ADDACD50051715F /* ColorConstants */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11D12ADDAD070051715F /* ColorConstants.swift */,
+			);
+			path = ColorConstants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,6 +401,8 @@
 				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
+				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
+				C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */,
 				C8FB11B02ADD99800051715F /* Authintications.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
 				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,

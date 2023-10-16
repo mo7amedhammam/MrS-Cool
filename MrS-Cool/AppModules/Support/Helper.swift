@@ -17,7 +17,7 @@ class Helper: NSObject {
     private static let onBoardKey = "onBoard"
     private static let LoggedInKey = "LoggedId"
     private static let UserDataKey = "UserDataKey"
-    
+
     class func saveUser(user: SignInModel) {
         IsLoggedIn(value: true)
         let encoder = JSONEncoder()
@@ -71,6 +71,14 @@ class Helper: NSObject {
         return (def.object(forKey: "password") as! String)
     }
     
+    class func setLanguage(currentLanguage: String) {
+    userDef.set(currentLanguage, forKey: "languagekey")
+    userDef.synchronize()
+    }
+    class func getLanguage()->String{
+    return userDef.string(forKey: "languagekey") ?? "en"
+    }
+
     
     // Checking internet connection
     class func isConnectedToNetwork() -> Bool {
@@ -96,6 +104,31 @@ class Helper: NSObject {
     
 }
 
+//MARK: -- view helper --
+func getRelativeHeight(_ size: CGFloat) -> CGFloat {
+    return (size * (CGFloat(UIScreen.main.bounds.height) / 812.0)) * 0.97
+}
+
+func getRelativeWidth(_ size: CGFloat) -> CGFloat {
+    return size * (CGFloat(UIScreen.main.bounds.width) / 375.0)
+}
+
+func getRelativeFontSize(_ size: CGFloat) -> CGFloat {
+    return size * (CGFloat(UIScreen.main.bounds.width) / 375.0)
+}
 
 
-
+extension UIDevice {
+    var hasNotch: Bool
+    {
+        if #available(iOS 11.0, *)
+        {
+            let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+            return bottom > 0
+        } else
+        {
+            // Fallback on earlier versions
+            return false
+        }
+    }
+}
