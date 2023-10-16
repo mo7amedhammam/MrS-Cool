@@ -7,18 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		643E0D1E5555FE38850A8AC2 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 200BC10EC7B9A418785BC990 /* Pods_MrS_Cool.framework */; };
 		C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89EA9052ADD906300891D41 /* MrS_CoolApp.swift */; };
 		C89EA9082ADD906300891D41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89EA9072ADD906300891D41 /* ContentView.swift */; };
 		C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA9092ADD906800891D41 /* Assets.xcassets */; };
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
+		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
+		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
+		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
+		C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118F2ADD99800051715F /* RequestBuilder.swift */; };
+		C8FB11B02ADD99800051715F /* Authintications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11942ADD99800051715F /* Authintications.swift */; };
+		C8FB11B22ADD99800051715F /* InterMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB11992ADD99800051715F /* InterMedium.ttf */; };
+		C8FB11B32ADD99800051715F /* SoraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119A2ADD99800051715F /* SoraBold.ttf */; };
+		C8FB11B42ADD99800051715F /* SoraSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */; };
+		C8FB11B52ADD99800051715F /* RobotoRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119C2ADD99800051715F /* RobotoRegular.ttf */; };
+		C8FB11B62ADD99800051715F /* SoraRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119D2ADD99800051715F /* SoraRegular.ttf */; };
+		C8FB11BA2ADD99800051715F /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11A72ADD99800051715F /* Language.swift */; };
+		C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11A82ADD99800051715F /* LocalizationService.swift */; };
+		C8FB11BE2ADD9C3B0051715F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8FB11C02ADD9C3B0051715F /* Localizable.strings */; };
+		C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11C72ADD9EB70051715F /* SignInView.swift */; };
+		C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11C92ADDA2310051715F /* Helper.swift */; };
+		C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11CB2ADDA2920051715F /* SignInModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C89EA9022ADD906300891D41 /* MrS-Cool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MrS-Cool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		111267A3290E31684FC63526 /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
+		200BC10EC7B9A418785BC990 /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79AFC3E49CCAD8C459974371 /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
 		C89EA9052ADD906300891D41 /* MrS_CoolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrS_CoolApp.swift; sourceTree = "<group>"; };
 		C89EA9072ADD906300891D41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C89EA9092ADD906800891D41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
+		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		C8FB118F2ADD99800051715F /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		C8FB11942ADD99800051715F /* Authintications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authintications.swift; sourceTree = "<group>"; };
+		C8FB11992ADD99800051715F /* InterMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = InterMedium.ttf; sourceTree = "<group>"; };
+		C8FB119A2ADD99800051715F /* SoraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoraBold.ttf; sourceTree = "<group>"; };
+		C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoraSemiBold.ttf; sourceTree = "<group>"; };
+		C8FB119C2ADD99800051715F /* RobotoRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RobotoRegular.ttf; sourceTree = "<group>"; };
+		C8FB119D2ADD99800051715F /* SoraRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoraRegular.ttf; sourceTree = "<group>"; };
+		C8FB11A72ADD99800051715F /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		C8FB11A82ADD99800051715F /* LocalizationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationService.swift; sourceTree = "<group>"; };
+		C8FB11BF2ADD9C3B0051715F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C8FB11C12ADD9C3C0051715F /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C8FB11C72ADD9EB70051715F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		C8FB11C92ADDA2310051715F /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		C8FB11CB2ADDA2920051715F /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
+		C8FB11CD2ADDA65B0051715F /* MrS-Cool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MrS-Cool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8FB11CE2ADDA6610051715F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,34 +64,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				643E0D1E5555FE38850A8AC2 /* Pods_MrS_Cool.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D387D32A0EA26A04E9AB143 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				200BC10EC7B9A418785BC990 /* Pods_MrS_Cool.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8794A11A3647421028230701 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				111267A3290E31684FC63526 /* Pods-MrS-Cool.debug.xcconfig */,
+				79AFC3E49CCAD8C459974371 /* Pods-MrS-Cool.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		C89EA8F92ADD906300891D41 = {
 			isa = PBXGroup;
 			children = (
 				C89EA9042ADD906300891D41 /* MrS-Cool */,
-				C89EA9032ADD906300891D41 /* Products */,
+				8794A11A3647421028230701 /* Pods */,
+				C8FB11CD2ADDA65B0051715F /* MrS-Cool.app */,
+				2D387D32A0EA26A04E9AB143 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		C89EA9032ADD906300891D41 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C89EA9022ADD906300891D41 /* MrS-Cool.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C89EA9042ADD906300891D41 /* MrS-Cool */ = {
 			isa = PBXGroup;
 			children = (
-				C89EA9052ADD906300891D41 /* MrS_CoolApp.swift */,
-				C89EA9072ADD906300891D41 /* ContentView.swift */,
-				C89EA9092ADD906800891D41 /* Assets.xcassets */,
+				C8FB11832ADD91BA0051715F /* AppMain */,
+				C8FB11882ADD99800051715F /* AppModules */,
 				C89EA90B2ADD906800891D41 /* Preview Content */,
 			);
 			path = "MrS-Cool";
@@ -67,6 +116,152 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		C8FB11832ADD91BA0051715F /* AppMain */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11CE2ADDA6610051715F /* Info.plist */,
+				C89EA9092ADD906800891D41 /* Assets.xcassets */,
+				C89EA9052ADD906300891D41 /* MrS_CoolApp.swift */,
+				C89EA9072ADD906300891D41 /* ContentView.swift */,
+			);
+			path = AppMain;
+			sourceTree = "<group>";
+		};
+		C8FB11882ADD99800051715F /* AppModules */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11962ADD99800051715F /* Support */,
+				C8FB118B2ADD99800051715F /* Services */,
+				C8FB118A2ADD99800051715F /* CustomViews */,
+				C8FB11892ADD99800051715F /* AppViews */,
+			);
+			path = AppModules;
+			sourceTree = "<group>";
+		};
+		C8FB11892ADD99800051715F /* AppViews */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11C22ADD9E4F0051715F /* SignUp */,
+				C8FB11C32ADD9E5A0051715F /* SignIn */,
+			);
+			path = AppViews;
+			sourceTree = "<group>";
+		};
+		C8FB118A2ADD99800051715F /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		C8FB118B2ADD99800051715F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB118C2ADD99800051715F /* EndPoints.swift */,
+				C8FB118D2ADD99800051715F /* BaseRequest.swift */,
+				C8FB118E2ADD99800051715F /* BaseResponse.swift */,
+				C8FB118F2ADD99800051715F /* RequestBuilder.swift */,
+				C8FB11902ADD99800051715F /* HealthServices */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C8FB11902ADD99800051715F /* HealthServices */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11942ADD99800051715F /* Authintications.swift */,
+			);
+			path = HealthServices;
+			sourceTree = "<group>";
+		};
+		C8FB11962ADD99800051715F /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11972ADD99800051715F /* Resources */,
+				C8FB119E2ADD99800051715F /* Extensions */,
+				C8FB119F2ADD99800051715F /* Localization */,
+				C8FB11C92ADDA2310051715F /* Helper.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		C8FB11972ADD99800051715F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11982ADD99800051715F /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C8FB11982ADD99800051715F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11992ADD99800051715F /* InterMedium.ttf */,
+				C8FB119A2ADD99800051715F /* SoraBold.ttf */,
+				C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */,
+				C8FB119C2ADD99800051715F /* RobotoRegular.ttf */,
+				C8FB119D2ADD99800051715F /* SoraRegular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C8FB119E2ADD99800051715F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C8FB119F2ADD99800051715F /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11A72ADD99800051715F /* Language.swift */,
+				C8FB11A82ADD99800051715F /* LocalizationService.swift */,
+				C8FB11C02ADD9C3B0051715F /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		C8FB11C22ADD9E4F0051715F /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		C8FB11C32ADD9E5A0051715F /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11C62ADD9E7F0051715F /* Model */,
+				C8FB11C52ADD9E7C0051715F /* ViewModel */,
+				C8FB11C42ADD9E6E0051715F /* View */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		C8FB11C42ADD9E6E0051715F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11C72ADD9EB70051715F /* SignInView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8FB11C52ADD9E7C0051715F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8FB11C62ADD9E7F0051715F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8FB11CB2ADDA2920051715F /* SignInModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +269,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C89EA9102ADD906800891D41 /* Build configuration list for PBXNativeTarget "MrS-Cool" */;
 			buildPhases = (
+				7F1E5D6F0EB4F73BC2BBB608 /* [CP] Check Pods Manifest.lock */,
 				C89EA8FE2ADD906300891D41 /* Sources */,
 				C89EA8FF2ADD906300891D41 /* Frameworks */,
 				C89EA9002ADD906300891D41 /* Resources */,
+				A4D77858E5FA55501290E0A1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -84,7 +281,7 @@
 			);
 			name = "MrS-Cool";
 			productName = "MrS-Cool";
-			productReference = C89EA9022ADD906300891D41 /* MrS-Cool.app */;
+			productReference = C8FB11CD2ADDA65B0051715F /* MrS-Cool.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -109,9 +306,10 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = C89EA8F92ADD906300891D41;
-			productRefGroup = C89EA9032ADD906300891D41 /* Products */;
+			productRefGroup = C89EA8F92ADD906300891D41;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -125,6 +323,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FB11B42ADD99800051715F /* SoraSemiBold.ttf in Resources */,
+				C8FB11B62ADD99800051715F /* SoraRegular.ttf in Resources */,
+				C8FB11B32ADD99800051715F /* SoraBold.ttf in Resources */,
+				C8FB11B52ADD99800051715F /* RobotoRegular.ttf in Resources */,
+				C8FB11B22ADD99800051715F /* InterMedium.ttf in Resources */,
+				C8FB11BE2ADD9C3B0051715F /* Localizable.strings in Resources */,
 				C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */,
 				C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */,
 			);
@@ -132,17 +336,81 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7F1E5D6F0EB4F73BC2BBB608 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MrS-Cool-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4D77858E5FA55501290E0A1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C89EA8FE2ADD906300891D41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
+				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
+				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
+				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
+				C8FB11B02ADD99800051715F /* Authintications.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
+				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,
+				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
+				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,
+				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
+				C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */,
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C8FB11C02ADD9C3B0051715F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C8FB11BF2ADD9C3B0051715F /* en */,
+				C8FB11C12ADD9C3C0051715F /* ar */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C89EA90E2ADD906800891D41 /* Debug */ = {
@@ -266,6 +534,7 @@
 		};
 		C89EA9112ADD906800891D41 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 111267A3290E31684FC63526 /* Pods-MrS-Cool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -274,12 +543,16 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = 23H4SBD5QL;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MrS-Cool/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -287,6 +560,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -295,6 +571,7 @@
 		};
 		C89EA9122ADD906800891D41 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79AFC3E49CCAD8C459974371 /* Pods-MrS-Cool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -303,12 +580,16 @@
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = 23H4SBD5QL;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MrS-Cool/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +597,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
