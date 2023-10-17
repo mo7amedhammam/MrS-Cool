@@ -7,3 +7,9 @@
 */
 
 "Hello, World!" = "مرحبا";
+"sign_in" = "تسجيل دخول";
+"Don't have an account ?" = "ليس لديك حساب ؟";
+
+//MARK: -- signUp --
+"sign_up" = "انشاء حساب";
+"Already have an account ?" = "لديك حساب بالفعل ؟";

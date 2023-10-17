@@ -17,7 +17,7 @@ class Helper: NSObject {
     private static let onBoardKey = "onBoard"
     private static let LoggedInKey = "LoggedId"
     private static let UserDataKey = "UserDataKey"
-
+    static let Languagekey = "languagekey"
     class func saveUser(user: SignInModel) {
         IsLoggedIn(value: true)
         let encoder = JSONEncoder()
@@ -76,7 +76,8 @@ class Helper: NSObject {
     userDef.synchronize()
     }
     class func getLanguage()->String{
-    return userDef.string(forKey: "languagekey") ?? "en"
+        let deviceLanguage = Locale.preferredLanguages.first ?? "en"
+        return userDef.string(forKey: "languagekey") ?? deviceLanguage
     }
 
     

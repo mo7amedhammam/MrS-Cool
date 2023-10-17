@@ -6,11 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Language: String {
     case english_us = "en"
     case arabic = "ar"
-
 }
 
 extension String {
@@ -18,9 +18,12 @@ extension String {
     /// Localizes a string using given language from Language enum.
     /// - parameter language: The language that will be used to localized string.
     /// - Returns: localized string.
-    func localized(_ language: Language) -> String {
+    
+    func localized() -> String {
+        @AppStorage(Helper.Languagekey)
+        var language = LocalizationService.shared.language
 
-        let path = Bundle.main.path(forResource: language.rawValue, ofType: "lproj")
+        let path = Bundle.main.path(forResource: Helper.getLanguage(), ofType: "lproj")
         let bundle: Bundle
         if let path = path {
             bundle = Bundle(path: path) ?? .main
