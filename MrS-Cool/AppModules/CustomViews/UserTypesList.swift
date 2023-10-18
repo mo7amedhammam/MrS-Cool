@@ -8,7 +8,7 @@
 import SwiftUI
 
 var users:[UserType] = [
-    UserType(id: 1, title: "Studen", imgName: "img_group141_9"),
+    UserType(id: 1, title: "Student", imgName: "img_group141_9"),
     UserType(id: 2, title: "Parent", imgName: "img_group142_14"),
     UserType(id: 3, title: "Teacher", imgName: "img_group140_19")
 ]

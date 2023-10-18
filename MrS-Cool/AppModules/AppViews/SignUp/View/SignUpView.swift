@@ -13,7 +13,7 @@ struct SignUpView: View {
 
     var body: some View {
 
-        VStack {
+        VStack(spacing:0) {
             CustomTitleBarView(title: "sign_up".localized(),hideImage: false)
 
             VStack{

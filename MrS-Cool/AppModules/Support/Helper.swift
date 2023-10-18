@@ -9,6 +9,7 @@ import UIKit
 import SystemConfiguration
 import MapKit
 import Foundation
+import SwiftUI
 
 class Helper: NSObject {
     @available(iOS 13.0, *)
@@ -72,12 +73,12 @@ class Helper: NSObject {
     }
     
     class func setLanguage(currentLanguage: String) {
-    userDef.set(currentLanguage, forKey: "languagekey")
+    userDef.set(currentLanguage, forKey: Languagekey)
     userDef.synchronize()
     }
     class func getLanguage()->String{
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
-        return userDef.string(forKey: "languagekey") ?? deviceLanguage
+        return userDef.string(forKey: Languagekey) ?? deviceLanguage
     }
 
     
@@ -133,3 +134,12 @@ extension UIDevice {
         }
     }
 }
+
+#if canImport(UIKit)
+extension View {
+    func hideKeyboard() {
+        let resign = #selector(UIResponder.resignFirstResponder)
+                UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+    }
+}
+#endif

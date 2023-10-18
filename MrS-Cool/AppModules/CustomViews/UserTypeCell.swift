@@ -27,23 +27,23 @@ struct UserTypeCell: View {
                     .renderingMode(.template)
                     .background(user.id == selectedUser.id ? ColorConstants.WhiteA700 :ColorConstants.Bluegray100)
                     .foregroundColor(user.id == selectedUser.id ? ColorConstants.Black900 :ColorConstants.Gray600)
-                    .frame(width: getRelativeWidth(45.0),
-                           height: getRelativeWidth(45.0), alignment: .center)
+                    .frame(width: 55,
+                           height: 55, alignment: .center)
                     .scaledToFit()
                     .clipped()
                     .clipShape(.circle)
-                    .padding(.top, getRelativeHeight(27.0))
-                    .padding(.horizontal, getRelativeWidth(31.0))
+                    .padding(.top, 27.0)
+//                    .padding(.horizontal, 31.0)
                 Text(user.title.localized())
-                    .font(Font.SoraSemiBold(size: getRelativeHeight(8.0)))
+                    .font(Font.SoraSemiBold(size: 12))
                     .fontWeight(.semibold)
                     .foregroundColor(user.id == selectedUser.id ? ColorConstants.WhiteA700 :ColorConstants.Gray600)
-                    .minimumScaleFactor(0.5)
-                    .multilineTextAlignment(.leading)
-                    .frame(width: getRelativeWidth(33.0),
-                           height: getRelativeHeight(11.0), alignment: .topLeading)
-                    .padding(.vertical, getRelativeHeight(19.0))
-                    .padding(.horizontal, getRelativeWidth(33.0))
+//                    .minimumScaleFactor(0.5)
+                    .multilineTextAlignment(.center)
+//                    .frame(width: 33.0,
+//                           height: 11.0, alignment: .topLeading)
+                    .padding(.vertical, 19.0)
+//                    .padding(.horizontal, 33.0)
             }
             .frame(minWidth: 0,maxWidth: .infinity)
 //            .frame(width: getRelativeWidth(107.0), height: getRelativeHeight(128.0),
@@ -58,3 +58,5 @@ struct UserTypeCell: View {
 #Preview {
     UserTypeCell(selectedUser: .constant(UserType.init()))
 }
+
+

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class LocalizationService {
     static let shared = LocalizationService()
@@ -28,4 +29,16 @@ class LocalizationService {
             }
         }
     }
+    
+//    private func updateLayoutDirection() {
+//        switch language {
+//        case .english_us:
+//            // Set layout direction to left-to-right for English.
+//            UIApplication.shared.userInterfaceLayoutDirection = .leftToRight
+//        case .arabic:
+//            // Set layout direction to right-to-left for Arabic.
+//            UIApplication.shared.userInterfaceLayoutDirection = .rightToLeft
+//        }
+//    }
+
 }

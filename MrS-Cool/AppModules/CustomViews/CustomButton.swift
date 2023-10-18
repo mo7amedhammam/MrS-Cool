@@ -35,9 +35,9 @@ struct CustomButton: View {
                         .clipped()
                 }
                 Text(Title.localized())
-                    .font(Font.SoraSemiBold(size: getRelativeHeight(13.0)))
+                    .font(Font.SoraSemiBold(size:14))
                     .fontWeight(.semibold)
-                    .minimumScaleFactor(0.5)
+//                    .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.center)
             }
             .frame(minWidth: 0, maxWidth: .infinity)
@@ -71,12 +71,22 @@ struct CustomBorderedButton: View {
         
         Button(action: {}, label: {
             HStack(spacing: 0) {
-                Text("button")
-                    .font(Font.SoraSemiBold(size: getRelativeHeight(13.0)))
+                if let imageName = imageName{
+                    Image(imageName)
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 20,
+                               height: 20, alignment: .center)
+//                        .font(Font.system(size: 2))
+//                        .scaledToFit()
+                        .aspectRatio(contentMode: .fit)
+                        .clipped()
+                }
+                Text(Title.localized())
+                    .font(Font.SoraSemiBold(size: 14))
                     .fontWeight(.semibold)
-                    .minimumScaleFactor(0.5)
+//                    .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.center)
-
             }
             .foregroundColor(IsDisabled ? ColorConstants.Bluegray400:ColorConstants.Black900)
 
@@ -91,9 +101,7 @@ struct CustomBorderedButton: View {
                                        bottomRight: 8.0)
                 .fill(ColorConstants.WhiteA700))
         })
-      
         .disabled(IsDisabled)
-
         
     }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		643E0D1E5555FE38850A8AC2 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 200BC10EC7B9A418785BC990 /* Pods_MrS_Cool.framework */; };
+		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
+		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
+		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
 		C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C899E3E62ADE8ED300593369 /* CustomTitleBarView.swift */; };
 		C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C899E3E92ADEC6BD00593369 /* SignUpView.swift */; };
 		C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C899E3EC2ADED34200593369 /* CustomButton.swift */; };
@@ -42,6 +45,9 @@
 		111267A3290E31684FC63526 /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		200BC10EC7B9A418785BC990 /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79AFC3E49CCAD8C459974371 /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
+		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
+		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
 		C899E3E62ADE8ED300593369 /* CustomTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleBarView.swift; sourceTree = "<group>"; };
 		C899E3E92ADEC6BD00593369 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C899E3EC2ADED34200593369 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -104,6 +110,30 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C88C52D62ADFE4C8003DE051 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */,
+			);
+			name = TextField;
+			sourceTree = "<group>";
+		};
+		C88C52D92AE000F2003DE051 /* CheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				C88C52DA2AE00124003DE051 /* CheckboxField.swift */,
+			);
+			name = CheckBox;
+			sourceTree = "<group>";
+		};
+		C88C52DC2AE02534003DE051 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				C88C52DD2AE02548003DE051 /* ExStrings.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		C899E3E52ADE8EB200593369 /* TitleBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +169,7 @@
 		C899E3F12ADEEB8900593369 /* Authontication */ = {
 			isa = PBXGroup;
 			children = (
+				C88C52D92AE000F2003DE051 /* CheckBox */,
 				C899E3F22ADEEB9900593369 /* UserTypeView */,
 			);
 			name = Authontication;
@@ -223,6 +254,7 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C88C52D62ADFE4C8003DE051 /* TextField */,
 				C899E3F12ADEEB8900593369 /* Authontication */,
 				C899E3EE2ADED3AA00593369 /* Styles */,
 				C899E3EB2ADED32200593369 /* Buttons */,
@@ -287,6 +319,7 @@
 		C8FB119E2ADD99800051715F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C88C52DC2AE02534003DE051 /* Strings */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -476,15 +509,18 @@
 				C899E3F02ADED3D800593369 /* Roundedcorners.swift in Sources */,
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C899E3F42ADEEBC000593369 /* UserTypesList.swift in Sources */,
+				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
 				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
+				C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */,
 				C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */,
 				C8FB11B02ADD99800051715F /* Authintications.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
 				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
 				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,
+				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
 				C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */,

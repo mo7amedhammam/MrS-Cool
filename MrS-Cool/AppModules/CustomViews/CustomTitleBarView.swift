@@ -38,7 +38,7 @@ struct CustomTitleBarView: View {
                     .font(Font.SoraBold(size:18.0))
                     .fontWeight(.bold)
                     .foregroundColor(ColorConstants.Gray900)
-                    .minimumScaleFactor(0.5)
+//                    .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.leading)
                 Spacer()
                 if hideImage == false{
@@ -48,6 +48,9 @@ struct CustomTitleBarView: View {
             .padding(.bottom,15)
             .padding(.horizontal)
             .background(ColorConstants.WhiteA700)
+            .onTapGesture {
+                hideKeyboard()
+            }
         }
 //        Spacer()
 //    }

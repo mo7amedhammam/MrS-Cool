@@ -21,11 +21,12 @@ struct ContentView: View {
                 SignInView()
             }
                     .hideNavigationBar()
+                    .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
 
         }
-        //        .environment(\.locale, .init(identifier: Helper.getLanguage()))
+//                .environment(\.locale, .init(identifier: Helper.getLanguage()))
 //        .hideNavigationBar()
-        .environment(\.layoutDirection, language.rawValue == "en" ? .leftToRight : .rightToLeft)
+//        .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
         
         //        .padding()
     }
@@ -33,6 +34,8 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
+
 }
 
 
