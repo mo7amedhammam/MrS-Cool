@@ -29,18 +29,29 @@ struct SignUpView: View {
                 HStack{
                     HStack(spacing:5){
                         Text("Already have an account ?".localized())
+                            .foregroundColor(ColorConstants.Gray900)
+                            .font(Font.SoraRegular(size: 12))
+
                                 Button(action: {
                                     presentationMode.wrappedValue.dismiss()
                                 }, label: {
                                     Text("sign_in".localized())
                                 })
-                    }
-                    .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
-                    //            .fontWeight(.regular)
-                    .foregroundColor(ColorConstants.Gray900)
-                    .minimumScaleFactor(0.5)
-                    .multilineTextAlignment(.leading)
-                    .padding(.top, getRelativeHeight(12.0))
+                    
+                    .foregroundColor(ColorConstants.Red400)
+                    .font(Font.SoraRegular(size: 13))
+
+            }
+            .multilineTextAlignment(.leading)
+            .padding(.top, 8)
+
+                    
+//                    .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+//                    //            .fontWeight(.regular)
+//                    .foregroundColor(ColorConstants.Gray900)
+//                    .minimumScaleFactor(0.5)
+//                    .multilineTextAlignment(.leading)
+//                    .padding(.top, getRelativeHeight(12.0))
 
                 }
                 .foregroundColor(ColorConstants.Black900)
