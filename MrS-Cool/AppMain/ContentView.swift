@@ -8,59 +8,64 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage(Helper.Languagekey)
-    var language = LocalizationService.shared.language
     
     var body: some View {
         NavigationView{
             VStack {
-                //            Image(systemName: "globe")
-                //                .imageScale(.large)
-                //                .foregroundStyle(.tint)
-                //            Text("Hello, world!")
                 SignInView()
             }
-                    .hideNavigationBar()
-                    .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
-
         }
-//                .environment(\.locale, .init(identifier: Helper.getLanguage()))
-//        .hideNavigationBar()
-//        .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
-        
-        //        .padding()
+        .hideNavigationBar()
+        .localizeView()
     }
 }
 
 #Preview {
     ContentView()
-        .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
-
+    //        .localizeView()
 }
 
 
-// Hide default navigation bar from Navigation link screen.
-extension View {
-    func hideNavigationBar() -> some View {
-        self
+//MARK:  --- ViewModifier to hide Navigation Bar---
+struct hideNavigationBarModifier: ViewModifier {
+    public func body(content: Content) -> some View {
+        content
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
     }
-
-    @ViewBuilder func visibility(_ visibility: ViewVisibility) -> some View {
-        if visibility != .gone {
-            if visibility == .visible {
-                self
-            } else {
-                hidden()
-            }
-        }
+}
+// --- View Extension to apply the modifier ---
+extension View {
+    public func hideNavigationBar() -> some View {
+        modifier(hideNavigationBarModifier())
     }
 }
 
-enum ViewVisibility: CaseIterable {
-    case visible, // view is fully visible
-         invisible, // view is hidden but takes up space
-         gone // view is fully removed from the view hierarchy
-}
+
+
+//// Hide default navigation bar from Navigation link screen.
+//extension View {
+//    func hideNavigationBar() -> some View {
+//        self
+//            .navigationBarTitle("", displayMode: .inline)
+//            .navigationBarHidden(true)
+//            .navigationViewStyle(StackNavigationViewStyle())
+//    }
+//    
+//    @ViewBuilder func visibility(_ visibility: ViewVisibility) -> some View {
+//        if visibility != .gone {
+//            if visibility == .visible {
+//                self
+//            } else {
+//                hidden()
+//            }
+//        }
+//    }
+//}
+//
+//enum ViewVisibility: CaseIterable {
+//    case visible, // view is fully visible
+//         invisible, // view is hidden but takes up space
+//         gone // view is fully removed from the view hierarchy
+//}

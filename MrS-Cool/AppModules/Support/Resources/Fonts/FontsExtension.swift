@@ -9,24 +9,24 @@ import SwiftUI
 
 extension Font {
     static func SoraBold( size: CGFloat) -> Self {
-        @State var language = LocalizationService.shared.language
-        return Font.custom(language.rawValue == "en" ? "Sora-Bold":"Sora-Bold", size: size)
+        @State var language = LocalizeHelper.shared.currentLanguage
+        return Font.custom(language == "en" ? "Sora-Bold":"Sora-Bold", size: size)
     }
     static func SoraSemiBold( size: CGFloat) -> Self {
-        @State var language = LocalizationService.shared.language
-        return Font.custom(language.rawValue == "en" ? "Sora-SemiBold":"Sora-SemiBold", size: size)
+        @State var language = LocalizeHelper.shared.currentLanguage
+        return Font.custom(language == "en" ? "Sora-SemiBold":"Sora-SemiBold", size: size)
     }
     static func SoraRegular( size: CGFloat) -> Self {
-        @State var language = LocalizationService.shared.language
-        return Font.custom(language.rawValue == "en" ? "SoraRegular":"SoraRegular", size: size)
+        @State var language = LocalizeHelper.shared.currentLanguage
+        return Font.custom(language == "en" ? "SoraRegular":"SoraRegular", size: size)
     }
     static func RobotoRegular( size: CGFloat) -> Self {
-        @State var language = LocalizationService.shared.language
-        return Font.custom(language.rawValue == "en" ? "Roboto-Regular":"Roboto-Regular", size: size)
+        @State var language = LocalizeHelper.shared.currentLanguage
+        return Font.custom(language == "en" ? "Roboto-Regular":"Roboto-Regular", size: size)
     }
     static func InterMedium( size: CGFloat) -> Self {
-        @State var language = LocalizationService.shared.language
-        return Font.custom(language.rawValue == "en" ? "InterMedium":"InterMedium", size: size)
+        @State var language = LocalizeHelper.shared.currentLanguage
+        return Font.custom(language == "en" ? "InterMedium":"InterMedium", size: size)
     }
 }
 

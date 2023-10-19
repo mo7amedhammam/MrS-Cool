@@ -5,40 +5,54 @@
 //  Created by wecancity agency on 3/29/22.
 //
 
-import Foundation
-import UIKit
+import SwiftUI
 
-class LocalizationService {
-    static let shared = LocalizationService()
-//    static let changedLanguage = Notification.Name("languagekey")
-    private init() {}
-    
-    var language: Language {
-        get {
-//            guard let languageString = UserDefaults.standard.string(forKey: "languagekey") else {
-//                return .english_us
-//            }
-//            return Language(rawValue: languageString) ?? .english_us
-            return Helper.getLanguage() == "en" ? .english_us : .arabic
-        }
-        set {
-            if newValue != language {
-                print(newValue.rawValue)
-                Helper.setLanguage(currentLanguage: newValue.rawValue)
-//                NotificationCenter.default.post(name: LocalizationService.changedLanguage, object: nil)
-            }
+//MARK:  --- List your languages ---
+enum Languages: String {
+    case english_us = "en"
+    case arabic = "ar"
+}
+
+//MARK:  --- observable for Any changes in languages ---
+class LocalizeHelper: ObservableObject {
+    static var shared = LocalizeHelper()
+
+    @Published var currentLanguage: String {
+        didSet {
+            Helper.setLanguage(currentLanguage: currentLanguage)
+            print("current:",currentLanguage)
+            print("helper:",Helper.getLanguage())
         }
     }
     
-//    private func updateLayoutDirection() {
-//        switch language {
-//        case .english_us:
-//            // Set layout direction to left-to-right for English.
-//            UIApplication.shared.userInterfaceLayoutDirection = .leftToRight
-//        case .arabic:
-//            // Set layout direction to right-to-left for Arabic.
-//            UIApplication.shared.userInterfaceLayoutDirection = .rightToLeft
-//        }
-//    }
+    private init() {
+        self.currentLanguage =  Helper.getLanguage()
+    }
+    
+    func setLanguage(language: Languages) {
+        self.currentLanguage = language.rawValue
+    }
+}
 
+//MARK:  --- ViewModifier to update layout Direction RTL ---
+struct LocalizationViewModifier: ViewModifier {
+    @ObservedObject var localizeHelper = LocalizeHelper.shared
+    public func body(content: Content) -> some View {
+        content
+            .environment(\.locale, Locale(identifier: localizeHelper.currentLanguage))
+            .environment(\.layoutDirection, localizeHelper.currentLanguage == "ar" ? .rightToLeft : .leftToRight)
+    }
+}
+// --- View Extension to apply the modifier ---
+extension View {
+    public func localizeView() -> some View {
+        modifier(LocalizationViewModifier())
+    }
+}
+
+//MARK:  --- String Ectension to retun localized string ---
+extension String {
+    func localized() -> LocalizedStringKey{
+        return LocalizedStringKey(self)
+    }
 }

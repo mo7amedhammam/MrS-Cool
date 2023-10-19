@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomButton: View {
-    @State private var language = LocalizationService.shared.language
+//    @State private var language = LocalizationService.shared.language
 
     var imageName:String?
     var Title = ""

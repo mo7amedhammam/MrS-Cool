@@ -78,9 +78,12 @@ class Helper: NSObject {
     }
     class func getLanguage()->String{
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
-        return userDef.string(forKey: Languagekey) ?? deviceLanguage
+        let deviceLanguageCode = deviceLanguage.getValidLanguageCode()
+        return userDef.string(forKey: Languagekey) ?? deviceLanguageCode
     }
 
+    
+    
     
     // Checking internet connection
     class func isConnectedToNetwork() -> Bool {

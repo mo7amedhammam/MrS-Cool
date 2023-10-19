@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct CustomTitleBarView: View {
-//    @AppStorage(Helper.Languagekey)
-//    var language = LocalizationService.shared.language
-    @State private var language = LocalizationService.shared.language
 
     var imageName: String?
     var title: String
@@ -34,7 +31,7 @@ struct CustomTitleBarView: View {
                 }
                 
                 Spacer()
-                Text(title.localized())
+                Text( title.localized())
                     .font(Font.SoraBold(size:18.0))
                     .fontWeight(.bold)
                     .foregroundColor(ColorConstants.Gray900)
@@ -45,6 +42,7 @@ struct CustomTitleBarView: View {
                     Color(.clear).frame(width: 12.0,height: 20.0)
                 }
             }
+//            .frame(width:UIScreen.main.bounds.width)
             .padding(.bottom,15)
             .padding(.horizontal)
             .background(ColorConstants.WhiteA700)

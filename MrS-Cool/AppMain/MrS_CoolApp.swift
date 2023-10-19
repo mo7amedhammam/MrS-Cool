@@ -10,12 +10,9 @@ import SwiftUI
 @main
 struct MrS_CoolApp: App {
     var body: some Scene {
-//        @AppStorage(Helper.Languagekey)
-//        var language = LocalizationService.shared.language
-
         WindowGroup {
-            ContentView()
-//                .environment(\.layoutDirection, Helper.getLanguage() == "en" ? .leftToRight : .rightToLeft)
+            ContentView().onAppear(perform: {
+            })
         }
     }
 }

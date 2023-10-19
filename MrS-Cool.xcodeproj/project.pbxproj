@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */; };
+		C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
 		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
@@ -45,6 +46,7 @@
 		23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
+		C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageView.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
@@ -108,6 +110,14 @@
 				23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C829B6952AE1719C00CA1935 /* ChangeLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */,
+			);
+			name = ChangeLanguage;
 			sourceTree = "<group>";
 		};
 		C88C52D62ADFE4C8003DE051 /* TextField */ = {
@@ -254,6 +264,7 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C829B6952AE1719C00CA1935 /* ChangeLanguage */,
 				C88C52D62ADFE4C8003DE051 /* TextField */,
 				C899E3F12ADEEB8900593369 /* Authontication */,
 				C899E3EE2ADED3AA00593369 /* Styles */,
@@ -504,6 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */,
 				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
 				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
 				C899E3F02ADED3D800593369 /* Roundedcorners.swift in Sources */,

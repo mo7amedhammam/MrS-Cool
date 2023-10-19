@@ -67,6 +67,7 @@ struct CustomTextField: View {
                                     alignment: .leading)
                             .keyboardType(keyboardType ?? .default)
                             .textContentType(textContentType)
+//                            .background(.red)
                     }
                 }
                 .animation(.easeInOut(duration: 0.2), value: isSecured)
@@ -117,4 +118,5 @@ struct CustomTextField: View {
 #Preview {
     CustomTextField(fieldType:.Default, iconName:"img_group172", placeholder: "password", text: .constant("mmm"))
 }
+
 
