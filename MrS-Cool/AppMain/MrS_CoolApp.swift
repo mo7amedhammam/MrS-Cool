@@ -11,8 +11,7 @@ import SwiftUI
 struct MrS_CoolApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().onAppear(perform: {
-            })
+            ContentView()
         }
     }
 }

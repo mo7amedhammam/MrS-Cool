@@ -22,41 +22,17 @@ struct SignUpView: View {
                 UserTypesList(selectedUser: $selectedUser)
                 GeometryReader { gr in
                     ScrollView(.vertical){
-                        VStack(alignment: .leading, spacing: 0){
-                            Group {
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
+                        VStack{
+                            switch selectedUser.id{
+                            case 0:
+                                StudentSignUpView()
+                            case 1:
+                                ParentSignUpView()
+                            case 2:
+                                TeacherSignUpView()
+                            default:
+                                StudentSignUpView()
                             }
-                            .padding([.top])
-                            Group {
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
-                            }
-                            .padding([.top])
-                            Group {
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
-                            }
-                            .padding([.top])
-                            Group {
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
-                            }
-                            .padding([.top])
-                            Group {
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
-                            }
-                            .padding([.top])
-                            Spacer()
-                            CheckboxField(label: "Accept the Terms and Privacy Policy",
-                                          color: ColorConstants.Black900, textSize: 13,
-                                          isMarked: $acceptTerms)
-                            .padding(.top,12)
-                            
-                            CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
-                                .padding(.top,40)
-                            
                             HStack(spacing:5){
                                 Text("Already have an account ?".localized())
                                     .foregroundColor(ColorConstants.Gray900)
@@ -74,6 +50,7 @@ struct SignUpView: View {
                             .frame(minWidth:0,maxWidth:.infinity)
                             .multilineTextAlignment(.center)
                             .padding(.vertical, 10)
+                            
                         }
                         .frame(minHeight: gr.size.height)
                         .padding(.horizontal)
@@ -95,5 +72,173 @@ struct SignUpView: View {
 
 #Preview {
     SignUpView()
-        .localizeView()
+}
+
+struct StudentSignUpView: View {
+    @State var phone = ""
+    @State var Password = ""
+    @State var acceptTerms = false
+    
+    var body: some View {
+        VStack{ // (Title - Data - Submit Button)
+            VStack(alignment: .leading, spacing: 0){
+                // -- Data Title --
+                VStack (alignment: .leading,spacing: 5){
+                    Text("Pesrsonal Information".localized())
+                        .font(Font.SoraBold(size:18))
+                        .fontWeight(.bold)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                    
+                    Text("Enter subtitle here".localized())
+                        .font(Font.SoraRegular(size: 10.0))
+                        .fontWeight(.regular)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                    
+                }
+                
+                // -- inputs --
+                Group {
+                    CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $Password,textContentType:.name)
+                    
+                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                    CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", text: $phone)
+                    
+                    CustomDropDownField(iconName:"img_group148",rightIconName:"img_daterange",placeholder: "Birthdate *", text: $phone)
+                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", text: $phone)
+                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", text: $phone)
+                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", text: $phone)
+                    
+                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
+                    
+                    CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $Password)
+                }
+                .padding([.top])
+                CheckboxField(label: "Accept the Terms and Privacy Policy",
+                              color: ColorConstants.Black900, textSize: 13,
+                              isMarked: $acceptTerms)
+                .padding(.top,15)
+            }.padding(.top,20)
+            Spacer()
+            
+            CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
+                .padding(.top,40)
+        }
+    }
+}
+#Preview{
+    StudentSignUpView()
+}
+
+
+struct ParentSignUpView: View {
+    @State var phone = ""
+    @State var Password = ""
+    @State var acceptTerms = false
+    
+    var body: some View {
+        VStack{ // (Title - Data - Submit Button)
+            VStack(alignment: .leading, spacing: 0){
+                // -- Data Title --
+                VStack (alignment: .leading,spacing: 5){
+                    Text("Pesrsonal Information".localized())
+                        .font(Font.SoraBold(size:18))
+                        .fontWeight(.bold)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                    
+                    Text("Enter subtitle here".localized())
+                        .font(Font.SoraRegular(size: 10.0))
+                        .fontWeight(.regular)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                    
+                }
+                
+                // -- inputs --
+                Group {
+                    CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $Password,textContentType:.name)
+                    
+                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                    
+                    CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", text: $phone)
+                    
+                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
+                    
+                    CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $Password)
+                }
+                .padding([.top])
+                CheckboxField(label: "Accept the Terms and Privacy Policy",
+                              color: ColorConstants.Black900, textSize: 13,
+                              isMarked: $acceptTerms)
+                .padding(.top,15)
+            }.padding(.top,20)
+            Spacer()
+            
+            CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
+                .padding(.top,40)
+        }
+    }
+}
+
+#Preview{
+    ParentSignUpView()
+        .padding(.all)
+}
+
+
+struct TeacherSignUpView: View {
+    @State var phone = ""
+    @State var Password = ""
+    @State var acceptTerms = false
+    
+    var body: some View {
+        VStack{ // (Title - Data - Submit Button)
+            VStack(alignment: .leading, spacing: 0){
+                // -- Data Title --
+                VStack (alignment: .leading,spacing: 5){
+                    Text("Pesrsonal Information".localized())
+                        .font(Font.SoraBold(size:18))
+                        .fontWeight(.bold)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                    
+                    Text("Enter subtitle here".localized())
+                        .font(Font.SoraRegular(size: 10.0))
+                        .fontWeight(.regular)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                    
+                }
+                
+                // -- inputs --
+                Group {
+                    CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $Password,textContentType:.name)
+                    
+                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                    
+                    CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", text: $phone)
+                    
+                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
+                    
+                    CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $Password)
+                }
+                .padding([.top])
+                CheckboxField(label: "Accept the Terms and Privacy Policy",
+                              color: ColorConstants.Black900, textSize: 13,
+                              isMarked: $acceptTerms)
+                .padding(.top,15)
+            }.padding(.top,20)
+            Spacer()
+            
+            CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
+                .padding(.top,40)
+        }
+    }
+}
+
+#Preview{
+    TeacherSignUpView()
+        .padding(.all)
 }

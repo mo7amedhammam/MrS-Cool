@@ -55,6 +55,7 @@ struct CustomTitleBarView: View {
 }
 
 #Preview {
-    CustomTitleBarView( title: "Sign In Home Again")
+    CustomTitleBarView( title: "تسجيل دخول ")
+        .localizeView()
 }
 

@@ -25,23 +25,20 @@ struct SignInView: View {
                     ScrollView(.vertical){
                         VStack{
                             VStack(alignment: .leading, spacing: 0) {
-                                Text("Welcome Back!".localized())
-                                    .font(Font.SoraBold(size:18))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(ColorConstants.Black900)
-                                    .minimumScaleFactor(0.5)
-                                    .multilineTextAlignment(.leading)
-                                    .frame(width: 143.0, height: 23.0,
-                                           alignment: .topLeading)
-                                Text("Sign in to continue".localized())
-                                    .font(Font.SoraRegular(size: 10.0))
-                                    .fontWeight(.regular)
-                                    .foregroundColor(ColorConstants.Black900)
-                                    .minimumScaleFactor(0.5)
-                                    .multilineTextAlignment(.leading)
-                                    .frame(width: 95.0, height: 13.0,
-                                           alignment: .topLeading)
-                                
+                                VStack (alignment: .leading,spacing: 5){
+                                    Text("Welcome Back!".localized())
+                                        .font(Font.SoraBold(size:18))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(ColorConstants.Black900)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                    Text("Sign in to continue".localized())
+                                        .font(Font.SoraRegular(size: 10.0))
+                                        .fontWeight(.regular)
+                                        .foregroundColor(ColorConstants.Black900)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                }
                                 Group {
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
                                     CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
@@ -73,31 +70,32 @@ struct SignInView: View {
                             }
                             .padding(.top, 20)
                             Spacer()
-                            CustomButton(Title:"sign_in",IsDisabled: .constant(false), action: {
-                                print("user is :",selectedUser.title)
-                                print("phone :",phone)
-                                print("password :",Password)
-                                print("remember me :",rememberMe)
-                            })
-                            .padding(.top,40)
-                            HStack(spacing:5){
-                                Text("Don't have an account ?".localized())
-                                    .foregroundColor(ColorConstants.Gray900)
-                                    .font(Font.SoraRegular(size: 12))
-                                
-                                Button(action: {
-                                    isPush = true
-                                    destination = AnyView(SignUpView()                                        .hideNavigationBar())
-                                }, label: {
-                                    Text("sign_up".localized())
-                                        .foregroundColor(ColorConstants.Red400)
-                                        .font(Font.SoraRegular(size: 13))
+                            VStack{
+                                CustomButton(Title:"sign_in",IsDisabled: .constant(false), action: {
+                                    print("user is :",selectedUser.title)
+                                    print("phone :",phone)
+                                    print("password :",Password)
+                                    print("remember me :",rememberMe)
                                 })
-                                
+                                .padding(.top,40)
+                                HStack(spacing:5){
+                                    Text("Don't have an account ?".localized())
+                                        .foregroundColor(ColorConstants.Gray900)
+                                        .font(Font.SoraRegular(size: 12))
+                                    
+                                    Button(action: {
+                                        isPush = true
+                                        destination = AnyView(SignUpView()                                        .hideNavigationBar())
+                                    }, label: {
+                                        Text("sign_up".localized())
+                                            .foregroundColor(ColorConstants.Red400)
+                                            .font(Font.SoraRegular(size: 13))
+                                    })
+                                    
+                                }
+                                .multilineTextAlignment(.leading)
+                                .padding(.vertical, 8)
                             }
-                            .multilineTextAlignment(.leading)
-                            .padding(.vertical, 8)
-                            
                             ChangeLanguageView()
                         }
                         .frame(minHeight: gr.size.height)
@@ -113,10 +111,7 @@ struct SignInView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
-        
     }
-    
 }
 
 #Preview {
