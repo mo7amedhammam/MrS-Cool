@@ -78,6 +78,7 @@ struct SignInView: View {
                                     print("remember me :",rememberMe)
                                 })
                                 .padding(.top,40)
+                                
                                 HStack(spacing:5){
                                     Text("Don't have an account ?".localized())
                                         .foregroundColor(ColorConstants.Gray900)

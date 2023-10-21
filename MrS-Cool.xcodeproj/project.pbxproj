@@ -23,6 +23,7 @@
 		C89EA9082ADD906300891D41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89EA9072ADD906300891D41 /* ContentView.swift */; };
 		C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA9092ADD906800891D41 /* Assets.xcassets */; };
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
+		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
@@ -62,6 +63,7 @@
 		C89EA9072ADD906300891D41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C89EA9092ADD906800891D41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -241,6 +243,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		C8AA98032AE40D7E0073442A /* OTPVerification */ = {
+			isa = PBXGroup;
+			children = (
+				C8AA98042AE40D950073442A /* View */,
+			);
+			path = OTPVerification;
+			sourceTree = "<group>";
+		};
+		C8AA98042AE40D950073442A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C8FB11832ADD91BA0051715F /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +283,7 @@
 		C8FB11892ADD99800051715F /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
+				C8AA98032AE40D7E0073442A /* OTPVerification */,
 				C8FB11C22ADD9E4F0051715F /* SignUp */,
 				C8FB11C32ADD9E5A0051715F /* SignIn */,
 			);
@@ -549,6 +568,7 @@
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
 				C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */,
 				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
+				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,
 				C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */,
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
 			);

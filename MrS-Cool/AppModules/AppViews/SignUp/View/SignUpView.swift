@@ -15,13 +15,14 @@ struct SignUpView: View {
     @State var Password = ""
     @State var acceptTerms = false
     
+//    @State var isPush = false
+//    @State var destination = AnyView(OTPVerificationView())
+
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_up",hideImage: false)
             VStack{
                 UserTypesList(selectedUser: $selectedUser)
-                //                GeometryReader { gr in
-                //                    ScrollView(.vertical){
                 VStack{
                     TabView(selection:$selectedUser.id){
                         Group{
@@ -31,22 +32,13 @@ struct SignUpView: View {
                             ParentSignUpView()
                             .tag(1)
                             
-                                TeacherSignUpView()
+                            TeacherSignUpView()
                             .tag(2)
-                            
-                        }                                
+                        }
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
-
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
-
-                    
                 }
-                //                        .frame(minHeight: gr.size.height)
-                //                .padding(.horizontal)
-                //                    }
-                //                }
-                //                .frame(width:UIScreen.main.bounds.width)
             }
             .padding(.horizontal)
         }
@@ -56,6 +48,8 @@ struct SignUpView: View {
             }
         )
         
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
+
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")
@@ -74,6 +68,9 @@ struct StudentSignUpView: View {
     @State var phone = ""
     @State var Password = ""
     @State var acceptTerms = false
+
+    @State var isPush = false
+    @State var destination = AnyView(OTPVerificationView())
 
     var body: some View {
         GeometryReader { gr in
@@ -107,7 +104,10 @@ struct StudentSignUpView: View {
                     }.padding(.top,20)
                     Spacer()
                     
-                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
+                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
+                        isPush = true
+                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+                    })
                         .padding(.top,40)
                     
                     haveAccountView(){
@@ -117,7 +117,10 @@ struct StudentSignUpView: View {
                 .frame(minHeight: gr.size.height)
                 
             }
+            NavigationLink(destination: destination, isActive: $isPush, label: {})
+
         }
+
     }
 }
 #Preview{
@@ -159,7 +162,9 @@ struct ParentSignUpView: View {
                     }.padding(.top,20)
                     Spacer()
                     
-                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
+                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
+                        
+                    })
                         .padding(.top,40)
 
                     haveAccountView(){

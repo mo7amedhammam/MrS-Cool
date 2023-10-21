@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-//MARK:  --- ViewModifier to hide Navigation Ba r---
+//MARK:  --- ViewModifier to hide Navigation Bar---
 struct hideNavigationBarModifier: ViewModifier {
+    @ObservedObject var localizeHelper = LocalizeHelper.shared
+
     public func body(content: Content) -> some View {
         content
         //MARK:  --- ViewModifier to hide Navigation Bar---
@@ -27,7 +29,7 @@ struct hideNavigationBarModifier: ViewModifier {
                     }
                 }
             }
-        
+                
     }
 }
 // --- View Extension to apply the modifier ---
