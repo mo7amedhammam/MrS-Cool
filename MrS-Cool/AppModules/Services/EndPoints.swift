@@ -9,11 +9,11 @@ import Foundation
 
 struct Constants {
 // MARK: - APIs Constants
-    static var baseURL:String {return "https://wecareback.wecancity.com/"} //TEST
-//static var baseURL:String {return "https://wecareback.wecancity.com/"} //LIVE
+    static var baseURL:String {return "https://mrscoolapi.azurewebsites.net/"} //TEST
+//static var baseURL:String {return "https://mrscoolapi.azurewebsites.net/"} //LIVE
 
-static var apiURL:String {return "\(baseURL)api/"}
-//    static var imagesURL:String {return "http://wecareback.wecancity.com/"}
+    static var apiURL:String {return "\(baseURL)api/\(LocalizeHelper.shared.currentLanguage)/"}
+//    static var imagesURL:String {return "http://mrscoolapi.azurewebsites.net/"}
 
 //var TermsAndConditionsURL =  "https://camelgate.app/terms.html"
 
@@ -21,6 +21,10 @@ static var apiURL:String {return "\(baseURL)api/"}
 }
 
 enum EndPoints: String {
+    //MARK: -- Lookups --
+   case GetGender = "Lookups/GetGender"
+    
+    
     // MARK: - Auth
     case Register = "RegisterRequest/Create"
     case Login = "Customer/Login"

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */; };
 		C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */; };
+		C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96C72AE56D5A00A63134 /* LookupsServices.swift */; };
+		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
+		C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
 		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
@@ -49,6 +52,9 @@
 		747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
 		C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageView.swift; sourceTree = "<group>"; };
+		C82A96C72AE56D5A00A63134 /* LookupsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsServices.swift; sourceTree = "<group>"; };
+		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
+		C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpsVM.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
@@ -122,6 +128,41 @@
 				C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */,
 			);
 			name = ChangeLanguage;
+			sourceTree = "<group>";
+		};
+		C82A96C92AE56E7E00A63134 /* Authontications */ = {
+			isa = PBXGroup;
+			children = (
+				C8AA98032AE40D7E0073442A /* OTPVerification */,
+				C8FB11C22ADD9E4F0051715F /* SignUp */,
+				C8FB11C32ADD9E5A0051715F /* SignIn */,
+			);
+			path = Authontications;
+			sourceTree = "<group>";
+		};
+		C82A96CA2AE56E9900A63134 /* LookUps */ = {
+			isa = PBXGroup;
+			children = (
+				C82A96CC2AE56EC300A63134 /* Model */,
+				C82A96CB2AE56EBF00A63134 /* ViewModel */,
+			);
+			path = LookUps;
+			sourceTree = "<group>";
+		};
+		C82A96CB2AE56EBF00A63134 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C82A96CC2AE56EC300A63134 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C82A96CD2AE56EF000A63134 /* LookupsModels.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C88C52D62ADFE4C8003DE051 /* TextField */ = {
@@ -283,9 +324,8 @@
 		C8FB11892ADD99800051715F /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
-				C8AA98032AE40D7E0073442A /* OTPVerification */,
-				C8FB11C22ADD9E4F0051715F /* SignUp */,
-				C8FB11C32ADD9E5A0051715F /* SignIn */,
+				C82A96CA2AE56E9900A63134 /* LookUps */,
+				C82A96C92AE56E7E00A63134 /* Authontications */,
 			);
 			path = AppViews;
 			sourceTree = "<group>";
@@ -319,6 +359,7 @@
 		C8FB11902ADD99800051715F /* HealthServices */ = {
 			isa = PBXGroup;
 			children = (
+				C82A96C72AE56D5A00A63134 /* LookupsServices.swift */,
 				C8FB11942ADD99800051715F /* Authintications.swift */,
 			);
 			path = HealthServices;
@@ -547,7 +588,9 @@
 			files = (
 				C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */,
 				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
+				C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */,
 				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
+				C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */,
 				C899E3F02ADED3D800593369 /* Roundedcorners.swift in Sources */,
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C899E3F42ADEEBC000593369 /* UserTypesList.swift in Sources */,
@@ -559,6 +602,7 @@
 				C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */,
 				C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */,
 				C8FB11B02ADD99800051715F /* Authintications.swift in Sources */,
+				C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
 				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,

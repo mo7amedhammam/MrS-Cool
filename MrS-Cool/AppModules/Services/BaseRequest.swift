@@ -65,12 +65,12 @@ final class BaseNetwork{
         
         let parameters = buildparameter(paramaters: target.parameter)
         let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-        print(parameters)
 
-        print(headers ?? [:])
+        let (requestURL, method, parametersarr, encoding) = (target.requestURL, target.method, parameters.0, parameters.1)        
+        print("url",requestURL)
+        print("parameters",parametersarr)
+        print("headers",headers ?? [:])
 
-        let (requestURL, method, parametersarr, encoding) = (target.requestURL, target.method, parameters.0, parameters.1)
-        
         let response = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<M, Error>) in
             AF.request(requestURL, method: method, parameters: parametersarr, encoding: encoding, headers: headers)
                 .responseDecodable(of: M.self, decoder: JSONDecoder()) { dataResponse in

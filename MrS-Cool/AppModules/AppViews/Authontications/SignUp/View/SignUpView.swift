@@ -66,7 +66,7 @@ struct SignUpView: View {
 
 struct StudentSignUpView: View {
     @Environment(\.presentationMode) var presentationMode
-
+@StateObject var lookupsvm = LookUpsVM()
     @State var phone = ""
     @State var Password = ""
     @State var acceptTerms = false
