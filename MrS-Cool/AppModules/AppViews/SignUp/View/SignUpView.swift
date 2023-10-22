@@ -38,6 +38,8 @@ struct SignUpView: View {
                         .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
+                    .padding(.horizontal,-2)
+
                 }
             }
             .padding(.horizontal)
@@ -72,6 +74,9 @@ struct StudentSignUpView: View {
     @State var isPush = false
     @State var destination = AnyView(OTPVerificationView())
 
+    @State var selectedOption = DropDownOption()
+    var options = [DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 2, Title: "FeMale"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male")]
+
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -85,12 +90,12 @@ struct StudentSignUpView: View {
                             CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $Password,textContentType:.name)
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", text: $phone)
+                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $selectedOption,options: options)
                             
-                            CustomDropDownField(iconName:"img_group148",rightIconName:"img_daterange",placeholder: "Birthdate *", text: $phone)
-                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", text: $phone)
-                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", text: $phone)
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", text: $phone)
+                            CustomDropDownField(iconName:"img_group148",rightIconName:"img_daterange",placeholder: "Birthdate *",  selectedOption: $selectedOption,options: options)
+                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *",  selectedOption: $selectedOption,options: options)
+                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *",  selectedOption: $selectedOption,options: options)
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *",  selectedOption: $selectedOption,options: options)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
                             
@@ -101,7 +106,8 @@ struct StudentSignUpView: View {
                                       color: ColorConstants.Black900, textSize: 13,
                                       isMarked: $acceptTerms)
                         .padding(.top,15)
-                    }.padding(.top,20)
+                    }
+                    .padding(.top,20)
                     Spacer()
                     
                     CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
@@ -115,7 +121,8 @@ struct StudentSignUpView: View {
                     }
                 }
                 .frame(minHeight: gr.size.height)
-                
+//                .padding(.horizontal)
+
             }
             NavigationLink(destination: destination, isActive: $isPush, label: {})
 
@@ -134,6 +141,14 @@ struct ParentSignUpView: View {
     @State var phone = ""
     @State var Password = ""
     @State var acceptTerms = false
+    @State var gender = ""
+
+    @State var isPush = false
+    @State var destination = AnyView(OTPVerificationView())
+
+    @State var selectedOption = DropDownOption()
+    var options = [DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 2, Title: "FeMale")]
+
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -148,7 +163,7 @@ struct ParentSignUpView: View {
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
                             
-                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", text: $phone)
+                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $selectedOption,options: options)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
                             
@@ -159,11 +174,15 @@ struct ParentSignUpView: View {
                                       color: ColorConstants.Black900, textSize: 13,
                                       isMarked: $acceptTerms)
                         .padding(.top,15)
-                    }.padding(.top,20)
+                    }
+                    
+                    .padding(.top,20)
                     Spacer()
                     
                     CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
-                        
+                        isPush = true
+                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+
                     })
                         .padding(.top,40)
 
@@ -174,7 +193,9 @@ struct ParentSignUpView: View {
                 }
                 .frame(minHeight: gr.size.height)
                 
-            }
+            }   
+            NavigationLink(destination: destination, isActive: $isPush, label: {})
+
         }
     }
 }
@@ -191,6 +212,9 @@ struct TeacherSignUpView: View {
     @State var phone = ""
     @State var Password = ""
     @State var acceptTerms = false
+   
+    @State var isPush = false
+    @State var destination = AnyView(OTPVerificationView())
 
     var body: some View {
         GeometryReader { gr in
@@ -222,7 +246,11 @@ struct TeacherSignUpView: View {
                     }.padding(.top,20)
                     Spacer()
                     
-                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {})
+                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
+                        isPush = true
+                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+
+                    })
                         .padding(.top,40)
 
                     haveAccountView(){
@@ -233,6 +261,8 @@ struct TeacherSignUpView: View {
                 .frame(minHeight: gr.size.height)
                 
             }
+            NavigationLink(destination: destination, isActive: $isPush, label: {})
+
         }
         
     }

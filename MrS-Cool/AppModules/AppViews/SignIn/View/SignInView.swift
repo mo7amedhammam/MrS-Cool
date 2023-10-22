@@ -109,6 +109,7 @@ struct SignInView: View {
             
             NavigationLink(destination: destination, isActive: $isPush, label: {})
         }
+        .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
