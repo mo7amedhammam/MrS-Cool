@@ -25,7 +25,7 @@ class LookUpsVM: ObservableObject {
 extension LookUpsVM{
     func getGendersArr(){
         let target = LookupsServices.GetGenders
-        BaseNetwork.callApi(target, BaseResponse<[GendersM]>.self)
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -49,3 +49,7 @@ extension LookUpsVM{
         }
     }
 }
+
+
+
+

@@ -12,6 +12,7 @@
 		C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96C72AE56D5A00A63134 /* LookupsServices.swift */; };
 		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
 		C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */; };
+		C82A96D32AE5C28800A63134 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96D22AE5C28800A63134 /* CustomAlert.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
 		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
@@ -55,6 +56,7 @@
 		C82A96C72AE56D5A00A63134 /* LookupsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsServices.swift; sourceTree = "<group>"; };
 		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
 		C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpsVM.swift; sourceTree = "<group>"; };
+		C82A96D22AE5C28800A63134 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
@@ -163,6 +165,14 @@
 				C82A96CD2AE56EF000A63134 /* LookupsModels.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C82A96D12AE5C26000A63134 /* CustomAlert */ = {
+			isa = PBXGroup;
+			children = (
+				C82A96D22AE5C28800A63134 /* CustomAlert.swift */,
+			);
+			name = CustomAlert;
 			sourceTree = "<group>";
 		};
 		C88C52D62ADFE4C8003DE051 /* TextField */ = {
@@ -333,6 +343,7 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C82A96D12AE5C26000A63134 /* CustomAlert */,
 				C89BAFA22AE2B81C00FB5807 /* ViewModifiers */,
 				C829B6952AE1719C00CA1935 /* ChangeLanguage */,
 				C88C52D62ADFE4C8003DE051 /* TextField */,
@@ -595,6 +606,7 @@
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C899E3F42ADEEBC000593369 /* UserTypesList.swift in Sources */,
 				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
+				C82A96D32AE5C28800A63134 /* CustomAlert.swift in Sources */,
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
 				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
