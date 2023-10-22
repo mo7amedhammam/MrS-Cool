@@ -223,7 +223,7 @@ struct CustomDropDownField: View {
     var placeholderColor : Color? = ColorConstants.Bluegray100
 
     @Binding var selectedOption: DropDownOption
-    var options: [DropDownOption]
+     var options: [DropDownOption]
     @State private var isMenuVisible = false
 
     var textContentType : UITextContentType? = .name

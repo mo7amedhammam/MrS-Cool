@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @StateObject var lookupsvm = LookUpsVM()
 
     @State private var selectedUser : UserType = UserType.init()
     
@@ -26,7 +27,7 @@ struct SignUpView: View {
                 VStack{
                     TabView(selection:$selectedUser.id){
                         Group{
-                            StudentSignUpView()
+                            StudentSignUpView( lookupsvm: lookupsvm)
                             .tag(0)
                             
                             ParentSignUpView()
@@ -66,16 +67,14 @@ struct SignUpView: View {
 
 struct StudentSignUpView: View {
     @Environment(\.presentationMode) var presentationMode
-@StateObject var lookupsvm = LookUpsVM()
+    @StateObject var lookupsvm : LookUpsVM
     @State var phone = ""
     @State var Password = ""
     @State var acceptTerms = false
 
     @State var isPush = false
     @State var destination = AnyView(OTPVerificationView())
-
     @State var selectedOption = DropDownOption()
-    var options = [DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 2, Title: "FeMale"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 1, Title: "Male")]
 
     var body: some View {
         GeometryReader { gr in
@@ -90,12 +89,12 @@ struct StudentSignUpView: View {
                             CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $Password,textContentType:.name)
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $selectedOption,options: options)
+                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $selectedOption,options:lookupsvm.GendersList)
                             
-                            CustomDropDownField(iconName:"img_group148",rightIconName:"img_daterange",placeholder: "Birthdate *",  selectedOption: $selectedOption,options: options)
-                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *",  selectedOption: $selectedOption,options: options)
-                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *",  selectedOption: $selectedOption,options: options)
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *",  selectedOption: $selectedOption,options: options)
+//                            CustomDropDownField(iconName:"img_group148",rightIconName:"img_daterange",placeholder: "Birthdate *",  selectedOption: $selectedOption,options: options)
+//                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *",  selectedOption: $selectedOption,options: options)
+//                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *",  selectedOption: $selectedOption,options: options)
+//                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *",  selectedOption: $selectedOption,options: options)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
                             
@@ -121,17 +120,20 @@ struct StudentSignUpView: View {
                     }
                 }
                 .frame(minHeight: gr.size.height)
-//                .padding(.horizontal)
-
             }
             NavigationLink(destination: destination, isActive: $isPush, label: {})
 
         }
+        .onAppear(perform: {
+//            lookupsvm.getGendersArr()
+//            print(lookupsvm.GendersArray)
+//            print(lookupsvm.GendersList)
+        })
 
     }
 }
 #Preview{
-    StudentSignUpView()
+    StudentSignUpView( lookupsvm: LookUpsVM())
 }
 
 
@@ -163,7 +165,7 @@ struct ParentSignUpView: View {
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
                             
-                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $selectedOption,options: options)
+                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $selectedOption,options:  options)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
                             
