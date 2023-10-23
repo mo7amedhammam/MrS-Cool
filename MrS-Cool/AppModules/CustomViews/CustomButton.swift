@@ -42,6 +42,8 @@ struct CustomButton: View {
             }
             .frame(minWidth: 0, maxWidth: .infinity)
 //            .frame(height:40)
+            .frame(minHeight: 0, maxHeight: .infinity)
+
             .padding()
             .foregroundColor(IsDisabled ? ColorConstants.Bluegray400:ColorConstants.WhiteA700)
 
@@ -51,7 +53,7 @@ struct CustomButton: View {
                 .fill(IsDisabled ? ColorConstants.Gray300:ColorConstants.Black900)
 //                .opacity(IsDisabled ? 0.5:1)
             )
-            .cornerRadius(12)
+            .cornerRadius(8)
         })
             .disabled(IsDisabled)
     }
@@ -69,7 +71,9 @@ struct CustomBorderedButton: View {
     var action: () -> Void
     var body: some View {
         
-        Button(action: {}, label: {
+        Button(action: {
+            action()
+        }, label: {
             HStack(spacing: 0) {
                 if let imageName = imageName{
                     Image(imageName)
@@ -91,14 +95,15 @@ struct CustomBorderedButton: View {
             .foregroundColor(IsDisabled ? ColorConstants.Bluegray400:ColorConstants.Black900)
 
             .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(minHeight: 0, maxHeight: .infinity)
             .padding()
 
-            .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                    bottomRight: 8.0)
+            .overlay(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8,
+                                    bottomRight: 8)
                 .stroke(IsDisabled ? ColorConstants.Gray300: ColorConstants.Black900,
                         lineWidth: 2))
-            .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                       bottomRight: 8.0)
+            .background(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8,
+                                       bottomRight: 8)
                 .fill(ColorConstants.WhiteA700))
         })
         .disabled(IsDisabled)

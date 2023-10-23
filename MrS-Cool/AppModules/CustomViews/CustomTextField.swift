@@ -15,10 +15,10 @@ struct CustomTextField: View {
     var fieldType : inputfields? = .Default
     var iconName : String? = ""
     var iconColor : Color? = .clear
-
+    
     var placeholder : String
-    var placeholderColor : Color? = ColorConstants.Bluegray100
-
+    var placeholderColor : Color? = ColorConstants.Bluegray402
+    
     @Binding var text: String
     var textContentType : UITextContentType? = .name
     var keyboardType : UIKeyboardType? = .default
@@ -27,7 +27,7 @@ struct CustomTextField: View {
     @State private var isSecured: Bool = true
     @FocusState private var focusedField : Bool
     var body: some View {
-//        ZStack {
+        //        ZStack {
         HStack(spacing:0){
             if iconName != "" || iconName != nil{
                 Image(fieldType == .Password ?  "img_group_512364":iconName ?? "")
@@ -37,18 +37,12 @@ struct CustomTextField: View {
                     .padding(.horizontal,10)
             }else{
             }
-            
-//            Button(action: {
-//                // Activate the text field when the entire view is tapped
-//                focusedField = true
-//
-//            }, label: {
             ZStack (alignment:.leading){
                 Text(placeholder.localized())
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
                     .offset(y: text.isEmpty ? 0 : -20)
-                    .scaleEffect(text.isEmpty ? 1 : 0.8, anchor: .leading)
+                    .scaleEffect(text.isEmpty ? 1.2 : 0.8, anchor: .leading)
                     .padding(.leading,fieldType == .Phone ? text.isEmpty ? 55:0:0)
                 HStack{
                     if fieldType == .Password{
@@ -67,7 +61,7 @@ struct CustomTextField: View {
                                     alignment: .leading)
                             .keyboardType(keyboardType ?? .default)
                             .textContentType(textContentType)
-//                            .background(.red)
+                        //                            .background(.red)
                     }
                 }
                 .animation(.easeInOut(duration: 0.2), value: isSecured)
@@ -95,23 +89,19 @@ struct CustomTextField: View {
                 })
             }else{
             }
-            
-//        })
-            }
-
-
-            .disableAutocorrection(true)
+        }
+        .disableAutocorrection(true)
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
                                 bottomRight: 5.0)
-                .stroke(ColorConstants.Bluegray30066,
-                        lineWidth: 1))
+            .stroke(ColorConstants.Bluegray30066,
+                    lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
                                    bottomRight: 5.0)
-                .fill(ColorConstants.WhiteA700))
+            .fill(ColorConstants.WhiteA700))
         .onTapGesture {
-//            DispatchQueue.main.async(execute: {
-                focusedField = true
-//            })
+            //            DispatchQueue.main.async(execute: {
+            focusedField = true
+            //            })
         }
     }
 }
@@ -207,7 +197,6 @@ struct CustomTextField: View {
 
 
 
-
 struct DropDownOption:Hashable{
     var id:Int? = 0
     var Title:String? = ""
@@ -218,14 +207,14 @@ struct CustomDropDownField: View {
     var iconName : String? = ""
     var rightIconName : String?
     var iconColor : Color? = .clear
-
+    
     var placeholder : String
-    var placeholderColor : Color? = ColorConstants.Bluegray100
-
-    @Binding var selectedOption: DropDownOption
-     var options: [DropDownOption]
+    var placeholderColor : Color? = ColorConstants.Bluegray402
+    
+    @Binding var selectedOption: DropDownOption?
+    var options: [DropDownOption]
     @State private var isMenuVisible = false
-
+    
     var textContentType : UITextContentType? = .name
     var keyboardType : UIKeyboardType? = .default
     var Disabled : Bool?
@@ -234,16 +223,16 @@ struct CustomDropDownField: View {
     @FocusState private var focusedField : Bool
     var body: some View {
         //        ZStack {
-//        Menu {
-//            ForEach(options, id: \.self) { option in
-//                Button(action: {
-//                    selectedOption = option
-////                    isMenuVisible = false
-//                }) {
-//                    Text(option)
-//                }
-//            }
-//        } label: {
+        //        Menu {
+        //            ForEach(options, id: \.self) { option in
+        //                Button(action: {
+        //                    selectedOption = option
+        ////                    isMenuVisible = false
+        //                }) {
+        //                    Text(option)
+        //                }
+        //            }
+        //        } label: {
         
         
         VStack(alignment:.leading,spacing:-15){
@@ -260,21 +249,21 @@ struct CustomDropDownField: View {
                     Text(placeholder.localized())
                         .font(Font.SoraRegular(size: 12))
                         .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
-                        .offset(y: selectedOption.id==0 ? 0 : -20)
-                        .scaleEffect(selectedOption.id==0 ? 1 : 0.8, anchor: .leading)
+                        .offset(y: selectedOption == nil ? 0 : -20)
+                        .scaleEffect(selectedOption == nil ? 1.2 : 0.8, anchor: .leading)
                     
-                    TextField("", text:.constant( selectedOption.Title ?? "") )
+                    TextField("", text:.constant( selectedOption?.Title ?? "") )
                         .focused($focusedField)
                         .multilineTextAlignment(.leading)
                         .frame( minHeight: 57.0,alignment: .leading)
                         .disabled(true)
                     
                 }
-                                .animation(.easeInOut(duration: 0.2), value: isSecured)
-                                .frame( height: 57.0,alignment: .leading)
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                                .font(Font.SoraRegular(size: 14))
-                                .foregroundColor(ColorConstants.Black900)
+                .animation(.easeInOut(duration: 0.2), value: isSecured)
+                .frame( height: 57.0,alignment: .leading)
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .font(Font.SoraRegular(size: 14))
+                .foregroundColor(ColorConstants.Black900)
                 
                 Image(rightIconName ?? "\(isMenuVisible ? "img_arrowup":"img_arrowdown")")
                     .frame(width: 30, height: 30, alignment: .center)
@@ -282,7 +271,7 @@ struct CustomDropDownField: View {
                     .font(.system(size: 15))
                     .padding(.horizontal,10)
             }
-                                              
+            
             if isMenuVisible{
                 GeometryReader { gr in
                     ScrollView(.vertical,showsIndicators: false){
@@ -316,49 +305,49 @@ struct CustomDropDownField: View {
             }
         }
         .frame(height:withAnimation{isMenuVisible ? (options.count*35 > 200 ? 200:CGFloat(options.count)*35) + 50:57})
-
-            .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
-            .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
-            
-            .onTapGesture {
-                withAnimation{
-                    isMenuVisible.toggle()
-                }
+        
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
+        
+        .onTapGesture {
+            withAnimation{
+                isMenuVisible.toggle()
             }
-//        }
-//        .menuStyle(BorderlessButtonMenuStyle()) // Use BorderlessButtonMenuStyle for a clean appearance
-    
-//            .overlay(alignment:.top){
-//                if isMenuVisible{
-//                    VStack(spacing:0){
-//                        Spacer(minLength: 60)
-//                        List(options,id:\.self){option in
-//                            Button(action: {
-//                                selectedOption = option
-//                                isMenuVisible = false
-//                                print(option)
-//                            }) {
-//                                Text(option)
-////                                    .frame(height:20)
-//                            }
-//                            .buttonStyle(.plain)
-//                            .listRowSeparator(.hidden)
-//                            .listRowSpacing(-15)
-//                        }
-//                        .listStyle(.plain)
-//                        .frame( height: options.count*35 >= 200 ? 200:CGFloat(options.count)*35)
-//                        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
-//
-////                        .padding(.leading)
-//                    }
-//                }
-//            }
+        }
+        //        }
+        //        .menuStyle(BorderlessButtonMenuStyle()) // Use BorderlessButtonMenuStyle for a clean appearance
+        
+        //            .overlay(alignment:.top){
+        //                if isMenuVisible{
+        //                    VStack(spacing:0){
+        //                        Spacer(minLength: 60)
+        //                        List(options,id:\.self){option in
+        //                            Button(action: {
+        //                                selectedOption = option
+        //                                isMenuVisible = false
+        //                                print(option)
+        //                            }) {
+        //                                Text(option)
+        ////                                    .frame(height:20)
+        //                            }
+        //                            .buttonStyle(.plain)
+        //                            .listRowSeparator(.hidden)
+        //                            .listRowSpacing(-15)
+        //                        }
+        //                        .listStyle(.plain)
+        //                        .frame( height: options.count*35 >= 200 ? 200:CGFloat(options.count)*35)
+        //                        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
+        //
+        ////                        .padding(.leading)
+        //                    }
+        //                }
+        //            }
         
     }
 }
 
 #Preview {
-
+    
     CustomDropDownField(fieldType:.Default, iconName:"img_group172", placeholder: "password", selectedOption: .constant(DropDownOption()), options: [DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 2, Title: "FeMale")])
 }
 

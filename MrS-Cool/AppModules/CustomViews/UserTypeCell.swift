@@ -16,7 +16,6 @@ import SwiftUI
 struct UserTypeCell: View {
     var user:UserType = UserType.init()
     @Binding var selectedUser:UserType
-    
     var body: some View {
         Button(action: {
             selectedUser = user

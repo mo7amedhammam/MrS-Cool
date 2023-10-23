@@ -5,15 +5,14 @@
 //  Created by wecancity on 22/10/2023.
 //
 
-import Foundation
 import Combine
-import SwiftUI
 
 class LookUpsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     @Published var GendersArray: [GendersM] = []
+   
     @Published var GendersList : [DropDownOption] = []
-
+//    @Published var selectedGender = DropDownOption()
     @Published private var error: Error?
  
     init()  {
