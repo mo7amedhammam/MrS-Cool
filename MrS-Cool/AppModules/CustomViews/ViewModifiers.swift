@@ -18,7 +18,7 @@ struct hideNavigationBarModifier: ViewModifier {
         //MARK:  --- ViewModifier to hide Navigation Bar---
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
-            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationViewStyle(.stack)
                     
         //MARK:  --- add Done key for keyboard to Dismss Keyboard ---
             .toolbar {
