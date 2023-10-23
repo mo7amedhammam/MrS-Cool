@@ -64,7 +64,7 @@ struct SignUpView: View {
 
 
 struct StudentSignUpView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     
@@ -89,20 +89,18 @@ struct StudentSignUpView: View {
 
                             CustomDropDownField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
                             
-                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $signupvm.educationType,options:lookupsvm.GendersList)
                             
-                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $signupvm.educationLevel,options:lookupsvm.GendersList)
 
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $signupvm.academicYear,options:lookupsvm.GendersList)
 
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
                         }
                         .padding([.top])
-                        CheckboxField(label: "Accept the Terms and Privacy Policy",
-                                      color: ColorConstants.Black900, textSize: 13,
-                                      isMarked: $signupvm.acceptTerms)
+                        CheckboxField(label: "Accept the Terms and Privacy Policy",color: ColorConstants.Black900,textSize: 13,isMarked: $signupvm.acceptTerms)
                         .padding(.top,15)
                     }
                     .padding(.top,20)
@@ -115,7 +113,7 @@ struct StudentSignUpView: View {
                     .frame(height: 50)
                     .padding(.top,40)
                     haveAccountView(){
-                        presentationMode.wrappedValue.dismiss()
+                        self.dismiss()
                     }
                 }
                 .frame(minHeight: gr.size.height)
@@ -140,19 +138,19 @@ struct StudentSignUpView: View {
 
 
 struct ParentSignUpView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     
-    @State var phone = ""
-    @State var Password = ""
-    @State var acceptTerms = false
-    @State var gender = ""
+//    @State var phone = ""
+//    @State var Password = ""
+//    @State var acceptTerms = false
+//    @State var gender = ""
     
     @State var isPush = false
     @State var destination = AnyView(OTPVerificationView())
     
-    @State var selectedOption = DropDownOption()
+//    @State var selectedOption = DropDownOption()
     //    var options = [DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 2, Title: "FeMale")]
     
     var body: some View {
@@ -165,20 +163,20 @@ struct ParentSignUpView: View {
                         
                         // -- inputs --
                         Group {
-                            CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $Password,textContentType:.name)
+                            CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $signupvm.name,textContentType:.name)
                             
-                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $signupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
                             
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
                             
-                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
+                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
                             
-                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $Password)
+                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
                         }
                         .padding([.top])
                         CheckboxField(label: "Accept the Terms and Privacy Policy",
                                       color: ColorConstants.Black900, textSize: 13,
-                                      isMarked: $acceptTerms)
+                                      isMarked: $signupvm.acceptTerms)
                         .padding(.top,15)
                     }
                     
@@ -193,7 +191,7 @@ struct ParentSignUpView: View {
                     .padding(.top,40)
                     
                     haveAccountView(){
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }
                     
                 }
@@ -218,7 +216,7 @@ enum teacherSteps{
 }
 
 struct TeacherSignUpView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     
@@ -258,7 +256,6 @@ struct TeacherSignUpView: View {
                         currentStep = .personalData
                     case .documentsData:
                         currentStep = .subjectsData
-                        
                     }
                 })
                 .frame(width: 130,height: 40)
@@ -274,21 +271,16 @@ struct TeacherSignUpView: View {
                     case .documentsData:
                         isPush = true
                         destination = AnyView(OTPVerificationView().hideNavigationBar())
-                        
                     }
-                    //                    isPush = true
-                    //                    destination = AnyView(OTPVerificationView().hideNavigationBar())
                     
                 })
                 .frame(width: 130,height: 40)
-                //                        .padding(.top,40)
             }
-            //            .padding(.top,40)
-            .padding(.horizontal)
+            .padding([.horizontal,.bottom])
             
             if currentStep == .personalData{
                 haveAccountView(){
-                    presentationMode.wrappedValue.dismiss()
+                   dismiss()
                 }
             }
             
@@ -349,7 +341,7 @@ struct SignUpHeaderTitle: View {
 }
 
 struct TeacherPersonalDataView: View {
-    @Environment(\.presentationMode) var presentationMode
+//    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     
@@ -399,7 +391,7 @@ struct TeacherPersonalDataView: View {
     }
 }
 struct TeacherSubjectsDataView: View {
-    @Environment(\.presentationMode) var presentationMode
+//        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     
@@ -456,7 +448,7 @@ struct TeacherSubjectsDataView: View {
     }
 }
 struct TeacherDocumentDataView: View {
-    @Environment(\.presentationMode) var presentationMode
+//       @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     

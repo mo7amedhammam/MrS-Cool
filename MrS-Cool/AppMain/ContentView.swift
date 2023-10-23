@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    init() {
-         UITableView.appearance().showsVerticalScrollIndicator = false
-     }
     var body: some View {
         NavigationView{
             VStack {
@@ -22,7 +18,6 @@ struct ContentView: View {
         .localizeView()
     }
 }
-
 #Preview {
     ContentView()
     //        .localizeView()

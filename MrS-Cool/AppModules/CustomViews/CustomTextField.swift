@@ -272,7 +272,7 @@ struct CustomDropDownField: View {
                     .padding(.horizontal,10)
             }
             
-            if isMenuVisible{
+            if isMenuVisible && !options.isEmpty{
                 GeometryReader { gr in
                     ScrollView(.vertical,showsIndicators: false){
                         VStack(alignment:.leading,spacing:0){
@@ -304,7 +304,7 @@ struct CustomDropDownField: View {
                 }
             }
         }
-        .frame(height:withAnimation{isMenuVisible ? (options.count*35 > 200 ? 200:CGFloat(options.count)*35) + 50:57})
+        .frame(height:withAnimation{isMenuVisible ? (options.count*35 > 200 ? 200:CGFloat(options.count)*35) + 57:57})
         
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
