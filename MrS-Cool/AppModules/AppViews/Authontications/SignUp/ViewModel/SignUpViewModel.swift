@@ -47,7 +47,10 @@ class SignUpViewModel: ObservableObject {
     @Published var documentOrder : String?
 
 //    MARK: --- outpust ---
-    @Published private var error: Error?
+    @Published var isLoading : Bool?
+    @Published var isError : Bool = false
+    @Published var error: Error?
+
     @Published private var OtpM: OtopM?
     
     init()  {
@@ -58,24 +61,33 @@ class SignUpViewModel: ObservableObject {
 
 extension SignUpViewModel{
     func RegisterTeacherData(){
-//        guard let name = name else {return}
-        
         guard let IsTeacher = isTeacher else {return}
         let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":selecteduser.id,"CityId":city?.id ?? 0,"IsTeacher":IsTeacher,"TeacherBio":bio]
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterDate(parameters: parameters)
+        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<OtopM>.self)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
+                    isError =  true
                     self.error = error
                 }
-            }, receiveValue: {[weak self] receivedData in
+            },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                OtpM = receivedData.data ?? nil
+                if let model = receivedData.data{
+                    OtpM = model
+                }else{
+                    isError =  true
+                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+//                    State = .error(0, receivedData.message)
+                }
+                isLoading = false
             })
             .store(in: &cancellables)
     }

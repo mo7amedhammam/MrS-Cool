@@ -19,3 +19,8 @@
 
 //MARK: --- keyboard --
 "Done" = "موافق";
+
+
+//MARK: -- error --
+"noConnection" = "انت غير متصل بالانترنت";
+"tokenExpired" = "يجب ان تسجل دخول مره اخرى";

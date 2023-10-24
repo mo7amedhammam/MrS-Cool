@@ -19,3 +19,7 @@
 
 //MARK: --- keyboard --
 "Done" = "Done";
+
+//MARK: -- error --
+"noConnection" = "You are offline";
+"tokenExpired" = "you have to login again";

@@ -30,6 +30,10 @@ final class BaseNetwork{
     // more modern and aligned with Swift's async/await concurrency model
         static func CallApi<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) -> AnyPublisher<M, NetworkError> {
               return Future<M, NetworkError>{ promise in
+                  guard Helper.isConnectedToNetwork() else {
+                     return promise(.failure(.noConnection))
+                  }
+                  
                   let parameters = buildparameter(paramaters: target.parameter)
                   let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
                   print(target.requestURL)
@@ -367,9 +371,9 @@ extension NetworkError: LocalizedError {
         case .unknown(_, let errorMsg):
             return errorMsg
         case .expiredTokenMsg:
-            return " يجب تسجيل دخول من جديد"
+            return "tokenExpired"
         case .noConnection:
-            return "لا يوجد إتصال بالإنترنت"
+            return "noConnection"
 
         }
     }

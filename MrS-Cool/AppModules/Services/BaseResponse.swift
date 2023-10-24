@@ -32,7 +32,7 @@ struct BaseResponse<T:Codable> : Codable {
 }
 
 
-public enum EventHandler:Equatable {
+public enum StateHandler:Equatable {
     case none
     case loading
     case stopLoading

@@ -47,6 +47,9 @@ struct SignUpView: View {
             signupvm.clearSelections()
         })
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        .showHud(isShowing: $signupvm.isLoading)
+        .showAlert(hasAlert: $signupvm.isError, alertType: .error( message: "\(signupvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+        
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")
@@ -99,6 +102,8 @@ struct SignUpHeaderTitle: View {
         }
     }
 }
+
+
 
 
 
