@@ -22,3 +22,5 @@ struct ContentView: View {
     ContentView()
     //        .localizeView()
 }
+
+

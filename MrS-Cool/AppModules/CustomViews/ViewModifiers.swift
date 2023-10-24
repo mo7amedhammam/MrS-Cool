@@ -31,39 +31,7 @@ struct hideNavigationBarModifier: ViewModifier {
                     }
                 }
             }
-        
-        //MARK:  --- Slide to Diamiss ---
-        //            .highPriorityGesture(
-        //                DragGesture(minimumDistance: 70, coordinateSpace: .local)
-        //                    .onEnded { value in
-        //                        let edgeGestureThreshold: CGFloat = 30 // Adjust the value as needed
-        //                        let translation = value.translation.width
-        //                        let isSwipeFromLeadingEdge = translation > 0 && value.startLocation.x < edgeGestureThreshold
-        //                        let isSwipeFromTrailingEdge = translation < 0 && (UIScreen.main.bounds.width - value.startLocation.x) < edgeGestureThreshold
-        //
-        //                        if isSwipeFromLeadingEdge {
-        //                            // Swipe from left edge
-        //                            guard localizeHelper.currentLanguage == "en" else { return }
-        //                            self.dismiss()
-        //                        } else if isSwipeFromTrailingEdge {
-        //                            // Swipe from right edge
-        //                            guard localizeHelper.currentLanguage == "ar" else { return }
-        //                            self.dismiss()
-        //                        }
-        //                    }
-        //            )
-        
     }
-        private var backButton: some View {
-            @Environment(\.dismiss) var dismiss
-            return Button(action: {
-                  dismiss()
-              }) {
-                  Image(systemName: "arrow.left")
-                      .foregroundColor(.white)
-              }
-          }
-    
 }
 
 // --- View Extension to apply the modifier ---
@@ -73,18 +41,14 @@ extension View {
     }
 }
 
-
-
-struct NavigationConfigurator: UIViewControllerRepresentable {
-    var configure: (UINavigationController) -> Void = { _ in }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
-        UIViewController()
+//MARK:  --- Extension to enable swipe to back even if nafigation bar is hidden ---
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
     }
 
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<NavigationConfigurator>) {
-        if let nc = uiViewController.navigationController {
-            configure(nc)
-        }
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }
