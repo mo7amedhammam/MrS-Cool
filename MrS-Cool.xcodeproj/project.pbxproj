@@ -19,9 +19,10 @@
 		C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96C72AE56D5A00A63134 /* LookupsServices.swift */; };
 		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
 		C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */; };
-		C82A96D32AE5C28800A63134 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96D22AE5C28800A63134 /* CustomAlert.swift */; };
+		C82A96D32AE5C28800A63134 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96D22AE5C28800A63134 /* CustomAlertView.swift */; };
 		C854EBAC2AE80FD1007B1292 /* OtpM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854EBAB2AE80FD1007B1292 /* OtpM.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
+		C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C930D2AE85F04007AB167 /* CustomProgressView.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
 		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
@@ -72,9 +73,10 @@
 		C82A96C72AE56D5A00A63134 /* LookupsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsServices.swift; sourceTree = "<group>"; };
 		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
 		C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpsVM.swift; sourceTree = "<group>"; };
-		C82A96D22AE5C28800A63134 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
+		C82A96D22AE5C28800A63134 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		C854EBAB2AE80FD1007B1292 /* OtpM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpM.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		C87C930D2AE85F04007AB167 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
@@ -245,12 +247,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C82A96D12AE5C26000A63134 /* CustomAlert */ = {
+		C82A96D12AE5C26000A63134 /* CustomAlertView */ = {
 			isa = PBXGroup;
 			children = (
-				C82A96D22AE5C28800A63134 /* CustomAlert.swift */,
+				C82A96D22AE5C28800A63134 /* CustomAlertView.swift */,
 			);
-			name = CustomAlert;
+			name = CustomAlertView;
 			sourceTree = "<group>";
 		};
 		C85BD3A42AE67AF7008ECDF7 /* ViewModel */ = {
@@ -259,6 +261,14 @@
 				C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C87C930C2AE85ED8007AB167 /* CustomProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				C87C930D2AE85F04007AB167 /* CustomProgressView.swift */,
+			);
+			name = CustomProgressView;
 			sourceTree = "<group>";
 		};
 		C88C52D62ADFE4C8003DE051 /* TextField */ = {
@@ -432,8 +442,9 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C87C930C2AE85ED8007AB167 /* CustomProgressView */,
+				C82A96D12AE5C26000A63134 /* CustomAlertView */,
 				C80D096B2AE7EF5F00F83DB4 /* RadioCheck */,
-				C82A96D12AE5C26000A63134 /* CustomAlert */,
 				C89BAFA22AE2B81C00FB5807 /* ViewModifiers */,
 				C829B6952AE1719C00CA1935 /* ChangeLanguage */,
 				C88C52D62ADFE4C8003DE051 /* TextField */,
@@ -701,7 +712,7 @@
 				C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */,
 				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
 				C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */,
-				C82A96D32AE5C28800A63134 /* CustomAlert.swift in Sources */,
+				C82A96D32AE5C28800A63134 /* CustomAlertView.swift in Sources */,
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
@@ -726,6 +737,7 @@
 				C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */,
 				C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */,
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
+				C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */,
 				C854EBAC2AE80FD1007B1292 /* OtpM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,11 @@
 import Combine
 import Foundation
 
+struct CustomState{
+    var isLoading:Bool?
+    var isError:Bool?
+    var error: Error?
+}
 class SignUpViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
@@ -85,7 +90,6 @@ extension SignUpViewModel{
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
-//                    State = .error(0, receivedData.message)
                 }
                 isLoading = false
             })
