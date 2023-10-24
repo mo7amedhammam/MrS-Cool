@@ -13,11 +13,20 @@ import Alamofire
 //}
 
 enum Authintications {
-    case Register(parameters : [String:Any])
-    case Login(parameters : [String:Any])
+    case TeacherRegisterDate(parameters : [String:Any])
+    
+    case TeacherGetSubjects(parameters : [String:Any])
+    case TeacherRegisterSubjects(parameters : [String:Any])
+    case TeacherDeleteSubjects(parameters : [String:Any])
 
-    case SendOtp(parameters : [String:Any])
-    case VerifyOtp(parameters : [String:Any])
+    case TeacherRegisterDocuments(parameters : [String:Any])
+    case TeacherGetDocuments(parameters : [String:Any])
+    case TeacherDeleteDocuments(parameters : [String:Any])
+
+//    case TeacherLogin(parameters : [String:Any])
+
+    case SendOtpTeacher(parameters : [String:Any])
+    case VerifyOtpTeacher(parameters : [String:Any])
 
     case ResetPassword(parameters : [String:Any])
     case ChangePassword(parameters:[String:Any])
@@ -27,16 +36,29 @@ enum Authintications {
 extension Authintications : TargetType {
     var path: String {
         switch self {
-        case .Register:
-            return EndPoints.Register.rawValue
-        case .Login:
-            return EndPoints.Login.rawValue
+        case .TeacherRegisterDate:
+            return EndPoints.RegisterTeacher.rawValue
             
-        case .SendOtp:
-            return EndPoints.sendOTP.rawValue
+        case .TeacherRegisterSubjects:
+            return EndPoints.RegisterTeacherSubjects.rawValue
+        case .TeacherGetSubjects:
+            return EndPoints.GetTeacherSubjects.rawValue
+        case .TeacherDeleteSubjects:
+            return EndPoints.DeleteTeacherSubject.rawValue
+
+        case .TeacherRegisterDocuments:
+            return EndPoints.RegisterTeacherDocuments.rawValue
+        case .TeacherGetDocuments:
+            return EndPoints.GetTeacherDocument​.rawValue
+        case .TeacherDeleteDocuments:
+            return EndPoints.DeleteTeacherDocument​.rawValue
+
+
+        case .SendOtpTeacher:
+            return EndPoints.sendOTPTeacher.rawValue
             
-        case .VerifyOtp:
-            return EndPoints.VerifyOTP.rawValue
+        case .VerifyOtpTeacher:
+            return EndPoints.VerifyOTPTeacher.rawValue
             
         case .ResetPassword:
             return EndPoints.ResetPassword.rawValue
@@ -49,25 +71,39 @@ extension Authintications : TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .Register,
-                .Login,
-                .SendOtp,
-                .VerifyOtp,
+        case .TeacherRegisterDate,
+                .TeacherRegisterSubjects,
+                .TeacherGetSubjects,
+                .TeacherRegisterDocuments,
+                .TeacherGetDocuments,
+                .SendOtpTeacher,
+                .VerifyOtpTeacher,
                 .ResetPassword,
                 .ChangePassword:
             return .post
-    }
+            
+        case .TeacherDeleteSubjects,
+                .TeacherDeleteDocuments:
+            return .get
+        }
     }
     
     var parameter: parameterType {
         switch self {
-        case .Register(let parameters),
-                .Login(let parameters),
-                .VerifyOtp(parameters: let parameters),
-                .SendOtp(parameters: let parameters),
+        case .TeacherRegisterDate(parameters: let parameters),
+                .TeacherRegisterSubjects(parameters: let parameters),
+                .TeacherGetSubjects(parameters: let parameters),
+                .TeacherRegisterDocuments(parameters: let parameters),
+                .TeacherGetDocuments(parameters: let parameters),
+                .SendOtpTeacher(parameters: let parameters),
+                .VerifyOtpTeacher(parameters: let parameters),
                 .ResetPassword(parameters: let parameters),
                 .ChangePassword(parameters: let parameters):
             return .parameterRequest(Parameters: parameters, Encoding: encoding)
+            
+        case .TeacherDeleteSubjects(parameters: let parameters),
+                .TeacherDeleteDocuments(parameters: let parameters):
+            return .BodyparameterRequest(Parameters: parameters, Encoding: encoding)
             
         }
     }

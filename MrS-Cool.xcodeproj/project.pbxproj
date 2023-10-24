@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */; };
+		C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */; };
+		C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */; };
+		C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */; };
+		C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09672AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift */; };
+		C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09692AE7D9C500F83DB4 /* TeacherDocumentDataView.swift */; };
+		C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D096C2AE7EF7700F83DB4 /* RadioCheck.swift */; };
+		C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D096E2AE7FBE700F83DB4 /* TeacherSignUp.swift */; };
 		C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */; };
 		C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96C72AE56D5A00A63134 /* LookupsServices.swift */; };
 		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
@@ -53,6 +60,13 @@
 		23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
+		C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpView.swift; sourceTree = "<group>"; };
+		C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentSignUpView.swift; sourceTree = "<group>"; };
+		C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherPersonalDataView.swift; sourceTree = "<group>"; };
+		C80D09672AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectsDataView.swift; sourceTree = "<group>"; };
+		C80D09692AE7D9C500F83DB4 /* TeacherDocumentDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentDataView.swift; sourceTree = "<group>"; };
+		C80D096C2AE7EF7700F83DB4 /* RadioCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioCheck.swift; sourceTree = "<group>"; };
+		C80D096E2AE7FBE700F83DB4 /* TeacherSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSignUp.swift; sourceTree = "<group>"; };
 		C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageView.swift; sourceTree = "<group>"; };
 		C82A96C72AE56D5A00A63134 /* LookupsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsServices.swift; sourceTree = "<group>"; };
 		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
@@ -124,6 +138,65 @@
 				23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C80D095E2AE7D8D100F83DB4 /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				C80D096E2AE7FBE700F83DB4 /* TeacherSignUp.swift */,
+				C80D09702AE7FC1800F83DB4 /* TeacherData */,
+				C80D09712AE7FC2B00F83DB4 /* TeacherSubjects */,
+				C80D09722AE7FC3E00F83DB4 /* TeacherDocuments */,
+			);
+			path = Teacher;
+			sourceTree = "<group>";
+		};
+		C80D095F2AE7D8D600F83DB4 /* Parent */ = {
+			isa = PBXGroup;
+			children = (
+				C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */,
+			);
+			path = Parent;
+			sourceTree = "<group>";
+		};
+		C80D09602AE7D8D900F83DB4 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
+		C80D096B2AE7EF5F00F83DB4 /* RadioCheck */ = {
+			isa = PBXGroup;
+			children = (
+				C80D096C2AE7EF7700F83DB4 /* RadioCheck.swift */,
+			);
+			name = RadioCheck;
+			sourceTree = "<group>";
+		};
+		C80D09702AE7FC1800F83DB4 /* TeacherData */ = {
+			isa = PBXGroup;
+			children = (
+				C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */,
+			);
+			path = TeacherData;
+			sourceTree = "<group>";
+		};
+		C80D09712AE7FC2B00F83DB4 /* TeacherSubjects */ = {
+			isa = PBXGroup;
+			children = (
+				C80D09672AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift */,
+			);
+			path = TeacherSubjects;
+			sourceTree = "<group>";
+		};
+		C80D09722AE7FC3E00F83DB4 /* TeacherDocuments */ = {
+			isa = PBXGroup;
+			children = (
+				C80D09692AE7D9C500F83DB4 /* TeacherDocumentDataView.swift */,
+			);
+			path = TeacherDocuments;
 			sourceTree = "<group>";
 		};
 		C829B6952AE1719C00CA1935 /* ChangeLanguage */ = {
@@ -221,6 +294,9 @@
 			isa = PBXGroup;
 			children = (
 				C899E3E92ADEC6BD00593369 /* SignUpView.swift */,
+				C80D09602AE7D8D900F83DB4 /* Student */,
+				C80D095F2AE7D8D600F83DB4 /* Parent */,
+				C80D095E2AE7D8D100F83DB4 /* Teacher */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -353,6 +429,7 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C80D096B2AE7EF5F00F83DB4 /* RadioCheck */,
 				C82A96D12AE5C26000A63134 /* CustomAlert */,
 				C89BAFA22AE2B81C00FB5807 /* ViewModifiers */,
 				C829B6952AE1719C00CA1935 /* ChangeLanguage */,
@@ -612,14 +689,18 @@
 				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
 				C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */,
 				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
+				C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */,
 				C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */,
+				C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */,
 				C899E3F02ADED3D800593369 /* Roundedcorners.swift in Sources */,
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C899E3F42ADEEBC000593369 /* UserTypesList.swift in Sources */,
 				C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */,
 				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
+				C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */,
 				C82A96D32AE5C28800A63134 /* CustomAlert.swift in Sources */,
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
+				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
 				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
 				C89BAFA42AE2B83200FB5807 /* ViewModifiers.swift in Sources */,
@@ -634,10 +715,13 @@
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
+				C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */,
 				C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */,
 				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,
 				C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */,
+				C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */,
+				C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */,
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

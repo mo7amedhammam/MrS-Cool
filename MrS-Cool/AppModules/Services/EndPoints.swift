@@ -22,17 +22,36 @@ struct Constants {
 
 enum EndPoints: String {
     //MARK: -- Lookups --
-   case GetGender = "Lookups/GetGender"
+    case GetGender = "Lookups/GetGender"///get
+    case GetCountries = "Country/Get"///get
+    case GetGovernorates = "Governorate/Get"///get
+    case GetCities = "City/Get" ///get
+    case GetEducationType = "EducationType/Get" ///get
+    case GetEducationLevel = "EducationLevel/GetByEducationType" /// get
+    case GetAcademicYear = "AcademicYear/GetByEducationLevel" ///get
+    case GetAllSubject = "SubjectSemesterYear/GetAllSubjectByAcademicEducationLevelId" /// get
     
+    // MARK: -- Auth --
+    //Teacher personal Date
+    case RegisterTeacher = "Teacher/Register" ///post
+    case LoginTeacher = "Teacher/Login"///post
     
-    // MARK: - Auth
-    case Register = "RegisterRequest/Create"
-    case Login = "Customer/Login"
-
-    case sendOTP = "Customer/SendOTP"
-    case VerifyOTP = "Customer/VerifyOTP"
+    //Teacher Subjects
+    case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear​/Create"///Post
+    case GetTeacherSubjects = "TeacherSubjectAcademicSemesterYear/GetTeacherSubjectAcademicSemesterYearList"///post
+    case DeleteTeacherSubject = "TeacherSubjectAcademicSemesterYear​/Delete"///get
+   
+    //Teacher Documents
+    case RegisterTeacherDocuments = "TeacherDocument​/Create" ///post
+    case GetTeacherDocument​ = "TeacherDocument​/GetMyDocuments"///post
+    case DeleteTeacherDocument​ = "TeacherDocument​/Delete"///get
+    
+    //Teacher Subjects
+    case sendOTPTeacher = "Teacher/SendOTP" ///Post
+    case VerifyOTPTeacher = "Teacher/VefiryUser" /// Post
 
     case ResetPassword = "Customer/ResetPassword"
     case ChangePassword = "Customer/ChangePassword"
 
+    
 }
