@@ -56,8 +56,8 @@ public extension TargetType {
 }
 public enum parameterType{
     case plainRequest
-    case parameterRequest(Parameters:[String:Any],Encoding:ParameterEncoding)
-    case BodyparameterRequest(Parameters:[String:Any],Encoding:ParameterEncoding)
+    case parameterRequest(Parameters:[String:Any],Encoding:JSONEncoding)
+    case BodyparameterRequest(Parameters:[String:Any],Encoding:URLEncoding)
 
 }
 

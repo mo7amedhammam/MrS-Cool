@@ -20,6 +20,7 @@
 		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
 		C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */; };
 		C82A96D32AE5C28800A63134 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96D22AE5C28800A63134 /* CustomAlert.swift */; };
+		C854EBAC2AE80FD1007B1292 /* OtpM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854EBAB2AE80FD1007B1292 /* OtpM.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
@@ -72,6 +73,7 @@
 		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
 		C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpsVM.swift; sourceTree = "<group>"; };
 		C82A96D22AE5C28800A63134 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
+		C854EBAB2AE80FD1007B1292 /* OtpM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpM.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */,
+				C854EBAB2AE80FD1007B1292 /* OtpM.swift */,
 			);
 			path = TeacherData;
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */,
 				C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */,
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
+				C854EBAC2AE80FD1007B1292 /* OtpM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

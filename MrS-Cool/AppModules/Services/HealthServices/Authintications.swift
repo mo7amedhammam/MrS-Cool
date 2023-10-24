@@ -99,22 +99,22 @@ extension Authintications : TargetType {
                 .VerifyOtpTeacher(parameters: let parameters),
                 .ResetPassword(parameters: let parameters),
                 .ChangePassword(parameters: let parameters):
-            return .parameterRequest(Parameters: parameters, Encoding: encoding)
+            return .parameterRequest(Parameters: parameters, Encoding: .default)
             
         case .TeacherDeleteSubjects(parameters: let parameters),
                 .TeacherDeleteDocuments(parameters: let parameters):
-            return .BodyparameterRequest(Parameters: parameters, Encoding: encoding)
+            return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
             
         }
     }
     
-    var encoding: ParameterEncoding {
-        switch method {
-        case .get:
-            return URLEncoding.default
-        default:
-            return JSONEncoding.default
-        }
-    }
+//    var encoding: ParameterEncoding {
+//        switch method {
+//        case .get:
+//            return URLEncoding.default
+//        default:
+//            return JSONEncoding.default
+//        }
+//    }
     
 }

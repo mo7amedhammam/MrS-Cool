@@ -35,11 +35,11 @@ struct TeacherPersonalDataView: View {
                                         RadioCheck(isSelected: $signupvm.isTeacher)
                                     }
                             
-                            CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.country,options:lookupsvm.CountriesList)
                        
-                            CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $signupvm.governorte,options:lookupsvm.GovernoratesList)
                          
-                            CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
                             
@@ -60,6 +60,19 @@ struct TeacherPersonalDataView: View {
                 .padding(.horizontal)
             }
         }
+        .onChange(of: signupvm.country, perform: { value in
+            lookupsvm.SelectedCountry = value
+            signupvm.governorte = nil
+            signupvm.city = nil
+            lookupsvm.getGovernoratesArr()
+            lookupsvm.CitiesList.removeAll()
+        })
+        .onChange(of: signupvm.governorte, perform: { value in
+            lookupsvm.SelectedGovernorate = value
+            signupvm.city = nil
+            lookupsvm.getCitiesArr()
+        })
+
     }
 }
 

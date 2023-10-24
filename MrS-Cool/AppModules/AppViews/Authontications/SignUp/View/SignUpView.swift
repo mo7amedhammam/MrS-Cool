@@ -10,11 +10,7 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var signupvm = SignUpViewModel()
-    
-    @State var phone = ""
-    @State var Password = ""
-    @State var acceptTerms = false
-    
+        
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_up",hideImage: false)

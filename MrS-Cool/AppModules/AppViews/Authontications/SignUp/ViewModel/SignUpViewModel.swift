@@ -48,7 +48,8 @@ class SignUpViewModel: ObservableObject {
 
 //    MARK: --- outpust ---
     @Published private var error: Error?
- 
+    @Published private var OtpM: OtopM?
+    
     init()  {
 //        getGendersArr()
     }
@@ -56,24 +57,28 @@ class SignUpViewModel: ObservableObject {
 }
 
 extension SignUpViewModel{
-//    func getGendersArr(){
-//        let target = LookupsServices.GetGenders
-//        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    self.error = error
-//                }
-//            }, receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                GendersArray = receivedData.data ?? []
-//                fillDropDownOptions()
-//            })
-//            .store(in: &cancellables)
-//    }
+    func RegisterTeacherData(){
+//        guard let name = name else {return}
+        
+        guard let IsTeacher = isTeacher else {return}
+        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":selecteduser.id,"CityId":city?.id ?? 0,"IsTeacher":IsTeacher,"TeacherBio":bio]
+        print("parameters",parameters)
+        let target = Authintications.TeacherRegisterDate(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<OtopM>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                OtpM = receivedData.data ?? nil
+            })
+            .store(in: &cancellables)
+    }
     
 //    func fillDropDownOptions() {
 //        // Use map to transform GendersM into DropDownOption
