@@ -61,13 +61,12 @@ class SignUpViewModel: ObservableObject {
     init()  {
 //        getGendersArr()
     }
-    
 }
 
 extension SignUpViewModel{
     func RegisterTeacherData(){
-        guard let IsTeacher = isTeacher else {return}
-        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":selecteduser.id,"CityId":city?.id ?? 0,"IsTeacher":IsTeacher,"TeacherBio":bio]
+        guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
+        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterDate(parameters: parameters)
         isLoading = true
@@ -95,15 +94,6 @@ extension SignUpViewModel{
             })
             .store(in: &cancellables)
     }
-    
-//    func fillDropDownOptions() {
-//        // Use map to transform GendersM into DropDownOption
-//        GendersList = GendersArray.map { gender in
-//            return DropDownOption(id: gender.id, Title: gender.name)
-//        }
-//    }
-    
-    
     
     func clearSelections(){
         name = ""

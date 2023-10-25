@@ -351,3 +351,94 @@ struct CustomDropDownField: View {
     CustomDropDownField(fieldType:.Default, iconName:"img_group172", placeholder: "password", selectedOption: .constant(DropDownOption()), options: [DropDownOption(id: 1, Title: "Male"),DropDownOption(id: 2, Title: "FeMale")])
 }
 
+
+
+struct CustomTextEditor: View {
+    var iconName : String? = ""
+    var iconColor : Color? = .clear
+    
+    var placeholder : String
+    var placeholderColor : Color? = ColorConstants.Bluegray402
+    
+    @Binding var text: String
+    var charLimit: Int
+
+    var textContentType : UITextContentType? = .name
+    var keyboardType : UIKeyboardType? = .default
+    
+    @FocusState private var focusedField : Bool
+    var body: some View {
+        VStack (spacing:0){
+                    HStack(spacing:10){
+                        if iconName != "" || iconName != nil{
+                            Image(iconName ?? "")
+                                .renderingMode( iconColor != .clear ? .template:.original)
+                                .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                                .font(.system(size: 15))
+                        }
+                        
+                        HStack{
+                            Text(placeholder.localized())
+                                .font(Font.SoraRegular(size: 12))
+                                .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
+                                .scaleEffect(1.2, anchor: .leading)
+                            
+                            Spacer()
+                            Text("\(text.count) / \(charLimit)")
+                                .font(Font.SoraRegular(size: 12))
+                                .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
+                            
+                        }
+                        .frame(height: 57.0,alignment: .leading)
+                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .font(Font.SoraRegular(size: 14))
+                        .foregroundColor(ColorConstants.Black900)
+                        
+                    }
+            
+                    ZStack(alignment: .topLeading) {
+                        if text.isEmpty {
+                            Text("Tell us about yourself".localized())
+                                .disabled(true)
+                                .font(.SoraRegular(size: 12))
+                                .foregroundColor(.gray)
+                                .padding(.top,8)
+                        }
+                        
+                        TextEditor(text: $text)
+                            .focused($focusedField)
+                            .font(.SoraRegular(size: 14))
+                            .opacity(text.isEmpty ? 0.25 : 1)
+                            .foregroundColor(ColorConstants.Black900)
+                            .onChange(of: text) { newText in
+                                // Limit the text length to charLimit
+                                text = newText.CharCountLimit(limit: charLimit)
+                            }
+                    }
+                        .padding([.horizontal,.bottom],8)
+                        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0)
+                            .stroke(ColorConstants.Bluegray30066,
+                                    lineWidth: 1))
+                        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0)
+                            .fill(ColorConstants.WhiteA700))
+        }
+                     
+        .frame( height: 160, alignment: .center)
+        .padding([.horizontal,.bottom],12)
+        .disableAutocorrection(true)
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
+                                bottomRight: 5.0)
+            .stroke(ColorConstants.Bluegray30066,
+                    lineWidth: 1))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
+                                   bottomRight: 5.0)
+            .fill(ColorConstants.WhiteA700))
+        .onTapGesture {
+            focusedField = true
+        }
+    }
+}
+
+#Preview {
+    CustomTextEditor(iconName:"img_group172", placeholder: "Teacher BIO *", text: .constant("gooo"), charLimit: 1000)
+}

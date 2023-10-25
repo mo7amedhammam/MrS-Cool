@@ -21,7 +21,13 @@ struct TeacherPersonalDataView: View {
                 VStack{ // (Title - Data - Submit Button)
                     VStack(alignment: .leading, spacing: 0){
                         // -- Data Title --
-                        SignUpHeaderTitle()
+                        HStack(alignment:.top){
+                            SignUpHeaderTitle()
+                            Spacer()
+                            Text("(1 / 3)")
+                                .font(.SoraRegular(size: 14))
+                                .foregroundColor(.black)
+                        }
                         // -- inputs --
                         Group {
                             CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $signupvm.name,textContentType:.name)
@@ -30,7 +36,7 @@ struct TeacherPersonalDataView: View {
                             
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
 
-                            CustomTextField(iconName:"img_vector_black_900_20x20",placeholder: "Are You Teacher ? *", text: $signupvm.bio,Disabled: true)
+                            CustomTextField(iconName:"img_vector_black_900_20x20",placeholder: "Are You Teacher ? *", text: .constant(""),Disabled: true)
                                     .overlay{
                                         RadioCheck(isSelected: $signupvm.isTeacher)
                                     }
@@ -45,7 +51,7 @@ struct TeacherPersonalDataView: View {
                             
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
                             
-                            CustomTextField(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio)
+                            CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio,charLimit: 1000)
 
                         }
                         .padding([.top])
@@ -72,7 +78,6 @@ struct TeacherPersonalDataView: View {
             signupvm.city = nil
             lookupsvm.getCitiesArr()
         })
-
     }
 }
 
@@ -81,5 +86,3 @@ struct TeacherPersonalDataView: View {
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
 }
-
-

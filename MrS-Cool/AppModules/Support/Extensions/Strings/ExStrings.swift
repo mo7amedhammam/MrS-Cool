@@ -20,4 +20,12 @@ extension String {
             return "en"
         }
     }
+    
+    func CharCountLimit(limit:Int)->String{
+        if self.count > limit {
+            return String(self.prefix(limit))
+        }else{
+            return self
+        }
+    }
 }

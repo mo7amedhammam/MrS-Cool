@@ -20,12 +20,14 @@ struct HudView: View {
 
                 VStack {
                     ActivityIndicatorView(style: .medium, color: .white, size: CGSize(width: 200, height: 200))
+                        .scaleEffect(1.3, anchor: .center)
                     if let labelText = text {
                         Text(labelText)
                             .font(.system(size: 14))
                             .foregroundColor(.white)
                     }
-                }.frame(width: size?.width,height: size?.height)
+                }
+                .frame(width: size?.width,height: size?.height)
                     .background(Color.black900.opacity(0.9))
                     .cornerRadius(8)
             }

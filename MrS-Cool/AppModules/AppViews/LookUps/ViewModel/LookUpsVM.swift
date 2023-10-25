@@ -28,12 +28,12 @@ class LookUpsVM: ObservableObject {
     @Published private var error: Error?
  
     init()  {
-        Task{
+//        Task{
             getGendersArr()
             getCountriesArr()
 //            getGovernoratesArr()
 //            getCitiesArr()
-        }
+//        }
     }
 }
 

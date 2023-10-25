@@ -20,7 +20,14 @@ struct TeacherDocumentDataView: View {
                 VStack{ // (Title - Data - Submit Button)
                     VStack(alignment: .leading, spacing: 0){
                         // -- Data Title --
-                        SignUpHeaderTitle(Title: "Subjects Information")
+                        HStack(alignment:.top){
+                            SignUpHeaderTitle(Title: "Subjects Information")
+                            Spacer()
+                            Text("(3 / 3)")
+                                .font(.SoraRegular(size: 14))
+                                .foregroundColor(.black)
+                        }
+                        
                         // -- inputs --
                         Group {
                             CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $signupvm.educationType,options:lookupsvm.GendersList)
