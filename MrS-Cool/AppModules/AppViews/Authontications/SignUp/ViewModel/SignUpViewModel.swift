@@ -56,7 +56,12 @@ class SignUpViewModel: ObservableObject {
     @Published var isError : Bool = false
     @Published var error: Error?
 
-    @Published private var OtpM: OtopM?
+    @Published var isDataUploaded: Bool = false
+    @Published var OtpM: OtpM?{
+        didSet{
+            isDataUploaded = true
+        }
+    }
     
     init()  {
 //        getGendersArr()
@@ -67,10 +72,12 @@ extension SignUpViewModel{
     func RegisterTeacherData(){
         guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
         let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
+        
+//        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterDate(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<OtopM>.self)
+        BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

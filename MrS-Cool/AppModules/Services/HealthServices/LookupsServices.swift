@@ -48,16 +48,16 @@ extension LookupsServices : TargetType {
             return .plainRequest
         case .GetGovernorates(parameters: let parameters),
                 .GetCities(parameters: let parameters):
-            return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
+            return .BodyparameterRequest(Parameters: parameters, Encoding: encoding)
         }
     }
     
-//    var encoding: ParameterEncoding {
-//        switch method {
-//        case .get:
-//            return URLEncoding.default
-//        default:
-//            return JSONEncoding.default
-//        }
-//    }
+    var encoding: ParameterEncoding {
+        switch method {
+        case .get:
+            return URLEncoding.default
+        default:
+            return JSONEncoding.default
+        }
+    }
 }

@@ -42,22 +42,26 @@ public extension TargetType {
     }
     var headers: [String: String]? {
         var header = [String: String]()
+//
+//                header["Content-Type"] = "multipart/form-data"
+//                header ["Accept"] = "text/plain"
+
+        
         header["Content-Type"] = "application/json"
-        header ["Accept"] = "multipart/form-data"
+        header ["Accept"] = "text/plain"
+
         if let token = Helper.getUser()?.token {
         header["Authorization"] = "Bearer " + token
         }
         return header
     }
-    
     /// The type of validation to perform on the request. Default is `.none`.
     var validationType: ValidationType { .none }
-
 }
 public enum parameterType{
     case plainRequest
-    case parameterRequest(Parameters:[String:Any],Encoding:JSONEncoding)
-    case BodyparameterRequest(Parameters:[String:Any],Encoding:URLEncoding)
+    case parameterRequest(Parameters:[String:Any],Encoding:ParameterEncoding)
+    case BodyparameterRequest(Parameters:[String:Any],Encoding:ParameterEncoding)
 
 }
 

@@ -29,6 +29,8 @@
 		C8986C7B2AE93282003E9179 /* TeacherM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C7A2AE93282003E9179 /* TeacherM.swift */; };
 		C8986C7D2AE9328F003E9179 /* ParentM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C7C2AE9328F003E9179 /* ParentM.swift */; };
 		C8986C7F2AE932A4003E9179 /* StudentM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C7E2AE932A4003E9179 /* StudentM.swift */; };
+		C8986C822AE9580F003E9179 /* OTPVerificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C812AE9580F003E9179 /* OTPVerificationVM.swift */; };
+		C8986C882AE98008003E9179 /* ExIntegers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C872AE98008003E9179 /* ExIntegers.swift */; };
 		C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C899E3E62ADE8ED300593369 /* CustomTitleBarView.swift */; };
 		C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C899E3E92ADEC6BD00593369 /* SignUpView.swift */; };
 		C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C899E3EC2ADED34200593369 /* CustomButton.swift */; };
@@ -86,6 +88,8 @@
 		C8986C7A2AE93282003E9179 /* TeacherM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherM.swift; sourceTree = "<group>"; };
 		C8986C7C2AE9328F003E9179 /* ParentM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentM.swift; sourceTree = "<group>"; };
 		C8986C7E2AE932A4003E9179 /* StudentM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentM.swift; sourceTree = "<group>"; };
+		C8986C812AE9580F003E9179 /* OTPVerificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationVM.swift; sourceTree = "<group>"; };
+		C8986C872AE98008003E9179 /* ExIntegers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExIntegers.swift; sourceTree = "<group>"; };
 		C899E3E62ADE8ED300593369 /* CustomTitleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleBarView.swift; sourceTree = "<group>"; };
 		C899E3E92ADEC6BD00593369 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C899E3EC2ADED34200593369 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -318,6 +322,29 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C8986C802AE957F8003E9179 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8986C812AE9580F003E9179 /* OTPVerificationVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8986C832AE95C6F003E9179 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C8986C862AE97FF3003E9179 /* integers */ = {
+			isa = PBXGroup;
+			children = (
+				C8986C872AE98008003E9179 /* ExIntegers.swift */,
+			);
+			path = integers;
+			sourceTree = "<group>";
+		};
 		C899E3E52ADE8EB200593369 /* TitleBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +446,8 @@
 		C8AA98032AE40D7E0073442A /* OTPVerification */ = {
 			isa = PBXGroup;
 			children = (
+				C8986C832AE95C6F003E9179 /* Model */,
+				C8986C802AE957F8003E9179 /* ViewModel */,
 				C8AA98042AE40D950073442A /* View */,
 			);
 			path = OTPVerification;
@@ -537,6 +566,7 @@
 		C8FB119E2ADD99800051715F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C8986C862AE97FF3003E9179 /* integers */,
 				C88C52DC2AE02534003DE051 /* Strings */,
 			);
 			path = Extensions;
@@ -767,6 +797,8 @@
 				C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */,
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
 				C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */,
+				C8986C822AE9580F003E9179 /* OTPVerificationVM.swift in Sources */,
+				C8986C882AE98008003E9179 /* ExIntegers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

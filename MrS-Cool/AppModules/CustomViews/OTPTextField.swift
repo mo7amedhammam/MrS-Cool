@@ -10,23 +10,28 @@ import SwiftUI
 struct OTPTextField: View {
     let numberOfFields: Int
     @FocusState private var fieldFocus: Int?
-    @State var enterValue: [String]
+    @State var enteredValue: [String]
     @State var oldValue = ""
     @State var isFilled: [Bool] // Array to track filled state for each field
+  
+    @Binding var finalOTP : String?
+    var action : ()
 
-    init(numberOfFields: Int) {
+    init(numberOfFields: Int,finalOTP:Binding<String?>,action:(()->())) {
         self.numberOfFields = numberOfFields
-        self.enterValue = Array(repeating: "", count: numberOfFields)
+        self.enteredValue = Array(repeating: "", count: numberOfFields)
         self.isFilled = Array(repeating: false, count: numberOfFields)
+        self._finalOTP = finalOTP
+        self.action = action()
     }
     
     var body: some View {
         HStack(spacing: 10) {
             ForEach(0..<numberOfFields, id: \.self) { index in
                 ZStack(alignment:.bottom) {
-                    TextField("", text: $enterValue[index], onEditingChanged: { editing in
+                    TextField("", text: $enteredValue[index], onEditingChanged: { editing in
                         if editing {
-                            oldValue = enterValue[index]
+                            oldValue = enteredValue[index]
                         }
                     })
                     .keyboardType(.numberPad)
@@ -37,13 +42,12 @@ struct OTPTextField: View {
                     .multilineTextAlignment(.center)
                     .focused($fieldFocus, equals: index)
                     .tag(index)
-                    .onChange(of: enterValue[index]) { newValue in
+                    .onChange(of: enteredValue[index]) { newValue in
                         if !newValue.isEmpty {
                             isFilled[index] = !newValue.isEmpty // Track filled state for this field
-
                             // Update to new value if there is already an value.
-                            if enterValue[index].count > 1 {
-                                let currentValue = Array(enterValue[index])
+                            if enteredValue[index].count > 1 {
+                                let currentValue = Array(enteredValue[index])
                                 
                                 // ADD THIS IF YOU DON'T HAVE TO HIDE THE KEYBOARD WHEN THEY ENTERED
                                 // THE LAST VALUE.
@@ -53,9 +57,9 @@ struct OTPTextField: View {
                                 // }
                                 
                                 if currentValue[0] == Character(oldValue) {
-                                    enterValue[index] = String(enterValue[index].suffix(1))
+                                    enteredValue[index] = String(enteredValue[index].suffix(1))
                                 } else {
-                                    enterValue[index] = String(enterValue[index].prefix(1))
+                                    enteredValue[index] = String(enteredValue[index].prefix(1))
                                 }
                             }
                             
@@ -64,9 +68,10 @@ struct OTPTextField: View {
                                 // COMMENT IF YOU DON'T HAVE TO HIDE THE KEYBOARD WHEN THEY ENTERED
                                 // THE LAST VALUE.
                                 fieldFocus = nil
-                                 let finalCode = enterValue.joined()
+                                 let finalCode = enteredValue.joined()
+                                finalOTP = finalCode
                                 print("Code :",Int(finalCode) ?? 0)
-                                
+                                action
                             } else {
                                 fieldFocus = (fieldFocus ?? 0) + 1
                             }
@@ -97,5 +102,5 @@ struct OTPTextField: View {
 }
 
 #Preview{
-    OTPTextField(numberOfFields: 4)
+    OTPTextField(numberOfFields: 4, finalOTP: .constant("")){}
 }

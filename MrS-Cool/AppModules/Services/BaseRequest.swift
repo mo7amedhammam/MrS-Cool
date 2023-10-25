@@ -61,6 +61,7 @@ final class BaseNetwork{
           }
     
     
+    // combine -> return anypublisher
 //    static func callApi<T: TargetType, M: Codable>(
 //           _ target: T,
 //           _ modelType: M.Type
@@ -100,6 +101,7 @@ final class BaseNetwork{
 //               .eraseToAnyPublisher()
 //       }
     
+    // async throw using withCheckedThrowingContinuation
 //    static func asyncCallApi<T: TargetType, M: Codable>(
 //        _ target: T,
 //        _ modelType: M.Type
@@ -145,7 +147,7 @@ final class BaseNetwork{
 
  
             
-
+// closure call back
 //    static func callApi<T: TargetType, M: Codable>(
 //        _ target: T,
 //        _ modelType: M.Type,
@@ -177,134 +179,159 @@ final class BaseNetwork{
 //            }
 //    }
     
-    
-    // MARK: - (Combine) CAll API with promiseKit
-    //    static func uploadApi<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) -> AnyPublisher<M, NetworkError> {
-    //          return Future<M, NetworkError>{ promise in
-    //              let parameters = buildparameter(paramaters: target.parameter)
-    //              let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-    //              print(target.requestURL)
-    //              print(target.method)
-    //              print(parameters)
-    //              print(headers ?? [:])
-    //              AF.upload(multipartFormData: { (multipartFormData) in
-    //                  for (key , value) in parameters.0{
-    //                      if let tempImg = value as? UIImage{
-    //                          if let data = tempImg.jpegData(compressionQuality: 0.8), (tempImg.size.width ) > 0 {
-    //                                  //be carefull and put file name in withName parmeter
-    //                                  multipartFormData.append(data, withName: key , fileName: "file.jpeg", mimeType: "image/jpeg")
-    //                              }
-    //                      }
-    //
-    //                      if let tempStr = value as? String {
-    //                          multipartFormData.append(tempStr.data(using: .utf8)!, withName: key)
-    //                      }
-    //                      if let tempInt = value as? Int {
-    //                          multipartFormData.append("\(tempInt)".data(using: .utf8)!, withName: key)
-    //                      }
-    //                      if let tempArr = value as? NSArray{
-    //                          tempArr.forEach({ element in
-    //                              let keyObj = key + "[]"
-    //                              if let string = element as? String {
-    //                                  multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
-    //                              } else
-    //                              if let num = element as? Int {
-    //                                  let value = "\(num)"
-    //                                  multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
-    //                              }
-    //                          })
-    //                      }
-    //                  }
-    //              },
-    //                        to: target.requestURL,
-    //                        method: target.method,
-    //                        headers: headers
-    //              )
-    //                  .responseDecodable(of: M.self, decoder: JSONDecoder()){ response in
-    //                      print(response)
-    //                      switch response.result {
-    //                      case .success(let model):
-    //                          promise(.success(model))
-    //                      case .failure(let error):
-    //                          promise(.failure(.unknown(code: 0, error: error.localizedDescription)))
-    //                      }
-    //                  }
-    //
-    //          }.eraseToAnyPublisher()
-    //      }
-    
-    // MARK: - (Completion handler) CAll API with promiseKit
+    // MARK: - (Combine - Future) Multipart API with parameters
+    // Define a new method to upload a file as multipart data using Combine
     static func uploadApi<T: TargetType, M: Codable>(
         _ target: T,
         _ Model: M.Type,
-        progressHandler: @escaping (Double) -> Void,
-        completion: @escaping (Result<M, NetworkError>) -> Void
-    ) {
-        guard Helper.isConnectedToNetwork() else{
-            completion(.failure(NetworkError.noConnection))
-            return
-        }
-        let parameters = buildparameter(paramaters: target.parameter)
-        let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-        print(target.requestURL)
-        print(target.method)
-        print(parameters)
-        print(headers ?? [:])
-        
-        AF.upload(multipartFormData: { (multipartFormData) in
-            for (key , value) in parameters.0 {
-                
-                if let tempImg = value as? UIImage {
-                    if let data = tempImg.jpegData(compressionQuality: 0.9), (tempImg.size.width ) > 0 {
+        progressHandler: @escaping (Double) -> Void
+    ) -> AnyPublisher<M, NetworkError> {
+        return Future<M, NetworkError> { promise in
+            guard Helper.isConnectedToNetwork() else {
+                promise(.failure(.noConnection))
+                return
+            }
+            
+            let parameters = buildparameter(paramaters: target.parameter)
+            var headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
+            headers?["Content-Type"] = "multipart/form-data"
 
-//                    if let data = tempImg.pngData(), (tempImg.size.width ) > 0 {
-                        // Be careful and put the file name in withName parameter
-                        multipartFormData.append(data, withName: key , fileName: "file.jpeg", mimeType: "image/jpeg")
-                    }
-                }
-                else if let tempURL = value as? URL {
-                    if let data = try? Data(contentsOf: tempURL), tempURL.pathExtension.lowercased() == "pdf" {
-                        multipartFormData.append(data, withName: key, fileName: "file.pdf", mimeType: "application/pdf")
-                    }
-                }
-                else if let tempStr = value as? String {
-                    multipartFormData.append(tempStr.data(using: .utf8)!, withName: key)
-                }
-                else if let tempInt = value as? Int {
-                    multipartFormData.append("\(tempInt)".data(using: .utf8)!, withName: key)
-                }
-                else if let tempArr = value as? NSArray {
-                    tempArr.forEach { element in
-                        let keyObj = key + "[]"
-                        if let string = element as? String {
-                            multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
-                        } else if let num = element as? Int {
-                            let value = "\(num)"
-                            multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
+            print(target.requestURL)
+            print(target.method)
+            print(parameters)
+            print(headers ?? [:])
+            
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    for (key, value) in parameters.0 {
+                        // -- image --
+                        if let tempImg = value as? UIImage {
+                            if let data = tempImg.jpegData(compressionQuality: 0.9), (tempImg.size.width) > 0 {
+                                multipartFormData.append(data, withName: key, fileName: "file.jpeg", mimeType: "image/jpeg")
+                            }
+                        } 
+                        // -- pdf --
+                        else if let tempURL = value as? URL {
+                            if let data = try? Data(contentsOf: tempURL), tempURL.pathExtension.lowercased() == "pdf" {
+                                multipartFormData.append(data, withName: key, fileName: "file.pdf", mimeType: "application/pdf")
+                            }
+                        } 
+                        // -- parameters --
+                        else if let tempStr = value as? String {
+                            multipartFormData.append(tempStr.data(using: .utf8)!, withName: key)
+                        } else if let tempInt = value as? Int {
+                            multipartFormData.append("\(tempInt)".data(using: .utf8)!, withName: key)
+                        } else if let tempArr = value as? NSArray {
+                            tempArr.forEach { element in
+                                let keyObj = key + "[]"
+                                if let string = element as? String {
+                                    multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
+                                } else if let num = element as? Int {
+                                    let value = "\(num)"
+                                    multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
+                                }
+                            }
                         }
                     }
+                },
+                to: target.requestURL,
+                method: target.method,
+                headers: headers
+            )
+            .uploadProgress { progress in
+                let completedProgress = progress.fractionCompleted
+                progressHandler(completedProgress)
+                print("progress: \(completedProgress * 100)%")
+            }
+            .responseDecodable(of: M.self, decoder: JSONDecoder()) { response in
+                print(response)
+                switch response.result {
+                case .success(let model):
+                    promise(.success(model))
+                case .failure(let error):
+                    promise(.failure(.unknown(code: 0, error: error.localizedDescription)))
                 }
             }
-        },
-                  to: target.requestURL,
-                  method: target.method,
-                  headers: headers
-        )
-        .uploadProgress { progress in
-            let completedProgress = progress.fractionCompleted
-            progressHandler(completedProgress)
-            print("progress: %.0f%% \(completedProgress)")
         }
-        .responseDecodable(of: M.self, decoder: JSONDecoder()) { response in
-            print(response)
-            switch response.result {
-            case .success(let model):
-                completion(.success(model))
-            case .failure(let error):
-                completion(.failure(.unknown(code: 0, error: error.localizedDescription)))
-            }
-        }
+        .eraseToAnyPublisher()
     }
+                
+    
+    
+    
+    
+    // MARK: - (Completion handler) CAll API with promiseKit
+//    static func uploadApi<T: TargetType, M: Codable>(
+//        _ target: T,
+//        _ Model: M.Type,
+//        progressHandler: @escaping (Double) -> Void,
+//        completion: @escaping (Result<M, NetworkError>) -> Void
+//    ) {
+//        guard Helper.isConnectedToNetwork() else{
+//            completion(.failure(NetworkError.noConnection))
+//            return
+//        }
+//        let parameters = buildparameter(paramaters: target.parameter)
+//        let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
+//        print(target.requestURL)
+//        print(target.method)
+//        print(parameters)
+//        print(headers ?? [:])
+//        
+//        AF.upload(multipartFormData: { (multipartFormData) in
+//            for (key , value) in parameters.0 {
+//                
+//                if let tempImg = value as? UIImage {
+//                    if let data = tempImg.jpegData(compressionQuality: 0.9), (tempImg.size.width ) > 0 {
+//
+////                    if let data = tempImg.pngData(), (tempImg.size.width ) > 0 {
+//                        // Be careful and put the file name in withName parameter
+//                        multipartFormData.append(data, withName: key , fileName: "file.jpeg", mimeType: "image/jpeg")
+//                    }
+//                }
+//                else if let tempURL = value as? URL {
+//                    if let data = try? Data(contentsOf: tempURL), tempURL.pathExtension.lowercased() == "pdf" {
+//                        multipartFormData.append(data, withName: key, fileName: "file.pdf", mimeType: "application/pdf")
+//                    }
+//                }
+//                else if let tempStr = value as? String {
+//                    multipartFormData.append(tempStr.data(using: .utf8)!, withName: key)
+//                }
+//                else if let tempInt = value as? Int {
+//                    multipartFormData.append("\(tempInt)".data(using: .utf8)!, withName: key)
+//                }
+//                else if let tempArr = value as? NSArray {
+//                    tempArr.forEach { element in
+//                        let keyObj = key + "[]"
+//                        if let string = element as? String {
+//                            multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
+//                        } else if let num = element as? Int {
+//                            let value = "\(num)"
+//                            multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
+//                        }
+//                    }
+//                }
+//            }
+//        },
+//                  to: target.requestURL,
+//                  method: target.method,
+//                  headers: headers
+//        )
+//        .uploadProgress { progress in
+//            let completedProgress = progress.fractionCompleted
+//            progressHandler(completedProgress)
+//            print("progress: %.0f%% \(completedProgress)")
+//        }
+//        .responseDecodable(of: M.self, decoder: JSONDecoder()) { response in
+//            print(response)
+//            switch response.result {
+//            case .success(let model):
+//                completion(.success(model))
+//            case .failure(let error):
+//                completion(.failure(.unknown(code: 0, error: error.localizedDescription)))
+//            }
+//        }
+//    }
     
     // -- Download File --
     static func downloadFile(

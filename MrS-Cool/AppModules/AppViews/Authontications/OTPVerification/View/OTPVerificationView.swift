@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct OTPVerificationView: View {
+    @Environment(\.dismiss) var dismiss
+
+    @StateObject var otpvm = OTPVerificationVM()
     @State var isPush = false
     @State var destination = AnyView(Text(""))
-    var PhoneNumber : String = ""
-    var secondsCount : Int = 0
+    var PhoneNumber : String? 
+    var CurrentOTP : Int?
+    var secondsCount : Int? = 110
+    @Binding var isVerified: Bool
+
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "Phone Verification")
@@ -34,7 +40,7 @@ struct OTPVerificationView: View {
                             .multilineTextAlignment(.leading)
                             .padding(.top, getRelativeHeight(17.0))
                             .padding(.horizontal, getRelativeWidth(26.0))
-                        Text("(+20) 111 222 333")
+                        Text("(+2) \(PhoneNumber ?? "")")
                             .font(Font.SoraRegular(size: 13.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Bluegray402)
@@ -43,7 +49,12 @@ struct OTPVerificationView: View {
                             .padding(.top, getRelativeHeight(7.0))
                             .padding(.horizontal, getRelativeWidth(26.0))
                         
-                        OTPTextField(numberOfFields: 6)
+                        Text(otpvm.CurrentOtp ?? "")
+
+                        OTPTextField(numberOfFields: 6,finalOTP: $otpvm.EnteredOtp){
+                            print(otpvm.EnteredOtp ?? 99)
+//                            otpvm.VerifyOtp()
+                        }
                             .padding(.vertical)
                         
                         HStack {
@@ -54,7 +65,7 @@ struct OTPVerificationView: View {
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
                             Button(action: {
-                                
+                                otpvm.SendOtp()
                             }, label: {
                                 Text("Resend Code".localized())
                                     .font(Font.SoraSemiBold(size: 13.0))
@@ -65,7 +76,7 @@ struct OTPVerificationView: View {
                             })
                         }
                         
-                        Text("1:20 Sec left")
+                        Text("\(otpvm.remainingSeconds ?? "") Sec left")
                             .font(Font.SoraSemiBold(size: 13.0))
                             .fontWeight(.semibold)
                             .foregroundColor(ColorConstants.Bluegray901)
@@ -104,9 +115,27 @@ struct OTPVerificationView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+        .showHud(isShowing: $otpvm.isLoading)
+        .showAlert(hasAlert: $otpvm.isError, alertType: .error( message: "\(otpvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+
+        .onAppear(perform: {
+            if secondsCount ?? 0 > 0 && CurrentOTP ?? 0 > 0{
+                otpvm.remainingSeconds = String(secondsCount ?? 0)
+                otpvm.CurrentOtp = String(CurrentOTP ?? 0)
+            }
+            otpvm.mobile = PhoneNumber
+        })
+        .onChange(of: otpvm.isOTPVerified, perform: { value in
+            if value {
+                self.isVerified = value
+                self.dismiss()
+            }
+        })
+
     }
 }
 
 #Preview {
-    OTPVerificationView()
+    OTPVerificationView(PhoneNumber: "01101201322", CurrentOTP: 0, secondsCount: 110,isVerified: .constant(false))
 }
+

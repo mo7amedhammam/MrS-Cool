@@ -13,7 +13,7 @@ struct StudentSignUpView: View {
     @EnvironmentObject var signupvm : SignUpViewModel
     
     @State var isPush = false
-    @State var destination = AnyView(OTPVerificationView())
+    @State var destination = EmptyView()
     
     var body: some View {
         GeometryReader { gr in
@@ -52,7 +52,7 @@ struct StudentSignUpView: View {
                     
                     CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
                         isPush = true
-                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+//                        destination = AnyView(OTPVerificationView().hideNavigationBar())
                     })
                     .frame(height: 50)
                     .padding(.top,40)

@@ -14,7 +14,7 @@ struct TeacherPersonalDataView: View {
     @EnvironmentObject var signupvm : SignUpViewModel
         
     @State var isPush = false
-    @State var destination = AnyView(OTPVerificationView())
+    @State var destination = EmptyView()
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -52,7 +52,6 @@ struct TeacherPersonalDataView: View {
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
                             
                             CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio,charLimit: 1000)
-
                         }
                         .padding([.top])
                         CheckboxField(label: "Accept the Terms and Privacy Policy",

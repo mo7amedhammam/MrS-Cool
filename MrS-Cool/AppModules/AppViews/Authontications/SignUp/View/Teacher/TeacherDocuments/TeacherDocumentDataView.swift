@@ -13,7 +13,7 @@ struct TeacherDocumentDataView: View {
     @EnvironmentObject var signupvm : SignUpViewModel
     
     @State var isPush = false
-    @State var destination = AnyView(OTPVerificationView())
+    @State var destination = EmptyView()
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){

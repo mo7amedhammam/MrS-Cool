@@ -21,10 +21,11 @@ struct TeacherSignUpView: View {
     @State var acceptTerms = false
     
     @State var isPush = false
-    @State var destination = AnyView(OTPVerificationView())
+    @State var destination = EmptyView()
     
     @State var currentStep:teacherSteps = .personalData
-    
+    @State private var isVerified = false
+
     var body: some View {
         VStack(spacing:0) {
             TabView(selection: $currentStep){
@@ -60,17 +61,26 @@ struct TeacherSignUpView: View {
                     switch currentStep{
                     case .personalData:
                         signupvm.RegisterTeacherData()
-//                        currentStep = .subjectsData
-
+//                        signupvm.isDataUploaded = true
                     case .subjectsData:
                         currentStep = .documentsData
                         
                     case .documentsData:
                         isPush = true
-                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+//                        destination = AnyView(OTPVerificationView().hideNavigationBar())
                     }
                 })
                 .frame(width: 130,height: 40)
+                .fullScreenCover(isPresented: $signupvm.isDataUploaded, onDismiss: {
+                    print("dismissed ")
+                    if isVerified{
+                        currentStep = .subjectsData
+                    }
+                }, content: {
+                    OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified)
+                        .hideNavigationBar()
+                    
+                })
             }
             .padding([.horizontal,.bottom])
             
@@ -79,7 +89,7 @@ struct TeacherSignUpView: View {
                    dismiss()
                 }
             }
-            
+                
             NavigationLink(destination: destination, isActive: $isPush, label: {})
         }
     }
