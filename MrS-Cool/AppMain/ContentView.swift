@@ -11,7 +11,11 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack {
-                SignInView()
+//                SignInView()
+                
+//                TeacherSubjectsDataView()
+//                    .environmentObject(LookUpsVM())
+//                    .environmentObject(SignUpViewModel())
             }
         }
         .hideNavigationBar()

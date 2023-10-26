@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK: - GendersM - Countries
+// MARK: - GendersM - Countries - Academic Year - Subject -
 struct GendersM: Codable {
     var id: Int?
     var name: String?
 }
 
-// MARK: - GovernorateM
+// MARK: - GovernorateM -
 struct GovernorateM: Codable {
     var name: String?
     var countryID, id: Int?
@@ -26,7 +26,7 @@ struct GovernorateM: Codable {
     }
 }
 
-// MARK: - CityM
+// MARK: - CityM -
 struct CityM: Codable {
     var name: String?
     var governorateID, id: Int?
@@ -38,4 +38,19 @@ struct CityM: Codable {
         case id, governorateName
     }
 }
+
+
+// MARK: - EducationTypeM -
+struct EducationTypeM: Codable {
+    var name: String?
+    var order, id: Int?
+}
+
+
+// MARK: - EducationLevellM -
+struct EducationLevellM: Codable {
+    var id: Int?
+    var name, educationTypeName: String?
+}
+
 

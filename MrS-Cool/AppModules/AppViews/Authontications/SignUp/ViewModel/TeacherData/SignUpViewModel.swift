@@ -8,11 +8,11 @@
 import Combine
 import Foundation
 
-struct CustomState{
-    var isLoading:Bool?
-    var isError:Bool?
-    var error: Error?
-}
+//struct CustomState{
+//    var isLoading:Bool?
+//    var isError:Bool?
+//    var error: Error?
+//}
 class SignUpViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     

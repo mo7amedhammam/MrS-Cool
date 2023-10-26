@@ -11,6 +11,7 @@ struct TeacherSubjectsDataView: View {
 //        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
+    @StateObject var teachersubjectsvm = TeacherSubjectsVM()
     
     
     @State var isPush = false
@@ -30,12 +31,12 @@ struct TeacherSubjectsDataView: View {
                         }
                         // -- inputs --
                         Group {
-                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $signupvm.educationType,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $teachersubjectsvm.educationType,options:lookupsvm.EducationTypesList)
                             
-                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $signupvm.educationLevel,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $teachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList)
 
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $signupvm.academicYear,options:lookupsvm.GendersList)
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $signupvm.subject,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $teachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList)
                         }
                         .padding([.top])
                     }.padding(.top,20)
@@ -43,14 +44,16 @@ struct TeacherSubjectsDataView: View {
                     HStack {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                            
                             })
                             CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                signupvm.clearTeachersSubject()
+                                teachersubjectsvm.clearTeachersSubject()
                             })
                         }
                         .frame(width:120,height: 40)
                         
                     }.padding(.vertical)
+                   
                     HStack {
                         Text("* Note: Must be enter one item at least")
                             .font(Font.SoraRegular(size: 14))
@@ -67,7 +70,18 @@ struct TeacherSubjectsDataView: View {
             }
         }.onAppear(perform: {
             signupvm.isUserChangagble = false
+            lookupsvm.GetEducationTypes()
         })
+        .onChange(of: teachersubjectsvm.educationType, perform: { value in
+            lookupsvm.SelectedEducationType = value
+        })
+        .onChange(of: teachersubjectsvm.educationLevel, perform: { value in
+            lookupsvm.SelectedEducationLevel = value
+        })
+        .onChange(of: teachersubjectsvm.academicYear, perform: { value in
+            lookupsvm.SelectedAcademicYear = value
+        })
+
     }
 }
 

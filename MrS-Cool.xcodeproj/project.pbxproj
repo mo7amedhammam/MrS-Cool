@@ -61,6 +61,7 @@
 		C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11CB2ADDA2920051715F /* SignInModel.swift */; };
 		C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11D12ADDAD070051715F /* ColorConstants.swift */; };
 		C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11D32ADDADD10051715F /* FontsExtension.swift */; };
+		C8FCB6B32AEAA446009C838A /* TeacherSubjectsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCB6B22AEAA446009C838A /* TeacherSubjectsVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +124,7 @@
 		C8FB11CE2ADDA6610051715F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8FB11D12ADDAD070051715F /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		C8FB11D32ADDADD10051715F /* FontsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsExtension.swift; sourceTree = "<group>"; };
+		C8FCB6B22AEAA446009C838A /* TeacherSubjectsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectsVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +269,9 @@
 		C85BD3A42AE67AF7008ECDF7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */,
+				C8FCB6AF2AEAA372009C838A /* TeacherData */,
+				C8FCB6B12AEAA381009C838A /* TeacherSubjects */,
+				C8FCB6B02AEAA37E009C838A /* TeacherDocuments */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -633,6 +637,29 @@
 			path = ColorConstants;
 			sourceTree = "<group>";
 		};
+		C8FCB6AF2AEAA372009C838A /* TeacherData */ = {
+			isa = PBXGroup;
+			children = (
+				C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */,
+			);
+			path = TeacherData;
+			sourceTree = "<group>";
+		};
+		C8FCB6B02AEAA37E009C838A /* TeacherDocuments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TeacherDocuments;
+			sourceTree = "<group>";
+		};
+		C8FCB6B12AEAA381009C838A /* TeacherSubjects */ = {
+			isa = PBXGroup;
+			children = (
+				C8FCB6B22AEAA446009C838A /* TeacherSubjectsVM.swift */,
+			);
+			path = TeacherSubjects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -756,6 +783,7 @@
 			files = (
 				C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */,
 				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
+				C8FCB6B32AEAA446009C838A /* TeacherSubjectsVM.swift in Sources */,
 				C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */,
 				C8986C7D2AE9328F003E9179 /* ParentM.swift in Sources */,
 				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
