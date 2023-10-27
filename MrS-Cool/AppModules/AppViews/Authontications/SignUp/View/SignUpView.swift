@@ -19,23 +19,34 @@ struct SignUpView: View {
                     .padding(.horizontal)
                     .disabled(!signupvm.isUserChangagble)
                 VStack{
-                    TabView(selection:$signupvm.selecteduser.id){
-                        Group{
-                            StudentSignUpView()
-                                .tag(0)
-                            
-                            ParentSignUpView()
-                                .tag(1)
-                            
-                            TeacherSignUpView()
-                                .tag(2)
-                        }
-                        .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
-                        .environmentObject(lookupsvm)
-                        .environmentObject(signupvm)
+                    switch signupvm.selecteduser.id{
+                    case 1:
+                        ParentSignUpView()
+                    case 2:
+                        TeacherSignUpView()
+                    default:
+                        StudentSignUpView()
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
+
+//                    TabView(selection:$signupvm.selecteduser.id){
+//                        Group{
+//                            StudentSignUpView()
+//                                .tag(0)
+//                            
+//                            ParentSignUpView()
+//                                .tag(1)
+//                            
+//                            TeacherSignUpView()
+//                                .tag(2)
+//                        }
+//                        .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
+//
+//                    }.tabViewStyle(.page(indexDisplayMode: .never))
                 }
+                                        .environmentObject(lookupsvm)
+                                        .environmentObject(signupvm)
+
+                
             }
         }
         .background(ColorConstants.Gray50.ignoresSafeArea()

@@ -43,6 +43,7 @@
 		C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA9092ADD906800891D41 /* Assets.xcassets */; };
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
+		C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
@@ -103,6 +104,7 @@
 		C89EA9092ADD906800891D41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
+		C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectCell.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				C80D09672AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift */,
+				C8E20F242AEBFB72000D99F2 /* SubjectCell */,
 			);
 			path = TeacherSubjects;
 			sourceTree = "<group>";
@@ -463,6 +466,14 @@
 				C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C8E20F242AEBFB72000D99F2 /* SubjectCell */ = {
+			isa = PBXGroup;
+			children = (
+				C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */,
+			);
+			path = SubjectCell;
 			sourceTree = "<group>";
 		};
 		C8FB11832ADD91BA0051715F /* AppMain */ = {
@@ -826,6 +837,7 @@
 				C89EA9062ADD906300891D41 /* MrS_CoolApp.swift in Sources */,
 				C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */,
 				C8986C822AE9580F003E9179 /* OTPVerificationVM.swift in Sources */,
+				C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */,
 				C8986C882AE98008003E9179 /* ExIntegers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,3 +31,49 @@ struct TeacherDataM: Codable {
         case profileStatusID = "profileStatusId"
     }
 }
+
+
+// MARK: - CreatedTeacherSubjectM -
+struct CreatedTeacherSubjectM: Codable {
+    var subjectAcademicYearID, groupCost, individualCost, minGroup: Int?
+    var maxGroup: Int?
+    var teacherBrief: String?
+    var statusID, id, teacherID: Int?
+    var creationDate: String?
+    var verifiedByID: Int?
+    var verifiedAt: String?
+
+    enum CodingKeys: String, CodingKey {
+        case subjectAcademicYearID = "subjectAcademicYearId"
+        case groupCost, individualCost, minGroup, maxGroup, teacherBrief
+        case statusID = "statusId"
+        case id
+        case teacherID = "teacherId"
+        case creationDate
+        case verifiedByID = "verifiedById"
+        case verifiedAt
+    }
+}
+
+// MARK: - TeacherSubjectM -
+struct TeacherSubjectM: Codable,Hashable {
+    var subjectAcademicYearID, groupCost, individualCost, minGroup: Int?
+    var maxGroup: Int?
+    var teacherBrief: String?
+    var statusID, id: Int?
+    var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
+    var subjectDisplayName: String?
+    var educationTypeID, educationLevelID, subjectSemesterID: Int?
+    var statusIDName: String?
+
+    enum CodingKeys: String, CodingKey {
+        case subjectAcademicYearID = "subjectAcademicYearId"
+        case groupCost, individualCost, minGroup, maxGroup, teacherBrief
+        case statusID = "statusId"
+        case id, educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName, subjectDisplayName
+        case educationTypeID = "educationTypeId"
+        case educationLevelID = "educationLevelId"
+        case subjectSemesterID = "subjectSemesterId"
+        case statusIDName = "statusIdName"
+    }
+}

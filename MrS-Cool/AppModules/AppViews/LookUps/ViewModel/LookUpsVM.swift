@@ -137,8 +137,8 @@ class LookUpsVM: ObservableObject {
  
     init()  {
 //        Task{
-            getGendersArr()
-            getCountriesArr()
+//            getGendersArr()
+//            getCountriesArr()
 //            getGovernoratesArr()
 //            getCitiesArr()
 //        }

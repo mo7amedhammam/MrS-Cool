@@ -44,7 +44,7 @@ struct TeacherSubjectsDataView: View {
                     HStack {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
-                            
+                                teachersubjectsvm.CreateTeacherSubject()
                             })
                             CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                 teachersubjectsvm.clearTeachersSubject()
@@ -63,6 +63,14 @@ struct TeacherSubjectsDataView: View {
                         Spacer()
                         
                     }
+                    List(teachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
+                        TeacherSubjectCell(model: subject){
+                            teachersubjectsvm.DeleteTeacherSubject(id: subject.id)
+                        }
+                    }
+                    
+                    
+                    
                     Spacer()
                 }
                 .frame(minHeight: gr.size.height)
@@ -81,6 +89,8 @@ struct TeacherSubjectsDataView: View {
         .onChange(of: teachersubjectsvm.academicYear, perform: { value in
             lookupsvm.SelectedAcademicYear = value
         })
+        .showHud(isShowing: $teachersubjectsvm.isLoading)
+        .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
     }
 }

@@ -28,18 +28,25 @@ struct TeacherSignUpView: View {
 
     var body: some View {
         VStack(spacing:0) {
-            TabView(selection: $currentStep){
-                Group {
-                    TeacherPersonalDataView().tag(teacherSteps.personalData)
-                    TeacherSubjectsDataView().tag(teacherSteps.subjectsData)
-                    TeacherDocumentDataView().tag(teacherSteps.documentsData)
-                    
-                }
-                .highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
-                .environmentObject(lookupsvm)
-                .environmentObject(signupvm)
+            switch currentStep{
+            case .personalData:
+                TeacherPersonalDataView()
+            case .subjectsData:
+                TeacherSubjectsDataView()
+            case .documentsData:
+                TeacherDocumentDataView()
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
+            
+//            TabView(selection: $currentStep){
+//                Group {
+//                    TeacherPersonalDataView().tag(teacherSteps.personalData)
+//                    TeacherSubjectsDataView().tag(teacherSteps.subjectsData)
+//                    TeacherDocumentDataView().tag(teacherSteps.documentsData)
+//                    
+//                }.highPriorityGesture(DragGesture().onEnded({ self.handleSwipe(translation: $0.translation.width)}))
+//                .environmentObject(lookupsvm)
+//                .environmentObject(signupvm)
+//            }.tabViewStyle(.page(indexDisplayMode: .never))
             
             Spacer()
             HStack {
@@ -90,8 +97,11 @@ struct TeacherSignUpView: View {
                 }
             }
                 
-            NavigationLink(destination: destination, isActive: $isPush, label: {})
         }
+        .environmentObject(lookupsvm)
+        .environmentObject(signupvm)
+
+        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")

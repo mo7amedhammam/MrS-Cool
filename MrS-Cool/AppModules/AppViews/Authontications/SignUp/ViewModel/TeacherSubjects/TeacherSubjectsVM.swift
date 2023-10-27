@@ -69,87 +69,130 @@ class TeacherSubjectsVM: ObservableObject {
     @Published var error: Error?
 
     @Published var isTeacherHasSubjects: Bool = false
-    @Published var TeacherSubjects : [DropDownOption]?{
+    @Published var TeacherSubjects : [TeacherSubjectM]?{
         didSet{
             isTeacherHasSubjects = !(TeacherSubjects?.isEmpty ?? true)
         }
     }
 
+    
+//    @Published var TeacherSubjectsArray: [TeacherSubjectM]?{
+//        didSet{
+//            if !TeacherSubjectsArray?.isEmpty {
+//                
+//            }
+//        }
+//    }
+
+    
     init()  {
-//        getGendersArr()
+        GetTeacherSubjects()
     }
 }
 
 extension TeacherSubjectsVM{
     
-//    func AddSubject(){
-//        guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-//        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
-//        
-////        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
-//        print("parameters",parameters)
-//        let target = Authintications.TeacherRegisterDate(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-//                    self.error = error
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if let model = receivedData.data{
-//                    OtpM = model
-//                }else{
-//                    isError =  true
-//                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
-//    }
+    func CreateTeacherSubject(){
+        guard let subjectAcademicYearId = academicYear?.id else {return}
+        let parameters:[String:Any] = ["subjectAcademicYearId":subjectAcademicYearId]
+        
+//        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
+        print("parameters",parameters)
+        let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = error
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if let model = receivedData.data{
+//                    TeacherSubjects?.append(model)
+                    GetTeacherSubjects()
+                }else{
+                    isError =  true
+                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
     
 
-//    func GetTeacherSubjects(){
-//        
-//        guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-//        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
-//        
-////        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
+    func GetTeacherSubjects(){
+//        guard let educationTypeId = educationType?.id ,let educationLevelId = educationLevel?.id, let academicYearId = academicYear?.id , let subjectId = subject?.id else {return}
+//        let parameters:[String:Any] = ["educationTypeId":educationTypeId,"educationLevelId":educationLevelId,"academicYearId":academicYearId,"subjectId":subjectId, "statusId":0]
+        
+//        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
 //        print("parameters",parameters)
-//        let target = Authintications.TeacherRegisterDate(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-//                    self.error = error
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if let model = receivedData.data{
-//                    OtpM = model
-//                }else{
-//                    isError =  true
-//                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
-//    }
-    
+        let target = Authintications.TeacherGetSubjects(parameters: [:])
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<[TeacherSubjectM]>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = error
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if let model = receivedData.data{
+                    TeacherSubjects = model
+                }else{
+                    isError =  true
+                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+
+    func DeleteTeacherSubject(id:Int?){
+        guard let id = id else {return}
+        let parameters:[String:Any] = ["id":id]
+        
+//        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
+        print("parameters",parameters)
+        let target = Authintications.TeacherDeleteSubjects(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = error
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if let model = receivedData.data{
+//                    TeacherSubjects = model
+                    TeacherSubjects?.removeAll(where: {$0.id == model.id})
+                }else{
+                    isError =  true
+                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
     
     
     func clearTeachersSubject(){

@@ -65,6 +65,10 @@ struct TeacherPersonalDataView: View {
                 .padding(.horizontal)
             }
         }
+        .onAppear(perform: {
+                lookupsvm.getGendersArr()
+                lookupsvm.getCountriesArr()
+        })
         .onChange(of: signupvm.country, perform: { value in
             lookupsvm.SelectedCountry = value
             signupvm.governorte = nil
