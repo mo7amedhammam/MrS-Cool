@@ -18,8 +18,8 @@ struct OtpM: Codable ,Equatable{
 //    var otp, mobile: Int?
 //}
 
-// MARK: - TeacherDataM -
-struct TeacherDataM: Codable {
+// MARK: - TeacherModel -
+struct TeacherModel: Codable {
     var id: Int?
     var token, email, name, mobile: String?
     var imagePath, role: String?
@@ -31,8 +31,6 @@ struct TeacherDataM: Codable {
         case profileStatusID = "profileStatusId"
     }
 }
-
-
 // MARK: - CreatedTeacherSubjectM -
 struct CreatedTeacherSubjectM: Codable {
     var subjectAcademicYearID, groupCost, individualCost, minGroup: Int?

@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct SignInView: View {
-    
+    @StateObject var teachersigninvm = SignInVM()
     @State private var selectedUser : UserType = UserType.init()
     
-    @State var phone = ""
-    @State var Password = ""
     @State var rememberMe = false
     @State var isPush = false
     @State var destination = AnyView(SignUpView())
@@ -40,8 +38,8 @@ struct SignInView: View {
                                     
                                 }
                                 Group {
-                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $Password)
+                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $teachersigninvm.Password)
                                 }
                                 .padding([.top])
                                 
@@ -71,11 +69,8 @@ struct SignInView: View {
                             .padding(.top, 20)
                             Spacer()
                             VStack{
-                                CustomButton(Title:"sign_in",IsDisabled: .constant(false), action: {
-                                    print("user is :",selectedUser.title)
-                                    print("phone :",phone)
-                                    print("password :",Password)
-                                    print("remember me :",rememberMe)
+                                CustomButton(Title:"sign_in",IsDisabled:.constant(!(teachersigninvm.isFormValid)) , action: {
+                                    teachersigninvm.TeacherLogin()
                                 })
                                 .frame(height: 50)
                                 .padding(.top,40)
@@ -106,13 +101,16 @@ struct SignInView: View {
                 .frame(width:UIScreen.main.bounds.width)
             }
             .padding(.horizontal)
-            
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+        .showHud(isShowing: $teachersigninvm.isLoading)
+        .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+
         NavigationLink(destination: destination, isActive: $isPush, label: {})
+           
 
     }
 }

@@ -23,7 +23,7 @@ enum Authintications {
     case TeacherGetDocuments(parameters : [String:Any])
     case TeacherDeleteDocuments(parameters : [String:Any])
 
-//    case TeacherLogin(parameters : [String:Any])
+    case TeacherLogin(parameters : [String:Any])
 
     case SendOtpTeacher(parameters : [String:Any])
     case VerifyOtpTeacher(parameters : [String:Any])
@@ -53,6 +53,8 @@ extension Authintications : TargetType {
         case .TeacherDeleteDocuments:
             return EndPoints.DeleteTeacherDocument​.rawValue
 
+        case .TeacherLogin:
+            return EndPoints.LoginTeacher.rawValue
 
         case .SendOtpTeacher:
             return EndPoints.sendOTPTeacher.rawValue
@@ -76,6 +78,7 @@ extension Authintications : TargetType {
                 .TeacherGetSubjects,
                 .TeacherRegisterDocuments,
                 .TeacherGetDocuments,
+                .TeacherLogin,
                 .SendOtpTeacher,
                 .VerifyOtpTeacher,
                 .ResetPassword,
@@ -95,6 +98,7 @@ extension Authintications : TargetType {
                 .TeacherGetSubjects(parameters: let parameters),
                 .TeacherRegisterDocuments(parameters: let parameters),
                 .TeacherGetDocuments(parameters: let parameters),
+                .TeacherLogin(parameters: let parameters),
                 .SendOtpTeacher(parameters: let parameters),
                 .VerifyOtpTeacher(parameters: let parameters),
                 .ResetPassword(parameters: let parameters),

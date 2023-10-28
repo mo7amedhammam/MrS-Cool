@@ -43,6 +43,7 @@
 		C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA9092ADD906800891D41 /* Assets.xcassets */; };
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
+		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
 		C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
@@ -104,6 +105,7 @@
 		C89EA9092ADD906800891D41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
+		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectCell.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 		C8FB11C52ADD9E7C0051715F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C8B1BB302AED5A50006451F7 /* SignInVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
+				C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */,
 				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
 				C8986C782AE924FB003E9179 /* OTPTextField.swift in Sources */,
 				C89BAFA42AE2B83200FB5807 /* ViewModifiers.swift in Sources */,

@@ -88,7 +88,7 @@ class OTPVerificationVM: ObservableObject {
         let target = Authintications.VerifyOtpTeacher(parameters: parametersarr)
         
         // Make the API call using your APIManager or networking code
-        BaseNetwork.CallApi(target, BaseResponse<TeacherDataM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<TeacherModel>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -104,7 +104,7 @@ class OTPVerificationVM: ObservableObject {
                 print("receivedData",receivedData)
                 if  receivedData.success == true{
                     guard let model = receivedData.data else{return}
-                    Helper.saveUser(user: SignInModel.init(name: model.name,mobile: model.mobile,token: model.token)  )
+                    Helper.saveUser(user: model  )
                         isOTPVerified = true
                 }else{
                     isError =  true

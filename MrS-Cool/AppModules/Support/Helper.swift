@@ -19,7 +19,7 @@ class Helper: NSObject {
     private static let LoggedInKey = "LoggedId"
     private static let UserDataKey = "UserDataKey"
     static let Languagekey = "languagekey"
-    class func saveUser(user: SignInModel) {
+    class func saveUser(user: TeacherModel?) {
         IsLoggedIn(value: true)
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
@@ -29,10 +29,10 @@ class Helper: NSObject {
         }
     }
     
-    class func getUser() -> SignInModel? {
+    class func getUser() -> TeacherModel? {
         if let data = userDef.object(forKey: UserDataKey) as? Data {
             let decoder = JSONDecoder()
-            if let user = try? decoder.decode(SignInModel.self, from: data) {
+            if let user = try? decoder.decode(TeacherModel.self, from: data) {
                 return user
             }
         }
