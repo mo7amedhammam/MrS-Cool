@@ -39,6 +39,11 @@ struct SignInView: View {
                                 }
                                 Group {
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                        .onChange(of: teachersigninvm.phone) { newValue in
+                                            if newValue.count > 11 {
+                                                teachersigninvm.phone = String(newValue.prefix(11))
+                                            }
+                                        }
                                     CustomTextField(fieldType:.Password,placeholder: "Password *", text: $teachersigninvm.Password)
                                 }
                                 .padding([.top])

@@ -13,13 +13,11 @@ class SignInVM: ObservableObject {
     
     //    MARK: --- inputs ---
     @Published var selecteduser = UserType()
-    @Published var phone = ""
+    @Published var phone = "" 
     @Published var Password = ""
     
     //  MARK: -- validations --
     // Published properties for length validation
-    @Published var isPhoneValid = false
-    @Published var isPasswordValid = false
     @Published var isFormValid = false
     
     //    MARK: --- outpust ---
@@ -37,7 +35,7 @@ class SignInVM: ObservableObject {
     init()  {
         //        getGendersArr()
         
-//                monitorTextFields()
+                monitorTextFields()
     }
 }
 
@@ -78,34 +76,17 @@ extension SignInVM{
 
 extension SignInVM{
     private func monitorTextFields() {
-        // Limit phone to 11 characters
-//        $phone
-//              .map { phone in
-//                  let limitedPhone = String(phone.prefix(11)) // Limit phone to 11 characters
-//                  return limitedPhone
-//              }
-//              .assign(to: &$phone) // Assign back the limited phone to the @Published variable
-//              .store(in: &cancellables)
         
-        // Publisher for phone input validation
-        $phone
-            .map { $0.count == 11 }  // Check if the phone input is of exact 11 characters
-            .assign(to: &$isPhoneValid)
-        
-        // Publisher for password input validation
-        $Password
-            .map { $0.count >= 6 }  // Check if the password input is at least 6 characters
-            .assign(to: &$isPasswordValid)
-        
-        var isformValid: AnyPublisher<Bool, Never> {
-               Publishers.CombineLatest($isPhoneValid, $isPasswordValid)
-                   .map { $0 && $1 }
-                   .eraseToAnyPublisher()
-        }
-        
-        isformValid.sink(receiveValue: { [self]val in
-            self.isFormValid = val
-        })
-        .store(in: &cancellables)
+        // Combine publishers for form validation
+              Publishers.CombineLatest($phone, $Password)
+                  .map { [weak self] phone, password in
+                      // Perform the validation checks
+                      let isPhoneValid = phone.count == 11
+                      let isPasswordValid = password.count >= 6
+                      
+                      // Return the overall form validity
+                      return isPhoneValid && isPasswordValid
+                  }
+                  .assign(to: &$isFormValid)
     }
 }
