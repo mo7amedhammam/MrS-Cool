@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class TeacherDocumentsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -15,7 +16,9 @@ class TeacherDocumentsVM: ObservableObject {
     @Published var documentTitle = ""
     @Published var documentOrder = ""
 
-    @Published var document:Data? = nil
+    @Published var documentImg : UIImage? = nil
+
+    @Published var documentPdf : URL? = nil
 
     
 //    MARK: --- outpust ---
@@ -37,14 +40,23 @@ class TeacherDocumentsVM: ObservableObject {
 
 extension TeacherDocumentsVM{
     
-    func CreateTeacherDocument(){
+    func CreateTeacherDocument(fileType:fileTypesList){
         guard let DocumentTypeId = documentType?.id else {return}
-        let parameters:[String:Any] = ["Document":document ?? Data(),"DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":Int(documentOrder) ?? 0]
+        
+        
+        var parameters:[String:Any] = ["DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":Int(documentOrder) ?? 0]
+        switch fileType {
+        case .image:
+            parameters["Document"] = documentImg
+        case .pdf:
+            parameters["Document"] = documentPdf
+
+        }
         
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterDocuments(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<TeacherDocumentM>.self)
+        BaseNetwork.uploadApi(target, BaseResponse<TeacherDocumentM>.self,progressHandler: {progress in})
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -137,7 +149,8 @@ extension TeacherDocumentsVM{
         documentType = nil
         documentTitle = ""
         documentOrder = ""
-        document = nil
+        documentImg = nil
+        documentPdf = nil
     }
 
 
