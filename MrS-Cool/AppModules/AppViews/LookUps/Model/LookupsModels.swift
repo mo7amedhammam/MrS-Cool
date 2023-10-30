@@ -53,4 +53,11 @@ struct EducationLevellM: Codable {
     var name, educationTypeName: String?
 }
 
+// MARK: - DocumentTypeM -
+struct DocumentTypeM: Codable {
+    var name: String?
+    var isRequired: Bool?
+    var order, id: Int?
+}
+
 

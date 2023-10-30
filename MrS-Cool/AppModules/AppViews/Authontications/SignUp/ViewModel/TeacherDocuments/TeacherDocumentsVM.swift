@@ -1,78 +1,50 @@
 //
-//  TeacherSubjectsVM.swift
+//  TeacherDocumentsVM.swift
 //  MrS-Cool
 //
-//  Created by wecancity on 26/10/2023.
+//  Created by wecancity on 30/10/2023.
 //
 
 import Foundation
 import Combine
 
-class TeacherSubjectsVM: ObservableObject {
+class TeacherDocumentsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
-//    @Published var isUserChangagble = true // available unless teacher save personal data
+    @Published var documentType : DropDownOption?
+    @Published var documentTitle = ""
+    @Published var documentOrder = ""
 
-//    MARK: --- inputs ---
-    //Common data (note: same exact data for parent)
-//    @Published var selecteduser = UserType()
-//    @Published var name = ""
-//    @Published var phone = ""
-//    @Published var Password = ""
-//    @Published var selectedGender : DropDownOption?
-//    @Published var confirmPassword = ""
-//    @Published var acceptTerms = false
+    @Published var document:Data? = nil
 
-    //Student data
-//    @Published var birthDate : Date?
-//    // next 4  common with teacher subjects
-//    @Published var birthDateStr = ""
     
-    @Published var educationType : DropDownOption?{
-        didSet{
-            educationLevel = nil
-        }
-    }
-    @Published var educationLevel : DropDownOption?{
-        didSet{
-                academicYear = nil
-        }
-    }
-    @Published var academicYear : DropDownOption?{
-        didSet{
-                subject = nil
-        }
-    }
-    @Published var subject : DropDownOption?
-
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
     @Published var error: Error?
 
-    @Published var isTeacherHasSubjects: Bool = false
-    @Published var TeacherSubjects : [TeacherSubjectM]?{
+    @Published var isTeacherHasDocuments: Bool = false
+    @Published var TeacherDocuments : [TeacherDocumentM]?{
         didSet{
-            isTeacherHasSubjects = !(TeacherSubjects?.isEmpty ?? true)
+            isTeacherHasDocuments = !(TeacherDocuments?.isEmpty ?? true)
         }
     }
-
     
     init()  {
-        GetTeacherSubjects()
+        GetTeacherDocument()
     }
 }
 
-extension TeacherSubjectsVM{
+extension TeacherDocumentsVM{
     
-    func CreateTeacherSubject(){
-        guard let subjectAcademicYearId = subject?.id else {return}
-        let parameters:[String:Any] = ["subjectAcademicYearId":subjectAcademicYearId]
+    func CreateTeacherDocument(){
+        guard let DocumentTypeId = documentType?.id else {return}
+        let parameters:[String:Any] = ["Document":document ?? Data(),"DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":Int(documentOrder) ?? 0]
         
         print("parameters",parameters)
-        let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
+        let target = Authintications.TeacherRegisterDocuments(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<TeacherDocumentM>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -87,8 +59,8 @@ extension TeacherSubjectsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
-//                    TeacherSubjects?.append(model)
-                    GetTeacherSubjects()
+                    TeacherDocuments?.append(model)
+//                    GetTeacherDocument()
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -99,10 +71,10 @@ extension TeacherSubjectsVM{
     }
     
 
-    func GetTeacherSubjects(){
-        let target = Authintications.TeacherGetSubjects(parameters: [:])
+    func GetTeacherDocument(){
+        let target = Authintications.TeacherGetDocuments(parameters: [:])
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<[TeacherSubjectM]>.self)
+        BaseNetwork.CallApi(target, BaseResponse<[TeacherDocumentM]>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -117,7 +89,7 @@ extension TeacherSubjectsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
-                    TeacherSubjects = model
+                    TeacherDocuments = model
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -127,14 +99,14 @@ extension TeacherSubjectsVM{
             .store(in: &cancellables)
     }
 
-    func DeleteTeacherSubject(id:Int?){
+    func DeleteTeacherDocument(id:Int?){
         guard let id = id else {return}
         let parameters:[String:Any] = ["id":id]
         
         print("parameters",parameters)
-        let target = Authintications.TeacherDeleteSubjects(parameters: parameters)
+        let target = Authintications.TeacherDeleteDocuments(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<TeacherDocumentM>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -150,7 +122,7 @@ extension TeacherSubjectsVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
 //                    TeacherSubjects = model
-                    TeacherSubjects?.removeAll(where: {$0.id == model.id})
+                    TeacherDocuments?.removeAll(where: {$0.id == model.id})
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -161,15 +133,16 @@ extension TeacherSubjectsVM{
     }
     
     
-    func clearTeachersSubject(){
-        educationType = nil
-        educationLevel = nil
-        academicYear = nil
-        subject = nil
+    func clearTeachersDocument(){
+        documentType = nil
+        documentTitle = ""
+        documentOrder = ""
+        document = nil
     }
 
 
 }
+
 
 
 

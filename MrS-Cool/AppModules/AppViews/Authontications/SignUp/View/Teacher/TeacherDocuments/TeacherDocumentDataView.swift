@@ -11,7 +11,8 @@ struct TeacherDocumentDataView: View {
 //       @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
-    
+    @StateObject var teacherdocumentsvm = TeacherDocumentsVM()
+
     @State var isPush = false
     @State var destination = EmptyView()
     var body: some View {
@@ -30,11 +31,11 @@ struct TeacherDocumentDataView: View {
                         
                         // -- inputs --
                         Group {
-                            CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $signupvm.educationType,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.documentType,options:lookupsvm.documentTypesList)
 
-                            CustomDropDownField(iconName:"img_group_512388",placeholder: "Documents Title *", selectedOption: $signupvm.educationLevel,options:lookupsvm.GendersList)
+                            CustomTextField(iconName:"img_group_512388",placeholder: "Documents Title *", text: $teacherdocumentsvm.documentTitle)
 
-                            CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $signupvm.name,keyboardType: .asciiCapableNumberPad)
+                            CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad)
                         }
                         .padding([.top])
 
@@ -51,15 +52,15 @@ struct TeacherDocumentDataView: View {
                             .foregroundColor(ColorConstants.Gray901)
                             .multilineTextAlignment(.center)
                             .padding(.top)
-                        
                     }.padding(.top,20)
                     
                     HStack {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                                teacherdocumentsvm.CreateTeacherDocument()
                             })
                             CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                signupvm.clearTeachersSubject()
+                                teacherdocumentsvm.clearTeachersDocument()
                             })
                         }
                         .frame(width:120,height: 40)
@@ -71,7 +72,6 @@ struct TeacherDocumentDataView: View {
                             .foregroundColor(ColorConstants.Black900)
 
                         Spacer()
-                        
                     }
                     Spacer()
                 }
@@ -79,6 +79,12 @@ struct TeacherDocumentDataView: View {
                 .padding(.horizontal)
             }
         }
+        .onAppear(perform: {
+            lookupsvm.GetDocumentTypes()
+        })
+        .onChange(of: teacherdocumentsvm.isTeacherHasDocuments, perform: { value in
+            teacherdocumentsvm.isTeacherHasDocuments = value
+        })
     }
 }
 

@@ -75,3 +75,21 @@ struct TeacherSubjectM: Codable,Hashable {
         case statusIDName = "statusIdName"
     }
 }
+
+
+//MARK: -- Teacher Documents --
+
+// MARK: - TeacherDocumentM
+struct TeacherDocumentM: Codable {
+    var documentTypeID: Int?
+    var title: String?
+    var order, id, teacherID: Int?
+    var documentPath, documentTypeName, creationDate: String?
+
+    enum CodingKeys: String, CodingKey {
+        case documentTypeID = "documentTypeId"
+        case title, order, id
+        case teacherID = "teacherId"
+        case documentPath, documentTypeName, creationDate
+    }
+}

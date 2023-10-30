@@ -13,7 +13,6 @@ struct TeacherSubjectsDataView: View {
     @EnvironmentObject var signupvm : SignUpViewModel
     @StateObject var teachersubjectsvm = TeacherSubjectsVM()
     
-    
     @State var isPush = false
     @State var destination = EmptyView()
     var body: some View {
@@ -93,6 +92,9 @@ struct TeacherSubjectsDataView: View {
         })
         .onChange(of: teachersubjectsvm.academicYear, perform: { value in
             lookupsvm.SelectedAcademicYear = value
+        })
+        .onChange(of: teachersubjectsvm.isTeacherHasSubjects, perform: { value in
+            signupvm.isTeacherHasSubjects = value
         })
         .showHud(isShowing: $teachersubjectsvm.isLoading)
         .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))

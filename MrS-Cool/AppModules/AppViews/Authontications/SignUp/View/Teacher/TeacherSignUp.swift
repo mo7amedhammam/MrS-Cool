@@ -64,11 +64,12 @@ struct TeacherSignUpView: View {
                 })
                 .frame(width: 130,height: 40)
                 Spacer()
-                CustomButton(Title:currentStep == .personalData ? "Save & Next" : (currentStep == .subjectsData ? "Next":"Submit"),IsDisabled: .constant(false), action: {
+                CustomButton(Title:currentStep == .personalData ? "Save & Next" : (currentStep == .subjectsData ? "Next":"Submit"),IsDisabled: .constant((currentStep == .subjectsData && !signupvm.isTeacherHasSubjects)||(currentStep == .documentsData && !signupvm.isTeacherHasDocuments)), action: {
                     switch currentStep{
                     case .personalData:
-                        signupvm.RegisterTeacherData()
+//                        signupvm.RegisterTeacherData()
 //                        signupvm.isDataUploaded = true
+                        currentStep = .subjectsData
                     case .subjectsData:
                         currentStep = .documentsData
                         

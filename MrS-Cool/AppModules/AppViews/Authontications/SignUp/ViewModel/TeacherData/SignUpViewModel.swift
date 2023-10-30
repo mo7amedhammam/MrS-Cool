@@ -63,6 +63,8 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+    @Published var isTeacherHasSubjects: Bool = false
+    @Published var isTeacherHasDocuments: Bool = false
     init()  {
 //        getGendersArr()
     }

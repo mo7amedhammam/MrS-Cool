@@ -30,6 +30,7 @@ enum EndPoints: String {
     case GetEducationLevel = "EducationLevel/GetByEducationType" /// get
     case GetAcademicYear = "AcademicYear/GetByEducationLevel" ///get
     case GetAllSubject = "SubjectSemesterYear/GetAllSubjectByAcademicEducationLevelId" /// get
+    case GetDocumentTypes = "DocumentType/Get"
     
     // MARK: -- Auth --
     //Teacher personal Date
@@ -42,9 +43,9 @@ enum EndPoints: String {
     case DeleteTeacherSubject = "TeacherSubjectAcademicSemesterYear/Delete"///get
    
     //Teacher Documents
-    case RegisterTeacherDocuments = "TeacherDocument​/Create" ///post
-    case GetTeacherDocument​ = "TeacherDocument​/GetMyDocuments"///post
-    case DeleteTeacherDocument​ = "TeacherDocument​/Delete"///get
+    case RegisterTeacherDocuments = "TeacherDocument/Create" ///post
+    case GetTeacherDocument​ = "TeacherDocument/GetMyDocuments"///post
+    case DeleteTeacherDocument​ = "TeacherDocument/Delete"///get
     
     //Teacher Subjects
     case sendOTPTeacher = "Teacher/SendOTP" ///Post

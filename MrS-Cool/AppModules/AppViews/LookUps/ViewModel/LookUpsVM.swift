@@ -133,6 +133,18 @@ class LookUpsVM: ObservableObject {
         }
     }
 
+    
+    @Published var documentTypesArray: [DocumentTypeM] = []{
+        didSet{
+            // Use map to transform GendersM into DropDownOption
+            documentTypesList = documentTypesArray.map { gender in
+                return DropDownOption(id: gender.id, Title: gender.name)
+            }
+        }
+    }
+    @Published var documentTypesList: [DropDownOption] = []
+
+    
     @Published private var error: Error?
  
     init()  {
@@ -313,3 +325,26 @@ extension LookUpsVM {
 }
 
 
+
+extension LookUpsVM{
+    func GetDocumentTypes() {
+//        guard let academicYearId = SelectedAcademicYear?.id else {return}
+//        let parameters = ["academicEducationLevelId":academicYearId]
+
+        let target = LookupsServices.GetDocumentTypes
+        BaseNetwork.CallApi(target, BaseResponse<[DocumentTypeM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                documentTypesArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+}
