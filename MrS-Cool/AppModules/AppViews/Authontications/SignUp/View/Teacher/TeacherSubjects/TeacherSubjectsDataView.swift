@@ -20,6 +20,7 @@ struct TeacherSubjectsDataView: View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
                 VStack{ // (Title - Data - Submit Button)
+                    Group{
                     VStack(alignment: .leading, spacing: 0){
                         // -- Data Title --
                         HStack(alignment: .top){
@@ -34,7 +35,7 @@ struct TeacherSubjectsDataView: View {
                             CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $teachersubjectsvm.educationType,options:lookupsvm.EducationTypesList)
                             
                             CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $teachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList)
-
+                            
                             CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $teachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList)
                             CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList)
                         }
@@ -53,28 +54,32 @@ struct TeacherSubjectsDataView: View {
                         .frame(width:120,height: 40)
                         
                     }.padding(.vertical)
-                   
+                    
                     HStack {
                         Text("* Note: Must be enter one item at least")
                             .font(Font.SoraRegular(size: 14))
                             .multilineTextAlignment(.leading)
                             .foregroundColor(ColorConstants.Black900)
-
+                        
                         Spacer()
                         
                     }
+                    
+                }      
+                .padding(.horizontal)
+
                     List(teachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
                         TeacherSubjectCell(model: subject){
                             teachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                         }
+                        .listRowSpacing(0)
+                        .listRowSeparator(.hidden)
                     }
-                    
-                    
-                    
+                    .listStyle(.plain)
+                    .frame(height: gr.size.height/2)
                     Spacer()
                 }
                 .frame(minHeight: gr.size.height)
-                .padding(.horizontal)
             }
         }.onAppear(perform: {
             signupvm.isUserChangagble = false

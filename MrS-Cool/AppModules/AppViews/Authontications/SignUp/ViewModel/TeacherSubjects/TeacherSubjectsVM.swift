@@ -35,33 +35,15 @@ class TeacherSubjectsVM: ObservableObject {
     }
     @Published var educationLevel : DropDownOption?{
         didSet{
-            if educationLevel == nil {
                 academicYear = nil
-            }
         }
     }
     @Published var academicYear : DropDownOption?{
         didSet{
-            if academicYear == nil {
                 subject = nil
-            }
         }
     }
     @Published var subject : DropDownOption?
-
-    //Teacher personal data
-//    @Published var isTeacher : Bool?
-//    @Published var country : DropDownOption?
-//    @Published var governorte : DropDownOption?
-//    @Published var city : DropDownOption?
-//    @Published var bio = ""
-
-    //Teacher subjects data (have 4 common with student)
-
-    //Teacher documents data
-//    @Published var documentType : DropDownOption?
-//    @Published var documentTitle : DropDownOption?
-//    @Published var documentOrder : String?
 
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -76,15 +58,6 @@ class TeacherSubjectsVM: ObservableObject {
     }
 
     
-//    @Published var TeacherSubjectsArray: [TeacherSubjectM]?{
-//        didSet{
-//            if !TeacherSubjectsArray?.isEmpty {
-//                
-//            }
-//        }
-//    }
-
-    
     init()  {
         GetTeacherSubjects()
     }
@@ -93,10 +66,9 @@ class TeacherSubjectsVM: ObservableObject {
 extension TeacherSubjectsVM{
     
     func CreateTeacherSubject(){
-        guard let subjectAcademicYearId = academicYear?.id else {return}
+        guard let subjectAcademicYearId = subject?.id else {return}
         let parameters:[String:Any] = ["subjectAcademicYearId":subjectAcademicYearId]
         
-//        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
         isLoading = true
@@ -119,7 +91,7 @@ extension TeacherSubjectsVM{
                     GetTeacherSubjects()
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
@@ -153,7 +125,7 @@ extension TeacherSubjectsVM{
                     TeacherSubjects = model
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
@@ -187,7 +159,7 @@ extension TeacherSubjectsVM{
                     TeacherSubjects?.removeAll(where: {$0.id == model.id})
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })

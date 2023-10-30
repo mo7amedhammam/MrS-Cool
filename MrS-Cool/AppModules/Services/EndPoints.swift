@@ -37,9 +37,9 @@ enum EndPoints: String {
     case LoginTeacher = "Teacher/Login"///post
     
     //Teacher Subjects
-    case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear​/Create"///Post
+    case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear/Create"///Post
     case GetTeacherSubjects = "TeacherSubjectAcademicSemesterYear/GetTeacherSubjectAcademicSemesterYearList"///post
-    case DeleteTeacherSubject = "TeacherSubjectAcademicSemesterYear​/Delete"///get
+    case DeleteTeacherSubject = "TeacherSubjectAcademicSemesterYear/Delete"///get
    
     //Teacher Documents
     case RegisterTeacherDocuments = "TeacherDocument​/Create" ///post

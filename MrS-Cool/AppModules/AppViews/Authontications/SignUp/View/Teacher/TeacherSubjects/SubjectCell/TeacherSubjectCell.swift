@@ -37,7 +37,7 @@ struct TeacherSubjectCell: View {
                         .frame(width: 15, height: 18,alignment: .leading)
                         .aspectRatio(contentMode: .fill)
                 })
-                
+                .buttonStyle(.plain)
             }
             
             VStack (alignment:.leading,spacing: 10){
