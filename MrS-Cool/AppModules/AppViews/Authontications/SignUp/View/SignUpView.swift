@@ -10,7 +10,9 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var signupvm = SignUpViewModel()
-        
+    @StateObject var signupvmsubject = TeacherSubjectsVM()
+    @StateObject var signupvmdocument = TeacherDocumentsVM()
+
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_up",hideImage: false)
@@ -24,10 +26,13 @@ struct SignUpView: View {
                         ParentSignUpView()
                     case 2:
                         TeacherSignUpView()
+                            .environmentObject(signupvmsubject)
+                            .environmentObject(signupvmdocument)
+
+//                            .environmentObject(appenvironmenrs)
                     default:
                         StudentSignUpView()
                     }
-
 //                    TabView(selection:$signupvm.selecteduser.id){
 //                        Group{
 //                            StudentSignUpView()
@@ -45,8 +50,6 @@ struct SignUpView: View {
                 }
                                         .environmentObject(lookupsvm)
                                         .environmentObject(signupvm)
-
-                
             }
         }
         .background(ColorConstants.Gray50.ignoresSafeArea()
@@ -58,8 +61,16 @@ struct SignUpView: View {
             signupvm.clearSelections()
         })
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})
-        .showHud(isShowing: $signupvm.isLoading)
+        .showHud(isShowing: .constant( signupvm.isLoading ?? false || signupvmsubject.isLoading ?? false || signupvmdocument.isLoading ?? false))
+//        .showHud(isShowing: $appenvironmenrs.isLoading)
         .showAlert(hasAlert: $signupvm.isError, alertType: .error( message: "\(signupvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+//        .showHud(isShowing: $appenvironmenrs.isLoading)
+
+//        .showHud(isShowing: $signupvmsubject.isLoading)
+        .showAlert(hasAlert: $signupvmsubject.isError, alertType: .error( message: "\(signupvmsubject.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+        
+//        .showHud(isShowing: $signupvmdocument.isLoading)
+        .showAlert(hasAlert: $signupvmdocument.isError, alertType: .error( message: "\(signupvmdocument.error?.localizedDescription ?? "")",buttonTitle:"Done"))
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")

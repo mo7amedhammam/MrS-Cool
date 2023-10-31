@@ -15,7 +15,6 @@ import Foundation
 //}
 class SignUpViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    
     @Published var isUserChangagble = true // available unless teacher save personal data
 
 //    MARK: --- inputs ---

@@ -11,6 +11,9 @@ extension String {
     func removingSpaces() -> String {
         return self.replacingOccurrences(of: " ", with: "")
     }
+    func reverseSlaches() -> String {
+        return self.replacingOccurrences(of: "\\", with: "/")
+    }
     func getValidLanguageCode() -> String {
         if self.contains("ar"){
             return "ar"

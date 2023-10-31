@@ -11,7 +11,7 @@ struct TeacherSubjectsDataView: View {
 //        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
-    @StateObject var teachersubjectsvm = TeacherSubjectsVM()
+    @EnvironmentObject var teachersubjectsvm : TeacherSubjectsVM
     
     @State var isPush = false
     @State var destination = EmptyView()
@@ -61,10 +61,8 @@ struct TeacherSubjectsDataView: View {
                             .foregroundColor(ColorConstants.Black900)
                         
                         Spacer()
-                        
                     }
-                    
-                }      
+                }
                 .padding(.horizontal)
 
                     List(teachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
@@ -83,6 +81,7 @@ struct TeacherSubjectsDataView: View {
         }.onAppear(perform: {
             signupvm.isUserChangagble = false
             lookupsvm.GetEducationTypes()
+            teachersubjectsvm.GetTeacherSubjects()
         })
         .onChange(of: teachersubjectsvm.educationType, perform: { value in
             lookupsvm.SelectedEducationType = value
@@ -96,8 +95,11 @@ struct TeacherSubjectsDataView: View {
         .onChange(of: teachersubjectsvm.isTeacherHasSubjects, perform: { value in
             signupvm.isTeacherHasSubjects = value
         })
-        .showHud(isShowing: $teachersubjectsvm.isLoading)
-        .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+//        .showHud(isShowing: $teachersubjectsvm.isLoading)
+//        .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+//        .onChange(of: teachersubjectsvm.isLoading, perform: { value in
+//            signupvm.isLoading = value
+//        })
 
     }
 }
@@ -106,4 +108,6 @@ struct TeacherSubjectsDataView: View {
     TeacherSubjectsDataView()
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
+        .environmentObject(TeacherSubjectsVM())
+
 }

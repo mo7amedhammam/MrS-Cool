@@ -11,7 +11,6 @@ import SwiftUI
 
 class TeacherDocumentsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    
     @Published var documentType : DropDownOption?
     @Published var documentTitle = ""
     @Published var documentOrder = ""
@@ -34,7 +33,7 @@ class TeacherDocumentsVM: ObservableObject {
     }
     
     init()  {
-        GetTeacherDocument()
+//        GetTeacherDocument()
     }
 }
 

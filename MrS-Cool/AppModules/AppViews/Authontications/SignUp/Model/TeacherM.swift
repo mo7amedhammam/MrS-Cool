@@ -80,7 +80,7 @@ struct TeacherSubjectM: Codable,Hashable {
 //MARK: -- Teacher Documents --
 
 // MARK: - TeacherDocumentM
-struct TeacherDocumentM: Codable {
+struct TeacherDocumentM: Codable,Hashable {
     var documentTypeID: Int?
     var title: String?
     var order, id, teacherID: Int?

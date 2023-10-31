@@ -12,6 +12,7 @@ struct MrS_CoolApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.light) // Set to force light mode
         }
     }
 }

@@ -10,7 +10,6 @@ import Combine
 
 class TeacherSubjectsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    
 //    @Published var isUserChangagble = true // available unless teacher save personal data
 
 //    MARK: --- inputs ---
@@ -59,7 +58,7 @@ class TeacherSubjectsVM: ObservableObject {
 
     
     init()  {
-        GetTeacherSubjects()
+//        GetTeacherSubjects()
     }
 }
 
