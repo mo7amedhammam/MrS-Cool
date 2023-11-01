@@ -94,7 +94,7 @@ struct OTPVerificationView: View {
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
                             Button(action: {
-                                
+                                otpvm.isOTPVerified.toggle()
                             }, label:{
                                 Text("Modify Now".localized())
                                     .font(Font.SoraSemiBold(size: 13.0))
@@ -129,7 +129,17 @@ struct OTPVerificationView: View {
             if value {
                 self.isVerified = value
                 self.dismiss()
+                print("verified otp and success")
             }
+        })
+
+        .fullScreenCover(isPresented: $otpvm.isOTPVerified, onDismiss: {
+            print("dismissed ")
+            isVerified.toggle()
+        }, content: {
+            CustomSuccessView(action: {
+            })
+            
         })
 
     }

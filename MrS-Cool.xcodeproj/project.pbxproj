@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */; };
 		C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */; };
+		C80425F62AF2805E00E876E2 /* CustomSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */; };
 		C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */; };
 		C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */; };
 		C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */; };
@@ -75,6 +76,7 @@
 		747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
 		C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentsVM.swift; sourceTree = "<group>"; };
+		C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSuccessView.swift; sourceTree = "<group>"; };
 		C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpView.swift; sourceTree = "<group>"; };
 		C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentSignUpView.swift; sourceTree = "<group>"; };
 		C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherPersonalDataView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C80425F42AF2804000E876E2 /* SuccessView */ = {
+			isa = PBXGroup;
+			children = (
+				C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */,
+			);
+			path = SuccessView;
+			sourceTree = "<group>";
+		};
 		C80D095E2AE7D8D100F83DB4 /* Teacher */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +250,7 @@
 		C82A96C92AE56E7E00A63134 /* Authontications */ = {
 			isa = PBXGroup;
 			children = (
+				C80425F42AF2804000E876E2 /* SuccessView */,
 				C8AA98032AE40D7E0073442A /* OTPVerification */,
 				C8FB11C22ADD9E4F0051715F /* SignUp */,
 				C8FB11C32ADD9E5A0051715F /* SignIn */,
@@ -852,6 +863,7 @@
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
+				C80425F62AF2805E00E876E2 /* CustomSuccessView.swift in Sources */,
 				C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */,
 				C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */,
 				C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */,

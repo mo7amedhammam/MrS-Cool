@@ -53,7 +53,9 @@ class SignUpViewModel: ObservableObject {
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
-    @Published var error: Error?
+//    @Published var error: Error?
+    @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+
 
     @Published var isDataUploaded: Bool = false
     @Published var OtpM: OtpM?{
@@ -87,7 +89,9 @@ extension SignUpViewModel{
                     break
                 case .failure(let error):
                     isError =  true
-                    self.error = error
+//                    self.error = error
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -96,7 +100,9 @@ extension SignUpViewModel{
                     OtpM = model
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+//                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+
                 }
                 isLoading = false
             })

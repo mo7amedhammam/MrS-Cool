@@ -130,6 +130,9 @@ struct ImageView: View {
                                     }
                                 }
                         )
+                case .failure(let error):
+                    Text("Failed to load image"+error.localizedDescription)
+
                 @unknown default:
                     // Handle other cases (optional)
                     Text("Failed to load image")

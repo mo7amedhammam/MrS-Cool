@@ -32,10 +32,10 @@ struct BaseResponse<T:Codable> : Codable {
 }
 
 
-public enum StateHandler:Equatable {
-    case none
-    case loading
-    case stopLoading
-    case success
-    case error(Int?=0,String?)
-}
+//public enum StateHandler:Equatable {
+//    case none
+//    case loading
+//    case stopLoading
+//    case success
+//    case error(Int?=0,String?)
+//}

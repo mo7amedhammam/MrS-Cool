@@ -47,7 +47,8 @@ class TeacherSubjectsVM: ObservableObject {
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
-    @Published var error: Error?
+//    @Published var error: Error?
+    @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
 
     @Published var isTeacherHasSubjects: Bool = false
     @Published var TeacherSubjects : [TeacherSubjectM]?{
@@ -80,17 +81,18 @@ extension TeacherSubjectsVM{
                     break
                 case .failure(let error):
                     isError =  true
-                    self.error = error
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true {
 //                    TeacherSubjects?.append(model)
                     GetTeacherSubjects()
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                 }
                 isLoading = false
             })
@@ -110,7 +112,7 @@ extension TeacherSubjectsVM{
                     break
                 case .failure(let error):
                     isError =  true
-                    self.error = error
+                    self.error = .error( image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -119,7 +121,9 @@ extension TeacherSubjectsVM{
                     TeacherSubjects = model
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+
                 }
                 isLoading = false
             })
@@ -142,7 +146,7 @@ extension TeacherSubjectsVM{
                     break
                 case .failure(let error):
                     isError =  true
-                    self.error = error
+                    self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -152,7 +156,9 @@ extension TeacherSubjectsVM{
                     TeacherSubjects?.removeAll(where: {$0.id == model.id})
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+
                 }
                 isLoading = false
             })

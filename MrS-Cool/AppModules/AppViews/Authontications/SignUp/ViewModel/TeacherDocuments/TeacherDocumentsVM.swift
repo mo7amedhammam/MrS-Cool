@@ -22,8 +22,13 @@ class TeacherDocumentsVM: ObservableObject {
     
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
+//    {
+//        didSet{
+//            Shared.shared.state.isLoading.wrappedValue = .constant(isLoading)
+//        }
+//    }
     @Published var isError : Bool = false
-    @Published var error: Error?
+    @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
 
     @Published var isTeacherHasDocuments: Bool = false
     @Published var TeacherDocuments : [TeacherDocumentM]?{
@@ -63,8 +68,8 @@ extension TeacherDocumentsVM{
                 case .finished:
                     break
                 case .failure(let error):
+                    self.error = .error(image:nil,  message: "\(error.localizedDescription)",buttonTitle:"Done")
                     isError =  true
-                    self.error = error
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -72,16 +77,17 @@ extension TeacherDocumentsVM{
                 if let model = receivedData.data{
                     TeacherDocuments?.append(model)
 //                    GetTeacherDocument()
+                    clearTeachersDocument()
                 }else{
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                   error =  NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     isError =  true
-                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
             .store(in: &cancellables)
     }
     
-
     func GetTeacherDocument(){
         let target = Authintications.TeacherGetDocuments(parameters: [:])
         isLoading = true
@@ -94,7 +100,9 @@ extension TeacherDocumentsVM{
                     break
                 case .failure(let error):
                     isError =  true
-                    self.error = error
+//                    self.error = error
+                    self.error = .error(image:nil,  message: "\(error.localizedDescription)",buttonTitle:"Done")
+
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -103,7 +111,9 @@ extension TeacherDocumentsVM{
                     TeacherDocuments = model
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error( image:nil, message: receivedData.message ?? "",buttonTitle:"Done")
+
+//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
@@ -126,7 +136,8 @@ extension TeacherDocumentsVM{
                     break
                 case .failure(let error):
                     isError =  true
-                    self.error = error
+//                    self.error = error
+                    self.error = .error(image:nil,  message: "\(error.localizedDescription)",buttonTitle:"Done")
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -134,9 +145,12 @@ extension TeacherDocumentsVM{
                 if let model = receivedData.data{
 //                    TeacherSubjects = model
                     TeacherDocuments?.removeAll(where: {$0.id == model.id})
+                    isError = false
                 }else{
                     isError =  true
-                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+
+//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
