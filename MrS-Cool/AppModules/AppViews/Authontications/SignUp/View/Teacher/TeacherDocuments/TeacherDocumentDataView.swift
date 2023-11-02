@@ -15,13 +15,13 @@ enum imageSources{
 }
 
 struct TeacherDocumentDataView: View {
-    //       @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var teacherdocumentsvm : TeacherDocumentsVM
 
     @State var isPush = false
-    @State var destination = EmptyView()
+    @State var destination = AnyView(EmptyView())
     
     @State private var isSheetPresented = false
     @State private var selectedFileType: fileTypesList = .image // Track the selected file type
@@ -36,6 +36,8 @@ struct TeacherDocumentDataView: View {
 
     @State var confirmDelete : Bool = false
 
+    @State var sussessStep : successSteps = .accountCreated
+    @Binding var isFinish : Bool
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -220,16 +222,26 @@ struct TeacherDocumentDataView: View {
                     }.padding(.top)
                 }
         })
+        
+        .fullScreenCover(isPresented: $isFinish, onDismiss: {
+            print("dismissed ")
+//            destination = AnyView(SignInView())
+////            isPush.toggle()
+//            dismiss()
+        }, content: {
+            CustomSuccessView(action: {
+//                destination = AnyView(SignInView())
+                dismiss()
+            }, successStep: .constant(.accountCreated))
+        })
     }
-    
 }
 
 #Preview{
-    TeacherDocumentDataView()
+    TeacherDocumentDataView(isFinish: .constant(false))
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
         .environmentObject(TeacherDocumentsVM())
-
 }
 
 

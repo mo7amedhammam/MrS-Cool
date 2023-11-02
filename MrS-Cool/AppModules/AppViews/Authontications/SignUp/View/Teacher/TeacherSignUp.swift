@@ -17,29 +17,34 @@ struct TeacherSignUpView: View {
     @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var signupvmsubjects : TeacherSubjectsVM
     @EnvironmentObject var signupvmdocuments : TeacherDocumentsVM
-
+    
     @State var phone = ""
     @State var Password = ""
     @State var acceptTerms = false
     
-    @State var isPush = false
-    @State var destination = EmptyView()
+    //    @State var isPush = false
+    //    @State var destination = AnyView(Text("destination"))
     
     @State var currentStep:teacherSteps = .personalData
     @State private var isVerified = false
-
+    @State private var isFinish = false
+    
     var body: some View {
         VStack(spacing:0) {
-            switch currentStep{
-            case .personalData:
-                TeacherPersonalDataView()
-            case .subjectsData:
-                TeacherSubjectsDataView()
-                    .environmentObject(signupvmsubjects)
-            case .documentsData:
-                TeacherDocumentDataView()
-                    .environmentObject(signupvmdocuments)
+            Group{
+                switch currentStep{
+                case .personalData:
+                    TeacherPersonalDataView()
+                        .environmentObject(signupvm)
+                case .subjectsData:
+                    TeacherSubjectsDataView()
+                        .environmentObject(signupvmsubjects)
+                case .documentsData:
+                    TeacherDocumentDataView(isFinish: $isFinish)
+                        .environmentObject(signupvmdocuments)
+                }
             }
+            .environmentObject(lookupsvm)
             
             Spacer()
             HStack {
@@ -60,42 +65,40 @@ struct TeacherSignUpView: View {
                 CustomButton(Title:currentStep == .personalData ? "Save & Next" : (currentStep == .subjectsData ? "Next":"Submit"),IsDisabled: .constant((currentStep == .subjectsData && !signupvm.isTeacherHasSubjects)||(currentStep == .documentsData && !signupvm.isTeacherHasDocuments)), action: {
                     switch currentStep{
                     case .personalData:
-//                        signupvm.RegisterTeacherData()
-//                        signupvm.isDataUploaded = true
-                        currentStep = .subjectsData
+                        //                        signupvm.RegisterTeacherData()
+                        signupvm.isDataUploaded = true
+                        //                        currentStep = .subjectsData
                     case .subjectsData:
                         currentStep = .documentsData
                         
                     case .documentsData:
-                        isPush = true
-//                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+                        //                        destination = AnyView(OTPVerificationView().hideNavigationBar())
+                        //                        isPush = true
+                        isFinish.toggle()
                     }
                 })
                 .frame(width: 130,height: 40)
                 .fullScreenCover(isPresented: $signupvm.isDataUploaded, onDismiss: {
                     print("dismissed ")
-                    if isVerified{
+                    if isVerified {
                         currentStep = .subjectsData
                     }
                 }, content: {
-                    OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified)
+                    OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.teacherRegistered))
                         .hideNavigationBar()
-                    
                 })
             }
             .padding([.horizontal,.bottom])
             
             if currentStep == .personalData{
                 haveAccountView(){
-                   dismiss()
+                    dismiss()
                 }
             }
-                
+            
         }
-        .environmentObject(lookupsvm)
-        .environmentObject(signupvm)
-
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        
+        //        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")

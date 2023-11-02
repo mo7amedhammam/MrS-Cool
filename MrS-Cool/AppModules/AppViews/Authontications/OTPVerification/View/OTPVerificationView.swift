@@ -11,12 +11,13 @@ struct OTPVerificationView: View {
     @Environment(\.dismiss) var dismiss
 
     @StateObject var otpvm = OTPVerificationVM()
-    @State var isPush = false
-    @State var destination = AnyView(Text(""))
+//    @State var isPush = false
+//    @State var destination = AnyView(Text(""))
     var PhoneNumber : String? 
     var CurrentOTP : Int?
     var secondsCount : Int? = 110
     @Binding var isVerified: Bool
+    @Binding var sussessStep : successSteps
 
     var body: some View {
         VStack(spacing:0) {
@@ -110,11 +111,11 @@ struct OTPVerificationView: View {
                 }
                 .frame(width:UIScreen.main.bounds.width)
             }
-            NavigationLink(destination: destination, isActive: $isPush, label: {})
         }
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
         .showHud(isShowing: $otpvm.isLoading)
         .showAlert(hasAlert: $otpvm.isError, alertType: .error( message: "\(otpvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
@@ -125,27 +126,29 @@ struct OTPVerificationView: View {
             }
             otpvm.mobile = PhoneNumber
         })
-        .onChange(of: otpvm.isOTPVerified, perform: { value in
-            if value {
-                self.isVerified = value
-                self.dismiss()
-                print("verified otp and success")
-            }
-        })
+        
+//        .onChange(of: otpvm.isOTPVerified, perform: { value in
+//            if value {
+//                self.isVerified = value
+//                self.dismiss()
+//                print("verified otp and success")
+//            }
+//        })
 
         .fullScreenCover(isPresented: $otpvm.isOTPVerified, onDismiss: {
             print("dismissed ")
-            isVerified.toggle()
+//            isVerified = true
+//            self.dismiss()
         }, content: {
             CustomSuccessView(action: {
-            })
-            
+                dismiss()
+                isVerified = true
+            }, successStep: $sussessStep)
         })
-
     }
 }
 
 #Preview {
-    OTPVerificationView(PhoneNumber: "01101201322", CurrentOTP: 0, secondsCount: 110,isVerified: .constant(false))
+    OTPVerificationView(PhoneNumber: "01101201322", CurrentOTP: 0, secondsCount: 110,isVerified: .constant(false), sussessStep: .constant(.teacherRegistered))
 }
 

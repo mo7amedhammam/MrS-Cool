@@ -7,20 +7,24 @@
 
 import SwiftUI
 
+enum successSteps{
+    case teacherRegistered, accountCreated, passwordReset
+}
 struct CustomSuccessView: View {
     @Environment(\.dismiss) private var dismiss
-
-    var title : String = "Phone Verification"
-    var subtitle : String = "Account Created!"
-    var describtion : String = "Your account had beed created\nsuccessfully\nPlease sign in to use your account\nand enjoy"
-    var action : (()->())?
-//    @State var isPush = false
+    
+    @State var title : String = ""
+    @State var subtitle : String = ""
+    @State var describtion : String = ""
+    
+        var action : (()->())?
+    //    @State var isPush = false
     @State var isPush = false
-    @State var destination = AnyView(Text(""))
-
+    @State var destination = AnyView(EmptyView())
+    @Binding var successStep : successSteps
     var body: some View {
         VStack(spacing:0){
-            CustomTitleBarView(title: title)
+            CustomTitleBarView(title: title,hideImage: true)
             GeometryReader{gr in
                 ScrollView(.vertical){
                     VStack{
@@ -48,6 +52,7 @@ struct CustomSuccessView: View {
                         .cornerRadius(12)
                         Spacer()
                         CustomButton(Title: "Submit", IsDisabled: .constant(false), action: {
+                            action?()
                             dismiss()
                         })
                         .frame(height: 50)
@@ -59,9 +64,28 @@ struct CustomSuccessView: View {
             }
             NavigationLink(destination: destination, isActive: $isPush, label: {})
         }
-        .onDisappear(perform: {
-            action?()
+        .onAppear(perform: {
+            switch successStep{
+            case .teacherRegistered:
+                title = "Phone Verification"
+                subtitle = "Account Created!"
+                describtion = "Your account had beed created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy"
+                
+            case .accountCreated:
+                title = "Account Created"
+                subtitle = "Account Created!"
+                describtion = "Your account had beed created\nsuccessfully\nPlease sign in to use your account\nand enjoy"
+                
+            case .passwordReset:
+                title = "Reset Password"
+                subtitle = "Reset Your New Password"
+                describtion = "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
+            }
         })
+        
+        //        .onDisappear(perform: {
+        ////            action?()
+        //        })
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
@@ -69,5 +93,5 @@ struct CustomSuccessView: View {
 }
 
 #Preview {
-    CustomSuccessView()
+    CustomSuccessView( successStep: .constant(.teacherRegistered))
 }
