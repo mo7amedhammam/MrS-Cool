@@ -65,15 +65,13 @@ struct TeacherSignUpView: View {
                 CustomButton(Title:currentStep == .personalData ? "Save & Next" : (currentStep == .subjectsData ? "Next":"Submit"),IsDisabled: .constant((currentStep == .subjectsData && !signupvm.isTeacherHasSubjects)||(currentStep == .documentsData && !signupvm.isTeacherHasDocuments)), action: {
                     switch currentStep{
                     case .personalData:
-                        //                        signupvm.RegisterTeacherData()
-                        signupvm.isDataUploaded = true
-                        //                        currentStep = .subjectsData
+                        signupvm.RegisterTeacherData()
+//                        signupvm.isDataUploaded = true
+//                        currentStep = .subjectsData
                     case .subjectsData:
                         currentStep = .documentsData
                         
                     case .documentsData:
-                        //                        destination = AnyView(OTPVerificationView().hideNavigationBar())
-                        //                        isPush = true
                         isFinish.toggle()
                     }
                 })

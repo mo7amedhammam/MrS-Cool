@@ -9,16 +9,16 @@ import SwiftUI
 
 struct OTPVerificationView: View {
     @Environment(\.dismiss) var dismiss
-
+    
     @StateObject var otpvm = OTPVerificationVM()
-//    @State var isPush = false
-//    @State var destination = AnyView(Text(""))
-    var PhoneNumber : String? 
+    //    @State var isPush = false
+    //    @State var destination = AnyView(Text(""))
+    var PhoneNumber : String?
     var CurrentOTP : Int?
-    var secondsCount : Int? = 110
+    @State var secondsCount : Int? = 110
     @Binding var isVerified: Bool
     @Binding var sussessStep : successSteps
-
+    
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "Phone Verification")
@@ -51,11 +51,8 @@ struct OTPVerificationView: View {
                             .padding(.horizontal, getRelativeWidth(26.0))
                         
                         Text(otpvm.CurrentOtp ?? "")
-
-                        OTPTextField(numberOfFields: 6,finalOTP: $otpvm.EnteredOtp){
-                            print(otpvm.EnteredOtp ?? 99)
-//                            otpvm.VerifyOtp()
-                        }
+                        
+                        OTPTextField(numberOfFields: 6,finalOTP: $otpvm.EnteredOtp)
                             .padding(.vertical)
                         
                         HStack {
@@ -75,9 +72,11 @@ struct OTPVerificationView: View {
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                             })
+                            .opacity(otpvm.remainingSeconds > 0 ? 0.4:1.0)
+                            .disabled(otpvm.remainingSeconds > 0)
                         }
                         
-                        Text("\(otpvm.remainingSeconds ?? "") Sec left")
+                        Text("\(otpvm.remainingSeconds.formattedTime() ) Sec left")
                             .font(Font.SoraSemiBold(size: 13.0))
                             .fontWeight(.semibold)
                             .foregroundColor(ColorConstants.Bluegray901)
@@ -115,30 +114,23 @@ struct OTPVerificationView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-//        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        //        NavigationLink(destination: destination, isActive: $isPush, label: {})
         .showHud(isShowing: $otpvm.isLoading)
         .showAlert(hasAlert: $otpvm.isError, alertType: .error( message: "\(otpvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-
+        
         .onAppear(perform: {
-            if secondsCount ?? 0 > 0 && CurrentOTP ?? 0 > 0{
-                otpvm.remainingSeconds = String(secondsCount ?? 0)
-                otpvm.CurrentOtp = String(CurrentOTP ?? 0)
-            }
             otpvm.mobile = PhoneNumber
+            if secondsCount ?? 0 > 0{
+                otpvm.CurrentOtp = String(CurrentOTP ?? 0)
+                otpvm.remainingSeconds = secondsCount ?? 0
+                otpvm.startCountdownTimer(seconds: otpvm.remainingSeconds)
+            }
         })
         
-//        .onChange(of: otpvm.isOTPVerified, perform: { value in
-//            if value {
-//                self.isVerified = value
-//                self.dismiss()
-//                print("verified otp and success")
-//            }
-//        })
-
         .fullScreenCover(isPresented: $otpvm.isOTPVerified, onDismiss: {
             print("dismissed ")
-//            isVerified = true
-//            self.dismiss()
+            //            isVerified = true
+            //            self.dismiss()
         }, content: {
             CustomSuccessView(action: {
                 dismiss()

@@ -15,14 +15,14 @@ struct OTPTextField: View {
     @State var isFilled: [Bool] // Array to track filled state for each field
   
     @Binding var finalOTP : String?
-    var action : ()
+//    var action : ()?
 
-    init(numberOfFields: Int,finalOTP:Binding<String?>,action:(()->())) {
+    init(numberOfFields: Int,finalOTP:Binding<String?>) {
         self.numberOfFields = numberOfFields
         self.enteredValue = Array(repeating: "", count: numberOfFields)
         self.isFilled = Array(repeating: false, count: numberOfFields)
         self._finalOTP = finalOTP
-        self.action = action()
+//        self.action = action?()
     }
     
     var body: some View {
@@ -69,9 +69,10 @@ struct OTPTextField: View {
                                 // THE LAST VALUE.
                                 fieldFocus = nil
                                  let finalCode = enteredValue.joined()
+                                guard finalCode.count == 6 else {return}
                                 finalOTP = finalCode
                                 print("Code :",Int(finalCode) ?? 0)
-                                action
+//                                action
                             } else {
                                 fieldFocus = (fieldFocus ?? 0) + 1
                             }
@@ -102,5 +103,5 @@ struct OTPTextField: View {
 }
 
 #Preview{
-    OTPTextField(numberOfFields: 4, finalOTP: .constant("")){}
+    OTPTextField(numberOfFields: 4, finalOTP: .constant(""))
 }

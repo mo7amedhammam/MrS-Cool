@@ -10,9 +10,12 @@ import Combine
 
 class OTPVerificationVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
+
     var mobile: String?
     @Published var CurrentOtp: String?
-    @Published var remainingSeconds: String?
+
+    @Published var remainingSeconds: Int = 0
+    var countdownTimer: AnyCancellable?
 
     @Published var EnteredOtp: String?{
         didSet{
@@ -32,10 +35,8 @@ class OTPVerificationVM: ObservableObject {
         @Published var isError : Bool = false
         @Published var error: Error?
 
-//    private var countdownTimer: AnyCancellable?
      init() {
          // Initialize the timer when the view model is created
-//         self.countdownTimer = setupCountdownTimer()
      }
     
     func SendOtp() {
@@ -63,11 +64,10 @@ class OTPVerificationVM: ObservableObject {
             }, receiveValue: {[weak self] receivedData in
                     guard let self = self else{return}
                     print("receivedData",receivedData)
-                if let model = receivedData.data{
-//                        newOTPM = model
+                if receivedData.data != nil{
                     CurrentOtp = String(newOTPM?.otp ?? 0)
-                    remainingSeconds = String(newOTPM?.secondsCount ?? 0)
-
+                    remainingSeconds = newOTPM?.secondsCount ?? 0
+                    startCountdownTimer(seconds: remainingSeconds)
                     }else{
                         isError =  true
                         error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
@@ -114,7 +114,23 @@ class OTPVerificationVM: ObservableObject {
             }).store(in: &cancellables)
     }
     
-    
+}
 
-    
+extension OTPVerificationVM{
+    func startCountdownTimer(seconds: Int) {
+           // Initialize the countdown with the provided seconds
+           remainingSeconds = seconds
+
+           countdownTimer = Timer.publish(every: 1, on: .main, in: .default)
+               .autoconnect()
+               .sink { [weak self] _ in
+                   guard let self = self else { return }
+                   if self.remainingSeconds > 0 {
+                       self.remainingSeconds -= 1
+                   } else {
+                       // Timer has reached 0, stop the countdown
+                       self.countdownTimer?.cancel()
+                   }
+               }
+       }
 }
