@@ -12,6 +12,7 @@ struct SignUpView: View {
     @StateObject var signupvm = SignUpViewModel()
     @StateObject var signupvmsubject = TeacherSubjectsVM()
     @StateObject var signupvmdocument = TeacherDocumentsVM()
+    @StateObject var studentsignupvm = StudentSignUpVM()
 
     var body: some View {
         VStack(spacing:0) {
@@ -32,6 +33,7 @@ struct SignUpView: View {
 //                            .environmentObject(appenvironmenrs)
                     default:
                         StudentSignUpView()
+                            .environmentObject(studentsignupvm)
                     }
 //                    TabView(selection:$signupvm.selecteduser.id){
 //                        Group{

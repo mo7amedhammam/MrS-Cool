@@ -17,6 +17,7 @@
 		C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09692AE7D9C500F83DB4 /* TeacherDocumentDataView.swift */; };
 		C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D096C2AE7EF7700F83DB4 /* RadioCheck.swift */; };
 		C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D096E2AE7FBE700F83DB4 /* TeacherSignUp.swift */; };
+		C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */; };
 		C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */; };
 		C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96C72AE56D5A00A63134 /* LookupsServices.swift */; };
 		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
@@ -84,6 +85,7 @@
 		C80D09692AE7D9C500F83DB4 /* TeacherDocumentDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentDataView.swift; sourceTree = "<group>"; };
 		C80D096C2AE7EF7700F83DB4 /* RadioCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioCheck.swift; sourceTree = "<group>"; };
 		C80D096E2AE7FBE700F83DB4 /* TeacherSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSignUp.swift; sourceTree = "<group>"; };
+		C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpVM.swift; sourceTree = "<group>"; };
 		C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageView.swift; sourceTree = "<group>"; };
 		C82A96C72AE56D5A00A63134 /* LookupsServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsServices.swift; sourceTree = "<group>"; };
 		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
@@ -239,6 +241,14 @@
 			path = TeacherDocuments;
 			sourceTree = "<group>";
 		};
+		C819BB8D2AF6A76800EE476E /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
 		C829B6952AE1719C00CA1935 /* ChangeLanguage */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +304,7 @@
 		C85BD3A42AE67AF7008ECDF7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C819BB8D2AF6A76800EE476E /* Student */,
 				C8FCB6AF2AEAA372009C838A /* TeacherData */,
 				C8FCB6B12AEAA381009C838A /* TeacherSubjects */,
 				C8FCB6B02AEAA37E009C838A /* TeacherDocuments */,
@@ -887,6 +898,7 @@
 				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,
 				C8986C7F2AE932A4003E9179 /* StudentM.swift in Sources */,
+				C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */,
 				C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */,
 				C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */,
 				C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */,

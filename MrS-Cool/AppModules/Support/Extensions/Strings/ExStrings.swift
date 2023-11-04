@@ -32,4 +32,15 @@ extension String {
         }
     }
 
+    func ChangeDateFormat( FormatFrom:String, FormatTo:String, local:String? = "en" ) -> String {
+         var newdate = ""
+         let formatter = DateFormatter()
+         formatter.locale = Locale(identifier: local ?? "ar")
+         formatter.dateFormat = FormatFrom
+         if let date = formatter.date(from: self) {
+             formatter.dateFormat = FormatTo
+             newdate = formatter.string(from: date)
+         }
+      return newdate
+       }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct StudentSignUpView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
-    @EnvironmentObject var signupvm : SignUpViewModel
+    @EnvironmentObject var studentsignupvm : StudentSignUpVM
     
     @State var isPush = false
     @State var destination = EmptyView()
@@ -25,26 +25,26 @@ struct StudentSignUpView: View {
                         
                         // -- inputs --
                         Group {
-                            CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $signupvm.name,textContentType:.name)
+                            CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $studentsignupvm.name,textContentType:.name)
                             
-                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $signupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
                             
-                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $studentsignupvm.selectedGender,options:lookupsvm.GendersList)
 
-                            CustomDropDownField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$studentsignupvm.birthDateStr)
                             
-                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $signupvm.educationType,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.GendersList)
                             
-                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $signupvm.educationLevel,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studentsignupvm.educationLevel,options:lookupsvm.GendersList)
 
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $signupvm.academicYear,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.GendersList)
 
-                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
+                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $studentsignupvm.Password)
                             
-                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
+                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $studentsignupvm.confirmPassword)
                         }
                         .padding([.top])
-                        CheckboxField(label: "Accept the Terms and Privacy Policy",color: ColorConstants.Black900,textSize: 13,isMarked: $signupvm.acceptTerms)
+                        CheckboxField(label: "Accept the Terms and Privacy Policy",color: ColorConstants.Black900,textSize: 13,isMarked: $studentsignupvm.acceptTerms)
                         .padding(.top,15)
                     }
                     .padding(.top,20)
@@ -77,5 +77,5 @@ struct StudentSignUpView: View {
 #Preview{
     StudentSignUpView()
         .environmentObject(LookUpsVM())
-        .environmentObject(SignUpViewModel())
+        .environmentObject(StudentSignUpVM())
 }

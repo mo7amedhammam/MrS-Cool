@@ -442,3 +442,114 @@ struct CustomTextEditor: View {
 #Preview {
     CustomTextEditor(iconName:"img_group172", placeholder: "Teacher BIO *", text: .constant("gooo"), charLimit: 1000)
 }
+
+
+struct CustomDatePickerField: View {
+    var fieldType : inputfields? = .Default
+    var iconName : String? = ""
+    var rightIconName : String?
+    var iconColor : Color? = .clear
+    
+    var placeholder : String
+    var placeholderColor : Color? = ColorConstants.Bluegray402
+    
+    @State private var selectedDate: Date = Date()
+    @Binding var selectedDateStr: String?
+
+//    var options: [DropDownOption]
+    @State private var isCalenderVisible = false
+    
+//    var textContentType : UITextContentType? = .name
+//    var keyboardType : UIKeyboardType? = .default
+//    var Disabled : Bool?
+    
+//    @State private var isSecured: Bool = true
+//    @FocusState private var focusedField : Bool
+
+    var body: some View {
+        VStack(alignment:.leading,spacing:-15){
+            Button(action: {
+                isCalenderVisible.toggle()
+            }, label: {
+                HStack(spacing:0){
+                    if iconName != "" || iconName != nil{
+                        Image(iconName ?? "img_group148")
+                            .renderingMode( iconColor != .clear ? .template:.original)
+                            .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                            .font(.system(size: 15))
+                            .padding(.horizontal,10)
+                    }
+                    HStack() {
+                        ZStack (alignment:.leading){
+                            Text(placeholder.localized())
+                            //                        .frame(minWidth: 0, maxWidth: .infinity)
+                                .font(Font.SoraRegular(size: 12))
+                                .foregroundColor(placeholderColor == .red ? .red:placeholderColor)
+                                .offset(y: selectedDateStr == nil ? 0 : -20)
+                                .scaleEffect(selectedDateStr == nil ? 1.2 : 0.8, anchor: .leading)
+                            
+                            TextField("", text:.constant(selectedDateStr ?? "") )
+    //                        Text($selectedDateStr)
+                            //                        .frame(minWidth: 0, maxWidth: .infinity)
+    //                            .focused($focusedField)
+                                .multilineTextAlignment(.leading)
+                                .frame( minHeight: 57.0,alignment: .leading)
+                                .disabled(true)
+                        }
+                        //                .animation(.easeInOut(duration: 0.2), value: isSecured)
+                        .frame( height: 57.0,alignment: .leading)
+    //                    .frame(minWidth: 0, maxWidth: .infinity)
+                        .font(Font.SoraRegular(size: 14))
+                        .foregroundColor(ColorConstants.Black900)
+                        
+                        Spacer()
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity)
+
+                        Image(rightIconName ?? "img_daterange")
+                        .frame(width: 30, height: 30, alignment: .center)
+                        .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                        .font(.system(size: 15))
+                        .padding(.horizontal,10)
+                }
+            })
+//            .onTapGesture {
+//    //            withAnimation{
+//    //            if !isCalenderVisible{
+////                    isCalenderVisible.toggle()
+//    //            }
+//    //            }
+//            }
+            
+            if isCalenderVisible {
+                DatePicker("birthDate", selection: $selectedDate ,displayedComponents: .date)
+                    .frame(width: .infinity)
+                    .padding(.horizontal)
+                    .tint(.black)
+                    .datePickerStyle(.graphical)
+                    .labelsHidden()
+            }
+
+        }
+//        .frame(height:withAnimation{isCalenderVisible ? (options.count*35 > 200 ? 200:CGFloat(options.count)*35) + 57:57})
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
+        .onChange(of: selectedDate, perform: {date in
+           selectedDateStr = date.formatDate(format: "dd MMM yyyy")
+//            isCalenderVisible = false
+        })
+
+    }
+}
+
+#Preview {
+    CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""))
+}
+
+extension Date{
+    func formatDate(format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+}
