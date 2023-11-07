@@ -23,7 +23,7 @@ class StudentSignUpVM: ObservableObject {
     @Published var acceptTerms = false
 
     //Student data
-    @Published var birthDate : Date?
+//    @Published var birthDate : Date?
     // next 4  common with teacher subjects
     @Published var birthDateStr : String?
     
@@ -33,19 +33,19 @@ class StudentSignUpVM: ObservableObject {
     @Published var academicYear : DropDownOption?
     
     //Teacher personal data
-    @Published var isTeacher : Bool?
-    @Published var country : DropDownOption?
-    @Published var governorte : DropDownOption?
-    @Published var city : DropDownOption?
-    @Published var bio = ""
+//    @Published var isTeacher : Bool?
+//    @Published var country : DropDownOption?
+//    @Published var governorte : DropDownOption?
+//    @Published var city : DropDownOption?
+//    @Published var bio = ""
 
     //Teacher subjects data (have 4 common with student)
-    @Published var subject : DropDownOption?
+//    @Published var subject : DropDownOption?
 
     //Teacher documents data
-    @Published var documentType : DropDownOption?
-    @Published var documentTitle : DropDownOption?
-    @Published var documentOrder : String?
+//    @Published var documentType : DropDownOption?
+//    @Published var documentTitle : DropDownOption?
+//    @Published var documentOrder : String?
 
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -61,21 +61,21 @@ class StudentSignUpVM: ObservableObject {
         }
     }
     
-    @Published var isTeacherHasSubjects: Bool = false
-    @Published var isTeacherHasDocuments: Bool = false
+//    @Published var isTeacherHasSubjects: Bool = false
+//    @Published var isTeacherHasDocuments: Bool = false
     init()  {
 //        getGendersArr()
     }
 }
 
 extension StudentSignUpVM{
-    func RegisterTeacherData(){
-        guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
+    func RegisterStudent(){
+        guard let genderid = selectedGender?.id,let birthdate = birthDateStr, let academicYearId = academicYear?.id else {return}
+        let parameters:[String:Any] = ["name":name,"mobile":phone,"passwordHash":Password,"genderId":genderid,"birthdate":birthdate, "academicYearEducationLevelId":academicYearId]
         
 //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
-        let target = Authintications.TeacherRegisterDate(parameters: parameters)
+        let target = Authintications.Register(user: .Teacher, parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
             .sink(receiveCompletion: {[weak self] completion in
@@ -110,26 +110,18 @@ extension StudentSignUpVM{
         name = ""
         phone = ""
         selectedGender = nil
+        educationType = nil
+        educationLevel = nil
+        academicYear = nil
+
         Password = ""
         confirmPassword = ""
         acceptTerms = false
         
-        birthDate = nil
+//        birthDate = nil
         birthDateStr = ""
     }
     
-    func clearTeachersSubject(){
-        educationType = nil
-        educationLevel = nil
-        academicYear = nil
-        subject = nil
-    }
-
-    func clearTeachersDocument(){
-        documentType = nil
-        documentTitle = nil
-        documentOrder = nil
-    }
 
 }
 

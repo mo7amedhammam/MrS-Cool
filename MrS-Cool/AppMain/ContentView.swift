@@ -7,16 +7,22 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct ContentView: View {
     var body: some View {
 
         NavigationView{
             VStack {
-                SignInView()
+//                SignInView()
                 
 //                TeacherSubjectsDataView()
 //                    .environmentObject(LookUpsVM())
 //                    .environmentObject(SignUpViewModel())
+                
+                ManageMyDocumentsView(isFinish: .constant(false))
+                    .environmentObject(LookUpsVM())
+                    .environmentObject(SignUpViewModel())
+                    .environmentObject(TeacherDocumentsVM())
             }
         }
         .hideNavigationBar()
@@ -25,6 +31,7 @@ struct ContentView: View {
 
     }
 }
+@available(iOS 16.0, *)
 #Preview {
     ContentView()
     //        .localizeView()

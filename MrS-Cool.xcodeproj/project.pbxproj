@@ -50,6 +50,7 @@
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
 		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
+		C8B89DE22AFA546100219AEC /* ManageMyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */; };
 		C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
@@ -118,6 +119,7 @@
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
+		C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyDocumentsView.swift; sourceTree = "<group>"; };
 		C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectCell.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -525,6 +527,38 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C8B89DDD2AFA513B00219AEC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C8B89DDE2AFA514800219AEC /* Teacher */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C8B89DDE2AFA514800219AEC /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				C8B89DDF2AFA515100219AEC /* ManageDocuments */,
+			);
+			path = Teacher;
+			sourceTree = "<group>";
+		};
+		C8B89DDF2AFA515100219AEC /* ManageDocuments */ = {
+			isa = PBXGroup;
+			children = (
+				C8B89DE02AFA544600219AEC /* View */,
+			);
+			path = ManageDocuments;
+			sourceTree = "<group>";
+		};
+		C8B89DE02AFA544600219AEC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C8E20F242AEBFB72000D99F2 /* SubjectCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +591,7 @@
 		C8FB11892ADD99800051715F /* AppViews */ = {
 			isa = PBXGroup;
 			children = (
+				C8B89DDD2AFA513B00219AEC /* Profile */,
 				C82A96CA2AE56E9900A63134 /* LookUps */,
 				C82A96C92AE56E7E00A63134 /* Authontications */,
 			);
@@ -887,6 +922,7 @@
 				C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
 				C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */,
+				C8B89DE22AFA546100219AEC /* ManageMyDocumentsView.swift in Sources */,
 				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
 				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,

@@ -33,11 +33,17 @@ struct StudentSignUpView: View {
 
                             CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$studentsignupvm.birthDateStr)
                             
-                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.EducationTypesList)
+                                .onChange(of: studentsignupvm.educationType, perform: { val in
+                                    lookupsvm.SelectedEducationType = val
+                                })
                             
-                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studentsignupvm.educationLevel,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studentsignupvm.educationLevel,options:lookupsvm.EducationLevelsList)
+                                .onChange(of: studentsignupvm.educationLevel, perform: { val in
+                                    lookupsvm.SelectedEducationLevel = val
+                                })
 
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.GendersList)
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.AcademicYearsList)
 
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $studentsignupvm.Password)
                             
@@ -63,15 +69,15 @@ struct StudentSignUpView: View {
                 .frame(minHeight: gr.size.height)
                 .padding(.horizontal)
             }
-            NavigationLink(destination: destination, isActive: $isPush, label: {})
             
         }
         .onAppear(perform: {
-            //            lookupsvm.getGendersArr()
-            //            print(lookupsvm.GendersArray)
-            //            print(lookupsvm.GendersList)
+                lookupsvm.getGendersArr()
+                lookupsvm.GetEducationTypes()
         })
-        
+
+        NavigationLink(destination: destination, isActive: $isPush, label: {})
+
     }
 }
 #Preview{

@@ -32,7 +32,7 @@ enum EndPoints: String {
     case GetAllSubject = "SubjectSemesterYear/GetAllSubjectByAcademicEducationLevelId" /// get
     case GetDocumentTypes = "DocumentType/Get"
     
-    // MARK: -- Auth --
+    // MARK: -- Teacher Auth --
     //Teacher personal Date
     case RegisterTeacher = "Teacher/Register" ///post
     case LoginTeacher = "Teacher/Login"///post
@@ -51,8 +51,29 @@ enum EndPoints: String {
     case sendOTPTeacher = "Teacher/SendOTP" ///Post
     case VerifyOTPTeacher = "Teacher/VefiryUser" /// Post
 
-    case ResetPassword = "Customer/ResetPassword"
-    case ChangePassword = "Customer/ChangePassword"
+    case ResetPasswordTeacher = "Teacher/ResetPassword"
+    case ChangePasswordTeacher = "Teacher/ChangePassword"
+
+   
+    // MARK: -- Student Auth --
+    case RegisterStudent = "Student/Register" ///post
+    case LoginStudent = "Student/Login"///post
+    
+    case sendOTPStudent = "Student/SendOTP" ///Post
+    case VerifyOTPStudent = "Student/VefiryUser" /// Post
+
+    case ResetPasswordStudent = "Student/ResetPassword"
+    case ChangePasswordStudent = "Student/ChangePassword"
+
+    // MARK: -- Student Auth --
+    case RegisterParent = "Parent/Register" ///post
+    case LoginParent = "Parent/Login"///post
+    
+    case sendOTPParent = "Parent/SendOTP" ///Post
+    case VerifyOTPParent = "Parent/VefiryUser" /// Post
+
+    case ResetPasswordParent = "Parent/ResetPassword"
+    case ChangePasswordParent = "Parent/ChangePassword"
 
     
 }

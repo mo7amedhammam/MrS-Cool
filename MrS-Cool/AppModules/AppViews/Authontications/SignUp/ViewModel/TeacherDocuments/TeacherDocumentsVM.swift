@@ -19,7 +19,9 @@ class TeacherDocumentsVM: ObservableObject {
 
     @Published var documentPdf : URL? = nil
 
-    
+
+    @Published var filterdocumentType : DropDownOption?
+
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
 //    {
@@ -89,7 +91,11 @@ extension TeacherDocumentsVM{
     }
     
     func GetTeacherDocument(){
-        let target = Authintications.TeacherGetDocuments(parameters: [:])
+        var parameters : [String:Any] = [:]
+        if let filterdocumentType = filterdocumentType{
+            parameters["documentTypeId"] = filterdocumentType.id
+        }
+        let target = Authintications.TeacherGetDocuments(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[TeacherDocumentM]>.self)
             .sink(receiveCompletion: {[weak self] completion in

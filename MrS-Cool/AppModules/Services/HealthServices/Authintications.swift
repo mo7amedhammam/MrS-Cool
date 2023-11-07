@@ -8,13 +8,14 @@
 import Foundation
 import Alamofire
 
-//enum OTPVerificationType{
-//    case Registeration, ResetingPassword
-//}
+enum UserTypeEnum{
+    case Student, Parent, Teacher
+}
 
 enum Authintications {
-    case TeacherRegisterDate(parameters : [String:Any])
-    
+    case Register(user:UserTypeEnum,parameters : [String:Any])
+    case VerifyOtpUser(user:UserTypeEnum,parameters : [String:Any])
+
     case TeacherGetSubjects(parameters : [String:Any])
     case TeacherRegisterSubjects(parameters : [String:Any])
     case TeacherDeleteSubjects(parameters : [String:Any])
@@ -23,21 +24,28 @@ enum Authintications {
     case TeacherGetDocuments(parameters : [String:Any])
     case TeacherDeleteDocuments(parameters : [String:Any])
 
-    case TeacherLogin(parameters : [String:Any])
+    case TeacherLogin(user:UserTypeEnum, parameters : [String:Any])
 
-    case SendOtpTeacher(parameters : [String:Any])
-    case VerifyOtpTeacher(parameters : [String:Any])
+    case SendOtp(user:UserTypeEnum,parameters : [String:Any])
+//    case VerifyOtp(parameters : [String:Any])
 
-    case ResetPassword(parameters : [String:Any])
-    case ChangePassword(parameters:[String:Any])
+    case ResetPassword(user:UserTypeEnum,parameters : [String:Any])
+    case ChangePassword(user:UserTypeEnum,parameters : [String:Any])
     
 }
 
 extension Authintications : TargetType {
     var path: String {
         switch self {
-        case .TeacherRegisterDate:
-            return EndPoints.RegisterTeacher.rawValue
+        case .Register(let user,_):
+            switch user {
+            case .Student:
+                return EndPoints.RegisterStudent.rawValue
+            case .Parent:
+                return EndPoints.RegisterParent.rawValue
+            case .Teacher:
+                return EndPoints.RegisterTeacher.rawValue
+            }
             
         case .TeacherRegisterSubjects:
             return EndPoints.RegisterTeacherSubjects.rawValue
@@ -53,34 +61,71 @@ extension Authintications : TargetType {
         case .TeacherDeleteDocuments:
             return EndPoints.DeleteTeacherDocument​.rawValue
 
-        case .TeacherLogin:
-            return EndPoints.LoginTeacher.rawValue
+        case .TeacherLogin(let user,_):
+            switch user{
+            case .Student:
+                return EndPoints.LoginStudent.rawValue
+            case .Parent:
+                return EndPoints.LoginParent.rawValue
+            case .Teacher:
+                return EndPoints.LoginTeacher.rawValue
+            }
 
-        case .SendOtpTeacher:
+        case .SendOtp:
             return EndPoints.sendOTPTeacher.rawValue
             
-        case .VerifyOtpTeacher:
-            return EndPoints.VerifyOTPTeacher.rawValue
+        case .VerifyOtpUser(let user, _):
+            switch user {
+            case .Student:
+                return EndPoints.VerifyOTPStudent.rawValue
+
+            case .Parent:
+                return EndPoints.VerifyOTPParent.rawValue
+
+            case .Teacher:
+                return EndPoints.VerifyOTPTeacher.rawValue
+
+            }
             
-        case .ResetPassword:
-            return EndPoints.ResetPassword.rawValue
+        case .ResetPassword(let user, _):
+            switch user {
+            case .Student:
+                return EndPoints.ResetPasswordStudent.rawValue
+
+            case .Parent:
+                return EndPoints.ResetPasswordParent.rawValue
+
+            case .Teacher:
+                return EndPoints.ResetPasswordTeacher.rawValue
+
+            }
             
-        case .ChangePassword:
-            return EndPoints.ChangePassword.rawValue
+        case .ChangePassword(let user, _):
+            switch user {
+            case .Student:
+                return EndPoints.ChangePasswordStudent.rawValue
+
+            case .Parent:
+                return EndPoints.ChangePasswordParent.rawValue
+
+            case .Teacher:
+                return EndPoints.ChangePasswordTeacher.rawValue
+
+            }
             
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .TeacherRegisterDate,
+        case .Register,
+                .VerifyOtpUser,
                 .TeacherRegisterSubjects,
                 .TeacherGetSubjects,
                 .TeacherRegisterDocuments,
                 .TeacherGetDocuments,
                 .TeacherLogin,
-                .SendOtpTeacher,
-                .VerifyOtpTeacher,
+                .SendOtp,
                 .ResetPassword,
                 .ChangePassword:
             return .post
@@ -93,16 +138,16 @@ extension Authintications : TargetType {
     
     var parameter: parameterType {
         switch self {
-        case .TeacherRegisterDate(parameters: let parameters),
-                .TeacherRegisterSubjects(parameters: let parameters),
-                .TeacherGetSubjects(parameters: let parameters),
-                .TeacherRegisterDocuments(parameters: let parameters),
-                .TeacherGetDocuments(parameters: let parameters),
-                .TeacherLogin(parameters: let parameters),
-                .SendOtpTeacher(parameters: let parameters),
-                .VerifyOtpTeacher(parameters: let parameters),
-                .ResetPassword(parameters: let parameters),
-                .ChangePassword(parameters: let parameters):
+        case .Register(_,let parameters),
+                .TeacherRegisterSubjects( let parameters),
+                .TeacherGetSubjects( let parameters),
+                .TeacherRegisterDocuments( let parameters),
+                .TeacherGetDocuments( let parameters),
+                .TeacherLogin(_, let parameters),
+                .SendOtp(_, let parameters),
+                .VerifyOtpUser(_, let parameters),
+                .ResetPassword(_, let parameters),
+                .ChangePassword(_, let parameters):
             return .parameterRequest(Parameters: parameters, Encoding: .default)
             
         case .TeacherDeleteSubjects(parameters: let parameters),
@@ -121,4 +166,34 @@ extension Authintications : TargetType {
 //        }
 //    }
 //    
+}
+
+
+enum StudentAuthintications{
+    case StudentRegisterDate(parameters : [String:Any])
+
+}
+extension StudentAuthintications:TargetType{
+    var path: String {
+        switch self {
+        case .StudentRegisterDate:
+            return EndPoints.RegisterStudent.rawValue
+        }
+    }
+    
+    var method: Alamofire.HTTPMethod {
+        switch self {
+        case .StudentRegisterDate:
+            return .post
+        }
+    }
+    
+    var parameter: parameterType {
+        switch self {
+        case .StudentRegisterDate(let parameters):
+            return .parameterRequest(Parameters: parameters, Encoding: .default)
+        }
+    }
+    
+    
 }
