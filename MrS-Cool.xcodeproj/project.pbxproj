@@ -25,6 +25,8 @@
 		C82A96D32AE5C28800A63134 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96D22AE5C28800A63134 /* CustomAlertView.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
 		C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863C72B2AF1334B004322F2 /* FilePreviewer.swift */; };
+		C8796B022AFB950B004AAA98 /* ManageTeacherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */; };
+		C8796B052AFB9F09004AAA98 /* ManageTeacherProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8796B042AFB9F09004AAA98 /* ManageTeacherProfileVM.swift */; };
 		C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C930D2AE85F04007AB167 /* CustomProgressView.swift */; };
 		C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */; };
 		C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C883058B2AF10C980030B2A8 /* imagepicker.swift */; };
@@ -94,6 +96,8 @@
 		C82A96D22AE5C28800A63134 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C863C72B2AF1334B004322F2 /* FilePreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewer.swift; sourceTree = "<group>"; };
+		C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileView.swift; sourceTree = "<group>"; };
+		C8796B042AFB9F09004AAA98 /* ManageTeacherProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileVM.swift; sourceTree = "<group>"; };
 		C87C930D2AE85F04007AB167 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentCell.swift; sourceTree = "<group>"; };
 		C883058B2AF10C980030B2A8 /* imagepicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagepicker.swift; sourceTree = "<group>"; };
@@ -322,6 +326,46 @@
 			name = FilePreviewer;
 			sourceTree = "<group>";
 		};
+		C8796AFD2AFB9398004AAA98 /* ManageSubjects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ManageSubjects;
+			sourceTree = "<group>";
+		};
+		C8796AFE2AFB948B004AAA98 /* ManaggaProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C8796AFF2AFB9496004AAA98 /* Teacher */,
+			);
+			path = ManaggaProfile;
+			sourceTree = "<group>";
+		};
+		C8796AFF2AFB9496004AAA98 /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				C8796B032AFB9EE5004AAA98 /* ViewModel */,
+				C8796B002AFB94E5004AAA98 /* View */,
+			);
+			path = Teacher;
+			sourceTree = "<group>";
+		};
+		C8796B002AFB94E5004AAA98 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8796B032AFB9EE5004AAA98 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8796B042AFB9F09004AAA98 /* ManageTeacherProfileVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		C87C930C2AE85ED8007AB167 /* CustomProgressView */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +582,8 @@
 		C8B89DDE2AFA514800219AEC /* Teacher */ = {
 			isa = PBXGroup;
 			children = (
+				C8796AFE2AFB948B004AAA98 /* ManaggaProfile */,
+				C8796AFD2AFB9398004AAA98 /* ManageSubjects */,
 				C8B89DDF2AFA515100219AEC /* ManageDocuments */,
 			);
 			path = Teacher;
@@ -908,6 +954,7 @@
 				C82A96D32AE5C28800A63134 /* CustomAlertView.swift in Sources */,
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
+				C8796B052AFB9F09004AAA98 /* ManageTeacherProfileVM.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
 				C80425F62AF2805E00E876E2 /* CustomSuccessView.swift in Sources */,
 				C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */,
@@ -930,6 +977,7 @@
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
 				C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */,
+				C8796B022AFB950B004AAA98 /* ManageTeacherProfileView.swift in Sources */,
 				C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */,
 				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,

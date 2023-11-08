@@ -13,8 +13,8 @@ struct TeacherPersonalDataView: View {
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
         
-    @State var isPush = false
-    @State var destination = EmptyView()
+//    @State var isPush = false
+//    @State var destination = EmptyView()
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
