@@ -19,7 +19,7 @@ struct CustomTitleBarView: View {
 //        VStack{
             HStack {
                 if hideImage == false{
-                    Image(imageName ?? (Helper.getLanguage() == "en" ? "img_arrowleft":"img_arrowright"))
+                    Image(imageName ?? (Helper.shared.getLanguage() == "en" ? "img_arrowleft":"img_arrowright"))
                         .resizable()
                         .frame(width: 12.0,
                                height: 20.0, alignment: .center)
@@ -31,7 +31,7 @@ struct CustomTitleBarView: View {
                 }
                 
                 Spacer()
-                Text( title.localized())
+                Text(title.localized())
                     .font(Font.SoraBold(size:18.0))
                     .fontWeight(.bold)
                     .foregroundColor(ColorConstants.Gray900)

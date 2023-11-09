@@ -104,7 +104,7 @@ class OTPVerificationVM: ObservableObject {
                 print("receivedData",receivedData)
                 if  receivedData.success == true{
                     guard let model = receivedData.data else{return}
-                    Helper.saveUser(user: model  )
+                    Helper.shared.saveUser(user: model  )
                         isOTPVerified = true
                 }else{
                     isError =  true

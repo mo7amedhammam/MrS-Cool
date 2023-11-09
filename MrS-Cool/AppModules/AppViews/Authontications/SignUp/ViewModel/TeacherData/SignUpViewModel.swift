@@ -19,7 +19,7 @@ class SignUpViewModel: ObservableObject {
 
 //    MARK: --- inputs ---
     //Common data (note: same exact data for parent)
-    @Published var selecteduser = UserType()
+//    @Published var selecteduser = UserType()
     @Published var name = ""
     @Published var phone = ""
     @Published var Password = ""

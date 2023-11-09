@@ -13,12 +13,23 @@ struct SignInView: View {
     
     @State var rememberMe = false
     @State var isPush = false
-    @State var destination = AnyView(SignUpView())
+    @State var destination = AnyView(EmptyView())
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_in",hideImage: true)
             VStack{
-                UserTypesList(selectedUser: $selectedUser)
+                UserTypesList(selectedUser: $selectedUser){
+                    switch selectedUser.user {
+                    case .Student:
+                        Helper.shared.setSelectedUserType(userType: .Student)
+
+                    case .Parent:
+                        Helper.shared.setSelectedUserType(userType: .Parent)
+
+                    case .Teacher:
+                        Helper.shared.setSelectedUserType(userType: .Teacher)
+                    }
+                }
                 GeometryReader{gr in
                     ScrollView(.vertical){
                         VStack{
@@ -66,10 +77,8 @@ struct SignInView: View {
                                             .frame(width: 112.0, height: 30,
                                                    alignment: .trailing)
                                     })
-                                    
                                 }
                                 .padding(.top,12)
-                                
                             }
                             .padding(.top, 20)
                             Spacer()
@@ -86,13 +95,12 @@ struct SignInView: View {
                                     
                                     Button(action: {
                                         isPush = true
-                                        destination = AnyView(SignUpView()                                        .hideNavigationBar())
+                                        destination = AnyView(SignUpView(selecteduser:$selectedUser).hideNavigationBar())
                                     }, label: {
                                         Text("sign_up".localized())
                                             .foregroundColor(ColorConstants.Red400)
                                             .font(Font.SoraRegular(size: 13))
                                     })
-                                    
                                 }
                                 .multilineTextAlignment(.leading)
                                 .padding(.vertical, 8)
@@ -111,11 +119,35 @@ struct SignInView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+//        .onAppear(perform: {
+//            switch Helper.shared.getSelectedUserType(){
+//            case .Parent:
+//                selectedUser.user = .Parent
+//            case .Teacher:
+//                selectedUser.user = .Student
+//            default:
+//                selectedUser.user = .Student
+//            }
+//        })
+        
+        .onChange(of: selectedUser.user, perform: { val in
+            switch val {
+            case .Student:
+                Helper.shared.setSelectedUserType(userType: .Student)
+
+            case .Parent:
+                Helper.shared.setSelectedUserType(userType: .Parent)
+
+            case .Teacher:
+                Helper.shared.setSelectedUserType(userType: .Teacher)
+
+            }
+          })
+        
         .showHud(isShowing: $teachersigninvm.isLoading)
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
         NavigationLink(destination: destination, isActive: $isPush, label: {})
-           
 
     }
 }

@@ -8,16 +8,19 @@
 import SwiftUI
 
 var users:[UserType] = [
-    UserType(id: 0, title: "Student", imgName: "img_group141_9"),
-    UserType(id: 1, title: "Parent", imgName: "img_group142_14"),
-    UserType(id: 2, title: "Teacher", imgName: "img_group140_19")
+    UserType(id: 0, imgName: "img_group141_9",user: .Student),
+    UserType(id: 1, imgName: "img_group142_14",user: .Parent),
+    UserType(id: 2, imgName: "img_group140_19",user: .Teacher)
 ]
 struct UserTypesList: View {
     @Binding var selectedUser:UserType
+    var action:(()->())?
     var body: some View {
         HStack{
             ForEach(users,id: \.id){user in
-                UserTypeCell(user: user, selectedUser: $selectedUser)
+                UserTypeCell(user: user, selectedUser: $selectedUser){
+                    action?()
+                }
             }
         }
         .padding(.top)

@@ -50,7 +50,7 @@ public extension TargetType {
         header["Content-Type"] = "application/json"
         header ["Accept"] = "text/plain"
 
-        if let token = Helper.getUser()?.token {
+        if let token = Helper.shared.getUser()?.token {
         header["Authorization"] = "Bearer " + token
         }
         return header

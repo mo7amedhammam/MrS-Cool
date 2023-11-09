@@ -8,10 +8,6 @@
 import Foundation
 import Alamofire
 
-enum UserTypeEnum{
-    case Student, Parent, Teacher
-}
-
 enum Authintications {
     case Register(user:UserTypeEnum,parameters : [String:Any])
     case VerifyOtpUser(user:UserTypeEnum,parameters : [String:Any])

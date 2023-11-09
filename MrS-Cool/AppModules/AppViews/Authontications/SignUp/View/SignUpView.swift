@@ -14,18 +14,20 @@ struct SignUpView: View {
     @StateObject var signupvmdocument = TeacherDocumentsVM()
     @StateObject var studentsignupvm = StudentSignUpVM()
 
+    @Binding var selecteduser : UserType
+
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_up",hideImage: false)
             VStack{
-                UserTypesList(selectedUser: $signupvm.selecteduser)
+                UserTypesList(selectedUser: $selecteduser)
                     .padding(.horizontal)
                     .disabled(!signupvm.isUserChangagble)
                 VStack{
-                    switch signupvm.selecteduser.id{
-                    case 1:
+                    switch selecteduser.user{
+                    case .Parent:
                         ParentSignUpView()
-                    case 2:
+                    case .Teacher:
                         TeacherSignUpView()
                             .environmentObject(signupvmsubject)
                             .environmentObject(signupvmdocument)
@@ -59,7 +61,7 @@ struct SignUpView: View {
                 hideKeyboard()
             }
         )
-        .onChange(of: signupvm.selecteduser.id, perform: { value in
+        .onChange(of: selecteduser.user, perform: { value in
             signupvm.clearSelections()
         })
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})
@@ -79,8 +81,6 @@ struct SignUpView: View {
         .showAlert(hasAlert: $signupvm.isError, alertType: signupvm.error)
         .showAlert(hasAlert: $signupvmsubject.isError, alertType: signupvmsubject.error)
         .showAlert(hasAlert: $signupvmdocument.isError, alertType: signupvmdocument.error)
-
-            
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")
@@ -89,7 +89,7 @@ struct SignUpView: View {
 
 
 #Preview {
-    SignUpView()
+    SignUpView(selecteduser: .constant(UserType()))
 }
 
 struct haveAccountView: View {

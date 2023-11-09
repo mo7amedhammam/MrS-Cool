@@ -41,7 +41,7 @@ class SignInVM: ObservableObject {
     @Published var teachermodel: TeacherModel?{
         didSet{
             if teachermodel != nil{
-                Helper.saveUser(user: teachermodel)
+                Helper.shared.saveUser(user: teachermodel)
             }
         }
     }

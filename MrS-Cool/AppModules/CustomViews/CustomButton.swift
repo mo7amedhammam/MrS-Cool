@@ -48,11 +48,11 @@ struct CustomButton: View {
             .foregroundColor(IsDisabled ? ColorConstants.Bluegray400:ColorConstants.WhiteA700)
 
             .background(
-                RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                           bottomRight: 8.0)
-                .fill(IsDisabled ? ColorConstants.Gray300:ColorConstants.Black900)
+                RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
+                .fill(IsDisabled ? ColorConstants.Gray300:ColorConstants.MainColor)
 //                .opacity(IsDisabled ? 0.5:1)
             )
+
             .cornerRadius(8)
         })
             .disabled(IsDisabled)

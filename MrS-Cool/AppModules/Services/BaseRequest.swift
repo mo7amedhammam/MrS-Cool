@@ -30,7 +30,7 @@ final class BaseNetwork{
     // more modern and aligned with Swift's async/await concurrency model
         static func CallApi<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) -> AnyPublisher<M, NetworkError> {
               return Future<M, NetworkError>{ promise in
-                  guard Helper.isConnectedToNetwork() else {
+                  guard Helper.shared.isConnectedToNetwork() else {
                      return promise(.failure(.noConnection))
                   }
                   
@@ -187,7 +187,7 @@ final class BaseNetwork{
         progressHandler: @escaping (Double) -> Void
     ) -> AnyPublisher<M, NetworkError> {
         return Future<M, NetworkError> { promise in
-            guard Helper.isConnectedToNetwork() else {
+            guard Helper.shared.isConnectedToNetwork() else {
                 promise(.failure(.noConnection))
                 return
             }

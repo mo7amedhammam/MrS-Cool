@@ -12,14 +12,18 @@ import Foundation
 import SwiftUI
 
 class Helper: NSObject {
-    @available(iOS 13.0, *)
-    static let userDef = UserDefaults.standard
+    static let shared = Helper()
     
-    private static let onBoardKey = "onBoard"
-    private static let LoggedInKey = "LoggedId"
-    private static let UserDataKey = "UserDataKey"
-    static let Languagekey = "languagekey"
-    class func saveUser(user: TeacherModel?) {
+    @available(iOS 13.0, *)
+    let userDef = UserDefaults.standard
+    
+    let onBoardKey = "onBoard"
+    let LoggedInKey = "LoggedId"
+    let UserDataKey = "UserDataKey"
+    let Languagekey = "languagekey"
+    let UserTypeKey = "setSelectedUserTypeKey"
+    
+    func saveUser(user: TeacherModel?) {
         IsLoggedIn(value: true)
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
@@ -29,7 +33,7 @@ class Helper: NSObject {
         }
     }
     
-    class func getUser() -> TeacherModel? {
+    func getUser() -> TeacherModel? {
         if let data = userDef.object(forKey: UserDataKey) as? Data {
             let decoder = JSONDecoder()
             if let user = try? decoder.decode(TeacherModel.self, from: data) {
@@ -40,53 +44,61 @@ class Helper: NSObject {
     }
     
     //remove data then logout
-    class func logout() {
+    func logout() {
         IsLoggedIn(value: false)
         userDef.removeObject(forKey:UserDataKey  )
     }
     
-    static func onBoardOpened(opened:Bool) {
+    func onBoardOpened(opened:Bool) {
         UserDefaults.standard.set(opened, forKey: onBoardKey)
     }
     
-    static func checkOnBoard() -> Bool {
+    func checkOnBoard() -> Bool {
         return UserDefaults.standard.bool(forKey: onBoardKey)
     }
-    static func IsLoggedIn(value:Bool) {
+    func IsLoggedIn(value:Bool) {
         UserDefaults.standard.set(value, forKey: LoggedInKey)
     }
-    static func CheckIfLoggedIn() -> Bool {
+    func CheckIfLoggedIn() -> Bool {
         return UserDefaults.standard.bool(forKey: LoggedInKey)
     }
     
-    
     //save password
-    class func setPassword(password : String){
+    func setPassword(password : String){
         let def = UserDefaults.standard
         def.setValue(password, forKey: "password")
         def.synchronize()
     }
     
-    class func getPassword()->String{
+    func getPassword()->String{
         let def = UserDefaults.standard
         return (def.object(forKey: "password") as! String)
     }
     
-    class func setLanguage(currentLanguage: String) {
-    userDef.set(currentLanguage, forKey: Languagekey)
-    userDef.synchronize()
+    func setLanguage(currentLanguage: String) {
+        userDef.set(currentLanguage, forKey: Languagekey)
+        userDef.synchronize()
     }
-    class func getLanguage()->String{
+    
+    func getLanguage()->String{
         let deviceLanguage = Locale.preferredLanguages.first ?? "en"
         let deviceLanguageCode = deviceLanguage.getValidLanguageCode()
         return userDef.string(forKey: Languagekey) ?? deviceLanguageCode
     }
-
     
+    func setSelectedUserType(userType: UserTypeEnum) {
+        let rawValue = userType.rawValue
+        userDef.set(rawValue, forKey: UserTypeKey)
+        userDef.synchronize()
+    }
     
+    func getSelectedUserType() -> UserTypeEnum? {
+        let rawValue = userDef.string(forKey: UserTypeKey)
+        return UserTypeEnum(rawValue: rawValue ?? "")
+    }
     
     // Checking internet connection
-    class func isConnectedToNetwork() -> Bool {
+    func isConnectedToNetwork() -> Bool {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
@@ -142,7 +154,7 @@ extension UIDevice {
 extension View {
     func hideKeyboard() {
         let resign = #selector(UIResponder.resignFirstResponder)
-                UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+        UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
     }
 }
 #endif

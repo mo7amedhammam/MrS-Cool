@@ -13,16 +13,16 @@ struct ContentView: View {
 
         NavigationView{
             VStack {
-//                SignInView()
+                SignInView()
                 
 //                TeacherSubjectsDataView()
 //                    .environmentObject(LookUpsVM())
 //                    .environmentObject(SignUpViewModel())
                 
-                ManageMyDocumentsView(isFinish: .constant(false))
-                    .environmentObject(LookUpsVM())
-                    .environmentObject(SignUpViewModel())
-                    .environmentObject(TeacherDocumentsVM())
+//                ManageMyDocumentsView(isFinish: .constant(false))
+//                    .environmentObject(LookUpsVM())
+//                    .environmentObject(SignUpViewModel())
+//                    .environmentObject(TeacherDocumentsVM())
             }
         }
         .hideNavigationBar()
@@ -40,29 +40,29 @@ struct ContentView: View {
 
 
 
-class appEnvironments: ObservableObject {
-    @Published var isLoading:Bool? = false
-    @Published var isError = false
-    @Published var message = ""
-    
-//    @Published var desiredTab = ""
-//
-////    MARK:  -- showMap Image preview --
-//    @Published var isPresented = false
-//    @Published var imageUrl = ""
-//    
-////    MARK:  -- showMap Redirector --
-//    @Published var ShowMapRedirector = false
-//    @Published var Destinationlongitude:Double = 0
-//    @Published var Destinationlatitude:Double = 0
-//    
-////    MARK:  -- showRating --
-//    @Published var  ShowRatingSheet = false
-//    
+//class appEnvironments: ObservableObject {
+//    @Published var isLoading:Bool? = false
 //    @Published var isError = false
+//    @Published var message = ""
 //    
-//    @Published var confirmAlert = false
-//    @Published var confirmMessage = "are_you_sure_To_Start_now?"
+////    @Published var desiredTab = ""
+////
+//////    MARK:  -- showMap Image preview --
+////    @Published var isPresented = false
+////    @Published var imageUrl = ""
+////    
+//////    MARK:  -- showMap Redirector --
+////    @Published var ShowMapRedirector = false
+////    @Published var Destinationlongitude:Double = 0
+////    @Published var Destinationlatitude:Double = 0
+////    
+//////    MARK:  -- showRating --
+////    @Published var  ShowRatingSheet = false
+////    
+////    @Published var isError = false
+////    
+////    @Published var confirmAlert = false
+////    @Published var confirmMessage = "are_you_sure_To_Start_now?"
+////
 //
-
-}
+//}

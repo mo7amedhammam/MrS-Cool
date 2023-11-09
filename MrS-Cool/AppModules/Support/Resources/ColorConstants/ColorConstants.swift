@@ -7,7 +7,40 @@
 
 import SwiftUI
 
+
 struct ColorConstants {
+//    static let user = Helper.shared.getSelectedUserType()
+//    static let MainColor: Color = .init(user == .Teacher ? "MainBlue":user == .Parent ? "ParentBtnBg":"StudentBtnBg")
+    
+//    static var MainColor: Color {
+//        let user = Helper.shared.getSelectedUserType()
+//        switch user {
+//        case .Teacher: return Color("MainBlue")
+//        case .Parent: return Color("ParentBtnBg")
+//        case .Student: return Color("StudentBtnBg")
+//        case .none:
+//            return Color("StudentBtnBg")
+//        }
+//    }
+    
+    static var user: UserTypeEnum {
+            return Helper.shared.getSelectedUserType() ?? .Student
+     }
+     
+     static var MainColor: Color {
+         switch user {
+         case .Teacher:
+             return Color("MainBlue")
+         case .Parent:
+             return Color("ParentBtnBg")
+         case .Student:
+             return Color("StudentBtnBg")
+         }
+     }
+}
+
+extension ColorConstants {
+    
     static let Bluegray30066: Color = .init("Bluegray30066")
     static let Gray51: Color = .init("Gray51")
     static let Bluegray40099: Color = .init("Bluegray40099")
@@ -34,3 +67,4 @@ struct ColorConstants {
     static let WhiteA700: Color = .init("WhiteA700")
     static let Bluegray901: Color = .init("Bluegray901")
 }
+

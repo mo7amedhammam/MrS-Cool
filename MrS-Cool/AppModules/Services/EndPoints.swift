@@ -53,7 +53,6 @@ enum EndPoints: String {
 
     case ResetPasswordTeacher = "Teacher/ResetPassword"
     case ChangePasswordTeacher = "Teacher/ChangePassword"
-
    
     // MARK: -- Student Auth --
     case RegisterStudent = "Student/Register" ///post
@@ -74,6 +73,9 @@ enum EndPoints: String {
 
     case ResetPasswordParent = "Parent/ResetPassword"
     case ChangePasswordParent = "Parent/ChangePassword"
-
     
+    // MARK: -- Teacher Profile --
+    case GetTeacherProfile = "Teacher/Profile"
+    case UpdateTeacherProfile = "Teacher​/UpdateProfile"
+
 }

@@ -19,14 +19,14 @@ class LocalizeHelper: ObservableObject {
 
     @Published var currentLanguage: String {
         didSet {
-            Helper.setLanguage(currentLanguage: currentLanguage)
+            Helper.shared.setLanguage(currentLanguage: currentLanguage)
             print("current:",currentLanguage)
-            print("helper:",Helper.getLanguage())
+            print("helper:",Helper.shared.getLanguage())
         }
     }
     
     private init() {
-        self.currentLanguage =  Helper.getLanguage()
+        self.currentLanguage =  Helper.shared.getLanguage()
     }
     
     func setLanguage(language: Languages) {
