@@ -203,21 +203,21 @@ struct ManageMyDocumentsView: View {
 //        .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: .error( message: "\(teacherdocumentsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
         
         //MARK: -------- imagePicker From Camera and Library ------
-        .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
-            Button("Image".localized()) {
-                selectedFileType = .image
-                showImageSheet = true
-                print("upload image")
-                // Call a function to show an image picker
-            }
-            Button("PDF".localized()) {
-                selectedFileType = .pdf
-                startPickingPdf = true
-                print("upload pdf")
-                // Call a function to add a PDF document
-            }
-            Button("Cancel".localized(), role: .cancel) { }
-        } message: {Text("this is the file type you will add".localized())}
+//        .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
+//            Button("Image".localized()) {
+//                selectedFileType = .image
+//                showImageSheet = true
+//                print("upload image")
+//                // Call a function to show an image picker
+//            }
+//            Button("PDF".localized()) {
+//                selectedFileType = .pdf
+//                startPickingPdf = true
+//                print("upload pdf")
+//                // Call a function to add a PDF document
+//            }
+//            Button("Cancel".localized(), role: .cancel) { }
+//        } message: {Text("this is the file type you will add".localized())}
         
         //MARK: -------- imagePicker From Camera and Library ------
             .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {

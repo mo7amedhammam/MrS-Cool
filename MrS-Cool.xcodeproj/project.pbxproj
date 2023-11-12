@@ -33,6 +33,7 @@
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
 		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
+		C88FF1E02B00D8E1007158E6 /* ManageTeacherProfileM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88FF1DF2B00D8E1007158E6 /* ManageTeacherProfileM.swift */; };
 		C8986C782AE924FB003E9179 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C772AE924FB003E9179 /* OTPTextField.swift */; };
 		C8986C7B2AE93282003E9179 /* TeacherM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C7A2AE93282003E9179 /* TeacherM.swift */; };
 		C8986C7D2AE9328F003E9179 /* ParentM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8986C7C2AE9328F003E9179 /* ParentM.swift */; };
@@ -104,6 +105,7 @@
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
+		C88FF1DF2B00D8E1007158E6 /* ManageTeacherProfileM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileM.swift; sourceTree = "<group>"; };
 		C8986C772AE924FB003E9179 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		C8986C7A2AE93282003E9179 /* TeacherM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherM.swift; sourceTree = "<group>"; };
 		C8986C7C2AE9328F003E9179 /* ParentM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentM.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 		C8796AFF2AFB9496004AAA98 /* Teacher */ = {
 			isa = PBXGroup;
 			children = (
+				C88FF1DE2B00D8BF007158E6 /* Model */,
 				C8796B032AFB9EE5004AAA98 /* ViewModel */,
 				C8796B002AFB94E5004AAA98 /* View */,
 			);
@@ -412,6 +415,14 @@
 				C88C52DD2AE02548003DE051 /* ExStrings.swift */,
 			);
 			path = Strings;
+			sourceTree = "<group>";
+		};
+		C88FF1DE2B00D8BF007158E6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C88FF1DF2B00D8E1007158E6 /* ManageTeacherProfileM.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C8986C762AE924DF003E9179 /* OTPTextField */ = {
@@ -983,6 +994,7 @@
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,
 				C8986C7F2AE932A4003E9179 /* StudentM.swift in Sources */,
 				C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */,
+				C88FF1E02B00D8E1007158E6 /* ManageTeacherProfileM.swift in Sources */,
 				C8FB11CC2ADDA2920051715F /* SignInModel.swift in Sources */,
 				C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */,
 				C80D09682AE7D9BD00F83DB4 /* TeacherSubjectsDataView.swift in Sources */,

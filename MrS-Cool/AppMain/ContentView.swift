@@ -13,16 +13,13 @@ struct ContentView: View {
 
         NavigationView{
             VStack {
-                SignInView()
+//                SignInView()
                 
-//                TeacherSubjectsDataView()
-//                    .environmentObject(LookUpsVM())
-//                    .environmentObject(SignUpViewModel())
+                ManageTeacherProfileView()
+                    .environmentObject(LookUpsVM())
+                    .environmentObject(ManageTeacherProfileVM())
                 
-//                ManageMyDocumentsView(isFinish: .constant(false))
-//                    .environmentObject(LookUpsVM())
-//                    .environmentObject(SignUpViewModel())
-//                    .environmentObject(TeacherDocumentsVM())
+
             }
         }
         .hideNavigationBar()

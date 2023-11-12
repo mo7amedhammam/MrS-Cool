@@ -12,12 +12,25 @@ struct ManageTeacherProfileView: View {
     @EnvironmentObject var manageprofilevm : ManageTeacherProfileVM
     
     @State private var showImageSheet = false
-    @State private var imagesource: UIImagePickerController.SourceType? = .camera // Track the selected file type
+    @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
     @State private var startPickingImage = false
-    
+
+    @State private var isEditing = false
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Edit Profile")
+                .overlay{
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            isEditing.toggle()
+                        }) {
+                            Text(isEditing ? "Done" : "Edit")
+                                .foregroundColor(.mainBlue)
+                        }
+                    }.padding([.bottom,.horizontal])
+                }
+            
             GeometryReader { gr in
                 ScrollView(.vertical,showsIndicators: false){
                     VStack{ // (Title - Data - Submit Button)
@@ -40,25 +53,26 @@ struct ManageTeacherProfileView: View {
                                 .frame(width: 130,height: 130)
                                 .clipShape(Circle())
                             }
-                            Image("img_vector_black_900_14x14")
-                                .frame(width: 30,height: 30)
-                                .background(.white)
-                                .clipShape(Circle())
-                                .offset(x:-7,y:20)
+                                Image("img_vector_black_900_14x14")
+                                    .frame(width: 30,height: 30)
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .offset(x:-7,y:20)
                                 .onTapGesture(perform: {
                                     showImageSheet = true
                                 })
+
                         }
                         
                         Text(manageprofilevm.name)
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.black900)
                         
-                        Text(manageprofilevm.id)
+                        Text(manageprofilevm.code)
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.black900)
                             .padding(.top,2)
-                        TeacherAccountStatus(profileStatus: .Approved)
+                        TeacherAccountStatus(profileStatus: manageprofilevm.accountStatus ?? ProfileStatus() )
                         
                         VStack(alignment: .leading, spacing: 0){
                             // -- Data Title --
@@ -67,7 +81,7 @@ struct ManageTeacherProfileView: View {
                             Group {
                                 CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $manageprofilevm.name,textContentType:.name)
                                 
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $manageprofilevm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $manageprofilevm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,Disabled:true)
                                 
                                 CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $manageprofilevm.selectedGender,options:lookupsvm.GendersList)
                                 
@@ -94,29 +108,46 @@ struct ManageTeacherProfileView: View {
                         Spacer()
                         
                         CustomButton(Title:"Update Profile",IsDisabled: .constant(false), action: {
-                            
+                            manageprofilevm.UpdateTeacherProfile()
                         })
                         .padding(.top,40)
                     }
                     .frame(minHeight: gr.size.height)
                     .padding(.horizontal)
+                    .disabled(!isEditing)
                 }
             }
             .onAppear(perform: {
-                lookupsvm.getGendersArr()
-                lookupsvm.getCountriesArr()
-            })
+                Task(priority: .background, operation: {
+                manageprofilevm.GetTeacherProfile()
+                })
+                })
+            .onChange(of: isEditing){newval in
+                if newval{
+                    Task(priority: .background, operation: {
+                    lookupsvm.getGendersArr()
+                    lookupsvm.getCountriesArr()
+                        
+                        lookupsvm.SelectedCountry = manageprofilevm.country
+                        lookupsvm.SelectedGovernorate = manageprofilevm.governorte
+                        lookupsvm.SelectedCity = manageprofilevm.city
+
+                    })
+                }
+            }
             .onChange(of: manageprofilevm.country, perform: { value in
+                guard isEditing else {return}
                 lookupsvm.SelectedCountry = value
                 manageprofilevm.governorte = nil
-                manageprofilevm.city = nil
-                lookupsvm.getGovernoratesArr()
-                lookupsvm.CitiesList.removeAll()
+//                manageprofilevm.city = nil
+//                lookupsvm.getGovernoratesArr()
+//                lookupsvm.CitiesList.removeAll()
             })
             .onChange(of: manageprofilevm.governorte, perform: { value in
+                guard isEditing else {return}
                 lookupsvm.SelectedGovernorate = value
                 manageprofilevm.city = nil
-                lookupsvm.getCitiesArr()
+//                lookupsvm.getCitiesArr()
             })
         }
         //MARK: -------- imagePicker From Camera and Library ------
@@ -139,6 +170,7 @@ struct ManageTeacherProfileView: View {
                     ImagePicker(sourceType: sourceType , selectedImage: $manageprofilevm.image)
                 }
             }
+         
     }
 }
 
@@ -150,28 +182,29 @@ struct ManageTeacherProfileView: View {
 }
 
 
-enum ProfileStatus{
-    case Approved,Regected,InProgress
+struct ProfileStatus{
+    var statusId:Int?
+    var statusName:String?
 }
 
 struct TeacherAccountStatus: View {
-    var profileStatus : ProfileStatus = .Approved
+    var profileStatus : ProfileStatus = .init(statusId: 1, statusName: "Approved")
     //    var isActive : Bool?
     var body: some View {
         HStack {
             Spacer()
             
-            Image(profileStatus == .Approved ? "img_line1" : profileStatus == .InProgress ? "img_infofill" : "img_subtract")
+            Image(profileStatus.statusId == 1 ? "img_line1" : profileStatus.statusId == 2 ?  "img_subtract":"img_infofill")
                 .frame(width:18.0,
                        height: 18.0, alignment: .center)
                 .background(RoundedCorners(topLeft: 9.0, topRight: 9.0, bottomLeft: 9.0, bottomRight: 9.0)
-                    .fill(profileStatus == .Approved ? ColorConstants.LightGreen800 : profileStatus == .InProgress ? ColorConstants.Black900 : ColorConstants.WhiteA700))
+                    .fill(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : profileStatus.statusId == 2 ? ColorConstants.WhiteA700 : .mainBlue))
                 .padding(.vertical, 4.0)
             
-            Text(profileStatus == .Approved ? "Approved".localized() : profileStatus == .InProgress ? "In Progress".localized() : "Rejected".localized())
+            Text(profileStatus.statusName ?? "")
                 .font(Font.SoraRegular(size: 14.0))
                 .fontWeight(.regular)
-                .foregroundColor(profileStatus == .Approved ? ColorConstants.LightGreen800 : profileStatus == .InProgress ? ColorConstants.Black900 : ColorConstants.Red400)
+                .foregroundColor(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : profileStatus.statusId == 2 ? ColorConstants.Red400 : .mainBlue)
                 .multilineTextAlignment(.leading)
             //                .frame(width: 71.0,height: 18.0,alignment: .topLeading)
                 .padding(.trailing)
@@ -182,11 +215,11 @@ struct TeacherAccountStatus: View {
                                height: 7.0,
                                alignment: .bottom)
                         .background(RoundedCorners(topLeft: 3.5,topRight:3.5, bottomLeft: 3.5,bottomRight: 3.5)
-                            .fill(profileStatus == .Approved ? ColorConstants.LightGreen800 : ColorConstants.Red400))
-                    Text(profileStatus == .Approved ? "Active".localized():"Not Active".localized())
+                            .fill(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : ColorConstants.Red400))
+                    Text(profileStatus.statusId == 1 ? "Active".localized():"Not Active".localized())
                         .font(Font.SoraRegular(size: 14.0))
                         .fontWeight(.regular)
-                        .foregroundColor(profileStatus == .Approved ? ColorConstants.LightGreen800 : ColorConstants.Red400)
+                        .foregroundColor(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : ColorConstants.Red400)
                         .multilineTextAlignment(.leading)
                 }
                 .padding(.horizontal, 14.0)

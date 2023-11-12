@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Helper.shared.CheckIfLoggedIn() == false{
             Helper.shared.setSelectedUserType(userType: .Student)
         }
-        Helper.shared.IsLoggedIn(value: false)
+//        Helper.shared.IsLoggedIn(value: false)
 
         return true
     }

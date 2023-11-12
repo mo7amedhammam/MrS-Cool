@@ -165,29 +165,36 @@ extension Authintications : TargetType {
 }
 
 
-enum StudentAuthintications{
-    case StudentRegisterDate(parameters : [String:Any])
+enum teacherServices{
+    case GetTeacherProfile
+    case UpdateTeacherProfile(parameters : [String:Any])
 
 }
-extension StudentAuthintications:TargetType{
+extension teacherServices:TargetType{
     var path: String {
         switch self {
-        case .StudentRegisterDate:
-            return EndPoints.RegisterStudent.rawValue
+        case .GetTeacherProfile:
+            return EndPoints.GetTeacherProfile.rawValue
+        case .UpdateTeacherProfile:
+            return EndPoints.UpdateTeacherProfile.rawValue
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .StudentRegisterDate:
+        case .GetTeacherProfile:
+            return .get
+        case .UpdateTeacherProfile:
             return .post
         }
     }
     
     var parameter: parameterType {
         switch self {
-        case .StudentRegisterDate(let parameters):
-            return .parameterRequest(Parameters: parameters, Encoding: .default)
+        case .GetTeacherProfile:
+            return .plainRequest
+        case .UpdateTeacherProfile(parameters: let Parameters):
+            return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }
     

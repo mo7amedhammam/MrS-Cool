@@ -216,22 +216,32 @@ final class BaseNetwork{
                                 multipartFormData.append(data, withName: key, fileName: "file.pdf", mimeType: "application/pdf")
                             }
                         } 
+                        
                         // -- parameters --
-                        else if let tempStr = value as? String {
-                            multipartFormData.append(tempStr.data(using: .utf8)!, withName: key)
-                        } else if let tempInt = value as? Int {
-                            multipartFormData.append("\(tempInt)".data(using: .utf8)!, withName: key)
-                        } else if let tempArr = value as? NSArray {
-                            tempArr.forEach { element in
-                                let keyObj = key + "[]"
-                                if let string = element as? String {
-                                    multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
-                                } else if let num = element as? Int {
-                                    let value = "\(num)"
-                                    multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
-                                }
-                            }
-                        }
+                        
+                        // Handle other parameter types (String, Int, NSArray)
+                                           else {
+                                               if let tempData = "\(value)".data(using: .utf8) {
+                                                   multipartFormData.append(tempData, withName: key)
+                                               }
+                                           }
+                        
+//                        else if let tempStr = value as? String {
+//                            multipartFormData.append(tempStr.data(using: .utf8)!, withName: key)
+//                        } else if let tempInt = value as? Int {
+//                            multipartFormData.append("\(tempInt)".data(using: .utf8)!, withName: key)
+//                        } else if let tempArr = value as? NSArray {
+//                            tempArr.forEach { element in
+//                                let keyObj = key + "[]"
+//                                if let string = element as? String {
+//                                    multipartFormData.append(string.data(using: .utf8)!, withName: keyObj)
+//                                } else if let num = element as? Int {
+//                                    let value = "\(num)"
+//                                    multipartFormData.append(value.data(using: .utf8)!, withName: keyObj)
+//                                }
+//                            }
+//                        }
+                        
                     }
                 },
                 to: target.requestURL,

@@ -76,6 +76,6 @@ enum EndPoints: String {
     
     // MARK: -- Teacher Profile --
     case GetTeacherProfile = "Teacher/Profile"
-    case UpdateTeacherProfile = "Teacher​/UpdateProfile"
+    case UpdateTeacherProfile = "Teacher/UpdateProfile"
 
 }

@@ -16,6 +16,8 @@ class LookUpsVM: ObservableObject {
                 GendersList = GendersArray.map { gender in
                     return DropDownOption(id: gender.id, Title: gender.name)
                 }
+            }else{
+                GendersList.removeAll()
             }
         }
     }
@@ -26,10 +28,16 @@ class LookUpsVM: ObservableObject {
                 CountriesList = CountriesArray.map { gender in
                     return DropDownOption(id: gender.id, Title: gender.name)
                 }
+            }else{
+                CountriesList.removeAll()
             }
         }
     }
-    @Published var SelectedCountry: DropDownOption?
+    @Published var SelectedCountry: DropDownOption?{
+        didSet{
+            getGovernoratesArr()
+        }
+    }
 
     @Published var GovernoratesArray: [GovernorateM] = []{
         didSet{
@@ -38,10 +46,16 @@ class LookUpsVM: ObservableObject {
                 GovernoratesList = GovernoratesArray.map { gender in
                     return DropDownOption(id: gender.id, Title: gender.name)
                 }
+            }else{
+                GovernoratesList.removeAll()
             }
         }
     }
-    @Published var SelectedGovernorate: DropDownOption?
+    @Published var SelectedGovernorate: DropDownOption?{
+        didSet{
+            getCitiesArr()
+        }
+    }
 
     @Published var CitiesArray: [CityM] = []{
         didSet{
@@ -50,6 +64,8 @@ class LookUpsVM: ObservableObject {
                 CitiesList = CitiesArray.map { gender in
                     return DropDownOption(id: gender.id, Title: gender.name)
                 }
+            }else{
+                CitiesList.removeAll()
             }
         }
     }
@@ -62,9 +78,13 @@ class LookUpsVM: ObservableObject {
 
     @Published var EducationTypesArray: [EducationTypeM] = []{
         didSet{
+            if !EducationTypesArray.isEmpty {
             // Use map to transform GendersM into DropDownOption
             EducationTypesList = EducationTypesArray.map { gender in
                 return DropDownOption(id: gender.id, Title: gender.name)
+            }
+            }else{
+                EducationTypesList.removeAll()
             }
         }
     }
@@ -78,9 +98,13 @@ class LookUpsVM: ObservableObject {
 
     @Published var EducationLevelsArray: [EducationLevellM] = []{
         didSet{
-            // Use map to transform GendersM into DropDownOption
-            EducationLevelsList = EducationLevelsArray.map { gender in
-                return DropDownOption(id: gender.id, Title: gender.name)
+            if !EducationLevelsArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                EducationLevelsList = EducationLevelsArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                EducationLevelsList.removeAll()
             }
         }
     }
@@ -98,9 +122,13 @@ class LookUpsVM: ObservableObject {
 
     @Published var AcademicYearsArray: [GendersM] = []{
         didSet{
-            // Use map to transform GendersM into DropDownOption
-            AcademicYearsList = AcademicYearsArray.map { gender in
-                return DropDownOption(id: gender.id, Title: gender.name)
+            if !AcademicYearsArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                AcademicYearsList = AcademicYearsArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                AcademicYearsList.removeAll()
             }
         }
     }
@@ -118,9 +146,13 @@ class LookUpsVM: ObservableObject {
 
     @Published var SubjectsArray: [GendersM] = []{
         didSet{
+            if !SubjectsArray.isEmpty {
             // Use map to transform GendersM into DropDownOption
             SubjectsList = SubjectsArray.map { gender in
                 return DropDownOption(id: gender.id, Title: gender.name)
+            }
+            }else{
+                SubjectsList.removeAll()
             }
         }
     }
@@ -136,9 +168,13 @@ class LookUpsVM: ObservableObject {
     
     @Published var documentTypesArray: [DocumentTypeM] = []{
         didSet{
+            if !documentTypesArray.isEmpty {
             // Use map to transform GendersM into DropDownOption
             documentTypesList = documentTypesArray.map { gender in
                 return DropDownOption(id: gender.id, Title: gender.name)
+            }
+            }else{
+                documentTypesList.removeAll()
             }
         }
     }
