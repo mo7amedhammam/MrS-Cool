@@ -92,6 +92,26 @@ struct ManageTeacherSubjectsView: View {
                                     })
                                 
                             }
+                            HStack(){
+                                Spacer()
+                                Rectangle().frame(width: 14, height: 14)
+                                    .foregroundColor(.yellow)
+                                Text("In Review".localized())
+                                    .foregroundColor(.mainBlue)
+                                    .font(Font.SoraRegular(size: 7))
+
+                                Rectangle().frame(width: 14, height: 14)
+                                    .foregroundColor(.green)
+                                Text("Approved".localized())
+                                    .foregroundColor(.mainBlue)
+                                    .font(Font.SoraRegular(size: 7))
+                                
+                                Rectangle().frame(width: 14, height: 14)
+                                    .foregroundColor(.red)
+                                Text("Rejected".localized())
+                                    .foregroundColor(.mainBlue)
+                                    .font(Font.SoraRegular(size: 7))
+                            }
                             .sheet(isPresented: $showFilter) {
                                 ScrollView {
                                     VStack {

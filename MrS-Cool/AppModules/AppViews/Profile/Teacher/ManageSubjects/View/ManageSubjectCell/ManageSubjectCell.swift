@@ -25,15 +25,15 @@ struct ManageSubjectCell: View {
                     )
                 
                 VStack{
-                    Text(model.subjectDisplayName ?? "English")
+                    Text(model.subjectSemesterYearName ?? "English")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(ColorConstants.Black900)
                         .fontWeight(.semibold)
                 }
                 
                 Spacer()
-                HStack {
-                    Rectangle().frame(width: 20, height: 20)
+                HStack(spacing: 15){
+                    Rectangle().frame(width: 15, height: 15)
                         .foregroundColor(model.statusID == 1 ? .green:model.statusID == 2 ? .yellow:.red)
                     Button(action: {
                         editBtnAction?()
@@ -54,6 +54,7 @@ struct ManageSubjectCell: View {
                             .aspectRatio(contentMode: .fill)
                     })
                     .buttonStyle(.plain)
+                    
                 }
             }
             
