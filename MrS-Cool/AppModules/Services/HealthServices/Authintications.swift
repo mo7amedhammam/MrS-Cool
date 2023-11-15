@@ -168,6 +168,7 @@ extension Authintications : TargetType {
 enum teacherServices{
     case GetTeacherProfile
     case UpdateTeacherProfile(parameters : [String:Any])
+    case UpdateTeacherSubject(parameters : [String:Any])
 
 }
 extension teacherServices:TargetType{
@@ -177,6 +178,8 @@ extension teacherServices:TargetType{
             return EndPoints.GetTeacherProfile.rawValue
         case .UpdateTeacherProfile:
             return EndPoints.UpdateTeacherProfile.rawValue
+        case .UpdateTeacherSubject:
+            return EndPoints.UpdateTeacherSubject.rawValue
         }
     }
     
@@ -184,7 +187,8 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile:
             return .get
-        case .UpdateTeacherProfile:
+        case .UpdateTeacherProfile,
+                .UpdateTeacherSubject:
             return .post
         }
     }
@@ -193,7 +197,8 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile:
             return .plainRequest
-        case .UpdateTeacherProfile(parameters: let Parameters):
+        case .UpdateTeacherProfile(parameters: let Parameters),
+                .UpdateTeacherSubject(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

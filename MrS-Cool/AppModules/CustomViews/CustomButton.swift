@@ -16,7 +16,6 @@ struct CustomButton: View {
     var action: () -> Void
 
     var body: some View {
-        
         Button(action: {
 //            DispatchQueue.main.async{
                 action()

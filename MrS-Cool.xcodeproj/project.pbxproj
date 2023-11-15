@@ -23,6 +23,10 @@
 		C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CD2AE56EF000A63134 /* LookupsModels.swift */; };
 		C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */; };
 		C82A96D32AE5C28800A63134 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82A96D22AE5C28800A63134 /* CustomAlertView.swift */; };
+		C8526ABC2B039F29001F8196 /* ManageTeacherSubjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8526ABB2B039F29001F8196 /* ManageTeacherSubjectsView.swift */; };
+		C8526ABE2B039F41001F8196 /* ManageTeacherSubjectsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8526ABD2B039F41001F8196 /* ManageTeacherSubjectsVM.swift */; };
+		C8526AC02B03BD30001F8196 /* ManageTeacherSubjectsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8526ABF2B03BD30001F8196 /* ManageTeacherSubjectsM.swift */; };
+		C8526AC32B03C18B001F8196 /* ManageSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8526AC22B03C18B001F8196 /* ManageSubjectCell.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
 		C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863C72B2AF1334B004322F2 /* FilePreviewer.swift */; };
 		C8796B022AFB950B004AAA98 /* ManageTeacherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */; };
@@ -95,6 +99,10 @@
 		C82A96CD2AE56EF000A63134 /* LookupsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupsModels.swift; sourceTree = "<group>"; };
 		C82A96CF2AE56F8400A63134 /* LookUpsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookUpsVM.swift; sourceTree = "<group>"; };
 		C82A96D22AE5C28800A63134 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		C8526ABB2B039F29001F8196 /* ManageTeacherSubjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherSubjectsView.swift; sourceTree = "<group>"; };
+		C8526ABD2B039F41001F8196 /* ManageTeacherSubjectsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherSubjectsVM.swift; sourceTree = "<group>"; };
+		C8526ABF2B03BD30001F8196 /* ManageTeacherSubjectsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherSubjectsM.swift; sourceTree = "<group>"; };
+		C8526AC22B03C18B001F8196 /* ManageSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectCell.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C863C72B2AF1334B004322F2 /* FilePreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewer.swift; sourceTree = "<group>"; };
 		C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileView.swift; sourceTree = "<group>"; };
@@ -309,6 +317,39 @@
 			name = CustomAlertView;
 			sourceTree = "<group>";
 		};
+		C8526AB82B039EEF001F8196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8526AC12B03C16B001F8196 /* ManageSubjectCell */,
+				C8526ABB2B039F29001F8196 /* ManageTeacherSubjectsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8526AB92B039EF2001F8196 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8526ABD2B039F41001F8196 /* ManageTeacherSubjectsVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8526ABA2B039EF6001F8196 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8526ABF2B03BD30001F8196 /* ManageTeacherSubjectsM.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C8526AC12B03C16B001F8196 /* ManageSubjectCell */ = {
+			isa = PBXGroup;
+			children = (
+				C8526AC22B03C18B001F8196 /* ManageSubjectCell.swift */,
+			);
+			path = ManageSubjectCell;
+			sourceTree = "<group>";
+		};
 		C85BD3A42AE67AF7008ECDF7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +372,9 @@
 		C8796AFD2AFB9398004AAA98 /* ManageSubjects */ = {
 			isa = PBXGroup;
 			children = (
+				C8526ABA2B039EF6001F8196 /* Model */,
+				C8526AB92B039EF2001F8196 /* ViewModel */,
+				C8526AB82B039EEF001F8196 /* View */,
 			);
 			path = ManageSubjects;
 			sourceTree = "<group>";
@@ -967,6 +1011,7 @@
 				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
 				C8796B052AFB9F09004AAA98 /* ManageTeacherProfileVM.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
+				C8526AC02B03BD30001F8196 /* ManageTeacherSubjectsM.swift in Sources */,
 				C80425F62AF2805E00E876E2 /* CustomSuccessView.swift in Sources */,
 				C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */,
 				C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */,
@@ -984,8 +1029,11 @@
 				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
 				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,
+				C8526ABE2B039F41001F8196 /* ManageTeacherSubjectsVM.swift in Sources */,
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
+				C8526AC32B03C18B001F8196 /* ManageSubjectCell.swift in Sources */,
+				C8526ABC2B039F29001F8196 /* ManageTeacherSubjectsView.swift in Sources */,
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
 				C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */,
 				C8796B022AFB950B004AAA98 /* ManageTeacherProfileView.swift in Sources */,
