@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum successSteps{
-    case teacherRegistered, accountCreated, passwordReset
+    case teacherRegistered, accountCreated, passwordReset, passwordCahnged
 }
 struct CustomSuccessView: View {
     @Environment(\.dismiss) private var dismiss
@@ -36,7 +36,7 @@ struct CustomSuccessView: View {
                             Text(subtitle.localized())
                                 .font(Font.SoraBold(size: 18.0))
                                 .fontWeight(.bold)
-                                .foregroundColor(ColorConstants.Bluegray901)
+                                .foregroundColor(.mainBlue)
                                 .multilineTextAlignment(.leading)
                             Text(describtion.localized())
                                 .font(Font.SoraRegular(size: 14))
@@ -79,6 +79,10 @@ struct CustomSuccessView: View {
             case .passwordReset:
                 title = "Reset Password"
                 subtitle = "Reset Your New Password"
+                describtion = "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
+            case .passwordCahnged:
+                title = "Reset Password"
+                subtitle = "Change Your New Password"
                 describtion = "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
             }
         })

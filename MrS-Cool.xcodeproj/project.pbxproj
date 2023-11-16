@@ -58,6 +58,9 @@
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
 		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
 		C8B89DE22AFA546100219AEC /* ManageMyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */; };
+		C8D7C0742B063D01009D5533 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */; };
+		C8D7C0762B063D6B009D5533 /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0752B063D6B009D5533 /* ChangePasswordVM.swift */; };
+		C8D7C0782B063EC9009D5533 /* ChangePasswordM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0772B063EC9009D5533 /* ChangePasswordM.swift */; };
 		C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
@@ -134,6 +137,9 @@
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyDocumentsView.swift; sourceTree = "<group>"; };
+		C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		C8D7C0752B063D6B009D5533 /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
+		C8D7C0772B063EC9009D5533 /* ChangePasswordM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordM.swift; sourceTree = "<group>"; };
 		C8E20F252AEBFB99000D99F2 /* TeacherSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectCell.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -276,6 +282,7 @@
 		C82A96C92AE56E7E00A63134 /* Authontications */ = {
 			isa = PBXGroup;
 			children = (
+				C8D7C06F2B063C98009D5533 /* ChangePassword */,
 				C80425F42AF2804000E876E2 /* SuccessView */,
 				C8AA98032AE40D7E0073442A /* OTPVerification */,
 				C8FB11C22ADD9E4F0051715F /* SignUp */,
@@ -660,6 +667,40 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C8D7C06F2B063C98009D5533 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				C8D7C0722B063CD6009D5533 /* Model */,
+				C8D7C0712B063CD3009D5533 /* ViewModel */,
+				C8D7C0702B063CCF009D5533 /* View */,
+			);
+			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		C8D7C0702B063CCF009D5533 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8D7C0712B063CD3009D5533 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8D7C0752B063D6B009D5533 /* ChangePasswordVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8D7C0722B063CD6009D5533 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8D7C0772B063EC9009D5533 /* ChangePasswordM.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C8E20F242AEBFB72000D99F2 /* SubjectCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +1043,7 @@
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */,
 				C899E3F42ADEEBC000593369 /* UserTypesList.swift in Sources */,
+				C8D7C0782B063EC9009D5533 /* ChangePasswordM.swift in Sources */,
 				C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */,
 				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
 				C8986C7B2AE93282003E9179 /* TeacherM.swift in Sources */,
@@ -1018,6 +1060,7 @@
 				C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */,
 				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
 				C8986C782AE924FB003E9179 /* OTPTextField.swift in Sources */,
+				C8D7C0742B063D01009D5533 /* ChangePasswordView.swift in Sources */,
 				C89BAFA42AE2B83200FB5807 /* ViewModifiers.swift in Sources */,
 				C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */,
 				C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */,
@@ -1033,6 +1076,7 @@
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C8526AC32B03C18B001F8196 /* ManageSubjectCell.swift in Sources */,
+				C8D7C0762B063D6B009D5533 /* ChangePasswordVM.swift in Sources */,
 				C8526ABC2B039F29001F8196 /* ManageTeacherSubjectsView.swift in Sources */,
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
 				C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */,
