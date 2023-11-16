@@ -297,6 +297,14 @@ extension ManageTeacherSubjectsVM{
         subjectBrief = item.teacherBrief ?? ""
         isEditing = true
     }
+    
+    func cleanup() {
+         // Cancel any ongoing Combine subscriptions
+         cancellables.forEach { cancellable in
+             cancellable.cancel()
+         }
+         cancellables.removeAll()
+     }
 }
 
 

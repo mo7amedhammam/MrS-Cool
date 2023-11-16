@@ -27,8 +27,7 @@ struct ManageSubjectCell: View {
                 VStack{
                     Text(model.subjectSemesterYearName ?? "English")
                         .font(Font.SoraSemiBold(size:13.0))
-                        .foregroundColor(ColorConstants.Black900)
-                        .fontWeight(.semibold)
+                        .foregroundColor(.mainBlue)
                 }
                 
                 Spacer()
@@ -58,33 +57,63 @@ struct ManageSubjectCell: View {
                 }
             }
             
-            VStack (alignment:.leading,spacing: 10){
-                Text(model.academicYearName ?? "Grade 1")
-                    .font(Font.SoraRegular(size: 12.0))
-                    .fontWeight(.regular)
-                    .foregroundColor(ColorConstants.Black900)
-                    .minimumScaleFactor(0.5)
-                    .multilineTextAlignment(.leading)
-                
-//                HStack (spacing:45){
-                    Text(model.educationLevelName ?? "Primary")
+            HStack (alignment:.bottom){
+                VStack (alignment:.leading,spacing: 10){
+                    Text(model.academicYearName ?? "Grade 1")
                         .font(Font.SoraRegular(size: 12.0))
-                        .fontWeight(.regular)
-                        .foregroundColor(ColorConstants.Bluegray402)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.leading)
+                        .foregroundColor(.mainBlue)
                     
-                    Text(model.educationTypeName ?? "Egyption")
-                        .font(Font.SoraRegular(size: 12.0))
-                        .fontWeight(.regular)
-                        .foregroundColor(ColorConstants.Bluegray402)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.leading)
-//                }
+                        Text(model.educationLevelName ?? "Primary")
+                            .font(Font.SoraRegular(size: 12.0))
+                            .foregroundColor(ColorConstants.Bluegray402)
+                        
+                        Text(model.educationTypeName ?? "Egyption")
+                            .font(Font.SoraRegular(size: 12.0))
+                            .foregroundColor(ColorConstants.Bluegray402)
+                }
+                .padding(.leading,30)
+                
+                Spacer()
+                HStack (alignment:.bottom,spacing:25){
+                    VStack(alignment:.leading){
+    //                    Spacer()
+                                
+                        Text("Group Info".localized())
+                            .font(Font.SoraSemiBold(size: 6))
+                            .foregroundColor(.grayBtnText)
+                        Group{
+                            Text("\(model.groupCost ?? 0) ")+Text("EGP".localized())
+                        }
+                    .font(Font.SoraRegular(size: 12))
+                    .foregroundColor(.mainBlue)
+                        
+                          
+                        HStack(alignment:.bottom,spacing: 4) {
+                            Text("\(model.minGroup ?? 5) - \(model.maxGroup ?? 50)")
+                        .font(Font.SoraRegular(size: 12))
+                    .foregroundColor(.mainBlue)
+                            Text("Student".localized())
+                        .font(Font.SoraRegular(size: 8))
+                    .foregroundColor(.mainBlue)
+
+                        }
+
+                    }
+                    
+                    VStack(alignment:.leading){
+    //                    Spacer()
+                        Text("Individual Info".localized())
+                            .font(Font.SoraSemiBold(size: 6))
+                            .foregroundColor(.grayBtnText)
+                        Group{
+                            Text("\(model.individualCost  ?? 0) ")+Text("EGP".localized())
+                        }
+                    .font(Font.SoraRegular(size: 12))
+                    .foregroundColor(.mainBlue)
+                    }
+                }
+
             }
-            .padding(.leading,30)
-            
-            
             
         }
         .padding()
