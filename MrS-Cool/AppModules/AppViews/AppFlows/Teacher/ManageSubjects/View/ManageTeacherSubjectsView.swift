@@ -14,12 +14,12 @@ struct ManageTeacherSubjectsView: View {
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var manageteachersubjectsvm : ManageTeacherSubjectsVM
     
-    //    @State var isPush = false
-    //    @State var destination = EmptyView()
+        @State var isPush = false
+        @State var destination = AnyView(EmptyView())
         @State private var isEditing = false
     
     @State var showFilter : Bool = false
-    
+    var selectedSubject:TeacherSubjectM?
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage my Subjects")
@@ -173,9 +173,15 @@ struct ManageTeacherSubjectsView: View {
                         .padding(.horizontal)
                         
                         List(manageteachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
-                            ManageSubjectCell(model: subject, editBtnAction:{
+                            ManageSubjectCell(model: subject, editSubjectBtnAction:{
                                 isEditing = true
                                 manageteachersubjectsvm.selectSubjectForEdit(item: subject)
+                            },editLessonsBtnAction: {
+                                destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
+                                    .environmentObject(LookUpsVM())
+                                    .environmentObject(ManageTeacherSubjectLessonsVM())
+                                                      )
+                                isPush = true
                             }, deleteBtnAction:{
                                 manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
@@ -210,6 +216,11 @@ struct ManageTeacherSubjectsView: View {
             //                signupvm.isTeacherHasSubjects = value
             //        })
         }
+        .hideNavigationBar()
+        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+            hideKeyboard()
+        })
+
         .onDisappear {
             manageteachersubjectsvm.cleanup()
         }
@@ -218,6 +229,8 @@ struct ManageTeacherSubjectsView: View {
         //        .onChange(of: teachersubjectsvm.isLoading, perform: { value in
         //            signupvm.isLoading = value
         //        })
+        NavigationLink(destination: destination, isActive: $isPush, label: {})
+
     }
 }
 

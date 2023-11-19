@@ -1,15 +1,14 @@
 //
-//  ManageSubjectCell.swift
+//  ManageSubjectLessonCell.swift
 //  MrS-Cool
 //
-//  Created by wecancity on 14/11/2023.
+//  Created by wecancity on 19/11/2023.
 //
-
 
 import SwiftUI
 
-struct ManageSubjectCell: View {
-    var model = TeacherSubjectM()
+struct ManageSubjectLessonCell: View {
+    var model = TeacherUnitLesson()
     var editBtnAction : (()->())?
     var deleteBtnAction : (()->())?
 
@@ -32,8 +31,8 @@ struct ManageSubjectCell: View {
                 
                 Spacer()
                 HStack(spacing: 15){
-                    Rectangle().frame(width: 15, height: 15)
-                        .foregroundColor(model.statusID == 1 ? .green:model.statusID == 2 ? .yellow:.red)
+//                    Rectangle().frame(width: 15, height: 15)
+//                        .foregroundColor(model.statusID == 1 ? .green:model.statusID == 2 ? .yellow:.red)
                     Button(action: {
                         editBtnAction?()
                     }, label: {
@@ -58,18 +57,18 @@ struct ManageSubjectCell: View {
             }
             
             HStack (alignment:.bottom){
-                VStack (alignment:.leading,spacing: 10){
-                    Text(model.academicYearName ?? "Grade 1")
-                        .font(Font.SoraRegular(size: 12.0))
+                VStack (alignment:.leading){
+                    Text(model.lessonName ?? "lesson 1")
+                        .font(Font.SoraRegular(size: 13))
                         .foregroundColor(.mainBlue)
                     
-                        Text(model.educationLevelName ?? "Primary")
-                            .font(Font.SoraRegular(size: 12.0))
-                            .foregroundColor(ColorConstants.Bluegray402)
+//                        Text(model.educationLevelName ?? "Primary")
+//                            .font(Font.SoraRegular(size: 12.0))
+//                            .foregroundColor(ColorConstants.Bluegray402)
                         
-                        Text(model.educationTypeName ?? "Egyption")
-                            .font(Font.SoraRegular(size: 12.0))
-                            .foregroundColor(ColorConstants.Bluegray402)
+                    Text(model.teacherBrief == "" ? "Lesson brief not added":"Lesson brief added")
+                            .font(Font.SoraRegular(size: 7))
+                            .foregroundColor(model.teacherBrief == "" ? ColorConstants.Red400:ColorConstants.LightGreen800)
                 }
                 .padding(.leading,30)
                 
@@ -82,21 +81,22 @@ struct ManageSubjectCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         Group{
+                            Text("\(model.groupDuration?.formattedTime() ?? "00:00")")
+
                             Text("\(model.groupCost ?? 0) ")+Text("EGP".localized())
                         }
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)
-                        
                           
-                        HStack(alignment:.bottom,spacing: 4) {
-                            Text("\(model.minGroup ?? 5) - \(model.maxGroup ?? 50)")
-                        .font(Font.SoraRegular(size: 12))
-                    .foregroundColor(.mainBlue)
-                            Text("Student".localized())
-                        .font(Font.SoraRegular(size: 8))
-                    .foregroundColor(.mainBlue)
+//                        HStack(alignment:.bottom,spacing: 4) {
+//                            Text("\(model.min   Group ?? 5) - \(model.maxGroup ?? 50)")
+//                        .font(Font.SoraRegular(size: 12))
+//                    .foregroundColor(.mainBlue)
+//                            Text("Student".localized())
+//                        .font(Font.SoraRegular(size: 8))
+//                    .foregroundColor(.mainBlue)
 
-                        }
+//                        }
 
                     }
                     
@@ -106,6 +106,8 @@ struct ManageSubjectCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         Group{
+                            Text("\(model.individualDuration?.formattedTime() ?? "00:00")")
+
                             Text("\(model.individualCost  ?? 0) ")+Text("EGP".localized())
                         }
                     .font(Font.SoraRegular(size: 12))
@@ -127,5 +129,5 @@ struct ManageSubjectCell: View {
 }
 
 #Preview {
-    ManageSubjectCell()
+    ManageSubjectLessonCell()
 }
