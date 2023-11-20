@@ -63,7 +63,6 @@ struct ManageSubjectLessonCell: View {
                             .aspectRatio(contentMode: .fill)
                     })
                     .buttonStyle(.plain)
-                    
                 }
             }
             
@@ -77,9 +76,9 @@ struct ManageSubjectLessonCell: View {
 //                            .font(Font.SoraRegular(size: 12.0))
 //                            .foregroundColor(ColorConstants.Bluegray402)
                         
-                    Text(model.teacherBrief == "" ? "Lesson brief not added":"Lesson brief added")
+                    Text((model.teacherBrief == ""||model.teacherBrief == nil) ? "Lesson brief not added":"Lesson brief added")
                             .font(Font.SoraRegular(size: 7))
-                            .foregroundColor(model.teacherBrief == "" ? ColorConstants.Red400:ColorConstants.LightGreen800)
+                            .foregroundColor((model.teacherBrief == ""||model.teacherBrief == nil) ? ColorConstants.Red400:ColorConstants.LightGreen800)
                 }
                 .padding(.leading,30)
                 
@@ -133,8 +132,7 @@ struct ManageSubjectLessonCell: View {
         .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
             .stroke(ColorConstants.Bluegray100,
                     lineWidth: 1))
-        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,
-                                   bottomRight: 10.0)
+        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,bottomRight: 10.0)
             .fill(ColorConstants.WhiteA700))
     }
 }

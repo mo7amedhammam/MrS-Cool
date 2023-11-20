@@ -15,7 +15,7 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     //    MARK: --- inputs ---
     //Common data (note: same exact data for parent)
     @Published var subjectSemesterYearId = 0
-    //    @Published var name = ""
+    @Published var lessonName = ""
     //    @Published var phone = ""
     //    @Published var Password = ""
     //    @Published var selectedGender : DropDownOption?
@@ -28,6 +28,7 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     //    @Published var birthDateStr = ""
     
     @Published var isEditing = false
+    @Published var showEdit = false
 //    @Published var educationType : DropDownOption?{
 //        didSet{
 //            if !isEditing{
@@ -55,10 +56,12 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     @Published var editId : Int = 0
     @Published var groupCost : String = ""
     @Published var individualCost : String = ""
-    @Published var minGroup : String = ""
-    @Published var maxGroup : String = ""
+//    @Published var minGroup : String = ""
+//    @Published var maxGroup : String = ""
     @Published var subjectBrief : String = ""
-    
+    @Published var groupTime = "0"
+    @Published var individualTime = "0"
+
 //    @Published var filterEducationType : DropDownOption?{
 //        didSet{
 //            filterEducationLevel = nil
@@ -103,7 +106,10 @@ extension ManageTeacherSubjectLessonsVM{
     
     func GetTeacherSubjectLessons(){
 //        guard let subjectAcademicYearId = m?.id else {return}
-        let parameters:[String:Any] = ["subjectSemesterYearId":subjectSemesterYearId]
+        var parameters:[String:Any] = ["subjectSemesterYearId":subjectSemesterYearId]
+        if lessonName.count > 0{
+            parameters["lessonName"] = lessonName
+        }
         
         print("parameters",parameters)
         let target = teacherServices.GetTeacherSubjectLessons(parameters: parameters)
@@ -184,32 +190,37 @@ extension ManageTeacherSubjectLessonsVM{
 //        subjectBrief =  ""
     }
     func clearFilter(){
-//        filterEducationType = nil
-//        filterEducationLevel = nil
-//        filterAcademicYear = nil
-//        filterSubject = nil
-//        filterSubjectStatus = nil
+        lessonName = ""
     }
-    func selectSubjectForEdit(item:TeacherSubjectM){
+    func selectSubjectForEdit(item:TeacherUnitLesson){
         isEditing = false
         editId = item.id ?? 0
 //        educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
 //        educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
 //        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
 //        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
-        if let min = item.minGroup{
-            minGroup = String(min)
-        }
-        if let max = item.maxGroup{
-            maxGroup = String(max)
-        }
+//        if let min = item.minGroup{
+//            minGroup = String(min)
+//        }
+//        if let max = item.maxGroup{
+//            maxGroup = String(max)
+//        }
         if let gcost = item.groupCost{
             groupCost = String(gcost)
         }
         if let indcost = item.individualCost{
             individualCost = String(indcost)
         }
-        subjectBrief = item.teacherBrief ?? ""
+
+        if let groupDuration = item.groupDuration{
+            groupTime = groupDuration.formattedTime()
+        }
+
+        if let individualDuration = item.individualDuration{
+            individualTime = individualDuration.formattedTime()
+        }
+
+        //        subjectBrief = item.teacherBrief ?? ""
         isEditing = true
     }
     

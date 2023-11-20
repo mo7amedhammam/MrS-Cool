@@ -129,8 +129,7 @@ struct ManageSubjectCell: View {
         .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
             .stroke(ColorConstants.Bluegray100,
                     lineWidth: 1))
-        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,
-                                   bottomRight: 10.0)
+        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
             .fill(ColorConstants.WhiteA700))
     }
 }
