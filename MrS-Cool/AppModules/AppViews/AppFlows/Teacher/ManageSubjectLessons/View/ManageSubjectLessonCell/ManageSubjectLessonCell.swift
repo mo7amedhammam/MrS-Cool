@@ -10,7 +10,8 @@ import SwiftUI
 struct ManageSubjectLessonCell: View {
     var model = TeacherUnitLesson()
     var editBtnAction : (()->())?
-    var deleteBtnAction : (()->())?
+    var addBriefBtnAction : (()->())?
+    var addMaterialBtnAction : (()->())?
 
     var body: some View {
         VStack(alignment:.leading,spacing: 10){
@@ -44,9 +45,19 @@ struct ManageSubjectLessonCell: View {
                     .buttonStyle(.plain)
                     
                     Button(action: {
-                        deleteBtnAction?()
+                        addBriefBtnAction?()
                     }, label: {
-                        Image("img_group")
+                        Image("img_group512375")
+                            .resizable()
+                            .frame(width: 15, height: 18,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                    
+                    Button(action: {
+                        addMaterialBtnAction?()
+                    }, label: {
+                        Image("img_book22243953")
                             .resizable()
                             .frame(width: 15, height: 18,alignment: .leading)
                             .aspectRatio(contentMode: .fill)

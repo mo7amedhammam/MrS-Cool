@@ -33,39 +33,71 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     SignUpHeaderTitle(Title:  "Subject Information")
                                     Spacer()
                                 }
+//                                .padding(.bottom )
+
                                 // -- inputs --
                                 Group {
-                                    Text("Education Type".localized())
-                                        .padding(.top)
-                                        .font(Font.SoraSemiBold(size: 16))
+                                    HStack{
+                                        VStack(alignment:.leading){
+                                            Text("Education Type".localized())
+                                                .font(Font.SoraSemiBold(size: 16))
+                                            
+                                            Text(currentSubject?.educationTypeName ?? "Egyption")
+                                                .font(Font.SoraRegular(size: 14))
+                                            
+                                            Spacer().frame(height:30)
+                                            
+                                                Text("Academic Year".localized())
+                                                    .font(Font.SoraSemiBold(size: 16))
+                                                
+                                                Text(currentSubject?.academicYearName ?? "level 1")
+                                                    .font(Font.SoraRegular(size: 14))
+                                            
+                                        }
+                                        Spacer()
+                                        VStack(alignment:.leading){
+                                            Text("Education Level".localized())
+                                                .font(Font.SoraSemiBold(size: 16))
+                                            
+                                            Text(currentSubject?.educationLevelName ?? "Primary")
+                                                .font(Font.SoraRegular(size: 14))
+                                            
+                                            Spacer().frame(height:30)
+                                            
+                                            Text("Subject".localized())
+                                                .font(Font.SoraSemiBold(size: 16))
+                                            
+                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
+                                                .font(Font.SoraRegular(size: 14))
+
+                                        }
+                                    }
                                     
-                                    Text(currentSubject?.educationTypeName ?? "Egyption")
-                                        .font(Font.SoraRegular(size: 14))
                                     
-                                    Text("Education Level".localized())
-                                        .font(Font.SoraSemiBold(size: 16))
-                                    
-                                    Text(currentSubject?.educationLevelName ?? "Primary")
-                                        .font(Font.SoraRegular(size: 14))
-                                    
-                                    Text("Academic Year".localized())
-                                        .font(Font.SoraSemiBold(size: 16))
-                                    
-                                    Text(currentSubject?.academicYearName ?? "level 1")
-                                        .font(Font.SoraRegular(size: 14))
-                                    
-                                    Text("Subject".localized())
-                                        .font(Font.SoraSemiBold(size: 16))
-                                    
-                                    Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                        .font(Font.SoraRegular(size: 14))
-                                    
-                                    Text("Status".localized())
-                                        .font(Font.SoraSemiBold(size: 16))
-                                    
-                                    Text(currentSubject?.statusIDName ?? "Aproved")
-                                        .font(Font.SoraRegular(size: 14))
-                                        .padding(.bottom)
+//                                    HStack{
+////                                        VStack(alignment:.leading){
+////                                            Text("Academic Year".localized())
+////                                                .font(Font.SoraSemiBold(size: 16))
+////                                            
+////                                            Text(currentSubject?.academicYearName ?? "level 1")
+////                                                .font(Font.SoraRegular(size: 14))
+////                                        }
+//                                        VStack(alignment:.leading){
+////                                            Text("Subject".localized())
+////                                                .font(Font.SoraSemiBold(size: 16))
+////                                            
+////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
+////                                                .font(Font.SoraRegular(size: 14))
+//                                            
+//                                        }
+//                                    }
+//
+//                                    Text("Status".localized())
+//                                        .font(Font.SoraSemiBold(size: 16))
+//                                    
+//                                    Text(currentSubject?.statusIDName ?? "Aproved")
+//                                        .font(Font.SoraRegular(size: 14))
+//                                        .padding(.bottom)
                                 }
                                 .foregroundColor(.mainBlue)
                                 .padding([.top,.horizontal])
@@ -85,6 +117,8 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     })
                                 
                             }
+                            .padding(.top)
+                            
                             .sheet(isPresented: $showFilter) {
                                 ScrollView {
                                     VStack {
@@ -98,7 +132,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                         }
                                         .padding(.vertical)
                                         Group {
-                                            CustomDropDownField(iconName:"img_vector",placeholder: "Subject Lesson", selectedOption: $manageteachersubjectlessonsvm.filterEducationType,options:lookupsvm.EducationTypesList)
+//                                            CustomDropDownField(iconName:"img_vector",placeholder: "Subject Lesson", selectedOption: $manageteachersubjectlessonsvm.filterEducationType,options:lookupsvm.EducationTypesList)
                                             
                                             
                                         }
@@ -129,38 +163,38 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                         }
                         .padding(.horizontal)
                         
-                        ScrollView{
-                            LazyVStack{
-                                ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? []) { unit in
-                                    Section(header: Text(unit.unitName ?? "")) {
-                                        ForEach(unit.teacherUnitLessons ?? []) { lesson in
+//                        ScrollView{
+                            List{
+                                ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.self) { unit in
+                                    Section(header: 
+                                                HStack {
+                                        Text(unit.unitName ?? "")
+                                            .font(Font.SoraBold(size: 18))
+                                            .foregroundColor(.mainBlue)
+                                            .padding(.top)
+                                        Spacer()
+                                    }
+//                                        .frame(height:40)
+                                    ) {
+                                        ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
                                             ManageSubjectLessonCell(model: lesson, editBtnAction: {
                                                 
-                                            }, deleteBtnAction: {
+                                            }, addBriefBtnAction: {
                                                 
                                             })
+                                            .listRowSpacing(0)
+                                            .listRowSeparator(.hidden)
+                                            .listRowBackground(Color.clear)
                                         }
                                     }
                                 }
-                            }
+//                            }
                         }
-                        .frame(height: gr.size.height/2)
-                                                
-                        //                        List(manageteachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
-                        //                            ManageSubjectCell(model: subject, editBtnAction:{
-                        //                                isEditing = true
-                        //                                manageteachersubjectsvm.selectSubjectForEdit(item: subject)
-                        //                            }, deleteBtnAction:{
-                        //                                manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                        //                                    manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
-                        //                                })
-                        //                                manageteachersubjectsvm.isError.toggle()
-                        //                            })
-                        //                            .listRowSpacing(0)
-                        //                            .listRowSeparator(.hidden)
-                        //                        }
-                        //                        .listStyle(.plain)
-                        //                        .frame(height: gr.size.height/2)
+                            .padding(.horizontal,-4)
+                            .listStyle(.plain)
+                            .scrollContentBackground(.hidden)
+//                            .background(Color.clear()) // or .background(.clear())
+                        .frame(minHeight: gr.size.height/2)
                         
                         Spacer()
                     }
@@ -168,9 +202,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                 }
             }
             .onAppear(perform: {
-                //                                signupvm.isUserChangagble = false
-//                lookupsvm.GetEducationTypes()
-                manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectSemesterID ?? 0
+                manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
                 manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
             })
             //            .onChange(of: manageteachersubjectlessonsvm.educationType, perform: { value in

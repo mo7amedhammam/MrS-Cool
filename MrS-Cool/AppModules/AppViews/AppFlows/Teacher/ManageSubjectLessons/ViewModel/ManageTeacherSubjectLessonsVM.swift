@@ -28,28 +28,28 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     //    @Published var birthDateStr = ""
     
     @Published var isEditing = false
-    @Published var educationType : DropDownOption?{
-        didSet{
-            if !isEditing{
-                educationLevel = nil
-            }
-        }
-    }
-    @Published var educationLevel : DropDownOption?{
-        didSet{
-            if !isEditing{
-                academicYear = nil
-            }
-        }
-    }
-    @Published var academicYear : DropDownOption?{
-        didSet{
-            if !isEditing{
-                subject = nil
-            }
-        }
-    }
-    @Published var subject : DropDownOption?
+//    @Published var educationType : DropDownOption?{
+//        didSet{
+//            if !isEditing{
+//                educationLevel = nil
+//            }
+//        }
+//    }
+//    @Published var educationLevel : DropDownOption?{
+//        didSet{
+//            if !isEditing{
+//                academicYear = nil
+//            }
+//        }
+//    }
+//    @Published var academicYear : DropDownOption?{
+//        didSet{
+//            if !isEditing{
+//                subject = nil
+//            }
+//        }
+//    }
+//    @Published var subject : DropDownOption?
     
     // for update subject
     @Published var editId : Int = 0
@@ -59,24 +59,24 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     @Published var maxGroup : String = ""
     @Published var subjectBrief : String = ""
     
-    @Published var filterEducationType : DropDownOption?{
-        didSet{
-            filterEducationLevel = nil
-        }
-    }
-    @Published var filterEducationLevel : DropDownOption?{
-        didSet{
-            filterAcademicYear = nil
-        }
-    }
-    @Published var filterAcademicYear : DropDownOption?{
-        didSet{
-            filterSubject = nil
-            filterSubjectStatus = nil
-        }
-    }
-    @Published var filterSubject : DropDownOption?
-    @Published var filterSubjectStatus : DropDownOption?
+//    @Published var filterEducationType : DropDownOption?{
+//        didSet{
+//            filterEducationLevel = nil
+//        }
+//    }
+//    @Published var filterEducationLevel : DropDownOption?{
+//        didSet{
+//            filterAcademicYear = nil
+//        }
+//    }
+//    @Published var filterAcademicYear : DropDownOption?{
+//        didSet{
+//            filterSubject = nil
+//            filterSubjectStatus = nil
+//        }
+//    }
+//    @Published var filterSubject : DropDownOption?
+//    @Published var filterSubjectStatus : DropDownOption?
     
     //    @Published var editableTeacherSubject : TeacherSubjectM?{
     //        didSet{
@@ -93,7 +93,6 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     
 //    @Published var isTeacherHasSubjects: Bool = false
     @Published var TeacherSubjectLessons : [ManageTeacherSubjectLessonsM]?
-    
     
     init()  {
         //        GetTeacherSubjects()
@@ -117,6 +116,7 @@ extension ManageTeacherSubjectLessonsVM{
                 case .finished:
                     break
                 case .failure(let error):
+                    print(error)
                     isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
                 }
@@ -136,67 +136,67 @@ extension ManageTeacherSubjectLessonsVM{
             .store(in: &cancellables)
     }
     
-    func UpdateTeacherSubjectLesson(id:Int){
-        guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
-        let parameters:[String:Any] = ["id":editId,"subjectAcademicYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup,"teacherBrief":subjectBrief ]
-        
-        print("parameters",parameters)
-        let target = teacherServices.UpdateTeacherSubject(parameters: parameters)
-        isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
-            .sink(receiveCompletion: {[weak self] completion in
-                guard let self = self else{return}
-                isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    isError =  true
-                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                }
-            },receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                if receivedData.success == true {
-                    //                    TeacherSubjects?.append(model)
-//                    GetTeacherSubjects()
-                }else{
-                    isError =  true
-                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                }
-                isLoading = false
-            })
-            .store(in: &cancellables)
-    }
+//    func UpdateTeacherSubjectLesson(id:Int){
+//        guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
+//        let parameters:[String:Any] = ["id":editId,"subjectAcademicYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup,"teacherBrief":subjectBrief ]
+//        
+//        print("parameters",parameters)
+//        let target = teacherServices.UpdateTeacherSubject(parameters: parameters)
+//        isLoading = true
+//        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+//            .sink(receiveCompletion: {[weak self] completion in
+//                guard let self = self else{return}
+//                isLoading = false
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    isError =  true
+//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                }
+//            },receiveValue: {[weak self] receivedData in
+//                guard let self = self else{return}
+//                print("receivedData",receivedData)
+//                if receivedData.success == true {
+//                    //                    TeacherSubjects?.append(model)
+////                    GetTeacherSubjects()
+//                }else{
+//                    isError =  true
+//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                }
+//                isLoading = false
+//            })
+//            .store(in: &cancellables)
+//    }
 
     
     func clearTeachersSubject(){
-        educationType = nil
-        educationLevel = nil
-        academicYear = nil
-        subject = nil
-        
-        minGroup = ""
-        maxGroup = ""
-        groupCost = ""
-        individualCost = ""
-        subjectBrief =  ""
+//        educationType = nil
+//        educationLevel = nil
+//        academicYear = nil
+//        subject = nil
+//        
+//        minGroup = ""
+//        maxGroup = ""
+//        groupCost = ""
+//        individualCost = ""
+//        subjectBrief =  ""
     }
     func clearFilter(){
-        filterEducationType = nil
-        filterEducationLevel = nil
-        filterAcademicYear = nil
-        filterSubject = nil
-        filterSubjectStatus = nil
+//        filterEducationType = nil
+//        filterEducationLevel = nil
+//        filterAcademicYear = nil
+//        filterSubject = nil
+//        filterSubjectStatus = nil
     }
     func selectSubjectForEdit(item:TeacherSubjectM){
         isEditing = false
         editId = item.id ?? 0
-        educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
-        educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
-        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
-        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
+//        educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
+//        educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
+//        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
+//        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
         if let min = item.minGroup{
             minGroup = String(min)
         }
