@@ -85,4 +85,7 @@ enum EndPoints: String {
     case GetTeacherSubjectLessons = "TeacherLesson/GetMyLessons"
     case UpdateTeacherSubjectLessons = "TeacherLesson/CreateOrUpdate"
 
+    case GetSubjectLessonBrief = "TeacherLesson/GetTeacherBerifById"
+    case UpdateSubjectLessonBrief = "TeacherLesson/UpdateTeacherLessonBerif"
+
 }

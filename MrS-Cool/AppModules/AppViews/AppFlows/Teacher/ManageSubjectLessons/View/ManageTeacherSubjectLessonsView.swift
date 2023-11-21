@@ -177,10 +177,14 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                 ) {
                                     ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
                                         ManageSubjectLessonCell(model: lesson, editBtnAction: {
-                                            manageteachersubjectlessonsvm.selectSubjectForEdit(item: lesson)
+
+                                            manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
                                             manageteachersubjectlessonsvm.showEdit = true
                                         }, addBriefBtnAction: {
-                                            
+                                          
+                                            manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
+                                            manageteachersubjectlessonsvm.GetSubjectLessonBrief()
+                                            manageteachersubjectlessonsvm.showBrief = true
                                         })
                                         .listRowSpacing(0)
                                         .listRowSeparator(.hidden)
@@ -193,7 +197,6 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
                         .scrollContentBackground(.hidden)
-                        //                            .background(Color.clear()) // or .background(.clear())
                         .frame(minHeight: gr.size.height/2)
                         
                         Spacer()
@@ -205,18 +208,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                 manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
                 manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
             })
-            //            .onChange(of: manageteachersubjectlessonsvm.educationType, perform: { value in
-            //                lookupsvm.SelectedEducationType = value
-            //            })
-            //            .onChange(of: manageteachersubjectlessonsvm.educationLevel, perform: { value in
-            //                lookupsvm.SelectedEducationLevel = value
-            //            })
-            //            .onChange(of: manageteachersubjectlessonsvm.academicYear, perform: { value in
-            //                lookupsvm.SelectedAcademicYear = value
-            //            })
-            //            .onChange(of: teachersubjectsvm.isTeacherHasSubjects, perform: { value in
-            //                signupvm.isTeacherHasSubjects = value
-            //        })
+ 
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -262,14 +254,58 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                             HStack {
                                 Group{
                                     CustomButton(Title:"Update",IsDisabled: .constant(false), action: {
-                                        manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                        manageteachersubjectlessonsvm .UpdateTeacherSubjectLesson()
                                         manageteachersubjectlessonsvm.showEdit = false
                                     })
                                     
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                        manageteachersubjectlessonsvm.clearFilter()
-                                        manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+//                                        manageteachersubjectlessonsvm.clearFilter()
+//                                        manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
                                         manageteachersubjectlessonsvm.showEdit = false
+                                    })
+                                } .frame(width:130,height:40)
+                                    .padding(.vertical)
+                            }
+                        }
+                        .padding()
+                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,bottomRight: 10.0)
+                            .fill(ColorConstants.WhiteA700).disabled(true)
+                        )
+                        .padding(.horizontal)
+                        Spacer()
+                    }
+                    .frame(height:UIScreen.main.bounds.height+30)
+                }.frame(height:UIScreen.main.bounds.height+30)
+                    .background( Color(.mainBlue).opacity(0.2))
+            }
+            
+            if manageteachersubjectlessonsvm.showBrief{
+                ScrollView {
+                    VStack{
+                        Spacer()
+                        VStack(spacing:15){
+                            HStack(spacing:10) {
+                                Image("img_group512375")
+                                //                                                .renderingMode(.template)
+                                Text("Update Lesson Brief".localized())
+                                    .font(Font.SoraBold(size: 18))
+                                    .foregroundColor(.mainBlue)
+                                Spacer()
+                            }
+                            Group {
+                                CustomTextEditor(iconName: "img_group512375",placeholder: "Lesson Brief",insidePlaceholder: "Tell us about your Lesson", text: $manageteachersubjectlessonsvm.subjectBriefEn,charLimit: 1000)
+
+                                CustomTextEditor(iconName: "img_group512375",placeholder: "عن الدرس",insidePlaceholder: "اخبرنا عن الدرس", text: $manageteachersubjectlessonsvm.subjectBrief,charLimit: 1000).localizeView()
+                            }
+                            HStack {
+                                Group{
+                                    CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                                        manageteachersubjectlessonsvm.UpdateSubjectLessonBrief()
+                                        manageteachersubjectlessonsvm.showBrief = false
+                                    })
+                                    
+                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                        manageteachersubjectlessonsvm.showBrief = false
                                     })
                                 } .frame(width:130,height:40)
                                     .padding(.vertical)

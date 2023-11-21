@@ -53,6 +53,8 @@ struct ManageSubjectLessonCell: View {
                             .aspectRatio(contentMode: .fill)
                     })
                     .buttonStyle(.plain)
+                    .disabled(model.id == 0)
+                    .opacity(model.id == 0 ? 0.5 : 1.0)
                     
                     Button(action: {
                         addMaterialBtnAction?()

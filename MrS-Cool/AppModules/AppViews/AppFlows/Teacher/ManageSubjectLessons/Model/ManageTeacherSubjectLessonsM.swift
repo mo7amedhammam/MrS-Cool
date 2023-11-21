@@ -20,7 +20,7 @@ struct ManageTeacherSubjectLessonsM: Codable, Hashable {
 // MARK: - TeacherUnitLesson
 struct TeacherUnitLesson: Codable,Hashable {
     static func == (lhs: TeacherUnitLesson, rhs: TeacherUnitLesson) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.lessonID == rhs.lessonID
     }
     var id: Int?
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
@@ -42,3 +42,23 @@ struct TeacherUnitLesson: Codable,Hashable {
     }
 }
 
+// MARK: - UpdatedTeacherSubjectLessonsM -
+struct UpdatedTeacherSubjectLessonsM: Codable {
+    var lessonID, groupCost, groupDuration, individualCost: Int?
+    var individualDuration: Int?
+    var teacherBrief: String?
+    var id, teacherSubjectAcademicSemesterYearID: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case lessonID = "lessonId"
+        case groupCost, groupDuration, individualCost, individualDuration, teacherBrief, id
+        case teacherSubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
+    }
+}
+
+// MARK: - SubjecLessonBriefM -
+struct SubjecLessonBriefM: Codable {
+    var teacherBrief: String?
+    var teacherBriefEn: String?
+    var id: Int?
+}

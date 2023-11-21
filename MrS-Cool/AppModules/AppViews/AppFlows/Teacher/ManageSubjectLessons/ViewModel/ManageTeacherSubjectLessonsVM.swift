@@ -29,6 +29,7 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     
     @Published var isEditing = false
     @Published var showEdit = false
+    @Published var showBrief = false
 //    @Published var educationType : DropDownOption?{
 //        didSet{
 //            if !isEditing{
@@ -53,14 +54,20 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
 //    @Published var subject : DropDownOption?
     
     // for update subject
-    @Published var editId : Int = 0
+    @Published var editLessonId : Int = 0
+    @Published var editRowId : Int = 0
+    @Published var editSubjectSemesterYearId : Int = 0
+
     @Published var groupCost : String = ""
     @Published var individualCost : String = ""
 //    @Published var minGroup : String = ""
 //    @Published var maxGroup : String = ""
-    @Published var subjectBrief : String = ""
     @Published var groupTime = "0"
     @Published var individualTime = "0"
+    
+    @Published var subjectBrief : String = ""
+    @Published var subjectBriefEn : String = ""
+
 
 //    @Published var filterEducationType : DropDownOption?{
 //        didSet{
@@ -142,40 +149,106 @@ extension ManageTeacherSubjectLessonsVM{
             .store(in: &cancellables)
     }
     
-//    func UpdateTeacherSubjectLesson(id:Int){
-//        guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
-//        let parameters:[String:Any] = ["id":editId,"subjectAcademicYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup,"teacherBrief":subjectBrief ]
-//        
-//        print("parameters",parameters)
-//        let target = teacherServices.UpdateTeacherSubject(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if receivedData.success == true {
-//                    //                    TeacherSubjects?.append(model)
-////                    GetTeacherSubjects()
-//                }else{
-//                    isError =  true
-//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
-//    }
+    func UpdateTeacherSubjectLesson(){
+        guard let groupCost = Int(groupCost), let individualCost = Int(individualCost),let groupTime = groupTime.convertTimeToMinutes(),let individualTime = individualTime.convertTimeToMinutes()  else {return}
+        let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,"id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
+        
+        print("parameters",parameters)
+        let target = teacherServices.UpdateTeacherSubjectLessons(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<UpdatedTeacherSubjectLessonsM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    //                    TeacherSubjects?.append(model)
+                    GetTeacherSubjectLessons()
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
 
+    
+    func GetSubjectLessonBrief(){
+        let parameters:[String:Any] = ["Id":editRowId]
+        
+        print("parameters",parameters)
+        let target = teacherServices.GetSubjectLessonsBrief(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<SubjecLessonBriefM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print(error)
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if let model = receivedData.data {
+                    subjectBrief = model.teacherBrief ?? ""
+                    subjectBriefEn = model.teacherBriefEn ?? ""
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+    
+    func UpdateSubjectLessonBrief(){
+        let parameters:[String:Any] = ["id":editRowId,"teacherBrief":subjectBrief,"teacherBriefEn":subjectBriefEn]
+        
+        print("parameters",parameters)
+        let target = teacherServices.UpdateSubjectLessonsBrief(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<SubjecLessonBriefM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    UpdateLessonBriefField(receivedData)
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
     
     func clearTeachersSubject(){
 //        educationType = nil
@@ -192,9 +265,11 @@ extension ManageTeacherSubjectLessonsVM{
     func clearFilter(){
         lessonName = ""
     }
-    func selectSubjectForEdit(item:TeacherUnitLesson){
+    func selectSubjectForEdit(subjectSemeterYearId:Int?,item:TeacherUnitLesson){
         isEditing = false
-        editId = item.id ?? 0
+        editLessonId = item.lessonID ?? 0
+        editRowId = item.id ?? 0
+        editSubjectSemesterYearId =  subjectSemeterYearId ?? 0
 //        educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
 //        educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
 //        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
@@ -219,7 +294,6 @@ extension ManageTeacherSubjectLessonsVM{
         if let individualDuration = item.individualDuration{
             individualTime = individualDuration.formattedTime()
         }
-
         //        subjectBrief = item.teacherBrief ?? ""
         isEditing = true
     }
@@ -231,6 +305,23 @@ extension ManageTeacherSubjectLessonsVM{
          }
          cancellables.removeAll()
      }
+    
+    
+    fileprivate func UpdateLessonBriefField(_ receivedData: BaseResponse<SubjecLessonBriefM>) {
+        let yourLessonID = receivedData.data?.id  // Replace with the specific lesson ID you're looking for
+        
+        if let lessonIndex = TeacherSubjectLessons?.firstIndex(where: { $0.teacherUnitLessons?.contains(where: { $0.lessonID == yourLessonID }) ?? false }),
+           let lesson = TeacherSubjectLessons?[lessonIndex].teacherUnitLessons?.firstIndex(where: { $0.lessonID == yourLessonID }) {
+            // You found the lesson with the specified ID
+            print("Lesson found at index: \(lessonIndex)")
+            
+            // Update the teacherBrief value
+            TeacherSubjectLessons?[lessonIndex].teacherUnitLessons?[lesson].teacherBrief = receivedData.data?.teacherBrief
+        } else {
+            // Lesson not found
+            print("Lesson not found")
+        }
+    }
 }
 
 

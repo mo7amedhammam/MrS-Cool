@@ -43,4 +43,17 @@ extension String {
          }
       return newdate
        }
+    
+    func convertTimeToMinutes() -> Int? {
+          let components = self.components(separatedBy: ":")
+          
+          guard components.count == 2,
+                let hours = Int(components[0]),
+                let minutes = Int(components[1]) else {
+              return nil // Invalid time format
+          }
+          
+          let totalMinutes = hours * 60 + minutes
+          return totalMinutes
+      }
 }

@@ -358,6 +358,7 @@ struct CustomTextEditor: View {
     var iconColor : Color? = .clear
     
     var placeholder : String
+    var insidePlaceholder : String? = "Tell us about yourself"
     var placeholderColor : Color? = ColorConstants.Bluegray402
     
     @Binding var text: String
@@ -398,7 +399,7 @@ struct CustomTextEditor: View {
             
                     ZStack(alignment: .topLeading) {
                         if text.isEmpty {
-                            Text("Tell us about yourself".localized())
+                            Text("\(insidePlaceholder ?? "")".localized())
                                 .disabled(true)
                                 .font(.SoraRegular(size: 12))
                                 .foregroundColor(.gray)

@@ -15,6 +15,9 @@ enum teacherServices{
     case GetTeacherSubjectLessons(parameters : [String:Any])
     case UpdateTeacherSubjectLessons(parameters : [String:Any])
 
+    case GetSubjectLessonsBrief(parameters : [String:Any])
+    case UpdateSubjectLessonsBrief(parameters : [String:Any])
+
 }
 extension teacherServices:TargetType{
     var path: String {
@@ -30,17 +33,24 @@ extension teacherServices:TargetType{
         case .UpdateTeacherSubjectLessons:
             return EndPoints.UpdateTeacherSubjectLessons.rawValue
 
+        case .GetSubjectLessonsBrief:
+            return EndPoints.GetSubjectLessonBrief.rawValue
+        case .UpdateSubjectLessonsBrief:
+            return EndPoints.UpdateSubjectLessonBrief.rawValue
+
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .GetTeacherProfile:
+        case .GetTeacherProfile,
+                .GetSubjectLessonsBrief:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
                 .GetTeacherSubjectLessons,
-                .UpdateTeacherSubjectLessons:
+                .UpdateTeacherSubjectLessons,
+                .UpdateSubjectLessonsBrief:
             return .post
         }
     }
@@ -49,10 +59,14 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile:
             return .plainRequest
+        case .GetSubjectLessonsBrief(parameters: let Parameters):
+            return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
+            
         case .UpdateTeacherProfile(parameters: let Parameters),
                 .UpdateTeacherSubject(parameters: let Parameters),
                 .GetTeacherSubjectLessons(parameters: let Parameters),
-                .UpdateTeacherSubjectLessons(parameters: let Parameters):
+                .UpdateTeacherSubjectLessons(parameters: let Parameters),
+                .UpdateSubjectLessonsBrief(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }
