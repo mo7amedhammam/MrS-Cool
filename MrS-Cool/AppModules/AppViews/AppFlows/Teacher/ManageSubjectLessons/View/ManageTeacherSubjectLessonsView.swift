@@ -19,6 +19,10 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
     
     @State var showFilter : Bool = false
     var currentSubject:TeacherSubjectM?
+
+    @State var isPush = false
+    @State var destination = AnyView(EmptyView())
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage My Subject Lessons")
@@ -185,6 +189,15 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                             manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
                                             manageteachersubjectlessonsvm.GetSubjectLessonBrief()
                                             manageteachersubjectlessonsvm.showBrief = true
+                                        },addMaterialBtnAction:{
+                                            
+                                            destination = AnyView(ManageLessonMaterialView(currentLesson:lesson)
+                                                .environmentObject(LookUpsVM())
+                                                .environmentObject(ManageLessonMaterialVM())
+                                                                  )
+                                            isPush = true
+
+                                            
                                         })
                                         .listRowSpacing(0)
                                         .listRowSeparator(.hidden)
@@ -323,6 +336,9 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                     .background( Color(.mainBlue).opacity(0.2))
             }
         }
+        
+        NavigationLink(destination: destination, isActive: $isPush, label: {})
+
     }
 }
 

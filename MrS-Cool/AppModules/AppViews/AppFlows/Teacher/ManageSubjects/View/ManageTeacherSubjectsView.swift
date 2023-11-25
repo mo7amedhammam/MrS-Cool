@@ -14,9 +14,9 @@ struct ManageTeacherSubjectsView: View {
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var manageteachersubjectsvm : ManageTeacherSubjectsVM
     
-        @State var isPush = false
-        @State var destination = AnyView(EmptyView())
-        @State private var isEditing = false
+    @State var isPush = false
+    @State var destination = AnyView(EmptyView())
+    @State private var isEditing = false
     
     @State var showFilter : Bool = false
     var selectedSubject:TeacherSubjectM?
@@ -48,15 +48,15 @@ struct ManageTeacherSubjectsView: View {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList)
                                     
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.asciiCapableNumberPad)
-
+                                    
                                     CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
-
+                                    
                                     CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
-
+                                    
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.asciiCapableNumberPad)
-
+                                    
                                     CustomTextEditor(iconName:"img_group512375",placeholder: "Subject Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000)
-
+                                    
                                 }
                                 .padding([.top])
                             }.padding(.top,20)
@@ -99,7 +99,7 @@ struct ManageTeacherSubjectsView: View {
                                 Text("In Review".localized())
                                     .foregroundColor(.mainBlue)
                                     .font(Font.SoraRegular(size: 7))
-
+                                
                                 Rectangle().frame(width: 14, height: 14)
                                     .foregroundColor(.green)
                                 Text("Approved".localized())
@@ -126,9 +126,9 @@ struct ManageTeacherSubjectsView: View {
                                         .padding(.vertical)
                                         Group {
                                             CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $manageteachersubjectsvm.filterEducationType,options:lookupsvm.EducationTypesList)
-//                                                .onTapGesture(perform: {
-//                                                    lookupsvm.GetEducationTypes()
-//                                                })
+                                            //                                                .onTapGesture(perform: {
+                                            //                                                    lookupsvm.GetEducationTypes()
+                                            //                                                })
                                                 .onChange(of: manageteachersubjectsvm.filterEducationType){val in
                                                     lookupsvm.SelectedEducationType = val
                                                 }
@@ -150,12 +150,12 @@ struct ManageTeacherSubjectsView: View {
                                         HStack {
                                             Group{
                                                 CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                                manageteachersubjectsvm .GetTeacherSubjects()
+                                                    manageteachersubjectsvm .GetTeacherSubjects()
                                                     showFilter = false
                                                 })
                                                 
                                                 CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                                                                                        manageteachersubjectsvm.clearFilter()
+                                                    manageteachersubjectsvm.clearFilter()
                                                     manageteachersubjectsvm .GetTeacherSubjects()
                                                     showFilter = false
                                                 })
@@ -165,7 +165,7 @@ struct ManageTeacherSubjectsView: View {
                                         //                                    Spacer()
                                     }
                                     .padding()
-//                                    .presentationDetents([.medium,.fraction(0.75)])
+                                    //                                    .presentationDetents([.medium,.fraction(0.75)])
                                     .presentationDetents([.fraction(0.6)])
                                 }
                             }
@@ -180,7 +180,7 @@ struct ManageTeacherSubjectsView: View {
                                 destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
                                     .environmentObject(LookUpsVM())
                                     .environmentObject(ManageTeacherSubjectLessonsVM())
-                                                      )
+                                )
                                 isPush = true
                             }, deleteBtnAction:{
                                 manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
@@ -199,7 +199,7 @@ struct ManageTeacherSubjectsView: View {
                 }
             }
             .onAppear(perform: {
-//                                signupvm.isUserChangagble = false
+                //                                signupvm.isUserChangagble = false
                 lookupsvm.GetEducationTypes()
                 manageteachersubjectsvm.GetTeacherSubjects()
             })
@@ -220,7 +220,7 @@ struct ManageTeacherSubjectsView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-
+        
         .onDisappear {
             manageteachersubjectsvm.cleanup()
         }
@@ -230,7 +230,7 @@ struct ManageTeacherSubjectsView: View {
         //            signupvm.isLoading = value
         //        })
         NavigationLink(destination: destination, isActive: $isPush, label: {})
-
+        
     }
 }
 

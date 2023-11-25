@@ -34,6 +34,9 @@
 		C85397DB2B0A2B6800164338 /* ManageSubjectLessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85397DA2B0A2B6800164338 /* ManageSubjectLessonCell.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
 		C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863C72B2AF1334B004322F2 /* FilePreviewer.swift */; };
+		C877C8432B1207BD000F176A /* ManageLessonMaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877C8422B1207BD000F176A /* ManageLessonMaterialView.swift */; };
+		C877C8452B1207D1000F176A /* ManageLessonMaterialVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877C8442B1207D1000F176A /* ManageLessonMaterialVM.swift */; };
+		C877C8472B1207E0000F176A /* ManageLessonMaterialM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877C8462B1207E0000F176A /* ManageLessonMaterialM.swift */; };
 		C8796B022AFB950B004AAA98 /* ManageTeacherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */; };
 		C8796B052AFB9F09004AAA98 /* ManageTeacherProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8796B042AFB9F09004AAA98 /* ManageTeacherProfileVM.swift */; };
 		C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C930D2AE85F04007AB167 /* CustomProgressView.swift */; };
@@ -118,6 +121,9 @@
 		C85397DA2B0A2B6800164338 /* ManageSubjectLessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectLessonCell.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C863C72B2AF1334B004322F2 /* FilePreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewer.swift; sourceTree = "<group>"; };
+		C877C8422B1207BD000F176A /* ManageLessonMaterialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialView.swift; sourceTree = "<group>"; };
+		C877C8442B1207D1000F176A /* ManageLessonMaterialVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialVM.swift; sourceTree = "<group>"; };
+		C877C8462B1207E0000F176A /* ManageLessonMaterialM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialM.swift; sourceTree = "<group>"; };
 		C8796B012AFB950B004AAA98 /* ManageTeacherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileView.swift; sourceTree = "<group>"; };
 		C8796B042AFB9F09004AAA98 /* ManageTeacherProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileVM.swift; sourceTree = "<group>"; };
 		C87C930D2AE85F04007AB167 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
@@ -446,6 +452,30 @@
 			name = FilePreviewer;
 			sourceTree = "<group>";
 		};
+		C877C83F2B12078A000F176A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C877C8422B1207BD000F176A /* ManageLessonMaterialView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C877C8402B12078D000F176A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C877C8442B1207D1000F176A /* ManageLessonMaterialVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C877C8412B120790000F176A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C877C8462B1207E0000F176A /* ManageLessonMaterialM.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C8796AFD2AFB9398004AAA98 /* ManageSubjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +686,16 @@
 			name = ViewModifiers;
 			sourceTree = "<group>";
 		};
+		C89E92B62B0F6F8100B9C30C /* ManageLessonMaterial */ = {
+			isa = PBXGroup;
+			children = (
+				C877C8412B120790000F176A /* Model */,
+				C877C8402B12078D000F176A /* ViewModel */,
+				C877C83F2B12078A000F176A /* View */,
+			);
+			path = ManageLessonMaterial;
+			sourceTree = "<group>";
+		};
 		C89EA8F92ADD906300891D41 = {
 			isa = PBXGroup;
 			children = (
@@ -717,6 +757,7 @@
 				C8B89DDF2AFA515100219AEC /* ManageDocuments */,
 				C8796AFD2AFB9398004AAA98 /* ManageSubjects */,
 				C85397CF2B0A104E00164338 /* ManageSubjectLessons */,
+				C89E92B62B0F6F8100B9C30C /* ManageLessonMaterial */,
 			);
 			path = Teacher;
 			sourceTree = "<group>";
@@ -1135,6 +1176,7 @@
 				C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */,
 				C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */,
 				C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */,
+				C877C8432B1207BD000F176A /* ManageLessonMaterialView.swift in Sources */,
 				C8986C782AE924FB003E9179 /* OTPTextField.swift in Sources */,
 				C8D7C0742B063D01009D5533 /* ChangePasswordView.swift in Sources */,
 				C89BAFA42AE2B83200FB5807 /* ViewModifiers.swift in Sources */,
@@ -1146,6 +1188,7 @@
 				C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */,
 				C8B89DE22AFA546100219AEC /* ManageMyDocumentsView.swift in Sources */,
 				C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */,
+				C877C8472B1207E0000F176A /* ManageLessonMaterialM.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
 				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,
 				C8526ABE2B039F41001F8196 /* ManageTeacherSubjectsVM.swift in Sources */,
@@ -1170,6 +1213,7 @@
 				C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */,
 				C8986C822AE9580F003E9179 /* OTPVerificationVM.swift in Sources */,
 				C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */,
+				C877C8452B1207D1000F176A /* ManageLessonMaterialVM.swift in Sources */,
 				C8986C882AE98008003E9179 /* ExIntegers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
