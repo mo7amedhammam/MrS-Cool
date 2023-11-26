@@ -18,6 +18,7 @@ enum LookupsServices {
     case GetAcademicYears(parameters : [String:Any])
     case GetAllSubjects(parameters : [String:Any])
     case GetDocumentTypes
+    case GetMaterialTypes
 
 }
 
@@ -45,6 +46,8 @@ extension LookupsServices : TargetType {
             
         case .GetDocumentTypes:
             return EndPoints.GetDocumentTypes.rawValue
+        case .GetMaterialTypes:
+            return EndPoints.GetMaterialTypes.rawValue
         }
     }
     
@@ -58,7 +61,8 @@ extension LookupsServices : TargetType {
                 .GetEducationLevels,
                 .GetAcademicYears,
                 .GetAllSubjects,
-                .GetDocumentTypes:
+                .GetDocumentTypes,
+                .GetMaterialTypes:
             return .get
         }
     }
@@ -68,7 +72,8 @@ extension LookupsServices : TargetType {
         case .GetGenders,
                 .GetCountries,
                 .GetEducationTypes,
-                .GetDocumentTypes:
+                .GetDocumentTypes,
+                .GetMaterialTypes:
             return .plainRequest
         case .GetGovernorates(parameters: let parameters),
                 .GetCities(parameters: let parameters),

@@ -180,6 +180,19 @@ class LookUpsVM: ObservableObject {
     }
     @Published var documentTypesList: [DropDownOption] = []
 
+    @Published var materialTypesArray: [GendersM] = []{
+        didSet{
+            if !materialTypesArray.isEmpty {
+            // Use map to transform GendersM into DropDownOption
+                materialTypesList = materialTypesArray.map { gender in
+                return DropDownOption(id: gender.id, Title: gender.name)
+            }
+            }else{
+                materialTypesList.removeAll()
+            }
+        }
+    }
+    @Published var materialTypesList: [DropDownOption] = []
     
     @Published private var error: Error?
  
@@ -380,6 +393,26 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 documentTypesArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    func GetMaterialTypes() {
+//        guard let academicYearId = SelectedAcademicYear?.id else {return}
+//        let parameters = ["academicEducationLevelId":academicYearId]
+
+        let target = LookupsServices.GetMaterialTypes
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                materialTypesArray = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

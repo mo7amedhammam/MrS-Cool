@@ -12,67 +12,69 @@ import SwiftUI
 class ManageLessonMaterialVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
-    
+    @Published var TeacherLessonId = 0
     @Published var isEditing = false
     @Published var showEdit = false
     @Published var showBrief = false
-
     
-    @Published var documentType : DropDownOption?
-    @Published var documentTitle = ""
-    @Published var documentOrder = ""
-    @Published var documentUrl = ""
-
-    @Published var documentImg : UIImage? = nil
-
-    @Published var documentPdf : URL? = nil
-
-
-    @Published var filterdocumentType : DropDownOption?
-    @Published var filterdocumentTitle = ""
-    @Published var filterdocumentOrder = ""
-
-//    MARK: --- outpust ---
+    
+    @Published var materialType : DropDownOption?
+    @Published var materialName = ""
+    @Published var materialNameEn = ""
+    //    @Published var materialOrder = ""
+    @Published var materialUrl = ""
+    
+    @Published var materialImg : UIImage? = nil
+    
+    @Published var materialPdf : URL? = nil
+    
+    
+    @Published var filtermaterialType : DropDownOption?
+    @Published var filtermaterialName : String = ""
+    //    @Published var filtermaterialOrder = ""
+    
+    //    MARK: --- outpust ---
     @Published var isLoading : Bool?
-//    {
-//        didSet{
-//            Shared.shared.state.isLoading.wrappedValue = .constant(isLoading)
-//        }
-//    }
+    //    {
+    //        didSet{
+    //            Shared.shared.state.isLoading.wrappedValue = .constant(isLoading)
+    //        }
+    //    }
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
-
-    @Published var isTeacherHasDocuments: Bool = false
-    @Published var TeacherDocuments : [TeacherDocumentM]?{
-        didSet{
-            isTeacherHasDocuments = !(TeacherDocuments?.isEmpty ?? true)
-        }
-    }
+    
+    //    @Published var isTeacherHasDocuments: Bool = false
+    @Published var TeacherLessonMaterial : [TeacherLessonMaterialDto]?
+    //    {
+    //        didSet{
+    //            isTeacherHasDocuments = !(TeacherDocuments?.isEmpty ?? true)
+    //        }
+    //    }
     
     init()  {
-//        GetTeacherDocument()
+        //        GetTeacherDocument()
     }
 }
 
 extension ManageLessonMaterialVM{
     
-    func CreateTeacherDocument(fileType:fileTypesList){
-        guard let DocumentTypeId = documentType?.id else {return}
+    func CreateLessonMaterial(fileType:fileTypesList){
+        guard let materialTypeId = materialType?.id else {return}
         
         
-        var parameters:[String:Any] = ["DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":Int(documentOrder) ?? 0]
+        var parameters:[String:Any] = ["MaterialTypeId":materialTypeId,"TeacherLessonId":TeacherLessonId,"Name":materialName,"NameEn":materialNameEn,"MaterialUrl":materialUrl]
         switch fileType {
         case .image:
-            parameters["Document"] = documentImg
+            parameters["MaterialFile"] = materialImg
         case .pdf:
-            parameters["Document"] = documentPdf
-
+            parameters["MaterialFile"] = materialPdf
+            
         }
         
         print("parameters",parameters)
-        let target = Authintications.TeacherRegisterDocuments(parameters: parameters)
+        let target = teacherServices.CreateMyLessonMaterial(parameters: parameters)
         isLoading = true
-        BaseNetwork.uploadApi(target, BaseResponse<TeacherDocumentM>.self,progressHandler: {progress in})
+        BaseNetwork.uploadApi(target, BaseResponse<CreateLessonMaterialM>.self,progressHandler: {progress in})
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -87,12 +89,11 @@ extension ManageLessonMaterialVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
-                    TeacherDocuments?.append(model)
-//                    GetTeacherDocument()
-                    clearTeachersDocument()
+                    GetLessonMaterial()
+                    clearTeachersMaterial()
                 }else{
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//                   error =  NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    //                   error =  NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     isError =  true
                 }
                 isLoading = false
@@ -100,14 +101,17 @@ extension ManageLessonMaterialVM{
             .store(in: &cancellables)
     }
     
-    func GetTeacherDocument(){
-        var parameters : [String:Any] = [:]
-        if let filterdocumentType = filterdocumentType{
-            parameters["documentTypeId"] = filterdocumentType.id
+    func GetLessonMaterial(){
+        var parameters : [String:Any] = ["teacherLessonId":TeacherLessonId]
+        if let filtermaterialType = filtermaterialType{
+            parameters["materialTypeId"] = filtermaterialType.id
         }
-        let target = Authintications.TeacherGetDocuments(parameters: parameters)
+        if filtermaterialName != ""{
+            parameters["materialName"] = filtermaterialName
+        }
+        let target = teacherServices.GetMyLessonMaterial(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<[TeacherDocumentM]>.self)
+        BaseNetwork.CallApi(target, BaseResponse<GetLessonMaterialM>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -116,34 +120,34 @@ extension ManageLessonMaterialVM{
                     break
                 case .failure(let error):
                     isError =  true
-//                    self.error = error
+                    //                    self.error = error
                     self.error = .error(image:nil,  message: "\(error.localizedDescription)",buttonTitle:"Done")
-
+                    
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
-                    TeacherDocuments = model
+                if let model = receivedData.data?.teacherLessonMaterialDtos {
+                    TeacherLessonMaterial = model
                 }else{
                     isError =  true
                     error = .error( image:nil, message: receivedData.message ?? "",buttonTitle:"Done")
-
-//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
             .store(in: &cancellables)
     }
-
-    func DeleteTeacherDocument(id:Int?){
+    
+    func DeleteLessonMaterial(id:Int?){
         guard let id = id else {return}
         let parameters:[String:Any] = ["id":id]
         
         print("parameters",parameters)
-        let target = Authintications.TeacherDeleteDocuments(parameters: parameters)
+        let target = teacherServices.DeleteLessonMaterial(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<TeacherDocumentM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<GetLessonMaterialM>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -152,37 +156,36 @@ extension ManageLessonMaterialVM{
                     break
                 case .failure(let error):
                     isError =  true
-//                    self.error = error
+                    //                    self.error = error
                     self.error = .error(image:nil,  message: "\(error.localizedDescription)",buttonTitle:"Done")
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
-//                    TeacherSubjects = model
-                    TeacherDocuments?.removeAll(where: {$0.id == model.id})
+                if let model = receivedData.data?.teacherLessonMaterialDtos {
+                    //                    TeacherSubjects = model
+                    //                    TeacherLessonMaterial?.removeAll(where: {$0.id == model.id})
+                    GetLessonMaterial()
                     isError = false
                 }else{
                     isError =  true
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-
-//                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
             })
             .store(in: &cancellables)
     }
     
-    
-    func clearTeachersDocument(){
-        documentType = nil
-        documentTitle = ""
-        documentOrder = ""
-        documentImg = nil
-        documentPdf = nil
+    func clearTeachersMaterial(){
+        materialType = nil
+        materialName = ""
+        materialNameEn = ""
+        materialImg = nil
+        materialPdf = nil
+        materialUrl = ""
     }
-
-
 }
 
 

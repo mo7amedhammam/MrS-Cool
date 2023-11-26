@@ -18,6 +18,12 @@ enum teacherServices{
     case GetSubjectLessonsBrief(parameters : [String:Any])
     case UpdateSubjectLessonsBrief(parameters : [String:Any])
 
+    case GetMyLessonMaterial(parameters : [String:Any])
+    case CreateMyLessonMaterial(parameters : [String:Any])
+    case UpdateMyLessonMaterial(parameters : [String:Any])
+    case DeleteLessonMaterial(parameters : [String:Any])
+
+    
 }
 extension teacherServices:TargetType{
     var path: String {
@@ -38,19 +44,30 @@ extension teacherServices:TargetType{
         case .UpdateSubjectLessonsBrief:
             return EndPoints.UpdateSubjectLessonBrief.rawValue
 
+        case .GetMyLessonMaterial:
+            return EndPoints.GetMyLessonMaterials.rawValue
+        case .CreateMyLessonMaterial:
+            return EndPoints.CreateMyLessonMaterials.rawValue
+        case .UpdateMyLessonMaterial:
+            return EndPoints.UpdateMyLessonMaterials.rawValue
+        case .DeleteLessonMaterial:
+            return EndPoints.DeleteMyLessonMaterials.rawValue
+
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
         case .GetTeacherProfile,
-                .GetSubjectLessonsBrief:
+                .GetSubjectLessonsBrief,
+                .DeleteLessonMaterial:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
                 .GetTeacherSubjectLessons,
                 .UpdateTeacherSubjectLessons,
-                .UpdateSubjectLessonsBrief:
+                .UpdateSubjectLessonsBrief,
+                .GetMyLessonMaterial,.CreateMyLessonMaterial,.UpdateMyLessonMaterial:
             return .post
         }
     }
@@ -59,14 +76,18 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile:
             return .plainRequest
-        case .GetSubjectLessonsBrief(parameters: let Parameters):
+        case .GetSubjectLessonsBrief(parameters: let Parameters),
+                .DeleteLessonMaterial(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),
                 .UpdateTeacherSubject(parameters: let Parameters),
                 .GetTeacherSubjectLessons(parameters: let Parameters),
                 .UpdateTeacherSubjectLessons(parameters: let Parameters),
-                .UpdateSubjectLessonsBrief(parameters: let Parameters):
+                .UpdateSubjectLessonsBrief(parameters: let Parameters),
+                .GetMyLessonMaterial(parameters: let Parameters),
+                .CreateMyLessonMaterial(parameters: let Parameters),
+                .UpdateMyLessonMaterial(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }
