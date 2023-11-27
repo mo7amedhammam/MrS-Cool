@@ -92,6 +92,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                 }
                                 .foregroundColor(.mainBlue)
                                 .padding([.top,.horizontal])
+                                
                             }
                             .padding(.top,5)
                             
@@ -102,23 +103,26 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                             Group{
                                                 VStack(alignment: .leading, spacing: 0){
                                                     // -- Data Title --
-                                                    SignUpHeaderTitle(Title: "Add New Material")
+                                                    SignUpHeaderTitle(Title:managelessonmaterialvm.isEditing ? "Update My Material" : "Add New Material")
                                                     
                                                     // -- inputs --
                                                     Group {
                                                         CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList)
                                                         
-                                                        CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialNameEn)
+                                                        CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialName)
+
+                                                        CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialNameEn).reversLocalizeView()
                                                         
+
                                                         //                                                        CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.documentOrder,keyboardType: .asciiCapableNumberPad)
                                                         
-                                                        CustomTextField(iconName:"img_group57",placeholder: "URL", text: $managelessonmaterialvm.materialURL,keyboardType: .URL)
+                                                        CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL)
                                                         
                                                     }
                                                     .padding([.top])
+                                                    .padding(.horizontal,2)
                                                     
-                                                    if managelessonmaterialvm.materialImg != nil || managelessonmaterialvm.materialPdf
-                                                        != nil{
+                                                    if managelessonmaterialvm.materialImg != nil || managelessonmaterialvm.materialPdf != nil{
                                                         VStack(alignment: .center,spacing:15) {
                                                             Image("img_maskgroup192")
                                                             HStack(alignment:.top,spacing: 10){
@@ -161,23 +165,26 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 
                                                 HStack {
                                                     Group{
-                                                        CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
-                                                            managelessonmaterialvm.CreateLessonMaterial(fileType: selectedFileType)
+                                                        CustomButton(Title:managelessonmaterialvm.isEditing ? "Update" : "Save",IsDisabled: .constant(false), action: {
+                                                            if managelessonmaterialvm.isEditing{
+                                                                managelessonmaterialvm.UpdateLessonMaterial(fileType: selectedFileType)
+                                                            }else{
+                                                                managelessonmaterialvm.CreateLessonMaterial(fileType: selectedFileType)
+                                                            }
                                                         })
                                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                                            managelessonmaterialvm.clearTeachersDocument()
+                                                            if managelessonmaterialvm.isEditing{
+                                                                managelessonmaterialvm.isEditing = false
+                                                                managelessonmaterialvm.editingMaterial = nil
+                                                            }else{
+                                                                managelessonmaterialvm.clearTeachersMaterial()
+                                                            }
                                                         })
                                                     }
                                                     .frame(width:120,height: 40)
                                                 }
                                                 .padding(.vertical)
-                                                //                        HStack {
-                                                //                            Text("* Note: Must be enter one item at least".localized())
-                                                //                                .font(Font.SoraRegular(size: 14))
-                                                //                                .multilineTextAlignment(.leading)
-                                                //                                .foregroundColor(ColorConstants.Black900)
-                                                //                            Spacer()
-                                                //                        }
+                                                
                                                 
                                                 //                        if teacherdocumentsvm.TeacherDocuments.count > 0{
                                                 HStack(){
@@ -192,15 +199,6 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                             showFilter = true
                                                         })
                                                     
-                                                    
-                                                    //                                    HStack {
-                                                    //                                        CustomButton(imageName:"img_maskgroup62_clipped",Title:"",IsDisabled: .constant(false), action: {
-                                                    //                                            showFilter = true
-                                                    //                                        })
-                                                    //                                        .frame(width:100,height:35)
-                                                    //                                        .padding(.vertical)
-                                                    //                                        Spacer()
-                                                    //                                    }
                                                 }
                                                 .sheet(isPresented: $showFilter) {
                                                     ScrollView {
@@ -219,9 +217,6 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                 CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.filtermaterialType,options:lookupsvm.materialTypesList)
                                                                 
                                                                 CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.filtermaterialName)
-                                                                
-                                                                //                                                                    CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.filterdocumentOrder,keyboardType: .asciiCapableNumberPad)
-                                                                
                                                             }
                                                             .padding(.vertical,5)
                                                             
@@ -248,31 +243,42 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                         }
                                                         .padding()
                                                         //                                    .presentationDetents([.medium])
-                                                        .presentationDetents([.fraction(0.5),.medium])
+                                                        .presentationDetents([.fraction(0.4),.medium])
                                                     }
                                                 }
                                                 //                        }
-                                                Spacer()
+                                                //                                                Spacer()
                                             }
                                             
-//                                            List(managelessonmaterialvm.TeacherLessonMaterial ?? [] ,id:\.self){ document in
-//                                                
-//                                                {
-//                                                    print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
-//                                                    previewurl = Constants.baseURL + (document.documentPath ?? "")
-//                                                    isPreviewPresented.toggle()
-//                                                }
-//                                                .listRowSpacing(0)
-//                                                .listRowSeparator(.hidden)
-//                                                .listRowBackground(Color.clear)
-//                                                .padding(.vertical,-4)
-//                                            }
-//                                            .scrollContentBackground(.hidden)
-//                                            .listStyle(.plain)
-//                                            .frame(height: gr.size.height/3*2)
-//                                            .padding(.horizontal,-18)
+                                            if (managelessonmaterialvm.TeacherLessonMaterial ?? []).count > 0{
+                                                List(managelessonmaterialvm.TeacherLessonMaterial ?? [] ,id:\.self){ material in
+                                                    
+                                                    ManageLessonMaterialCell(model: material,editBtnAction:{
+                                                        managelessonmaterialvm.isEditing = true
+                                                        managelessonmaterialvm.editingMaterial = material
+                                                        
+                                                    }, deleteBtnAction: {
+                                                        managelessonmaterialvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                                            managelessonmaterialvm.DeleteLessonMaterial(id: material.id)
+                                                        })
+                                                        managelessonmaterialvm.isError.toggle()
+                                                        
+                                                    }, previewBtnAction: {
+                                                        previewurl = (material.materialURL ?? "")
+                                                        isPreviewPresented.toggle()
+                                                    })
+                                                        .listRowSpacing(0)
+                                                        .listRowSeparator(.hidden)
+                                                        .listRowBackground(Color.clear)
+                                                        .padding(.vertical,-4)
+                                                }
+                                                .scrollContentBackground(.hidden)
+                                                .listStyle(.plain)
+                                                .frame(height: gr.size.height/3*3)
+                                                .padding(.horizontal,-18)
+                                            }
                                         }
-                                        .frame(minHeight: gr.size.height)
+//                                        .frame(minHeight: gr.size.height)
                                     }
                                 }
                                 .onAppear(perform: {
@@ -282,25 +288,22 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                 })
                                 
                                 
-                                //        .showHud(isShowing: $teacherdocumentsvm.isLoading)
-                                //        .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: .error( message: "\(teacherdocumentsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-                                
                                 //MARK: -------- imagePicker From Camera and Library ------
-                                //        .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
-                                //            Button("Image".localized()) {
-                                //                selectedFileType = .image
-                                //                showImageSheet = true
-                                //                print("upload image")
-                                //                // Call a function to show an image picker
-                                //            }
-                                //            Button("PDF".localized()) {
-                                //                selectedFileType = .pdf
-                                //                startPickingPdf = true
-                                //                print("upload pdf")
-                                //                // Call a function to add a PDF document
-                                //            }
-                                //            Button("Cancel".localized(), role: .cancel) { }
-                                //        } message: {Text("this is the file type you will add".localized())}
+                                        .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
+                                            Button("Image".localized()) {
+                                                selectedFileType = .image
+                                                showImageSheet = true
+                                                print("upload image")
+                                                // Call a function to show an image picker
+                                            }
+                                            Button("PDF".localized()) {
+                                                selectedFileType = .pdf
+                                                startPickingPdf = true
+                                                print("upload pdf")
+                                                // Call a function to add a PDF document
+                                            }
+                                            Button("Cancel".localized(), role: .cancel) { }
+                                        } message: {Text("this is the file type you will add".localized())}
                                 
                                 //MARK: -------- imagePicker From Camera and Library ------
                                 .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
@@ -336,13 +339,12 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                     .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
                                         // Optional: Handle actions on closing the preview sheet
                                     }, content: {
-                                        FilePreviewerSheet(url: $previewurl)
-                                            .overlay{
-                                                VStack{
-                                                    CustomTitleBarView(title: "")
-                                                    Spacer()
-                                                }.padding(.top)
+                                        VStack{
+                                            CustomTitleBarView(title: "")
+                                            FilePreviewerSheet(url: $previewurl).edgesIgnoringSafeArea(.bottom)
+                                                                                                Spacer()
                                             }
+                                        .frame(width:UIScreen.main.bounds.width)
                                     })
                                 
                             }
@@ -369,6 +371,8 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
         //            signupvm.isLoading = value
         //        })
         
+        .showAlert(hasAlert: $managelessonmaterialvm.isError, alertType: managelessonmaterialvm.error)
+
     }
 }
 

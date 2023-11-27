@@ -21,7 +21,7 @@ struct TeacherLessonMaterialBasicData: Codable {
 }
 
 // MARK: - TeacherLessonMaterialDto -
-struct TeacherLessonMaterialDto: Codable,Hashable {
+struct TeacherLessonMaterialDto: Codable,Hashable,Identifiable {
     var name: String?
     var teacherLessonID, materialTypeID: Int?
     var materialURL, materialTypeName: String?

@@ -214,13 +214,12 @@ struct TeacherDocumentDataView: View {
         .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
             // Optional: Handle actions on closing the preview sheet
         }, content: {
-            FilePreviewerSheet(url: $previewurl)
-                .overlay{
-                    VStack{
-                        CustomTitleBarView(title: "")
-                        Spacer()
-                    }.padding(.top)
+            VStack{
+                CustomTitleBarView(title: "")
+                FilePreviewerSheet(url: $previewurl).edgesIgnoringSafeArea(.bottom)
+                                                                    Spacer()
                 }
+            .frame(width:UIScreen.main.bounds.width)
         })
         
         .fullScreenCover(isPresented: $isFinish, onDismiss: {

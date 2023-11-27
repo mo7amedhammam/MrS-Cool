@@ -43,10 +43,23 @@ struct LocalizationViewModifier: ViewModifier {
             .environment(\.layoutDirection, localizeHelper.currentLanguage == "ar" ? .rightToLeft : .leftToRight)
     }
 }
+//MARK:  --- ViewModifier to update layout Direction RTL ---
+struct ReversedLocalizationViewModifier: ViewModifier {
+    @ObservedObject var localizeHelper = LocalizeHelper.shared
+    public func body(content: Content) -> some View {
+        content
+            .environment(\.locale, Locale(identifier: localizeHelper.currentLanguage))
+            .environment(\.layoutDirection, localizeHelper.currentLanguage == "ar" ? .leftToRight : .rightToLeft)
+    }
+}
+
 // --- View Extension to apply the modifier ---
 extension View {
     public func localizeView() -> some View {
         modifier(LocalizationViewModifier())
+    }
+    public func reversLocalizeView() -> some View {
+        modifier(ReversedLocalizationViewModifier())
     }
 }
 

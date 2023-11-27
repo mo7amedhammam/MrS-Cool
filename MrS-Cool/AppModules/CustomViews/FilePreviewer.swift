@@ -13,7 +13,7 @@ struct FilePreviewerSheet: View {
    @Binding var url: String
     
     var body: some View {
-        VStack {
+        ZStack {
             if url.hasSuffix(".pdf") {
                 
                 // Display PDF view
@@ -35,6 +35,7 @@ struct FilePreviewerSheet: View {
             
             Spacer()
         }
+//        .frame(maxHeight:UIScreen.main.bounds.height - 120)
         
         .onAppear(perform: {
             print("final url:",url.reverseSlaches())

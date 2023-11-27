@@ -31,7 +31,7 @@ enum EndPoints: String {
     case GetAcademicYear = "AcademicYear/GetByEducationLevel" ///get
     case GetAllSubject = "SubjectSemesterYear/GetAllSubjectByAcademicEducationLevelId" /// get
     case GetDocumentTypes = "DocumentType/Get"
-    case GetMaterialTypes = "MaterialType​/Get"
+    case GetMaterialTypes = "MaterialType/Get"
 
     
     // MARK: -- Teacher Auth --
