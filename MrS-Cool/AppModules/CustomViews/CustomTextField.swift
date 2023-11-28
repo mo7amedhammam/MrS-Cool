@@ -444,7 +444,6 @@ struct CustomTextEditor: View {
     CustomTextEditor(iconName:"img_group172", placeholder: "Teacher BIO *", text: .constant("gooo"), charLimit: 1000)
 }
 
-
 struct CustomDatePickerField: View {
     var fieldType : inputfields? = .Default
     var iconName : String? = ""
@@ -459,7 +458,7 @@ struct CustomDatePickerField: View {
 
 //    var options: [DropDownOption]
     @State private var isCalenderVisible = false
-    
+    var datePickerComponent:DatePickerComponents = .date
 //    var textContentType : UITextContentType? = .name
 //    var keyboardType : UIKeyboardType? = .default
 //    var Disabled : Bool?
@@ -523,7 +522,7 @@ struct CustomDatePickerField: View {
 //            }
             
             if isCalenderVisible {
-                DatePicker("birthDate", selection: $selectedDate ,displayedComponents: .date)
+                DatePicker("birthDate", selection: $selectedDate ,displayedComponents: datePickerComponent)
                     .frame(width: .infinity)
                     .padding(.horizontal)
                     .tint(.black)
@@ -544,7 +543,7 @@ struct CustomDatePickerField: View {
 }
 
 #Preview {
-    CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""))
+    CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""),datePickerComponent:.hourAndMinute)
 }
 
 extension Date{
