@@ -23,7 +23,10 @@ enum teacherServices{
     case UpdateMyLessonMaterial(parameters : [String:Any])
     case DeleteLessonMaterial(parameters : [String:Any])
 
-    
+    case GetMyScheduals(parameters : [String:Any])
+    case CreateMyNewSchedual(parameters : [String:Any])
+    case DeleteMySchedual(parameters : [String:Any])
+
 }
 extension teacherServices:TargetType{
     var path: String {
@@ -53,6 +56,13 @@ extension teacherServices:TargetType{
         case .DeleteLessonMaterial:
             return EndPoints.DeleteMyLessonMaterials.rawValue
 
+        case .GetMyScheduals:
+            return EndPoints.GetMySchedules.rawValue
+        case .CreateMyNewSchedual:
+            return EndPoints.CreateMySchedules.rawValue
+        case .DeleteMySchedual:
+            return EndPoints.DeleteMySchedules.rawValue
+
         }
     }
     
@@ -60,14 +70,16 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile,
                 .GetSubjectLessonsBrief,
-                .DeleteLessonMaterial:
+                .DeleteLessonMaterial,
+                .DeleteMySchedual:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
                 .GetTeacherSubjectLessons,
                 .UpdateTeacherSubjectLessons,
                 .UpdateSubjectLessonsBrief,
-                .GetMyLessonMaterial,.CreateMyLessonMaterial,.UpdateMyLessonMaterial:
+                .GetMyLessonMaterial,.CreateMyLessonMaterial,.UpdateMyLessonMaterial,
+                .GetMyScheduals,.CreateMyNewSchedual:
             return .post
         }
     }
@@ -76,8 +88,10 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile:
             return .plainRequest
+            
         case .GetSubjectLessonsBrief(parameters: let Parameters),
-                .DeleteLessonMaterial(parameters: let Parameters):
+                .DeleteLessonMaterial(parameters: let Parameters),
+                .DeleteMySchedual(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),
@@ -87,7 +101,9 @@ extension teacherServices:TargetType{
                 .UpdateSubjectLessonsBrief(parameters: let Parameters),
                 .GetMyLessonMaterial(parameters: let Parameters),
                 .CreateMyLessonMaterial(parameters: let Parameters),
-                .UpdateMyLessonMaterial(parameters: let Parameters):
+                .UpdateMyLessonMaterial(parameters: let Parameters),
+                .GetMyScheduals(parameters: let Parameters),
+                .CreateMyNewSchedual(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

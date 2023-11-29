@@ -38,7 +38,7 @@ class LookUpsVM: ObservableObject {
             getGovernoratesArr()
         }
     }
-
+    
     @Published var GovernoratesArray: [GovernorateM] = []{
         didSet{
             if !GovernoratesArray.isEmpty {
@@ -56,7 +56,7 @@ class LookUpsVM: ObservableObject {
             getCitiesArr()
         }
     }
-
+    
     @Published var CitiesArray: [CityM] = []{
         didSet{
             if !CitiesArray.isEmpty {
@@ -70,19 +70,19 @@ class LookUpsVM: ObservableObject {
         }
     }
     @Published var SelectedCity: DropDownOption?
-
+    
     @Published var GendersList : [DropDownOption] = []
     @Published var CountriesList : [DropDownOption] = []
     @Published var GovernoratesList: [DropDownOption] = []
     @Published var CitiesList: [DropDownOption] = []
-
+    
     @Published var EducationTypesArray: [EducationTypeM] = []{
         didSet{
             if !EducationTypesArray.isEmpty {
-            // Use map to transform GendersM into DropDownOption
-            EducationTypesList = EducationTypesArray.map { gender in
-                return DropDownOption(id: gender.id, Title: gender.name)
-            }
+                // Use map to transform GendersM into DropDownOption
+                EducationTypesList = EducationTypesArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
             }else{
                 EducationTypesList.removeAll()
             }
@@ -95,7 +95,7 @@ class LookUpsVM: ObservableObject {
             SelectedEducationLevel = nil
         }
     }
-
+    
     @Published var EducationLevelsArray: [EducationLevellM] = []{
         didSet{
             if !EducationLevelsArray.isEmpty {
@@ -119,7 +119,7 @@ class LookUpsVM: ObservableObject {
             }
         }
     }
-
+    
     @Published var AcademicYearsArray: [GendersM] = []{
         didSet{
             if !AcademicYearsArray.isEmpty {
@@ -143,14 +143,14 @@ class LookUpsVM: ObservableObject {
             }
         }
     }
-
+    
     @Published var SubjectsArray: [GendersM] = []{
         didSet{
             if !SubjectsArray.isEmpty {
-            // Use map to transform GendersM into DropDownOption
-            SubjectsList = SubjectsArray.map { gender in
-                return DropDownOption(id: gender.id, Title: gender.name)
-            }
+                // Use map to transform GendersM into DropDownOption
+                SubjectsList = SubjectsArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
             }else{
                 SubjectsList.removeAll()
             }
@@ -164,29 +164,29 @@ class LookUpsVM: ObservableObject {
             }
         }
     }
-
+    
     
     @Published var documentTypesArray: [DocumentTypeM] = []{
         didSet{
             if !documentTypesArray.isEmpty {
-            // Use map to transform GendersM into DropDownOption
-            documentTypesList = documentTypesArray.map { gender in
-                return DropDownOption(id: gender.id, Title: gender.name)
-            }
+                // Use map to transform GendersM into DropDownOption
+                documentTypesList = documentTypesArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
             }else{
                 documentTypesList.removeAll()
             }
         }
     }
     @Published var documentTypesList: [DropDownOption] = []
-
+    
     @Published var materialTypesArray: [GendersM] = []{
         didSet{
             if !materialTypesArray.isEmpty {
-            // Use map to transform GendersM into DropDownOption
+                // Use map to transform GendersM into DropDownOption
                 materialTypesList = materialTypesArray.map { gender in
-                return DropDownOption(id: gender.id, Title: gender.name)
-            }
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
             }else{
                 materialTypesList.removeAll()
             }
@@ -194,15 +194,29 @@ class LookUpsVM: ObservableObject {
     }
     @Published var materialTypesList: [DropDownOption] = []
     
+    @Published var daysArray: [GendersM] = []{
+        didSet{
+            if !daysArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                daysList = daysArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                daysList.removeAll()
+            }
+        }
+    }
+    @Published var daysList : [DropDownOption] = []
+    
     @Published private var error: Error?
- 
+    
     init()  {
-//        Task{
-//            getGendersArr()
-//            getCountriesArr()
-//            getGovernoratesArr()
-//            getCitiesArr()
-//        }
+        //        Task{
+        //            getGendersArr()
+        //            getCountriesArr()
+        //            getGovernoratesArr()
+        //            getCitiesArr()
+        //        }
     }
 }
 
@@ -240,7 +254,7 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 CountriesArray = receivedData.data ?? []
-//                fillCountriesList()
+                //                fillCountriesList()
             })
             .store(in: &cancellables)
     }
@@ -262,7 +276,7 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 GovernoratesArray = receivedData.data ?? []
-//                fillGovernoratesList()
+                //                fillGovernoratesList()
             })
             .store(in: &cancellables)
     }
@@ -287,7 +301,7 @@ extension LookUpsVM{
             })
             .store(in: &cancellables)
     }
-
+    
 }
 
 extension LookUpsVM {
@@ -308,11 +322,11 @@ extension LookUpsVM {
             })
             .store(in: &cancellables)
     }
-
+    
     func GetEducationLevels() {
         guard let educationTypeId = SelectedEducationType?.id else {return}
         let parameters = ["educationTypeId":educationTypeId]
-
+        
         let target = LookupsServices.GetEducationLevels(parameters: parameters)
         BaseNetwork.CallApi(target, BaseResponse<[EducationLevellM]>.self)
             .sink(receiveCompletion: { completion in
@@ -333,7 +347,7 @@ extension LookUpsVM {
     func GetAcademicYears() {
         guard let educationLevelId = SelectedEducationLevel?.id else {return}
         let parameters = ["educationLevelId":educationLevelId]
-
+        
         let target = LookupsServices.GetAcademicYears(parameters: parameters)
         BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
             .sink(receiveCompletion: { completion in
@@ -354,7 +368,7 @@ extension LookUpsVM {
     func GetSubjects() {
         guard let academicYearId = SelectedAcademicYear?.id else {return}
         let parameters = ["academicEducationLevelId":academicYearId]
-
+        
         let target = LookupsServices.GetAllSubjects(parameters: parameters)
         BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
             .sink(receiveCompletion: { completion in
@@ -377,9 +391,9 @@ extension LookUpsVM {
 
 extension LookUpsVM{
     func GetDocumentTypes() {
-//        guard let academicYearId = SelectedAcademicYear?.id else {return}
-//        let parameters = ["academicEducationLevelId":academicYearId]
-
+        //        guard let academicYearId = SelectedAcademicYear?.id else {return}
+        //        let parameters = ["academicEducationLevelId":academicYearId]
+        
         let target = LookupsServices.GetDocumentTypes
         BaseNetwork.CallApi(target, BaseResponse<[DocumentTypeM]>.self)
             .sink(receiveCompletion: { completion in
@@ -397,9 +411,9 @@ extension LookUpsVM{
             .store(in: &cancellables)
     }
     func GetMaterialTypes() {
-//        guard let academicYearId = SelectedAcademicYear?.id else {return}
-//        let parameters = ["academicEducationLevelId":academicYearId]
-
+        //        guard let academicYearId = SelectedAcademicYear?.id else {return}
+        //        let parameters = ["academicEducationLevelId":academicYearId]
+        
         let target = LookupsServices.GetMaterialTypes
         BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
             .sink(receiveCompletion: { completion in
@@ -413,6 +427,24 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 materialTypesArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    
+    func GetDays() {
+        let target = LookupsServices.GetDays
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                daysArray = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

@@ -32,7 +32,8 @@ enum EndPoints: String {
     case GetAllSubject = "SubjectSemesterYear/GetAllSubjectByAcademicEducationLevelId" /// get
     case GetDocumentTypes = "DocumentType/Get"
     case GetMaterialTypes = "MaterialType/Get"
-
+    case GetDays = "Lookups/GetDay"
+    
     
     // MARK: -- Teacher Auth --
     //Teacher personal Date
@@ -89,10 +90,16 @@ enum EndPoints: String {
 
     case GetSubjectLessonBrief = "TeacherLesson/GetTeacherBerifById"
     case UpdateSubjectLessonBrief = "TeacherLesson/UpdateTeacherLessonBerif"
-    
+
+    // MARK: -- Teacher Subject Lessons Material --
     case GetMyLessonMaterials = "TeacherLessonMaterial/GetMyLessonMaterials"
     case CreateMyLessonMaterials = "TeacherLessonMaterial/Create"
     case UpdateMyLessonMaterials = "TeacherLessonMaterial/Update"
     case DeleteMyLessonMaterials = "TeacherLessonMaterial/Delete"
+    
+    // MARK: -- Teacher Scheduals --
+    case GetMySchedules = "TeacherSchedule/GetMySchedules"
+    case CreateMySchedules = "TeacherSchedule/Create"
+    case DeleteMySchedules = "TeacherSchedule/Delete"
 
 }

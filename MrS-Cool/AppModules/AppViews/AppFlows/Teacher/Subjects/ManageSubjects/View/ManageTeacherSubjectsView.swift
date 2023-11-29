@@ -190,8 +190,11 @@ struct ManageTeacherSubjectsView: View {
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
-                        }
-                        .listStyle(.plain)
+                            .listRowBackground(Color.clear)
+                            .padding(.vertical,-4)
+                    }
+                    .scrollContentBackground(.hidden)
+                    .listStyle(.plain)
                         .frame(height: gr.size.height/2)
                         Spacer()
                     }

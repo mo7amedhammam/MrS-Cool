@@ -35,7 +35,7 @@ struct ManageTeacherSchedualsView: View {
                                 }
                                 // -- inputs --
                                 Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteacherschedualsvm.day,options:lookupsvm.EducationTypesList)
+                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteacherschedualsvm.day,options:lookupsvm.daysList)
 
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.startDate,datePickerComponent:.date)
@@ -85,9 +85,8 @@ struct ManageTeacherSchedualsView: View {
                                         }
                                         .padding(.vertical)
                                         Group {
-                                            CustomDropDownField(iconName:"img_vector",placeholder: "Day", selectedOption: $manageteacherschedualsvm.filterDay,options:lookupsvm.EducationTypesList)
+                                            CustomDropDownField(iconName:"img_vector",placeholder: "Day", selectedOption: $manageteacherschedualsvm.filterDay,options:lookupsvm.daysList)
 
-                                            
                                             CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.filterStartDate,datePickerComponent:.date)
 
                                             CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$manageteacherschedualsvm.filterEndDate,datePickerComponent:.date)
@@ -120,26 +119,21 @@ struct ManageTeacherSchedualsView: View {
                         }
                         .padding(.horizontal)
                         
-                        List(manageteacherschedualsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
-//                            ManageSubjectCell(model: subject, editSubjectBtnAction:{
-////                                manageteacherschedualsvm.selectSubjectForEdit(item: subject)
-//                            },editLessonsBtnAction: {
-//                                destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
-//                                    .environmentObject(LookUpsVM())
-//                                    .environmentObject(ManageTeacherSubjectLessonsVM())
-//                                )
-//                                isPush = true
-//                            }, deleteBtnAction:{
-//                                manageteacherschedualsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-//                                    manageteacherschedualsvm.DeleteTeacherSubject(id: subject.id)
-//                                })
-//                                manageteacherschedualsvm.isError.toggle()
-//                            })
-                            Text("goo")
-                                .listRowSpacing(0)
-                                .listRowSeparator(.hidden)
-                        }
-                        .listStyle(.plain)
+                        List(manageteacherschedualsvm.TeacherScheduals ?? [] ,id:\.self){ schedual in
+                            
+                            ManageSchedualCell(model: schedual, deleteBtnAction: {
+                                manageteacherschedualsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                    manageteacherschedualsvm.DeleteTeacherSchedual(id: schedual.id)
+                                })
+                                manageteacherschedualsvm.isError.toggle()
+                            })
+                            .listRowSpacing(0)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .padding(.vertical,-4)
+                    }
+                    .scrollContentBackground(.hidden)
+                    .listStyle(.plain)
                         .frame(height: gr.size.height/2)
                         Spacer()
                     }
@@ -147,7 +141,7 @@ struct ManageTeacherSchedualsView: View {
                 }
             }
             .onAppear(perform: {
-                lookupsvm.GetEducationTypes()
+                lookupsvm.GetDays()
                 manageteacherschedualsvm.GetTeacherScheduals()
             })
         }
@@ -159,7 +153,7 @@ struct ManageTeacherSchedualsView: View {
             manageteacherschedualsvm.cleanup()
         }
         //        .showHud(isShowing: $teachersubjectsvm.isLoading)
-        //        .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+        .showAlert(hasAlert: $manageteacherschedualsvm.isError, alertType: manageteacherschedualsvm.error)
         //        .onChange(of: teachersubjectsvm.isLoading, perform: { value in
         //            signupvm.isLoading = value
         //        })

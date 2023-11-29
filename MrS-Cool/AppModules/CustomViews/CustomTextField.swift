@@ -523,11 +523,11 @@ struct CustomDatePickerField: View {
             
             if isCalenderVisible {
                 DatePicker("birthDate", selection: $selectedDate ,displayedComponents: datePickerComponent)
-                    .frame(width: .infinity)
+                    .frame(width: UIScreen.main.bounds.width)
                     .padding(.horizontal)
                     .tint(.black)
-                    .datePickerStyle(.graphical)
                     .labelsHidden()
+                    .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
             }
 
         }
@@ -535,7 +535,7 @@ struct CustomDatePickerField: View {
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
         .onChange(of: selectedDate, perform: {date in
-           selectedDateStr = date.formatDate(format: "dd MMM yyyy")
+            selectedDateStr = date.formatDate(format:datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
 //            isCalenderVisible = false
         })
 
@@ -545,6 +545,27 @@ struct CustomDatePickerField: View {
 #Preview {
     CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""),datePickerComponent:.hourAndMinute)
 }
+
+struct ConditionalDatePickerStyle: ViewModifier {
+    var datePickerComponent: DatePickerComponents
+    
+    func body(content: Content) -> some View {
+        if datePickerComponent == .hourAndMinute {
+            return AnyView(content.datePickerStyle(WheelDatePickerStyle()))
+        } else {
+            return AnyView(content.datePickerStyle(GraphicalDatePickerStyle()))
+        }
+    }
+}
+
+// --- View Extension to apply the modifier ---
+extension View {
+    public func conditionalDatePickerStyle(datePickerComponent: DatePickerComponents) -> some View {
+        modifier(ConditionalDatePickerStyle(datePickerComponent: datePickerComponent))
+    }
+}
+
+
 
 extension Date{
     func formatDate(format: String) -> String {

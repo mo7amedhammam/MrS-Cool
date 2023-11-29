@@ -15,9 +15,9 @@ struct ContentView: View {
             VStack {
 //                SignInView()
                 
-                ManageTeacherSubjectsView()
+                ManageTeacherSchedualsView()
                     .environmentObject(LookUpsVM())
-                    .environmentObject(ManageTeacherSubjectsVM())
+                    .environmentObject(ManageTeacherSchedualsVM())
                 
 
             }

@@ -29,11 +29,12 @@ class ManageTeacherSchedualsVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var isTeacherHasSubjects: Bool = false
-    @Published var TeacherSubjects : [TeacherSubjectM]?{
-        didSet{
-            isTeacherHasSubjects = !(TeacherSubjects?.isEmpty ?? true)
-        }
-    }
+    @Published var TeacherScheduals : [TeacherSchedualM]?
+//    {
+//        didSet{
+//            isTeacherHasSubjects = !(TeacherSubjects?.isEmpty ?? true)
+//        }
+//    }
     
     
     init()  {
@@ -44,112 +45,118 @@ class ManageTeacherSchedualsVM: ObservableObject {
 extension ManageTeacherSchedualsVM{
     
     func CreateTeacherSchedual(){
-//        guard let subjectAcademicYearId = subject?.id else {return}
-//        let parameters:[String:Any] = ["subjectAcademicYearId":subjectAcademicYearId]
-//        
-//        print("parameters",parameters)
-//        let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if receivedData.success == true {
-//                    //                    TeacherSubjects?.append(model)
-//                    GetTeacherSubjects()
-//                }else{
-//                    isError =  true
-//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
+        guard let dayId = day?.id,let startDate = startDate,let endDate = endDate,let startTime = startTime ,let endTime = endTime else {return}
+        let parameters:[String:Any] = ["dayId":dayId,
+                                       "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                       "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
+                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm")]
+        
+        print("parameters",parameters)
+        let target = teacherServices.CreateMyNewSchedual(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<TeacherSchedualM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true,let model = receivedData.data {
+//                    TeacherScheduals?.append(model)
+                    GetTeacherScheduals()
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
     }
     
     func GetTeacherScheduals(){
-        var parameters : [String:Any] = [:]
-        if let day = filterDay?.id{
-            parameters["educationTypeId"] = day
+//        guard let dayId = day?.id,let startDate = startDate,let endDate = endDate else {return}
+        var parameters:[String:Any] = [:]
+        if let filterDay = filterDay{
+            parameters["dayId"] = filterDay.id
         }
-        if let startDate = filterStartDate{
-            parameters["educationLevelId"] = startDate
+        if let filterStartDate = filterStartDate{
+            parameters["fromStartDate"] = filterStartDate
         }
-        if let endDate = filterEndDate{
-            parameters["academicYearId"] = endDate
+        if let filterEndDate = filterEndDate{
+            parameters["toEndDate"] = filterEndDate
         }
-//        let target = Authintications.TeacherGetSubjects(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<[TeacherSubjectM]>.self)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-//                    self.error = .error( image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if let model = receivedData.data{
-//                    TeacherSubjects = model
-//                }else{
-//                    isError =  true
-//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//                    
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
+        print("parameters",parameters)
+        let target = teacherServices.GetMyScheduals(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<[TeacherSchedualM]>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    //                    TeacherSubjects?.append(model)
+                    TeacherScheduals = receivedData.data
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
     }
     
-    func DeleteTeacherSubject(id:Int?){
-//        guard let id = id else {return}
-//        let parameters:[String:Any] = ["id":id]
-//        
-//        print("parameters",parameters)
-//        let target = Authintications.TeacherDeleteSubjects(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-//                    self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if let model = receivedData.data{
-//                    //                    TeacherSubjects = model
-//                    TeacherSubjects?.removeAll(where: {$0.id == model.id})
-//                }else{
-//                    isError =  true
-//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//                    
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
+    func DeleteTeacherSchedual(id:Int?){
+        guard let id = id else {return}
+        let parameters:[String:Any] = ["id":id]
+        
+        print("parameters",parameters)
+        let target = teacherServices.DeleteMySchedual(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<TeacherSchedualM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if let model = receivedData.data{
+                    //                    TeacherSubjects = model
+                    TeacherScheduals?.removeAll(where: {$0.id == model.id})
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
     }
     
     func clearTeacherSchedual(){
