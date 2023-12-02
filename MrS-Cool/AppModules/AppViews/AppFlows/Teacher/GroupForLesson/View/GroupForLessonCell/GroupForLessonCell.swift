@@ -1,0 +1,129 @@
+//
+//  GroupForLessonCell.swift
+//  MrS-Cool
+//
+//  Created by wecancity on 02/12/2023.
+//
+import SwiftUI
+
+struct GroupForLessonCell: View {
+    var model = TeacherSchedualM()
+
+//    var editSubjectBtnAction : (()->())?
+//    var editLessonsBtnAction : (()->())?
+    var deleteBtnAction : (()->())?
+
+    var body: some View {
+        VStack(alignment:.leading,spacing: 10){
+            HStack(alignment: .top,spacing: 20) {
+
+                Image("img_group512382")
+                    .scaleEffect(1.2, anchor: .center)
+                    .background(
+                        Color.black.clipShape(Circle())
+                            .frame(width: 30 ,height: 30)
+                    )
+
+                
+                VStack(alignment: .leading,spacing: 10){
+                    Text(model.dayName ?? "day name")
+                        .font(Font.SoraSemiBold(size:13.0))
+                        .foregroundColor(.mainBlue)
+                    
+                    HStack(alignment:.top) {
+                        VStack (alignment:.leading,spacing: 10){
+                            Text(model.dayName ?? "Grade 1")
+                                .font(Font.SoraRegular(size: 12.0))
+                                .fontWeight(.regular)
+                                .foregroundColor(ColorConstants.Black900)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                            
+                            Text(model.dayName ?? "Primary")
+                                .font(Font.SoraRegular(size: 12.0))
+                                .fontWeight(.regular)
+                                .foregroundColor(ColorConstants.Bluegray402)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                            
+                            Text(model.dayName ?? "Egyption")
+                                .font(Font.SoraRegular(size: 12.0))
+                                .fontWeight(.regular)
+                                .foregroundColor(ColorConstants.Bluegray402)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                            
+                        }
+                        Spacer()
+                        VStack(spacing:10){
+                            Text(model.dayName ?? "Grade 1")
+                                .font(Font.SoraRegular(size: 12.0))
+                                .fontWeight(.regular)
+                                .foregroundColor(ColorConstants.Black900)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+
+                            Text(model.dayName ?? "Grade 1")
+                                .font(Font.SoraRegular(size: 12.0))
+                                .fontWeight(.regular)
+                                .foregroundColor(ColorConstants.Black900)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                        }
+                        Spacer()
+                    }
+
+                }
+                
+
+
+                Spacer()
+                VStack(alignment:.trailing){
+                    
+                    Button(action: {
+                        deleteBtnAction?()
+                    }, label: {
+                        Image("img_group")
+                            .resizable()
+                            .frame(width: 15, height: 18,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                    
+                    //                }
+                    VStack(alignment:.leading,spacing: 2.5){
+                        Text("End Date".localized())
+                            .font(Font.SoraSemiBold(size: 6))
+                            .foregroundColor(.grayBtnText)
+                        
+                        Text("\(model.toEndDate ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
+                            .font(Font.SoraRegular(size: 12))
+                            .foregroundColor(.mainBlue)
+                        
+                        Spacer().frame(height:3)
+
+                        Text("End Time".localized())
+                            .font(Font.SoraSemiBold(size: 6))
+                            .foregroundColor(.grayBtnText)
+                        
+                        Text("\(model.toTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))
+                            .font(Font.SoraRegular(size: 12))
+                            .foregroundColor(.mainBlue)
+                        
+                    }
+                    .padding(.top,8)
+                }
+            }
+        }
+        .padding()
+        .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
+            .stroke(ColorConstants.Bluegray100,
+                    lineWidth: 1))
+        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
+            .fill(ColorConstants.WhiteA700))
+    }
+}
+
+#Preview {
+    GroupForLessonCell()
+}
