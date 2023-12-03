@@ -208,6 +208,42 @@ class LookUpsVM: ObservableObject {
     }
     @Published var daysList : [DropDownOption] = []
     
+    @Published var SubjectsForListArray: [SubjectForListM] = []{
+        didSet{
+            if !SubjectsForListArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                SubjectsForList = SubjectsForListArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.subjectDisplayName)
+                }
+            }else{
+                SubjectsForList.removeAll()
+            }
+        }
+    }
+    @Published var SubjectsForList: [DropDownOption] = []
+    @Published var SelectedSubjectForList: DropDownOption?{
+        didSet{
+            if SelectedSubjectForList == nil{
+                SubjectsForList.removeAll()
+            }else{
+                GetLessonsForList()
+            }
+        }
+    }
+    @Published var LessonsForListArray: [LessonForListM] = []{
+        didSet{
+            if !LessonsForListArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                LessonsForList = LessonsForListArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.lessonName,subTitle: gender.groupDuration)
+                }
+            }else{
+                LessonsForList.removeAll()
+            }
+        }
+    }
+    @Published var LessonsForList: [DropDownOption] = []
+    
     @Published private var error: Error?
     
     init()  {
@@ -445,6 +481,43 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 daysArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    
+    func GetSubjestForList() {
+        let target = LookupsServices.GetSubjectsForList
+        BaseNetwork.CallApi(target, BaseResponse<[SubjectForListM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                SubjectsForListArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    func GetLessonsForList() {
+        guard let SelectedSubjectForListid = SelectedSubjectForList?.id else {return}
+        let parameters:[String:Any] = ["teacherSubjectAcademicSemesterYearId":SelectedSubjectForListid]
+        let target = LookupsServices.GetLessonsForList(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<[LessonForListM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                LessonsForListArray = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

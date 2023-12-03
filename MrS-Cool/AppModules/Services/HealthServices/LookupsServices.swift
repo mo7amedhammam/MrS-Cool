@@ -20,6 +20,9 @@ enum LookupsServices {
     case GetDocumentTypes
     case GetMaterialTypes
     case GetDays
+    
+    case GetSubjectsForList
+    case GetLessonsForList(parameters : [String:Any])
 }
 
 
@@ -50,6 +53,11 @@ extension LookupsServices : TargetType {
             return EndPoints.GetMaterialTypes.rawValue
         case .GetDays:
             return EndPoints.GetDays.rawValue
+            
+        case .GetSubjectsForList:
+            return EndPoints.GetTeacherSubjectForList.rawValue
+        case .GetLessonsForList:
+            return EndPoints.GetTeacherLessonForList.rawValue
         }
     }
     
@@ -65,7 +73,8 @@ extension LookupsServices : TargetType {
                 .GetAllSubjects,
                 .GetDocumentTypes,
                 .GetMaterialTypes,
-                .GetDays:
+                .GetDays,
+                .GetSubjectsForList,.GetLessonsForList:
             return .get
         }
     }
@@ -77,13 +86,15 @@ extension LookupsServices : TargetType {
                 .GetEducationTypes,
                 .GetDocumentTypes,
                 .GetMaterialTypes,
-                .GetDays:
+                .GetDays,
+                .GetSubjectsForList:
             return .plainRequest
         case .GetGovernorates(parameters: let parameters),
                 .GetCities(parameters: let parameters),
                 .GetEducationLevels(parameters: let parameters),
                 .GetAcademicYears(parameters: let parameters),
-                .GetAllSubjects(parameters: let parameters):
+                .GetAllSubjects(parameters: let parameters),
+                .GetLessonsForList(parameters: let parameters):
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
         }
     }

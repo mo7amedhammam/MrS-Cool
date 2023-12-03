@@ -102,4 +102,10 @@ enum EndPoints: String {
     case CreateMySchedules = "TeacherSchedule/Create"
     case DeleteMySchedules = "TeacherSchedule/Delete"
 
+    // MARK: -- Teacher Groups for lesson --
+    case GetTeacherSubjectForList = "TeacherSubjectAcademicSemesterYear/GetTeacherSubjectAcademicSemesterYearForList"
+    case GetTeacherLessonForList = "TeacherLesson/GetTeacherLessonForList"
+    case CreateLessonTeacherScheduleGroup = "TeacherSchedule/CreateLessonTeacherScheduleGroup"
+    case GetMyLessonSchedualGroup = "TeacherSchedule/GetMyLessonSchedualGroup"
+    case DeleteLessonTeacherScheduleGroup = "TeacherSchedule/DeleteLessonTeacherScheduleGroup"
 }

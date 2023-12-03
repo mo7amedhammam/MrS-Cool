@@ -12,7 +12,6 @@ class GroupForLessonVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    
     @Published var subject : DropDownOption?
     @Published var lesson : DropDownOption?
     @Published var groupName : String = ""
@@ -24,7 +23,6 @@ class GroupForLessonVM: ObservableObject {
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
     
-    
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -32,24 +30,21 @@ class GroupForLessonVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     //    @Published var isTeacherHasSubjects: Bool = false
-    @Published var TeacherGroups : [TeacherSchedualM]?
+    @Published var TeacherGroups : [GroupForLessonM]?
     
     init()  {
     }
 }
 
 extension GroupForLessonVM{
-    
     func CreateTeacherGroup(){
-        guard let subjectid = subject?.id,let lessonid = lesson?.id,let date = date,let time = time else {return}
+        guard let lessonid = lesson?.id,let date = date,let time = time else {return}
         let parameters:[String:Any] = [ "groupName":groupName,
-                                        "subjectid":subjectid,
-                                        "lessonid":lessonid,
-                                        "date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
-                                        "time":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")]
-        
+                                        "teacherLessonId":lessonid,
+                                        "teacherLessonSessionScheduleSlotsDto":["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                        "timeFrom":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")]]
         print("parameters",parameters)
-        let target = teacherServices.CreateMyNewSchedual(parameters: parameters)
+        let target = teacherServices.CreateMyLessonScheduleGroup(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherSchedualM>.self)
             .sink(receiveCompletion: {[weak self] completion in
@@ -81,16 +76,15 @@ extension GroupForLessonVM{
     func GetTeacherGroups(){
         var parameters:[String:Any] = [:]
         if let subjectid = subject?.id{
-            parameters["dayId"] = subjectid
+            parameters["teacherSubjectAcademicSemesterYearId"] = subjectid
         }else if let filtersubjectid = filtersubject?.id{
-            parameters["dayId"] = filtersubjectid
+            parameters["teacherSubjectAcademicSemesterYearId"] = filtersubjectid
         }
         if let lessonid = lesson?.id{
-            parameters["dayId"] = lessonid
+            parameters["teacherLessonId"] = lessonid
             
         } else if let filterlessonid = filterlesson?.id{
-            parameters["dayId"] = filterlessonid
-            
+            parameters["teacherLessonId"] = filterlessonid
         }
         if groupName.count > 0{
             parameters["groupName"] = groupName
@@ -99,18 +93,18 @@ extension GroupForLessonVM{
         }
         
         if let date = date{
-            parameters["fromStartDate"] = date
+            parameters["startDate"] = date
         }else if let filterdate = filterdate{
-            parameters["fromStartDate"] = filterdate
+            parameters["startDate"] = filterdate
         }
         if let time = time{
             parameters["toEndDate"] = time
         }
         
         print("parameters",parameters)
-        let target = teacherServices.GetMyScheduals(parameters: parameters)
+        let target = teacherServices.GetMyLessonSchedualGroup(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<[TeacherSchedualM]>.self)
+        BaseNetwork.CallApi(target, BaseResponse<[GroupForLessonM]>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -142,9 +136,9 @@ extension GroupForLessonVM{
         let parameters:[String:Any] = ["id":id]
         
         print("parameters",parameters)
-        let target = teacherServices.DeleteMySchedual(parameters: parameters)
+        let target = teacherServices.DeleteMyLessonScheduleGroup(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<TeacherSchedualM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<GroupForLessonM>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -165,7 +159,6 @@ extension GroupForLessonVM{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                    
                 }
                 isLoading = false
             })

@@ -200,6 +200,7 @@ struct CustomTextField: View {
 struct DropDownOption:Hashable{
     var id:Int? = 0
     var Title:String? = ""
+    var subTitle:Int? = 0
 }
 
 struct CustomDropDownField: View {

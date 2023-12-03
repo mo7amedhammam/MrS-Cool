@@ -60,4 +60,13 @@ struct DocumentTypeM: Codable {
     var order, id: Int?
 }
 
-
+// MARK: - Subject For List M -
+struct SubjectForListM: Codable {
+    var  id: Int?
+    var subjectDisplayName: String?
+}
+// MARK: - Lesson For List M -
+struct LessonForListM: Codable {
+    var  id,groupDuration: Int?
+    var lessonName: String?
+}

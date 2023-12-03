@@ -16,10 +16,10 @@ struct GroupForLessonView: View {
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
-//    @State private var isEditing = false
+    //    @State private var isEditing = false
     
     @State var showFilter : Bool = false
-    var selectedSubject:TeacherSubjectM?
+    //    var selectedSubject:TeacherSubjectM?
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Lesson")
@@ -36,16 +36,21 @@ struct GroupForLessonView: View {
                                 // -- inputs --
                                 Group {
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsList)
-
-                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.SubjectsList)
-
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList)
+                                        .onTapGesture(perform: {
+                                            if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
+                                                lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
+                                            }
+                                        })
+                                    
+                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.LessonsForList)
+                                    
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.groupName)
-
-
+                                    
+                                    
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,datePickerComponent:.date)
-
-                                    CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.startTime,datePickerComponent:.hourAndMinute)
+                                    
+                                    CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.time,datePickerComponent:.hourAndMinute)
                                 }
                                 .padding([.top])
                             }.padding(.top,20)
@@ -53,7 +58,7 @@ struct GroupForLessonView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
-                                            groupsforlessonvm.CreateTeacherGroup()
+                                        groupsforlessonvm.CreateTeacherGroup()
                                     })
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                         groupsforlessonvm.clearTeacherGroup()
@@ -86,13 +91,18 @@ struct GroupForLessonView: View {
                                         }
                                         .padding(.vertical)
                                         Group {
-                                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.filtersubject,options:lookupsvm.SubjectsList)
-
-                                            CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.filterlesson,options:lookupsvm.SubjectsList)
-
+                                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.filtersubject,options:lookupsvm.SubjectsForList)
+                                            
+                                            CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.filterlesson,options:lookupsvm.LessonsForList)
+                                                .onTapGesture(perform: {
+                                                    if                                                     lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject
+                                                    {
+                                                        lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
+                                                    }
+                                                })
+                                            
                                             CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.filtergroupName)
-
-
+                                            
                                             CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.filterdate,datePickerComponent:.date)
                                         }
                                         
@@ -121,7 +131,6 @@ struct GroupForLessonView: View {
                         .padding(.horizontal)
                         
                         List(groupsforlessonvm.TeacherGroups ?? [] ,id:\.self){ schedual in
-                            
                             GroupForLessonCell(model: schedual, deleteBtnAction: {
                                 groupsforlessonvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     groupsforlessonvm.DeleteTeacherGroup(id: schedual.id)
@@ -132,9 +141,9 @@ struct GroupForLessonView: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .padding(.vertical,-4)
-                    }
-                    .scrollContentBackground(.hidden)
-                    .listStyle(.plain)
+                        }
+                        .scrollContentBackground(.hidden)
+                        .listStyle(.plain)
                         .frame(height: gr.size.height/2)
                         Spacer()
                     }
@@ -142,7 +151,7 @@ struct GroupForLessonView: View {
                 }
             }
             .onAppear(perform: {
-                lookupsvm.GetDays()
+                lookupsvm.GetSubjestForList()
                 groupsforlessonvm.GetTeacherGroups()
             })
         }
