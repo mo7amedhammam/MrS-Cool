@@ -34,6 +34,8 @@ class SignInVM: ObservableObject {
     @Published var isFormValid = false
     
     //    MARK: --- outpust ---
+    @Published var isLogedin = false
+
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
     @Published var error: Error?
@@ -42,6 +44,7 @@ class SignInVM: ObservableObject {
         didSet{
             if teachermodel != nil{
                 Helper.shared.saveUser(user: teachermodel)
+                isLogedin = true
             }
         }
     }

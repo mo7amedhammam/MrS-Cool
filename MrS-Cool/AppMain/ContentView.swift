@@ -13,12 +13,23 @@ struct ContentView: View {
 
         NavigationView{
             VStack {
-//                SignInView()
-                
-                ManageTeacherSchedualsView()
-                    .environmentObject(LookUpsVM())
-                    .environmentObject(ManageTeacherSchedualsVM())
-                
+                if Helper().checkOnBoard(){
+                    SignInView()
+
+                }else if Helper().CheckIfLoggedIn(){
+                    if Helper().getSelectedUserType() == .Teacher{
+                        TeacherHomeView()
+                    }else if Helper().getSelectedUserType() == .Student{
+                        
+                    }else{
+                        
+                    }
+                }else{
+                    SignInView()
+                }
+//                ManageTeacherSchedualsView()
+//                    .environmentObject(LookUpsVM())
+//                    .environmentObject(ManageTeacherSchedualsVM())
 
             }
         }

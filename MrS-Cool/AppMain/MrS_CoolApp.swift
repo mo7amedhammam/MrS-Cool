@@ -53,10 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("app in: user :",Helper.shared.getSelectedUserType()?.rawValue ?? "")
         print("app in: loged in :",Helper.shared.CheckIfLoggedIn())
 
+//                Helper.shared.IsLoggedIn(value: false)
+
         if Helper.shared.CheckIfLoggedIn() == false{
             Helper.shared.setSelectedUserType(userType: .Student)
         }
-//        Helper.shared.IsLoggedIn(value: false)
 
         return true
     }

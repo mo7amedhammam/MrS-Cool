@@ -106,10 +106,11 @@ struct GroupForLessonCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         
-                        Text("\(model.timeFrom ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))+Text(" - \("\(model.timeTo ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))")
-                            .font(Font.SoraRegular(size: 12))
+                        Group{
+                            Text("\(model.timeFrom ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))+Text(" - \("\(model.timeTo ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))")
+                        }                            .font(Font.SoraRegular(size: 12))
                             .foregroundColor(.mainBlue)
-                        
+
                     }
                     .padding(.top,8)
                 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 struct ManageTeacherSubjectsView: View {
-    //        @Environment(\.dismiss) var dismiss
+    //    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var manageteachersubjectsvm : ManageTeacherSubjectsVM

@@ -24,7 +24,6 @@ class Helper: NSObject {
     let UserTypeKey = "setSelectedUserTypeKey"
     
     func saveUser(user: TeacherModel?) {
-        IsLoggedIn(value: true)
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
             userDef.set(encoded, forKey: UserDataKey)

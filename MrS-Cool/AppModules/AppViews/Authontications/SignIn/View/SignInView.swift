@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct SignInView: View {
     @StateObject var teachersigninvm = SignInVM()
     @State private var selectedUser : UserType = UserType.init()
@@ -119,16 +120,18 @@ struct SignInView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-//        .onAppear(perform: {
+        .onAppear(perform: {
+
 //            switch Helper.shared.getSelectedUserType(){
 //            case .Parent:
 //                selectedUser.user = .Parent
 //            case .Teacher:
 //                selectedUser.user = .Student
 //            default:
+//            Helper.shared.setSelectedUserType(userType: .Student)
 //                selectedUser.user = .Student
 //            }
-//        })
+        })
         
         .onChange(of: selectedUser.user, perform: { val in
             switch val {
@@ -140,18 +143,24 @@ struct SignInView: View {
 
             case .Teacher:
                 Helper.shared.setSelectedUserType(userType: .Teacher)
-
+                destination = AnyView(TeacherHomeView())
             }
           })
+//        .onChange(of: teachersigninvm.isLogedin){newval in
+//            if newval {
+//                isPush = true
+//            }
+//        }
         
         .showHud(isShowing: $teachersigninvm.isLoading)
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        NavigationLink(destination: destination, isActive: .constant(teachersigninvm.isLogedin||isPush), label: {})
 
     }
 }
 
+@available(iOS 16.0, *)
 #Preview {
     SignInView()
 }

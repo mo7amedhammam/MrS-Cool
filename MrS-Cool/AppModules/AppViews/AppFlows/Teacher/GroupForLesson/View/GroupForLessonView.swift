@@ -36,15 +36,15 @@ struct GroupForLessonView: View {
                                 // -- inputs --
                                 Group {
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList)
-                                        .onTapGesture(perform: {
-                                            if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
-                                                lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
-                                            }
-                                        })
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList)  
+                                        .onChange(of: groupsforlessonvm.subject){newval in
+                                        if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
+                                            lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
+                                        }
+                                    }
                                     
                                     CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.LessonsForList)
-                                    
+
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.groupName)
                                     
                                     
@@ -91,15 +91,14 @@ struct GroupForLessonView: View {
                                         }
                                         .padding(.vertical)
                                         Group {
-                                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.filtersubject,options:lookupsvm.SubjectsForList)
+                                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.filtersubject,options:lookupsvm.SubjectsForList).onChange(of:groupsforlessonvm.subject) {newval in
+                                                if                                                     lookupsvm.SelectedSubjectForList != groupsforlessonvm.filtersubject
+                                                {
+                                                    lookupsvm.SelectedSubjectForList = groupsforlessonvm.filtersubject
+                                                }
+                                            }
                                             
                                             CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.filterlesson,options:lookupsvm.LessonsForList)
-                                                .onTapGesture(perform: {
-                                                    if                                                     lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject
-                                                    {
-                                                        lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
-                                                    }
-                                                })
                                             
                                             CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.filtergroupName)
                                             
