@@ -227,11 +227,9 @@ struct ManageTeacherSubjectsView: View {
         .onDisappear {
             manageteachersubjectsvm.cleanup()
         }
-        //        .showHud(isShowing: $teachersubjectsvm.isLoading)
-        //        .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-        //        .onChange(of: teachersubjectsvm.isLoading, perform: { value in
-        //            signupvm.isLoading = value
-        //        })
+        .showHud(isShowing: $manageteachersubjectsvm.isLoading)
+        .showAlert(hasAlert: $manageteachersubjectsvm.isError, alertType: manageteachersubjectsvm.error)
+
         NavigationLink(destination: destination, isActive: $isPush, label: {})
         
     }

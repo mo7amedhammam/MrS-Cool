@@ -150,6 +150,13 @@ struct ManageTeacherProfileView: View {
 //                lookupsvm.getCitiesArr()
             })
         }
+        .hideNavigationBar()
+        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+            hideKeyboard()
+        })
+        .showHud(isShowing: $manageprofilevm.isLoading)
+        .showAlert(hasAlert: $manageprofilevm.isError, alertType: manageprofilevm.error)
+
         //MARK: -------- imagePicker From Camera and Library ------
         .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
             Button("photo_Library".localized()) {

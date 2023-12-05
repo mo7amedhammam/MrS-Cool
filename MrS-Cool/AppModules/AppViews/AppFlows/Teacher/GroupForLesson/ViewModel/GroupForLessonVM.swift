@@ -16,8 +16,16 @@ class GroupForLessonVM: ObservableObject {
     @Published var lesson : DropDownOption?
     @Published var groupName : String = ""
     @Published var date : String?
-    @Published var time : String?
+    @Published var time : String?{
+        didSet{
+            if time != nil && lesson != nil{
+                endTime = time?.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "HH:mm aa") ?? ""
+            }
+        }
+    }
     
+    @Published var endTime : String?
+
     @Published var filtersubject : DropDownOption?
     @Published var filterlesson : DropDownOption?
     @Published var filtergroupName : String = ""
@@ -42,7 +50,7 @@ extension GroupForLessonVM{
         
         let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
                                 "timeFrom":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
-                                "timeTo":time.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "HH:mm") ?? ""]
+                                "timeTo":endTime]
         let parameters:[String:Any] = [ "groupName":groupName,
                                         "teacherLessonId":lessonid,
                                         "teacherLessonSessionScheduleSlotsDto":[Dto]]

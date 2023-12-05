@@ -152,7 +152,7 @@ struct ManageTeacherSchedualsView: View {
         .onDisappear {
             manageteacherschedualsvm.cleanup()
         }
-        //        .showHud(isShowing: $teachersubjectsvm.isLoading)
+                .showHud(isShowing: $manageteacherschedualsvm.isLoading)
         .showAlert(hasAlert: $manageteacherschedualsvm.isError, alertType: manageteacherschedualsvm.error)
         //        .onChange(of: teachersubjectsvm.isLoading, perform: { value in
         //            signupvm.isLoading = value

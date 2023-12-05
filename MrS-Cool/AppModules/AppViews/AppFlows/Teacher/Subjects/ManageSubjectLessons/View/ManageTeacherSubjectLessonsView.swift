@@ -231,11 +231,9 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
         .onDisappear {
             manageteachersubjectlessonsvm.cleanup()
         }
-        //        .showHud(isShowing: $teachersubjectsvm.isLoading)
-        //        .showAlert(hasAlert: $teachersubjectsvm.isError, alertType: .error( message: "\(teachersubjectsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-        //        .onChange(of: teachersubjectsvm.isLoading, perform: { value in
-        //            signupvm.isLoading = value
-        //        })
+        .showHud(isShowing: $manageteachersubjectlessonsvm.isLoading)
+        .showAlert(hasAlert: $manageteachersubjectlessonsvm.isError, alertType: manageteachersubjectlessonsvm.error)
+
         
         .overlay{
             if manageteachersubjectlessonsvm.showEdit{

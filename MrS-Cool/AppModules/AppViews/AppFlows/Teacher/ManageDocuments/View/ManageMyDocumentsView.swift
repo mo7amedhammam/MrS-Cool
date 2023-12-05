@@ -298,6 +298,13 @@ struct ManageMyDocumentsView: View {
                 }, successStep: .constant(.accountCreated))
         })
         }
+        .hideNavigationBar()
+        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+            hideKeyboard()
+        })
+        
+      .showHud(isShowing: $teacherdocumentsvm.isLoading)
+      .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: teacherdocumentsvm.error)
     }
 }
 

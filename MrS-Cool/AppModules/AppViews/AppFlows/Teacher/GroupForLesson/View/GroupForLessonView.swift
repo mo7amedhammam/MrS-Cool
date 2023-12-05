@@ -44,13 +44,45 @@ struct GroupForLessonView: View {
                                     }
                                     
                                     CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.LessonsForList)
+                                        .overlay(content: {
+                                            if  (groupsforlessonvm.lesson?.subTitle ?? 0) > 0  {
+                                                VStack(alignment: .trailing) {
+                                                    Spacer()
+                                                    HStack {
+                                                        Spacer()
+                                                        Group{
+                                                            Text("This Lesson Takes")+Text(" \(groupsforlessonvm.lesson?.subTitle ?? 0) ")+Text("mins")
+                                                        }        .font(Font.SoraBold(size: 9))
+                                                        .foregroundColor(ColorConstants.LightGreen800)
+                                                    }
+                                                }
+                                                .padding([.bottom,.trailing],5)
+                                            }
+                                        })
 
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.groupName)
                                     
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,datePickerComponent:.date)
+
                                     
                                     CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.time,datePickerComponent:.hourAndMinute)
+                                        .overlay(content: {
+                                            if  (groupsforlessonvm.endTime) != nil {
+                                                VStack(alignment: .trailing) {
+                                                    Spacer()
+                                                    HStack {
+                                                        Spacer()
+
+                                                        Group{
+                                                            Text("End Time Is ")+Text("\(groupsforlessonvm.endTime ?? "")")
+                                                        }     .font(Font.SoraBold(size: 9))
+                                                        .foregroundColor(ColorConstants.LightGreen800)
+                                                    }
+                                                }
+                                                .padding([.bottom,.trailing],5)
+                                            }
+                                        })
                                 }
                                 .padding([.top])
                             }.padding(.top,20)
@@ -161,7 +193,7 @@ struct GroupForLessonView: View {
         .onDisappear {
             groupsforlessonvm.cleanup()
         }
-        //        .showHud(isShowing: $teachersubjectsvm.isLoading)
+        .showHud(isShowing: $groupsforlessonvm.isLoading)
         .showAlert(hasAlert: $groupsforlessonvm.isError, alertType: groupsforlessonvm.error)
         NavigationLink(destination: destination, isActive: $isPush, label: {})
         
