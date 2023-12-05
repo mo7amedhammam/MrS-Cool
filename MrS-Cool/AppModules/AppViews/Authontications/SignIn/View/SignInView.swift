@@ -120,19 +120,6 @@ struct SignInView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        .onAppear(perform: {
-
-//            switch Helper.shared.getSelectedUserType(){
-//            case .Parent:
-//                selectedUser.user = .Parent
-//            case .Teacher:
-//                selectedUser.user = .Student
-//            default:
-//            Helper.shared.setSelectedUserType(userType: .Student)
-//                selectedUser.user = .Student
-//            }
-        })
-        
         .onChange(of: selectedUser.user, perform: { val in
             switch val {
             case .Student:
@@ -146,12 +133,6 @@ struct SignInView: View {
                 destination = AnyView(TeacherHomeView())
             }
           })
-//        .onChange(of: teachersigninvm.isLogedin){newval in
-//            if newval {
-//                isPush = true
-//            }
-//        }
-        
         .showHud(isShowing: $teachersigninvm.isLoading)
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 

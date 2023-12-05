@@ -46,29 +46,29 @@ struct TeacherHomeView: View {
                         if screenid == 1{
                             destination = AnyView(ManageTeacherProfileView().environmentObject(lookupsvm)
                                 .environmentObject(manageprofilevm)
-                                .hideNavigationBar()
+//                                .hideNavigationBar()
                             )
                         }else if screenid == 2{
                             destination = AnyView(ManageMyDocumentsView( isFinish: .constant(false))
                                 .environmentObject(lookupsvm)
                                 .environmentObject(signupvm)
                                 .environmentObject(teacherdocumentsvm)
-                                .hideNavigationBar()
+//                                .hideNavigationBar()
                             )
                         }else if screenid == 3{
                             destination = AnyView(ManageTeacherSubjectsView().environmentObject(lookupsvm)
                                 .environmentObject(manageteachersubjectsvm)
-                                .hideNavigationBar()
+//                                .hideNavigationBar()
                             )
                         }else if screenid == 4{
                         destination = AnyView(ManageTeacherSchedualsView().environmentObject(lookupsvm)
                             .environmentObject(manageteacherschedualsvm)
-                            .hideNavigationBar()
+//                            .hideNavigationBar()
                         )
                     }else if screenid == 5{
                             destination = AnyView(GroupForLessonView() .environmentObject(lookupsvm)
                                 .environmentObject(groupsforlessonvm)
-                                .hideNavigationBar()
+//                                .hideNavigationBar()
                             )
                         }
                         isPush = true

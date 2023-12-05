@@ -134,7 +134,7 @@ struct GroupForLessonView: View {
                                 groupsforlessonvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     groupsforlessonvm.DeleteTeacherGroup(id: schedual.id)
                                 })
-                                groupsforlessonvm.isError.toggle()
+                                groupsforlessonvm.isError = true
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)

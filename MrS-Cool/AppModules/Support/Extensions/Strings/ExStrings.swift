@@ -43,6 +43,11 @@ extension String {
          }
       return newdate
        }
+    func toDate(withFormat format: String) -> Date? {
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = format
+           return dateFormatter.date(from: self)
+       }
     
     func convertTimeToMinutes() -> Int? {
           let components = self.components(separatedBy: ":")

@@ -39,14 +39,17 @@ class GroupForLessonVM: ObservableObject {
 extension GroupForLessonVM{
     func CreateTeacherGroup(){
         guard let lessonid = lesson?.id,let date = date,let time = time else {return}
+        
+        let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                "timeFrom":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
+                                "timeTo":time.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "HH:mm") ?? ""]
         let parameters:[String:Any] = [ "groupName":groupName,
                                         "teacherLessonId":lessonid,
-                                        "teacherLessonSessionScheduleSlotsDto":["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
-                                        "timeFrom":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")]]
+                                        "teacherLessonSessionScheduleSlotsDto":[Dto]]
         print("parameters",parameters)
         let target = teacherServices.CreateMyLessonScheduleGroup(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<TeacherSchedualM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<GroupForLessonM>.self)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -60,8 +63,9 @@ extension GroupForLessonVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if receivedData.success == true,let model = receivedData.data {
-                    //                    TeacherScheduals?.append(model)
+                if receivedData.success == true {
+                    clearTeacherGroup()
+                    clearFilter()
                     GetTeacherGroups()
                 }else{
                     isError =  true
@@ -152,13 +156,12 @@ extension GroupForLessonVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
-                    //                    TeacherSubjects = model
-                    TeacherGroups?.removeAll(where: {$0.id == model.id})
+                if receivedData.success == true{
+                    TeacherGroups?.removeAll(where: {$0.id == id})
                 }else{
-                    isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    isError =  true
                 }
                 isLoading = false
             })
