@@ -180,9 +180,9 @@ struct ManageMyDocumentsView: View {
             .onChange(of: teacherdocumentsvm.isTeacherHasDocuments, perform: { value in
                 signupvm.isTeacherHasDocuments = value
             })
-            .onChange(of: teacherdocumentsvm.isLoading, perform: { value in
-                Shared.shared.state.wrappedValue.isLoading.wrappedValue = value
-            })
+//            .onChange(of: teacherdocumentsvm.isLoading, perform: { value in
+//                Shared.shared.state.wrappedValue.isLoading.wrappedValue = value
+//            })
 
     //        .showHud(isShowing: $teacherdocumentsvm.isLoading)
     //        .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: .error( message: "\(teacherdocumentsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))

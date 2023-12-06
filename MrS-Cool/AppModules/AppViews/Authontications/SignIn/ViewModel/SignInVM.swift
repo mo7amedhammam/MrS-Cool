@@ -9,18 +9,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-struct StateHandler1 {
-    var isLoading:Binding<Bool?>
-    var isError:Binding<Bool>
-    var alert:Binding<AlertType>
-}
-
-final class Shared {
-    
-    static var shared = Shared()
-    var state : Binding<StateHandler1> = .constant(StateHandler1(isLoading: .constant(false), isError: .constant(false), alert: .constant(.error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "",mainBtnAction: {},secondBtnAction: {}))))
-}
-
 class SignInVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
@@ -42,16 +30,25 @@ class SignInVM: ObservableObject {
     
     @Published var teachermodel: TeacherModel?{
         didSet{
-            if teachermodel != nil{
-                Helper.shared.saveUser(user: teachermodel)
-                isLogedin = true
-            }
+            DispatchQueue.main.sync(execute: {
+                if teachermodel != nil{
+                    isLogedin = true
+                    Helper.shared.saveUser(user: teachermodel)
+                }
+            })
         }
     }
     init()  {
         //        getGendersArr()
         
                 monitorTextFields()
+    }
+    func cleanup() {
+        // Cancel any ongoing Combine subscriptions
+        cancellables.forEach { cancellable in
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
     }
 }
 

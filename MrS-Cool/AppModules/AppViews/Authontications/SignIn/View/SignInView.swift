@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-//@available(iOS 16.0, *)
 struct SignInView: View {
     @StateObject var teachersigninvm = SignInVM()
     @State private var selectedUser : UserType = UserType.init()
@@ -137,11 +136,12 @@ struct SignInView: View {
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
         NavigationLink(destination: destination, isActive: .constant(teachersigninvm.isLogedin||isPush), label: {})
-
+            .onDisappear{
+                teachersigninvm.cleanup()
+            }
     }
 }
 
-//@available(iOS 16.0, *)
 #Preview {
     SignInView()
 }
