@@ -48,6 +48,7 @@
 		C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C930D2AE85F04007AB167 /* CustomProgressView.swift */; };
 		C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */; };
 		C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C883058B2AF10C980030B2A8 /* imagepicker.swift */; };
+		C8882E852B20673E0050FF57 /* ManageSubjectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
 		C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DD2AE02548003DE051 /* ExStrings.swift */; };
@@ -146,6 +147,7 @@
 		C87C930D2AE85F04007AB167 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentCell.swift; sourceTree = "<group>"; };
 		C883058B2AF10C980030B2A8 /* imagepicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagepicker.swift; sourceTree = "<group>"; };
+		C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectGroupView.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
@@ -618,6 +620,38 @@
 			name = Pickers;
 			sourceTree = "<group>";
 		};
+		C8882E802B2066FB0050FF57 /* ManageSubjectGroup */ = {
+			isa = PBXGroup;
+			children = (
+				C8882E832B2067150050FF57 /* Model */,
+				C8882E822B2067120050FF57 /* ViewModel */,
+				C8882E812B20670E0050FF57 /* View */,
+			);
+			path = ManageSubjectGroup;
+			sourceTree = "<group>";
+		};
+		C8882E812B20670E0050FF57 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8882E822B2067120050FF57 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8882E832B2067150050FF57 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C88C52D62ADFE4C8003DE051 /* TextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -833,6 +867,7 @@
 				C8F0E01A2B1637FD00B7A3C5 /* Subjects */,
 				C8F0E01B2B16380D00B7A3C5 /* Schedual */,
 				C83836FD2B1B4A1D00000DA3 /* GroupForLesson */,
+				C8882E802B2066FB0050FF57 /* ManageSubjectGroup */,
 			);
 			path = Teacher;
 			sourceTree = "<group>";
@@ -1325,6 +1360,7 @@
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C83837062B1B4AFC00000DA3 /* GroupForLessonM.swift in Sources */,
 				C83837022B1B4AD100000DA3 /* GroupForLessonView.swift in Sources */,
+				C8882E852B20673E0050FF57 /* ManageSubjectGroupView.swift in Sources */,
 				C80D096D2AE7EF7700F83DB4 /* RadioCheck.swift in Sources */,
 				C8796B052AFB9F09004AAA98 /* ManageTeacherProfileVM.swift in Sources */,
 				C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */,
