@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 struct ManageMyDocumentsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
@@ -147,47 +146,9 @@ struct ManageMyDocumentsView: View {
 //                                        Spacer()
 //                                    }
                                 }
-                                .sheet(isPresented: $showFilter) {
-                                    ScrollView {
-                                        VStack {
-                                            HStack {
-    //                                            Image("img_maskgroup62_clipped")
-    //                                                .renderingMode(.template)
-                                                Text("Filter".localized())
-                                                    .font(Font.SoraBold(size: 18))
-                                                    .foregroundColor(.mainBlue)
-    //                                            Spacer()
-                                            }
-                                            .padding(.vertical)
-                                            CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.filterdocumentType,options:lookupsvm.documentTypesList)
-
-                                            Spacer()
-                                            HStack {
-                                                Group{
-                                                    CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                                        teacherdocumentsvm.GetTeacherDocument()
-                                                        showFilter = false
-                                                    })
-                                                    
-                                                    
-                                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                                        teacherdocumentsvm.filterdocumentType = nil
-                                                        teacherdocumentsvm.GetTeacherDocument()
-                                                        showFilter = false
-                                                    })
-                                                } .frame(width:130,height:40)
-                                                    .padding(.vertical)
-
-                                            }
-                                            
-    //                                    Spacer()
-                                        }
-                                        .padding()
-    //                                    .presentationDetents([.medium])
-                                    .presentationDetents([.height(220),.medium])
-                                    }
-                                }
     //                        }
+
+                            
                             Spacer()
                         }.padding(.horizontal)
 
@@ -305,13 +266,72 @@ struct ManageMyDocumentsView: View {
         
       .showHud(isShowing: $teacherdocumentsvm.isLoading)
       .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: teacherdocumentsvm.error)
+      .overlay{
+          if showFilter{
+              // Blurred Background and Sheet
+              Color.mainBlue
+                  .opacity(0.3)
+                  .edgesIgnoringSafeArea(.all)
+                  .onTapGesture {
+                      showFilter.toggle()
+                  }
+                  .blur(radius: 4) // Adjust the blur radius as needed
+              DynamicHeightSheet(isPresented: $showFilter){
+                  
+                  VStack {
+                      ColorConstants.Bluegray100
+                          .frame(width:50,height:5)
+                          .cornerRadius(2.5)
+                          .padding(.top,2.5)
+                      HStack {
+                          Text("Filter".localized())
+                              .font(Font.SoraBold(size: 18))
+                              .foregroundColor(.mainBlue)
+                      }
+                      
+                      ScrollView{
+                          VStack{
+                              Group {
+                                  CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.filterdocumentType,options:lookupsvm.documentTypesList)
+                              }.padding(.top,5)
+                              
+                                  Spacer()
+                                  HStack {
+                                      Group{
+                                          CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                              teacherdocumentsvm.GetTeacherDocument()
+                                              showFilter = false
+                                          })
+                                          
+                                          
+                                          CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                              teacherdocumentsvm.filterdocumentType = nil
+                                              teacherdocumentsvm.GetTeacherDocument()
+                                              showFilter = false
+                                          })
+                                      } .frame(width:130,height:40)
+                                          .padding(.vertical)
+                                  }
+                          }
+                          .padding(.horizontal,3)
+                          .padding(.top)
+                      }
+                  }
+                  .padding()
+                  .frame(height:240)
+//                    .keyboardAdaptive()
+              }
+
+          }
+      }
     }
 }
 
-@available(iOS 16.0, *)
+//@available(iOS 16.0, *)
 #Preview{
     ManageMyDocumentsView(isFinish: .constant(false))
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
         .environmentObject(TeacherDocumentsVM())
 }
+

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
+//@available(iOS 16.0, *)
 struct SignInView: View {
     @StateObject var teachersigninvm = SignInVM()
     @State private var selectedUser : UserType = UserType.init()
@@ -141,7 +141,7 @@ struct SignInView: View {
     }
 }
 
-@available(iOS 16.0, *)
+//@available(iOS 16.0, *)
 #Preview {
     SignInView()
 }

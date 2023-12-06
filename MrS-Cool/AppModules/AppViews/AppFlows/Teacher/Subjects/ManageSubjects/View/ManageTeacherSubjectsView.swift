@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 struct ManageTeacherSubjectsView: View {
     //    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
@@ -112,63 +111,6 @@ struct ManageTeacherSubjectsView: View {
                                     .foregroundColor(.mainBlue)
                                     .font(Font.SoraRegular(size: 7))
                             }
-                            .sheet(isPresented: $showFilter) {
-                                ScrollView {
-                                    VStack {
-                                        HStack {
-                                            //                                            Image("img_maskgroup62_clipped")
-                                            //                                                .renderingMode(.template)
-                                            Text("Filter".localized())
-                                                .font(Font.SoraBold(size: 18))
-                                                .foregroundColor(.mainBlue)
-                                            //                                            Spacer()
-                                        }
-                                        .padding(.vertical)
-                                        Group {
-                                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $manageteachersubjectsvm.filterEducationType,options:lookupsvm.EducationTypesList)
-                                            //                                                .onTapGesture(perform: {
-                                            //                                                    lookupsvm.GetEducationTypes()
-                                            //                                                })
-                                                .onChange(of: manageteachersubjectsvm.filterEducationType){val in
-                                                    lookupsvm.SelectedEducationType = val
-                                                }
-                                            
-                                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $manageteachersubjectsvm.filterEducationLevel,options:lookupsvm.EducationLevelsList)
-                                                .onChange(of:manageteachersubjectsvm.filterEducationLevel){val in
-                                                    lookupsvm.SelectedEducationLevel = val
-                                                }
-                                            
-                                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $manageteachersubjectsvm.filterAcademicYear,options:lookupsvm.AcademicYearsList)
-                                                .onChange(of:manageteachersubjectsvm.filterAcademicYear){val in
-                                                    lookupsvm.SelectedAcademicYear = val
-                                                }
-                                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $manageteachersubjectsvm.filterSubject,options:lookupsvm.SubjectsList)
-                                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $manageteachersubjectsvm.filterSubjectStatus,options:lookupsvm.SubjectsList)
-                                        }
-                                        
-                                        Spacer()
-                                        HStack {
-                                            Group{
-                                                CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                                    manageteachersubjectsvm .GetTeacherSubjects()
-                                                    showFilter = false
-                                                })
-                                                
-                                                CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                                    manageteachersubjectsvm.clearFilter()
-                                                    manageteachersubjectsvm .GetTeacherSubjects()
-                                                    showFilter = false
-                                                })
-                                            } .frame(width:130,height:40)
-                                                .padding(.vertical)
-                                        }
-                                        //                                    Spacer()
-                                    }
-                                    .padding()
-                                    //                                    .presentationDetents([.medium,.fraction(0.75)])
-                                    .presentationDetents([.fraction(0.6)])
-                                }
-                            }
                         }
                         .padding(.horizontal)
                         
@@ -193,7 +135,7 @@ struct ManageTeacherSubjectsView: View {
                             .listRowBackground(Color.clear)
                             .padding(.vertical,-4)
                     }
-                    .scrollContentBackground(.hidden)
+//                    .scrollContentBackground(.hidden)
                     .listStyle(.plain)
                         .frame(height: gr.size.height/2)
                         Spacer()
@@ -229,17 +171,89 @@ struct ManageTeacherSubjectsView: View {
         }
         .showHud(isShowing: $manageteachersubjectsvm.isLoading)
         .showAlert(hasAlert: $manageteachersubjectsvm.isError, alertType: manageteachersubjectsvm.error)
+        .overlay{
+            if showFilter{
+                // Blurred Background and Sheet
+                Color.mainBlue
+                    .opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showFilter.toggle()
+                    }
+                    .blur(radius: 4) // Adjust the blur radius as needed
+                DynamicHeightSheet(isPresented: $showFilter){
+                    
+                    VStack {
+                        ColorConstants.Bluegray100
+                            .frame(width:50,height:5)
+                            .cornerRadius(2.5)
+                            .padding(.top,2.5)
+                        HStack {
+                            Text("Filter".localized())
+                                .font(Font.SoraBold(size: 18))
+                                .foregroundColor(.mainBlue)
+                            //                                            Spacer()
+                        }
+                        
+                        ScrollView{
+                            VStack{
+                                Group {
+                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $manageteachersubjectsvm.filterEducationType,options:lookupsvm.EducationTypesList)
+                                    //                                                .onTapGesture(perform: {
+                                    //                                                    lookupsvm.GetEducationTypes()
+                                    //                                                })
+                                        .onChange(of: manageteachersubjectsvm.filterEducationType){val in
+                                            lookupsvm.SelectedEducationType = val
+                                        }
+                                    
+                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $manageteachersubjectsvm.filterEducationLevel,options:lookupsvm.EducationLevelsList)
+                                        .onChange(of:manageteachersubjectsvm.filterEducationLevel){val in
+                                            lookupsvm.SelectedEducationLevel = val
+                                        }
+                                    
+                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $manageteachersubjectsvm.filterAcademicYear,options:lookupsvm.AcademicYearsList)
+                                        .onChange(of:manageteachersubjectsvm.filterAcademicYear){val in
+                                            lookupsvm.SelectedAcademicYear = val
+                                        }
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $manageteachersubjectsvm.filterSubject,options:lookupsvm.SubjectsList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $manageteachersubjectsvm.filterSubjectStatus,options:lookupsvm.SubjectsList)
+                                }
+                                .padding(.top,5)
+                                Spacer()
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            manageteachersubjectsvm .GetTeacherSubjects()
+                                            showFilter = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            manageteachersubjectsvm.clearFilter()
+                                            manageteachersubjectsvm .GetTeacherSubjects()
+                                            showFilter = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding(.horizontal,3)
+                            .padding(.top)
+                        }
+                    }
+                    .padding()
+                    .frame(height:240)
+//                    .keyboardAdaptive()
+                }
 
+            }
+        }
         NavigationLink(destination: destination, isActive: $isPush, label: {})
         
     }
 }
 
-@available(iOS 16.0, *)
 #Preview {
     ManageTeacherSubjectsView()
         .environmentObject(LookUpsVM())
-    //        .environmentObject(SignUpViewModel())
         .environmentObject(ManageTeacherSubjectsVM())
-    
 }

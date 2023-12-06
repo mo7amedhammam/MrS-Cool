@@ -12,7 +12,6 @@ struct teacherscreen: Identifiable{
     var id:Int?
 }
 
-@available(iOS 16.0, *)
 struct TeacherHomeView: View {
     
     @StateObject var lookupsvm = LookUpsVM()
@@ -89,7 +88,7 @@ struct TeacherHomeView: View {
                     .buttonStyle(.plain)
 //                }
             }
-                .scrollContentBackground(.hidden)
+//                .scrollContentBackground(.hidden)
                 .listStyle(.plain)
             Spacer()
             
@@ -114,7 +113,6 @@ struct TeacherHomeView: View {
     }
 }
 
-@available(iOS 16.0, *)
 #Preview{
     TeacherHomeView()
 }

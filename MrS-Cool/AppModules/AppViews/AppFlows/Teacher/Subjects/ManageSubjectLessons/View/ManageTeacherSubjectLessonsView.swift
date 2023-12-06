@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     //    @EnvironmentObject var signupvm : SignUpViewModel
@@ -24,323 +23,341 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
     @State var destination = AnyView(EmptyView())
 
     var body: some View {
-        VStack {
-            CustomTitleBarView(title: "Manage My Subject Lessons")
-            
-            GeometryReader { gr in
-                ScrollView(.vertical,showsIndicators: false){
-                    VStack{ // (Title - Data - Submit Button)
-                        Group{
-                            VStack(alignment: .leading, spacing: 0){
-                                // -- Data Title --
-                                HStack(alignment: .top){
-                                    SignUpHeaderTitle(Title:  "Subject Information")
-                                    Spacer()
-                                }
-                                //                                .padding(.bottom )
-                                
-                                // -- inputs --
-                                Group {
-                                    HStack{
-                                        VStack(alignment:.leading){
-                                            Text("Education Type".localized())
-                                                .font(Font.SoraSemiBold(size: 16))
-                                            
-                                            Text(currentSubject?.educationTypeName ?? "Egyption")
-                                                .font(Font.SoraRegular(size: 14))
-                                            
-                                            Spacer().frame(height:30)
-                                            
-                                            Text("Academic Year".localized())
-                                                .font(Font.SoraSemiBold(size: 16))
-                                            
-                                            Text(currentSubject?.academicYearName ?? "level 1")
-                                                .font(Font.SoraRegular(size: 14))
-                                            
-                                        }
+            VStack {
+                CustomTitleBarView(title: "Manage My Subject Lessons")
+                
+                GeometryReader { gr in
+                    ScrollView(.vertical,showsIndicators: false){
+                        VStack{ // (Title - Data - Submit Button)
+                            Group{
+                                VStack(alignment: .leading, spacing: 0){
+                                    // -- Data Title --
+                                    HStack(alignment: .top){
+                                        SignUpHeaderTitle(Title:  "Subject Information")
                                         Spacer()
-                                        VStack(alignment:.leading){
-                                            Text("Education Level".localized())
-                                                .font(Font.SoraSemiBold(size: 16))
-                                            
-                                            Text(currentSubject?.educationLevelName ?? "Primary")
-                                                .font(Font.SoraRegular(size: 14))
-                                            
-                                            Spacer().frame(height:30)
-                                            
-                                            Text("Subject".localized())
-                                                .font(Font.SoraSemiBold(size: 16))
-                                            
-                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                                .font(Font.SoraRegular(size: 14))
-                                            
-                                        }
                                     }
+                                    //                                .padding(.bottom )
                                     
-                                    
-                                    //                                    HStack{
-                                    ////                                        VStack(alignment:.leading){
-                                    ////                                            Text("Academic Year".localized())
-                                    ////                                                .font(Font.SoraSemiBold(size: 16))
-                                    ////
-                                    ////                                            Text(currentSubject?.academicYearName ?? "level 1")
-                                    ////                                                .font(Font.SoraRegular(size: 14))
-                                    ////                                        }
-                                    //                                        VStack(alignment:.leading){
-                                    ////                                            Text("Subject".localized())
-                                    ////                                                .font(Font.SoraSemiBold(size: 16))
-                                    ////
-                                    ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                    ////                                                .font(Font.SoraRegular(size: 14))
-                                    //
-                                    //                                        }
-                                    //                                    }
-                                    //
-                                    //                                    Text("Status".localized())
-                                    //                                        .font(Font.SoraSemiBold(size: 16))
-                                    //
-                                    //                                    Text(currentSubject?.statusIDName ?? "Aproved")
-                                    //                                        .font(Font.SoraRegular(size: 14))
-                                    //                                        .padding(.bottom)
-                                }
-                                .foregroundColor(.mainBlue)
-                                .padding([.top,.horizontal])
-                            }
-                            .padding(.top,20)
-                            
-                            HStack(){
-                                SignUpHeaderTitle(Title: "Manage Subject Lessons")
-                                Spacer()
-                                Image("img_maskgroup62_clipped")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(ColorConstants.MainColor)
-                                    .frame(width: 25, height: 25, alignment: .center)
-                                    .onTapGesture(perform: {
-                                        showFilter = true
-                                    })
-                                
-                            }
-                            .padding(.top)
-                            
-                            .sheet(isPresented: $showFilter) {
-                                ScrollView {
-                                    VStack {
-                                        HStack {
-                                            //                                            Image("img_maskgroup62_clipped")
-                                            //                                                .renderingMode(.template)
-                                            Text("Filter".localized())
-                                                .font(Font.SoraBold(size: 18))
-                                                .foregroundColor(.mainBlue)
-                                            //                                            Spacer()
-                                        }
-                                        .padding(.vertical)
-                                        
-                                        Group {
-                                            CustomTextField(iconName:"img_group_512380",placeholder: "Subject Lesson", text: $manageteachersubjectlessonsvm.lessonName )
-                                        }
-                                        
-                                        Spacer()
-                                        HStack {
-                                            Group{
-                                                CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                                    manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
-                                                    showFilter = false
-                                                })
+                                    // -- inputs --
+                                    Group {
+                                        HStack{
+                                            VStack(alignment:.leading){
+                                                Text("Education Type".localized())
+                                                    .font(Font.SoraSemiBold(size: 16))
                                                 
-                                                CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                                    manageteachersubjectlessonsvm.clearFilter()
-                                                    manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
-                                                    showFilter = false
-                                                })
-                                            } .frame(width:130,height:40)
-                                                .padding(.vertical)
+                                                Text(currentSubject?.educationTypeName ?? "Egyption")
+                                                    .font(Font.SoraRegular(size: 14))
+                                                
+                                                Spacer().frame(height:30)
+                                                
+                                                Text("Academic Year".localized())
+                                                    .font(Font.SoraSemiBold(size: 16))
+                                                
+                                                Text(currentSubject?.academicYearName ?? "level 1")
+                                                    .font(Font.SoraRegular(size: 14))
+                                                
+                                            }
+                                            Spacer()
+                                            VStack(alignment:.leading){
+                                                Text("Education Level".localized())
+                                                    .font(Font.SoraSemiBold(size: 16))
+                                                
+                                                Text(currentSubject?.educationLevelName ?? "Primary")
+                                                    .font(Font.SoraRegular(size: 14))
+                                                
+                                                Spacer().frame(height:30)
+                                                
+                                                Text("Subject".localized())
+                                                    .font(Font.SoraSemiBold(size: 16))
+                                                
+                                                Text(currentSubject?.subjectSemesterYearName ?? "level 1")
+                                                    .font(Font.SoraRegular(size: 14))
+                                                
+                                            }
                                         }
-                                        //                                    Spacer()
+                                        
+                                        
+                                        //                                    HStack{
+                                        ////                                        VStack(alignment:.leading){
+                                        ////                                            Text("Academic Year".localized())
+                                        ////                                                .font(Font.SoraSemiBold(size: 16))
+                                        ////
+                                        ////                                            Text(currentSubject?.academicYearName ?? "level 1")
+                                        ////                                                .font(Font.SoraRegular(size: 14))
+                                        ////                                        }
+                                        //                                        VStack(alignment:.leading){
+                                        ////                                            Text("Subject".localized())
+                                        ////                                                .font(Font.SoraSemiBold(size: 16))
+                                        ////
+                                        ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
+                                        ////                                                .font(Font.SoraRegular(size: 14))
+                                        //
+                                        //                                        }
+                                        //                                    }
+                                        //
+                                        //                                    Text("Status".localized())
+                                        //                                        .font(Font.SoraSemiBold(size: 16))
+                                        //
+                                        //                                    Text(currentSubject?.statusIDName ?? "Aproved")
+                                        //                                        .font(Font.SoraRegular(size: 14))
+                                        //                                        .padding(.bottom)
                                     }
-                                    .padding()
-                                    .presentationDetents([.fraction(0.3),.medium])
-                                    //                                    .presentationDetents([.fraction(0.25)])
+                                    .foregroundColor(.mainBlue)
+                                    .padding([.top,.horizontal])
                                 }
+                                .padding(.top,20)
+                                
+                                HStack(){
+                                    SignUpHeaderTitle(Title: "Manage Subject Lessons")
+                                    Spacer()
+                                    Image("img_maskgroup62_clipped")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                        .frame(width: 25, height: 25, alignment: .center)
+                                        .onTapGesture(perform: {
+                                            showFilter = true
+                                        })
+                                }
+                                .padding(.top)
+                                
                             }
+                            .padding(.horizontal)
+                            //                        ScrollView{
+                            List{
+                                ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.self) { unit in
+                                    Section(header:
+                                                HStack {
+                                        Text(unit.unitName ?? "")
+                                            .font(Font.SoraBold(size: 18))
+                                            .foregroundColor(.mainBlue)
+                                            .padding(.top)
+                                        Spacer()
+                                    }
+                                            //                                        .frame(height:40)
+                                    ) {
+                                        ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
+                                            ManageSubjectLessonCell(model: lesson, editBtnAction: {
+
+                                                manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
+                                                manageteachersubjectlessonsvm.showEdit = true
+                                            }, addBriefBtnAction: {
+                                              
+                                                manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
+                                                manageteachersubjectlessonsvm.GetSubjectLessonBrief()
+                                                manageteachersubjectlessonsvm.showBrief = true
+                                            },addMaterialBtnAction:{
+                                                
+                                                destination = AnyView(ManageLessonMaterialView(currentLesson:lesson)
+                                                    .environmentObject(LookUpsVM())
+                                                    .environmentObject(ManageLessonMaterialVM())
+                                                                      )
+                                                isPush = true
+
+                                                
+                                            })
+                                            .listRowSpacing(0)
+                                            .listRowSeparator(.hidden)
+                                            .listRowBackground(Color.clear)
+                                        }
+                                    }
+                                }
+                                //                            }
+                            }
+                            .padding(.horizontal,-4)
+                            .listStyle(.plain)
+//                            .scrollContentBackground(.hidden)
+                            .frame(minHeight: gr.size.height/2)
+                            
+                            Spacer()
                         }
-                        .padding(.horizontal)
-                        
-                        //                        ScrollView{
-                        List{
-                            ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.self) { unit in
-                                Section(header:
-                                            HStack {
-                                    Text(unit.unitName ?? "")
+                        .frame(minHeight: gr.size.height)
+                    }
+                }
+                .onAppear(perform: {
+                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
+                    manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
+                })
+     
+            }
+            .hideNavigationBar()
+            .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+                hideKeyboard()
+            })
+            
+            .onDisappear {
+                manageteachersubjectlessonsvm.cleanup()
+            }
+            .showHud(isShowing: $manageteachersubjectlessonsvm.isLoading)
+            .showAlert(hasAlert: $manageteachersubjectlessonsvm.isError, alertType: manageteachersubjectlessonsvm.error)
+            
+            .overlay{
+                if manageteachersubjectlessonsvm.showEdit{
+                    ScrollView {
+                        VStack{
+                            Spacer()
+                            VStack(spacing:15){
+                                HStack(spacing:10) {
+                                    Image("img_vector_black_900_14x14")
+                                    //                                                .renderingMode(.template)
+                                    
+                                    Text("Update Lesson".localized())
                                         .font(Font.SoraBold(size: 18))
                                         .foregroundColor(.mainBlue)
-                                        .padding(.top)
                                     Spacer()
                                 }
-                                        //                                        .frame(height:40)
-                                ) {
-                                    ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
-                                        ManageSubjectLessonCell(model: lesson, editBtnAction: {
-
-                                            manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
-                                            manageteachersubjectlessonsvm.showEdit = true
-                                        }, addBriefBtnAction: {
-                                          
-                                            manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
-                                            manageteachersubjectlessonsvm.GetSubjectLessonBrief()
-                                            manageteachersubjectlessonsvm.showBrief = true
-                                        },addMaterialBtnAction:{
-                                            
-                                            destination = AnyView(ManageLessonMaterialView(currentLesson:lesson)
-                                                .environmentObject(LookUpsVM())
-                                                .environmentObject(ManageLessonMaterialVM())
-                                                                  )
-                                            isPush = true
-
-                                            
+                                Group {
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost,keyboardType:.asciiCapableNumberPad)
+                                    
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad)
+                                    
+                                    //                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
+                                    
+                                    //                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
+                                    
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.individualTime,keyboardType:.asciiCapableNumberPad)
+                                }
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Update",IsDisabled: .constant(false), action: {
+                                            manageteachersubjectlessonsvm .UpdateTeacherSubjectLesson()
+                                            manageteachersubjectlessonsvm.showEdit = false
                                         })
-                                        .listRowSpacing(0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                    }
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+    //                                        manageteachersubjectlessonsvm.clearFilter()
+    //                                        manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                            manageteachersubjectlessonsvm.showEdit = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
                                 }
                             }
-                            //                            }
+                            .padding()
+                            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,bottomRight: 10.0)
+                                .fill(ColorConstants.WhiteA700).disabled(true)
+                            )
+                            .padding(.horizontal)
+                            Spacer()
                         }
-                        .padding(.horizontal,-4)
-                        .listStyle(.plain)
-                        .scrollContentBackground(.hidden)
-                        .frame(minHeight: gr.size.height/2)
-                        
-                        Spacer()
-                    }
-                    .frame(minHeight: gr.size.height)
+                        .frame(height:UIScreen.main.bounds.height+30)
+                    }.frame(height:UIScreen.main.bounds.height+30)
+                        .background( Color(.mainBlue).opacity(0.2))
                 }
-            }
-            .onAppear(perform: {
-                manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
-                manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
-            })
- 
-        }
-        .hideNavigationBar()
-        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
-            hideKeyboard()
-        })
-        
-        .onDisappear {
-            manageteachersubjectlessonsvm.cleanup()
-        }
-        .showHud(isShowing: $manageteachersubjectlessonsvm.isLoading)
-        .showAlert(hasAlert: $manageteachersubjectlessonsvm.isError, alertType: manageteachersubjectlessonsvm.error)
+                
+                if manageteachersubjectlessonsvm.showBrief{
+                    ScrollView {
+                        VStack{
+                            Spacer()
+                            VStack(spacing:15){
+                                HStack(spacing:10) {
+                                    Image("img_group512375")
+                                    //                                                .renderingMode(.template)
+                                    Text("Update Lesson Brief".localized())
+                                        .font(Font.SoraBold(size: 18))
+                                        .foregroundColor(.mainBlue)
+                                    Spacer()
+                                }
+                                Group {
+                                    CustomTextEditor(iconName: "img_group512375",placeholder: "Lesson Brief",insidePlaceholder: "Tell us about your Lesson", text: $manageteachersubjectlessonsvm.subjectBriefEn,charLimit: 1000)
 
-        
-        .overlay{
-            if manageteachersubjectlessonsvm.showEdit{
-                ScrollView {
-                    VStack{
-                        Spacer()
-                        VStack(spacing:15){
-                            HStack(spacing:10) {
-                                Image("img_vector_black_900_14x14")
-                                //                                                .renderingMode(.template)
-                                
-                                Text("Update Lesson".localized())
+                                    CustomTextEditor(iconName: "img_group512375",placeholder: "عن الدرس",insidePlaceholder: "اخبرنا عن الدرس", text: $manageteachersubjectlessonsvm.subjectBrief,charLimit: 1000).localizeView()
+                                }
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                                            manageteachersubjectlessonsvm.UpdateSubjectLessonBrief()
+                                            manageteachersubjectlessonsvm.showBrief = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            manageteachersubjectlessonsvm.showBrief = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding()
+                            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,bottomRight: 10.0)
+                                .fill(ColorConstants.WhiteA700).disabled(true)
+                            )
+                            .padding(.horizontal)
+                            Spacer()
+                        }
+                        .frame(height:UIScreen.main.bounds.height+30)
+                    }.frame(height:UIScreen.main.bounds.height+30)
+                        .background( Color(.mainBlue).opacity(0.2))
+                }
+                
+                if showFilter{
+                    // Blurred Background and Sheet
+                    Color.mainBlue
+                        .opacity(0.3)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            showFilter.toggle()
+                        }
+                        .blur(radius: 4) // Adjust the blur radius as needed
+                    DynamicHeightSheet(isPresented: $showFilter){
+                        
+                        VStack {
+                            ColorConstants.Bluegray100
+                                .frame(width:50,height:5)
+                                .cornerRadius(2.5)
+                                .padding(.top,2.5)
+                            HStack {
+                                Text("Filter".localized())
                                     .font(Font.SoraBold(size: 18))
                                     .foregroundColor(.mainBlue)
-                                Spacer()
+                                //                                            Spacer()
                             }
-                            Group {
-                                CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost,keyboardType:.asciiCapableNumberPad)
-                                
-                                CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad)
-                                
-                                //                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
-                                
-                                //                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
-                                
-                                CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.asciiCapableNumberPad)
-                                CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.individualTime,keyboardType:.asciiCapableNumberPad)
-                            }
-                            HStack {
-                                Group{
-                                    CustomButton(Title:"Update",IsDisabled: .constant(false), action: {
-                                        manageteachersubjectlessonsvm .UpdateTeacherSubjectLesson()
-                                        manageteachersubjectlessonsvm.showEdit = false
-                                    })
+                            
+                            ScrollView{
+                                VStack{
+                                    Group {
+                                        CustomTextField(iconName:"img_group_512380",placeholder: "Subject Lesson", text: $manageteachersubjectlessonsvm.lessonName )
+                                    }.padding(.top,5)
                                     
-                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-//                                        manageteachersubjectlessonsvm.clearFilter()
-//                                        manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
-                                        manageteachersubjectlessonsvm.showEdit = false
-                                    })
-                                } .frame(width:130,height:40)
-                                    .padding(.vertical)
+                                    Spacer()
+                                    HStack {
+                                        Group{
+                                            CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                                manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                                showFilter = false
+                                            })
+                                            
+                                            CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                                manageteachersubjectlessonsvm.clearFilter()
+                                                manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                                showFilter = false
+                                            })
+                                        } .frame(width:130,height:40)
+                                            .padding(.vertical)
+                                    }
+                                }
+                                .padding(.horizontal,3)
+                                .padding(.top)
                             }
+
                         }
                         .padding()
-                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,bottomRight: 10.0)
-                            .fill(ColorConstants.WhiteA700).disabled(true)
-                        )
-                        .padding(.horizontal)
-                        Spacer()
+                        .frame(height:240)
+                        .keyboardAdaptive()
                     }
-                    .frame(height:UIScreen.main.bounds.height+30)
-                }.frame(height:UIScreen.main.bounds.height+30)
-                    .background( Color(.mainBlue).opacity(0.2))
-            }
+
+                }
+        }
             
-            if manageteachersubjectlessonsvm.showBrief{
-                ScrollView {
-                    VStack{
-                        Spacer()
-                        VStack(spacing:15){
-                            HStack(spacing:10) {
-                                Image("img_group512375")
-                                //                                                .renderingMode(.template)
-                                Text("Update Lesson Brief".localized())
-                                    .font(Font.SoraBold(size: 18))
-                                    .foregroundColor(.mainBlue)
-                                Spacer()
-                            }
-                            Group {
-                                CustomTextEditor(iconName: "img_group512375",placeholder: "Lesson Brief",insidePlaceholder: "Tell us about your Lesson", text: $manageteachersubjectlessonsvm.subjectBriefEn,charLimit: 1000)
 
-                                CustomTextEditor(iconName: "img_group512375",placeholder: "عن الدرس",insidePlaceholder: "اخبرنا عن الدرس", text: $manageteachersubjectlessonsvm.subjectBrief,charLimit: 1000).localizeView()
-                            }
-                            HStack {
-                                Group{
-                                    CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
-                                        manageteachersubjectlessonsvm.UpdateSubjectLessonBrief()
-                                        manageteachersubjectlessonsvm.showBrief = false
-                                    })
-                                    
-                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                        manageteachersubjectlessonsvm.showBrief = false
-                                    })
-                                } .frame(width:130,height:40)
-                                    .padding(.vertical)
-                            }
-                        }
-                        .padding()
-                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0,bottomRight: 10.0)
-                            .fill(ColorConstants.WhiteA700).disabled(true)
-                        )
-                        .padding(.horizontal)
-                        Spacer()
-                    }
-                    .frame(height:UIScreen.main.bounds.height+30)
-                }.frame(height:UIScreen.main.bounds.height+30)
-                    .background( Color(.mainBlue).opacity(0.2))
-            }
-        }
+            
+        
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
 
     }
 }
 
-@available(iOS 16.0, *)
 #Preview {
     ManageTeacherSubjectLessonsView()
         .environmentObject(LookUpsVM())
