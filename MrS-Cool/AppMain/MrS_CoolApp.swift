@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 @main
 struct MrS_CoolApp: App {
         @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate

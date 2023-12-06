@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 16.0, *)
 struct ContentView: View {
     var body: some View {
 
@@ -39,7 +38,6 @@ struct ContentView: View {
 
     }
 }
-@available(iOS 16.0, *)
 #Preview {
     ContentView()
     //        .localizeView()
