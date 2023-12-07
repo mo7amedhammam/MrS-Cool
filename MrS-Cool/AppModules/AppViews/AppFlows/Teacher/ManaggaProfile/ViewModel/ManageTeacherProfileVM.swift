@@ -60,6 +60,7 @@ extension ManageTeacherProfileVM{
         let target = teacherServices.GetTeacherProfile
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<ManageTeacherProfileM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -99,6 +100,7 @@ extension ManageTeacherProfileVM{
         let target = teacherServices.UpdateTeacherProfile(parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<ManageTeacherProfileM>.self, progressHandler: {progress in})
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

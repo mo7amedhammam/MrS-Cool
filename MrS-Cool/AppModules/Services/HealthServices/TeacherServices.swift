@@ -30,8 +30,14 @@ enum teacherServices{
     case GetMyLessonSchedualGroup(parameters : [String:Any])
     case CreateMyLessonScheduleGroup(parameters : [String:Any])
     case DeleteMyLessonScheduleGroup(parameters : [String:Any])
-
+    
+    case GetMySubjectGroup(parameters : [String:Any])
+    case GetMySubjectGroupDetails(parameters : [String:Any])
+    case ReviewMySubjectGroup(parameters : [String:Any])
+    case CreateMySubjectGroup(parameters : [String:Any])
+    case DeleteMySubjectGroup(parameters : [String:Any])
 }
+
 extension teacherServices:TargetType{
     var path: String {
         switch self {
@@ -73,6 +79,17 @@ extension teacherServices:TargetType{
             return EndPoints.CreateLessonTeacherScheduleGroup.rawValue
         case .DeleteMyLessonScheduleGroup:
             return EndPoints.DeleteLessonTeacherScheduleGroup.rawValue
+            
+        case .GetMySubjectGroup:
+            return EndPoints.GetSubjectScheduals.rawValue
+        case .GetMySubjectGroupDetails:
+            return EndPoints.GetSubjectSchedualDetails.rawValue
+        case .ReviewMySubjectGroup:
+            return EndPoints.ReviewSubjectSchedual.rawValue
+        case .CreateMySubjectGroup:
+            return EndPoints.CreateSubjectSchedual.rawValue
+        case .DeleteMySubjectGroup:
+            return EndPoints.DeleteSubjectSchedual.rawValue
         }
     }
     
@@ -82,7 +99,8 @@ extension teacherServices:TargetType{
                 .GetSubjectLessonsBrief,
                 .DeleteLessonMaterial,
                 .DeleteMySchedual,
-                .DeleteMyLessonScheduleGroup:
+                .DeleteMyLessonScheduleGroup,
+                .DeleteMySubjectGroup,.GetMySubjectGroupDetails:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
@@ -91,7 +109,8 @@ extension teacherServices:TargetType{
                 .UpdateSubjectLessonsBrief,
                 .GetMyLessonMaterial,.CreateMyLessonMaterial,.UpdateMyLessonMaterial,
                 .GetMyScheduals,.CreateMyNewSchedual,
-                .GetMyLessonSchedualGroup, .CreateMyLessonScheduleGroup:
+                .GetMyLessonSchedualGroup, .CreateMyLessonScheduleGroup,
+                .GetMySubjectGroup,.ReviewMySubjectGroup,.CreateMySubjectGroup:
             return .post
         }
     }
@@ -104,7 +123,9 @@ extension teacherServices:TargetType{
         case .GetSubjectLessonsBrief(parameters: let Parameters),
                 .DeleteLessonMaterial(parameters: let Parameters),
                 .DeleteMySchedual(parameters: let Parameters),
-                .DeleteMyLessonScheduleGroup(parameters: let Parameters):
+                .DeleteMyLessonScheduleGroup(parameters: let Parameters),
+                .DeleteMySubjectGroup(parameters: let Parameters),
+                .GetMySubjectGroupDetails(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),
@@ -118,7 +139,10 @@ extension teacherServices:TargetType{
                 .GetMyScheduals(parameters: let Parameters),
                 .CreateMyNewSchedual(parameters: let Parameters),
                 .GetMyLessonSchedualGroup(parameters: let Parameters),
-                .CreateMyLessonScheduleGroup(parameters: let Parameters):
+                .CreateMyLessonScheduleGroup(parameters: let Parameters),
+                .GetMySubjectGroup(parameters: let Parameters),
+                .ReviewMySubjectGroup(parameters: let Parameters),
+                .CreateMySubjectGroup(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

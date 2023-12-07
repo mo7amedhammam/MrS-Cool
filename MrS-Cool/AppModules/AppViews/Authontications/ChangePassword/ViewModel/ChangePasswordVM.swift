@@ -16,7 +16,7 @@
 //
 
 import Combine
-//import Foundation
+import Foundation
 //import SwiftUI
 
 //struct StateHandler1 {
@@ -68,6 +68,7 @@ extension ChangePasswordVM{
         let target = Authintications.ChangePassword(user: user, parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<ChangePasswordM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

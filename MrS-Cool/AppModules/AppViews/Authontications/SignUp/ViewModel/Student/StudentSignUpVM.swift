@@ -78,6 +78,7 @@ extension StudentSignUpVM{
         let target = Authintications.Register(user: .Teacher, parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

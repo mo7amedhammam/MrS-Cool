@@ -73,6 +73,7 @@ extension TeacherSubjectsVM{
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -104,6 +105,7 @@ extension TeacherSubjectsVM{
         let target = Authintications.TeacherGetSubjects(parameters: [:])
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[TeacherSubjectM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -138,6 +140,7 @@ extension TeacherSubjectsVM{
         let target = Authintications.TeacherDeleteSubjects(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

@@ -59,7 +59,7 @@ final class BaseNetwork{
     
               }.eraseToAnyPublisher()
           }
-    
+
     
     // combine -> return anypublisher
 //    static func callApi<T: TargetType, M: Codable>(

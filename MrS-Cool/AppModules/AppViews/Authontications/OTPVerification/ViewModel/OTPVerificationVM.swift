@@ -51,6 +51,7 @@ class OTPVerificationVM: ObservableObject {
 
         // Make the API call using your APIManager or networking code
         BaseNetwork.CallApi(target, BaseResponse<OtpM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -89,6 +90,7 @@ class OTPVerificationVM: ObservableObject {
         
         // Make the API call using your APIManager or networking code
         BaseNetwork.CallApi(target, BaseResponse<TeacherModel>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

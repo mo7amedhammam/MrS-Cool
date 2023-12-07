@@ -63,6 +63,7 @@ extension TeacherDocumentsVM{
         let target = Authintications.TeacherRegisterDocuments(parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<TeacherDocumentM>.self,progressHandler: {progress in})
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -98,6 +99,7 @@ extension TeacherDocumentsVM{
         let target = Authintications.TeacherGetDocuments(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[TeacherDocumentM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -134,6 +136,7 @@ extension TeacherDocumentsVM{
         let target = Authintications.TeacherDeleteDocuments(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherDocumentM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

@@ -60,6 +60,7 @@ extension SignInVM{
         let target = Authintications.TeacherLogin(user: .Teacher, parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherModel>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

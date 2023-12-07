@@ -56,7 +56,6 @@ class SignUpViewModel: ObservableObject {
 //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
 
-
     @Published var isDataUploaded: Bool = false
     @Published var OtpM: OtpM?{
         didSet{
@@ -81,6 +80,7 @@ extension SignUpViewModel{
         let target = Authintications.Register(user: .Teacher, parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
