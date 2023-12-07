@@ -241,7 +241,7 @@ struct ManageTeacherSubjectsView: View {
                         }
                     }
                     .padding()
-                    .frame(height:240)
+                    .frame(height:515)
 //                    .keyboardAdaptive()
                 }
 

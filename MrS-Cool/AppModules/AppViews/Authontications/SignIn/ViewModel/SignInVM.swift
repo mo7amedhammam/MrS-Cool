@@ -30,12 +30,10 @@ class SignInVM: ObservableObject {
     
     @Published var teachermodel: TeacherModel?{
         didSet{
-            DispatchQueue.main.sync(execute: {
                 if teachermodel != nil{
                     isLogedin = true
                     Helper.shared.saveUser(user: teachermodel)
                 }
-            })
         }
     }
     init()  {
@@ -76,7 +74,7 @@ extension SignInVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
-                    teachermodel = model
+                        self.teachermodel = model
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
