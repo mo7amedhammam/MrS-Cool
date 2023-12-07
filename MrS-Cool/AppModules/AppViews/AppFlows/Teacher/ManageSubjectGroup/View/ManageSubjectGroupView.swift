@@ -39,23 +39,23 @@ struct ManageSubjectGroupView: View {
 
                                         CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName)
                                         
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.date,datePickerComponent:.date)
-                                            .overlay(content: {
-                                                if  (subjectgroupvm.endTime) != nil {
-                                                    VStack(alignment: .trailing) {
-                                                        Spacer()
-                                                        HStack {
-                                                            Spacer()
-                                                            
-                                                            Group{
-                                                                Text("End Time Is ")+Text("\(subjectgroupvm.endTime ?? "")")
-                                                            }     .font(Font.SoraBold(size: 9))
-                                                                .foregroundColor(ColorConstants.LightGreen800)
-                                                        }
-                                                    }
-                                                    .padding([.bottom,.trailing],5)
-                                                }
-                                            })
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.startDate,datePickerComponent:.date)
+//                                            .overlay(content: {
+//                                                if  (subjectgroupvm.endTime) != nil {
+//                                                    VStack(alignment: .trailing) {
+//                                                        Spacer()
+//                                                        HStack {
+//                                                            Spacer()
+//                                                            
+//                                                            Group{
+//                                                                Text("End Time Is ")+Text("\(subjectgroupvm.endTime ?? "")")
+//                                                            }     .font(Font.SoraBold(size: 9))
+//                                                                .foregroundColor(ColorConstants.LightGreen800)
+//                                                        }
+//                                                    }
+//                                                    .padding([.bottom,.trailing],5)
+//                                                }
+//                                            })
                                         
                                     }
                                     .padding([.top])
@@ -66,7 +66,7 @@ struct ManageSubjectGroupView: View {
                                     }.padding(.top)
                                     // -- inputs --
                                     Group {
-                                        CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.subject,options:lookupsvm.daysList)
+                                        CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.day,options:lookupsvm.daysList)
 
                                         CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,datePickerComponent:.hourAndMinute)
                                     }
@@ -76,7 +76,7 @@ struct ManageSubjectGroupView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title: "Review Details" ,IsDisabled: .constant(false), action: {
-                                            subjectgroupvm.CreateTeacherGroup()
+                                            subjectgroupvm.ReviewTeacherGroup()
                                         })
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             subjectgroupvm.clearTeacherGroup()
@@ -102,21 +102,21 @@ struct ManageSubjectGroupView: View {
                             }
                             .padding(.horizontal)
                             
-                            List(subjectgroupvm.TeacherGroups ?? [] ,id:\.self){ schedual in
-                                GroupForLessonCell(model: schedual, deleteBtnAction: {
-                                    subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                                        subjectgroupvm.DeleteTeacherGroup(id: schedual.id)
-                                    })
-                                    subjectgroupvm.isError = true
-                                })
-                                .listRowSpacing(0)
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.clear)
-                                .padding(.vertical,-4)
-                            }
-                            //                        .scrollContentBackground(.hidden)
-                            .listStyle(.plain)
-                            .frame(height: gr.size.height/2)
+//                            List(subjectgroupvm.TeacherGroups ?? [] ,id:\.self){ schedual in
+//                                GroupForLessonCell(model: schedual, deleteBtnAction: {
+//                                    subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+//                                        subjectgroupvm.DeleteTeacherGroup(id: schedual.id)
+//                                    })
+//                                    subjectgroupvm.isError = true
+//                                })
+//                                .listRowSpacing(0)
+//                                .listRowSeparator(.hidden)
+//                                .listRowBackground(Color.clear)
+//                                .padding(.vertical,-4)
+//                            }
+//                            //                        .scrollContentBackground(.hidden)
+//                            .listStyle(.plain)
+//                            .frame(height: gr.size.height/2)
                             Spacer()
                         }
                         .frame(minHeight: gr.size.height)
@@ -125,7 +125,7 @@ struct ManageSubjectGroupView: View {
                 .onAppear(perform: {
                     lookupsvm.GetSubjestForList()
                     lookupsvm.GetDays()
-                    subjectgroupvm.GetTeacherGroups()
+                    subjectgroupvm.GetTeacherSubjectGroups()
                 })
             }
             .hideNavigationBar()
@@ -180,13 +180,13 @@ struct ManageSubjectGroupView: View {
                                     HStack {
                                         Group{
                                             CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                                subjectgroupvm.GetTeacherGroups()
+                                                subjectgroupvm.GetTeacherSubjectGroups()
                                                 showFilter = false
                                             })
                                             
                                             CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                                 subjectgroupvm.clearFilter()
-                                                subjectgroupvm.GetTeacherGroups()
+                                                subjectgroupvm.GetTeacherSubjectGroups()
                                                 showFilter = false
                                             })
                                         } .frame(width:130,height:40)

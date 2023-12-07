@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 // MARK: - SubjectGroupM
 struct SubjectGroupM: Codable {
     var id, teacherSubjectAcademicSemesterYearID: Int?
@@ -48,6 +49,46 @@ struct ScheduleSlot: Codable {
     }
 }
 
+// MARK: - SubjectGroupDetailsM To Diction-
+// convert that model to dictionary to be sendable parameters -
+extension SubjectGroupDetailsM {
+    func toDictionary() -> [String: Any] {
+        var dictionary: [String: Any] = [:]
+
+        dictionary["id"] = id
+        dictionary["teacherSubjectAcademicSemesterYearID"] = teacherSubjectAcademicSemesterYearID
+        dictionary["teacherSubjectAcademicSemesterYearName"] = teacherSubjectAcademicSemesterYearName
+        dictionary["groupName"] = groupName
+        dictionary["startDate"] = startDate
+        dictionary["endDate"] = endDate
+        dictionary["numLessons"] = numLessons
+
+        if let scheduleSlots = scheduleSlots {
+            let scheduleSlotsArray = scheduleSlots.map { $0.toDictionary() }
+            dictionary["scheduleSlots"] = scheduleSlotsArray
+        }
+
+        return dictionary
+    }
+}
+
+// MARK: - SubjectGroupDetailsM To Diction-
+// convert that model to dictionary to be sendable parameters -
+extension ScheduleSlot {
+    func toDictionary() -> [String: Any] {
+        var dictionary: [String: Any] = [:]
+
+        dictionary["dayId"] = dayID
+        dictionary["timeFrom"] = timeFrom
+        dictionary["timeTo"] = timeTo
+        dictionary["dayName"] = dayName
+        dictionary["lessonName"] = lessonName
+        dictionary["teacherLessonId"] = teacherLessonID
+        dictionary["date"] = date
+
+        return dictionary
+    }
+}
 
 
 // MARK: - SubjectGroupDeleteM -
@@ -64,3 +105,34 @@ struct SubjectGroupDeleteM: Codable {
         case dayName
     }
 }
+
+struct NewScheduleSlotsM{
+    var day: DropDownOption?
+    var fromTime: String?
+    enum CodingKeys: String, CodingKey {
+        case day
+        case fromTime
+    }
+}
+struct CreateScheduleSlotsM{
+    var dayId: Int?
+    var fromTime: String?
+    enum CodingKeys: String, CodingKey {
+        case dayId
+        case fromTime
+    }
+}
+
+
+// convert that model to dictionary to be sendable parameters -
+//extension CreateScheduleSlotsM {
+//    func toDictionary() -> [String: Any] {
+//        var dictionary: [String: Any] = [:]
+//        if let dayId = day?.id {
+//            dictionary["dayId"] = dayId
+//        }
+//        dictionary["fromTime"] = fromTime
+//
+//        return dictionary
+//    }
+//}
