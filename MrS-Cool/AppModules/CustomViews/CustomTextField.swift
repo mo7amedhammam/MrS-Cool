@@ -466,6 +466,7 @@ struct CustomDatePickerField: View {
                 isCalenderVisible.toggle()
             }, label: {
                 HStack(spacing:0){
+                    
                     if iconName != "" || iconName != nil{
                         Image(iconName ?? "img_group148")
                             .renderingMode( iconColor != .clear ? .template:.original)
@@ -494,11 +495,13 @@ struct CustomDatePickerField: View {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity)
 
+                    if rightIconName?.count ?? 0 > 0 || rightIconName != nil{
                         Image(rightIconName ?? "img_daterange")
-                        .frame(width: 30, height: 30, alignment: .center)
-                        .foregroundColor(iconColor == .clear ? .clear:iconColor)
-                        .font(.system(size: 15))
-                        .padding(.horizontal,10)
+                            .frame(width: 30, height: 30, alignment: .center)
+                            .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                            .font(.system(size: 15))
+                            .padding(.horizontal,10)
+                    }
                 }
             })
             

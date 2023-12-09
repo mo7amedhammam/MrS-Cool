@@ -11,17 +11,16 @@ struct CustomButton: View {
 //    @State private var language = LocalizationService.shared.language
 
     var imageName:String?
+//    var imageColor:Color?
     var Title = ""
     @Binding var IsDisabled:Bool
     var action: () -> Void
 
     var body: some View {
         Button(action: {
-//            DispatchQueue.main.async{
                 action()
-//            }
         }, label: {
-            HStack {
+            HStack(alignment:.center) {
                 if let imageName = imageName{
                     Image(imageName)
                         .resizable()
@@ -33,14 +32,14 @@ struct CustomButton: View {
                         .aspectRatio(contentMode: .fit)
                         .clipped()
                 }
-                Text(Title.localized())
-                    .font(Font.SoraSemiBold(size:14))
-                    .fontWeight(.semibold)
-//                    .minimumScaleFactor(0.5)
-                    .multilineTextAlignment(.center)
+                if Title.count > 0 {
+                    Text(Title.localized())
+                        .font(Font.SoraSemiBold(size:14))
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                }
             }
             .frame(minWidth: 0, maxWidth: .infinity)
-//            .frame(height:40)
             .frame(minHeight: 0, maxHeight: .infinity)
 
             .padding()
@@ -59,7 +58,8 @@ struct CustomButton: View {
 }
 
 #Preview {
-    CustomButton(imageName:"img_group_512394",Title: "Button",IsDisabled: .constant(false), action:{})
+    CustomButton(imageName:"icons8-plus-90",Title: "",IsDisabled: .constant(false), action:{})
+        .frame(width:40,height: 40)
 }
 
 

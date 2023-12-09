@@ -26,6 +26,8 @@ struct TeacherHomeView: View {
     
     @StateObject var groupsforlessonvm = GroupForLessonVM()
     
+    @StateObject var subjectgroupvm = ManageSubjectGroupVM()
+
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     let screens:[teacherscreen] = [
@@ -33,7 +35,9 @@ struct TeacherHomeView: View {
     teacherscreen(title: "Manage Documents",id: 2 ),
     teacherscreen(title: "Manage Subjects",id: 3 ),
     teacherscreen(title: "Manage Scheduals",id: 4 ),
-    teacherscreen(title: "Manage Group For Lessons",id: 5 )
+    teacherscreen(title: "Manage Group For Lessons",id: 5 ),
+    teacherscreen(title: "Manage Subject Groups",id: 6 )
+
     ]
     var body: some View {
         VStack {
@@ -67,6 +71,11 @@ struct TeacherHomeView: View {
                     }else if screenid == 5{
                             destination = AnyView(GroupForLessonView() .environmentObject(lookupsvm)
                                 .environmentObject(groupsforlessonvm)
+//                                .hideNavigationBar()
+                            )
+                    }else if screenid == 6{
+                            destination = AnyView(ManageSubjectGroupView() .environmentObject(lookupsvm)
+                                .environmentObject(subjectgroupvm)
 //                                .hideNavigationBar()
                             )
                         }

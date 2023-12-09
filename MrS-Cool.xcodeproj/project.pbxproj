@@ -40,6 +40,7 @@
 		C854DE2D2B14B5600057C75F /* ManageLessonMaterialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854DE2C2B14B5600057C75F /* ManageLessonMaterialCell.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
 		C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863C72B2AF1334B004322F2 /* FilePreviewer.swift */; };
+		C86A96342B24776E00BF7D13 /* ManageSubjectGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86A96332B24776E00BF7D13 /* ManageSubjectGroupCell.swift */; };
 		C877C8432B1207BD000F176A /* ManageLessonMaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877C8422B1207BD000F176A /* ManageLessonMaterialView.swift */; };
 		C877C8452B1207D1000F176A /* ManageLessonMaterialVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877C8442B1207D1000F176A /* ManageLessonMaterialVM.swift */; };
 		C877C8472B1207E0000F176A /* ManageLessonMaterialM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C877C8462B1207E0000F176A /* ManageLessonMaterialM.swift */; };
@@ -141,6 +142,7 @@
 		C854DE2C2B14B5600057C75F /* ManageLessonMaterialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialCell.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C863C72B2AF1334B004322F2 /* FilePreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewer.swift; sourceTree = "<group>"; };
+		C86A96332B24776E00BF7D13 /* ManageSubjectGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectGroupCell.swift; sourceTree = "<group>"; };
 		C877C8422B1207BD000F176A /* ManageLessonMaterialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialView.swift; sourceTree = "<group>"; };
 		C877C8442B1207D1000F176A /* ManageLessonMaterialVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialVM.swift; sourceTree = "<group>"; };
 		C877C8462B1207E0000F176A /* ManageLessonMaterialM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialM.swift; sourceTree = "<group>"; };
@@ -539,6 +541,14 @@
 			name = FilePreviewer;
 			sourceTree = "<group>";
 		};
+		C86A96322B24773300BF7D13 /* ManageSubjectGroupCell */ = {
+			isa = PBXGroup;
+			children = (
+				C86A96332B24776E00BF7D13 /* ManageSubjectGroupCell.swift */,
+			);
+			path = ManageSubjectGroupCell;
+			sourceTree = "<group>";
+		};
 		C877C83F2B12078A000F176A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +647,7 @@
 		C8882E812B20670E0050FF57 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C86A96322B24773300BF7D13 /* ManageSubjectGroupCell */,
 				C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */,
 			);
 			path = View;
@@ -1405,6 +1416,7 @@
 				C899E3EA2ADEC6BD00593369 /* SignUpView.swift in Sources */,
 				C80D096F2AE7FBE700F83DB4 /* TeacherSignUp.swift in Sources */,
 				C8796B022AFB950B004AAA98 /* ManageTeacherProfileView.swift in Sources */,
+				C86A96342B24776E00BF7D13 /* ManageSubjectGroupCell.swift in Sources */,
 				C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */,
 				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,

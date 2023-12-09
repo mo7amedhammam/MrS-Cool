@@ -64,13 +64,63 @@ struct ManageSubjectGroupView: View {
                                     HStack(alignment: .top){
                                         SignUpHeaderTitle(Title: "Lessons Schedule")
                                     }.padding(.top)
-                                    // -- inputs --
-                                    Group {
-                                        CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.day,options:lookupsvm.daysList)
-
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,datePickerComponent:.hourAndMinute)
+                                    
+                                    // -- list --
+                                    ForEach(Array(subjectgroupvm.DisplaySchedualSlotsArr.enumerated()), id: \.element) { (index, slot) in
+                                        Group {
+                                            CustomDropDownField(iconName: "img_group148", placeholder: "Day", selectedOption: .constant(slot.day), options: lookupsvm.daysList)
+                                                .disabled(true)
+                                            
+                                            HStack {
+                                                CustomDatePickerField(iconName: "img_maskgroup7cl", rightIconName: nil, placeholder: "Start Time", selectedDateStr: .constant(slot.fromTime), datePickerComponent: .hourAndMinute)
+                                                    .disabled(true)
+                                                
+                                                Button(action: {
+                                                    // Handle the delete action
+                                                    subjectgroupvm.deleteFromDisplaySchedualSlot(at: index)
+                                                }) {
+                                                    Image("img_group")
+                                                        .resizable()
+                                                        .frame(width: 20, height: 20, alignment: .leading)
+                                                        .aspectRatio(contentMode: .fill)
+                                                }
+                                                .frame(width: 40, height: 40)
+                                                .buttonStyle(.plain)
+                                                .overlay(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
+                                                    .stroke(.mainBlue, lineWidth: 1.5))
+                                                .frame(width: 40, height: 40)
+                                            }
+                                        }
+                                        .padding([.top])
                                     }
-                                    .padding([.top])
+                                    
+                                    // -- inputs --
+                                    if subjectgroupvm.DisplaySchedualSlotsArr.count < 7{
+                                        Group {
+                                            CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.day,options:lookupsvm.daysList)
+                                            
+                                            HStack {
+                                                CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,datePickerComponent:.hourAndMinute)
+                                            }
+                                            
+                                            HStack{
+                                                Spacer()
+                                                Group{
+                                                    CustomButton(imageName:"icons8-plus-90",Title: "" ,IsDisabled: .constant(subjectgroupvm.day == nil || subjectgroupvm.startTime == nil), action: {
+                                                        subjectgroupvm.DisplaySchedualSlotsArr.append( NewScheduleSlotsM.init(day: subjectgroupvm.day,fromTime:subjectgroupvm.startTime))
+                                                        subjectgroupvm.clearCurrentSlot()
+                                                        
+                                                    })
+                                                    CustomBorderedButton(imageName:"icons8-broom-90",Title:"",IsDisabled: .constant(subjectgroupvm.day == nil && subjectgroupvm.startTime == nil), action: {
+                                                        subjectgroupvm.clearCurrentSlot()
+                                                    })
+                                                }
+                                                .frame(width:40,height: 40)
+                                            }
+                                        }
+                                        .padding([.top])
+                                    }
+                                    
                                 }.padding(.top,20)
                                 
                                 HStack {
@@ -82,9 +132,10 @@ struct ManageSubjectGroupView: View {
                                             subjectgroupvm.clearTeacherGroup()
                                         })
                                     }
-                                    .frame(width:120,height: 40)
+                                    .frame(width:150,height: 40)
                                     
                                 }.padding(.vertical)
+                                
                                 
                                 HStack(){
                                     SignUpHeaderTitle(Title: "Manage My Subject Groups")
@@ -102,21 +153,24 @@ struct ManageSubjectGroupView: View {
                             }
                             .padding(.horizontal)
                             
-//                            List(subjectgroupvm.TeacherGroups ?? [] ,id:\.self){ schedual in
-//                                GroupForLessonCell(model: schedual, deleteBtnAction: {
-//                                    subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-//                                        subjectgroupvm.DeleteTeacherGroup(id: schedual.id)
-//                                    })
-//                                    subjectgroupvm.isError = true
-//                                })
-//                                .listRowSpacing(0)
-//                                .listRowSeparator(.hidden)
-//                                .listRowBackground(Color.clear)
-//                                .padding(.vertical,-4)
-//                            }
-//                            //                        .scrollContentBackground(.hidden)
-//                            .listStyle(.plain)
-//                            .frame(height: gr.size.height/2)
+                            List(subjectgroupvm.TeacherSubjectGroups ?? [] ,id:\.self){ group in
+                                ManageSubjectGroupCell(model: group,
+                                                       reviewBtnAction:{
+                                    
+                                }, deleteBtnAction: {
+                                    subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                        subjectgroupvm.DeleteTeacherGroup(id: group.id)
+                                    })
+                                    subjectgroupvm.isError = true
+                                })
+                                .listRowSpacing(0)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                                .padding(.vertical,-4)
+                            }
+                            //                        .scrollContentBackground(.hidden)
+                            .listStyle(.plain)
+                            .frame(height: gr.size.height/2)
                             Spacer()
                         }
                         .frame(minHeight: gr.size.height)
@@ -136,7 +190,7 @@ struct ManageSubjectGroupView: View {
                 subjectgroupvm.cleanup()
             }
                     .showHud(isShowing: $subjectgroupvm.isLoading)
-//            .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
+            .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
             
             .overlay{
                 if showFilter{

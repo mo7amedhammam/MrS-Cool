@@ -9,7 +9,7 @@ import Foundation
 
 
 // MARK: - SubjectGroupM
-struct SubjectGroupM: Codable {
+struct SubjectGroupM: Codable,Hashable {
     var id, teacherSubjectAcademicSemesterYearID: Int?
     var teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate: String?
 
@@ -106,7 +106,7 @@ struct SubjectGroupDeleteM: Codable {
     }
 }
 
-struct NewScheduleSlotsM{
+struct NewScheduleSlotsM: Hashable{
     var day: DropDownOption?
     var fromTime: String?
     enum CodingKeys: String, CodingKey {

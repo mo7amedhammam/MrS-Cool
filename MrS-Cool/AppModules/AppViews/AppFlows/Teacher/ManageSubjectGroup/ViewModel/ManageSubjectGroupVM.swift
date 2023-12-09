@@ -246,6 +246,13 @@ extension ManageSubjectGroupVM{
         startTime = nil
         //        endTime = nil
     }
+    func deleteFromDisplaySchedualSlot(at index: Int) {
+           guard index >= 0 && index < DisplaySchedualSlotsArr.count else {
+               // Handle invalid index
+               return
+           }
+           DisplaySchedualSlotsArr.remove(at: index)
+       }
     
     func clearTeacherGroup(){
         subject = nil
