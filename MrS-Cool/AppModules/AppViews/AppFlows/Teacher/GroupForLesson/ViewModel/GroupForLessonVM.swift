@@ -46,11 +46,11 @@ class GroupForLessonVM: ObservableObject {
 
 extension GroupForLessonVM{
     func CreateTeacherGroup(){
-        guard let lessonid = lesson?.id,let date = date,let time = time else {return}
+        guard let lessonid = lesson?.id,let date = date,let time = time,let endTime = endTime else {return}
         
         let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
                                 "timeFrom":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
-                                "timeTo":endTime]
+                                "timeTo":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")]
         let parameters:[String:Any] = [ "groupName":groupName,
                                         "teacherLessonId":lessonid,
                                         "teacherLessonSessionScheduleSlotsDto":[Dto]]

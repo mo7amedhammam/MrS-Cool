@@ -40,22 +40,6 @@ struct ManageSubjectGroupView: View {
                                         CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName)
                                         
                                         CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.startDate,datePickerComponent:.date)
-//                                            .overlay(content: {
-//                                                if  (subjectgroupvm.endTime) != nil {
-//                                                    VStack(alignment: .trailing) {
-//                                                        Spacer()
-//                                                        HStack {
-//                                                            Spacer()
-//                                                            
-//                                                            Group{
-//                                                                Text("End Time Is ")+Text("\(subjectgroupvm.endTime ?? "")")
-//                                                            }     .font(Font.SoraBold(size: 9))
-//                                                                .foregroundColor(ColorConstants.LightGreen800)
-//                                                        }
-//                                                    }
-//                                                    .padding([.bottom,.trailing],5)
-//                                                }
-//                                            })
                                         
                                     }
                                     .padding([.top])
@@ -127,6 +111,7 @@ struct ManageSubjectGroupView: View {
                                     Group{
                                         CustomButton(Title: "Review Details" ,IsDisabled: .constant(false), action: {
                                             subjectgroupvm.ReviewTeacherGroup()
+                                            destination = AnyView(    SubjectGroupDetailsView(previewOption: .newGroup).hideNavigationBar().environmentObject(subjectgroupvm).environmentObject(lookupsvm))
                                         })
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             subjectgroupvm.clearTeacherGroup()
@@ -156,7 +141,13 @@ struct ManageSubjectGroupView: View {
                             List(subjectgroupvm.TeacherSubjectGroups ?? [] ,id:\.self){ group in
                                 ManageSubjectGroupCell(model: group,
                                                        reviewBtnAction:{
-                                    
+                                    subjectgroupvm.GetTeacherGroupDetails(id: group.id)
+                                  destination = AnyView(  SubjectGroupDetailsView(previewOption: .existingGroup)
+                        .hideNavigationBar()
+                        .environmentObject(subjectgroupvm)
+                        .environmentObject(lookupsvm)
+                                  )
+
                                 }, deleteBtnAction: {
                                     subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         subjectgroupvm.DeleteTeacherGroup(id: group.id)
@@ -179,7 +170,7 @@ struct ManageSubjectGroupView: View {
                 .onAppear(perform: {
                     lookupsvm.GetSubjestForList()
                     lookupsvm.GetDays()
-                    subjectgroupvm.GetTeacherSubjectGroups()
+//                    subjectgroupvm.GetTeacherSubjectGroups()
                 })
             }
             .hideNavigationBar()
@@ -258,7 +249,7 @@ struct ManageSubjectGroupView: View {
                 }
             }
         
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        NavigationLink(destination: destination, isActive: $subjectgroupvm.letsPreview, label: {})
     }
 }
 

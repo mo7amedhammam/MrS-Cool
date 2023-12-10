@@ -35,7 +35,7 @@ struct SubjectGroupDetailsM: Codable {
 }
 
 // MARK: - ScheduleSlot -
-struct ScheduleSlot: Codable {
+struct ScheduleSlot: Codable,Hashable {
     var dayID: Int?
     var timeFrom, timeTo, dayName, lessonName: String?
     var teacherLessonID: Int?
@@ -114,12 +114,21 @@ struct NewScheduleSlotsM: Hashable{
         case fromTime
     }
 }
+extension NewScheduleSlotsM {
+    func toDictionary() -> [String: Any] {
+        var dictionary: [String: Any] = [:]
+
+        dictionary["dayId"] = day?.id
+        dictionary["timeFrom"] = fromTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")
+        return dictionary
+    }
+}
 struct CreateScheduleSlotsM{
     var dayId: Int?
-    var fromTime: String?
+    var timeFrom: String?
     enum CodingKeys: String, CodingKey {
         case dayId
-        case fromTime
+        case timeFrom
     }
 }
 

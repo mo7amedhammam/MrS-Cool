@@ -161,8 +161,10 @@ struct CustomAlertView: View {
                     ZStack {
                         Image(imgStr)
                                 .resizable()
-//                                .renderingMode(.template)
+                                .renderingMode(.template)
 //                                .foregroundColor(Color("Second_Color"))
+                                .foregroundColor(ColorConstants.MainColor)
+
                                 .aspectRatio( contentMode: .fit)
                                 .frame(width: 50, height: 50, alignment: .center)
                     }

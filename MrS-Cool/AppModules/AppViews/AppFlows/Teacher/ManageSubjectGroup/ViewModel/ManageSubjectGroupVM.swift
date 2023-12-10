@@ -28,7 +28,7 @@ class ManageSubjectGroupVM: ObservableObject {
     
     @Published var DisplaySchedualSlotsArr:[NewScheduleSlotsM] = []
     
-    @Published var CreateSchedualSlotsArr:[CreateScheduleSlotsM] = []
+    @Published var CreateSchedualSlotsArr = []
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -37,11 +37,21 @@ class ManageSubjectGroupVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     //    @Published var isTeacherHasSubjects: Bool = false
-    
+    @Published var letsPreview : Bool = false
+
     @Published var TeacherSubjectGroups : [SubjectGroupM]?
-    @Published var TeacherSubjectGroupsDetails : SubjectGroupDetailsM?
+    @Published var TeacherSubjectGroupsDetails : SubjectGroupDetailsM?{
+        didSet{
+            if TeacherSubjectGroupsDetails != nil{
+                letsPreview = true
+//                TeacherSubjectGroupsDetails?.startDate =  TeacherSubjectGroupsDetails?.startDate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy")
+//                TeacherSubjectGroupsDetails?.endDate =  TeacherSubjectGroupsDetails?.endDate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy")
+            }
+        }
+    }
     
     init()  {
+        GetTeacherSubjectGroups()
     }
 }
 
@@ -94,16 +104,18 @@ extension ManageSubjectGroupVM{
     
     func ReviewTeacherGroup(){
         guard let subjectid = subject?.id ,let subjectname = subject?.Title ,let startdate = startDate else {return}
-        
+        prepareSlotsArrays()
+
         let parameters:[String:Any] = [ "teacherSubjectAcademicSemesterYearId":subjectid,
                                         "teacherSubjectAcademicSemesterYearName":subjectname,
                                         "groupName":groupName,
-                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
-                                        "scheduleSlots":[CreateSchedualSlotsArr]]
+                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                        "scheduleSlots":CreateSchedualSlotsArr]
         print("parameters",parameters)
         let target = teacherServices.ReviewMySubjectGroup(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<SubjectGroupDetailsM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -119,9 +131,6 @@ extension ManageSubjectGroupVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     TeacherSubjectGroupsDetails = receivedData.data
-                    //                    clearTeacherGroup()
-                    //                    clearFilter()
-                    //                    GetTeacherSubjectGroups()
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -136,9 +145,10 @@ extension ManageSubjectGroupVM{
         guard let TeacherSubjectGroupsDetailsParameters = TeacherSubjectGroupsDetails?.toDictionary() else {return}
         let parameters:[String:Any] = TeacherSubjectGroupsDetailsParameters
         print("parameters",parameters)
-        let target = teacherServices.ReviewMySubjectGroup(parameters: parameters)
+        let target = teacherServices.CreateMySubjectGroup(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<SubjectGroupDetailsM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -153,10 +163,9 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    TeacherSubjectGroupsDetails = receivedData.data
-                    //                    clearTeacherGroup()
-                    //                    clearFilter()
-                    //                    GetTeacherSubjectGroups()
+                    clearTeacherGroup()
+                    clearFilter()
+                    GetTeacherSubjectGroups()
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -175,6 +184,7 @@ extension ManageSubjectGroupVM{
         let target = teacherServices.GetMySubjectGroupDetails(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<SubjectGroupDetailsM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -190,7 +200,6 @@ extension ManageSubjectGroupVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true{
                     TeacherSubjectGroupsDetails = receivedData.data
-                    
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
@@ -236,8 +245,9 @@ extension ManageSubjectGroupVM{
     
     // Map DisplaySchedualSlotsArr to CreateSchedualSlotsArr
     func prepareSlotsArrays() {
-        CreateSchedualSlotsArr = DisplaySchedualSlotsArr.map { newSlot in
-            return CreateScheduleSlotsM(dayId: newSlot.day?.id, fromTime: newSlot.fromTime)
+        CreateSchedualSlotsArr = DisplaySchedualSlotsArr.map{ newSlot in
+            return newSlot.toDictionary()
+//           return ["dayId" : newSlot.day?.id ?? 0, "fromTime": newSlot.fromTime ?? ""]
         }
     }
     
