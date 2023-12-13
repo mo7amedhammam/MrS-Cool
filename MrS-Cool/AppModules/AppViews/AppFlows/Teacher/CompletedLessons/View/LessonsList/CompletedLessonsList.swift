@@ -10,14 +10,14 @@ import SwiftUI
 struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var manageteachersubjectlessonsvm : ManageTeacherSubjectLessonsVM
+    @EnvironmentObject var completedlessonsvm : CompletedLessonsVM
     
     //    @State var isPush = false
     //    @State var destination = EmptyView()
-    @State private var isEditing = false
+    //    @State private var isEditing = false
     
     @State var showFilter : Bool = false
-    var currentSubject:TeacherSubjectM?
+    //    var currentSubject:TeacherSubjectM?
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -43,51 +43,22 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
                                     })
                             }
                             .padding(.top)
-                            
                         }
                         .padding(.horizontal)
-                        //                        ScrollView{
-                        List{
-                            ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.self) { unit in
-                                Section(header:
-                                            HStack {
-                                    Text(unit.unitName ?? "")
-                                        .font(Font.SoraBold(size: 18))
-                                        .foregroundColor(.mainBlue)
-                                        .padding(.top)
-                                    Spacer()
-                                }
-                                        //                                        .frame(height:40)
-                                ) {
-                                    ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
-                                        ManageSubjectLessonCell(model: lesson, editBtnAction: {
-                                            
-                                            manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
-                                            manageteachersubjectlessonsvm.showEdit = true
-                                        }, addBriefBtnAction: {
-                                            
-                                            manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
-                                            manageteachersubjectlessonsvm.GetSubjectLessonBrief()
-                                            manageteachersubjectlessonsvm.showBrief = true
-                                        },addMaterialBtnAction:{
-                                            
-                                            destination = AnyView(ManageLessonMaterialView(currentLesson:lesson)
-                                                .environmentObject(LookUpsVM())
-                                                .environmentObject(ManageLessonMaterialVM())
-                                            )
-                                            isPush = true
-                                        })
-                                        .listRowSpacing(0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                    }
-                                }
-                            }
-                            //                            }
+                        List(completedlessonsvm.completedLessonsList?.items ?? [], id:\.self) { lesson in
+                            
+                            CompletedLessonCell(model: lesson,reviewBtnAction: {
+                                completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
+                                destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
+                                
+                                isPush = true
+                            })
+                            .listRowSpacing(0)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
                         }
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
-                        //                            .scrollContentBackground(.hidden)
                         .frame(minHeight: gr.size.height/2)
                         
                         Spacer()
@@ -96,8 +67,8 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
                 }
             }
             .onAppear(perform: {
-                manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
-                manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
+                lookupsvm.GetSubjestForList()
+                completedlessonsvm.GetCompletedLessons()
             })
             
         }
@@ -107,10 +78,10 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
         })
         
         .onDisappear {
-            manageteachersubjectlessonsvm.cleanup()
+            completedlessonsvm.cleanup()
         }
-        .showHud(isShowing: $manageteachersubjectlessonsvm.isLoading)
-        .showAlert(hasAlert: $manageteachersubjectlessonsvm.isError, alertType: manageteachersubjectlessonsvm.error)
+        .showHud(isShowing: $completedlessonsvm.isLoading)
+        .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         
         .overlay{
             if showFilter{
@@ -123,7 +94,6 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
                     }
                     .blur(radius: 4) // Adjust the blur radius as needed
                 DynamicHeightSheet(isPresented: $showFilter){
-                    
                     VStack {
                         ColorConstants.Bluegray100
                             .frame(width:50,height:5)
@@ -135,24 +105,36 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
-                        
                         ScrollView{
                             VStack{
                                 Group {
-                                    CustomTextField(iconName:"img_group_512380",placeholder: "Subject Lesson", text: $manageteachersubjectlessonsvm.lessonName )
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.SubjectsForList)
+                                        .onChange(of: completedlessonsvm.filtersubject){newval in
+                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
+                                            {
+                                                completedlessonsvm.filterlesson = nil
+                                                lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
+                                            }
+                                        }
+                                    
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.LessonsForList)
+                                    
+                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
+                                    
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
                                 }.padding(.top,5)
                                 
                                 Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                            completedlessonsvm .GetCompletedLessons()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            manageteachersubjectlessonsvm.clearFilter()
-                                            manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                            completedlessonsvm.clearFilter()
+                                            completedlessonsvm .GetCompletedLessons()
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)
@@ -162,10 +144,9 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
                             .padding(.horizontal,3)
                             .padding(.top)
                         }
-                        
                     }
                     .padding()
-                    .frame(height:240)
+                    .frame(height:430)
                     .keyboardAdaptive()
                 }
             }
@@ -178,6 +159,6 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
 #Preview {
     CompletedLessonsList()
         .environmentObject(LookUpsVM())
-        .environmentObject(ManageTeacherSubjectLessonsVM())
+        .environmentObject(CompletedLessonsVM())
     
 }

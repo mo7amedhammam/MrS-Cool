@@ -27,6 +27,8 @@ struct TeacherHomeView: View {
     @StateObject var groupsforlessonvm = GroupForLessonVM()
     
     @StateObject var subjectgroupvm = ManageSubjectGroupVM()
+    
+    @StateObject var completedlessonsvm = CompletedLessonsVM()
 
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -36,7 +38,8 @@ struct TeacherHomeView: View {
     teacherscreen(title: "Manage Subjects",id: 3 ),
     teacherscreen(title: "Manage Scheduals",id: 4 ),
     teacherscreen(title: "Manage Group For Lessons",id: 5 ),
-    teacherscreen(title: "Manage Subject Groups",id: 6 )
+    teacherscreen(title: "Manage Subject Groups",id: 6 ),
+    teacherscreen(title: "Completed Lessons",id: 7 )
 
     ]
     var body: some View {
@@ -76,6 +79,11 @@ struct TeacherHomeView: View {
                     }else if screenid == 6{
                             destination = AnyView(ManageSubjectGroupView() .environmentObject(lookupsvm)
                                 .environmentObject(subjectgroupvm)
+//                                .hideNavigationBar()
+                            )
+                        }else if screenid == 7{
+                            destination = AnyView(CompletedLessonsList() .environmentObject(lookupsvm)
+                                .environmentObject(completedlessonsvm)
 //                                .hideNavigationBar()
                             )
                         }

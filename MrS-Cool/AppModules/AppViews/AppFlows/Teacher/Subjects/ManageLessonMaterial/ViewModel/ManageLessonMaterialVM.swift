@@ -92,6 +92,7 @@ extension ManageLessonMaterialVM{
         let target = teacherServices.CreateMyLessonMaterial(parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<CreateLessonMaterialM>.self,progressHandler: {progress in})
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -134,6 +135,7 @@ extension ManageLessonMaterialVM{
         let target = teacherServices.UpdateMyLessonMaterial(parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<CreateLessonMaterialM>.self,progressHandler: {progress in})
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -172,6 +174,7 @@ extension ManageLessonMaterialVM{
         let target = teacherServices.GetMyLessonMaterial(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<GetLessonMaterialM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -208,6 +211,7 @@ extension ManageLessonMaterialVM{
         let target = teacherServices.DeleteLessonMaterial(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<GetLessonMaterialM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

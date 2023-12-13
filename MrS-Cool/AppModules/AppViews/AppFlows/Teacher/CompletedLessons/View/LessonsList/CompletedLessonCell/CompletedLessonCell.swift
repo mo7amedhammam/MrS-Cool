@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct CompletedLessonCell: View {
-    var model = GroupForLessonM()
+    var model = CompletedLessonItem()
     var reviewBtnAction : (()->())?
     
     var body: some View {
@@ -20,7 +20,7 @@ struct CompletedLessonCell: View {
                             .frame(width: 30 ,height: 30)
                     )
                 
-                Text(model.teacherSubjectAcademicSemesterYearName ?? "day name dau name dau one")
+                Text(model.subjectName ?? "day name dau name dau one")
                     .font(Font.SoraSemiBold(size:13.0))
                     .foregroundColor(.mainBlue)
                 

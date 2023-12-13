@@ -174,7 +174,6 @@ extension ManageTeacherSubjectsVM{
             .store(in: &cancellables)
     }
     
-    
     func GetTeacherSubjects(){
         var parameters : [String:Any] = [:]
         if let educationTypeId = filterEducationType?.id{
