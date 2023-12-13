@@ -106,7 +106,7 @@ extension ManageLessonMaterialVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true{
                     GetLessonMaterial()
                     clearTeachersMaterial()
                 }else{
@@ -149,7 +149,7 @@ extension ManageLessonMaterialVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true{
                     GetLessonMaterial()
                     clearTeachersMaterial()
                     isEditing = false
@@ -226,13 +226,8 @@ extension ManageLessonMaterialVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data?.teacherLessonMaterialDtos {
-                    
-//                    if let index = self.TeacherLessonMaterial?.firstIndex(where: { $0.id == id }) {
-//                                       // Remove the item at the found index
-//                                       self.TeacherLessonMaterial?.remove(at: index)
-//                                   }
-                    
+                if receivedData.success == true{
+//                if let model = receivedData.data?.teacherLessonMaterialDtos {
                     
                     //                    TeacherSubjects = model
                                         TeacherLessonMaterial?.removeAll(where: {$0.id == id})
