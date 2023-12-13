@@ -74,7 +74,11 @@ extension CompletedLessonsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                    completedLessonsList = receivedData.data
+                    if skipCount == 0{
+                        completedLessonsList = receivedData.data
+                    }else{
+                        completedLessonsList?.items?.append(contentsOf: receivedData.data?.items ?? [])
+                    }
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

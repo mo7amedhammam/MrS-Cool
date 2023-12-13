@@ -56,6 +56,13 @@ struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dis
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
+                            .onAppear {
+                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, let itemsCount = completedlessonsvm.completedLessonsList?.items?.count, itemsCount < totalCount {
+                                    // Load the next page if there are more items to fetch
+                                    completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
+                                    completedlessonsvm.GetCompletedLessons()
+                                }
+                            }
                         }
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
