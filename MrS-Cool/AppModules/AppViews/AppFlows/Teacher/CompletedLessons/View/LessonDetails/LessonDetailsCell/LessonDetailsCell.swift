@@ -32,7 +32,13 @@ struct LessonDetailsCell: View {
 
                 Spacer()
 
-                Color.black.clipShape(Rectangle())
+                Group{
+                    if model.studentAttended ?? true { ColorConstants.LightGreen800
+                    }else{
+                        ColorConstants.Red400
+                    }
+                }
+                    .clipShape(Rectangle())
                     .frame(width: 10 ,height: 10)
             }
             
