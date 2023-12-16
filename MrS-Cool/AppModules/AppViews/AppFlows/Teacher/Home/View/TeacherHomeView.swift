@@ -39,7 +39,8 @@ struct TeacherHomeView: View {
     teacherscreen(title: "Manage Scheduals",id: 4 ),
     teacherscreen(title: "Manage Group For Lessons",id: 5 ),
     teacherscreen(title: "Manage Subject Groups",id: 6 ),
-    teacherscreen(title: "Completed Lessons",id: 7 )
+    teacherscreen(title: "Completed Lessons",id: 7 ),
+    teacherscreen(title: "Teacher Calender",id: 8 )
 
     ]
     var body: some View {
@@ -86,7 +87,13 @@ struct TeacherHomeView: View {
                                 .environmentObject(completedlessonsvm)
 //                                .hideNavigationBar()
                             )
-                        }
+                    }else if screenid == 8{
+                        destination = AnyView(CalView()
+//                            .environmentObject(lookupsvm)
+//                            .environmentObject(completedlessonsvm)
+//                                .hideNavigationBar()
+                        )
+                    }
                         isPush = true
                     }, label: {
                         HStack {

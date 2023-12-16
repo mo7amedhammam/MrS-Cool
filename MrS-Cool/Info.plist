@@ -4,11 +4,11 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-        <string>InterMedium.ttf</string>
-        <string>SoraBold.ttf</string>
-        <string>RobotoRegular.ttf</string>
-        <string>SoraSemiBold.ttf</string>
-        <string>SoraRegular.ttf</string>
+		<string>InterMedium.ttf</string>
+		<string>SoraBold.ttf</string>
+		<string>RobotoRegular.ttf</string>
+		<string>SoraSemiBold.ttf</string>
+		<string>SoraRegular.ttf</string>
 	</array>
 </dict>
 </plist>
