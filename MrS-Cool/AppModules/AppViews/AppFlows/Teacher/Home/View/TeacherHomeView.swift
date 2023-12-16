@@ -88,7 +88,7 @@ struct TeacherHomeView: View {
 //                                .hideNavigationBar()
                             )
                     }else if screenid == 8{
-                        destination = AnyView(CalView()
+                        destination = AnyView(CalView(calendar: .current)
 //                            .environmentObject(lookupsvm)
 //                            .environmentObject(completedlessonsvm)
 //                                .hideNavigationBar()

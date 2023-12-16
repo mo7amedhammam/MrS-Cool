@@ -1,5 +1,12 @@
 import SwiftUI
 
+// Model representing events
+struct EventModel: Identifiable {
+    let id = UUID()
+    let date: Date
+    let time: Date
+    let title: String
+}
 struct CalView: View {
     private let calendar: Calendar
     private let monthFormatter: DateFormatter
@@ -9,7 +16,13 @@ struct CalView: View {
 
     @State private var selectedDate = Date()
     @State private var viewMode: CalendarViewMode = .month // Default view mode
-
+    // Example highlighted dates with events
+     private let highlightedDates: [EventModel] = [
+         EventModel(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, time: Date(), title: "Event 1"),
+         EventModel(date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!, time: Date(), title: "Event 2"),
+         EventModel(date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, time: Date(), title: "Event 3")
+         // Add more events as needed
+     ]
     init(calendar: Calendar) {
         self.calendar = calendar
         self.monthFormatter = DateFormatter()
@@ -62,6 +75,9 @@ struct CalView: View {
                 .padding(.trailing, 20)
             }
 
+ 
+            // ...
+
             if viewMode == .month {
                 CalendarView(
                     calendar: calendar,
@@ -71,16 +87,14 @@ struct CalView: View {
                         Button(action: { selectedDate = date }) {
                             Text(dayFormatter.string(from: date))
                                 .padding(8)
-                                .foregroundColor(.clear)
+                                .foregroundColor(.mainBlue)
                                 .background(
-                                    calendar.isDate(date, inSameDayAs: selectedDate) ? Color.red
-                                        : calendar.isDateInToday(date) ? .green
-                                        : .blue
+                                    Circle()
+                                        .fill(isDateInArray(date: date) ? .mainBlue : Color.clear) // Circular background
                                 )
-                                .cornerRadius(8)
                                 .overlay(
                                     Text(dayFormatter.string(from: date))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(isDateInArray(date: date) ? .white : .mainBlue)
                                 )
                         }
                     },
@@ -91,11 +105,7 @@ struct CalView: View {
                     header: { date in
                         Text(weekDayFormatter.string(from: date))
                     },
-                    title: { date in
-//                        Text(monthFormatter.string(from: date))
-//                            .font(.headline)
-//                            .padding()
-                    }
+                    title: { date in }
                 )
             } else if viewMode == .week {
                 WeekView(
@@ -105,16 +115,14 @@ struct CalView: View {
                         Button(action: { selectedDate = date }) {
                             Text(dayFormatter.string(from: date))
                                 .padding(8)
-                                .foregroundColor(.clear)
+                                .foregroundColor(.mainBlue)
                                 .background(
-                                    calendar.isDate(date, inSameDayAs: selectedDate) ? Color.red
-                                        : calendar.isDateInToday(date) ? .green
-                                        : .blue
+                                    Circle()
+                                        .fill(isDateInArray(date: date) ? .mainBlue : Color.clear) // Circular background
                                 )
-                                .cornerRadius(8)
                                 .overlay(
                                     Text(dayFormatter.string(from: date))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(isDateInArray(date: date) ? .white : .mainBlue)
                                 )
                         }
                     },
@@ -122,14 +130,34 @@ struct CalView: View {
                         Text(weekDayFormatter.string(from: weekStartDate))
                     }
                 )
+                
+                // Display the list of events for the week
+                               List {
+                                   ForEach(highlightedDates.filter { calendar.isDate($0.date, equalTo: selectedDate, toGranularity: .weekOfMonth) }) { event in
+                                       Text("\(event.title) at \(event.time, style: .time)")
+                                   }
+                               }
+//                           }
             } else if viewMode == .day {
                 VStack {
-//                    Text(dayFormatter.string(from: selectedDate))
-//                        .font(.title)
-//                        .bold()
+                    // Implement day view
+                    
+                    // Display the list of events for the day
+                                     List {
+                                         ForEach(highlightedDates.filter { calendar.isDate($0.date, equalTo: selectedDate, toGranularity: .day) }) { event in
+                                             Text("\(event.title) at \(event.time, style: .time)")
+                                         }
+                                     }
                 }
                 .padding()
             }
+
+            // ...
+
+
+            // ...
+
+
             
             Spacer()
         }
@@ -139,6 +167,13 @@ struct CalView: View {
     private func changeCalendarDate(by amount: Int, granularity: Calendar.Component) {
         selectedDate = calendar.date(byAdding: granularity, value: amount,to: selectedDate)!
     }
+    private func isDateInArray(date: Date) -> Bool {
+        // Implement logic to check if date is in your array of dates and times
+        // For example, you can have an array named highlightedDates
+        highlightedDates.contains { $0.date.isInSameDayAs(date) }
+//        return false
+    }
+
 }
 
 // MARK: - WeekView
@@ -181,6 +216,9 @@ private extension Date {
             from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
         ) ?? self
     }
+    func isInSameDayAs(_ date: Date) -> Bool {
+           return Calendar.current.isDate(self, inSameDayAs: date)
+       }
 }
 // MARK: - Component
 
