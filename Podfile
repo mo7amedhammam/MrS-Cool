@@ -7,6 +7,7 @@ target 'MrS-Cool' do
 
   # Pods for MrS-Cool
     pod 'Alamofire', '5.6.4'
+    pod 'FSCalendar', '2.8.4'
 #    pod 'Kingfisher','7.6.1'
 #    pod 'IQKeyboardManagerSwift', '6.3.0'
 #    pod 'Firebase'

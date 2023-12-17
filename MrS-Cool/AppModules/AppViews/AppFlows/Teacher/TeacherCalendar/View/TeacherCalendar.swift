@@ -210,7 +210,7 @@ struct WeekView<Content: View, Header: View>: View {
     }
 }
 
-private extension Date {
+extension Date {
     func startOfWeek(using calendar: Calendar) -> Date {
         calendar.date(
             from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
@@ -364,3 +364,151 @@ struct CalendarView_Previews: PreviewProvider {
 }
 #endif
 
+
+//
+//// MARK: - EventM
+//struct EventM: Codable {
+//    var teacherLessonSessionSchedualSlotID: Int?
+//    var groupName, date, timeFrom, timeTo: String?
+//    var isCancel: Bool?
+//    var cancelDate: String?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
+//        case groupName, date, timeFrom, timeTo, isCancel, cancelDate
+//    }
+//}
+//
+////class UserData: ObservableObject{
+////    @Published var name = "Helsdfsflo"
+////    @Published var date: Date?
+////}
+//import FSCalendar
+//struct CalendarModuleView: UIViewRepresentable {
+//    
+//    @Binding var selectedDate: Date?
+//    var events: [EventM] // Replace YourEventModel with the actual type of your model
+//
+//    func makeCoordinator() -> Coordinator {
+//        Coordinator(self)
+//    }
+//    
+//    func makeUIView(context: Context) -> FSCalendar {
+//        let calendar = FSCalendar()
+//        calendar.delegate = context.coordinator
+//        calendar.dataSource = context.coordinator
+//
+//        calendar.appearance.todayColor = UIColor.clear
+//        calendar.appearance.titleTodayColor = UIColor.black
+//        calendar.appearance.selectionColor = UIColor(ColorConstants.MainColor)
+//        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 18) // Adjust the font size as needed
+//
+//        calendar.allowsSelection = false
+//
+//        return calendar
+//    }
+//    
+//    func updateUIView(_ uiView: FSCalendar, context: Context) {
+//        context.coordinator.events = events
+//        uiView.reloadData()
+//    }
+//    
+//    class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource {
+//            
+//            var parent: CalendarModuleView
+//            var events: [EventM] = []
+//            
+//            init(_ calender: CalendarModuleView) {
+//                self.parent = calender
+//            }
+//            
+//            func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+//                self.parent.selectedDate = date
+//            }
+//            
+//            func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+//                // Check if the date has an event in your array
+//                return events.filter { $0.date.flatMap { ISO8601DateFormatter().date(from: $0) }?.isInSameDayAs(date) ?? false }.count
+//            }
+//            
+//        func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+//            let matchingEvents = events.filter { event in
+//                if let eventDate = event.date.flatMap({ ISO8601DateFormatter().date(from: $0) }), eventDate.isInSameDayAs(date) {
+//                    return true
+//                }
+//                return false
+//            }
+//
+//            // Use different colors based on the cancellation status
+//            return matchingEvents.map { event in
+//                return event.isCancel ?? false ? UIColor.red : UIColor.green
+//            }
+//        }
+//
+//        }
+//    }
+//
+//struct CalView1: View {
+//
+//    let events: [EventM] = [EventM(
+//        teacherLessonSessionSchedualSlotID: 1,
+//        groupName: "Group A",
+//        date: "2023-12-17'T'11:10:50.402Z",
+//        timeFrom: "09:00:00",
+//        timeTo: "11:00:00",
+//        isCancel: false,
+//        cancelDate: nil
+//    ), EventM(
+//        teacherLessonSessionSchedualSlotID: 2,
+//        groupName: "Group B",
+//        date: "2023-12-18T11:10:50.402Z",
+//        timeFrom: "14:00:00",
+//        timeTo: "16:00:00",
+//        isCancel: true,
+//        cancelDate: "2023-12-18T10:30:00.402Z"
+//    ), EventM(
+//        teacherLessonSessionSchedualSlotID: 3,
+//        groupName: "Group C",
+//        date: "2023-12-18T11:10:50.402Z",
+//        timeFrom: "18:00:00",
+//        timeTo: "20:00:00",
+//        isCancel: false,
+//        cancelDate: nil
+//    ), EventM(
+//        teacherLessonSessionSchedualSlotID: 4,
+//        groupName: "Group D",
+//        date: "2023-12-20T11:10:50.402Z",
+//        timeFrom: "10:00:00",
+//        timeTo: "12:00:00",
+//        isCancel: false,
+//        cancelDate: nil
+//    )]
+////    @ObservedObject private var userData = UserData()
+//    @State var date : Date?
+//    
+//    static let taskDateFormat: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        return formatter
+//    }()
+//    
+//    var body: some View {
+//        if date != nil {
+//            Text("Task due date: \(date!, formatter: Self.taskDateFormat)")
+//        }
+//        
+//        Button(action:{
+//            if let date = date {
+//                print(date)
+//            }
+//        }){
+//            Text(" click to show the selected date")
+//        }
+//        CalendarModuleView(selectedDate: $date, events: events)
+//            .frame(height: 300.0, alignment: .center)
+//    }
+//}
+//
+//#Preview{
+//    CalView1()
+//}
