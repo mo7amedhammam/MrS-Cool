@@ -4,36 +4,26 @@ import SwiftUI
 import FSCalendar
 
 // MARK: - EventM
-struct EventM: Codable {
-    var teacherLessonSessionSchedualSlotID: Int?
+struct EventM: Codable,Identifiable {
+    var id: Int?
     var groupName, date, timeFrom, timeTo: String?
     var isCancel: Bool?
     var cancelDate: String?
     
     enum CodingKeys: String, CodingKey {
-        case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
+        case id = "teacherLessonSessionSchedualSlotId"
         case groupName, date, timeFrom, timeTo, isCancel, cancelDate
     }
 }
-
-//class UserData: ObservableObject{
-//    @Published var name = "Helsdfsflo"
-//    @Published var date: Date?
-//}
 struct CalendarModuleView: UIViewRepresentable {
     @Binding var selectedDate: Date?
     var scope: FSCalendarScope
-//    var events: [EventM]
     let events: [EventM]?
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-//    fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
-
-//    var datesWithEvent = ["2020-12-23", "2020-12-16", "2020-12-18", "2020-12-14", "2020-12-06"]
-//    var datesWithMultipleEvents = ["2020-12-03", "2020-12-13", "2020-12-11", "2020-10-03", "2020-12-06"]
     fileprivate lazy var dateFormatter2: DateFormatter = {
          let formatter = DateFormatter()
          formatter.dateFormat = "yyyy-MM-dd"
@@ -110,7 +100,6 @@ struct CalendarModuleView: UIViewRepresentable {
 //            return nil
 //        }
         
-        
         func calendar(_ calendar: FSCalendar, shouldFillDefaultDates _: Date) -> Bool {
             let shouldFillEventDot = true
 //            let fontSize: CGFloat = 10 // Adjust the font size as needed for a bigger dot
@@ -127,21 +116,18 @@ struct CalendarModuleView: UIViewRepresentable {
                 eventDot.fillColor = eventDefaultColor.cgColor
                 calendar.layer.addSublayer(eventDot)
             }
-
-
             return shouldFillEventDot
         }
-
-
+        
+        
     }
-    
 }
 
 
 struct CalView1: View {
     
     let events: [EventM] = [EventM(
-        teacherLessonSessionSchedualSlotID: 1,
+        id: 1,
         groupName: "Group A",
         date: "2023-12-17'T'11:10:50.402Z",
         timeFrom: "09:00:00",
@@ -149,7 +135,7 @@ struct CalView1: View {
         isCancel: false,
         cancelDate: nil
     ), EventM(
-        teacherLessonSessionSchedualSlotID: 2,
+        id: 2,
         groupName: "Group B",
         date: "2023-12-18T11:10:50.402Z",
         timeFrom: "14:00:00",
@@ -157,7 +143,7 @@ struct CalView1: View {
         isCancel: true,
         cancelDate: "2023-12-18T10:30:00.402Z"
     ), EventM(
-        teacherLessonSessionSchedualSlotID: 3,
+        id: 3,
         groupName: "Group C",
         date: "2023-12-18T11:10:50.402Z",
         timeFrom: "18:00:00",
@@ -165,7 +151,7 @@ struct CalView1: View {
         isCancel: false,
         cancelDate: nil
     ), EventM(
-        teacherLessonSessionSchedualSlotID: 4,
+        id: 4,
         groupName: "Group D",
         date: "2023-12-20T11:10:50.402Z",
         timeFrom: "10:00:00",
@@ -189,7 +175,7 @@ struct CalView1: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
-
+            
             HStack {
                 Button(action: {
                     showNextDate()
@@ -198,15 +184,15 @@ struct CalView1: View {
                         .font(.title)
                 }
                 .padding(.leading, 20)
-
+                
                 Spacer()
-
+                
                 Text(scope == .month ? "Selected Month: \(date?.formatted() ?? "")" :
-                    scope == .week ? "Selected Week: \(date?.formatted() ?? "")" : "")
-                    .padding()
-
+                        scope == .week ? "Selected Week: \(date?.formatted() ?? "")" : "")
+                .padding()
+                
                 Spacer()
-
+                
                 Button(action: {
                     showNextDate()
                 }) {
@@ -215,12 +201,7 @@ struct CalView1: View {
                 }
                 .padding(.trailing, 20)
             }
-
-//            if let selectedDate = date {
-//                Text("Selected Bay: \(selectedDate)")
-//                    .padding()
-//            }
-
+            
             switch scope {
             case .month:
                 CalendarModuleView(selectedDate: $date, scope: .month, events: events)
@@ -231,17 +212,53 @@ struct CalView1: View {
             @unknown default:
                 CalendarModuleView(selectedDate: $date, scope: .month,events: events)
             }
-
+            
+            // Display a list of events for the selected date or week
+//            if let selectedDate = date {
+            let filteredEvents = filterEventsForSelectedDate(selectedDate: date ?? Date(), scope: scope, events: events)
+                List(filteredEvents) { event in
+                    Text(event.groupName ?? "")
+                }
+//            }
             Spacer()
         }
     }
-
+    
     private func showNextDate() {
         if let currentDate = date {
             let granularity: Calendar.Component = (scope == .month) ? .month : .weekOfMonth
             date = Calendar.current.date(byAdding: granularity, value: 1, to: currentDate)
         }
     }
+    func filterEventsForSelectedDate(selectedDate: Date, scope: FSCalendarScope, events: [EventM]) -> [EventM] {
+        switch scope {
+        case .month:
+            let selectedMonth = Calendar.current.component(.month, from: selectedDate)
+            return events.filter { event in
+                guard let eventDateStr = event.date,
+                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
+                    return false
+                }
+                return Calendar.current.component(.month, from: eventDate) == selectedMonth
+            }
+        case .week:
+            let selectedWeek = Calendar.current.component(.weekOfYear, from: selectedDate)
+            return events.filter { event in
+                guard let eventDateStr = event.date,
+                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
+                    return false
+                }
+                return Calendar.current.component(.weekOfYear, from: eventDate) == selectedWeek
+            }
+        @unknown default:
+            return []
+        }
+    }
+      var dateFormatter2: DateFormatter = {
+         let formatter = DateFormatter()
+         formatter.dateFormat = "yyyy-MM-dd"
+         return formatter
+     }()
 }
 
 

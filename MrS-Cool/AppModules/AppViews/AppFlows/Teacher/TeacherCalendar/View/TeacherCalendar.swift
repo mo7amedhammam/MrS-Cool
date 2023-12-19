@@ -13,7 +13,8 @@ struct CalView: View {
     private let dayFormatter: DateFormatter
     private let weekDayFormatter: DateFormatter
     private let fullFormatter: DateFormatter
-
+    private let weekDisplayFormatter :DateFormatter
+    
     @State private var selectedDate = Date()
     @State private var viewMode: CalendarViewMode = .month // Default view mode
     // Example highlighted dates with events
@@ -23,6 +24,39 @@ struct CalView: View {
          EventModel(date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, time: Date(), title: "Event 3")
          // Add more events as needed
      ]
+    let events: [EventM] = [EventM(
+        id: 1,
+        groupName: "Group A",
+        date: "2023-12-17T11:10:50.402Z",
+        timeFrom: "09:00:00",
+        timeTo: "11:00:00",
+        isCancel: false,
+        cancelDate: nil
+    ), EventM(
+        id: 2,
+        groupName: "Group B",
+        date: "2023-12-11T11:10:50.402Z",
+        timeFrom: "14:00:00",
+        timeTo: "16:00:00",
+        isCancel: true,
+        cancelDate: "2023-12-18T10:30:00.402Z"
+    ), EventM(
+        id: 3,
+        groupName: "Group C",
+        date: "2023-12-21T11:10:50.402Z",
+        timeFrom: "18:00:00",
+        timeTo: "20:00:00",
+        isCancel: false,
+        cancelDate: nil
+    ), EventM(
+        id: 4,
+        groupName: "Group D",
+        date: "2023-12-13T11:10:50.402Z",
+        timeFrom: "10:00:00",
+        timeTo: "12:00:00",
+        isCancel: false,
+        cancelDate: nil
+    )]
     init(calendar: Calendar) {
         self.calendar = calendar
         self.monthFormatter = DateFormatter()
@@ -31,6 +65,9 @@ struct CalView: View {
         self.dayFormatter.dateFormat = "dd"
         self.weekDayFormatter = DateFormatter()
         self.weekDayFormatter.dateFormat = "EEE"
+        self.weekDisplayFormatter = DateFormatter()
+        self.weekDisplayFormatter.dateFormat = "MMMM yyyy"
+
         self.fullFormatter = DateFormatter()
         self.fullFormatter.dateFormat = "MMMM dd yyyy"
     }
@@ -60,7 +97,7 @@ struct CalView: View {
 
                 Spacer()
 
-                Text(viewMode == .month ? monthFormatter.string(from: selectedDate) : viewMode == .week ? weekDayFormatter.string(from: selectedDate).ChangeDateFormat(FormatFrom: "EEE", FormatTo: "dd MMM yyyy"):fullFormatter.string(from: selectedDate).ChangeDateFormat(FormatFrom: "MMMM dd, yyyy", FormatTo: "dd MMM yyyy"))
+                Text(viewMode == .month ? monthFormatter.string(from: selectedDate) : viewMode == .week ? monthFormatter.string(from: selectedDate) : fullFormatter.string(from: selectedDate).ChangeDateFormat(FormatFrom: "MMMM dd, yyyy", FormatTo: "dd MMM yyyy"))
                     .font(.title)
                     .bold()
 
@@ -107,6 +144,25 @@ struct CalView: View {
                     },
                     title: { date in }
                 )
+                
+                
+                List {
+                    let filteredEvents = events.filter { event in
+                        if let eventDateStr = event.date, let eventDate =  eventDateStr.toDate(){
+                            return calendar.isDate(eventDate, equalTo: selectedDate, toGranularity: .month)
+                        }
+                        return false
+                    }
+
+                    if !filteredEvents.isEmpty {
+                        ForEach(filteredEvents) { event in
+                            Text("\(event.groupName ?? "") at \(event.timeFrom ?? "") - \(event.timeTo ?? "")")
+                        }
+                    } else {
+                        Text("No events for this Month.")
+                    }
+                }
+
             } else if viewMode == .week {
                 WeekView(
                     calendar: calendar,
@@ -131,32 +187,45 @@ struct CalView: View {
                     }
                 )
                 
-                // Display the list of events for the week
-                               List {
-                                   ForEach(highlightedDates.filter { calendar.isDate($0.date, equalTo: selectedDate, toGranularity: .weekOfMonth) }) { event in
-                                       Text("\(event.title) at \(event.time, style: .time)")
-                                   }
-                               }
-//                           }
+                List {
+                    let filteredEvents = events.filter { event in
+                        if let eventDateStr = event.date, let eventDate =  eventDateStr.toDate(){
+                            return calendar.isDate(eventDate, equalTo: selectedDate, toGranularity: .weekOfMonth)
+                        }
+                        return false
+                    }
+
+                    if !filteredEvents.isEmpty {
+                        ForEach(filteredEvents) { event in
+                            Text("\(event.groupName ?? "") at \(event.timeFrom ?? "") - \(event.timeTo ?? "")")
+                        }
+                    } else {
+                        Text("No events for this week.")
+                    }
+                }
             } else if viewMode == .day {
                 VStack {
                     // Implement day view
                     
-                    // Display the list of events for the day
-                                     List {
-                                         ForEach(highlightedDates.filter { calendar.isDate($0.date, equalTo: selectedDate, toGranularity: .day) }) { event in
-                                             Text("\(event.title) at \(event.time, style: .time)")
-                                         }
-                                     }
+                    List {
+                        let filteredEvents = events.filter { event in
+                            if let eventDateStr = event.date, let eventDate =  eventDateStr.toDate(){
+                                return calendar.isDate(eventDate, equalTo: selectedDate, toGranularity: .day)
+                            }
+                            return false
+                        }
+
+                        if !filteredEvents.isEmpty {
+                            ForEach(filteredEvents) { event in
+                                Text("\(event.groupName ?? "") at \(event.timeFrom ?? "") - \(event.timeTo ?? "")")
+                            }
+                        } else {
+                            Text("No events for this Day.")
+                        }
+                    }
                 }
                 .padding()
             }
-
-            // ...
-
-
-            // ...
-
 
             
             Spacer()
@@ -167,190 +236,27 @@ struct CalView: View {
     private func changeCalendarDate(by amount: Int, granularity: Calendar.Component) {
         selectedDate = calendar.date(byAdding: granularity, value: amount,to: selectedDate)!
     }
-    private func isDateInArray(date: Date) -> Bool {
-        // Implement logic to check if date is in your array of dates and times
-        // For example, you can have an array named highlightedDates
-        highlightedDates.contains { $0.date.isInSameDayAs(date) }
+    
+      func isDateInArray(date: Date) -> Bool {
+//        highlightedDates.contains { event in
+//            return event.date.isInSameDayAs(date)
+//        }
 //        return false
-    }
-
-}
-
-// MARK: - WeekView
-
-struct WeekView<Content: View, Header: View>: View {
-    private var calendar: Calendar
-    @Binding private var date: Date
-    private let content: (Date) -> Content
-    private let header: (Date) -> Header
-    private let daysInWeek = 7
-
-    init(
-        calendar: Calendar,
-        date: Binding<Date>,
-        @ViewBuilder content: @escaping (Date) -> Content,
-        @ViewBuilder header: @escaping (Date) -> Header
-    ) {
-        self.calendar = calendar
-        self._date = date
-        self.content = content
-        self.header = header
-    }
-
-    var body: some View {
-        let weekStartDate = date.startOfWeek(using: calendar)
-        let days = (0..<7).map { weekStartDate.advanced(by: TimeInterval($0 * 24 * 60 * 60)) }
-        
-        return LazyVGrid(columns: Array(repeating: GridItem(), count: daysInWeek)) {
-                      ForEach(days.prefix(daysInWeek), id: \.self, content: header)
-                      ForEach(days, id: \.self) { date in
-                              content(date)
+          // Convert events' date strings to Date objects with the new format
+            let eventsDates = events.compactMap { event -> Date? in
+                if let dateString = event.date {
+                    return dateString.toDate()
                 }
-        }
-    }
-}
-
-extension Date {
-    func startOfWeek(using calendar: Calendar) -> Date {
-        calendar.date(
-            from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self)
-        ) ?? self
-    }
-    func isInSameDayAs(_ date: Date) -> Bool {
-           return Calendar.current.isDate(self, inSameDayAs: date)
-       }
-}
-// MARK: - Component
-
-public struct CalendarView<Day: View, Header: View, Title: View, Trailing: View>: View {
-    // Injected dependencies
-    private var calendar: Calendar
-    @Binding private var date: Date
-    @Binding private var viewMode: CalendarViewMode // Add viewMode binding
-    private let content: (Date) -> Day
-    private let trailing: (Date) -> Trailing
-    private let header: (Date) -> Header
-    private let title: (Date) -> Title
-
-    // Constants
-    private let daysInWeek = 7
-
-
-    public init(
-        calendar: Calendar,
-        date: Binding<Date>,
-        viewMode: Binding<CalendarViewMode>, // Add viewMode binding
-        @ViewBuilder content: @escaping (Date) -> Day,
-        @ViewBuilder trailing: @escaping (Date) -> Trailing,
-        @ViewBuilder header: @escaping (Date) -> Header,
-        @ViewBuilder title: @escaping (Date) -> Title
-    ) {
-        self.calendar = calendar
-        self._date = date
-        self._viewMode = viewMode // Initialize viewMode
-        self.content = content
-        self.trailing = trailing
-        self.header = header
-        self.title = title
-    }
-
-    public var body: some View {
-        let month = date.startOfMonth(using: calendar)
-        let days = makeDays()
-
-        return LazyVGrid(columns: Array(repeating: GridItem(), count: daysInWeek)) {
-                  Section(header: title(month)) {
-                      ForEach(days.prefix(daysInWeek), id: \.self, content: header)
-                      ForEach(days, id: \.self) { date in
-                          if calendar.isDate(date, equalTo: month, toGranularity: .month) {
-                              content(date)
-                          } else {
-                              trailing(date)
-                          }
-                }
-            }
-        }
-    }
-}
-
-public enum CalendarViewMode: String, CaseIterable {
-    case month
-    case week
-    case day
-}
-
-// MARK: - Conformances
-
-extension CalendarView: Equatable {
-    public static func == (lhs: CalendarView<Day, Header, Title, Trailing>, rhs: CalendarView<Day, Header, Title, Trailing>) -> Bool {
-        lhs.calendar == rhs.calendar && lhs.date == rhs.date
-    }
-}
-
-// MARK: - Helpers
-
-private extension CalendarView {
-    func makeDays() -> [Date] {
-        guard let monthInterval = calendar.dateInterval(of: .month, for: date),
-              let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start),
-              let monthLastWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.end - 1)
-        else {
-            return []
-        }
-
-        let dateInterval = DateInterval(start: monthFirstWeek.start, end: monthLastWeek.end)
-        return calendar.generateDays(for: dateInterval)
-    }
-}
-
-private extension Calendar {
-    func generateDates(
-        for dateInterval: DateInterval,
-        matching components: DateComponents
-    ) -> [Date] {
-        var dates = [dateInterval.start]
-
-        enumerateDates(
-            startingAfter: dateInterval.start,
-            matching: components,
-            matchingPolicy: .nextTime
-        ) { date, _, stop in
-            guard let date = date else { return }
-
-            guard date < dateInterval.end else {
-                stop = true
-                return
+                return nil
             }
 
-            dates.append(date)
-        }
-
-        return dates
-    }
-
-    func generateDays(for dateInterval: DateInterval) -> [Date] {
-        generateDates(
-            for: dateInterval,
-            matching: dateComponents([.hour, .minute, .second], from: dateInterval.start)
-        )
+            // Check if the selected date is in the same day as any of the events
+            return eventsDates.contains { $0.isInSameDayAs(date) }
     }
 }
 
-private extension Date {
-    func startOfMonth(using calendar: Calendar) -> Date {
-        calendar.date(
-            from: calendar.dateComponents([.year, .month], from: self)
-        ) ?? self
-    }
-}
 
-private extension DateFormatter {
-    convenience init(dateFormat: String, calendar: Calendar) {
-        self.init()
-        self.dateFormat = dateFormat
-        self.calendar = calendar
-    }
-}
+
 
 // MARK: - Previews
 
@@ -364,151 +270,3 @@ struct CalendarView_Previews: PreviewProvider {
 }
 #endif
 
-
-//
-//// MARK: - EventM
-//struct EventM: Codable {
-//    var teacherLessonSessionSchedualSlotID: Int?
-//    var groupName, date, timeFrom, timeTo: String?
-//    var isCancel: Bool?
-//    var cancelDate: String?
-//
-//    enum CodingKeys: String, CodingKey {
-//        case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
-//        case groupName, date, timeFrom, timeTo, isCancel, cancelDate
-//    }
-//}
-//
-////class UserData: ObservableObject{
-////    @Published var name = "Helsdfsflo"
-////    @Published var date: Date?
-////}
-//import FSCalendar
-//struct CalendarModuleView: UIViewRepresentable {
-//    
-//    @Binding var selectedDate: Date?
-//    var events: [EventM] // Replace YourEventModel with the actual type of your model
-//
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//    
-//    func makeUIView(context: Context) -> FSCalendar {
-//        let calendar = FSCalendar()
-//        calendar.delegate = context.coordinator
-//        calendar.dataSource = context.coordinator
-//
-//        calendar.appearance.todayColor = UIColor.clear
-//        calendar.appearance.titleTodayColor = UIColor.black
-//        calendar.appearance.selectionColor = UIColor(ColorConstants.MainColor)
-//        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 18) // Adjust the font size as needed
-//
-//        calendar.allowsSelection = false
-//
-//        return calendar
-//    }
-//    
-//    func updateUIView(_ uiView: FSCalendar, context: Context) {
-//        context.coordinator.events = events
-//        uiView.reloadData()
-//    }
-//    
-//    class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource {
-//            
-//            var parent: CalendarModuleView
-//            var events: [EventM] = []
-//            
-//            init(_ calender: CalendarModuleView) {
-//                self.parent = calender
-//            }
-//            
-//            func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//                self.parent.selectedDate = date
-//            }
-//            
-//            func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-//                // Check if the date has an event in your array
-//                return events.filter { $0.date.flatMap { ISO8601DateFormatter().date(from: $0) }?.isInSameDayAs(date) ?? false }.count
-//            }
-//            
-//        func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-//            let matchingEvents = events.filter { event in
-//                if let eventDate = event.date.flatMap({ ISO8601DateFormatter().date(from: $0) }), eventDate.isInSameDayAs(date) {
-//                    return true
-//                }
-//                return false
-//            }
-//
-//            // Use different colors based on the cancellation status
-//            return matchingEvents.map { event in
-//                return event.isCancel ?? false ? UIColor.red : UIColor.green
-//            }
-//        }
-//
-//        }
-//    }
-//
-//struct CalView1: View {
-//
-//    let events: [EventM] = [EventM(
-//        teacherLessonSessionSchedualSlotID: 1,
-//        groupName: "Group A",
-//        date: "2023-12-17'T'11:10:50.402Z",
-//        timeFrom: "09:00:00",
-//        timeTo: "11:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    ), EventM(
-//        teacherLessonSessionSchedualSlotID: 2,
-//        groupName: "Group B",
-//        date: "2023-12-18T11:10:50.402Z",
-//        timeFrom: "14:00:00",
-//        timeTo: "16:00:00",
-//        isCancel: true,
-//        cancelDate: "2023-12-18T10:30:00.402Z"
-//    ), EventM(
-//        teacherLessonSessionSchedualSlotID: 3,
-//        groupName: "Group C",
-//        date: "2023-12-18T11:10:50.402Z",
-//        timeFrom: "18:00:00",
-//        timeTo: "20:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    ), EventM(
-//        teacherLessonSessionSchedualSlotID: 4,
-//        groupName: "Group D",
-//        date: "2023-12-20T11:10:50.402Z",
-//        timeFrom: "10:00:00",
-//        timeTo: "12:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    )]
-////    @ObservedObject private var userData = UserData()
-//    @State var date : Date?
-//    
-//    static let taskDateFormat: DateFormatter = {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd"
-//        return formatter
-//    }()
-//    
-//    var body: some View {
-//        if date != nil {
-//            Text("Task due date: \(date!, formatter: Self.taskDateFormat)")
-//        }
-//        
-//        Button(action:{
-//            if let date = date {
-//                print(date)
-//            }
-//        }){
-//            Text(" click to show the selected date")
-//        }
-//        CalendarModuleView(selectedDate: $date, events: events)
-//            .frame(height: 300.0, alignment: .center)
-//    }
-//}
-//
-//#Preview{
-//    CalView1()
-//}
