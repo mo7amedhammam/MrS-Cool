@@ -1,62 +1,50 @@
 import SwiftUI
 
-// Model representing events
-struct EventModel: Identifiable {
-    let id = UUID()
-    let date: Date
-    let time: Date
-    let title: String
-}
 struct CalView: View {
+    @StateObject var calendarschedualsvm = TeacherCalendarSvhedualsVM()
     private let calendar: Calendar
     private let monthFormatter: DateFormatter
     private let dayFormatter: DateFormatter
     private let weekDayFormatter: DateFormatter
     private let fullFormatter: DateFormatter
-    private let weekDisplayFormatter :DateFormatter
     
     @State private var selectedDate = Date()
     @State private var viewMode: CalendarViewMode = .month // Default view mode
-    // Example highlighted dates with events
-     private let highlightedDates: [EventModel] = [
-         EventModel(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, time: Date(), title: "Event 1"),
-         EventModel(date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!, time: Date(), title: "Event 2"),
-         EventModel(date: Calendar.current.date(byAdding: .day, value: 10, to: Date())!, time: Date(), title: "Event 3")
-         // Add more events as needed
-     ]
-    let events: [EventM] = [EventM(
-        id: 1,
-        groupName: "Group A",
-        date: "2023-12-17T11:10:50.402Z",
-        timeFrom: "09:00:00",
-        timeTo: "11:00:00",
-        isCancel: false,
-        cancelDate: nil
-    ), EventM(
-        id: 2,
-        groupName: "Group B",
-        date: "2023-12-11T11:10:50.402Z",
-        timeFrom: "14:00:00",
-        timeTo: "16:00:00",
-        isCancel: true,
-        cancelDate: "2023-12-18T10:30:00.402Z"
-    ), EventM(
-        id: 3,
-        groupName: "Group C",
-        date: "2023-12-21T11:10:50.402Z",
-        timeFrom: "18:00:00",
-        timeTo: "20:00:00",
-        isCancel: false,
-        cancelDate: nil
-    ), EventM(
-        id: 4,
-        groupName: "Group D",
-        date: "2023-12-13T11:10:50.402Z",
-        timeFrom: "10:00:00",
-        timeTo: "12:00:00",
-        isCancel: false,
-        cancelDate: nil
-    )]
+
+    @State var events: [EventM] = []
+//    [EventM(
+//        id: 1,
+//        groupName: "Group A",
+//        date: "2023-12-17T11:10:50.402Z",
+//        timeFrom: "09:00:00",
+//        timeTo: "11:00:00",
+//        isCancel: false,
+//        cancelDate: nil
+//    ), EventM(
+//        id: 2,
+//        groupName: "Group B",
+//        date: "2023-12-11T11:10:50.402Z",
+//        timeFrom: "14:00:00",
+//        timeTo: "16:00:00",
+//        isCancel: true,
+//        cancelDate: "2023-12-18T10:30:00.402Z"
+//    ), EventM(
+//        id: 3,
+//        groupName: "Group C",
+//        date: "2023-12-21T11:10:50.402Z",
+//        timeFrom: "18:00:00",
+//        timeTo: "20:00:00",
+//        isCancel: false,
+//        cancelDate: nil
+//    ), EventM(
+//        id: 4,
+//        groupName: "Group D",
+//        date: "2023-12-13T11:10:50.402Z",
+//        timeFrom: "10:00:00",
+//        timeTo: "12:00:00",
+//        isCancel: false,
+//        cancelDate: nil
+//    )]
     init(calendar: Calendar) {
         self.calendar = calendar
         self.monthFormatter = DateFormatter()
@@ -65,9 +53,6 @@ struct CalView: View {
         self.dayFormatter.dateFormat = "dd"
         self.weekDayFormatter = DateFormatter()
         self.weekDayFormatter.dateFormat = "EEE"
-        self.weekDisplayFormatter = DateFormatter()
-        self.weekDisplayFormatter.dateFormat = "MMMM yyyy"
-
         self.fullFormatter = DateFormatter()
         self.fullFormatter.dateFormat = "MMMM dd yyyy"
     }
@@ -111,10 +96,8 @@ struct CalView: View {
                 }
                 .padding(.trailing, 20)
             }
-
  
             // ...
-
             if viewMode == .month {
                 CalendarView(
                     calendar: calendar,
@@ -144,7 +127,6 @@ struct CalView: View {
                     },
                     title: { date in }
                 )
-                
                 
                 List {
                     let filteredEvents = events.filter { event in
@@ -227,10 +209,18 @@ struct CalView: View {
                 .padding()
             }
 
-            
             Spacer()
         }
         .padding()
+//        .onAppear(perform: {
+//            events
+//        })
+        .onChange(of: calendarschedualsvm.CalendarScheduals){newval in
+            self.events = newval
+        }
+        .onDisappear(perform: {
+            calendarschedualsvm.cleanup()
+        })
     }
 
     private func changeCalendarDate(by amount: Int, granularity: Calendar.Component) {
@@ -238,10 +228,6 @@ struct CalView: View {
     }
     
       func isDateInArray(date: Date) -> Bool {
-//        highlightedDates.contains { event in
-//            return event.date.isInSameDayAs(date)
-//        }
-//        return false
           // Convert events' date strings to Date objects with the new format
             let eventsDates = events.compactMap { event -> Date? in
                 if let dateString = event.date {
@@ -249,24 +235,13 @@ struct CalView: View {
                 }
                 return nil
             }
-
             // Check if the selected date is in the same day as any of the events
             return eventsDates.contains { $0.isInSameDayAs(date) }
     }
 }
 
-
-
-
 // MARK: - Previews
-
-#if DEBUG
-struct CalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
+#Preview{
             CalView(calendar: Calendar(identifier: .gregorian))
-        }
-    }
 }
-#endif
 

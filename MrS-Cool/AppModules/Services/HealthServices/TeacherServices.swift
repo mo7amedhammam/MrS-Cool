@@ -39,6 +39,9 @@ enum teacherServices{
     
     case GetMyCompletedLessons(parameters : [String:Any])
     case GetMyCompletedLessonDetails(parameters : [String:Any])
+    
+    case GetMyCalenderSchedual
+    case cancelMyCalenderSchedual(parameters : [String:Any])
 
 }
 
@@ -99,6 +102,11 @@ extension teacherServices:TargetType{
             return EndPoints.GetMyCompletedLessons.rawValue
         case .GetMyCompletedLessonDetails:
             return EndPoints.GetMyCompletedLessonDetails.rawValue
+            
+        case .GetMyCalenderSchedual:
+            return EndPoints.GetMyCalenderSchedual.rawValue
+        case .cancelMyCalenderSchedual:
+            return EndPoints.CancelMyCalenderSchedual.rawValue
         }
     }
     
@@ -110,7 +118,9 @@ extension teacherServices:TargetType{
                 .DeleteMySchedual,
                 .DeleteMyLessonScheduleGroup,
                 .DeleteMySubjectGroup,.GetMySubjectGroupDetails,
-                .GetMyCompletedLessonDetails:
+                .GetMyCompletedLessonDetails,
+                .GetMyCalenderSchedual,
+                .cancelMyCalenderSchedual:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
@@ -128,7 +138,8 @@ extension teacherServices:TargetType{
     
     var parameter: parameterType {
         switch self {
-        case .GetTeacherProfile:
+        case .GetTeacherProfile,
+                .GetMyCalenderSchedual:
             return .plainRequest
             
         case .GetSubjectLessonsBrief(parameters: let Parameters),
@@ -155,7 +166,8 @@ extension teacherServices:TargetType{
                 .GetMySubjectGroup(parameters: let Parameters),
                 .ReviewMySubjectGroup(parameters: let Parameters),
                 .CreateMySubjectGroup(parameters: let Parameters),
-                .GetMyCompletedLessons(parameters: let Parameters):
+                .GetMyCompletedLessons(parameters: let Parameters),
+                .cancelMyCalenderSchedual(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }
