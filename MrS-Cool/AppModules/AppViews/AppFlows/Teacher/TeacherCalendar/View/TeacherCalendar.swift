@@ -1,6 +1,8 @@
 import SwiftUI
+import EventKit
 
 struct CalView: View {
+
     @StateObject var calendarschedualsvm = TeacherCalendarSvhedualsVM()
     private let calendar: Calendar
     private let monthFormatter: DateFormatter
@@ -11,40 +13,40 @@ struct CalView: View {
     @State private var selectedDate = Date()
     @State private var viewMode: CalendarViewMode = .month // Default view mode
 
-    @State var events: [EventM] = []
-//    [EventM(
-//        id: 1,
-//        groupName: "Group A",
-//        date: "2023-12-17T11:10:50.402Z",
-//        timeFrom: "09:00:00",
-//        timeTo: "11:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    ), EventM(
-//        id: 2,
-//        groupName: "Group B",
-//        date: "2023-12-11T11:10:50.402Z",
-//        timeFrom: "14:00:00",
-//        timeTo: "16:00:00",
-//        isCancel: true,
-//        cancelDate: "2023-12-18T10:30:00.402Z"
-//    ), EventM(
-//        id: 3,
-//        groupName: "Group C",
-//        date: "2023-12-21T11:10:50.402Z",
-//        timeFrom: "18:00:00",
-//        timeTo: "20:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    ), EventM(
-//        id: 4,
-//        groupName: "Group D",
-//        date: "2023-12-13T11:10:50.402Z",
-//        timeFrom: "10:00:00",
-//        timeTo: "12:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    )]
+//    @State var events: [EventM] = []
+  @State var events: [EventM] =  [EventM(
+        id: 1,
+        groupName: "Group A",
+        date: "2023-12-17T11:10:50.402Z",
+        timeFrom: "09:00:00",
+        timeTo: "11:00:00",
+        isCancel: false,
+        cancelDate: nil
+    ), EventM(
+        id: 2,
+        groupName: "Group B",
+        date: "2023-12-11T11:10:50.402Z",
+        timeFrom: "14:00:00",
+        timeTo: "16:00:00",
+        isCancel: true,
+        cancelDate: "2023-12-18T10:30:00.402Z"
+    ), EventM(
+        id: 3,
+        groupName: "Group C",
+        date: "2023-12-21T11:10:50.402Z",
+        timeFrom: "18:00:00",
+        timeTo: "20:00:00",
+        isCancel: false,
+        cancelDate: nil
+    ), EventM(
+        id: 4,
+        groupName: "Group D",
+        date: "2023-12-13T11:10:50.402Z",
+        timeFrom: "10:00:00",
+        timeTo: "12:00:00",
+        isCancel: false,
+        cancelDate: nil
+    )]
     init(calendar: Calendar) {
         self.calendar = calendar
         self.monthFormatter = DateFormatter()
@@ -66,10 +68,6 @@ struct CalView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
-
-//            Text("Selected date: \(fullFormatter.string(from: selectedDate))")
-//                .bold()
-//                .foregroundColor(.red)
 
             HStack {
                 Button(action: {
@@ -104,7 +102,9 @@ struct CalView: View {
                     date: $selectedDate,
                     viewMode: $viewMode,
                     content: { date in
-                        Button(action: { selectedDate = date }) {
+                        Button(action: { selectedDate = date
+                            viewMode = .week
+                        }) {
                             Text(dayFormatter.string(from: date))
                                 .padding(8)
                                 .foregroundColor(.mainBlue)
@@ -144,7 +144,6 @@ struct CalView: View {
                         Text("No events for this Month.")
                     }
                 }
-
             } else if viewMode == .week {
                 WeekView(
                     calendar: calendar,
@@ -188,7 +187,6 @@ struct CalView: View {
             } else if viewMode == .day {
                 VStack {
                     // Implement day view
-                    
                     List {
                         let filteredEvents = events.filter { event in
                             if let eventDateStr = event.date, let eventDate =  eventDateStr.toDate(){
@@ -212,9 +210,9 @@ struct CalView: View {
             Spacer()
         }
         .padding()
-//        .onAppear(perform: {
-//            events
-//        })
+        .onAppear(perform: {
+            requestCalendarAccess()
+        })
         .onChange(of: calendarschedualsvm.CalendarScheduals){newval in
             self.events = newval
         }
@@ -222,7 +220,9 @@ struct CalView: View {
             calendarschedualsvm.cleanup()
         })
     }
-
+    
+    // Helper method to convert EventM to EKEvent
+    
     private func changeCalendarDate(by amount: Int, granularity: Calendar.Component) {
         selectedDate = calendar.date(byAdding: granularity, value: amount,to: selectedDate)!
     }
