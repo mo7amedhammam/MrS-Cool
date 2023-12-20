@@ -58,6 +58,7 @@
 		C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */; };
 		C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C883058B2AF10C980030B2A8 /* imagepicker.swift */; };
 		C88447A12B32EF82002819ED /* eventKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88447A02B32EF82002819ED /* eventKit.swift */; };
+		C88447A32B3315C5002819ED /* CalendarKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88447A22B3315C5002819ED /* CalendarKit.swift */; };
 		C8882E852B20673E0050FF57 /* ManageSubjectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */; };
 		C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */; };
 		C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C52DA2AE00124003DE051 /* CheckboxField.swift */; };
@@ -174,6 +175,7 @@
 		C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentCell.swift; sourceTree = "<group>"; };
 		C883058B2AF10C980030B2A8 /* imagepicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagepicker.swift; sourceTree = "<group>"; };
 		C88447A02B32EF82002819ED /* eventKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eventKit.swift; sourceTree = "<group>"; };
+		C88447A22B3315C5002819ED /* CalendarKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarKit.swift; sourceTree = "<group>"; };
 		C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectGroupView.swift; sourceTree = "<group>"; };
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
@@ -1121,6 +1123,7 @@
 				C8F5FF642B2F163D00086624 /* FSCalendarView.swift */,
 				C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */,
 				C88447A02B32EF82002819ED /* eventKit.swift */,
+				C88447A22B3315C5002819ED /* CalendarKit.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1513,6 +1516,7 @@
 				C81403FA2B29A1F400BD2591 /* CompletedLessonsM.swift in Sources */,
 				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
 				C82689322B25CE9C004529AA /* SubjectGroupDetailsView.swift in Sources */,
+				C88447A32B3315C5002819ED /* CalendarKit.swift in Sources */,
 				C82689352B25CEE4004529AA /* SubjectGroupDetailsCell.swift in Sources */,
 				C85397CE2B0A0FF400164338 /* TeacherServices.swift in Sources */,
 				C854DE2D2B14B5600057C75F /* ManageLessonMaterialCell.swift in Sources */,

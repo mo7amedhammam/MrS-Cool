@@ -10,7 +10,7 @@ struct CalView: View {
     private let weekDayFormatter: DateFormatter
     private let fullFormatter: DateFormatter
     
-    @State private var selectedDate = Date()
+    @State var selectedDate = Date()
     @State private var viewMode: CalendarViewMode = .month // Default view mode
 
 //    @State var events: [EventM] = []
@@ -61,39 +61,39 @@ struct CalView: View {
 
     var body: some View {
         VStack {
-            Picker("View Mode", selection: $viewMode) {
-                Text("Month").tag(CalendarViewMode.month)
-                Text("Week").tag(CalendarViewMode.week)
-                Text("Day").tag(CalendarViewMode.day)
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
+//            Picker("View Mode", selection: $viewMode) {
+//                Text("Month").tag(CalendarViewMode.month)
+//                Text("Week").tag(CalendarViewMode.week)
+//                Text("Day").tag(CalendarViewMode.day)
+//            }
+//            .pickerStyle(SegmentedPickerStyle())
+//            .padding()
 
-            HStack {
-                Button(action: {
-                    changeCalendarDate(by: -1, granularity:viewMode == .month ? .month:viewMode == .week ? .weekOfMonth:.day)
-                }) {
-                    Image(systemName: "chevron.left")
-                        .font(.title)
-                }
-                .padding(.leading, 20)
-
-                Spacer()
-
-                Text(viewMode == .month ? monthFormatter.string(from: selectedDate) : viewMode == .week ? monthFormatter.string(from: selectedDate) : fullFormatter.string(from: selectedDate).ChangeDateFormat(FormatFrom: "MMMM dd, yyyy", FormatTo: "dd MMM yyyy"))
-                    .font(.title)
-                    .bold()
-
-                Spacer()
-
-                Button(action: {
-                    changeCalendarDate(by: 1, granularity:viewMode == .month ? .month:viewMode == .week ? .weekOfMonth:.day)
-                }) {
-                    Image(systemName: "chevron.right")
-                        .font(.title)
-                }
-                .padding(.trailing, 20)
-            }
+//            HStack {
+//                Button(action: {
+//                    changeCalendarDate(by: -1, granularity:viewMode == .month ? .month:viewMode == .week ? .weekOfMonth:.day)
+//                }) {
+//                    Image(systemName: "chevron.left")
+//                        .font(.title)
+//                }
+//                .padding(.leading, 20)
+//
+//                Spacer()
+//
+//                Text(viewMode == .month ? monthFormatter.string(from: selectedDate) : viewMode == .week ? monthFormatter.string(from: selectedDate) : fullFormatter.string(from: selectedDate).ChangeDateFormat(FormatFrom: "MMMM dd, yyyy", FormatTo: "dd MMM yyyy"))
+//                    .font(.title)
+//                    .bold()
+//
+//                Spacer()
+//
+//                Button(action: {
+//                    changeCalendarDate(by: 1, granularity:viewMode == .month ? .month:viewMode == .week ? .weekOfMonth:.day)
+//                }) {
+//                    Image(systemName: "chevron.right")
+//                        .font(.title)
+//                }
+//                .padding(.trailing, 20)
+//            }
  
             // ...
             if viewMode == .month {
@@ -145,45 +145,48 @@ struct CalView: View {
                     }
                 }
             } else if viewMode == .week {
-                WeekView(
-                    calendar: calendar,
-                    date: $selectedDate,
-                    content: { date in
-                        Button(action: { selectedDate = date }) {
-                            Text(dayFormatter.string(from: date))
-                                .padding(8)
-                                .foregroundColor(.mainBlue)
-                                .background(
-                                    Circle()
-                                        .fill(isDateInArray(date: date) ? .mainBlue : Color.clear) // Circular background
-                                )
-                                .overlay(
-                                    Text(dayFormatter.string(from: date))
-                                        .foregroundColor(isDateInArray(date: date) ? .white : .mainBlue)
-                                )
-                        }
-                    },
-                    header: { weekStartDate in
-                        Text(weekDayFormatter.string(from: weekStartDate))
-                    }
-                )
                 
-                List {
-                    let filteredEvents = events.filter { event in
-                        if let eventDateStr = event.date, let eventDate =  eventDateStr.toDate(){
-                            return calendar.isDate(eventDate, equalTo: selectedDate, toGranularity: .weekOfMonth)
-                        }
-                        return false
-                    }
-
-                    if !filteredEvents.isEmpty {
-                        ForEach(filteredEvents) { event in
-                            Text("\(event.groupName ?? "") at \(event.timeFrom ?? "") - \(event.timeTo ?? "")")
-                        }
-                    } else {
-                        Text("No events for this week.")
-                    }
-                }
+                ContentView3(selectedDate: $selectedDate)
+                
+//                WeekView(
+//                    calendar: calendar,
+//                    date: $selectedDate,
+//                    content: { date in
+//                        Button(action: { selectedDate = date }) {
+//                            Text(dayFormatter.string(from: date))
+//                                .padding(8)
+//                                .foregroundColor(.mainBlue)
+//                                .background(
+//                                    Circle()
+//                                        .fill(isDateInArray(date: date) ? .mainBlue : Color.clear) // Circular background
+//                                )
+//                                .overlay(
+//                                    Text(dayFormatter.string(from: date))
+//                                        .foregroundColor(isDateInArray(date: date) ? .white : .mainBlue)
+//                                )
+//                        }
+//                    },
+//                    header: { weekStartDate in
+//                        Text(weekDayFormatter.string(from: weekStartDate))
+//                    }
+//                )
+//                
+//                List {
+//                    let filteredEvents = events.filter { event in
+//                        if let eventDateStr = event.date, let eventDate =  eventDateStr.toDate(){
+//                            return calendar.isDate(eventDate, equalTo: selectedDate, toGranularity: .weekOfMonth)
+//                        }
+//                        return false
+//                    }
+//
+//                    if !filteredEvents.isEmpty {
+//                        ForEach(filteredEvents) { event in
+//                            Text("\(event.groupName ?? "") at \(event.timeFrom ?? "") - \(event.timeTo ?? "")")
+//                        }
+//                    } else {
+//                        Text("No events for this week.")
+//                    }
+//                }
             } else if viewMode == .day {
                 VStack {
                     // Implement day view
@@ -211,7 +214,7 @@ struct CalView: View {
         }
         .padding()
         .onAppear(perform: {
-            requestCalendarAccess()
+//            requestCalendarAccess()
         })
         .onChange(of: calendarschedualsvm.CalendarScheduals){newval in
             self.events = newval
