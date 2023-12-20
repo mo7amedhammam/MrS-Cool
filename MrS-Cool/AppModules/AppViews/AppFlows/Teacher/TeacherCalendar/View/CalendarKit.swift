@@ -12,6 +12,8 @@ import SwiftUI
 final class CustomCalendarExampleController: DayViewController {
     var selectedDate: Date? {
            didSet {
+//               selectedDate = selectedDate?.addingTimeInterval(24 * 60 * 60)
+
                reloadData()
            }
        }
@@ -66,9 +68,10 @@ final class CustomCalendarExampleController: DayViewController {
   }()
   
   override func loadView() {
-    calendar.timeZone = TimeZone(identifier: "Africa/Cairo")!
-//      calendar.timeZone = TimeZone(identifier: "UTC")!
+//    calendar.timeZone = TimeZone(identifier: "Africa/Cairo")!
+      calendar.timeZone = TimeZone(identifier: "UTC")!
       dayView = DayView(calendar: calendar)
+      dayView.move(to: selectedDate ?? Date())
       view = dayView
   }
   
@@ -78,7 +81,6 @@ final class CustomCalendarExampleController: DayViewController {
     title = "CalendarKit Demo"
     navigationController?.navigationBar.isTranslucent = false
     dayView.autoScrollToFirstEvent = true
-      dayView.move(to: selectedDate ?? Date())
     reloadData()
   }
   
@@ -107,7 +109,6 @@ final class CustomCalendarExampleController: DayViewController {
   private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
     var workingDate = Calendar.current.date(byAdding: .hour, value: Int.random(in: 1...15), to: date)!
     var events = [Event]()
-    
     for i in 0...4 {
       let event = Event()
       
