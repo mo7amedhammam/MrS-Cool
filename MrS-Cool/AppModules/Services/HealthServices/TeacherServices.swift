@@ -148,7 +148,8 @@ extension teacherServices:TargetType{
                 .DeleteMyLessonScheduleGroup(parameters: let Parameters),
                 .DeleteMySubjectGroup(parameters: let Parameters),
                 .GetMySubjectGroupDetails(parameters: let Parameters),
-                .GetMyCompletedLessonDetails(parameters: let Parameters):
+                .GetMyCompletedLessonDetails(parameters: let Parameters),
+                .cancelMyCalenderSchedual(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),
@@ -166,8 +167,7 @@ extension teacherServices:TargetType{
                 .GetMySubjectGroup(parameters: let Parameters),
                 .ReviewMySubjectGroup(parameters: let Parameters),
                 .CreateMySubjectGroup(parameters: let Parameters),
-                .GetMyCompletedLessons(parameters: let Parameters),
-                .cancelMyCalenderSchedual(parameters: let Parameters):
+                .GetMyCompletedLessons(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

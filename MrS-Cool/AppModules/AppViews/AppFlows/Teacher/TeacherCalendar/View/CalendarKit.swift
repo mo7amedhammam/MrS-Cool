@@ -12,47 +12,14 @@ import FSCalendar
 
 final class CustomCalendarExampleController: DayViewController {
     var selectedDate: Date?
-
-//    var data = [["Breakfast at Tiffany's",
-//                 "New York, 5th avenue"],
-//                
-//                ["Workout",
-//                 "Tufteparken"],
-//                
-//                ["Meeting with Alex",
-//                 "Home",
-//                 "Oslo, Tjuvholmen"],
-//                
-//                ["Beach Volleyball",
-//                 "Ipanema Beach",
-//                 "Rio De Janeiro"],
-//                
-//                ["WWDC",
-//                 "Moscone West Convention Center",
-//                 "747 Howard St"],
-//                
-//                ["Google I/O",
-//                 "Shoreline Amphitheatre",
-//                 "One Amphitheatre Parkway"],
-//                
-//                ["✈️️ to Svalbard ❄️️❄️️❄️️❤️️",
-//                 "Oslo Gardermoen"],
-//                
-//                ["💻📲 Developing CalendarKit",
-//                 "🌍 Worldwide"],
-//                
-//                ["Software Development Lecture",
-//                 "Mikpoli MB310",
-//                 "Craig Federighi"],
-//                
-//    ]
-    
     var events: [EventM] = [] {
         didSet {
             // Update events and reload data
             reloadData()
         }
     }
+    var onCancelEvent: ((EventM) -> Void)?
+
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     
@@ -149,7 +116,18 @@ final class CustomCalendarExampleController: DayViewController {
                                                   end: eventDate.addingTimeInterval(TimeInterval(endTimeComponents.hour! * 3600 + endTimeComponents.minute! * 60)))
                 
                 event.text = "\(eventM.groupName ?? "")"
-                event.color = .green // Customize the color as needed
+//                event.color = .green // Customize the color as needed
+                // Set color based on conditions
+                         if eventDate < Calendar.current.startOfDay(for: Date()) {
+                             // Event is before today
+                             event.color = .red
+                         } else if eventM.isCancel ?? false {
+                             // Event is canceled
+                             event.color = .red
+                         } else {
+                             // Default color for other events
+                             event.color = .green
+                         }
             }
             return event
         }
@@ -157,7 +135,7 @@ final class CustomCalendarExampleController: DayViewController {
         return eventDescriptors
     }
     
-    
+
     
 //    private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
 //        var workingDate = Calendar.current.date(byAdding: .hour, value: Int.random(in: 1...15), to: date)!
@@ -189,6 +167,22 @@ final class CustomCalendarExampleController: DayViewController {
 //        print("Events for \(date)")
 //        return events
 //    }
+    private func cancelEvent(_ event: Event) {
+        // Implement the logic to cancel the event here
+        // You may need to update your data model, set a flag, or perform any necessary actions
+        // After canceling the event, you should update the events array and call reloadData()
+
+        if let index = generatedEvents.firstIndex(where: { $0 === event }) {
+//            generatedEvents.remove(at: index)
+            reloadData()
+        }
+    }
+    private func isEventCanceled(_ event: Event) -> Bool {
+        // Implement the logic to check if the event is canceled
+        // You may need to access your data model or perform any necessary checks
+        // Return true if the event is canceled, otherwise false
+        return false
+    }
     
     // MARK: DayViewDelegate
     private var createdEvent: EventDescriptor?
@@ -198,6 +192,39 @@ final class CustomCalendarExampleController: DayViewController {
             return
         }
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
+        
+        if let eventM = events.first(where: { event in
+                  let dateString = event.date ?? ""
+                  if let eventDate = dateFormatter2.date(from: dateString) {
+                      return Calendar.current.isDate(eventDate, inSameDayAs: descriptor.dateInterval.start)
+                  }
+                  return false
+        }) {
+            // Check if the event is in the past or is canceled
+            let currentDate = Date()
+            if let eventDate = dateFormatter2.date(from: eventM.date ?? "") {
+                if eventDate <= currentDate || eventM.isCancel == true {
+                    // The event is in the past or is canceled, do not show the action sheet
+                    return
+                }
+            }
+            
+            let alertController = UIAlertController(title: "Event Options", message: nil, preferredStyle: .actionSheet)
+            
+            // Add a Cancel option
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            // Add an option to cancel the event
+            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { _ in
+                // Handle the cancellation of the event here
+                //              self.cancelEvent(descriptor)
+                self.onCancelEvent?(eventM)
+                
+            })
+            
+            // Present the action sheet
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
@@ -282,9 +309,11 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
     
     let selectedDate: Binding<Date>
     var events: [EventM]
-    
-    init(selectedDate: Binding<Date>,events: [EventM]) {
+    var onCancelEvent: ((EventM) -> Void)?
+
+    init(selectedDate: Binding<Date>,events: [EventM],onCancelEvent: ((EventM) -> Void)?) {
         self.selectedDate = selectedDate
+        self.onCancelEvent = onCancelEvent
         self.events = events
     }
     
@@ -292,6 +321,7 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
         let controller = CustomCalendarExampleController()
         controller.selectedDate = selectedDate.wrappedValue
         controller.events = events
+        controller.onCancelEvent = onCancelEvent
         
         return controller
     }
@@ -306,10 +336,11 @@ struct ContentView3: View {
     @Binding var selectedDate : Date
     @Binding  var scope: FSCalendarScope
     @Binding var events: [EventM]
-    
+    var onCancelEvent: ((EventM) -> Void)?
+
     var body: some View {
         VStack {
-            CalendarKitWrapper(selectedDate:$selectedDate, events: events )
+            CalendarKitWrapper(selectedDate:$selectedDate, events: events,onCancelEvent:onCancelEvent )
         }
     }
 }

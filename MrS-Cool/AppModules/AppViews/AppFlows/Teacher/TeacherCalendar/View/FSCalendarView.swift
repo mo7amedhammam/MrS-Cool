@@ -175,7 +175,9 @@ struct CalView1: View {
             case .week:
 //                CalendarModuleView(selectedDate: $date, scope: .week,events: events)
 //                    .frame(height: 300.0, alignment: .center)
-                ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events)
+                ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events){event in
+                    calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+                }
 
             @unknown default:
                 CalendarModuleView(selectedDate: $date, scope: .month,events: events)
