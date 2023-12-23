@@ -23,15 +23,16 @@ struct CalendarModuleView: UIViewRepresentable {
         calendar.delegate = context.coordinator
         calendar.dataSource = context.coordinator
         calendar.scope = scope
-        calendar.appearance.todayColor = UIColor.clear
-        calendar.appearance.titleTodayColor = UIColor.black
+//        calendar.appearance.todayColor = UIColor.clear
+//        calendar.appearance.titleTodayColor = UIColor.black
         calendar.appearance.selectionColor = UIColor.mainBlue // Adjust the color as needed
-        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 16)
+        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 18)
         
         // Configure appearance for event dots
            calendar.appearance.eventDefaultColor = UIColor.mainBlue // Adjust the color as needed
 //           calendar.appearance.eventSelectionColor = UIColor.red // Adjust the color as needed
            calendar.appearance.eventOffset = CGPoint(x: 0, y: -7) // Adjust the offset as needed
+        calendar.scrollDirection = .vertical
         
         return calendar
     }
@@ -113,6 +114,7 @@ struct CalendarModuleView: UIViewRepresentable {
 
 
 struct CalView1: View {
+    @Environment(\.presentationMode) var presentationMode
     @StateObject var calendarschedualsvm = TeacherCalendarSvhedualsVM()
    @State var events: [EventM] = []
 //    let events: [EventM] = [EventM(
@@ -149,7 +151,7 @@ struct CalView1: View {
 //        cancelDate: nil
 //    )]
     @State var date : Date?
-    @State private var scope: FSCalendarScope = .month
+    @State var scope: FSCalendarScope = .month
     static let taskDateFormat: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
@@ -158,63 +160,36 @@ struct CalView1: View {
     
     var body: some View {
         VStack {
-            Picker("View Mode", selection: $scope) {
-                Text("Month").tag(FSCalendarScope.month)
-                Text("Week").tag(FSCalendarScope.week)
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
-            
-            HStack {
-                Button(action: {
-                    showNextDate()
-                }) {
-                    Image(systemName: "chevron.left")
-                        .font(.title)
+            CustomTitleBarView(title: "Calendar") {
+                if scope == .week{
+                    scope = .month
+                }else{
+                    presentationMode.wrappedValue.dismiss()
                 }
-                .padding(.leading, 20)
-                
-                Spacer()
-                
-                Text(scope == .month ? "Selected Month: \(date?.formatted() ?? "")" :
-                        scope == .week ? "Selected Week: \(date?.formatted() ?? "")" : "")
-                .padding()
-                
-                Spacer()
-                
-                Button(action: {
-                    showNextDate()
-                }) {
-                    Image(systemName: "chevron.right")
-                        .font(.title)
-                }
-                .padding(.trailing, 20)
             }
             
             switch scope {
             case .month:
                 CalendarModuleView(selectedDate: $date, scope: .month, events: events)
-                    .frame(height: 300.0, alignment: .center)
+//                    .frame(height: 300.0, alignment: .center)
             case .week:
-                CalendarModuleView(selectedDate: $date, scope: .week,events: events)
-                    .frame(height: 300.0, alignment: .center)
+//                CalendarModuleView(selectedDate: $date, scope: .week,events: events)
+//                    .frame(height: 300.0, alignment: .center)
+                ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events)
+
             @unknown default:
                 CalendarModuleView(selectedDate: $date, scope: .month,events: events)
             }
-            
-            // Display a list of events for the selected date or week
-//            if let selectedDate = date {
-            let filteredEvents = filterEventsForSelectedDate(selectedDate: date ?? Date(), scope: scope, events: events)
-                List(filteredEvents) { event in
-                    Text(event.groupName ?? "")
-                }
-//            }
-            Spacer()
         }
+        .localizeView()
+        .hideNavigationBar()
         .onChange(of: calendarschedualsvm.CalendarScheduals ){
             newval in
             events = newval
         }
+        .onChange(of: date, perform: { value in
+            scope = .week
+        })
     }
     
     private func showNextDate() {

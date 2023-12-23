@@ -12,7 +12,8 @@ struct CustomTitleBarView: View {
     var imageName: String?
     var title: String
     var hideImage: Bool? = false
-    
+    var action: (() -> Void)? // Use (() -> Void)? for optional closure
+
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -26,7 +27,11 @@ struct CustomTitleBarView: View {
                         .scaledToFit()
                         .clipped()
                         .onTapGesture {
-                            presentationMode.wrappedValue.dismiss()
+                            if action != nil{
+                                action?()
+                            }else{
+                                presentationMode.wrappedValue.dismiss()
+                            }
                         }
                 }
                 

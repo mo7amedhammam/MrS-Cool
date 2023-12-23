@@ -146,7 +146,7 @@ struct CalView: View {
                 }
             } else if viewMode == .week {
                 
-                ContentView3(selectedDate: $selectedDate)
+                ContentView3(selectedDate: $selectedDate, scope: .constant(.week), events: $events)
                 
 //                WeekView(
 //                    calendar: calendar,
