@@ -29,7 +29,9 @@ struct TeacherHomeView: View {
     @StateObject var subjectgroupvm = ManageSubjectGroupVM()
     
     @StateObject var completedlessonsvm = CompletedLessonsVM()
-
+    
+    @StateObject var chatlistvm = ChatListVM()
+    
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     let screens:[teacherscreen] = [
@@ -40,7 +42,8 @@ struct TeacherHomeView: View {
     teacherscreen(title: "Manage Group For Lessons",id: 5 ),
     teacherscreen(title: "Manage Subject Groups",id: 6 ),
     teacherscreen(title: "Completed Lessons",id: 7 ),
-    teacherscreen(title: "Teacher Calender",id: 8 )
+    teacherscreen(title: "Teacher Calender",id: 8 ),
+    teacherscreen(title: "Chat",id: 9 )
 
     ]
     var body: some View {
@@ -94,6 +97,12 @@ struct TeacherHomeView: View {
 
 //                            .environmentObject(lookupsvm)
 //                            .environmentObject(completedlessonsvm)
+//                                .hideNavigationBar()
+                        )
+                    }else if screenid == 9{
+                        destination = AnyView(ChatsListView()
+//                            .environmentObject(lookupsvm)
+                            .environmentObject(chatlistvm)
 //                                .hideNavigationBar()
                         )
                     }

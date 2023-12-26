@@ -82,6 +82,8 @@ extension TeacherCalendarSvhedualsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     GetCalendarCheduals()
+//                    CalendarScheduals = receivedData.data ?? []
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

@@ -42,6 +42,11 @@ enum teacherServices{
     
     case GetMyCalenderSchedual
     case cancelMyCalenderSchedual(parameters : [String:Any])
+    
+    case GetAllComentsList
+    case GetAllComentsListById(parameters : [String:Any])
+    case CreateComment(parameters : [String:Any])
+
 
 }
 
@@ -107,6 +112,13 @@ extension teacherServices:TargetType{
             return EndPoints.GetMyCalenderSchedual.rawValue
         case .cancelMyCalenderSchedual:
             return EndPoints.CancelMyCalenderSchedual.rawValue
+        case .GetAllComentsList:
+            return EndPoints.GetAllStudentsChat.rawValue
+        case .GetAllComentsListById:
+            return EndPoints.GetAllStudentsChatComments.rawValue
+        case .CreateComment:
+            return EndPoints.CreateComment.rawValue
+
         }
     }
     
@@ -120,7 +132,8 @@ extension teacherServices:TargetType{
                 .DeleteMySubjectGroup,.GetMySubjectGroupDetails,
                 .GetMyCompletedLessonDetails,
                 .GetMyCalenderSchedual,
-                .cancelMyCalenderSchedual:
+                .cancelMyCalenderSchedual,
+                .GetAllComentsList,.GetAllComentsListById:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
@@ -131,7 +144,8 @@ extension teacherServices:TargetType{
                 .GetMyScheduals,.CreateMyNewSchedual,
                 .GetMyLessonSchedualGroup, .CreateMyLessonScheduleGroup,
                 .GetMySubjectGroup,.ReviewMySubjectGroup,.CreateMySubjectGroup,
-                .GetMyCompletedLessons:
+                .GetMyCompletedLessons,
+                .CreateComment:
             return .post
         }
     }
@@ -139,7 +153,8 @@ extension teacherServices:TargetType{
     var parameter: parameterType {
         switch self {
         case .GetTeacherProfile,
-                .GetMyCalenderSchedual:
+                .GetMyCalenderSchedual,
+                .GetAllComentsList:
             return .plainRequest
             
         case .GetSubjectLessonsBrief(parameters: let Parameters),
@@ -149,7 +164,8 @@ extension teacherServices:TargetType{
                 .DeleteMySubjectGroup(parameters: let Parameters),
                 .GetMySubjectGroupDetails(parameters: let Parameters),
                 .GetMyCompletedLessonDetails(parameters: let Parameters),
-                .cancelMyCalenderSchedual(parameters: let Parameters):
+                .cancelMyCalenderSchedual(parameters: let Parameters),
+                .GetAllComentsListById(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),
@@ -167,7 +183,8 @@ extension teacherServices:TargetType{
                 .GetMySubjectGroup(parameters: let Parameters),
                 .ReviewMySubjectGroup(parameters: let Parameters),
                 .CreateMySubjectGroup(parameters: let Parameters),
-                .GetMyCompletedLessons(parameters: let Parameters):
+                .GetMyCompletedLessons(parameters: let Parameters),
+                .CreateComment(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

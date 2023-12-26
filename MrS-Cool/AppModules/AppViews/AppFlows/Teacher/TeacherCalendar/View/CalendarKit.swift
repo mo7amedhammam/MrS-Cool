@@ -215,11 +215,12 @@ final class CustomCalendarExampleController: DayViewController {
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
             // Add an option to cancel the event
-            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { _ in
+            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { [weak self] _ in
+                guard let self = self else {return}
                 // Handle the cancellation of the event here
                 //              self.cancelEvent(descriptor)
                 self.onCancelEvent?(eventM)
-                
+                self.reloadData()
             })
             
             // Present the action sheet

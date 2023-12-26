@@ -117,39 +117,6 @@ struct CalView1: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var calendarschedualsvm = TeacherCalendarSvhedualsVM()
    @State var events: [EventM] = []
-//    let events: [EventM] = [EventM(
-//        id: 1,
-//        groupName: "Group A",
-//        date: "2023-12-17'T'11:10:50.402Z",
-//        timeFrom: "09:00:00",
-//        timeTo: "11:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    ), EventM(
-//        id: 2,
-//        groupName: "Group B",
-//        date: "2023-12-18T11:10:50.402Z",
-//        timeFrom: "14:00:00",
-//        timeTo: "16:00:00",
-//        isCancel: true,
-//        cancelDate: "2023-12-18T10:30:00.402Z"
-//    ), EventM(
-//        id: 3,
-//        groupName: "Group C",
-//        date: "2023-12-18T11:10:50.402Z",
-//        timeFrom: "18:00:00",
-//        timeTo: "20:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    ), EventM(
-//        id: 4,
-//        groupName: "Group D",
-//        date: "2023-12-20T11:10:50.402Z",
-//        timeFrom: "10:00:00",
-//        timeTo: "12:00:00",
-//        isCancel: false,
-//        cancelDate: nil
-//    )]
     @State var date : Date?
     @State var scope: FSCalendarScope = .month
     static let taskDateFormat: DateFormatter = {
@@ -162,7 +129,12 @@ struct CalView1: View {
         VStack {
             CustomTitleBarView(title: "Calendar") {
                 if scope == .week{
-                    scope = .month
+                    DispatchQueue.main.async(execute: {
+                        date = nil
+                        withAnimation{
+                        scope = .month
+                        }
+                    })
                 }else{
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -171,12 +143,11 @@ struct CalView1: View {
             switch scope {
             case .month:
                 CalendarModuleView(selectedDate: $date, scope: .month, events: events)
-//                    .frame(height: 300.0, alignment: .center)
             case .week:
-//                CalendarModuleView(selectedDate: $date, scope: .week,events: events)
-//                    .frame(height: 300.0, alignment: .center)
                 ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events){event in
-                    calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+                    DispatchQueue.main.async {
+                        calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+                    }
                 }
 
             @unknown default:
@@ -190,7 +161,12 @@ struct CalView1: View {
             events = newval
         }
         .onChange(of: date, perform: { value in
-            scope = .week
+            calendarschedualsvm.GetCalendarCheduals()
+            if value != nil{
+                withAnimation{
+                        scope = .week
+                    }
+                }
         })
     }
     
