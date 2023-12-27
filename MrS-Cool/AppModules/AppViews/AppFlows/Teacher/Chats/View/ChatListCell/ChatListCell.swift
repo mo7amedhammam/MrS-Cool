@@ -9,13 +9,19 @@ import SwiftUI
 
 struct ChatListCell: View {
     var model = ChatListM()
+    @Binding var isExpanded : Bool
+    
     var selectLessonBtnAction : (()->())?
     
-    @State var isExpanded = false
+    @State var selectedLessonId:Int?
     var body: some View {
-        VStack(alignment:.leading,spacing: 10){
+        VStack(alignment:.leading,spacing: 0){
+//           Button(action: {
+//               isExpanded.toggle()
+//
+//           }, label: {
             HStack(alignment: .center,spacing: 20) {
-                AsyncImage(url: URL(string: Constants.baseURL+(model.studentName ?? "")  )){image in
+                AsyncImage(url: URL(string: Constants.baseURL+(model.studentImage ?? "")  )){image in
                     image
                         .resizable()
                 }placeholder: {
@@ -26,19 +32,11 @@ struct ChatListCell: View {
                 .frame(width: 40,height: 40)
                 .clipShape(Circle())
                 
-//                Image("img_younghappysmi")
-//                    .scaleEffect(1.2, anchor: .center)
-//                    .background(
-//                        Color.black.clipShape(Circle())
-//                            .frame(width: 30 ,height: 30)
-//                    )
-                
                 Text(model.studentName ?? "Student Name")
-                    .font(Font.SoraSemiBold(size:13.0))
-                    .foregroundColor(.mainBlue)
-                
+                    .font(Font.SoraSemiBold(size:15))
+                    .foregroundColor(isExpanded ? .whiteA700:.mainBlue)
                 Spacer()
-                if let lessonNum = model.lessonNum,lessonNum >= 0{
+                if let lessonNum = model.lessonNum,lessonNum > 0{
                     Text("\(lessonNum)")
                         .font(Font.SoraRegular(size:11))
                         .foregroundColor(.whiteA700)
@@ -49,82 +47,58 @@ struct ChatListCell: View {
                         }
                 }
                 Image(isExpanded ? "img_arrowup":"img_arrowdown")
-//                        .resizable()
-//                        .frame(width: 15, height: 18,alignment: .leading)
+                //                        .resizable()
+                //                        .frame(width: 15, height: 18,alignment: .leading)
+                    .renderingMode(.template)
                     .aspectRatio(contentMode: .fill)
-
-                
-                
-//                Button(action: {
-//                    selectLessonBtnAction?()
-//                }, label: {
-//                    Image("img_group8733_gray_908")
-////                        .resizable()
-////                        .frame(width: 15, height: 18,alignment: .leading)
-//                        .aspectRatio(contentMode: .fill)
-//                })
-//                .buttonStyle(.plain)
+                    .foregroundColor(isExpanded ? .whiteA700:.mainBlue)
+                    .padding(.trailing)
             }
-    
-//            HStack{
-//                VStack (alignment:.leading,spacing: 10){
-//                    Text(model.groupName ?? "Group 1")
-//                        .font(Font.SoraRegular(size: 12.0))
-//                        .fontWeight(.regular)
-//                        .foregroundColor(ColorConstants.Black900)
-//                        .minimumScaleFactor(0.5)
-//                        .multilineTextAlignment(.leading)
-//
-//                    Text(model.lessonName ?? "Lesson 1")
-//                        .font(Font.SoraRegular(size: 12.0))
-//                        .fontWeight(.regular)
-//                        .foregroundColor(ColorConstants.Black900)
-//                        .minimumScaleFactor(0.5)
-//                        .multilineTextAlignment(.leading)
-//                }
-//
-//                Spacer()
-//
-//                VStack(alignment:.trailing){
-//
-//                    VStack(alignment:.leading,spacing: 2.5){
-//                        Text("End".localized())
-//                            .font(Font.SoraSemiBold(size: 6))
-//                            .foregroundColor(.grayBtnText)
-//
-//                        Text("\(model.date ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-//                            .font(Font.SoraRegular(size: 12))
-//                            .foregroundColor(.mainBlue)
-//
-//                        Spacer().frame(height:3)
-//
-//                        Text("Time".localized())
-//                            .font(Font.SoraSemiBold(size: 6))
-//                            .foregroundColor(.grayBtnText)
-//
-//                        Group{
-//                            Text("\(model.timeFrom ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))+Text(" - \("\(model.timeTo ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))")
-//                        }                            .font(Font.SoraRegular(size: 12))
-//                            .foregroundColor(.mainBlue)
-//                    }
-//                    .padding(.top,8)
-//                }
-//            }
-//            .padding(.leading,30)
+            .padding(8)
+            .background(RoundedCorners(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16)
+                .fill(isExpanded ? ColorConstants.MainColor : .clear))
+            
+//        })
+//           .buttonStyle(.borderless )
 
+            if isExpanded, let array = model.teacherLessonSessionsDtos{
+                ForEach(Array(array.enumerated()), id:\.element.id) { index,lesson in
+                    Button(action: {
+                        selectedLessonId = index
+                        selectLessonBtnAction?()
+                    }, label: {
+                        ChatLessonNameCell(model: lesson,isLessonSelected: .constant(selectedLessonId == index))
+                            .padding(.vertical,5)
+                    })
+                    .buttonStyle(.borderless)
+
+                }
+            }
         }
-        .padding()
-        .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
-            .stroke(ColorConstants.Bluegray100,
-                    lineWidth: 1))
-        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
-            .fill(ColorConstants.WhiteA700))
-        .onTapGesture(perform: {
-            isExpanded.toggle()
-        })
     }
 }
 
 #Preview {
-    ChatListCell()
+    ChatListCell( isExpanded: .constant(false))
+}
+
+struct ChatLessonNameCell: View {
+    var model = TeacherLessonSessionsDto()
+    @Binding var isLessonSelected : Bool
+
+    var body: some View {
+        HStack{
+            Circle()
+                .fill(isLessonSelected ? .black : .bluegray100 )
+                .frame(width: 8, height: 8, alignment: .center)
+            Text(model.lessonName ?? "lesson name ")
+                .font(Font.SoraRegular(size:13))
+            Spacer()
+        }
+//        .frame(minWidth: 0,maxWidth: .infinity)
+        .padding()
+        .foregroundColor(isLessonSelected ? .black:.black90099)
+        .background(RoundedCorners(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16)
+            .fill(isLessonSelected ? .red400.opacity(0.08) : .clear))
+    }
 }

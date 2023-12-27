@@ -15,7 +15,7 @@ struct ChatsListView: View {
 
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
-    
+    @State var selectedChatId : Int?
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Messages")
@@ -29,32 +29,38 @@ struct ChatsListView: View {
                                 .renderingMode(.template)
                                 .foregroundColor(ColorConstants.MainColor)
                                 .frame(width: 35, height: 35, alignment: .center)
-
+                            
                             SignUpHeaderTitle(Title: "Messages")
                             Spacer()
                         }
                         .padding(.top)
                     }
                     .padding(.horizontal)
-//                ScrollView(.vertical,showsIndicators: false){
-                
-                        List(chatlistvm.ChatsList ?? [], id:\.self) { chat in
-                            ChatListCell(model: chat, selectLessonBtnAction: {
+                    if let array = chatlistvm.ChatsList{
+                        List(Array(array.enumerated()), id:\.element.hashValue){ index,chat in
+                        Button(action: {
+                            if selectedChatId == nil{
+                                selectedChatId = index
+                            }else{
+                                selectedChatId = nil
+                            }
+                        }, label: {
+                            ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectLessonBtnAction: {
                                 //                                chatlistvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
-                                //                                destination = AnyView(CompletedLessonDetails().environmentObject(chatlistvm))
-                                                                
-                                //                                isPush = true
-
+                                                    
+                                destination = AnyView(CompletedLessonDetails().environmentObject(CompletedLessonsVM()))
+                                isPush = true
+                                
                             })
+                        })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
-                        }
-                        .padding(.horizontal,-4)
-                        .listStyle(.plain)
-//                        .frame(height: gr.size.height)
-                        .searchable(text: $searchQuery)
-
+                        
+                    }
+                    .listStyle(.plain)
+                    .searchable(text: $searchQuery)
+                }
                         Spacer()
 //                    }
 //                    .frame(minHeight: gr.size.height)
