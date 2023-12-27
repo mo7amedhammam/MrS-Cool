@@ -22,6 +22,7 @@
 		C81403FC2B29B6C800BD2591 /* CompletedLessonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81403FB2B29B6C800BD2591 /* CompletedLessonDetails.swift */; };
 		C81403FF2B29C43800BD2591 /* LessonDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81403FE2B29C43800BD2591 /* LessonDetailsCell.swift */; };
 		C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */; };
+		C82582442B3C58AA00D57629 /* MessagesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82582432B3C58AA00D57629 /* MessagesListView.swift */; };
 		C82689322B25CE9C004529AA /* SubjectGroupDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82689312B25CE9C004529AA /* SubjectGroupDetailsView.swift */; };
 		C82689352B25CEE4004529AA /* SubjectGroupDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82689342B25CEE4004529AA /* SubjectGroupDetailsCell.swift */; };
 		C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */; };
@@ -143,6 +144,7 @@
 		C81403FB2B29B6C800BD2591 /* CompletedLessonDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedLessonDetails.swift; sourceTree = "<group>"; };
 		C81403FE2B29C43800BD2591 /* LessonDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsCell.swift; sourceTree = "<group>"; };
 		C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpVM.swift; sourceTree = "<group>"; };
+		C82582432B3C58AA00D57629 /* MessagesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesListView.swift; sourceTree = "<group>"; };
 		C82689312B25CE9C004529AA /* SubjectGroupDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectGroupDetailsView.swift; sourceTree = "<group>"; };
 		C82689342B25CEE4004529AA /* SubjectGroupDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectGroupDetailsCell.swift; sourceTree = "<group>"; };
 		C829B6962AE171C500CA1935 /* ChangeLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageView.swift; sourceTree = "<group>"; };
@@ -361,6 +363,14 @@
 				C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */,
 			);
 			path = Student;
+			sourceTree = "<group>";
+		};
+		C82582422B3C589400D57629 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				C82582432B3C58AA00D57629 /* MessagesListView.swift */,
+			);
+			path = Messages;
 			sourceTree = "<group>";
 		};
 		C82689302B25CE75004529AA /* SubjectGroupDetails */ = {
@@ -1120,6 +1130,7 @@
 		C8DDFB562B3AF80900C785D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C82582422B3C589400D57629 /* Messages */,
 				C8DDFB5F2B3B2B3C00C785D4 /* ChatListCell */,
 				C8DDFB592B3AF88800C785D4 /* ChatsListView.swift */,
 			);
@@ -1580,6 +1591,7 @@
 				C8CA13322B1DFAA700570B2F /* TeacherHomeView.swift in Sources */,
 				C8986C7D2AE9328F003E9179 /* ParentM.swift in Sources */,
 				C8FB11CA2ADDA2310051715F /* Helper.swift in Sources */,
+				C82582442B3C58AA00D57629 /* MessagesListView.swift in Sources */,
 				C877F53E2B21EBD200CEF08F /* ManageSubjectGroupM.swift in Sources */,
 				C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */,
 				C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */,

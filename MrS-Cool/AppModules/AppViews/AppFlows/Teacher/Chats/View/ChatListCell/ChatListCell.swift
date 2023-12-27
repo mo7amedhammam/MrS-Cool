@@ -10,10 +10,10 @@ import SwiftUI
 struct ChatListCell: View {
     var model = ChatListM()
     @Binding var isExpanded : Bool
-    
+    @Binding var selectedLessonId : Int
     var selectLessonBtnAction : (()->())?
     
-    @State var selectedLessonId:Int?
+//    @State var selectedLessonId:Int?
     var body: some View {
         VStack(alignment:.leading,spacing: 0){
 //           Button(action: {
@@ -64,10 +64,11 @@ struct ChatListCell: View {
             if isExpanded, let array = model.teacherLessonSessionsDtos{
                 ForEach(Array(array.enumerated()), id:\.element.id) { index,lesson in
                     Button(action: {
-                        selectedLessonId = index
+                        selectedLessonId = lesson.id ?? 0
                         selectLessonBtnAction?()
+
                     }, label: {
-                        ChatLessonNameCell(model: lesson,isLessonSelected: .constant(selectedLessonId == index))
+                        ChatLessonNameCell(model: lesson,isLessonSelected: .constant(selectedLessonId == lesson.id))
                             .padding(.vertical,5)
                     })
                     .buttonStyle(.borderless)
@@ -79,7 +80,7 @@ struct ChatListCell: View {
 }
 
 #Preview {
-    ChatListCell( isExpanded: .constant(false))
+    ChatListCell( isExpanded: .constant(false), selectedLessonId: .constant(0))
 }
 
 struct ChatLessonNameCell: View {

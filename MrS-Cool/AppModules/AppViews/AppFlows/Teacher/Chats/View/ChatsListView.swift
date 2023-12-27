@@ -16,6 +16,8 @@ struct ChatsListView: View {
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     @State var selectedChatId : Int?
+    @State var selectedLessonId : Int = 0
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Messages")
@@ -36,38 +38,37 @@ struct ChatsListView: View {
                         .padding(.top)
                     }
                     .padding(.horizontal)
-                    if let array = chatlistvm.ChatsList{
+                    
+                    if let array = searchResults{
+                        CustomSearchBar(searchText: $searchQuery)
+                            .padding([.top,.horizontal])
+                        
                         List(Array(array.enumerated()), id:\.element.hashValue){ index,chat in
-                        Button(action: {
-                            if selectedChatId == nil{
-                                selectedChatId = index
-                            }else{
-                                selectedChatId = nil
-                            }
-                        }, label: {
-                            ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectLessonBtnAction: {
-                                //                                chatlistvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
-                                                    
-                                destination = AnyView(CompletedLessonDetails().environmentObject(CompletedLessonsVM()))
-                                isPush = true
-                                
+                            Button(action: {
+                                if selectedChatId == nil{
+                                    selectedChatId = index
+                                }else{
+                                    selectedChatId = nil
+                                }
+                            }, label: {
+                                ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectedLessonId: $selectedLessonId, selectLessonBtnAction: {
+                                    destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId ).environmentObject(chatlistvm))
+                                    isPush = true
+                                })
                             })
-                        })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
-                        
+                        }
+                        .listStyle(.plain)
+                        //                        .searchable(text: $searchQuery, prompt: "Search".localized())
                     }
-                    .listStyle(.plain)
-                    .searchable(text: $searchQuery)
+                    Spacer()
                 }
-                        Spacer()
-//                    }
-//                    .frame(minHeight: gr.size.height)
-                }
+                
             }
             .onAppear(perform: {
-//                lookupsvm.GetSubjestForList()
+                chatlistvm.isLoading = false
                 chatlistvm.GetChatsList()
             })
             
@@ -76,7 +77,6 @@ struct ChatsListView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
         .onDisappear {
             chatlistvm.cleanup()
         }
@@ -85,11 +85,67 @@ struct ChatsListView: View {
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
+    var searchResults: [ChatListM]? {
+//        if let array = chatlistvm.ChatsList{
+            if searchQuery.isEmpty {
+                return chatlistvm.ChatsList ?? []
+            } else {
+                return chatlistvm.ChatsList?.filter{"\($0.studentName ?? "")".contains(searchQuery)} ?? []
+            }
+//        }
+    }
+    
 }
 
 #Preview {
     ChatsListView()
-//        .environmentObject(LookUpsVM())
         .environmentObject(ChatListVM())
     
 }
+
+struct CustomSearchBar: View {
+@Binding var searchText: String
+
+var body: some View {
+    HStack {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+            TextField("Search", text: $searchText)
+                .font(Font.SoraRegular(size:13))
+                .foregroundColor( .mainBlue)
+                .autocorrectionDisabled(true)
+                .textInputAutocapitalization(.never)
+
+            if !searchText.isEmpty {
+                    Button(action: {
+                        searchText = ""
+                    }) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.gray)
+                    }
+                }
+        }
+        .padding(12)
+        .background(RoundedCorners(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16)
+        .fill(ColorConstants.Red400.opacity(0.08)))
+        
+        if !searchText.isEmpty {
+            Button(action: {
+                searchText = ""
+                hideKeyboard()
+            }) {
+                Text("Cancel".localized())
+                    .font(Font.SoraRegular(size:13))
+                    .foregroundColor(.blue) // Customize the color as needed
+            }
+        }
+
+    }
+}
+}
+#Preview{
+    CustomSearchBar(searchText: .constant(""))
+}
+
+

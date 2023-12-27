@@ -14,10 +14,10 @@ class ChatListVM: ObservableObject {
     //    MARK: --- inputs ---    
     @Published var selectedChatId : Int?
 
-    @Published var filtersubject : DropDownOption?
-    @Published var filterlesson : DropDownOption?
-    @Published var filtergroupName : String = ""
-    @Published var filterdate : String?
+//    @Published var filtersubject : DropDownOption?
+//    @Published var filterlesson : DropDownOption?
+//    @Published var filtergroupName : String = ""
+    @Published var comment : String?
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -27,7 +27,7 @@ class ChatListVM: ObservableObject {
     
     //    @Published var isTeacherHasSubjects: Bool = false
     @Published var ChatsList : [ChatListM]?
-    @Published var ChatComments : CompletedLessonDetailsM?
+    @Published var ChatDetails : ChatDetailsM?
 
     init(){
     }
@@ -36,22 +36,6 @@ class ChatListVM: ObservableObject {
 extension ChatListVM{
     
     func GetChatsList(){
-//        var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
-//            
-//        if let filtersubjectid = filtersubject?.id{
-//            parameters["teacherSubjectId"] = filtersubjectid
-//        }
-//         if let filterlessonid = filterlesson?.id{
-//            parameters["teacherLessonId"] = filterlessonid
-//        }
-//        if filtergroupName.count > 0{
-//            parameters["groupName"] = filtergroupName
-//        }
-//        if let filterdate = filterdate{
-//            parameters["lessonDate"] = filterdate
-//        }
-        
-//        print("parameters",parameters)
         let target = teacherServices.GetAllComentsList
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[ChatListM]>.self)
@@ -81,14 +65,15 @@ extension ChatListVM{
             .store(in: &cancellables)
     }
     func GetChatComments(){
+        isLoading = false
         var parameters:[String:Any] = [:]
-        if let subjectid = selectedChatId{
-            parameters["bookTeacherLessonSessionDetailId"] = subjectid
+        if let chatid = selectedChatId{
+            parameters["bookTeacherLessonSessionDetailId"] = chatid
         }
         print("parameters",parameters)
-        let target = teacherServices.GetMyCompletedLessonDetails(parameters: parameters)
+        let target = teacherServices.GetAllComentsListById(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<CompletedLessonDetailsM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
@@ -105,7 +90,40 @@ extension ChatListVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                    ChatComments = receivedData.data
+                    ChatDetails = receivedData.data
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+    func CreateChatComments(){
+        var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ?? ""]
+//        if let chatid = selectedChatId{
+//            parameters["bookTeacherLessonSessionDetailId"] = chatid
+//        }
+        print("parameters",parameters)
+        let target = teacherServices.CreateComment(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    ChatDetails = receivedData.data
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -123,12 +141,12 @@ extension ChatListVM{
 //        date = nil
 //        groupName = ""
 //    }
-    func clearFilter(){
-        filtersubject = nil
-        filterlesson = nil
-        filterdate = nil
-        filtergroupName = ""
-    }
+//    func clearFilter(){
+//        filtersubject = nil
+//        filterlesson = nil
+//        filterdate = nil
+//        filtergroupName = ""
+//    }
     //    func selectSubjectForEdit(item:TeacherSubjectM){
     //        isEditing = false
     //        editId = item.id ?? 0

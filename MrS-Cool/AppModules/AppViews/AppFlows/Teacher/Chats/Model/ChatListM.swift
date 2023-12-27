@@ -8,7 +8,7 @@
 import Foundation
 
 
-// MARK: - ChatListM
+// MARK: - ChatListM -
 struct ChatListM: Codable,Hashable {
 //    var id = UUID()
     
@@ -24,7 +24,7 @@ struct ChatListM: Codable,Hashable {
 //    }
 }
 
-// MARK: - TeacherLessonSessionsDto
+// MARK: - TeacherLessonSessionsDto -
 struct TeacherLessonSessionsDto: Codable,Hashable,Identifiable {
     var id: Int?
     var lessonName, creationDate: String?
@@ -33,3 +33,26 @@ struct TeacherLessonSessionsDto: Codable,Hashable,Identifiable {
         case lessonName, creationDate
     }
 }
+
+
+
+
+// MARK: - ChatDetailsM -
+struct ChatDetailsM: Codable,Hashable,Identifiable {
+    var id: Int?
+    var teacherName, studentName, subjectName: String?
+    var comments: [CommentDetailsDto]?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "bookTeacherLessonSessionDetailId"
+        case teacherName, studentName, subjectName
+        case comments = "teacherLessonSessionCommentDetailsDtos"
+    }
+}
+
+// MARK: - TeacherLessonSessionCommentDetailsDto -
+struct CommentDetailsDto: Codable,Hashable {
+    var comment, fromName, toName, fromImage: String?
+    var toImage, creationDate: String?
+}
+
