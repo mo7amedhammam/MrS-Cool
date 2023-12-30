@@ -17,7 +17,7 @@ class ChatListVM: ObservableObject {
 //    @Published var filtersubject : DropDownOption?
 //    @Published var filterlesson : DropDownOption?
 //    @Published var filtergroupName : String = ""
-    @Published var comment : String?
+    @Published var comment : String=""
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -36,6 +36,7 @@ class ChatListVM: ObservableObject {
 extension ChatListVM{
     
     func GetChatsList(){
+        isLoading = false
         let target = teacherServices.GetAllComentsList
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[ChatListM]>.self)
@@ -100,13 +101,12 @@ extension ChatListVM{
             })
             .store(in: &cancellables)
     }
-    func CreateChatComments(){
-        var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ?? ""]
-//        if let chatid = selectedChatId{
-//            parameters["bookTeacherLessonSessionDetailId"] = chatid
-//        }
+    func CreateChatComment(){
+        isLoading = false
+        let parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ]
         print("parameters",parameters)
         let target = teacherServices.CreateComment(parameters: parameters)
+        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
@@ -133,42 +133,6 @@ extension ChatListVM{
             })
             .store(in: &cancellables)
     }
-
-    
-//    func clearTeacherGroup(){
-//        subject = nil
-//        lesson = nil
-//        date = nil
-//        groupName = ""
-//    }
-//    func clearFilter(){
-//        filtersubject = nil
-//        filterlesson = nil
-//        filterdate = nil
-//        filtergroupName = ""
-//    }
-    //    func selectSubjectForEdit(item:TeacherSubjectM){
-    //        isEditing = false
-    //        editId = item.id ?? 0
-    //        educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
-    //        educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
-    //        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
-    //        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
-    //        if let min = item.minGroup{
-    //            minGroup = String(min)
-    //        }
-    //        if let max = item.maxGroup{
-    //            maxGroup = String(max)
-    //        }
-    //        if let gcost = item.groupCost{
-    //            groupCost = String(gcost)
-    //        }
-    //        if let indcost = item.individualCost{
-    //            individualCost = String(indcost)
-    //        }
-    //        subjectBrief = item.teacherBrief ?? ""
-    //        isEditing = true
-    //    }
     
     func cleanup() {
         // Cancel any ongoing Combine subscriptions
