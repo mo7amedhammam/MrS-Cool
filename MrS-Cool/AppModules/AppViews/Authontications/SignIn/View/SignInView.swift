@@ -28,6 +28,7 @@ struct SignInView: View {
 
                     case .Teacher:
                         Helper.shared.setSelectedUserType(userType: .Teacher)
+                        destination = AnyView(TeacherHomeView())
                     }
                 }
                 GeometryReader{gr in
@@ -129,15 +130,18 @@ struct SignInView: View {
 
             case .Teacher:
                 Helper.shared.setSelectedUserType(userType: .Teacher)
-                destination = AnyView(TeacherHomeView())
+//                destination = AnyView(TeacherHomeView())
             }
           })
         .showHud(isShowing: $teachersigninvm.isLoading)
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
-        NavigationLink(destination: destination, isActive: .constant(teachersigninvm.isLogedin||isPush), label: {})
+        NavigationLink(destination: destination, isActive: $isPush, label: {})
             .onDisappear{
                 teachersigninvm.cleanup()
+            }
+            .onChange(of: teachersigninvm.isLogedin) { newval in
+                isPush = newval
             }
     }
 }

@@ -75,7 +75,7 @@ extension StudentSignUpVM{
         
 //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
-        let target = Authintications.Register(user: .Teacher, parameters: parameters)
+        let target = Authintications.Register(user: .Student, parameters: parameters)
         isLoading = true
         BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
             .receive(on: DispatchQueue.main)
