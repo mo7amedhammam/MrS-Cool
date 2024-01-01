@@ -12,9 +12,10 @@ struct StudentSignUpView: View {
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var studentsignupvm : StudentSignUpVM
     
-    @State var isPush = false
-    @State var destination = EmptyView()
-    
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
+    @State private var isVerified = false
+
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -57,7 +58,8 @@ struct StudentSignUpView: View {
                     Spacer()
                     
                     CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
-                        isPush = true
+                        studentsignupvm.RegisterStudent()
+//                        isPush = true
 //                        destination = AnyView(OTPVerificationView().hideNavigationBar())
                     })
                     .frame(height: 50)
@@ -69,6 +71,20 @@ struct StudentSignUpView: View {
                 .frame(minHeight: gr.size.height)
                 .padding(.horizontal)
             }
+            .fullScreenCover(isPresented: $studentsignupvm.isDataUploaded, onDismiss: {
+                print("dismissed ")
+                if isVerified {
+//                    destination = AnyView(StudentHomeView())
+//                    currentStep = .subjectsData
+//                    isPush = true
+                    dismiss()
+
+                }
+            }, content: {
+                OTPVerificationView(PhoneNumber:studentsignupvm.phone,CurrentOTP: studentsignupvm.OtpM?.otp ?? 0, secondsCount:studentsignupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
+                    .hideNavigationBar()
+            })
+
             
         }
         .onAppear(perform: {
@@ -76,7 +92,7 @@ struct StudentSignUpView: View {
                 lookupsvm.GetEducationTypes()
         })
 
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
 
     }
 }

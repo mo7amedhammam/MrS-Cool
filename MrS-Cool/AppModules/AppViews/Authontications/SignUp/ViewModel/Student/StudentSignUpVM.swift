@@ -55,11 +55,7 @@ class StudentSignUpVM: ObservableObject {
 
 
     @Published var isDataUploaded: Bool = false
-    @Published var OtpM: OtpM?{
-        didSet{
-            isDataUploaded = true
-        }
-    }
+    @Published var OtpM: OtpM?
     
 //    @Published var isTeacherHasSubjects: Bool = false
 //    @Published var isTeacherHasDocuments: Bool = false
@@ -70,14 +66,14 @@ class StudentSignUpVM: ObservableObject {
 
 extension StudentSignUpVM{
     func RegisterStudent(){
-        guard let genderid = selectedGender?.id,let birthdate = birthDateStr, let academicYearId = academicYear?.id else {return}
+        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"), let academicYearId = academicYear?.id else {return}
         let parameters:[String:Any] = ["name":name,"mobile":phone,"passwordHash":Password,"genderId":genderid,"birthdate":birthdate, "academicYearEducationLevelId":academicYearId]
         
 //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
         let target = Authintications.Register(user: .Student, parameters: parameters)
         isLoading = true
-        BaseNetwork.uploadApi(target, BaseResponse<OtpM>.self, progressHandler: {progress in})
+        BaseNetwork.CallApi(target, BaseResponse<OtpM>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
@@ -96,6 +92,7 @@ extension StudentSignUpVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
                     OtpM = model
+                    isDataUploaded = true
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")

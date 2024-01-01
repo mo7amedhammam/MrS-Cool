@@ -67,7 +67,7 @@ struct SignUpView: View {
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})
 //        .showHud(isShowing: $signupvm.isLoading)
 
-        .showHud(isShowing: .constant( signupvm.isLoading ?? false || signupvmsubject.isLoading ?? false || signupvmdocument.isLoading ?? false))
+        .showHud(isShowing: .constant( signupvm.isLoading ?? false || signupvmsubject.isLoading ?? false || signupvmdocument.isLoading ?? false || studentsignupvm.isLoading ?? false))
         
 //        .showAlert(hasAlert: $signupvm.isError, alertType: .error( message: "\(signupvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 //        .showHud(isShowing: $appenvironmenrs.isLoading)

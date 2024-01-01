@@ -19,7 +19,7 @@ struct ContentView: View {
                     if Helper().getSelectedUserType() == .Teacher{
                         TeacherHomeView()
                     }else if Helper().getSelectedUserType() == .Student{
-                        
+                        StudentHomeView()
                     }else{
                         
                     }

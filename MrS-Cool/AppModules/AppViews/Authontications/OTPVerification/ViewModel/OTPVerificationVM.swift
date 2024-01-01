@@ -47,7 +47,7 @@ class OTPVerificationVM: ObservableObject {
         let parametersarr : [String : Any] =  ["mobile" : mobile ]
         isLoading = true
         // Create your API request with the username and password
-        let target = Authintications.SendOtp(user: .Teacher,parameters: parametersarr)
+        let target = Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
 
         // Make the API call using your APIManager or networking code
         BaseNetwork.CallApi(target, BaseResponse<OtpM>.self)
@@ -86,7 +86,7 @@ class OTPVerificationVM: ObservableObject {
         let parametersarr : [String : Any] =  ["otp" : otp,"mobile" : mobile ]
         isLoading = true
         // Create your API request with the username and password
-        let target = Authintications.VerifyOtpUser(user: .Teacher,parameters: parametersarr)
+        let target = Authintications.VerifyOtpUser(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
         
         // Make the API call using your APIManager or networking code
         BaseNetwork.CallApi(target, BaseResponse<TeacherModel>.self)

@@ -57,7 +57,7 @@ extension SignInVM{
         
         //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
-        let target = Authintications.TeacherLogin(user: .Teacher, parameters: parameters)
+        let target = Authintications.TeacherLogin(user: Helper.shared.getSelectedUserType() ?? .Teacher, parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherModel>.self)
             .receive(on: DispatchQueue.main)

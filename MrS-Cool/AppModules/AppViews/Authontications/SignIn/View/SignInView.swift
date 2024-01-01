@@ -13,7 +13,7 @@ struct SignInView: View {
     
     @State var rememberMe = false
     @State var isPush = false
-    @State var destination = AnyView(EmptyView())
+    @State var destination = AnyView(StudentHomeView())
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_in",hideImage: true)
@@ -22,6 +22,7 @@ struct SignInView: View {
                     switch selectedUser.user {
                     case .Student:
                         Helper.shared.setSelectedUserType(userType: .Student)
+                        destination = AnyView(StudentHomeView())
 
                     case .Parent:
                         Helper.shared.setSelectedUserType(userType: .Parent)
