@@ -104,16 +104,17 @@ struct ChatsListView: View {
 }
 
 struct CustomSearchBar: View {
-@Binding var searchText: String
+    var placeHolder: String? = ""
+    @Binding var searchText: String
 
 var body: some View {
     HStack {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
-            TextField("Search", text: $searchText)
+            TextField(placeHolder?.localized() ?? "Search".localized(), text: $searchText)
                 .font(Font.SoraRegular(size:13))
-                .foregroundColor( .mainBlue)
+                .foregroundColor(.mainBlue)
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
 
@@ -145,7 +146,7 @@ var body: some View {
 }
 }
 #Preview{
-    CustomSearchBar(searchText: .constant(""))
+    CustomSearchBar(placeHolder: "Search",searchText: .constant(""))
 }
 
 

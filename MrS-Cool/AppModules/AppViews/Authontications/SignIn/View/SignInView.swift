@@ -22,7 +22,7 @@ struct SignInView: View {
                     switch selectedUser.user {
                     case .Student:
                         Helper.shared.setSelectedUserType(userType: .Student)
-                        destination = AnyView(StudentHomeView())
+                        destination = AnyView(StudentTabBarView())
 
                     case .Parent:
                         Helper.shared.setSelectedUserType(userType: .Parent)

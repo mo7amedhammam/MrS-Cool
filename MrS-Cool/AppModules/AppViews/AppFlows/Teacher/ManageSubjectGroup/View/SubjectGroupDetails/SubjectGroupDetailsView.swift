@@ -140,34 +140,35 @@ struct SubjectGroupDetailsView: View {
                             .frame(minHeight: gr.size.height/2)
                             
                             Spacer()
-                            if previewOption == .newGroup{
-                                HStack {
-                                    Group{
-                                        CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
-                                            subjectgroupvm.error = .question(title: "", image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
-                                                subjectgroupvm.CreateTeacherGroup()
-                                            })
-                                            subjectgroupvm.isError = true
-                                        })
-                                        CustomBorderedButton(Title:"Back",IsDisabled: .constant(false), action: {
-                                            //                                    subjectgroupvm.clearTeacherGroup()
-                                            dismiss()
-                                        })
-                                    }
-                                    .frame(width:150,height: 40)
-                                    
-                                }.padding(.vertical)
-                            }
+                
                         }
                         .frame(minHeight: gr.size.height)
      
                     }
+                    
+                }
+                if previewOption == .newGroup{
+                    HStack {
+                        Group{
+                            CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
+                                subjectgroupvm.error = .question(title: "", image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
+                                    subjectgroupvm.CreateTeacherGroup()
+                                })
+                                subjectgroupvm.isError = true
+                            })
+                            CustomBorderedButton(Title:"Back",IsDisabled: .constant(false), action: {
+                                //                                    subjectgroupvm.clearTeacherGroup()
+                                dismiss()
+                            })
+                        }
+                        .frame(width:150,height: 40)
+                        
+                    }.padding(.vertical)
                 }
 //                .onAppear(perform: {
 //                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
 //                    manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
 //                })
-     
             }
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
