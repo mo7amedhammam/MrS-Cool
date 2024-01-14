@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct StudentTabBarView: View {
-    @State private var selectedIndex = 1
+    @State private var selectedIndex = 2
     private let tabBarItems = [
-        TabBarItem(icon: "tab0", selectedicon: "tab0", title: ""),
-        TabBarItem(icon: "tab1", selectedicon: "tab1", title: ""),
+        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
+        TabBarItem(icon: "tab1", selectedicon: "tab1selected", title: ""),
         TabBarItem(icon: "tab2", selectedicon: "tab2selected", title: ""),
-        TabBarItem(icon: "tab3", selectedicon: "tab3", title: ""),
-        TabBarItem(icon: "tab4", selectedicon: "tab4", title: "")
+        TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
+        TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -48,7 +48,6 @@ struct StudentTabBarView: View {
             )
             
             TabView(selection: $selectedIndex) {
-                
                 StudentHomeView()
                     .tag(0)
                 

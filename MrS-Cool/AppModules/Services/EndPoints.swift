@@ -44,7 +44,7 @@ enum EndPoints: String {
     case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear/Create"///Post
     case GetTeacherSubjects = "TeacherSubjectAcademicSemesterYear/GetTeacherSubjectAcademicSemesterYearList"///post
     case DeleteTeacherSubject = "TeacherSubjectAcademicSemesterYear/Delete"///get
-   
+    
     //Teacher Documents
     case RegisterTeacherDocuments = "TeacherDocument/Create" ///post
     case GetTeacherDocument​ = "TeacherDocument/GetMyDocuments"///post
@@ -53,44 +53,44 @@ enum EndPoints: String {
     //Teacher Subjects
     case sendOTPTeacher = "Teacher/SendOTP" ///Post
     case VerifyOTPTeacher = "Teacher/VefiryUser" /// Post
-
+    
     case ResetPasswordTeacher = "Teacher/ResetPassword"
     case ChangePasswordTeacher = "Teacher/ChangePassword"
-   
+    
     // MARK: -- Student Auth --
     case RegisterStudent = "Student/Register" ///post
     case LoginStudent = "Student/Login"///post
     
     case sendOTPStudent = "Student/SendOTP" ///Post
     case VerifyOTPStudent = "Student/VefiryUser" /// Post
-
+    
     case ResetPasswordStudent = "Student/ResetPassword"
     case ChangePasswordStudent = "Student/ChangePassword"
-
+    
     // MARK: -- Student Auth --
     case RegisterParent = "Parent/Register" ///post
     case LoginParent = "Parent/Login"///post
     
     case sendOTPParent = "Parent/SendOTP" ///Post
     case VerifyOTPParent = "Parent/VefiryUser" /// Post
-
+    
     case ResetPasswordParent = "Parent/ResetPassword"
     case ChangePasswordParent = "Parent/ChangePassword"
     
     // MARK: -- Teacher Profile --
     case GetTeacherProfile = "Teacher/Profile"
     case UpdateTeacherProfile = "Teacher/UpdateProfile"
-
+    
     // MARK: -- Teacher Subject --
     case UpdateTeacherSubject = "TeacherSubjectAcademicSemesterYear/Update"
-
+    
     // MARK: -- Teacher Subject Lessons --
     case GetTeacherSubjectLessons = "TeacherLesson/GetMyLessons"
     case UpdateTeacherSubjectLessons = "TeacherLesson/CreateOrUpdate"
-
+    
     case GetSubjectLessonBrief = "TeacherLesson/GetTeacherBerifById"
     case UpdateSubjectLessonBrief = "TeacherLesson/UpdateTeacherLessonBerif"
-
+    
     // MARK: -- Teacher Subject Lessons Material --
     case GetMyLessonMaterials = "TeacherLessonMaterial/GetMyLessonMaterials"
     case CreateMyLessonMaterials = "TeacherLessonMaterial/Create"
@@ -101,7 +101,7 @@ enum EndPoints: String {
     case GetMySchedules = "TeacherSchedule/GetMySchedules"
     case CreateMySchedules = "TeacherSchedule/Create"
     case DeleteMySchedules = "TeacherSchedule/Delete"
-
+    
     // MARK: -- Teacher Groups for lesson --
     case GetTeacherSubjectForList = "TeacherSubjectAcademicSemesterYear/GetTeacherSubjectAcademicSemesterYearForList"
     case GetTeacherLessonForList = "TeacherLesson/GetTeacherLessonForList"
@@ -119,13 +119,26 @@ enum EndPoints: String {
     // MARK: -- Teacher Completed Lessons --
     case GetMyCompletedLessons = "TeacherCompletedLesson/GetMyCompletedLesson"
     case GetMyCompletedLessonDetails = "TeacherCompletedLesson/GetMyCompletedLessonDetail"
-
+    
     // MARK: -- Teacher Calendar Schedual --
     case GetMyCalenderSchedual = "TeacherCalenderSchedual/GetMyCalenderSchedual"
     case CancelMyCalenderSchedual = "TeacherCalenderSchedual/CancelBookLessonSession"
-
+    
     // MARK: -- Chats --
     case GetAllStudentsChat = "TeacherLessonSessionComment/GetAllStudentsChatWithTeacher"
     case GetAllStudentsChatComments = "TeacherLessonSessionComment/GetAllLessonChatByTeacher"
     case CreateComment = "TeacherLessonSessionComment/CreateComment"
+    
+//    MARK: -- Student Home --
+    case GetStudentSubjects = "Student/GetStudentSubjects"
+    
+    case MostViewedLessons = "Lesson/MostViewedLessons"
+    case MostBookedLessons = "Lesson/MostBookedLessons"
+
+    case MostViewedSubjects = "SubjectSemesterYear/TopViewedSubjects"
+    case MostBookedSubjects = "SubjectSemesterYear/TopBookedSubjects"
+
+    case MostViewedTeacher = "Teacher/MostViewedTeacher"
+    case MostRatedTeacher = "Teacher/MostRatedTeacher"
+
 }
