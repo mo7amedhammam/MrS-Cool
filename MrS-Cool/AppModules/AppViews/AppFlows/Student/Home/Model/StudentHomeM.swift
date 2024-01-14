@@ -45,9 +45,9 @@ struct StudentMostViewedSubjectsM: Codable,Hashable {
 // MARK: - mostviewedTeachers -
 struct StudentMostViewedTeachersM: Codable,Hashable {
     var id: Int?
-    var teacherName, teacherImage,teacherReview: String?
-    var teacherLessonId,teacherSubjectId,duration,price: Int?
-    var teacherRate : Double?
+    var teacherName, teacherImage: String?
+    var teacherLessonId,teacherSubjectId,duration,teacherReview,price: Int?
+    var teacherRate : Float?
     enum CodingKeys: String, CodingKey {
         case id = "teacherId"
         case teacherName, teacherImage

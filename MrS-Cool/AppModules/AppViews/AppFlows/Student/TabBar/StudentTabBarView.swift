@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct StudentTabBarView: View {
+    @StateObject var studenttabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
     private let tabBarItems = [
         TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -17,91 +18,105 @@ struct StudentTabBarView: View {
         TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
     
     @State var searchText = ""
     
     var body: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading){
-                    Group{
-                        Text("Hi ")+Text("Student ")+Text(",\(selectedIndex)".localized())
+//        NavigationView{
+            VStack() {
+                HStack {
+                    VStack(alignment: .leading){
+                        Group{
+                            Text("Hi ")+Text("Student ")+Text(",\(selectedIndex)".localized())
+                            
+                            Text("Lets Start Learning! ".localized())
+                                .font(Font.SoraRegular(size: 11))
+                                .padding(.vertical,0.5)
+                        }
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.whiteA700)
                         
-                        Text("Lets Start Learning! ".localized())
-                            .font(Font.SoraRegular(size: 11))
-                            .padding(.vertical,0.5)
                     }
-                    .font(Font.SoraBold(size: 18))
-                    .foregroundColor(.whiteA700)
                     
+                    Spacer()
+                    Button(action: {
+                        
+                    }, label: {
+                        Image("sidemenue")
+                            .padding(.vertical,15)
+                            .padding(.horizontal,10)
+
+                    })
+                    .background(
+                        CornersRadious(radius: 10, corners: [.topLeft,.topRight,.bottomLeft,.bottomRight])
+                            .fill(ColorConstants.WhiteA700)
+                    )
                 }
+                .padding([.bottom,.horizontal])
+                .background(
+                    CornersRadious(radius: 10, corners: [.bottomLeft,.bottomRight])
+                        .fill(ColorConstants.MainColor)
+                        .edgesIgnoringSafeArea(.top)
+                )
                 
+                TabView(selection: $selectedIndex) {
+                    StudentHomeView()
+                        .tag(0)
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
+                    
+                    StudentHomeView()
+                        .tag(1)
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
+                    
+                    StudentHomeView()
+                        .environmentObject(studenttabbarvm)
+                        .tag(2)
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
+                    
+                    StudentHomeView()
+                        .tag(3)
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
+                    
+                    StudentHomeView()
+                        .tag(4)
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .padding(.top,-8)
+                .padding(.bottom,-15)
                 Spacer()
+                CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
+                
             }
-            .padding()
-            .background(
-                CornersRadious(radius: 10, corners: [.bottomLeft,.bottomRight])
-                    .fill(ColorConstants.MainColor)
-                    .edgesIgnoringSafeArea(.top)
-            )
-            
-            TabView(selection: $selectedIndex) {
-                StudentHomeView()
-                    .tag(0)
-                
-                    .gesture(
-                        DragGesture().onChanged { _ in
-                            // Disable swipe gestures
-                        }
-                    )
-                
-                StudentHomeView()
-                    .tag(1)
-                    .gesture(
-                        DragGesture().onChanged { _ in
-                            // Disable swipe gestures
-                        }
-                    )
-                
-                StudentHomeView()
-                    .tag(2)
-                    .gesture(
-                        DragGesture().onChanged { _ in
-                            // Disable swipe gestures
-                        }
-                    )
-                
-                StudentHomeView()
-                    .tag(3)
-                    .gesture(
-                        DragGesture().onChanged { _ in
-                            // Disable swipe gestures
-                        }
-                    )
-                
-                StudentHomeView()
-                    .tag(4)
-                    .gesture(
-                        DragGesture().onChanged { _ in
-                            // Disable swipe gestures
-                        }
-                    )
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            
-            Spacer()
-            CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
-            
-        }
-        .edgesIgnoringSafeArea(.bottom)
-        .hideNavigationBar()
-        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
-            hideKeyboard()
-        })
-        
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+            .edgesIgnoringSafeArea(.bottom)
+            .hideNavigationBar()
+            .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+                hideKeyboard()
+            })
+//        }
+            NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
     }
 }
 
