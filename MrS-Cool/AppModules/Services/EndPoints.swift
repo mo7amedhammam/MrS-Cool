@@ -140,5 +140,7 @@ enum EndPoints: String {
 
     case MostViewedTeacher = "Teacher/MostViewedTeacher"
     case MostRatedTeacher = "Teacher/MostRatedTeacher"
+    
+    case GetHomeSubjectDetails = "SubjectSemesterYear/GetSubjectLessons"
 
 }

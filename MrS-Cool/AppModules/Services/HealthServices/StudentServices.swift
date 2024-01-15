@@ -13,8 +13,9 @@ enum StudentServices{
     case GetMostLessons(mostType:studentLessonMostCases,parameters : [String:Any])
     case GetMostSubjects(mostType:studentLessonMostCases,parameters : [String:Any])
     case GetMostTeachers(mostType:studentTeacherMostCases,parameters : [String:Any])
+    
+    case GetHomeSubjectDetails(parameters : [String:Any])
 
-//    case GetMostBookedLessons(parameters : [String:Any])
 }
 
 extension StudentServices:TargetType{
@@ -47,6 +48,8 @@ extension StudentServices:TargetType{
             case .topRated:
                 return EndPoints.MostRatedTeacher.rawValue
             }
+        case .GetHomeSubjectDetails:
+            return EndPoints.GetHomeSubjectDetails.rawValue
         }
     }
     
@@ -55,7 +58,8 @@ extension StudentServices:TargetType{
         case .GetStudentSubjects,
                 .GetMostLessons,
                 .GetMostSubjects,
-                .GetMostTeachers:
+                .GetMostTeachers,
+                .GetHomeSubjectDetails:
             
             return .get
         }
@@ -69,7 +73,8 @@ extension StudentServices:TargetType{
         case .GetStudentSubjects(parameters: let Parameters),
                 .GetMostLessons(_,parameters: let Parameters),
                 .GetMostSubjects(_,parameters: let Parameters),
-                .GetMostTeachers(_,parameters: let Parameters):
+                .GetMostTeachers(_,parameters: let Parameters),
+                .GetHomeSubjectDetails(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
 //        case .UpdateTeacherProfile(parameters: let Parameters),

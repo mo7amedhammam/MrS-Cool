@@ -7,14 +7,11 @@
 
 import SwiftUI
 
-struct CompletedLessonsList: View {    //        @Environment(\.dismiss) var dismiss
+struct CompletedLessonsList: View {  
+    //        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var completedlessonsvm : CompletedLessonsVM
-    
-    //    @State var isPush = false
-    //    @State var destination = EmptyView()
-    //    @State private var isEditing = false
     
     @State var showFilter : Bool = false
     //    var currentSubject:TeacherSubjectM?

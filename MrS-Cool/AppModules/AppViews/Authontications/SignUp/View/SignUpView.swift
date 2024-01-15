@@ -116,20 +116,25 @@ struct haveAccountView: View {
 struct SignUpHeaderTitle: View {
     var Title:String? = "Personal Information"
     var subTitle:String? = "Enter subtitle here"
-    
+    var subTitleView:AnyView? 
+
     var body: some View {
         VStack (alignment: .leading,spacing: 5){
             Text(Title?.localized() ?? "")
                 .font(Font.SoraBold(size:18))
                 .fontWeight(.bold)
-                .foregroundColor(ColorConstants.Black900)
+//                .foregroundColor(ColorConstants.Black900)
                 .multilineTextAlignment(.leading)
             
-            Text(subTitle?.localized() ?? "")
-                .font(Font.SoraRegular(size: 10.0))
-                .fontWeight(.regular)
-                .foregroundColor(ColorConstants.Black900)
-                .multilineTextAlignment(.leading)
+            if let subTitleView = subTitleView{
+                subTitleView
+            }else{
+                Text(subTitle?.localized() ?? "")
+                    .font(Font.SoraRegular(size: 10.0))
+                    .fontWeight(.regular)
+                    .foregroundColor(ColorConstants.Black900)
+                    .multilineTextAlignment(.leading)
+            }
         }
     }
 }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct ColorConstants {
 //    static let user = Helper.shared.getSelectedUserType()
 //    static let MainColor: Color = .init(user == .Teacher ? "MainBlue":user == .Parent ? "ParentBtnBg":"StudentBtnBg")
@@ -40,7 +39,7 @@ struct ColorConstants {
 }
 
 extension ColorConstants {
-    
+    static let ParentDisableBg:Color = .init("ParentDisableBg")
     static let Bluegray30066: Color = .init("Bluegray30066")
     static let Gray51: Color = .init("Gray51")
     static let Bluegray40099: Color = .init("Bluegray40099")

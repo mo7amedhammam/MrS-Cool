@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */; };
 		C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */; };
+		C80403442B554E3E003279AD /* HomeSubjectDetailsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403432B554E3D003279AD /* HomeSubjectDetailsM.swift */; };
+		C80403462B554ED9003279AD /* HomeSubjectDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */; };
+		C80403482B554F01003279AD /* HomeSubjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403472B554F01003279AD /* HomeSubjectDetailsView.swift */; };
 		C80425F62AF2805E00E876E2 /* CustomSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */; };
 		C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */; };
 		C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */; };
@@ -142,6 +145,9 @@
 		747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
 		C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentsVM.swift; sourceTree = "<group>"; };
+		C80403432B554E3D003279AD /* HomeSubjectDetailsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsM.swift; sourceTree = "<group>"; };
+		C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsVM.swift; sourceTree = "<group>"; };
+		C80403472B554F01003279AD /* HomeSubjectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsView.swift; sourceTree = "<group>"; };
 		C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSuccessView.swift; sourceTree = "<group>"; };
 		C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpView.swift; sourceTree = "<group>"; };
 		C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentSignUpView.swift; sourceTree = "<group>"; };
@@ -300,6 +306,50 @@
 				23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C804033E2B554DF2003279AD /* HomeList */ = {
+			isa = PBXGroup;
+			children = (
+				C82344682B455711002D90A3 /* Model */,
+				C82344672B455708002D90A3 /* ViewModel */,
+				C82344662B4556FF002D90A3 /* View */,
+			);
+			path = HomeList;
+			sourceTree = "<group>";
+		};
+		C804033F2B554DFF003279AD /* HomeSubjectDetails */ = {
+			isa = PBXGroup;
+			children = (
+				C80403422B554E18003279AD /* Model */,
+				C80403412B554E14003279AD /* ViewModel */,
+				C80403402B554E0E003279AD /* View */,
+			);
+			path = HomeSubjectDetails;
+			sourceTree = "<group>";
+		};
+		C80403402B554E0E003279AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C80403472B554F01003279AD /* HomeSubjectDetailsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C80403412B554E14003279AD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C80403422B554E18003279AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C80403432B554E3D003279AD /* HomeSubjectDetailsM.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C80425F42AF2804000E876E2 /* SuccessView */ = {
@@ -1187,9 +1237,8 @@
 		C8D3F3A82B42D2EE003CFE45 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				C82344682B455711002D90A3 /* Model */,
-				C82344672B455708002D90A3 /* ViewModel */,
-				C82344662B4556FF002D90A3 /* View */,
+				C804033F2B554DFF003279AD /* HomeSubjectDetails */,
+				C804033E2B554DF2003279AD /* HomeList */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1712,8 +1761,10 @@
 				C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */,
 				C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */,
 				C877F53C2B21DE6400CEF08F /* ManageSubjectGroupVM.swift in Sources */,
+				C80403442B554E3E003279AD /* HomeSubjectDetailsM.swift in Sources */,
 				C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */,
 				C899E3F02ADED3D800593369 /* Roundedcorners.swift in Sources */,
+				C80403482B554F01003279AD /* HomeSubjectDetailsView.swift in Sources */,
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
 				C897B3402B53E866008BA13D /* StudentMostViewedSubjectCell.swift in Sources */,
 				C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */,
@@ -1722,6 +1773,7 @@
 				C8D7C0782B063EC9009D5533 /* ChangePasswordM.swift in Sources */,
 				C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */,
 				C85397D82B0A16DE00164338 /* ManageTeacherSubjectLessonsM.swift in Sources */,
+				C80403462B554ED9003279AD /* HomeSubjectDetailsVM.swift in Sources */,
 				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
 				C8986C7B2AE93282003E9179 /* TeacherM.swift in Sources */,
 				C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */,

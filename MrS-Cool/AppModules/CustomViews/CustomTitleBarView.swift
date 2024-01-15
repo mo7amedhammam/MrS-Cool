@@ -21,10 +21,12 @@ struct CustomTitleBarView: View {
             HStack {
                 if hideImage == false{
                     Image(imageName ?? (Helper.shared.getLanguage() == "en" ? "img_arrowleft":"img_arrowright"))
+                        .renderingMode(.template)
                         .resizable()
                         .frame(width: 12.0,
                                height: 20.0, alignment: .center)
                         .scaledToFit()
+                        .foregroundColor(ColorConstants.MainColor)
                         .clipped()
                         .onTapGesture {
                             if action != nil{
@@ -33,6 +35,7 @@ struct CustomTitleBarView: View {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         }
+                        
                 }
                 
                 Spacer()
