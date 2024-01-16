@@ -15,12 +15,15 @@ class HomeSubjectDetailsVM: ObservableObject {
     //    MARK: --- inputs ---
     @Published var SelectedStudentSubjectId : Int = 0
 
+    
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var StudentSubjectDetails:StudentHomeSubjectDetailsM? = StudentHomeSubjectDetailsM()
+    @Published var SelectedStudentLesson : UnitLessonDtoList = UnitLessonDtoList.init()
+
     
     //    @Published var isTeacherHasSubjects: Bool = false
     //    @Published var letsPreview : Bool = false

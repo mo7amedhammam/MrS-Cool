@@ -12,10 +12,10 @@ struct StudentHomeView: View {
     
     @StateObject var studenthomevm = StudentHomeVM()
     
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
     
-    @State var searchText = ""
+//    @State var searchText = ""
     
     var body: some View {
         VStack(spacing:0) {
@@ -36,7 +36,7 @@ struct StudentHomeView: View {
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
                                     StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
-                                        studenthometabbarvm.destination = AnyView(Text("Subject details"))
+                                        studenthometabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
                                         studenthometabbarvm.ispush = true
                                     }
                                     .frame(width: gr.size.width/2.7, height: 160)
@@ -220,7 +220,7 @@ struct StudentHomeView: View {
             hideKeyboard()
         })
         
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
 
