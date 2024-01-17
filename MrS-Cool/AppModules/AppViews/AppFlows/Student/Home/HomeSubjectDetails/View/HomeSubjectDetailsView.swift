@@ -78,46 +78,114 @@ struct HomeSubjectDetailsView: View {
                             .padding(.top)
                             .padding(.horizontal)
                             ScrollView(.vertical,showsIndicators: false){
-                                
+                                Spacer().frame(height:20)
                                 ForEach(details.getSubjectLessonsDetailsDtoList ?? [],id:\.self){unit in
                                     UnitListCell(unit: unit){lesson in
-                                        //                                    guard let self = self else {return}
                                         print("lesson is ", lesson)
                                     }
-                                    
+                                                    
+//                                    Spacer()
+//                                        .frame(height:50)
                                 }
+
                                 
-                                
-                                
-                                
-                                //                        List(completedlessonsvm.completedLessonsList?.items ?? [], id:\.self) { lesson in
-                                //
-                                //                            CompletedLessonCell(model: lesson,reviewBtnAction: {
-                                //                                completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
-                                //                                destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
-                                //
-                                //                                isPush = true
-                                //                            })
-                                //                            .listRowSpacing(0)
-                                //                            .listRowSeparator(.hidden)
-                                //                            .listRowBackground(Color.clear)
-                                //                            .onAppear {
-                                //                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, let itemsCount = completedlessonsvm.completedLessonsList?.items?.count, itemsCount < totalCount {
-                                //                                    // Load the next page if there are more items to fetch
-                                //                                    completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
-                                //                                    completedlessonsvm.GetCompletedLessons()
-                                //                                }
-                                //                            }
-                                //                        }
-                                //                        .padding(.horizontal,-4)
-                                //                        .listStyle(.plain)
-                                //                        .frame(minHeight: gr.size.height/2)
+                                VStack(spacing:15){
+                                    HStack {
+                                        Text("Booking Full Subject".localized())
+                                            .font(.SoraBold(size: 18))
+                                            .foregroundColor(ColorConstants.WhiteA700)
+                                            .multilineTextAlignment(.leading)
+                                        Spacer()
+                                    }
+                                    .padding()
+                                    .background(content: {
+                                        ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
+                                    })
+                                    
+                                    HStack(){
+                                        Group {
+                                            Text("\(details.availableTeacherCount ?? 25)  ")
+                                                .font(Font.SoraSemiBold(size: 12))
+                                            + Text("Available Teachers".localized())
+                                        }
+                                        .font(Font.SoraRegular(size: 12))
+                                        .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal)
+                                    HStack(){
+//                                        Group {
+                                        Text("Standard listing submission, active for 30 dayss".localized())
+//                                                .font(Font.SoraSemiBold(size: 12))
+//                                            + Text("Available Teachers".localized())
+//                                        }
+                                        .font(Font.SoraRegular(size: 12))
+                                        .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }                                    .padding(.horizontal)
+
+                                    HStack{
+                                        Image("openningBookicon")
+                                            .renderingMode(.template)
+                                            .foregroundColor(ColorConstants.MainColor )
+                                            .frame(width: 14,height: 14, alignment: .center)
+                                        Group {
+                                             Text("  \(details.lessonsCount ?? 12) ")
+                                                .font(Font.SoraSemiBold(size: 12))
+                                            + Text("Lessons".localized())
+                                        }
+                                        .font(Font.SoraRegular(size: 12))
+                                        .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }                                    .padding(.horizontal)
+
+                                    HStack{
+                                        Image("moneyicon")
+                                            .renderingMode(.template)
+                                            .foregroundColor(ColorConstants.MainColor )
+                                            .frame(width: 14,height: 14, alignment: .center)
+                                        Group {
+                                            Text("Highest Price :".localized())
+                                            + Text("  \(details.maxPrice ?? 444) ")
+                                                .font(Font.SoraSemiBold(size: 12))
+                                            + Text("EGP".localized())
+                                        }
+                                        .font(Font.SoraRegular(size: 12))
+                                        .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }                                    .padding(.horizontal)
+
+                                    HStack{
+                                        Image("moneyicon")
+                                            .renderingMode(.template)
+                                            .foregroundColor(ColorConstants.MainColor )
+                                            .frame(width: 14,height: 14, alignment: .center)
+                                        Group {
+                                            Text("Lowest Price :".localized())
+                                            + Text("  \(details.minPrice ?? 222) ")
+                                                .font(Font.SoraSemiBold(size: 12))
+                                            + Text("EGP".localized())
+                                        }
+                                        .font(Font.SoraRegular(size: 12))
+                                        .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }                                    .padding(.horizontal)
+
+                                    CustomButton(Title:"View Details",IsDisabled:.constant(false) , action: {
+                                        
+                                    })
+                                    .frame(height: 45)
+                                    .padding(.top,10)
+                                    .padding(.horizontal)
+                                }
+                                .padding()
                                 
                                 Spacer()
+                                    .frame(height:50)
+
                             }
                             .frame(minHeight: gr.size.height)
                         }
-                        
                     }
                     
                     .background{
@@ -132,6 +200,8 @@ struct HomeSubjectDetailsView: View {
                         homesubjectdetailsvm.GetStudentSubjectDetails()
                     })
                 }else{
+                 
+
                     Spacer()
                 }
                 
@@ -274,7 +344,7 @@ struct UnitListCell: View {
                         //                        selectedLesson = lesson
                         lessonSelectionAction?(lesson)
                     }, label: {
-                        HStack {
+                        HStack() {
                             Image("img_book22243953")
                                 .resizable()
                                 .renderingMode(.template)
@@ -287,11 +357,10 @@ struct UnitListCell: View {
                                 }
                             
                             
-                            VStack(spacing:10){
+                            VStack(alignment: .leading,spacing:10){
                                 Text("\(lesson.lessonName ?? "lesson name")")
                                     .font(.SoraSemiBold(size: 13))
                                     .foregroundColor(.mainBlue)
-                                
                                 
                                 
                                 HStack{
@@ -340,11 +409,12 @@ struct UnitListCell: View {
                                         .font(Font.SoraRegular(size: 7))
                                         
                                         .foregroundColor(.mainBlue)
-                                        Spacer()
+//                                        Spacer()
                                     }
                                 }
                                 
                             }
+                            .padding(.horizontal)
                             
                             
                             Spacer()
