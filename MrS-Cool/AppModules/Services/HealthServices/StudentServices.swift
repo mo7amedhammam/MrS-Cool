@@ -15,6 +15,7 @@ enum StudentServices{
     case GetMostTeachers(mostType:studentTeacherMostCases,parameters : [String:Any])
     
     case GetHomeSubjectDetails(parameters : [String:Any])
+    case GetSubjectOrLessonTeachers(parameters : [String:Any])
 
 }
 
@@ -50,6 +51,9 @@ extension StudentServices:TargetType{
             }
         case .GetHomeSubjectDetails:
             return EndPoints.GetHomeSubjectDetails.rawValue
+        case .GetSubjectOrLessonTeachers:
+            return EndPoints.GetSubjectOrLessonTeachers.rawValue
+
         }
     }
     
@@ -62,6 +66,8 @@ extension StudentServices:TargetType{
                 .GetHomeSubjectDetails:
             
             return .get
+        case  .GetSubjectOrLessonTeachers:
+            return .post
         }
     }
     
@@ -77,9 +83,8 @@ extension StudentServices:TargetType{
                 .GetHomeSubjectDetails(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
-//        case .UpdateTeacherProfile(parameters: let Parameters),
-//                .CreateComment(parameters: let Parameters):
-//            return .parameterRequest(Parameters: Parameters, Encoding: .default)
+        case .GetSubjectOrLessonTeachers(parameters: let Parameters):
+            return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }
     

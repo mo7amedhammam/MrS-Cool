@@ -5,10 +5,12 @@
 //  Created by wecancity on 15/01/2024.
 //
 
+enum BookingCases{
+    case subject, lesson
+}
 import SwiftUI
 
 struct HomeSubjectDetailsView: View {
-    //        @Environment(\.dismiss) var dismiss
     var selectedsubjectid : Int
     @StateObject var homesubjectdetailsvm = HomeSubjectDetailsVM()
     
@@ -16,6 +18,8 @@ struct HomeSubjectDetailsView: View {
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
+    @State var bookingcase:BookingCases = .subject
+ 
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Subject Info")
@@ -82,6 +86,8 @@ struct HomeSubjectDetailsView: View {
                                 ForEach(details.getSubjectLessonsDetailsDtoList ?? [],id:\.self){unit in
                                     UnitListCell(unit: unit){lesson in
                                         print("lesson is ", lesson)
+                                        destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.lessonID ?? 0, bookingcase: .lesson))
+                                        isPush = true
                                     }
                                                     
 //                                    Spacer()
@@ -172,6 +178,8 @@ struct HomeSubjectDetailsView: View {
                                     }                                    .padding(.horizontal)
 
                                     CustomButton(Title:"View Details",IsDisabled:.constant(false) , action: {
+                                        destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: selectedsubjectid, bookingcase: .subject))
+                                        isPush = true
                                         
                                     })
                                     .frame(height: 45)
@@ -212,6 +220,7 @@ struct HomeSubjectDetailsView: View {
                 
             }
             
+            Spacer()
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -224,90 +233,17 @@ struct HomeSubjectDetailsView: View {
         //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
         //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
         
-        .overlay{
-            if showFilter{
-                // Blurred Background and Sheet
-                Color.mainBlue
-                    .opacity(0.3)
-                    .edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        showFilter.toggle()
-                    }
-                    .blur(radius: 4) // Adjust the blur radius as needed
-                DynamicHeightSheet(isPresented: $showFilter){
-                    VStack {
-                        ColorConstants.Bluegray100
-                            .frame(width:50,height:5)
-                            .cornerRadius(2.5)
-                            .padding(.top,2.5)
-                        HStack {
-                            Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            //                                            Spacer()
-                        }
-                        //                        ScrollView{
-                        //                            VStack{
-                        //                                Group {
-                        //                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:homesubjectdetailsvm.SubjectsForList)
-                        //                                        .onChange(of: completedlessonsvm.filtersubject){newval in
-                        //                                            if                                                     homesubjectdetailsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
-                        //                                            {
-                        //                                                completedlessonsvm.filterlesson = nil
-                        //                                                homesubjectdetailsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
-                        //                                            }
-                        //                                        }
-                        //
-                        //                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:homesubjectdetailsvm.LessonsForList)
-                        //
-                        //                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
-                        //
-                        //                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
-                        //                                }.padding(.top,5)
-                        //
-                        //                                Spacer()
-                        //                                HStack {
-                        //                                    Group{
-                        //                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                        //                                            completedlessonsvm .GetCompletedLessons()
-                        //                                            showFilter = false
-                        //                                        })
-                        //
-                        //                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                        //                                            completedlessonsvm.clearFilter()
-                        //                                            completedlessonsvm .GetCompletedLessons()
-                        //                                            showFilter = false
-                        //                                        })
-                        //                                    } .frame(width:130,height:40)
-                        //                                        .padding(.vertical)
-                        //                                }
-                        //                            }
-                        //                            .padding(.horizontal,3)
-                        //                            .padding(.top)
-                        //                        }
-                    }
-                    .padding()
-                    .frame(height:430)
-                    .keyboardAdaptive()
-                }
-            }
-        }
-        
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
 
 #Preview {
     HomeSubjectDetailsView(selectedsubjectid: 0)
-    //        .environmentObject(LookUpsVM())
-    //        .environmentObject(CompletedLessonsVM())
-    
 }
 
 struct UnitListCell: View {
     var unit : GetSubjectLessonsDetailsDtoList
     @State var isLessonsVisible = false
-    //    @Binding var selectedLesson : UnitLessonDtoList
     var lessonSelectionAction: ((UnitLessonDtoList) -> Void)? // Callback closure
     
     var body: some View {
@@ -364,7 +300,7 @@ struct UnitListCell: View {
                                 
                                 
                                 HStack{
-                                    Image("img_group_black_900")
+                                    Image("moneyicon")
                                         .renderingMode(.template)
                                         .foregroundColor(ColorConstants.MainColor )
                                         .frame(width: 12,height: 12, alignment: .center)
@@ -381,7 +317,7 @@ struct UnitListCell: View {
                                 }
                                 
                                 HStack{
-                                    Image("img_group_black_900")
+                                    Image("moneyicon")
                                         .renderingMode(.template)
                                         .foregroundColor(ColorConstants.MainColor )
                                         .frame(width: 12,height: 12, alignment: .center)

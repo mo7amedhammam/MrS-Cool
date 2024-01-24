@@ -143,4 +143,5 @@ enum EndPoints: String {
     
     case GetHomeSubjectDetails = "SubjectSemesterYear/GetSubjectLessons"
 
+    case GetSubjectOrLessonTeachers = "SubjectOrLessonTeachers/GetAllTeacher"
 }
