@@ -13,6 +13,9 @@ enum teachersSortCases:String{
     case PriceLowToHigh = "Price Low To High"
     case PriceHighToLow = "Price High To Low"
 }
+enum teachersGenders:String{
+    case Male, Female
+}
 
 class SubjectTeachersListVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -23,11 +26,24 @@ class SubjectTeachersListVM: ObservableObject {
 
     @Published var subjectId : Int?
     @Published var lessonId : Int?
-    @Published var rate : Int?
+    @Published var rate : Int = 0
     @Published var priceFrom : Int?
     @Published var priceTo : Int?
+    
+    @Published var genderCase : teachersGenders?{
+        didSet{
+            switch genderCase {
+            case .Male:
+                genderId = 1
+            case .Female:
+                genderId = 2
+            case nil:
+                genderId = nil
+            }
+        }
+    }
     @Published var genderId : Int?
-    @Published var teacherName : String?
+    @Published var teacherName : String = ""
     @Published var sortCase : teachersSortCases?{
         didSet{
             switch sortCase {
@@ -72,7 +88,7 @@ extension SubjectTeachersListVM{
          if let lessonId = lessonId{
             parameters["lessonId"] = lessonId
         }
-        if let rate = rate{
+        if rate > 0{
             parameters["rate"] = rate
         }
         if let priceFrom = priceFrom{
@@ -84,7 +100,7 @@ extension SubjectTeachersListVM{
         if let genderId = genderId{
             parameters["genderId"] = genderId
         }
-        if let teacherName = teacherName{
+        if teacherName.count > 0 {
             parameters["teacherName"] = teacherName
         }
         if let sortColumn = sortColumn{
@@ -110,10 +126,13 @@ extension SubjectTeachersListVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    //                    TeacherSubjects?.append(model)
-                    TeachersModel = receivedData.data
+                    if skipCount == 0{
+                        TeachersModel = receivedData.data
+                    }else{
+                        TeachersModel?.items?.append(contentsOf: receivedData.data?.items ?? [])
+                    }
                 }else{
-                                        isError =  true
+                    isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                 }
@@ -123,11 +142,11 @@ extension SubjectTeachersListVM{
     }
   
     func clearFilter(){
-        rate = nil
+        rate = 0
         priceFrom = nil
         priceTo = nil
         genderId = nil
-        teacherName = nil
+        teacherName = ""
     }
     func clearSort(){
         sortCase = nil

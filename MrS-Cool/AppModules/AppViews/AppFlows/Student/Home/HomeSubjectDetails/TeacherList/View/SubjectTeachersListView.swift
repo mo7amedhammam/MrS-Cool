@@ -18,7 +18,11 @@ struct SubjectTeachersListView: View {
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     var bookingcase:BookingCases
-    
+
+    @State private var isNameVisible = false
+    @State private var isPriceVisible = false
+    @State private var isRateVisible = false
+    @State private var isGenderVisible = false
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Subject Info")
@@ -94,6 +98,13 @@ struct SubjectTeachersListView: View {
                                 Spacer().frame(height:20)
                                 ForEach(teachers.items ?? [SubjectTeacherM.init()],id:\.self){teacher in
                                     TeacherCellView(teacher: teacher)
+                                        .onAppear {
+                                            if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, let itemsCount = homesubjectteachersvm.TeachersModel?.items?.count, itemsCount < totalCount {
+                                                // Load the next page if there are more items to fetch
+                                                homesubjectteachersvm.skipCount += homesubjectteachersvm.maxResultCount
+                                                homesubjectteachersvm.GetStudentSubjectTeachers()
+                                            }
+                                        }
                                 }
                                 
                                 
@@ -108,13 +119,8 @@ struct SubjectTeachersListView: View {
                         ColorConstants.WhiteA700
                             .clipShape(RoundedCorners(topLeft: 25, topRight: 25, bottomLeft: 0, bottomRight: 0))
                             .ignoresSafeArea()
-                        
                     }
-                    
-                    
                 }else{
-                    
-                    
                     Spacer()
                 }
                 
@@ -122,7 +128,6 @@ struct SubjectTeachersListView: View {
             .background{
                 ColorConstants.ParentDisableBg
                     .ignoresSafeArea()
-                
             }
             
             Spacer()
@@ -169,26 +174,175 @@ struct SubjectTeachersListView: View {
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
-                        ScrollView{
+//                        ScrollView{
                             VStack{
-//                                Group {
-//                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:homesubjectdetailsvm.SubjectsForList)
-//                                        .onChange(of: completedlessonsvm.filtersubject){newval in
-//                                            if                                                     homesubjectdetailsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
-//                                            {
-//                                                completedlessonsvm.filterlesson = nil
-//                                                homesubjectdetailsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
-//                                            }
-//                                        }
-//                                    
-//                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:homesubjectdetailsvm.LessonsForList)
-//                                    
-//                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
-//                                    
+                                Group {
+                                    
+                                    VStack{
+                                        Button(action: {
+                                            isNameVisible.toggle()
+                                        }, label: {
+                                            HStack {
+                                                Image("teacher_nameFiltericon")
+                                                    .renderingMode(.template)
+                                                    .foregroundColor(ColorConstants.MainColor)
+                                                
+                                                Text("Teacher Name".localized())
+                                                    .font(.SoraBold(size: 13))
+                                                    .foregroundColor(.mainBlue)
+                                                    .multilineTextAlignment(.leading)
+                                                Spacer()
+                                                Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                                    .renderingMode(.template)
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 15, height: 15, alignment: .center)
+                                                    .foregroundColor(ColorConstants.Bluegray20099)
+                                            }
+                                        })
+                                        .padding(.vertical)
+                                        
+                                        if isNameVisible{
+                                            CustomTextField(iconName:"",placeholder: "Teacher Name", text: $homesubjectteachersvm.teacherName)
+                                        }
+                                    }
+                                    
+                                    VStack {
+                                        Button(action: {
+                                            isPriceVisible.toggle()
+                                        }, label: {
+                                            HStack {
+                                                Image("moneyicon")
+                                                    .renderingMode(.template)
+                                                    .foregroundColor(ColorConstants.MainColor)
+                                                
+                                                Text("Price".localized())
+                                                    .font(.SoraBold(size: 13))
+                                                    .foregroundColor(.mainBlue)
+                                                    .multilineTextAlignment(.leading)
+                                                Spacer()
+                                                Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                                    .renderingMode(.template)
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 15, height: 15, alignment: .center)
+                                                    .foregroundColor(ColorConstants.Bluegray20099)
+                                            }
+                                        })
+                                        .padding(.vertical)
+                                        if isPriceVisible{
+                                            HStack{
+                                                CustomTextField(iconName:"",placeholder: "Price From", text: $homesubjectteachersvm.teacherName)
+                                                
+                                                CustomTextField(iconName:"",placeholder: "Price To", text: $homesubjectteachersvm.teacherName)
+                                            }
+                                        }
+                                    }
+                                    
+                                    VStack{
+                                        Button(action: {
+                                            isRateVisible.toggle()
+                                        }, label: {
+                                            HStack {
+                                                Image("rate_iconfilter")
+                                                    .renderingMode(.template)
+                                                    .foregroundColor(ColorConstants.MainColor)
+                                                
+                                                Text("Rating".localized())
+                                                    .font(.SoraBold(size: 13))
+                                                    .foregroundColor(.mainBlue)
+                                                    .multilineTextAlignment(.leading)
+                                                Spacer()
+                                                Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                                    .renderingMode(.template)
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                    .frame(width: 15, height: 15, alignment: .center)
+                                                    .foregroundColor(ColorConstants.Bluegray20099)
+                                            }
+                                        })
+                                        .padding(.vertical)
+                                     
+                                        if isRateVisible{
+                                        HStack(spacing:20){
+                                            ForEach(0..<5){ num in
+                                                Button(action: {
+                                                    homesubjectteachersvm.rate = num + 1
+                                                }, label: {
+                                                    Image(systemName: homesubjectteachersvm.rate > num ? "star.fill":"star")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 35, height: 35, alignment: .center)
+                                                        .foregroundColor(ColorConstants.MainColor)
+                                                })
+                                            }
+                                        }
+                                        .background(.white)
+                                    }
+                                    }
+
+                                    VStack{
+                                        Button(action: {
+                                            isGenderVisible.toggle()
+                                        }, label: {
+                                        HStack {
+                                            Image("img_toilet1")
+                                                .renderingMode(.template)
+                                                .foregroundColor(ColorConstants.MainColor)
+
+                                            Text("Gender".localized())
+                                                .font(.SoraBold(size: 13))
+                                                .foregroundColor(.mainBlue)
+                                                .multilineTextAlignment(.leading)
+                                            Spacer()
+                                            Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                                .renderingMode(.template)
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 15, height: 15, alignment: .center)
+                                                .foregroundColor(ColorConstants.Bluegray20099)
+//                                                .font(.system(size: 20))
+                                        }
+                                        })
+                                        .padding(.vertical)
+                                        if isGenderVisible{
+                                            HStack{
+                                                Button(action: {
+                                                    homesubjectteachersvm.genderCase = .Male
+                                                }, label: {
+                                                    HStack{
+                                                        Image(systemName:homesubjectteachersvm.genderCase == .Male ? "largecircle.fill.circle":"circle")
+                                                            .frame(width: 20, height: 20, alignment: .center)
+                                                            .foregroundColor(ColorConstants.MainColor)
+                                                        Text("Male".localized())
+                                                            .font(Font.SoraSemiBold(size: 13))
+                                                            .foregroundColor(.mainBlue)
+                                                        Spacer()
+                                                    }
+                                                })
+                                                Button(action: {
+                                                    homesubjectteachersvm.genderCase = .Female
+                                                }, label: {
+                                                    HStack{
+                                                        Image(systemName:homesubjectteachersvm.genderCase == .Female ? "largecircle.fill.circle":"circle")
+                                                            .frame(width: 20, height: 20, alignment: .center)
+                                                            .foregroundColor(ColorConstants.MainColor)
+                                                        Text("Female".localized())
+                                                            .font(Font.SoraSemiBold(size: 13))
+                                                            .foregroundColor(.mainBlue)
+                                                        Spacer()
+                                                    }
+                                                })
+                                            }
+                                            .padding()
+                                        }
+                                    }
+                                    
+                                    
 //                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
-//                                }.padding(.top,5)
+                                }.padding(.top,5)
                                 
-                                Spacer()
+//                                Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
@@ -207,10 +361,11 @@ struct SubjectTeachersListView: View {
                             }
                             .padding(.horizontal,3)
                             .padding(.top)
-                        }
+//                        }
                     }
                     .padding()
-                    .frame(height:430)
+//                    .frame(height:430)
+                    .frame(minHeight:120)
                     .frame(maxWidth:.infinity)
                     .keyboardAdaptive()
                 }
@@ -236,13 +391,13 @@ struct SubjectTeachersListView: View {
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
-//                        ScrollView{
-                            VStack{
-                                Group {
-                                    
-                                    Button(action: {
-                                        homesubjectteachersvm.sortCase = .MostBooked
-                                    }, label: {
+                        //                        ScrollView{
+                        VStack{
+                            Group {
+                                
+                                Button(action: {
+                                    homesubjectteachersvm.sortCase = .MostBooked
+                                }, label: {
                                     HStack{
                                         Image(systemName:homesubjectteachersvm.sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
@@ -252,11 +407,11 @@ struct SubjectTeachersListView: View {
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
-                                    })
-                                    
-                                    Button(action: {
-                                        homesubjectteachersvm.sortCase = .TopRated
-                                    }, label: {
+                                })
+                                
+                                Button(action: {
+                                    homesubjectteachersvm.sortCase = .TopRated
+                                }, label: {
                                     HStack{
                                         Image(systemName:homesubjectteachersvm.sortCase == .TopRated ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
@@ -266,10 +421,10 @@ struct SubjectTeachersListView: View {
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
-                                    })
-                                    Button(action: {
-                                        homesubjectteachersvm.sortCase = .PriceLowToHigh
-                                    }, label: {
+                                })
+                                Button(action: {
+                                    homesubjectteachersvm.sortCase = .PriceLowToHigh
+                                }, label: {
                                     HStack{
                                         Image(systemName:homesubjectteachersvm.sortCase == .PriceLowToHigh ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
@@ -279,10 +434,10 @@ struct SubjectTeachersListView: View {
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
-                                    })
-                                    Button(action: {
-                                        homesubjectteachersvm.sortCase = .PriceHighToLow
-                                    }, label: {
+                                })
+                                Button(action: {
+                                    homesubjectteachersvm.sortCase = .PriceHighToLow
+                                }, label: {
                                     HStack{
                                         Image(systemName:homesubjectteachersvm.sortCase == .PriceHighToLow ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
@@ -292,41 +447,37 @@ struct SubjectTeachersListView: View {
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
+                                })
+                                
+                            }.padding(.top,15)
+                            
+                            HStack {
+                                Group{
+                                    CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
+                                        homesubjectteachersvm .GetStudentSubjectTeachers()
+                                        showSort = false
                                     })
                                     
-                                }.padding(.top,15)
-                                
-                                HStack {
-                                    Group{
-                                        CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
-                                            homesubjectteachersvm .GetStudentSubjectTeachers()
-                                            showSort = false
-                                        })
-                                        
-                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            homesubjectteachersvm.clearSort()
-                                            homesubjectteachersvm .GetStudentSubjectTeachers()
-                                            showSort = false
-                                        })
-                                    } .frame(width:130,height:40)
-                                        .padding(.vertical)
-                                }
+                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                        homesubjectteachersvm.clearSort()
+                                        homesubjectteachersvm .GetStudentSubjectTeachers()
+                                        showSort = false
+                                    })
+                                } .frame(width:130,height:40)
+                                    .padding(.vertical)
                             }
-                            .padding(.horizontal,3)
-                            .padding(.top)
-//                        }
+                        }
+                        .padding(.horizontal,3)
+                        .padding(.top)
+                        //                        }
                     }
                     .padding()
-//                    .frame(height:430)
+                    //                    .frame(height:430)
                     .frame(minHeight:50)
                     .frame(maxWidth:.infinity)
                     .keyboardAdaptive()
                 }
             }
-            
-            
-            
-            
         }
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
@@ -364,9 +515,9 @@ struct TeacherCellView : View {
                     HStack{
                         StarsView(rating: teacher.teacherRate ?? 0.0)
                         if let ratescount = teacher.teacherReview, ratescount > 0{
-                        Text(" \(ratescount)")
-                            .foregroundColor(ColorConstants.Bluegray30066)
-                            .font(Font.SoraRegular(size: 12))
+                            Text(" \(ratescount)")
+                                .foregroundColor(ColorConstants.Bluegray30066)
+                                .font(Font.SoraRegular(size: 12))
                         }
                     }
                 }
@@ -375,7 +526,7 @@ struct TeacherCellView : View {
                     .font(.SoraRegular(size: 7))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
-//                    .frame(minHeight: 20)
+                //                    .frame(minHeight: 20)
                     .frame(height:40)
                 
                 HStack{
