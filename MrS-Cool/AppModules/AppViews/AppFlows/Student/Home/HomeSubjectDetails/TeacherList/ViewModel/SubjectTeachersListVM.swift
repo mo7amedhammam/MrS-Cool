@@ -10,15 +10,15 @@ import Combine
 enum teachersSortCases:String{
     case MostBooked = "Most Booked"
     case TopRated = "Top Rated"
-    case PriceLowToHigh = "HL"
-    case PriceHighToLow = "LH"
+    case PriceLowToHigh = "Price Low To High"
+    case PriceHighToLow = "Price High To Low"
 }
 
 class SubjectTeachersListVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var maxResultCount = 0
+    @Published var maxResultCount = 10
     @Published var skipCount = 0
 
     @Published var subjectId : Int?
@@ -95,6 +95,7 @@ extension SubjectTeachersListVM{
         let target = StudentServices.GetSubjectOrLessonTeachers(parameters: parameters)
                 isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<StudentHomeSubjectTeachersListM>.self)
+            .receive(on: DispatchQueue.main) // Receive on the main thread if you want to update UI
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                                 isLoading = false
@@ -121,14 +122,15 @@ extension SubjectTeachersListVM{
             .store(in: &cancellables)
     }
   
-    func clearselections(){
-//        SelectedStudentSubjects = StudentSubjectsM()
-//        SelectedStudentMostViewedLesson = StudentMostViewedLessonsM()
-//        SelectedStudentMostBookedLesson = StudentMostViewedLessonsM()
-//        SelectedStudentMostViewedSubject = StudentMostViewedSubjectsM()
-//        SelectedStudentMostBookedSubject = StudentMostViewedSubjectsM()
-//        SelectedStudentMostViewedTeachers = StudentMostViewedTeachersM()
-//        SelectedStudentMostRatedTeachers = StudentMostViewedTeachersM()
+    func clearFilter(){
+        rate = nil
+        priceFrom = nil
+        priceTo = nil
+        genderId = nil
+        teacherName = nil
+    }
+    func clearSort(){
+        sortCase = nil
     }
     
     func cleanup() {

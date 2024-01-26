@@ -94,7 +94,6 @@ struct SubjectTeachersListView: View {
                                 Spacer().frame(height:20)
                                 ForEach(teachers.items ?? [SubjectTeacherM.init()],id:\.self){teacher in
                                     TeacherCellView(teacher: teacher)
-                                    
                                 }
                                 
                                 
@@ -170,51 +169,164 @@ struct SubjectTeachersListView: View {
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
-                        //                        ScrollView{
-                        //                            VStack{
-                        //                                Group {
-                        //                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:homesubjectdetailsvm.SubjectsForList)
-                        //                                        .onChange(of: completedlessonsvm.filtersubject){newval in
-                        //                                            if                                                     homesubjectdetailsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
-                        //                                            {
-                        //                                                completedlessonsvm.filterlesson = nil
-                        //                                                homesubjectdetailsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
-                        //                                            }
-                        //                                        }
-                        //
-                        //                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:homesubjectdetailsvm.LessonsForList)
-                        //
-                        //                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
-                        //
-                        //                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
-                        //                                }.padding(.top,5)
-                        //
-                        //                                Spacer()
-                        //                                HStack {
-                        //                                    Group{
-                        //                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                        //                                            completedlessonsvm .GetCompletedLessons()
-                        //                                            showFilter = false
-                        //                                        })
-                        //
-                        //                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                        //                                            completedlessonsvm.clearFilter()
-                        //                                            completedlessonsvm .GetCompletedLessons()
-                        //                                            showFilter = false
-                        //                                        })
-                        //                                    } .frame(width:130,height:40)
-                        //                                        .padding(.vertical)
-                        //                                }
-                        //                            }
-                        //                            .padding(.horizontal,3)
-                        //                            .padding(.top)
-                        //                        }
+                        ScrollView{
+                            VStack{
+//                                Group {
+//                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:homesubjectdetailsvm.SubjectsForList)
+//                                        .onChange(of: completedlessonsvm.filtersubject){newval in
+//                                            if                                                     homesubjectdetailsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
+//                                            {
+//                                                completedlessonsvm.filterlesson = nil
+//                                                homesubjectdetailsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
+//                                            }
+//                                        }
+//                                    
+//                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:homesubjectdetailsvm.LessonsForList)
+//                                    
+//                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
+//                                    
+//                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
+//                                }.padding(.top,5)
+                                
+                                Spacer()
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            homesubjectteachersvm .GetStudentSubjectTeachers()
+                                            showFilter = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            homesubjectteachersvm.clearFilter()
+                                            homesubjectteachersvm .GetStudentSubjectTeachers()
+                                            showFilter = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding(.horizontal,3)
+                            .padding(.top)
+                        }
                     }
                     .padding()
                     .frame(height:430)
+                    .frame(maxWidth:.infinity)
                     .keyboardAdaptive()
                 }
             }
+            if showSort{
+                // Blurred Background and Sheet
+                Color.mainBlue
+                    .opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showSort.toggle()
+                    }
+                    .blur(radius: 4) // Adjust the blur radius as needed
+                DynamicHeightSheet(isPresented: $showSort){
+                    VStack {
+                        ColorConstants.Bluegray100
+                            .frame(width:50,height:5)
+                            .cornerRadius(2.5)
+                            .padding(.top,2.5)
+                        HStack {
+                            Text("Sort".localized())
+                                .font(Font.SoraBold(size: 18))
+                                .foregroundColor(.mainBlue)
+                            //                                            Spacer()
+                        }
+//                        ScrollView{
+                            VStack{
+                                Group {
+                                    
+                                    Button(action: {
+                                        homesubjectteachersvm.sortCase = .MostBooked
+                                    }, label: {
+                                    HStack{
+                                        Image(systemName:homesubjectteachersvm.sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
+                                            .frame(width: 20, height: 20, alignment: .center)
+                                            .foregroundColor(ColorConstants.MainColor)
+                                        Text("Most Booked ")
+                                            .font(Font.SoraSemiBold(size: 13))
+                                            .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }
+                                    })
+                                    
+                                    Button(action: {
+                                        homesubjectteachersvm.sortCase = .TopRated
+                                    }, label: {
+                                    HStack{
+                                        Image(systemName:homesubjectteachersvm.sortCase == .TopRated ? "largecircle.fill.circle":"circle")
+                                            .frame(width: 20, height: 20, alignment: .center)
+                                            .foregroundColor(ColorConstants.MainColor)
+                                        Text("Top Rated".localized())
+                                            .font(Font.SoraSemiBold(size: 13))
+                                            .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }
+                                    })
+                                    Button(action: {
+                                        homesubjectteachersvm.sortCase = .PriceLowToHigh
+                                    }, label: {
+                                    HStack{
+                                        Image(systemName:homesubjectteachersvm.sortCase == .PriceLowToHigh ? "largecircle.fill.circle":"circle")
+                                            .frame(width: 20, height: 20, alignment: .center)
+                                            .foregroundColor(ColorConstants.MainColor)
+                                        Text("Price Low To High".localized())
+                                            .font(Font.SoraSemiBold(size: 13))
+                                            .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }
+                                    })
+                                    Button(action: {
+                                        homesubjectteachersvm.sortCase = .PriceHighToLow
+                                    }, label: {
+                                    HStack{
+                                        Image(systemName:homesubjectteachersvm.sortCase == .PriceHighToLow ? "largecircle.fill.circle":"circle")
+                                            .frame(width: 20, height: 20, alignment: .center)
+                                            .foregroundColor(ColorConstants.MainColor)
+                                        Text("Price High To Low".localized())
+                                            .font(Font.SoraSemiBold(size: 13))
+                                            .foregroundColor(.mainBlue)
+                                        Spacer()
+                                    }
+                                    })
+                                    
+                                }.padding(.top,15)
+                                
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
+                                            homesubjectteachersvm .GetStudentSubjectTeachers()
+                                            showSort = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            homesubjectteachersvm.clearSort()
+                                            homesubjectteachersvm .GetStudentSubjectTeachers()
+                                            showSort = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding(.horizontal,3)
+                            .padding(.top)
+//                        }
+                    }
+                    .padding()
+//                    .frame(height:430)
+                    .frame(minHeight:50)
+                    .frame(maxWidth:.infinity)
+                    .keyboardAdaptive()
+                }
+            }
+            
+            
+            
+            
         }
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
