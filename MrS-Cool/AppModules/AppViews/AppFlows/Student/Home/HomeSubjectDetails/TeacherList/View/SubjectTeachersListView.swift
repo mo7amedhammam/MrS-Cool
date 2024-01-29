@@ -97,7 +97,19 @@ struct SubjectTeachersListView: View {
                             ScrollView(.vertical,showsIndicators: false){
                                 Spacer().frame(height:20)
                                 ForEach(teachers.items ?? [SubjectTeacherM.init()],id:\.self){teacher in
-                                    TeacherCellView(teacher: teacher)
+                                    Button(action: {
+                                        switch bookingcase {
+                                        case .subject:
+                                            destination = AnyView(SubjectDetailsView(selectedsubjectid: teacher.teacherSubjectID ?? 0))
+                                        case .lesson:
+                                            destination = AnyView(SubjectDetailsView(selectedsubjectid: teacher.teacherLessonID ?? 0))
+                                        }
+                                            
+                                        isPush = true
+                                    }, label: {
+                                        TeacherCellView(teacher: teacher)
+                                    })
+                                    
                                         .onAppear {
                                             if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, let itemsCount = homesubjectteachersvm.TeachersModel?.items?.count, itemsCount < totalCount {
                                                 // Load the next page if there are more items to fetch
@@ -337,9 +349,6 @@ struct SubjectTeachersListView: View {
                                             .padding()
                                         }
                                     }
-                                    
-                                    
-//                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
                                 }.padding(.top,5)
                                 
 //                                Spacer()

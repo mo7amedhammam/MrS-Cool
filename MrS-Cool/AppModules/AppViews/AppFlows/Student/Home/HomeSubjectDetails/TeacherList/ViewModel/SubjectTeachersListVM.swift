@@ -68,7 +68,8 @@ class SubjectTeachersListVM: ObservableObject {
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
-    @Published var TeachersModel:StudentHomeSubjectTeachersListM? = StudentHomeSubjectTeachersListM()
+    @Published var TeachersModel:StudentHomeSubjectTeachersListM? 
+//    = StudentHomeSubjectTeachersListM()
 //    @Published var SelectedStudentLesson : UnitLessonDtoList = UnitLessonDtoList.init()
   
     init()  {

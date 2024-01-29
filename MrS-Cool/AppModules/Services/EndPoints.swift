@@ -129,19 +129,23 @@ enum EndPoints: String {
     case GetAllStudentsChatComments = "TeacherLessonSessionComment/GetAllLessonChatByTeacher"
     case CreateComment = "TeacherLessonSessionComment/CreateComment"
     
-//    MARK: -- Student Home --
+    //    MARK: -- Student Home --
     case GetStudentSubjects = "Student/GetStudentSubjects"
     
     case MostViewedLessons = "Lesson/MostViewedLessons"
     case MostBookedLessons = "Lesson/MostBookedLessons"
-
+    
     case MostViewedSubjects = "SubjectSemesterYear/TopViewedSubjects"
     case MostBookedSubjects = "SubjectSemesterYear/TopBookedSubjects"
-
+    
     case MostViewedTeacher = "Teacher/MostViewedTeacher"
     case MostRatedTeacher = "Teacher/MostRatedTeacher"
     
     case GetHomeSubjectDetails = "SubjectSemesterYear/GetSubjectLessons"
-
+    
     case GetSubjectOrLessonTeachers = "SubjectOrLessonTeachers/GetAllTeacher"
+    
+    case GetTeacherSubjectGroupDetail = "SubjectOrLessonTeachers/GetTeacherSubjectGroupDetail"
+    case GetTeacherLessonGroupDetail = "SubjectOrLessonTeachers/GetTeacherLessonGroupDetail"
+
 }
