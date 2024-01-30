@@ -19,11 +19,13 @@ struct TeacherSubjectDetailsM: Codable {
     var teacherRateDto: TeacherRateDto?
 
     enum CodingKeys: String, CodingKey {
-        case SubjectOrLessonDto
+        case SubjectOrLessonDto = "getSubjectOrLessonDto"
         case teacherID = "teacherId"
         case teacherLessonID = "teacherLessonId"
         case teacherSubjectID = "teacherSubjectId"
-        case teacherImage, teacherName, teacherBIO, teacherBrief, teacherRate, teacherReview, duration, price, lessonsCount, minGroup, maxGroup, SubjectGroups, teacherRateDto
+        case teacherImage, teacherName, teacherBIO, teacherBrief, teacherRate, teacherReview, duration, price, lessonsCount, minGroup, maxGroup
+        case SubjectGroups = "getSubjectGroups"
+        case teacherRateDto
     }
 }
 
@@ -57,5 +59,9 @@ struct TeacherRateDto: Codable {
 
 // MARK: - RatePercent
 struct RatePercent: Codable {
-    var rateNumber, ratePercent: Int?
+    var rateNumber: Int?
+    var ratePercent: Float?
 }
+
+
+

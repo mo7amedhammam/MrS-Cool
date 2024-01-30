@@ -147,5 +147,5 @@ enum EndPoints: String {
     
     case GetTeacherSubjectGroupDetail = "SubjectOrLessonTeachers/GetTeacherSubjectGroupDetail"
     case GetTeacherLessonGroupDetail = "SubjectOrLessonTeachers/GetTeacherLessonGroupDetail"
-
+    case GetTeacherAvaliableSchedual = "SubjectOrLessonTeachers/GetTeacherAvaliableSchedual"
 }

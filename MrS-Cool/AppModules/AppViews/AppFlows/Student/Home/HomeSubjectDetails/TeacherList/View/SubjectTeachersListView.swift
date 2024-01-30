@@ -102,7 +102,7 @@ struct SubjectTeachersListView: View {
                                         case .subject:
                                             destination = AnyView(SubjectDetailsView(selectedsubjectid: teacher.teacherSubjectID ?? 0))
                                         case .lesson:
-                                            destination = AnyView(SubjectDetailsView(selectedsubjectid: teacher.teacherLessonID ?? 0))
+                                            destination = AnyView(LessonDetailsView(selectedlessonid: teacher.teacherLessonID ?? 0))
                                         }
                                             
                                         isPush = true

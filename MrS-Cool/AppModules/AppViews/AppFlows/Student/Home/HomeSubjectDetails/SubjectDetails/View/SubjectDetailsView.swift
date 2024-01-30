@@ -83,7 +83,7 @@ struct SubjectDetailsView: View {
                                     ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
                                 })
                                 
-                                TeacherInfoView(teacher: details)
+                                SubjectTeacherInfoView(teacher: details)
                                 
                                 HStack {
                                     Text("Group Booking".localized())
@@ -277,8 +277,7 @@ struct SubjectDetailsView: View {
     //        .environmentObject(CompletedLessonsVM())
 }
 
-
-struct TeacherInfoView : View {
+struct SubjectTeacherInfoView : View {
     var teacher : TeacherSubjectDetailsM = TeacherSubjectDetailsM.init()
     var body: some View {
         VStack {
@@ -299,7 +298,7 @@ struct TeacherInfoView : View {
                     .font(.SoraBold(size: 20))
                 //                    Spacer()
                 
-                Text(teacher.teacherBIO ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                Text(teacher.teacherBIO ?? "Teacher Bio")
                     .font(.SoraRegular(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
@@ -344,7 +343,7 @@ struct TeacherInfoView : View {
                         .font(Font.SoraSemiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
-                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "teacher Bio")
+                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "Subject Breif")
                         .font(.SoraRegular(size: 9))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
@@ -432,7 +431,7 @@ struct TeacherInfoView : View {
 }
 
 #Preview {
-    TeacherInfoView(teacher: TeacherSubjectDetailsM.init())
+    SubjectTeacherInfoView(teacher: TeacherSubjectDetailsM.init())
 }
 
 

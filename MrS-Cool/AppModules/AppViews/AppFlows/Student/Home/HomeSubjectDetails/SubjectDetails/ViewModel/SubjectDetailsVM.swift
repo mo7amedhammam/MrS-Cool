@@ -12,58 +12,15 @@ class SubjectDetailsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var maxResultCount = 10
-    @Published var skipCount = 0
-    
-//    @Published var subjectId : Int?
-//    @Published var lessonId : Int?
-//    @Published var rate : Int = 0
-//    @Published var priceFrom : Int?
-//    @Published var priceTo : Int?
-    
-//    @Published var genderCase : teachersGenders?{
-//        didSet{
-//            switch genderCase {
-//            case .Male:
-//                genderId = 1
-//            case .Female:
-//                genderId = 2
-//            case nil:
-//                genderId = nil
-//            }
-//        }
-//    }
-//    @Published var genderId : Int?
-//    @Published var teacherName : String = ""
-//    @Published var sortCase : teachersSortCases?{
-//        didSet{
-//            switch sortCase {
-//            case .MostBooked:
-//                sortColumn = "Booked"
-//            case .TopRated:
-//                sortColumn = "Rate"
-//            case .PriceLowToHigh:
-//                sortColumn = "PriceL"
-//            case .PriceHighToLow:
-//                sortColumn = "PriceH"
-//            case nil:
-//                sortColumn = nil
-//            }
-//        }
-//    }
-    
-//    @Published var sortColumn : String?
-    
+
+
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var subjectDetails:TeacherSubjectDetailsM? 
-//    = TeacherSubjectDetailsM.init()
     @Published var selectedSubjectGroup:Int? = 0
-
-    //    @Published var SelectedStudentLesson : UnitLessonDtoList = UnitLessonDtoList.init()
     
     init()  {
         
@@ -102,17 +59,6 @@ extension SubjectDetailsVM{
             })
             .store(in: &cancellables)
     }
-    
-//    func clearFilter(){
-//        rate = 0
-//        priceFrom = nil
-//        priceTo = nil
-//        genderId = nil
-//        teacherName = ""
-//    }
-//    func clearSort(){
-//        sortCase = nil
-//    }
     
     func cleanup() {
         // Cancel any ongoing Combine subscriptions

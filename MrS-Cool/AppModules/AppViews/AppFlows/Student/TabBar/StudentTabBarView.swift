@@ -174,7 +174,7 @@ struct TabBarItemView: View {
     let onTap: () -> Void
     
     var body: some View {
-        Button(action: onTap) {
+//        Button(action: onTap) {
             VStack(spacing: 4) {
                 Image(isSelected ? item.selectedicon:item.icon)
                     .font(.system(size: 24))
@@ -185,8 +185,11 @@ struct TabBarItemView: View {
                     .foregroundColor(isSelected ? .blue : .gray)
             }
             .frame(maxWidth: .infinity)
-        }
-        .frame(maxWidth: .infinity)
+            .onTapGesture {
+                onTap()
+            }
+//        }
+//        .frame(maxWidth: .infinity)
     }
 }
 
