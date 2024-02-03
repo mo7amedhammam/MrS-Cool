@@ -88,7 +88,18 @@ struct WeekView<Content: View, Header: View>: View {
                       ForEach(days.prefix(daysInWeek), id: \.self, content: header)
                       ForEach(days, id: \.self) { date in
                               content(date)
-                }
+                }.gesture(
+                                  DragGesture()
+                                      .onEnded { value in
+                                          if value.translation.width > 100 {
+                                              // Swipe right, move to the previous week
+                                              self.date = calendar.date(byAdding: .weekOfYear, value: -1, to: self.date) ?? self.date
+                                          } else if value.translation.width < -100 {
+                                              // Swipe left, move to the next week
+                                              self.date = calendar.date(byAdding: .weekOfYear, value: 1, to: self.date) ?? self.date
+                                          }
+                                      }
+                              )
         }
     }
 }
