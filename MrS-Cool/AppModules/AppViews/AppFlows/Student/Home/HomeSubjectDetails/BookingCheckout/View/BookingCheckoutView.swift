@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookingCheckoutView: View {
-    var selectedlessonid : Int
+    var selectedid : Int
     var bookingcase:LessonCases
     @StateObject var checkoutvm = BookingCheckoutVM()
     
@@ -21,8 +21,8 @@ struct BookingCheckoutView: View {
     @State private var currentPage = 0
     @State private var forwards = false
 
-    init(selectedlessonid : Int,bookingcase:LessonCases) {
-        self.selectedlessonid = 0
+    init(selectedid : Int,bookingcase:LessonCases) {
+        self.selectedid = 0
         self.bookingcase = bookingcase
         checkoutvm.bookingcase =  bookingcase
     }
@@ -333,7 +333,7 @@ struct BookingCheckoutView: View {
         })
         
         .onAppear(perform: {
-            checkoutvm.GetBookCheckout(lessonId: selectedlessonid)
+            checkoutvm.GetBookCheckout(lessonId: selectedid)
         })
         .onDisappear {
             checkoutvm.cleanup()
@@ -347,7 +347,7 @@ struct BookingCheckoutView: View {
 }
 
 #Preview {
-    BookingCheckoutView(selectedlessonid: 0, bookingcase: .Group)
+    BookingCheckoutView(selectedid: 0, bookingcase: .Group)
 }
 
 

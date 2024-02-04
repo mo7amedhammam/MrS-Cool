@@ -35,7 +35,7 @@ struct CornersStroke: Shape {
 
     extension View {
         public func borderRadius<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat, corners: UIRectCorner) -> some View where S : ShapeStyle {
-            let roundedRect = CornersStroke(radius: cornerRadius, corners: [.topLeft, .topRight])
+            let roundedRect = CornersStroke(radius: cornerRadius, corners: corners)
             return clipShape(roundedRect)
                 .overlay(roundedRect.stroke(content, lineWidth: width))
         }

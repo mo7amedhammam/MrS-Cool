@@ -108,7 +108,7 @@ extension ManageTeacherSubjectsVM{
     
     func CreateTeacherSubject(){
         guard let subjectAcademicYearId = subject?.id else {return}
-        let parameters:[String:Any] = ["subjectAcademicYearId":subjectAcademicYearId]
+        let parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId]
         
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)

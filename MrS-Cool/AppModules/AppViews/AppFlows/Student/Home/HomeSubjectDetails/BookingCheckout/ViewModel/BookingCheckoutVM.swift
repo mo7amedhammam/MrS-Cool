@@ -26,7 +26,7 @@ class BookingCheckoutVM: ObservableObject {
     
     @Published var Checkout:BookingCheckoutM? = BookingCheckoutM.init()
 //    @Published var selectedLessonGroup:Int? = 0
-//    @Published var availableScheduals:TeacherAvaliableSchedualDto?
+//    @Published var selectedsched:TeacherAvaliableSchedualDto?
 
     init()  {
     }

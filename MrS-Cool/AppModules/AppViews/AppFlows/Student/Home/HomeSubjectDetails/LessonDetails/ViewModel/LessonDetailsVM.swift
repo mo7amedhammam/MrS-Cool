@@ -60,8 +60,10 @@ class LessonDetailsVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var lessonDetails:TeacherLessonDetailsM? = TeacherLessonDetailsM.init()
-    @Published var selectedLessonGroup:Int? = 0
-    @Published var availableScheduals:TeacherAvaliableSchedualDto?
+    @Published var selectedLessonGroup:Int? 
+    @Published var availableScheduals:[TeacherAvaliableSchedualDto]?
+    @Published var selectedsched:TeacherAvaliableSchedualDto?
+
 
     init()  {
         
@@ -91,6 +93,7 @@ extension LessonDetailsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                         lessonDetails = receivedData.data
+                        availableScheduals = receivedData.data?.TeacherAvaliableSchedualDtos
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -106,7 +109,7 @@ extension LessonDetailsVM{
         print("parameters",parameters)
         let target = StudentServices.GetAvaliableScheduals(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<TeacherAvaliableSchedualDto>.self)
+        BaseNetwork.CallApi(target, BaseResponse<[TeacherAvaliableSchedualDto]>.self)
             .receive(on: DispatchQueue.main) // Receive on the main thread if you want to update UI
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
@@ -122,7 +125,7 @@ extension LessonDetailsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                        availableScheduals = receivedData.data
+                    availableScheduals = receivedData.data
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

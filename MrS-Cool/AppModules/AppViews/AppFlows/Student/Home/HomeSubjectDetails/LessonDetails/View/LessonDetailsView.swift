@@ -36,7 +36,7 @@ struct LessonDetailsView: View {
     @State private var ispastdate:Bool = false
     
     init(selectedlessonid : Int) {
-        self.selectedlessonid = 0
+        self.selectedlessonid = selectedlessonid
         self.calendar = Calendar.current
         self.dayFormatter = DateFormatter()
         self.dayFormatter.dateFormat = "dd"
@@ -119,7 +119,6 @@ struct LessonDetailsView: View {
                                             .background(content: {
                                                 Group{lessoncase == .Group ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
                                             })
-                                        
                                     })
                                     
                                     Button(action: {
@@ -133,7 +132,6 @@ struct LessonDetailsView: View {
                                             .background(content: {
                                                 Group{lessoncase == .Individual ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
                                             })
-                                        
                                     })
                                 }
                                 HStack {
@@ -187,7 +185,6 @@ struct LessonDetailsView: View {
                                                 if isselected {
                                                     ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
                                                         Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
-                                                        
                                                     }
                                             })
                                             Group{
@@ -229,21 +226,21 @@ struct LessonDetailsView: View {
                                             .padding(.top,8)
                                             .padding(.horizontal)
                                             
-                                        }.padding(.bottom)
-                                            .background(content: {
-                                                ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                            })
-                                            .onTapGesture(perform: {
-                                                lessondetailsvm.selectedLessonGroup = details.LessonGroupsDto?[currentPage].teacherLessonSessionID
-                                            })
-                                        
-                                            .transition(
-                                                .asymmetric(
-                                                    insertion: .move(edge: forwards ? .trailing : .leading),
-                                                    removal: .move(edge: forwards ? .leading : .trailing)
-                                                )
+                                        }
+                                        .padding(.bottom)
+                                        .background(content: {
+                                            ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                        })
+                                        .onTapGesture(perform: {
+                                            lessondetailsvm.selectedLessonGroup = details.LessonGroupsDto?[currentPage].teacherLessonSessionID
+                                        })
+                                        .transition(
+                                            .asymmetric(
+                                                insertion: .move(edge: forwards ? .trailing : .leading),
+                                                removal: .move(edge: forwards ? .leading : .trailing)
                                             )
-                                            .id(UUID())
+                                        )
+                                        .id(UUID())
                                         
                                         Spacer()
                                         
@@ -264,65 +261,53 @@ struct LessonDetailsView: View {
                                     .frame(width: gr.size.width-50)
                                 case .Individual:
                                     
+                                    Image("calendar_done")
+                                        .resizable()
+                                        .frame(width:40,height:40)
+                                    
+                                    HStack(spacing: 0){
+                                        Image("moneyicon")
+                                            .resizable()
+                                            .renderingMode(.template)
+                                            .foregroundColor(ColorConstants.MainColor )
+                                            .frame(width: 20,height: 20, alignment: .center)
+                                        Group {
+                                            Text("  \(details.price ?? 222) ")
+                                            + Text("EGP".localized())
+                                        }
+                                        .font(Font.SoraBold(size: 18))
+                                        .foregroundColor(ColorConstants.MainColor)
+                                    }.padding(7)
+                                    
+                                    ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
+                                        .padding(.horizontal)
                                     
                                     WeeklyCalendarView(selectedDate: $selectedDate)
+                                    ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
+                                        .padding(.horizontal)
                                     
-                                    //                                    .frame(height:222)
+                                    Image("time_loading")
+                                        .resizable()
+                                        .frame(width:40,height:40)
+                                        .padding(.vertical,8)
                                     
+                                    Text("Available Times on".localized())
+                                    + Text(" \(selectedDate ?? Date())")
                                     
+                                    ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
+                                        .padding(.horizontal)
                                     
-                                    //                                    WeekView(
-                                    //                                        calendar: calendar,
-                                    //                                        date: $selectedDate,
-                                    //                                        content: {
-                                    //                                            date in
-                                    //                                            Button(action: {
-                                    //                                                if date >= Calendar.current.startOfDay(
-                                    //                                                    for: Date()
-                                    //                                                ) {
-                                    //                                                    self.selectedDate = date
-                                    //                                                }
-                                    //                                            }) {
-                                    //                                                Text(dayFormatter.string(from: date))
-                                    //                                                .padding(5)
-                                    //                                                .foregroundColor(selectedDate == date ? .white : .mainBlue)
-                                    //                                                .background(
-                                    //                                                    Circle()
-                                    //                                                        .fill(selectedDate == date ? .mainBlue : Color.clear
-                                    //                                                        ) // Circular background
-                                    //                                                )
-                                    //                                                .opacity(date < Calendar.current.startOfDay(for: Date()) ? 0.5 : 1.0) // Adjust opacity based on date
-                                    //
-                                    //                                            }
-                                    //
-                                    //                                        },
-                                    //                                        header: { weekStartDate in
-                                    //                                            Text( weekDayFormatter.string(from: weekStartDate))
-                                    //
-                                    //                                        }
-                                    //                                    )
-                                    
-                                    
+                                    HorizontalScrollWithTwoRows(items:  $lessondetailsvm.availableScheduals ,selectedsched:$lessondetailsvm.selectedsched)
+
                                 }
                                 
-                                
-                                
-                                CustomButton(Title:"Book Now",IsDisabled:.constant(false) , action: {
-                                    
-                                    //                                    switch lessoncase {
-                                    //                                    case .Group:
-                                    //                                        destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: selectedsubjectid, bookingcase: .subject))
-                                    //                                        isPush = true
-                                    
-                                    //                                    case .Individual:
-                                    //                                        <#code#>
-                                    //                                    }
-                                    
+                                CustomButton(Title:"Book Now",IsDisabled:.constant(lessondetailsvm.selectedLessonGroup == nil) , action: {
+                                    destination = AnyView(BookingCheckoutView(selectedid: lessondetailsvm.selectedLessonGroup ?? 0, bookingcase: lessoncase))
+                                    isPush = true
                                 })
                                 .frame(height: 40)
                                 .padding(.top,10)
                                 .padding(.horizontal)
-                                
                                 
                                 Spacer()
                                     .frame(height:50)
@@ -331,7 +316,6 @@ struct LessonDetailsView: View {
                             .frame(minHeight: gr.size.height)
                         }
                     }
-                    
                     .background{
                         ColorConstants.WhiteA700
                             .clipShape(RoundedCorners(topLeft: 25, topRight: 25, bottomLeft: 0, bottomRight: 0))
@@ -360,6 +344,12 @@ struct LessonDetailsView: View {
         .onDisappear {
             lessondetailsvm.cleanup()
         }
+        .onChange(of: selectedDate){newdate in
+            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'")
+//            if newdate != Data(){
+            lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
+//            }
+        }
         //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
         //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
         
@@ -373,3 +363,141 @@ struct LessonDetailsView: View {
 }
 
 
+struct HorizontalScrollWithTwoRows: View {
+    @Binding var items: [TeacherAvaliableSchedualDto]?
+//    var onTap: ((TeacherAvaliableSchedualDto) -> Void)?  // Closure that takes an Int parameter and returns Void
+    
+    @Binding var selectedsched : TeacherAvaliableSchedualDto?
+    
+    var body: some View {
+        ScrollView(.horizontal) {
+            if let items = items{
+                if items.count < 3 {
+                    HStack(spacing: 10) {
+                        ForEach(items.indices, id: \.self) { index in
+                            Button(action: {
+                                //                            onTap?(items[index])
+                                selectedsched = items[index]
+                            }){
+                                HStack (alignment: .top){
+                                    ZStack(){
+                                        Image("circleempty")
+                                        Image("img_line1")
+                                            .renderingMode(.template)
+                                            .foregroundColor(selectedsched == items[index] ? ColorConstants.MainColor:.clear)
+                                    }
+                                    .offset(y:-2.5)
+                                    VStack{
+                                        HStack{
+                                            Group{
+                                                Text("Start Time".localized())
+                                                
+                                                Spacer()
+                                                Text(items[index].fromTime ?? "03:45 PM")
+                                            }
+                                            .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
+                                            
+                                        }
+                                        
+                                        ColorConstants.Gray300.frame(height: 0.5).padding(.vertical,8)
+                                        
+                                        HStack {
+                                            Group{
+                                                Text("End Time".localized())
+                                                
+                                                Spacer()
+                                                Text(items[index].toTime ?? "03:45 PM")
+                                            }
+                                            .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
+                                        }
+                                        
+                                    }
+                                    .frame(width: 120)
+                                    //                                .padding(.horizontal)
+                                    
+                                    //                                .background(ColorConstants.MainColor)
+                                    .font(.SoraRegular(size: 10))
+                                    //                            .foregroundColor(ColorConstants.WhiteA700)
+                                }
+                                .padding(8)
+                                .background(content: {
+                                    if selectedsched == items[index] {
+                                        ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                    } else {
+                                        Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.allCorners])
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    .padding()
+                } else {
+                    LazyHGrid(rows: [
+                        GridItem(.fixed(70)),
+                        GridItem(.fixed(70)),
+                    ]) {
+                        ForEach(items.indices, id: \.self) { index in
+                            Button(action: {
+                                //                            onTap?(items[index])
+                                selectedsched = items[index]
+                                
+                            }) {
+                                HStack (alignment: .top){
+                                    ZStack() {
+                                        Image("circleempty")
+                                        Image("img_line1")
+                                            .renderingMode(.template)
+                                            .foregroundColor(selectedsched == items[index] ? ColorConstants.MainColor:.clear)
+                                    }
+                                    .offset(y:-2.5)
+                                    VStack{
+                                        HStack{
+                                            Group{
+                                                Text("Start Time".localized())
+                                                
+                                                Spacer()
+                                                Text(items[index].fromTime ?? "03:45 PM")
+                                            }
+                                            .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
+                                            
+                                        }
+                                        
+                                        ColorConstants.Gray300.frame(height: 0.5).padding(.vertical,8)
+                                        
+                                        HStack {
+                                            Group{
+                                                Text("End Time".localized())
+                                                
+                                                Spacer()
+                                                Text(items[index].toTime ?? "03:45 PM")
+                                            }
+                                            .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
+                                        }
+                                        
+                                    }
+                                    .frame(width: 120)
+                                    .font(.SoraRegular(size: 10))
+                                }
+                                .padding(8)
+                                .background(content: {
+                                    if selectedsched == items[index] {
+                                        ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                    } else {
+                                        Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.allCorners])
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    .padding(5)
+                }
+            }
+        }
+    }
+}
+
+struct HorizontalScrollWithTwoRows_Previews: PreviewProvider {
+    static var previews: some View {
+        HorizontalScrollWithTwoRows(items:.constant([TeacherAvaliableSchedualDto.init()]), selectedsched: .constant(TeacherAvaliableSchedualDto.init()))
+    }
+}
