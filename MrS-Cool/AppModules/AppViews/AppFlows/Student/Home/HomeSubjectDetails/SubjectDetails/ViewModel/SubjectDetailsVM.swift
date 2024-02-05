@@ -20,7 +20,7 @@ class SubjectDetailsVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var subjectDetails:TeacherSubjectDetailsM? 
-    @Published var selectedSubjectGroup:Int? = 0
+    @Published var selectedSubjectId:Int? = 0
     
     init()  {
         

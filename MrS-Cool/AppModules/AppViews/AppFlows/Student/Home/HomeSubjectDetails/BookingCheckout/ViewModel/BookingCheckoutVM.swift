@@ -12,7 +12,7 @@ class BookingCheckoutVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var bookingcase : LessonCases = .Group
+    @Published var bookingcase : LessonCases? 
 //    @Published var subjectId : Int?
 //    @Published var lessonId : Int?
 //    @Published var rate : Int = 0

@@ -18,8 +18,9 @@ struct StudentHomeView: View {
 //    @State var searchText = ""
     
     var body: some View {
-        VStack(spacing:0) {
-            GeometryReader{gr in
+        GeometryReader{gr in
+
+        LazyVStack(spacing:0) {
                 ScrollView(showsIndicators:false){
                     HStack {
                         Text("Subjects".localized())
@@ -32,7 +33,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 160)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
                                     StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
@@ -42,7 +43,9 @@ struct StudentHomeView: View {
                                     .frame(width: gr.size.width/2.7, height: 160)
                                 }
                                 Spacer().frame(width:1)
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 160)
+                            .padding(.bottom,10)
                         }
                     }
                     HStack {
@@ -56,7 +59,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 240)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
@@ -67,7 +70,9 @@ struct StudentHomeView: View {
                                     .frame(width: gr.size.width/2.5, height: 240)
                                 }
                                 Spacer().frame(width:1)
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 240)
+                            .padding(.bottom,10)
                         }
                     }
                     HStack {
@@ -81,7 +86,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 240)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
@@ -93,7 +98,9 @@ struct StudentHomeView: View {
                                 }
                                 Spacer().frame(width:1)
                                 
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 240)
+                            .padding(.bottom,10)
                         }
                     }
                     HStack {
@@ -108,7 +115,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 280)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
@@ -121,7 +128,9 @@ struct StudentHomeView: View {
                                 }
                                 Spacer().frame(width:1)
                                 
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 280)
+                            .padding(.bottom,10)
                         }
                     }
                     HStack {
@@ -136,7 +145,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 280)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
@@ -149,7 +158,9 @@ struct StudentHomeView: View {
                                 }
                                 Spacer().frame(width:1)
                                 
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 280)
+                            .padding(.bottom,10)
                         }
                     }
                     
@@ -164,7 +175,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 180)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
@@ -177,7 +188,9 @@ struct StudentHomeView: View {
                                 }
                                 Spacer().frame(width:1)
                                 
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 180)
+                            .padding(.bottom,10)
                         }
                     }
                     
@@ -192,7 +205,7 @@ struct StudentHomeView: View {
                             .frame(width: gr.size.width/2.7, height: 180)
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            HStack(spacing:10){
+                            LazyHStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
                                     StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
@@ -203,16 +216,21 @@ struct StudentHomeView: View {
                                 }
                                 Spacer().frame(width:1)
                                 
-                            }.padding(.bottom,10)
+                            }
+                            .frame(height: 180)
+                            .padding(.bottom,10)
                         }
                     }
                     
                 }
+                .frame(height:gr.size.height)
+
                 .onAppear {
                     studenthomevm.clearselections()
                 }
             }
-            Spacer()
+        .frame(height:gr.size.height)
+//            Spacer()
             
         }
         .hideNavigationBar()
@@ -222,6 +240,7 @@ struct StudentHomeView: View {
         
 //        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
+    
 }
 
 #Preview{

@@ -64,7 +64,6 @@ class LessonDetailsVM: ObservableObject {
     @Published var availableScheduals:[TeacherAvaliableSchedualDto]?
     @Published var selectedsched:TeacherAvaliableSchedualDto?
 
-
     init()  {
         
     }

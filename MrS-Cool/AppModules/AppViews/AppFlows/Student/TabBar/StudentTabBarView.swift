@@ -62,7 +62,8 @@ struct StudentTabBarView: View {
                 )
                 
                 TabView(selection: $selectedIndex) {
-                    StudentHomeView()
+//                    StudentHomeView()
+                    Text("tab 0")
                         .tag(0)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -70,7 +71,9 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-                    StudentHomeView()
+//                    StudentHomeView()
+                    Text("tab 1")
+
                         .tag(1)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -87,7 +90,8 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-                    StudentHomeView()
+//                    StudentHomeView()
+                    Text("tab 3")
                         .tag(3)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -95,7 +99,8 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-                    StudentHomeView()
+//                    StudentHomeView()
+                    Text("tab 4")
                         .tag(4)
                         .gesture(
                             DragGesture().onChanged { _ in

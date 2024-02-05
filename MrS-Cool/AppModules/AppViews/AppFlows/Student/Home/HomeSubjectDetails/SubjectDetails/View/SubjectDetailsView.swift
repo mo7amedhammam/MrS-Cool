@@ -114,7 +114,7 @@ struct SubjectDetailsView: View {
                                     
                                     Spacer()
                                     
-                                    let isselected = subjectdetailsvm.selectedSubjectGroup == details.SubjectGroups?[currentPage].teacherLessonSessionID
+                                    let isselected = subjectdetailsvm.selectedSubjectId == details.SubjectGroups?[currentPage].teacherLessonSessionID
                                         VStack(alignment:.leading){
                                             HStack {
                                                 ZStack{
@@ -186,7 +186,7 @@ struct SubjectDetailsView: View {
                                             ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
                                         })
                                         .onTapGesture(perform: {
-                                            subjectdetailsvm.selectedSubjectGroup = details.SubjectGroups?[currentPage].teacherLessonSessionID
+                                            subjectdetailsvm.selectedSubjectId = details.SubjectGroups?[currentPage].teacherLessonSessionID
                                         })
                                     
                                     .transition(
@@ -214,13 +214,11 @@ struct SubjectDetailsView: View {
                                 }
                                 .padding(.vertical)
                                 .frame(width: gr.size.width-50)
-                                
-                                
-                                
+
                                 CustomButton(Title:"Book Now",IsDisabled:.constant(false) , action: {
-                                    //                                        destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: selectedsubjectid, bookingcase: .subject))
-                                    //                                        isPush = true
-                                    
+                                    destination = AnyView(BookingCheckoutView(selectedid: subjectdetailsvm.selectedSubjectId ?? 0, bookingcase: nil))
+                                    isPush = true
+
                                 })
                                 .frame(height: 40)
                                 .padding(.top,10)

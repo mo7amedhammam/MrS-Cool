@@ -26,7 +26,7 @@ struct LessonDetailsView: View {
     @State private var forwards = false
     //    let images = ["tab0", "tab1", "tab2", "tab3"] // Replace with your image names
     
-    @State private var lessoncase:LessonCases = .Individual
+    @State private var lessoncase:LessonCases = .Group
     
     private let calendar: Calendar
     private let dayFormatter: DateFormatter

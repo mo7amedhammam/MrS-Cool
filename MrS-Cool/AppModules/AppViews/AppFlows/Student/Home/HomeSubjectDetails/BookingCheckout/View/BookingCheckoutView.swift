@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookingCheckoutView: View {
     var selectedid : Int
-    var bookingcase:LessonCases
+    var bookingcase:LessonCases?
     @StateObject var checkoutvm = BookingCheckoutVM()
     
     @State var showFilter : Bool = false
@@ -21,15 +21,15 @@ struct BookingCheckoutView: View {
     @State private var currentPage = 0
     @State private var forwards = false
 
-    init(selectedid : Int,bookingcase:LessonCases) {
-        self.selectedid = 0
-        self.bookingcase = bookingcase
-        checkoutvm.bookingcase =  bookingcase
-    }
+//    init(selectedid : Int,bookingcase:LessonCases? = nil) {
+//        self.selectedid = 0
+//        self.bookingcase = bookingcase
+//        checkoutvm.bookingcase =  bookingcase
+//    }
     
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Subject Info")
+            CustomTitleBarView(title:checkoutvm.bookingcase == nil ? "Booking Full Subject" : checkoutvm.bookingcase == .Group ? "Booking Group Lesson":"Booking Individual Lesson")
             
             VStack (alignment: .leading){
                 
@@ -333,6 +333,7 @@ struct BookingCheckoutView: View {
         })
         
         .onAppear(perform: {
+            checkoutvm.bookingcase =  bookingcase
             checkoutvm.GetBookCheckout(lessonId: selectedid)
         })
         .onDisappear {
