@@ -55,7 +55,7 @@ struct CreatedTeacherSubjectM: Codable {
 
 // MARK: - TeacherSubjectM -
 struct TeacherSubjectM: Codable,Hashable {
-    var subjectAcademicYearID, groupCost, individualCost, minGroup: Int?
+    var subjectSemesterYearId, groupCost, individualCost, minGroup: Int?
     var maxGroup: Int?
     var teacherBrief: String?
     var statusID, id: Int?
@@ -65,7 +65,7 @@ struct TeacherSubjectM: Codable,Hashable {
     var statusIDName: String?
 
     enum CodingKeys: String, CodingKey {
-        case subjectAcademicYearID = "subjectAcademicYearId"
+        case subjectSemesterYearId = "subjectSemesterYearId"
         case groupCost, individualCost, minGroup, maxGroup, teacherBrief
         case statusID = "statusId"
         case id, educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName, subjectDisplayName

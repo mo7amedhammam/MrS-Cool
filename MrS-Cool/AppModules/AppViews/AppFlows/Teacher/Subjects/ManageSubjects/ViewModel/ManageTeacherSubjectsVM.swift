@@ -142,7 +142,7 @@ extension ManageTeacherSubjectsVM{
     
     func UpdateTeacherSubject(){
         guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
-        let parameters:[String:Any] = ["id":editId,"subjectAcademicYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup,"teacherBrief":subjectBrief ]
+        let parameters:[String:Any] = ["id":editId,"subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup,"teacherBrief":subjectBrief ]
         
         print("parameters",parameters)
         let target = teacherServices.UpdateTeacherSubject(parameters: parameters)
@@ -279,8 +279,8 @@ extension ManageTeacherSubjectsVM{
         editId = item.id ?? 0
         educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
         educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
-        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
-        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
+        academicYear = .init(id: item.subjectSemesterYearId,Title: item.academicYearName)
+        subject = .init(id: item.subjectSemesterYearId,Title: item.subjectDisplayName)
         if let min = item.minGroup{
             minGroup = String(min)
         }
