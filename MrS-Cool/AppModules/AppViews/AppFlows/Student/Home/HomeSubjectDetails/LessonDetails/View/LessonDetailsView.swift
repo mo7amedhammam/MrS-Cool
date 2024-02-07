@@ -462,7 +462,7 @@ struct HorizontalScrollWithTwoRows: View {
                                             
                                         }
                                         
-                                        ColorConstants.Gray300.frame(height: 0.5).padding(.vertical,8)
+                                        CustomDivider()
                                         
                                         HStack {
                                             Group{
@@ -499,5 +499,11 @@ struct HorizontalScrollWithTwoRows: View {
 struct HorizontalScrollWithTwoRows_Previews: PreviewProvider {
     static var previews: some View {
         HorizontalScrollWithTwoRows(items:.constant([TeacherAvaliableSchedualDto.init()]), selectedsched: .constant(TeacherAvaliableSchedualDto.init()))
+    }
+}
+
+struct CustomDivider: View {
+    var body: some View {
+        ColorConstants.Gray300.frame(height: 0.5).padding(.vertical,8)
     }
 }

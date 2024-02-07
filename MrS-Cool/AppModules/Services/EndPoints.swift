@@ -150,4 +150,6 @@ enum EndPoints: String {
     case GetTeacherAvaliableSchedual = "SubjectOrLessonTeachers/GetTeacherAvaliableSchedual"
     
     case GetCheckOutBookTeacherSession = "BookTeacherLessonSession/GetCheckOutBookTeacherSession"
+    case CreateBookTeacherSession = "BookTeacherLessonSession/CreateBookTeacherLessonSession"
+
 }

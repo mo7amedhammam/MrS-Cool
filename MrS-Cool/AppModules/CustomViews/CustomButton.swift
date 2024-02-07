@@ -99,10 +99,9 @@ struct CustomBorderedButton: View {
 
             .overlay(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8,
                                     bottomRight: 8)
-                .stroke(IsDisabled ? ColorConstants.Gray300: ColorConstants.Black900,
+                .stroke(IsDisabled ? ColorConstants.Gray300: ColorConstants.MainColor,
                         lineWidth: 2))
-            .background(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8,
-                                       bottomRight: 8)
+            .background(RoundedCorners(topLeft:8,topRight:8,bottomLeft:8,bottomRight:8)
                 .fill(ColorConstants.WhiteA700))
         })
         .disabled(IsDisabled)

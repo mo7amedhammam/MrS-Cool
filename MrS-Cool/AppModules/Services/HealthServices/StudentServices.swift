@@ -21,6 +21,7 @@ enum StudentServices{
     case GetLessonGroupDetails(parameters : [String:Any])
     case GetAvaliableScheduals(parameters : [String:Any])
     case GetCheckOutBookTeacherSession(parameters : [String:Any])
+    case CreateOutBookTeacherSession(parameters : [String:Any])
 
 }
 
@@ -68,6 +69,8 @@ extension StudentServices:TargetType{
             return EndPoints.GetTeacherAvaliableSchedual.rawValue
         case .GetCheckOutBookTeacherSession:
             return EndPoints.GetCheckOutBookTeacherSession.rawValue
+        case .CreateOutBookTeacherSession:
+            return EndPoints.CreateBookTeacherSession.rawValue
         }
     }
     
@@ -83,7 +86,7 @@ extension StudentServices:TargetType{
             return .get
             
         case  .GetSubjectOrLessonTeachers,
-                .GetCheckOutBookTeacherSession:
+                .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession:
             return .post
         }
     }
@@ -103,7 +106,9 @@ extension StudentServices:TargetType{
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),
-                .GetCheckOutBookTeacherSession(parameters: let Parameters):
+                .GetCheckOutBookTeacherSession(parameters: let Parameters),
+                .CreateOutBookTeacherSession(parameters: let Parameters):
+
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }
