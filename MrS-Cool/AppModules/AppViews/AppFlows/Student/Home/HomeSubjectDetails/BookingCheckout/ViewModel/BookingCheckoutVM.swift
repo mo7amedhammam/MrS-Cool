@@ -87,9 +87,9 @@ extension BookingCheckoutVM{
             
         case .Individual:
             parameters["teacherLessonId"] = Id
-            parameters["startDate"] = Id
-            parameters["timeTo"] = Id
-            parameters["timeFrom"] = Id
+            parameters["startDate"] = Checkout?.startDate ?? ""
+            parameters["timeFrom"] = Checkout?.fromTime ?? ""
+            parameters["timeTo"] = Checkout?.timeTo ?? ""
 
         case .none:
             parameters["teacherLessonSessionId"] = Id
@@ -115,7 +115,7 @@ extension BookingCheckoutVM{
                 if receivedData.success == true {
                     isCheckoutSuccess = true
                 }else{
-                    isCheckoutSuccess = true
+                    isCheckoutSuccess = false
 
 //                    isError =  true
 //                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -126,8 +126,8 @@ extension BookingCheckoutVM{
             .store(in: &cancellables)
     }
 
-    
     func cleanup() {
+        isCheckoutSuccess = nil
         // Cancel any ongoing Combine subscriptions
         cancellables.forEach { cancellable in
             cancellable.cancel()

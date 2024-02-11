@@ -12,21 +12,21 @@ struct BookingCheckoutView: View {
     var bookingcase:LessonCases?
     @StateObject var checkoutvm = BookingCheckoutVM()
     
-//    @State var showFilter : Bool = false
-//    @State var showSort : Bool = false
+    //    @State var showFilter : Bool = false
+    //    @State var showSort : Bool = false
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     
-//    @State private var currentPage = 0
-//    @State private var forwards = false
-
+    //    @State private var currentPage = 0
+    //    @State private var forwards = false
+    
     
     var body: some View {
         VStack {
             CustomTitleBarView(title:checkoutvm.bookingcase == nil ? "Booking Full Subject" : checkoutvm.bookingcase == .Group ? "Booking Group Lesson":"Booking Individual Lesson")
             
-//            VStack (alignment: .leading){
+            //            VStack (alignment: .leading){
             if let details = checkoutvm.Checkout{
                 
                 ScrollView {
@@ -75,7 +75,7 @@ struct BookingCheckoutView: View {
                             CheckOutFullSubjectInfo(details: details)
                         }else{
                             CheckOutLessonInfo(details: details)
-
+                            
                         }
                         
                         
@@ -107,10 +107,10 @@ struct BookingCheckoutView: View {
                         
                         
                         CustomButton(Title: "Confirm Payment", IsDisabled: .constant(false), action: {
+                            checkoutvm.CreateBookCheckout(Id: selectedid)
                             
                         })
                         .frame(height:40)
-                        
                         
                         CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
                             
@@ -140,18 +140,21 @@ struct BookingCheckoutView: View {
         .onDisappear {
             checkoutvm.cleanup()
         }
-        //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
-        //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
+        .onChange(of: checkoutvm.isCheckoutSuccess, perform: { value in
+            guard let value = value else{return}
+            destination = AnyView(PaymentStatusView(paymentsuccess: value))
+            isPush = true
+        })
+        .showHud(isShowing: $checkoutvm.isLoading)
+        .showAlert(hasAlert: $checkoutvm.isError, alertType: checkoutvm.error)
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
-    
 }
 
 #Preview {
     BookingCheckoutView(selectedid: 0, bookingcase: .Group)
 }
-
 
 
 struct CheckOutFullSubjectInfo: View {
@@ -175,7 +178,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraRegular(size: 10))
             }
             CustomDivider()
-
+            
             HStack(spacing: 10){
                 Image("checkoutcal")
                     .resizable()
@@ -211,7 +214,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraRegular(size: 10))
             }
             CustomDivider()
-
+            
             HStack(alignment: .top, spacing: 10){
                 Image("checkoutcaltime")
                     .resizable()
@@ -224,15 +227,15 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                    VStack{
-                        ForEach(details.bookSchedules ?? [bookSchedules()],id:\.self){sched in
-                            Group{
-                                Text("\(sched.dayName ?? "dayname") ")+Text(sched.fromTime ?? "01:20")
-                            }
-                            .foregroundColor(.mainBlue)
-                            .font(Font.SoraRegular(size: 10))
+                VStack{
+                    ForEach(details.bookSchedules ?? [bookSchedules()],id:\.self){sched in
+                        Group{
+                            Text("\(sched.dayName ?? "dayname") ")+Text(sched.fromTime ?? "01:20")
                         }
+                        .foregroundColor(.mainBlue)
+                        .font(Font.SoraRegular(size: 10))
                     }
+                }
             }
             
             CustomDivider()
@@ -294,7 +297,6 @@ struct CheckOutFullSubjectInfo: View {
     }
 }
 
-
 struct CheckOutLessonInfo: View {
     let details : BookingCheckoutM
     var body: some View {
@@ -316,7 +318,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraRegular(size: 10))
             }
             CustomDivider()
-
+            
             HStack(spacing: 10){
                 Image("booktypecheckout")
                     .resizable()
