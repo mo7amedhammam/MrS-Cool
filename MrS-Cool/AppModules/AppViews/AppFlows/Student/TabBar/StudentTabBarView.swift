@@ -22,7 +22,7 @@ struct StudentTabBarView: View {
 //    @State var destination = AnyView(EmptyView())
     
     @State var searchText = ""
-    
+    @State var presentSideMenu = false
     var body: some View {
 //        NavigationView{
             VStack() {
@@ -42,7 +42,7 @@ struct StudentTabBarView: View {
                     
                     Spacer()
                     Button(action: {
-                        
+                        presentSideMenu.toggle()
                     }, label: {
                         Image("sidemenue")
                             .padding(.vertical,15)
@@ -89,6 +89,11 @@ struct StudentTabBarView: View {
                                 // Disable swipe gestures
                             }
                         )
+                        .overlay(content: {
+                            SideMenuView()
+                        })
+
+                    
                     
 //                    StudentHomeView()
                     Text("tab 3")
@@ -111,10 +116,12 @@ struct StudentTabBarView: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .padding(.top,-8)
                 .padding(.bottom,-15)
+                                
                 Spacer()
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
-                
+
             }
+
             .edgesIgnoringSafeArea(.bottom)
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -122,6 +129,13 @@ struct StudentTabBarView: View {
             })
 //        }
             NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
+        
+        
+    }
+    @ViewBuilder
+    private func SideMenuView() -> some View {
+        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .trailing)
+            .offset(x:80)
     }
 }
 
