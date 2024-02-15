@@ -89,10 +89,6 @@ struct StudentTabBarView: View {
                                 // Disable swipe gestures
                             }
                         )
-                        .overlay(content: {
-                            SideMenuView()
-                        })
-
                     
                     
 //                    StudentHomeView()
@@ -121,7 +117,10 @@ struct StudentTabBarView: View {
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
             }
-
+            .overlay(content: {
+                SideMenuView()
+            })
+        
             .edgesIgnoringSafeArea(.bottom)
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -130,12 +129,10 @@ struct StudentTabBarView: View {
 //        }
             NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
         
-        
     }
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .trailing)
-            .offset(x:80)
+        SideView(isShowing: .constant(true), content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .trailing)
     }
 }
 
@@ -237,4 +234,75 @@ struct tabshape:Shape {
             
         }
     }
+}
+
+
+enum Categories:String{
+    case home = "home"
+    case favorite = "favorite"
+    case chat = "chat"
+    case profile = "profile"
+}
+
+struct StudentSideMenuContent: View {
+    @Binding var presentSideMenu: Bool
+    @State private var selectedCategory: Int = 0
+    
+    var body: some View {
+        ScrollView{
+            VStack(alignment: .trailing, spacing: 0) {
+                HStack(spacing:20){
+                    
+                    ZStack(alignment: .topLeading){
+                        AsyncImage(url: URL(string: Constants.baseURL+"")){image in
+                            image
+                                .resizable()
+                        }placeholder: {
+                            Image("img_younghappysmi")
+                                .resizable()
+                        }
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60,height: 60)
+                        .clipShape(Circle())
+                        
+                        Image("Edit_fill")
+                        //                        .resizable().aspectRatio(contentMode: .fit)
+                        //                        .font(.InterMedium(size: 12))
+                            .frame(width: 15,height: 15)
+                            .background(.white)
+                            .clipShape(Circle())
+                            .offset(x:0,y:2)
+                            .onTapGesture(perform: {
+                                // show edit profile
+                            })
+                        
+                    }
+                    VStack(alignment:.leading) {
+                        Text("Jhon Smith")
+                            .font(.SoraBold(size: 18))
+                            .foregroundStyle(.whiteA700)
+                        
+                        Text("Edit your profile")
+                            .font(.SoraRegular(size: 12))
+                            .foregroundStyle(.whiteA700)
+                    }
+                    
+                    Spacer()
+                    
+                }
+                Spacer()
+            }
+            
+        }
+            .frame(width: UIScreen.main.bounds.width - 60)
+            .padding(.horizontal, 20)
+            .padding(.top, 50)
+
+            .background{
+                Color.mainBlue
+        }
+        
+        
+    }
+    
 }

@@ -15,14 +15,22 @@ struct SideView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             if isShowing {
-                Color.black
+                Color.mainBlue
                     .opacity(0.3)
                     .ignoresSafeArea()
-                
+                    .onTapGesture {
+                        isShowing = false
+                    }
                 content
+                    .offset(x:66)
                     .transition(.move(edge: direction))
                     .background(
-                        Color.white
+                        Color.clear
+//                            .offset(x:-35)
+//                            .opacity(0.3)
+//                            .onTapGesture {
+//                                isShowing = false
+//                            }
                     )
             }
         }
@@ -36,67 +44,33 @@ struct SideView: View {
     SideView(isShowing: .constant(true), content: AnyView(Text("menue")), direction: .leading)
 }
 
-#Preview {
-    SideMenuViewTemp()
-}
+//#Preview {
+//    SideMenuViewTemp()
+//}
 
-struct SideMenuViewTemp: View {
-    @State var presentSideMenu = true
-    
-    var body: some View {
-        ZStack {
-            SideMenuView()
-            
-            Button {
-                presentSideMenu.toggle()
-            } label: {
-                HStack {
-                    Text("Show Menu")
-                }
-            }
-            
-        }.background(.black)
-        
-    }
-    
-    @ViewBuilder
-    private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .trailing)
-            .offset(x:80)
-    }
-}
+//struct SideMenuViewTemp: View {
+//    @State var presentSideMenu = true
+//    
+//    var body: some View {
+//        ZStack {
+//            SideMenuView()
+//            
+////            Button {
+////                presentSideMenu.toggle()
+////            } label: {
+////                HStack {
+////                    Text("Show Menu")
+////                }
+////            }
+//            
+//        }.background(.black)
+//        
+//    }
+//    
+//    @ViewBuilder
+//    private func SideMenuView() -> some View {
+//        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .trailing)
+//            .localizeView()
+//    }
+//}
 
-enum Categories:String{
-    case home = "home"
-    case favorite = "favorite"
-    case chat = "chat"
-    case profile = "profile"
-}
-
-struct StudentSideMenuContent: View {
-    @Binding var presentSideMenu: Bool
-    //    var categories = [Categories.home.rawValue, Categories.favorite.rawValue, Categories.chat.rawValue, Categories.profile.rawValue
-    //    ]
-    @State private var selectedCategory: Int = 0
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                
-                Text("Jhon Smith")
-                
-                
-            }
-            Spacer()
-        }
-        .offset(x:-40)
-        
-        .frame(width: UIScreen.main.bounds.width - 100)
-        .padding(.horizontal, 20)
-        .background{
-            Color.mainBlue
-        }
-        
-    }
-    
-}
