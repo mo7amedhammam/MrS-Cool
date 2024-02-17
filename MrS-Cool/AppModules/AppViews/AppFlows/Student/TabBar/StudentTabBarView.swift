@@ -21,7 +21,7 @@ struct StudentTabBarView: View {
 //    @State var isPush = false
 //    @State var destination = AnyView(EmptyView())
     
-    @State var searchText = ""
+//    @State var searchText = ""
     @State var presentSideMenu = false
     var body: some View {
 //        NavigationView{
@@ -120,7 +120,6 @@ struct StudentTabBarView: View {
             .overlay(content: {
                 SideMenuView()
             })
-        
             .edgesIgnoringSafeArea(.bottom)
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -132,7 +131,7 @@ struct StudentTabBarView: View {
     }
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: .constant(true), content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .trailing)
+        SideView(isShowing: .constant(true), content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .leading)
     }
 }
 
@@ -236,7 +235,6 @@ struct tabshape:Shape {
     }
 }
 
-
 enum Categories:String{
     case home = "home"
     case favorite = "favorite"
@@ -250,7 +248,7 @@ struct StudentSideMenuContent: View {
     
     var body: some View {
         ScrollView{
-            VStack(alignment: .trailing, spacing: 0) {
+            VStack(alignment: .trailing, spacing: 20) {
                 HStack(spacing:20){
                     
                     ZStack(alignment: .topLeading){
@@ -290,19 +288,76 @@ struct StudentSideMenuContent: View {
                     Spacer()
                     
                 }
+                .padding(.horizontal, 20)
+                
+                SideMenuSectionTitle(title: "Academic")
+
+                SideMenuSectionTitle(title: "Settings")
+                
                 Spacer()
             }
             
         }
-            .frame(width: UIScreen.main.bounds.width - 60)
-            .padding(.horizontal, 20)
-            .padding(.top, 50)
-
+            .frame(width: UIScreen.main.bounds.width - 80)
+            .padding(.top, 55)
             .background{
                 Color.mainBlue
         }
-        
-        
+//            .offset(x:-20)
     }
     
+}
+
+struct SideMenuSectionTitle: View {
+    var title : String
+    
+    var body: some View {
+        HStack {
+            Text(title.localized())
+                .font(.SoraBold(size: 18))
+                .foregroundColor(ColorConstants.WhiteA700)
+                .multilineTextAlignment(.leading)
+            Spacer()
+        }
+        .padding()
+        .background(content: {
+            ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
+                .padding(.leading,-20)
+        })
+    }
+}
+
+
+struct SideView: View {
+    @Binding var isShowing: Bool
+    var content: AnyView
+    var direction: Edge
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if isShowing {
+                Color.mainBlue
+                    .opacity(0.3)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        isShowing = false
+                    }
+                content
+//                    .offset(x:66)
+                    .transition(.move(edge: direction))
+                    .background(
+                        Color.clear
+//                            .offset(x:-35)
+//                            .opacity(0.3)
+//                            .onTapGesture {
+//                                isShowing = false
+//                            }
+                    )
+            }
+        }
+        
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+        .ignoresSafeArea()
+        .animation(.easeInOut, value: isShowing)
+    }
 }

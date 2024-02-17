@@ -84,6 +84,7 @@ extension StudentHomeVM{
         let target = StudentServices.GetStudentSubjects(parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentSubjectsM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -116,6 +117,7 @@ extension StudentHomeVM{
         let target = StudentServices.GetMostSubjects(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedSubjectsM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -153,6 +155,7 @@ extension StudentHomeVM{
         let target = StudentServices.GetMostLessons(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedLessonsM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -191,6 +194,7 @@ extension StudentHomeVM{
         let target = StudentServices.GetMostTeachers(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedTeachersM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
