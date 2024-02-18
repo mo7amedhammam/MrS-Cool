@@ -11,10 +11,10 @@ struct ChangePasswordView: View {
     @Environment(\.dismiss) var dismiss
 
     @EnvironmentObject var changepasswordvm : ChangePasswordVM
-    
+    var hideImage : Bool? = true
     var body: some View {
         VStack(spacing:0) {
-            CustomTitleBarView(title: "Change Password",hideImage: true)
+            CustomTitleBarView(title: "Change Password",hideImage: hideImage)
             VStack{
                 GeometryReader{gr in
                     ScrollView(.vertical){

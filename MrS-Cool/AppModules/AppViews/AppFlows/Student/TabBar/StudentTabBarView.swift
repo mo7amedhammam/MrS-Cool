@@ -7,10 +7,14 @@
 
 
 import SwiftUI
-
+enum Studentdestinations{
+    case editProfile, calendar, rates, changePassword, tickets, signOut, deleteAccount
+}
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
+    @State private var selectedDestination : Studentdestinations = .editProfile
+
     private let tabBarItems = [
         TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
         TabBarItem(icon: "tab1", selectedicon: "tab1selected", title: ""),
@@ -21,7 +25,6 @@ struct StudentTabBarView: View {
 //    @State var isPush = false
 //    @State var destination = AnyView(EmptyView())
     
-//    @State var searchText = ""
     @State var presentSideMenu = false
     var body: some View {
 //        NavigationView{
@@ -63,7 +66,7 @@ struct StudentTabBarView: View {
                 
                 TabView(selection: $selectedIndex) {
 //                    StudentHomeView()
-                    Text("tab 0")
+                    Text("tab 0") // dashboard
                         .tag(0)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -72,8 +75,7 @@ struct StudentTabBarView: View {
                         )
                     
 //                    StudentHomeView()
-                    Text("tab 1")
-
+                    Text("tab 1") // finance
                         .tag(1)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -81,7 +83,7 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-                    StudentHomeView()
+                    StudentHomeView() // home
                         .environmentObject(studenttabbarvm)
                         .tag(2)
                         .gesture(
@@ -92,7 +94,14 @@ struct StudentTabBarView: View {
                     
                     
 //                    StudentHomeView()
-                    Text("tab 3")
+//                    Text("tab 3")
+//                    destination = AnyView(ChatsListView()
+////                            .environmentObject(lookupsvm)
+//                        .environmentObject(chatlistvm)
+////                                .hideNavigationBar()
+//                    )
+                    ChatsListView() // chats
+                        .environmentObject(ChatListVM())
                         .tag(3)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -101,7 +110,7 @@ struct StudentTabBarView: View {
                         )
                     
 //                    StudentHomeView()
-                    Text("tab 4")
+                    Text("tab 4") // completed lessons
                         .tag(4)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -125,13 +134,31 @@ struct StudentTabBarView: View {
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
             })
+            .onChange(of: selectedDestination) {newval in
+                if newval == .editProfile{ //edit Profile
+                    
+                }else if newval == .calendar { //calendar
+                    studenttabbarvm.destination = AnyView(CalView1())
+                    
+                }else if newval == .rates { // rates
+                    studenttabbarvm.destination = AnyView(Text("Rates"))
+                }else if newval == .changePassword { // change password
+                    studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
+                }else if newval == .tickets { // tickets
+                    
+                }else if newval == .signOut { // signout
+                    studenttabbarvm.destination =
+                   AnyView(SignInView())
+                    Helper.shared.IsLoggedIn(value: false)
+                }
+            }
 //        }
             NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
-        
     }
+    
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: .constant(true), content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu)), direction: .leading)
+        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $studenttabbarvm.ispush)), direction: .leading)
     }
 }
 
@@ -244,11 +271,12 @@ enum Categories:String{
 
 struct StudentSideMenuContent: View {
     @Binding var presentSideMenu: Bool
-    @State private var selectedCategory: Int = 0
-    
+    @Binding var selectedDestination: Studentdestinations
+    @Binding var isPush: Bool
+
     var body: some View {
         ScrollView{
-            VStack(alignment: .trailing, spacing: 20) {
+            VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
                     
                     ZStack(alignment: .topLeading){
@@ -272,6 +300,8 @@ struct StudentSideMenuContent: View {
                             .offset(x:0,y:2)
                             .onTapGesture(perform: {
                                 // show edit profile
+                                selectedDestination = .editProfile
+                                isPush = true
                             })
                         
                     }
@@ -286,24 +316,57 @@ struct StudentSideMenuContent: View {
                     }
                     
                     Spacer()
-                    
-                }
-                .padding(.horizontal, 20)
+                    }
+                .padding()
                 
                 SideMenuSectionTitle(title: "Academic")
-
-                SideMenuSectionTitle(title: "Settings")
                 
+                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
+                    selectedDestination = .calendar // calendar
+                    presentSideMenu =  false
+                    isPush = true
+                }
+
+                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+                    selectedDestination = .rates // rates
+                    presentSideMenu =  false
+                    isPush = true
+                }
+                
+                SideMenuSectionTitle(title: "Settings")
+
+                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    selectedDestination = .changePassword // cahnage Password
+                    presentSideMenu =  false
+                    isPush = true
+                }
+
+                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
+                    selectedDestination = .tickets // Tickets
+                    presentSideMenu =  false
+                    isPush = true
+                }
+
+                SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                    selectedDestination = .signOut // sign out
+                    presentSideMenu =  false
+                    isPush = true
+                }
+                
+                SideMenuButton(image: "MenuSt_signout", title: "Delete Account"){
+                    selectedDestination = .deleteAccount // delete account
+                    presentSideMenu =  false
+                    isPush = true
+                }
+
                 Spacer()
             }
-            
         }
             .frame(width: UIScreen.main.bounds.width - 80)
             .padding(.top, 55)
             .background{
                 Color.mainBlue
         }
-//            .offset(x:-20)
     }
     
 }
@@ -327,37 +390,22 @@ struct SideMenuSectionTitle: View {
     }
 }
 
-
-struct SideView: View {
-    @Binding var isShowing: Bool
-    var content: AnyView
-    var direction: Edge
-    
+struct SideMenuButton: View {
+    var image : String
+    var title : String
+    var action : () -> ()
     var body: some View {
-        ZStack(alignment: .leading) {
-            if isShowing {
-                Color.mainBlue
-                    .opacity(0.3)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        isShowing = false
-                    }
-                content
-//                    .offset(x:66)
-                    .transition(.move(edge: direction))
-                    .background(
-                        Color.clear
-//                            .offset(x:-35)
-//                            .opacity(0.3)
-//                            .onTapGesture {
-//                                isShowing = false
-//                            }
-                    )
+        Button(action: {
+            action()
+        }, label: {
+            HStack{
+                Image(image)
+                Text(title.localized())
+                    .font(.SoraSemiBold(size: 13))
+                    .foregroundStyle(ColorConstants.WhiteA700)
+                Spacer()
             }
-        }
-        
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        .ignoresSafeArea()
-        .animation(.easeInOut, value: isShowing)
+            .padding()
+        })
     }
 }

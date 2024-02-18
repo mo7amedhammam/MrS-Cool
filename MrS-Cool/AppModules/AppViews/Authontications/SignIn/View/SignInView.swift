@@ -13,16 +13,18 @@ struct SignInView: View {
     
     @State var rememberMe = false
     @State var isPush = false
-    @State var destination = AnyView(StudentHomeView())
+    @State var destination = AnyView(StudentTabBarView())
+    var hideimage:Bool? = true
     var body: some View {
         VStack(spacing:0) {
-            CustomTitleBarView(title: "sign_in",hideImage: true)
+            CustomTitleBarView(title: "sign_in",hideImage: hideimage)
             VStack{
                 UserTypesList(selectedUser: $selectedUser){
                     switch selectedUser.user {
                     case .Student:
                         Helper.shared.setSelectedUserType(userType: .Student)
                         destination = AnyView(StudentTabBarView())
+                        
 
                     case .Parent:
                         Helper.shared.setSelectedUserType(userType: .Parent)
@@ -117,6 +119,11 @@ struct SignInView: View {
             }
             .padding(.horizontal)
         }
+        .gesture(
+            DragGesture().onChanged { _ in
+                // Disable swipe gestures
+            }
+        )
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
