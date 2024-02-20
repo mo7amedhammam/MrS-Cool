@@ -23,6 +23,8 @@ enum StudentServices{
     case GetCheckOutBookTeacherSession(parameters : [String:Any])
     case CreateOutBookTeacherSession(parameters : [String:Any])
 
+    case GetStudentCompletedLessons(parameters : [String:Any])
+
 }
 
 extension StudentServices:TargetType{
@@ -71,6 +73,9 @@ extension StudentServices:TargetType{
             return EndPoints.GetCheckOutBookTeacherSession.rawValue
         case .CreateOutBookTeacherSession:
             return EndPoints.CreateBookTeacherSession.rawValue
+            
+        case .GetStudentCompletedLessons:
+            return EndPoints.GetStudentCompletedLessons.rawValue
         }
     }
     
@@ -86,7 +91,8 @@ extension StudentServices:TargetType{
             return .get
             
         case  .GetSubjectOrLessonTeachers,
-                .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession:
+                .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,
+                .GetStudentCompletedLessons:
             return .post
         }
     }
@@ -107,8 +113,8 @@ extension StudentServices:TargetType{
             
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),
                 .GetCheckOutBookTeacherSession(parameters: let Parameters),
-                .CreateOutBookTeacherSession(parameters: let Parameters):
-
+                .CreateOutBookTeacherSession(parameters: let Parameters),
+                .GetStudentCompletedLessons(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

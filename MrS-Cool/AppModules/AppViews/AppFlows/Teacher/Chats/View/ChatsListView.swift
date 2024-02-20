@@ -17,11 +17,13 @@ struct ChatsListView: View {
     @State var destination = AnyView(EmptyView())
     @State var selectedChatId : Int?
     @State var selectedLessonId : Int = 0
+    var hasNavBar : Bool? = true
 
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Messages")
-            
+            if hasNavBar ?? true{
+                CustomTitleBarView(title: "Messages")
+            }
             GeometryReader { gr in
                 VStack{ // (Title - Data - Submit Button)
                     Group{
