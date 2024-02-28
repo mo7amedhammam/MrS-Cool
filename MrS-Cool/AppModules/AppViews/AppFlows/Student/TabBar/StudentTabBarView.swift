@@ -101,6 +101,7 @@ struct StudentTabBarView: View {
 ////                                .hideNavigationBar()
 //                    )
                     ChatsListView(hasNavBar : false) // chats
+                        .environmentObject(studenttabbarvm)
                         .environmentObject(ChatListVM())
                         .tag(3)
                         .gesture(
@@ -113,6 +114,7 @@ struct StudentTabBarView: View {
                     StudentCompletedLessonsView(hasNavBar : false) // completed lessons
                         .environmentObject(LookUpsVM())
                         .environmentObject(StudentCompletedLessonsVM())
+                        .environmentObject(studenttabbarvm)
                         .tag(4)
                         .gesture(
                             DragGesture().onChanged { _ in

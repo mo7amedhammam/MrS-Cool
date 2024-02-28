@@ -47,7 +47,6 @@ enum teacherServices{
     case GetAllComentsListById(parameters : [String:Any])
     case CreateComment(parameters : [String:Any])
 
-
 }
 
 extension teacherServices:TargetType{
@@ -109,15 +108,36 @@ extension teacherServices:TargetType{
             return EndPoints.GetMyCompletedLessonDetails.rawValue
             
         case .GetMyCalenderSchedual:
-            return EndPoints.GetMyCalenderSchedual.rawValue
+           if Helper.shared.getSelectedUserType() == .Student{
+                return EndPoints.GetStudentCalenderSchedual.rawValue
+            }else{
+                return EndPoints.GetMyCalenderSchedual.rawValue
+            }
         case .cancelMyCalenderSchedual:
-            return EndPoints.CancelMyCalenderSchedual.rawValue
+            if Helper.shared.getSelectedUserType() == .Student{
+                 return EndPoints.CancelStudentCalenderSchedual.rawValue
+             }else{
+                 return EndPoints.CancelMyCalenderSchedual.rawValue
+             }
+            
         case .GetAllComentsList:
-            return EndPoints.GetAllStudentsChat.rawValue
+            if Helper.shared.getSelectedUserType() == .Student{
+                 return EndPoints.GetStudentAllStudentsChat.rawValue
+             }else{
+                 return EndPoints.GetAllStudentsChat.rawValue
+             }
         case .GetAllComentsListById:
-            return EndPoints.GetAllStudentsChatComments.rawValue
+            if Helper.shared.getSelectedUserType() == .Student{
+                 return EndPoints.GetStudentAllStudentsChatComments.rawValue
+             }else{
+                 return EndPoints.GetAllStudentsChatComments.rawValue
+             }
         case .CreateComment:
-            return EndPoints.CreateComment.rawValue
+            if Helper.shared.getSelectedUserType() == .Student{
+                 return EndPoints.CreateStudentComment.rawValue
+             }else{
+                 return EndPoints.CreateComment.rawValue
+             }
 
         }
     }

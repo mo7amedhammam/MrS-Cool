@@ -24,6 +24,7 @@ enum StudentServices{
     case CreateOutBookTeacherSession(parameters : [String:Any])
 
     case GetStudentCompletedLessons(parameters : [String:Any])
+    case GetStudentCompletedLessonDetails(parameters : [String:Any])
 
 }
 
@@ -76,6 +77,8 @@ extension StudentServices:TargetType{
             
         case .GetStudentCompletedLessons:
             return EndPoints.GetStudentCompletedLessons.rawValue
+        case .GetStudentCompletedLessonDetails:
+            return EndPoints.GetStudentCompletedLessonDetails.rawValue
         }
     }
     
@@ -86,8 +89,8 @@ extension StudentServices:TargetType{
                 .GetMostSubjects,
                 .GetMostTeachers,
                 .GetHomeSubjectDetails,
-                .GetSubjectGroupDetails,.GetLessonGroupDetails,.GetAvaliableScheduals:
-            
+                .GetSubjectGroupDetails,.GetLessonGroupDetails,.GetAvaliableScheduals,
+                .GetStudentCompletedLessonDetails:
             return .get
             
         case  .GetSubjectOrLessonTeachers,
@@ -108,7 +111,8 @@ extension StudentServices:TargetType{
                 .GetMostTeachers(_,parameters: let Parameters),
                 .GetHomeSubjectDetails(parameters: let Parameters),
                 .GetSubjectGroupDetails(parameters: let Parameters),
-                .GetLessonGroupDetails(parameters: let Parameters),.GetAvaliableScheduals(parameters: let Parameters):
+                .GetLessonGroupDetails(parameters: let Parameters),.GetAvaliableScheduals(parameters: let Parameters),
+                .GetStudentCompletedLessonDetails(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),

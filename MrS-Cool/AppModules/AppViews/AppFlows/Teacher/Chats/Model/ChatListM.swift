@@ -8,7 +8,7 @@
 import Foundation
 
 
-// MARK: - ChatListM -
+// MARK: - ChatListM - // teacher
 struct ChatListM: Codable,Hashable {
 //    var id = UUID()
     
@@ -17,11 +17,11 @@ struct ChatListM: Codable,Hashable {
     var lessonNum: Int?
     var teacherLessonSessionsDtos: [TeacherLessonSessionsDto]?
     
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case studentName = "studentName"
-//        case studentImage, lessonNum,teacherLessonSessionsDtos
-//    }
+    enum CodingKeys: String, CodingKey {
+        case studentName = "studentName"
+        case studentImage
+        case lessonNum,teacherLessonSessionsDtos
+    }
 }
 
 // MARK: - TeacherLessonSessionsDto -
@@ -33,9 +33,6 @@ struct TeacherLessonSessionsDto: Codable,Hashable,Identifiable {
         case lessonName, creationDate
     }
 }
-
-
-
 
 // MARK: - ChatDetailsM -
 struct ChatDetailsM: Codable,Hashable,Identifiable {
@@ -52,6 +49,40 @@ struct ChatDetailsM: Codable,Hashable,Identifiable {
 
 // MARK: - TeacherLessonSessionCommentDetailsDto -
 struct CommentDetailsDto: Codable,Hashable {
+    var comment, fromName, toName, fromImage: String?
+    var toImage, creationDate: String?
+}
+
+
+// MARK: - StudentChatListM -
+struct StudentChatListM: Codable,Hashable {
+    var teacherName: String?
+    var teacherImage : String?
+    var lessonNum: Int?
+    var teacherLessonSessionsDtos: [TeacherLessonSessionsDto]?
+    
+    enum CodingKeys: String, CodingKey {
+        case teacherName = "teacherName"
+        case teacherImage = "teacherImage"
+        case lessonNum,teacherLessonSessionsDtos
+    }
+}
+
+// MARK: - StudentLessonDetailsM -
+struct StudentChatDetailsM: Codable {
+    var bookTeacherLessonSessionDetailID: Int?
+    var teacherName, teacherImage, studentName, studentImage: String?
+    var subjectName: String?
+    var teacherLessonSessionCommentDetailsDtos: [StudentLessonSessionCommentDetailsDto]?
+
+    enum CodingKeys: String, CodingKey {
+        case bookTeacherLessonSessionDetailID = "bookTeacherLessonSessionDetailId"
+        case teacherName, teacherImage, studentName, studentImage, subjectName, teacherLessonSessionCommentDetailsDtos
+    }
+}
+
+// MARK: - StudentLessonSessionCommentDetailsDto
+struct StudentLessonSessionCommentDetailsDto: Codable {
     var comment, fromName, toName, fromImage: String?
     var toImage, creationDate: String?
 }

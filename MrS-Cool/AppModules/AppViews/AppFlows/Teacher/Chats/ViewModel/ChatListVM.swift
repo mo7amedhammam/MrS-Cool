@@ -29,6 +29,9 @@ class ChatListVM: ObservableObject {
     @Published var ChatsList : [ChatListM]?
     @Published var ChatDetails : ChatDetailsM?
 
+    @Published var StudentChatsList : [StudentChatListM]?
+    @Published var StudentChatDetails : StudentChatDetailsM?
+
     init(){
     }
 }
@@ -39,31 +42,61 @@ extension ChatListVM{
         isLoading = false
         let target = teacherServices.GetAllComentsList
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<[ChatListM]>.self)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {[weak self] completion in
-                guard let self = self else{return}
-                isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    isError =  true
-                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                }
-            },receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                if receivedData.success == true {
+        if Helper.shared.getSelectedUserType() == .Teacher {
+            BaseNetwork.CallApi(target, BaseResponse<[ChatListM]>.self)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: {[weak self] completion in
+                    guard let self = self else{return}
+                    isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        isError =  true
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    }
+                },receiveValue: {[weak self] receivedData in
+                    guard let self = self else{return}
+                    print("receivedData",receivedData)
+                    if receivedData.success == true {
                         ChatsList = receivedData.data
-                }else{
-                    isError =  true
-                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                }
-                isLoading = false
-            })
-            .store(in: &cancellables)
+                    }else{
+                        isError =  true
+                        //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                        error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    }
+                    isLoading = false
+                })
+                .store(in: &cancellables)
+            
+        }else if Helper.shared.getSelectedUserType() == .Student{
+            BaseNetwork.CallApi(target, BaseResponse<[StudentChatListM]>.self)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: {[weak self] completion in
+                    guard let self = self else{return}
+                    isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        isError =  true
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    }
+                },receiveValue: {[weak self] receivedData in
+                    guard let self = self else{return}
+                    print("receivedData",receivedData)
+                    if receivedData.success == true {
+                        ChatsList = receivedData.data?.convertToChatList()
+                    }else{
+                        isError =  true
+                        //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                        error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    }
+                    isLoading = false
+                })
+                .store(in: &cancellables)
+
+        }
     }
     func GetChatComments(){
         isLoading = false
@@ -74,32 +107,61 @@ extension ChatListVM{
         print("parameters",parameters)
         let target = teacherServices.GetAllComentsListById(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {[weak self] completion in
-                guard let self = self else{return}
-                isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    isError =  true
-                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                }
-            },receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                if receivedData.success == true {
-                    //                    TeacherSubjects?.append(model)
-                    ChatDetails = receivedData.data
-                }else{
-                    isError =  true
-                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                }
-                isLoading = false
-            })
-            .store(in: &cancellables)
+        
+        if Helper.shared.getSelectedUserType() == .Teacher{
+            BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: {[weak self] completion in
+                    guard let self = self else{return}
+                    isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        isError =  true
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    }
+                },receiveValue: {[weak self] receivedData in
+                    guard let self = self else{return}
+                    print("receivedData",receivedData)
+                    if receivedData.success == true {
+                        //                    TeacherSubjects?.append(model)
+                        ChatDetails = receivedData.data
+                    }else{
+                        isError =  true
+                        //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                        error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    }
+                    isLoading = false
+                })
+                .store(in: &cancellables)
+        }else if Helper.shared.getSelectedUserType() == .Student{
+            BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: {[weak self] completion in
+                    guard let self = self else{return}
+                    isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        isError =  true
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    }
+                },receiveValue: {[weak self] receivedData in
+                    guard let self = self else{return}
+                    print("receivedData",receivedData)
+                    if receivedData.success == true {
+                        ChatDetails = receivedData.data?.convertToChatDetails()
+                    }else{
+                        isError =  true
+                        //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                        error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    }
+                    isLoading = false
+                })
+                .store(in: &cancellables)
+        }
     }
     func CreateChatComment(){
         isLoading = false
@@ -143,6 +205,30 @@ extension ChatListVM{
     }
 }
 
+extension Array where Element == StudentChatListM {
+    func convertToChatList() -> [ChatListM] {
+        return self.map { studentChat in
+            return ChatListM(studentName: studentChat.teacherName,
+                             studentImage: studentChat.teacherImage,
+                             lessonNum: studentChat.lessonNum,
+                             teacherLessonSessionsDtos: studentChat.teacherLessonSessionsDtos)
+        }
+    }
+}
 
-
-
+extension StudentChatDetailsM {
+    func convertToChatDetails() -> ChatDetailsM {
+        return ChatDetailsM(id: self.bookTeacherLessonSessionDetailID,
+                            teacherName: self.teacherName,
+                            studentName: self.studentName,
+                            subjectName: self.subjectName,
+                            comments: self.teacherLessonSessionCommentDetailsDtos?.map { commentDto in
+                                return CommentDetailsDto(comment: commentDto.comment,
+                                                         fromName: commentDto.fromName,
+                                                         toName: commentDto.toName,
+                                                         fromImage: commentDto.fromImage,
+                                                         toImage: commentDto.toImage,
+                                                         creationDate: commentDto.creationDate)
+                            })
+    }
+}

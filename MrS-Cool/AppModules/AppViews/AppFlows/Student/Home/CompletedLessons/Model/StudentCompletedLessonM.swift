@@ -27,3 +27,30 @@ struct StudentCompletedLessonItemM: Codable ,Hashable{
         case attendance
     }
 }
+
+// MARK: - StudentCompletedLessonDetailsM -
+struct StudentCompletedLessonDetailsM: Codable {
+    var subjectName,lessonName,groupNamem,subjectBrief,lessonBrief:String?
+    var educationTypeName,educationLevelName,academicYearName,subjectSemesterYearName: String?
+    var teacherLessonId : Int?
+    var teacherLessonMaterials: [StudentCompletedLessonMaterialM]?
+
+    enum CodingKeys: String, CodingKey {
+        case subjectName,lessonName,groupNamem,subjectBrief,lessonBrief
+        case educationTypeName,educationLevelName,academicYearName,subjectSemesterYearName
+        case teacherLessonId, teacherLessonMaterials
+    }
+}
+
+// MARK: - TeacherCompletedLessonStudentList -
+struct StudentCompletedLessonMaterialM: Codable ,Hashable{
+    
+    var name,materialUrl,materialTypeName,nameEn: String?
+    var id,teacherLessonId,materialTypeId : Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case name,materialUrl,materialTypeName,nameEn
+        case id,teacherLessonId,materialTypeId
+    }
+}
+

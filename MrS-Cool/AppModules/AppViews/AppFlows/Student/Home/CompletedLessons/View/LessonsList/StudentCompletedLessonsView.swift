@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct StudentCompletedLessonsView: View {
-    //        @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
     @EnvironmentObject var lookupsvm : LookUpsVM
-    //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var completedlessonsvm : StudentCompletedLessonsVM
     
     @State var showFilter : Bool = false
     //    var currentSubject:TeacherSubjectM?
     
     var hasNavBar : Bool? = true
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
     
     var body: some View {
         VStack {
@@ -45,12 +44,10 @@ struct StudentCompletedLessonsView: View {
                         }
                         .padding(.horizontal)
                         List(completedlessonsvm.completedLessonsList?.items ?? [], id:\.self) { lesson in
-                            
-                            StudenCompletedLessonCellView(model: lesson,reviewBtnAction: {
-//                                completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
-                                destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
-                                
-                                isPush = true
+                            StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
+                                completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
+                                studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
+                                studenthometabbarvm.ispush = true
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
@@ -66,7 +63,6 @@ struct StudentCompletedLessonsView: View {
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
                         .frame(minHeight: gr.size.height/2)
-                        
                         Spacer()
                     }
                     .frame(minHeight: gr.size.height)
@@ -76,15 +72,13 @@ struct StudentCompletedLessonsView: View {
                 lookupsvm.GetSubjestForList()
                 completedlessonsvm.GetCompletedLessons()
             })
-            
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
         .onDisappear {
-            completedlessonsvm.cleanup()
+//            completedlessonsvm.cleanup()
         }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
@@ -158,12 +152,13 @@ struct StudentCompletedLessonsView: View {
             }
         }
         
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        NavigationLink(destination:studenthometabbarvm.destination, isActive: $studenthometabbarvm.ispush, label: {})
     }
 }
 
 #Preview {
     StudentCompletedLessonsView()
+        .environmentObject(StudentTabBarVM())
         .environmentObject(LookUpsVM())
         .environmentObject(StudentCompletedLessonsVM())
     

@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ChatsListView: View {  
+    @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
 //    @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var chatlistvm : ChatListVM
         
@@ -56,6 +57,10 @@ struct ChatsListView: View {
                                 ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectedLessonId: $selectedLessonId, selectLessonBtnAction: {
                                     destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId ).environmentObject(chatlistvm))
                                     isPush = true
+                                    if hasNavBar == false{
+                                        studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId).environmentObject(chatlistvm))
+                                        studenthometabbarvm.ispush = true
+                                    }
                                 })
                             })
                             .listRowSpacing(0)
@@ -101,6 +106,7 @@ struct ChatsListView: View {
 
 #Preview {
     ChatsListView()
+        .environmentObject(StudentTabBarVM())
         .environmentObject(ChatListVM())
     
 }

@@ -103,6 +103,8 @@ struct TeacherHomeView: View {
                         destination = AnyView(ChatsListView()
 //                            .environmentObject(lookupsvm)
                             .environmentObject(chatlistvm)
+                            .environmentObject(StudentTabBarVM())
+
 //                                .hideNavigationBar()
                         )
                     }

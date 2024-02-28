@@ -15,7 +15,7 @@ class StudentCompletedLessonsVM: ObservableObject {
     @Published var maxResultCount = 10
     @Published var skipCount = 0
     
-    @Published var selectedLessonid : Int?
+//    @Published var selectedLessonid : Int?
 
     @Published var filtersubject : DropDownOption?
     @Published var filterlesson : DropDownOption?
@@ -30,7 +30,7 @@ class StudentCompletedLessonsVM: ObservableObject {
     
     //    @Published var isTeacherHasSubjects: Bool = false
     @Published var completedLessonsList : StudentCompletedLessonM?
-    @Published var completedLessonDetails : CompletedLessonDetailsM?
+    @Published var completedLessonDetails : StudentCompletedLessonDetailsM?
 
     init()  {
     }
@@ -49,7 +49,7 @@ extension StudentCompletedLessonsVM{
         }
         if let filterlessonid = filterlesson?.id{
            parameters["lessonId"] = filterlessonid
-       }
+        }
         if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
@@ -61,7 +61,7 @@ extension StudentCompletedLessonsVM{
         let target = StudentServices.GetStudentCompletedLessons(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonM>.self)
-            .receive(on: DispatchQueue.main)
+//            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -92,15 +92,12 @@ extension StudentCompletedLessonsVM{
             .store(in: &cancellables)
     }
     
-    func GetCompletedLessonDetails(){
-        var parameters:[String:Any] = [:]
-        if let subjectid = selectedLessonid{
-            parameters["teacherLessonSessionSchedualSlotId"] = subjectid
-        }
+    func GetCompletedLessonDetails(teacherlessonid:Int){
+        let parameters:[String:Any] = ["teacherlessonid":teacherlessonid]
         print("parameters",parameters)
-        let target = teacherServices.GetMyCompletedLessonDetails(parameters: parameters)
+        let target = StudentServices.GetStudentCompletedLessonDetails(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<CompletedLessonDetailsM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonDetailsM>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}

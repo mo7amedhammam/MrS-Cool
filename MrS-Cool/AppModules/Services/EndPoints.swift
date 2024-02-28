@@ -153,4 +153,15 @@ enum EndPoints: String {
     case CreateBookTeacherSession = "BookTeacherLessonSession/CreateBookTeacherLessonSession"
 
     case GetStudentCompletedLessons = "StudentCompletedLesson/GetStudentCompletedLessons"
+    case GetStudentCompletedLessonDetails = "StudentCompletedLesson/GetStudentLessonMaterials"
+    
+    // MARK: -- student Calendar Schedual --
+    case GetStudentCalenderSchedual = "StudentCalenderSchedule/GetMyCalenderSchedual"
+    case CancelStudentCalenderSchedual = "StudentCalenderSchedule/CancelBookLessonSession"
+ 
+    // MARK: -- Chats --
+    case GetStudentAllStudentsChat = "StudentLessonSessionComment/GetAllTeachersChatWithStudent"
+    case GetStudentAllStudentsChatComments = "StudentLessonSessionComment/GetAllLessonChatByStudent"
+    case CreateStudentComment = "StudentLessonSessionComment/CreateComment"
+    
 }
