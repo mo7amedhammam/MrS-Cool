@@ -39,7 +39,7 @@ class ChatListVM: ObservableObject {
 extension ChatListVM{
     
     func GetChatsList(){
-        isLoading = false
+//        isLoading = false
         let target = teacherServices.GetAllComentsList
         isLoading = true
         if Helper.shared.getSelectedUserType() == .Teacher {
@@ -99,7 +99,7 @@ extension ChatListVM{
         }
     }
     func GetChatComments(){
-        isLoading = false
+//        isLoading = false
         var parameters:[String:Any] = [:]
         if let chatid = selectedChatId{
             parameters["bookTeacherLessonSessionDetailId"] = chatid
@@ -164,7 +164,7 @@ extension ChatListVM{
         }
     }
     func CreateChatComment(){
-        isLoading = false
+//        isLoading = false
         let parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ]
         print("parameters",parameters)
         let target = teacherServices.CreateComment(parameters: parameters)
@@ -197,6 +197,7 @@ extension ChatListVM{
     }
     
     func cleanup() {
+        isLoading = false
         // Cancel any ongoing Combine subscriptions
         cancellables.forEach { cancellable in
             cancellable.cancel()

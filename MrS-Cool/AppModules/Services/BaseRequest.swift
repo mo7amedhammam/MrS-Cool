@@ -42,7 +42,7 @@ final class BaseNetwork{
                   print(headers ?? [:])
                   AF.request(target.requestURL,method: target.method ,parameters:parameters.0,encoding:parameters.1,headers:headers)
                       .responseDecodable(of: M.self, decoder: JSONDecoder()){ response in
-                          print(response)
+//                          print(response)
     //                      print(response.response?.statusCode)
                          if response.response?.statusCode == 401{
                               promise(.failure(.unauthorized(code: response.response?.statusCode ?? 0, error: NetworkError.expiredTokenMsg.errorDescription ?? "")))

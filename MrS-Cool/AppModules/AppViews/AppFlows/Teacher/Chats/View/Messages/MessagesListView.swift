@@ -168,7 +168,7 @@ struct MessagesListView: View {
             }
             
             .onAppear(perform: {
-                chatlistvm.isLoading = false
+//                chatlistvm.isLoading = false
                 chatlistvm.selectedChatId = selectedLessonId
                 chatlistvm.GetChatComments()
             })
@@ -178,9 +178,9 @@ struct MessagesListView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        .onDisappear {
-            chatlistvm.cleanup()
-        }
+//        .onDisappear {
+////            chatlistvm.cleanup()
+//        }
         .showHud(isShowing: $chatlistvm.isLoading)
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
         

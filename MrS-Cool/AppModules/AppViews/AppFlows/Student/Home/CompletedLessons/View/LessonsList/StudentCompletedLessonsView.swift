@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StudentCompletedLessonsView: View {
     @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
-    @EnvironmentObject var lookupsvm : LookUpsVM
-    @EnvironmentObject var completedlessonsvm : StudentCompletedLessonsVM
+    @StateObject var lookupsvm = LookUpsVM()
+    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
     
     @State var showFilter : Bool = false
     //    var currentSubject:TeacherSubjectM?
@@ -159,7 +159,7 @@ struct StudentCompletedLessonsView: View {
 #Preview {
     StudentCompletedLessonsView()
         .environmentObject(StudentTabBarVM())
-        .environmentObject(LookUpsVM())
-        .environmentObject(StudentCompletedLessonsVM())
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(StudentCompletedLessonsVM())
     
 }

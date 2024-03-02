@@ -22,6 +22,10 @@ struct StudentTabBarView: View {
         TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
+    
+    
+//    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
+//    @StateObject var chatListvm = ChatListVM()
 //    @State var isPush = false
 //    @State var destination = AnyView(EmptyView())
     
@@ -102,7 +106,7 @@ struct StudentTabBarView: View {
 //                    )
                     ChatsListView(hasNavBar : false) // chats
                         .environmentObject(studenttabbarvm)
-                        .environmentObject(ChatListVM())
+//                        .environmentObject(chatListvm)
                         .tag(3)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -112,8 +116,8 @@ struct StudentTabBarView: View {
                     
 //                    StudentHomeView()
                     StudentCompletedLessonsView(hasNavBar : false) // completed lessons
-                        .environmentObject(LookUpsVM())
-                        .environmentObject(StudentCompletedLessonsVM())
+//                        .environmentObject(LookUpsVM())
+//                        .environmentObject(completedlessonsvm)
                         .environmentObject(studenttabbarvm)
                         .tag(4)
                         .gesture(
@@ -357,7 +361,7 @@ struct StudentSideMenuContent: View {
                     isPush = true
                 }
                 
-                SideMenuButton(image: "MenuSt_signout", title: "Delete Account"){
+                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
                     selectedDestination = .deleteAccount // delete account
                     presentSideMenu =  false
                     isPush = true
@@ -397,6 +401,7 @@ struct SideMenuSectionTitle: View {
 struct SideMenuButton: View {
     var image : String
     var title : String
+    var titleColor : Color?
     var action : () -> ()
     var body: some View {
         Button(action: {
@@ -406,7 +411,7 @@ struct SideMenuButton: View {
                 Image(image)
                 Text(title.localized())
                     .font(.SoraSemiBold(size: 13))
-                    .foregroundStyle(ColorConstants.WhiteA700)
+                    .foregroundStyle(titleColor ?? ColorConstants.WhiteA700)
                 Spacer()
             }
             .padding()

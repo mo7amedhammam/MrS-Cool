@@ -9,7 +9,7 @@ import SwiftUI
 struct ChatsListView: View {  
     @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
 //    @EnvironmentObject var lookupsvm : LookUpsVM
-    @EnvironmentObject var chatlistvm : ChatListVM
+    @StateObject var chatlistvm = ChatListVM()
         
 //    @State var showFilter : Bool = false
     @State private var searchQuery = ""
@@ -75,7 +75,7 @@ struct ChatsListView: View {
                 
             }
             .onAppear(perform: {
-                chatlistvm.isLoading = false
+//                chatlistvm.isLoading = false
                 chatlistvm.GetChatsList()
             })
             
@@ -85,6 +85,8 @@ struct ChatsListView: View {
             hideKeyboard()
         })
         .onDisappear {
+//            chatlistvm.isLoading = false
+
             chatlistvm.cleanup()
         }
         .showHud(isShowing: $chatlistvm.isLoading)
@@ -107,7 +109,7 @@ struct ChatsListView: View {
 #Preview {
     ChatsListView()
         .environmentObject(StudentTabBarVM())
-        .environmentObject(ChatListVM())
+//        .environmentObject(ChatListVM())
     
 }
 
