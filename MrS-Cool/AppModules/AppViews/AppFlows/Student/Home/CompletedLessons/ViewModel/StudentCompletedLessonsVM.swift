@@ -139,13 +139,13 @@ extension StudentCompletedLessonsVM{
         filtergroupName = ""
     }
     
-    func cleanup() {
-        // Cancel any ongoing Combine subscriptions
-        cancellables.forEach { cancellable in
-            cancellable.cancel()
-        }
-        cancellables.removeAll()
-    }
+//    func cleanup() {
+//        // Cancel any ongoing Combine subscriptions
+//        cancellables.forEach { cancellable in
+//            cancellable.cancel()
+//        }
+//        cancellables.removeAll()
+//    }
 }
 
 

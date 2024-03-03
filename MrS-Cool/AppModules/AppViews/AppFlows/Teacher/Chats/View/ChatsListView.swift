@@ -72,23 +72,23 @@ struct ChatsListView: View {
                     }
                     Spacer()
                 }
-                
+                .frame(minHeight:gr.size.height)
+                .onAppear(perform: {
+                    chatlistvm.GetChatsList()
+                })
+
             }
-            .onAppear(perform: {
-//                chatlistvm.isLoading = false
-                chatlistvm.GetChatsList()
-            })
             
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        .onDisappear {
-//            chatlistvm.isLoading = false
-
-            chatlistvm.cleanup()
-        }
+//        .onDisappear {
+////            chatlistvm.isLoading = false
+//
+////            chatlistvm.cleanup()
+//        }
         .showHud(isShowing: $chatlistvm.isLoading)
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
         

@@ -29,8 +29,8 @@ class ChatListVM: ObservableObject {
     @Published var ChatsList : [ChatListM]?
     @Published var ChatDetails : ChatDetailsM?
 
-    @Published var StudentChatsList : [StudentChatListM]?
-    @Published var StudentChatDetails : StudentChatDetailsM?
+//    @Published var StudentChatsList : [StudentChatListM]?
+//    @Published var StudentChatDetails : StudentChatDetailsM?
 
     init(){
     }
@@ -196,14 +196,14 @@ extension ChatListVM{
             .store(in: &cancellables)
     }
     
-    func cleanup() {
-        isLoading = false
-        // Cancel any ongoing Combine subscriptions
-        cancellables.forEach { cancellable in
-            cancellable.cancel()
-        }
-        cancellables.removeAll()
-    }
+//    func cleanup() {
+//        isLoading = false
+//        // Cancel any ongoing Combine subscriptions
+//        cancellables.forEach { cancellable in
+//            cancellable.cancel()
+//        }
+//        cancellables.removeAll()
+//    }
 }
 
 extension Array where Element == StudentChatListM {
