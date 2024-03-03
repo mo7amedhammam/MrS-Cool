@@ -55,7 +55,6 @@ class StudentEditProfileVM: ObservableObject {
     }
     @Published var city : DropDownOption?
 
-
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -74,69 +73,13 @@ class StudentEditProfileVM: ObservableObject {
 }
 
 extension StudentEditProfileVM{
-//    func RegisterStudent(){
-//        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"), let academicYearId = academicYear?.id else {return}
-//        let parameters:[String:Any] = ["name":name,"mobile":phone,"genderId":genderid,"birthdate":birthdate, "academicYearEducationLevelId":academicYearId]
-//        
-////        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
-//        print("parameters",parameters)
-//        let target = Authintications.Register(user: .Student, parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<OtpM>.self)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-////                    self.error = error
-//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if let model = receivedData.data{
-//                    OtpM = model
-//                    isDataUploaded = true
-//                }else{
-//                    isError =  true
-////                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
-//    }
-    
-//    func clearSelections(){
-//        name = ""
-//        phone = ""
-//        selectedGender = nil
-//        educationType = nil
-//        educationLevel = nil
-//        academicYear = nil
-//
-////        Password = ""
-////        confirmPassword = ""
-////        acceptTerms = false
-//        
-////        birthDate = nil
-//        birthDateStr = ""
-//    }
+
     private func fillTeacherData(model:StudentProfileM){
-//        guard let model = model else { return }
         name = model.name ?? ""
         imageStr =  model.image ?? ""
         code = model.code ?? ""
-//        accountStatus = .init(ProfileStatus(statusId: model.statusID,statusName: model.statusName))
         phone = model.mobile ?? ""
         selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
-//        isTeacher = model.isTeacher ?? true
         country = .init(id:model.countryID,Title: model.countryName)
         governorte = .init(id:model.governorateID,Title: model.governorateName)
         city = .init(id:model.cityID,Title: model.cityName)
@@ -149,10 +92,6 @@ extension StudentEditProfileVM{
     }
     
     func GetStudentProfile(){
-//        guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-//        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
-        
-//        print("parameters",parameters)
         let target = StudentServices.GetStudentProfile
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<StudentProfileM>.self)
@@ -190,8 +129,6 @@ extension StudentEditProfileVM{
         guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName]
 
-//        guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"),let genderid = selectedGender?.id, let cityid = city?.id else {return}
-//        var parameters:[String:Any] = ["Name":name,"Email":email,"Birthdate":birthDateStr,"GenderId":genderid, "CityId":cityid]
         if let image = image {
             parameters["StudentImage"] = image
         }
@@ -227,9 +164,6 @@ extension StudentEditProfileVM{
             })
             .store(in: &cancellables)
     }
-    
-
-    
     
 }
 

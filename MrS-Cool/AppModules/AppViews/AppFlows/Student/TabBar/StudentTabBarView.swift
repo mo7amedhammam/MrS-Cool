@@ -96,7 +96,6 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-                    
 //                    StudentHomeView()
 //                    Text("tab 3")
 //                    destination = AnyView(ChatsListView()
@@ -134,6 +133,9 @@ struct StudentTabBarView: View {
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
             }
+            .onAppear(perform: {
+                studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
+            })
             .overlay(content: {
                 SideMenuView()
             })
@@ -287,18 +289,13 @@ struct StudentSideMenuContent: View {
         ScrollView{
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
-                    
                     ZStack(alignment: .topLeading){
-                        AsyncImage(url: URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))){image in
-                            image
-                                .resizable()
-                        }placeholder: {
-                            Image("img_younghappysmi")
-                                .resizable()
-                        }
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60,height: 60)
-                        .clipShape(Circle())
+                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
+                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60,height: 60)
+                            .clipShape(Circle())
+
                         
                         Image("Edit_fill")
                         //                        .resizable().aspectRatio(contentMode: .fit)

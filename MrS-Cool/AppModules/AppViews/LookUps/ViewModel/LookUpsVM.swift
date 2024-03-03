@@ -40,6 +40,7 @@ class LookUpsVM: ObservableObject {
     @Published var SelectedCountry: DropDownOption?{
         didSet{
             getGovernoratesArr()
+            SelectedGovernorate = nil
         }
     }
     
@@ -58,6 +59,7 @@ class LookUpsVM: ObservableObject {
     @Published var SelectedGovernorate: DropDownOption?{
         didSet{
             getCitiesArr()
+            SelectedCity = nil
         }
     }
     

@@ -18,13 +18,16 @@ struct StudentHomeSubjectCell: View {
             action?()
         }, label: {
             VStack (spacing:0){
-                AsyncImage(url: URL(string: Constants.baseURL+(subject.image ?? "")  )){image in
-                    image
-                        .resizable()
-                }placeholder: {
-                    Image("img_younghappysmi")
-                        .resizable()
-                }
+//                AsyncImage(url: URL(string: Constants.baseURL+(subject.image ?? "")  )){image in
+//                    image
+//                        .resizable()
+//                }placeholder: {
+//                    Image("img_younghappysmi")
+//                        .resizable()
+//                }
+                let imageURL : URL? = URL(string: Constants.baseURL+(subject.image ?? ""))
+                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 70,height: 70)
                 .clipShape(Circle())

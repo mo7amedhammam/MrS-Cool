@@ -28,13 +28,16 @@ struct HomeSubjectDetailsView: View {
                 
                 if let details = homesubjectdetailsvm.StudentSubjectDetails{
                     HStack {
-                        AsyncImage(url: URL(string: Constants.baseURL+(details.image ?? "")  )){image in
-                            image
-                                .resizable()
-                        }placeholder: {
-                            Image("img_younghappysmi")
-                                .resizable()
-                        }
+//                        AsyncImage(url: URL(string: Constants.baseURL+(details.image ?? "")  )){image in
+//                            image
+//                                .resizable()
+//                        }placeholder: {
+//                            Image("img_younghappysmi")
+//                                .resizable()
+//                        }
+                        let imageURL : URL? = URL(string: Constants.baseURL+(details.image ?? ""))
+                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())

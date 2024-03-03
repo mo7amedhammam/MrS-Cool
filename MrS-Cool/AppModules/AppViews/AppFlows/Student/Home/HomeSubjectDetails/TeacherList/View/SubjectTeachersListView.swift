@@ -31,13 +31,16 @@ struct SubjectTeachersListView: View {
                 
                 if let teachers = homesubjectteachersvm.TeachersModel{
                     HStack {
-                        AsyncImage(url: URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "")  )){image in
-                            image
-                                .resizable()
-                        }placeholder: {
-                            Image("img_younghappysmi")
-                                .resizable()
-                        }
+//                        AsyncImage(url: URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "")  )){image in
+//                            image
+//                                .resizable()
+//                        }placeholder: {
+//                            Image("img_younghappysmi")
+//                                .resizable()
+//                        }
+                        let imageURL : URL? = URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? ""))
+                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())
@@ -505,13 +508,15 @@ struct TeacherCellView : View {
     var teacher : SubjectTeacherM = SubjectTeacherM.init()
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
-                image
-                    .resizable()
-            }placeholder: {
-                Image("img_younghappysmi")
-                    .resizable()
-            }
+//            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
+//                image
+//                    .resizable()
+//            }placeholder: {
+//                Image("img_younghappysmi")
+//                    .resizable()
+//            }
+            let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? ""))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
             .aspectRatio(contentMode: .fill)
             .frame(width: 72,height: 72)
             .clipShape(Circle())

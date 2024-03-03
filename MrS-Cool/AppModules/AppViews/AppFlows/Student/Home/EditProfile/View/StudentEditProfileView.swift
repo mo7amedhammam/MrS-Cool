@@ -36,13 +36,16 @@ struct StudentEditProfileView: View {
                                     .frame(width: 130,height: 130)
                                     .clipShape(Circle())
                             }else{
-                                AsyncImage(url: URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? "")  )){image in
-                                    image
-                                        .resizable()
-                                }placeholder: {
-                                    Image("img_younghappysmi")
-                                        .resizable()
-                                }
+//                                AsyncImage(url: URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? "")  )){image in
+//                                    image
+//                                        .resizable()
+//                                }placeholder: {
+//                                    Image("img_younghappysmi")
+//                                        .resizable()
+//                                }
+                                let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
+                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 130,height: 130)
                                 .clipShape(Circle())
@@ -97,23 +100,24 @@ struct StudentEditProfileView: View {
                                 CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $studentsignupvm.SchoolName,textContentType:.name)
 
                                 CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $studentsignupvm.country,options:lookupsvm.CountriesList)
+                                    .onChange(of: studentsignupvm.country, perform: { val in
+                                        lookupsvm.SelectedCountry = val
+                                    })
                                 
                                 CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $studentsignupvm.governorte,options:lookupsvm.GovernoratesList)
+                                    .onChange(of: studentsignupvm.governorte, perform: { val in
+                                        lookupsvm.SelectedGovernorate = val
+                                    })
                                 
                                 CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $studentsignupvm.city,options:lookupsvm.CitiesList)
-                                
                             }
                             .padding([.top])
-    //                        CheckboxField(label: "Accept the Terms and Privacy Policy",color: ColorConstants.Black900,textSize: 13,isMarked: $studentsignupvm.acceptTerms)
-    //                        .padding(.top,15)
                         }
                         .padding(.top,20)
                         Spacer()
                         
                         CustomButton(Title:"Update Profile",IsDisabled: .constant(false), action: {
                             studentsignupvm.UpdateStudentProfile()
-    //                        isPush = true
-    //                        destination = AnyView(OTPVerificationView().hideNavigationBar())
                         })
                         .frame(height: 50)
                         .padding(.top,40)
@@ -121,21 +125,6 @@ struct StudentEditProfileView: View {
                     .frame(minHeight: gr.size.height)
                     .padding(.horizontal)
                 }
-    //            .fullScreenCover(isPresented: $studentsignupvm.isDataUploaded, onDismiss: {
-    //                print("dismissed ")
-    //                if isVerified {
-    ////                    destination = AnyView(StudentHomeView())
-    ////                    currentStep = .subjectsData
-    ////                    isPush = true
-    //                    dismiss()
-    //
-    //                }
-    //            }, content: {
-    //                OTPVerificationView(PhoneNumber:studentsignupvm.phone,CurrentOTP: studentsignupvm.OtpM?.otp ?? 0, secondsCount:studentsignupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
-    //                    .hideNavigationBar()
-    //            })
-
-                
             }
         }
         .hideNavigationBar()
@@ -180,3 +169,4 @@ struct StudentEditProfileView: View {
 //        .environmentObject(LookUpsVM())
         .environmentObject(StudentEditProfileVM())
 }
+

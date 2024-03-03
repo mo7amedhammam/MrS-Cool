@@ -35,13 +35,16 @@ struct SubjectDetailsView: View {
                 
                 if let details = subjectdetailsvm.subjectDetails{
                     HStack {
-                        AsyncImage(url: URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? "")  )){image in
-                            image
-                                .resizable()
-                        }placeholder: {
-                            Image("img_younghappysmi")
-                                .resizable()
-                        }
+//                        AsyncImage(url: URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? "")  )){image in
+//                            image
+//                                .resizable()
+//                        }placeholder: {
+//                            Image("img_younghappysmi")
+//                                .resizable()
+//                        }
+                        let imageURL : URL? = URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? ""))
+                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())
@@ -279,13 +282,16 @@ struct SubjectTeacherInfoView : View {
     var teacher : TeacherSubjectDetailsM = TeacherSubjectDetailsM.init()
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
-                image
-                    .resizable()
-            }placeholder: {
-                Image("img_younghappysmi")
-                    .resizable()
-            }
+//            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
+//                image
+//                    .resizable()
+//            }placeholder: {
+//                Image("img_younghappysmi")
+//                    .resizable()
+//            }
+            let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? ""))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
             .aspectRatio(contentMode: .fill)
             .frame(width: 115,height: 115)
             .clipShape(Circle())

@@ -15,13 +15,15 @@ struct LessonDetailsCell: View {
     var body: some View {
         VStack(spacing: 10){
             
-            AsyncImage(url: URL(string: Constants.baseURL+(model.studentImageURL ?? "")  )){image in
-                image
-                    .resizable()
-            }placeholder: {
-                Image("img_younghappysmi")
-                    .resizable()
-            }
+//            AsyncImage(url: URL(string: Constants.baseURL+(model.studentImageURL ?? "")  )){image in
+//                image
+//                    .resizable()
+//            }placeholder: {
+//                Image("img_younghappysmi")
+//                    .resizable()
+//            }
+            let imageURL : URL? = URL(string: Constants.baseURL+(model.studentImageURL ?? ""))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
             .aspectRatio(contentMode: .fill)
             .frame(width: 100,height: 100)
             .clipShape(Circle())

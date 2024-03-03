@@ -2,23 +2,27 @@ PODS:
   - Alamofire (5.6.4)
   - CalendarKit (1.1.9)
   - FSCalendar (2.8.4)
+  - Kingfisher (7.6.1)
 
 DEPENDENCIES:
   - Alamofire (= 5.6.4)
   - CalendarKit (= 1.1.9)
   - FSCalendar (= 2.8.4)
+  - Kingfisher (= 7.6.1)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - CalendarKit
     - FSCalendar
+    - Kingfisher
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   CalendarKit: 0c19eabfc09a6d2b32d2e7fe392e2fe5996622af
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
+  Kingfisher: 93a3c6d0d551658a31e19f21747e1d15cb39d525
 
-PODFILE CHECKSUM: 4dacb501c6e3c0850fd349f8f696dbb6267e273d
+PODFILE CHECKSUM: 08ce20021cbd3e0df9e64768f7297ee6a8c2b202
 
 COCOAPODS: 1.12.1

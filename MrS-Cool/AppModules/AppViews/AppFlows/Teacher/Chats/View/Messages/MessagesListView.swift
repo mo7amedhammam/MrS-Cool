@@ -33,13 +33,16 @@ struct MessagesListView: View {
                     VStack{
                         HStack{
                             let imageurl = student.comments?.first(where:{$0.fromImage != nil })?.fromImage ?? ""
-                            AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
-                                image
-                                    .resizable()
-                            }placeholder: {
-                                Image("img_younghappysmi")
-                                    .resizable()
-                            }
+//                            AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
+//                                image
+//                                    .resizable()
+//                            }placeholder: {
+//                                Image("img_younghappysmi")
+//                                    .resizable()
+//                            }
+                            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ))
+                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 50,height: 50)
                             .clipShape(Circle())
@@ -68,14 +71,17 @@ struct MessagesListView: View {
                                             VStack(alignment:comment.fromName != nil ? .trailing : .leading) {
                                                 HStack{
                                                     let imageurl = comment.fromName != nil ? comment.fromImage ?? "":comment.toImage ?? ""
-                                                    AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
-                                                        image
-                                                            .resizable()
-                                                    }
-                                                placeholder: {
-                                                    Image("img_younghappysmi")
-                                                        .resizable()
-                                                }
+//                                                    AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
+//                                                        image
+//                                                            .resizable()
+//                                                    }
+//                                                placeholder: {
+//                                                    Image("img_younghappysmi")
+//                                                        .resizable()
+//                                                }
+                                                    let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ))
+                                                    KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                                                 .aspectRatio(contentMode: .fill)
                                                 .frame(width: 40,height: 40)
                                                 .clipShape(Circle())

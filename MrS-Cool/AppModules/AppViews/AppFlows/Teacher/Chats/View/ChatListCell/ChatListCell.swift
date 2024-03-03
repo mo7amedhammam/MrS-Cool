@@ -21,13 +21,16 @@ struct ChatListCell: View {
 //
 //           }, label: {
             HStack(alignment: .center,spacing: 20) {
-                AsyncImage(url: URL(string: Constants.baseURL+(model.studentImage ?? "")  )){image in
-                    image
-                        .resizable()
-                }placeholder: {
-                    Image("img_younghappysmi")
-                        .resizable()
-                }
+//                AsyncImage(url: URL(string: Constants.baseURL+(model.studentImage ?? "")  )){image in
+//                    image
+//                        .resizable()
+//                }placeholder: {
+//                    Image("img_younghappysmi")
+//                        .resizable()
+//                }
+
+                let imageURL : URL? = URL(string: Constants.baseURL+(model.studentImage ?? ""))
+                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 40,height: 40)
                 .clipShape(Circle())

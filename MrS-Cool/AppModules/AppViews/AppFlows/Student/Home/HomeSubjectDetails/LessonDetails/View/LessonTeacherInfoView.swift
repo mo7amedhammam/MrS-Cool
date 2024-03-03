@@ -11,13 +11,16 @@ struct LessonTeacherInfoView : View {
     var teacher : TeacherLessonDetailsM = TeacherLessonDetailsM.init()
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
-                image
-                    .resizable()
-            }placeholder: {
-                Image("img_younghappysmi")
-                    .resizable()
-            }
+//            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
+//                image
+//                    .resizable()
+//            }placeholder: {
+//                Image("img_younghappysmi")
+//                    .resizable()
+//            }
+            let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? ""))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
             .aspectRatio(contentMode: .fill)
             .frame(width: 115,height: 115)
             .clipShape(Circle())

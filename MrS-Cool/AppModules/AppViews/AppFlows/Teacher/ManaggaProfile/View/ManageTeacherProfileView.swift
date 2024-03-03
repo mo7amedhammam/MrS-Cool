@@ -42,13 +42,16 @@ struct ManageTeacherProfileView: View {
                                     .frame(width: 130,height: 130)
                                     .clipShape(Circle())
                             }else{
-                                AsyncImage(url: URL(string: Constants.baseURL+(manageprofilevm.imageStr ?? "")  )){image in
-                                    image
-                                        .resizable()
-                                }placeholder: {
-                                    Image("img_younghappysmi")
-                                        .resizable()
-                                }
+//                                AsyncImage(url: URL(string: Constants.baseURL+(manageprofilevm.imageStr ?? "")  )){image in
+//                                    image
+//                                        .resizable()
+//                                }placeholder: {
+//                                    Image("img_younghappysmi")
+//                                        .resizable()
+//                                }
+                                let imageURL : URL? = URL(string: Constants.baseURL+(manageprofilevm.imageStr ?? ""))
+                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 130,height: 130)
                                 .clipShape(Circle())

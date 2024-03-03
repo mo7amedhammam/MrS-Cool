@@ -13,7 +13,7 @@ class StudentTabBarVM: ObservableObject {
     
     //    MARK: --- inputs ---
     @Published var ispush : Bool = false
-    @Published var destination = AnyView(StudentEditProfileView())
+    @Published var destination = AnyView(EmptyView())
     
     
     //    MARK: --- outpust ---
