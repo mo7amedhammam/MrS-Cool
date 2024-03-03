@@ -14,7 +14,7 @@ enum inputfields {
 struct CustomTextField: View {
     var fieldType : inputfields? = .Default
     var iconName : String? = ""
-    var iconColor : Color? = .clear
+    var iconColor : Color?
     
     var placeholder : String
     var placeholderColor : Color? = ColorConstants.Bluegray402
@@ -31,8 +31,9 @@ struct CustomTextField: View {
         HStack(spacing:0){
             if iconName != "" || iconName != nil{
                 Image(fieldType == .Password ?  "img_group_512364":iconName ?? "")
-                    .renderingMode( iconColor != .clear ? .template:.original)
-                    .foregroundColor(iconColor == .clear ? .clear:iconColor)
+//                    .renderingMode( iconColor != nil ? .template:.original)
+                    .renderingMode(.template)
+                    .foregroundColor(iconColor ?? ColorConstants.MainColor)
                     .font(.system(size: 15))
                     .padding(.horizontal,10)
             }else{
@@ -207,7 +208,7 @@ struct CustomDropDownField: View {
     var fieldType : inputfields? = .Default
     var iconName : String? = ""
     var rightIconName : String?
-    var iconColor : Color? = .clear
+    var iconColor : Color?
     
     var placeholder : String
     var placeholderColor : Color? = ColorConstants.Bluegray402
@@ -240,8 +241,8 @@ struct CustomDropDownField: View {
             HStack(spacing:0){
                 if iconName != "" || iconName != nil{
                     Image(fieldType == .Password ?  "img_group_512364":iconName ?? "")
-                        .renderingMode( iconColor != .clear ? .template:.original)
-                        .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                        .renderingMode( .template)
+                        .foregroundColor(ColorConstants.MainColor)
                         .font(.system(size: 15))
                         .padding(.horizontal,10)
                 }else{
@@ -449,7 +450,7 @@ struct CustomDatePickerField: View {
     var fieldType : inputfields? = .Default
     var iconName : String? = ""
     var rightIconName : String?
-    var iconColor : Color? = .clear
+    var iconColor : Color?
     
     var placeholder : String
     var placeholderColor : Color? = ColorConstants.Bluegray402
@@ -466,11 +467,10 @@ struct CustomDatePickerField: View {
                 isCalenderVisible.toggle()
             }, label: {
                 HStack(spacing:0){
-                    
                     if iconName != "" || iconName != nil{
                         Image(iconName ?? "img_group148")
-                            .renderingMode( iconColor != .clear ? .template:.original)
-                            .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                            .renderingMode(.template)
+                            .foregroundColor(ColorConstants.MainColor)
                             .font(.system(size: 15))
                             .padding(.horizontal,10)
                     }
@@ -497,8 +497,9 @@ struct CustomDatePickerField: View {
 
                     if rightIconName?.count ?? 0 > 0 || rightIconName != nil{
                         Image(rightIconName ?? "img_daterange")
+                            .renderingMode(.template)
                             .frame(width: 30, height: 30, alignment: .center)
-                            .foregroundColor(iconColor == .clear ? .clear:iconColor)
+                            .foregroundColor(ColorConstants.MainColor)
                             .font(.system(size: 15))
                             .padding(.horizontal,10)
                     }

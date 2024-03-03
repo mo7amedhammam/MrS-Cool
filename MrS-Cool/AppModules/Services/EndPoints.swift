@@ -164,4 +164,8 @@ enum EndPoints: String {
     case GetStudentAllStudentsChatComments = "StudentLessonSessionComment/GetAllLessonChatByStudent"
     case CreateStudentComment = "StudentLessonSessionComment/CreateComment"
     
+    // MARK: -- student profile --
+    case GetStudentProfile = "Student/Profile"
+    case UpdateStudentProfile = "Student/UpdateProfile"
+    
 }

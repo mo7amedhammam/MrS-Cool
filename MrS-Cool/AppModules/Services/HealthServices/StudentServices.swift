@@ -25,6 +25,10 @@ enum StudentServices{
 
     case GetStudentCompletedLessons(parameters : [String:Any])
     case GetStudentCompletedLessonDetails(parameters : [String:Any])
+    
+    case GetStudentProfile
+    case UpdateStudentProfile(parameters : [String:Any])
+
 
 }
 
@@ -79,6 +83,12 @@ extension StudentServices:TargetType{
             return EndPoints.GetStudentCompletedLessons.rawValue
         case .GetStudentCompletedLessonDetails:
             return EndPoints.GetStudentCompletedLessonDetails.rawValue
+            
+        case .GetStudentProfile:
+            return EndPoints.GetStudentProfile.rawValue
+        case .UpdateStudentProfile:
+            return EndPoints.UpdateStudentProfile.rawValue
+
         }
     }
     
@@ -90,20 +100,22 @@ extension StudentServices:TargetType{
                 .GetMostTeachers,
                 .GetHomeSubjectDetails,
                 .GetSubjectGroupDetails,.GetLessonGroupDetails,.GetAvaliableScheduals,
-                .GetStudentCompletedLessonDetails:
+                .GetStudentCompletedLessonDetails,
+                .GetStudentProfile:
             return .get
             
         case  .GetSubjectOrLessonTeachers,
                 .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,
-                .GetStudentCompletedLessons:
+                .GetStudentCompletedLessons,
+                .UpdateStudentProfile:
             return .post
         }
     }
     
     var parameter: parameterType {
         switch self {
-//        case .GetStudentSubjects:
-//            return .plainRequest
+        case .GetStudentProfile:
+            return .plainRequest
             
         case .GetStudentSubjects(parameters: let Parameters),
                 .GetMostLessons(_,parameters: let Parameters),
@@ -118,7 +130,8 @@ extension StudentServices:TargetType{
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),
                 .GetCheckOutBookTeacherSession(parameters: let Parameters),
                 .CreateOutBookTeacherSession(parameters: let Parameters),
-                .GetStudentCompletedLessons(parameters: let Parameters):
+                .GetStudentCompletedLessons(parameters: let Parameters),
+                .UpdateStudentProfile(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

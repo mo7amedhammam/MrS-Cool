@@ -23,7 +23,8 @@ struct StudentTabBarView: View {
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
     
-    
+    @StateObject var studentsignupvm = StudentEditProfileVM()
+
 //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
 //    @StateObject var chatListvm = ChatListVM()
 //    @State var isPush = false
@@ -36,11 +37,11 @@ struct StudentTabBarView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Group{
-                            Text("Hi ")+Text("Student ")+Text(",\(selectedIndex)".localized())
+                            Text("Hi ".localized())+Text(studentsignupvm.name)
                             
-                            Text("Lets Start Learning! ".localized())
-                                .font(Font.SoraRegular(size: 11))
-                                .padding(.vertical,0.5)
+//                            Text("Lets Start Learning! ".localized())
+//                                .font(Font.SoraRegular(size: 11))
+//                                .padding(.vertical,0.5)
                         }
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.whiteA700)
@@ -54,7 +55,6 @@ struct StudentTabBarView: View {
                         Image("sidemenue")
                             .padding(.vertical,15)
                             .padding(.horizontal,10)
-
                     })
                     .background(
                         CornersRadious(radius: 10, corners: [.topLeft,.topRight,.bottomLeft,.bottomRight])
@@ -144,10 +144,9 @@ struct StudentTabBarView: View {
             })
             .onChange(of: selectedDestination) {newval in
                 if newval == .editProfile{ //edit Profile
-                    
+                    studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
                 }else if newval == .calendar { //calendar
                     studenttabbarvm.destination = AnyView(CalView1())
-                    
                 }else if newval == .rates { // rates
                     studenttabbarvm.destination = AnyView(Text("Rates"))
                 }else if newval == .changePassword { // change password
@@ -166,7 +165,7 @@ struct StudentTabBarView: View {
     
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $studenttabbarvm.ispush)), direction: .leading)
+        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $studenttabbarvm.ispush).environmentObject(studentsignupvm)), direction: .leading)
     }
 }
 
@@ -278,6 +277,8 @@ enum Categories:String{
 }
 
 struct StudentSideMenuContent: View {
+    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
+
     @Binding var presentSideMenu: Bool
     @Binding var selectedDestination: Studentdestinations
     @Binding var isPush: Bool
@@ -288,7 +289,7 @@ struct StudentSideMenuContent: View {
                 HStack(spacing:20){
                     
                     ZStack(alignment: .topLeading){
-                        AsyncImage(url: URL(string: Constants.baseURL+"")){image in
+                        AsyncImage(url: URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))){image in
                             image
                                 .resizable()
                         }placeholder: {
@@ -306,15 +307,10 @@ struct StudentSideMenuContent: View {
                             .background(.white)
                             .clipShape(Circle())
                             .offset(x:0,y:2)
-                            .onTapGesture(perform: {
-                                // show edit profile
-                                selectedDestination = .editProfile
-                                isPush = true
-                            })
                         
                     }
                     VStack(alignment:.leading) {
-                        Text("Jhon Smith")
+                        Text(studentsignupvm.name)
                             .font(.SoraBold(size: 18))
                             .foregroundStyle(.whiteA700)
                         
@@ -326,7 +322,12 @@ struct StudentSideMenuContent: View {
                     Spacer()
                     }
                 .padding()
-                
+                .onTapGesture {
+                    selectedDestination = .editProfile
+                    presentSideMenu =  false
+                    isPush = true
+
+                }
                 SideMenuSectionTitle(title: "Academic")
                 
                 SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
