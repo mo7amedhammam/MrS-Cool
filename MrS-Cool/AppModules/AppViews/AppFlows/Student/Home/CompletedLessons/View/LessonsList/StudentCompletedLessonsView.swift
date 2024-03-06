@@ -152,7 +152,7 @@ struct StudentCompletedLessonsView: View {
             }
         }
         
-        NavigationLink(destination:studenthometabbarvm.destination, isActive: $studenthometabbarvm.ispush, label: {})
+//        NavigationLink(destination:studenthometabbarvm.destination, isActive: $studenthometabbarvm.ispush, label: {})
     }
 }
 

@@ -88,8 +88,8 @@ struct StudentTabBarView: View {
                         )
                     
                     StudentHomeView() // home
-                        .environmentObject(studenttabbarvm)
                         .tag(2)
+                        .environmentObject(studenttabbarvm)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
@@ -104,9 +104,9 @@ struct StudentTabBarView: View {
 ////                                .hideNavigationBar()
 //                    )
                     ChatsListView(hasNavBar : false) // chats
+                        .tag(3)
                         .environmentObject(studenttabbarvm)
 //                        .environmentObject(chatListvm)
-                        .tag(3)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
@@ -115,10 +115,10 @@ struct StudentTabBarView: View {
                     
 //                    StudentHomeView()
                     StudentCompletedLessonsView(hasNavBar : false) // completed lessons
+                        .tag(4)
 //                        .environmentObject(LookUpsVM())
 //                        .environmentObject(completedlessonsvm)
                         .environmentObject(studenttabbarvm)
-                        .tag(4)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures

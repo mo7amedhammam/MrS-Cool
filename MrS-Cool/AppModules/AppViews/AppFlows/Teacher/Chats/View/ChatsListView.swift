@@ -91,8 +91,9 @@ struct ChatsListView: View {
 //        }
         .showHud(isShowing: $chatlistvm.isLoading)
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
-        
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+        if hasNavBar == true{
+            NavigationLink(destination: destination, isActive: $isPush, label: {})
+        }
     }
     var searchResults: [ChatListM]? {
 //        if let array = chatlistvm.ChatsList{
