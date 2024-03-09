@@ -8,7 +8,7 @@
 
 import SwiftUI
 enum Studentdestinations{
-    case editProfile, calendar, rates, changePassword, tickets, signOut, deleteAccount
+    case editProfile, calendar, changePassword, tickets, signOut, deleteAccount
 }
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
@@ -149,8 +149,8 @@ struct StudentTabBarView: View {
                     studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
                 }else if newval == .calendar { //calendar
                     studenttabbarvm.destination = AnyView(CalView1())
-                }else if newval == .rates { // rates
-                    studenttabbarvm.destination = AnyView(Text("Rates"))
+//                }else if newval == .rates { // rates
+//                    studenttabbarvm.destination = AnyView(Text("Rates"))
                 }else if newval == .changePassword { // change password
                     studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
                 }else if newval == .tickets { // tickets
@@ -333,11 +333,11 @@ struct StudentSideMenuContent: View {
                     isPush = true
                 }
 
-                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-                    selectedDestination = .rates // rates
-                    presentSideMenu =  false
-                    isPush = true
-                }
+//                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+//                    selectedDestination = .rates // rates
+//                    presentSideMenu =  false
+//                    isPush = true
+//                }
                 
                 SideMenuSectionTitle(title: "Settings")
 
