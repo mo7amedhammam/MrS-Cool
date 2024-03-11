@@ -31,7 +31,7 @@ struct SignInView: View {
 
                     case .Teacher:
                         Helper.shared.setSelectedUserType(userType: .Teacher)
-                        destination = AnyView(TeacherHomeView())
+                        destination = AnyView(TeacherTabBarView())
                     }
                 }
                 GeometryReader{gr in

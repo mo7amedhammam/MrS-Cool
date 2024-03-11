@@ -7,26 +7,18 @@
 
 import SwiftUI
 
-//
-//  ChatsListView.swift
-//  MrS-Cool
-//
-//  Created by wecancity on 26/12/2023.
-//
-import SwiftUI
-
 struct TeacherRatesView: View {
     @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
 //    @EnvironmentObject var lookupsvm : LookUpsVM
-    @StateObject var chatlistvm = ChatListVM()
+    @StateObject var ratesvm = TeacherRatesVM()
         
 //    @State var showFilter : Bool = false
-    @State private var searchQuery = ""
+//    @State private var searchQuery = ""
 
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
-    @State var selectedChatId : Int?
-    @State var selectedLessonId : Int = 0
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
+//    @State var selectedChatId : Int?
+//    @State var selectedLessonId : Int = 0
     var hasNavBar : Bool? = true
 
     var body: some View {
@@ -35,72 +27,60 @@ struct TeacherRatesView: View {
                 CustomTitleBarView(title: "Rates and Reviews")
 //            }
             GeometryReader { gr in
-                HStack (alignment:.top){
+                if let array = ratesvm.Rates{
                     
-                    Image("MenuSt_rates")
-                        .resizable()
-                        .renderingMode(.template)
-                        .foregroundStyle(Color.mainBlue)
-                        .frame(width: 35, height: 35, alignment: .center)
-                    
-                    VStack{ // (Title - Data - Submit Button)
-                        //                        Group{
-                        //                            HStack(){
-                        
-                        
-                        SignUpHeaderTitle(Title: "Rates and Reviews")
-                            .foregroundStyle(Color.mainBlue)
-
-                        //                                Spacer()
-                        Group{
-                            Text("4.5 of 5 ")
-                                .font(.SoraBold(size: 30))
-                            + Text(" /   ")
-                            + Text("113 ")
-                                .font(.SoraBold(size: 16))
-                            + Text("Rate")
-                                .font(.SoraRegular(size: 13))
-                        }
-                        .foregroundStyle(Color.mainBlue)
-//                        }
-//                        .padding(.horizontal)
-                        
-                        if let array = chatlistvm.ChatsList{
+                    VStack(alignment:.leading) {
+                        HStack (alignment:.top,spacing:15){
+                            Image("MenuSt_rates")
+                                .resizable()
+                                .renderingMode(.template)
+                                .foregroundStyle(Color.mainBlue)
+                                .frame(width: 35, height: 35, alignment: .center)
                             
-                            List(Array(array.enumerated()), id:\.element.hashValue){ index,chat in
-                                Button(action: {
-                                    if selectedChatId == nil{
-                                        selectedChatId = index
-                                    }else{
-                                        selectedChatId = nil
-                                    }
-                                }, label: {
-                                    ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectedLessonId: $selectedLessonId, selectLessonBtnAction: {
-                                        destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId ).environmentObject(chatlistvm))
-                                        isPush = true
-                                        if hasNavBar == false{
-                                            studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId).environmentObject(chatlistvm))
-                                            studenthometabbarvm.ispush = true
-                                        }
-                                    })
-                                })
-                                .listRowSpacing(0)
-                                .listRowSeparator(.hidden)
-                                .listRowBackground(Color.clear)
+                            VStack(alignment:.leading,spacing:10){ // (Title - Data - Submit Button)
+                                
+                                SignUpHeaderTitle(Title: "Rates and Reviews")
+                                    .foregroundStyle(Color.mainBlue)
+                                
+                                Group{
+                                    Text("\(array.items?.first?.teacherRate ?? 4.3,specifier: "%.1f")")
+                                        .font(.SoraBold(size: 30))
+                                    + Text( " of 5 ".localized())
+                                        .font(.SoraBold(size: 30))
+                                    
+                                    + Text(" /   ")
+                                    + Text("\(array.items?.count ?? Int(112))  ")
+                                        .font(.SoraBold(size: 16))
+                                    + Text("Rate".localized())
+                                        .font(.SoraRegular(size: 13))
+                                }
+                                .foregroundStyle(Color.mainBlue)
                             }
-                            .listStyle(.plain)
-                            //                        .searchable(text: $searchQuery, prompt: "Search".localized())
-                        }
-                        Spacer()
+                        } 
+//                        .redacted(reason: .placeholder)
+
+                        List(array.items ?? [],id:\.self){rate in
+                            RateCellView(rate: rate)
+//                                .redacted(reason: .placeholder)
+                                .onAppear {
+                                    if let totalCount = ratesvm.Rates?.totalCount, let itemsCount = ratesvm.Rates?.items?.count, itemsCount < totalCount {
+                                        // Load the next page if there are more items to fetch
+                                        ratesvm.skipCount += ratesvm.maxResultCount
+                                        ratesvm.GetRates()
+                                    }
+                                }
+                        }.listStyle(.plain)
                     }
+                     
                     .frame(minHeight:gr.size.height)
                     .onAppear(perform: {
-                        chatlistvm.GetChatsList()
-                })
+                        ratesvm.GetRates()
+                    })
                 }
-                .padding(.top)
-                .padding(.horizontal)
+                
             }
+            .padding(.top)
+            .padding(.horizontal)
             
         }
         .hideNavigationBar()
@@ -112,21 +92,13 @@ struct TeacherRatesView: View {
 //
 ////            chatlistvm.cleanup()
 //        }
-        .showHud(isShowing: $chatlistvm.isLoading)
-//        .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
+//        .showHud(isShowing: $ratesvm.isLoading)
+//        .showAlert(hasAlert: $ratesvm.isError, alertType: chatlistvm.error)
 //        if hasNavBar == true{
 //            NavigationLink(destination: destination, isActive: $isPush, label: {})
 //        }
     }
-//    var searchResults: [ChatListM]? {
-////        if let array = chatlistvm.ChatsList{
-//            if searchQuery.isEmpty {
-//                return chatlistvm.ChatsList ?? []
-//            } else {
-//                return chatlistvm.ChatsList?.filter{"\($0.studentName ?? "")".contains(searchQuery)} ?? []
-//            }
-////        }
-//    }
+
     
 }
 
@@ -135,4 +107,30 @@ struct TeacherRatesView: View {
         .environmentObject(StudentTabBarVM())
 //        .environmentObject(ChatListVM())
     
+}
+
+struct RateCellView: View {
+    var rate:RateItem
+    var body: some View {
+        VStack(alignment:.leading){
+            HStack{
+                Text(rate.creationDate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", FormatTo:"dd  MMM  yyyy") ?? "2024-03-11T10:53:14.468Z")
+                    .font(.SoraRegular(size: 14))
+                    .foregroundStyle(ColorConstants.Bluegray40099)
+            }
+            Text(rate.teacherLessonName ?? "lesson name")
+                .font(.SoraSemiBold(size: 13))
+                .foregroundStyle(Color.mainBlue)
+            
+            Text(rate.teacherLessonComment ?? "lesson comment")
+                .font(.SoraRegular(size: 14))
+                .foregroundStyle(Color.mainBlue)
+                .padding(.vertical,6)
+            
+            CustomDivider()
+        }
+        .listRowSpacing(0)
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+    }
 }

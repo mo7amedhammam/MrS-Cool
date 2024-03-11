@@ -46,6 +46,8 @@ enum teacherServices{
     case GetAllComentsList
     case GetAllComentsListById(parameters : [String:Any])
     case CreateComment(parameters : [String:Any])
+    
+    case GetTeacherRates(parameters : [String:Any])
 
 }
 
@@ -139,6 +141,9 @@ extension teacherServices:TargetType{
                  return EndPoints.CreateComment.rawValue
              }
 
+        case .GetTeacherRates:
+            return EndPoints.GetTeacherRates.rawValue
+
         }
     }
     
@@ -165,7 +170,8 @@ extension teacherServices:TargetType{
                 .GetMyLessonSchedualGroup, .CreateMyLessonScheduleGroup,
                 .GetMySubjectGroup,.ReviewMySubjectGroup,.CreateMySubjectGroup,
                 .GetMyCompletedLessons,
-                .CreateComment:
+                .CreateComment,
+                .GetTeacherRates:
             return .post
         }
     }
@@ -204,7 +210,8 @@ extension teacherServices:TargetType{
                 .ReviewMySubjectGroup(parameters: let Parameters),
                 .CreateMySubjectGroup(parameters: let Parameters),
                 .GetMyCompletedLessons(parameters: let Parameters),
-                .CreateComment(parameters: let Parameters):
+                .CreateComment(parameters: let Parameters),
+                .GetTeacherRates(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

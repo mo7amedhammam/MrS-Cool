@@ -146,6 +146,7 @@
 		C8F0E0232B163C7800B7A3C5 /* ManageTeacherSchedualsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F0E0222B163C7800B7A3C5 /* ManageTeacherSchedualsVM.swift */; };
 		C8F0E0252B163C8F00B7A3C5 /* ManageTeacherSubjectM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F0E0242B163C8F00B7A3C5 /* ManageTeacherSubjectM.swift */; };
 		C8F100C92B175FF000B39FB1 /* ManageSchedualCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F100C82B175FF000B39FB1 /* ManageSchedualCell.swift */; };
+		C8F443402B9F580B0018D9D9 /* TeacherTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F4433F2B9F580B0018D9D9 /* TeacherTabBarView.swift */; };
 		C8F5FF652B2F163D00086624 /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F5FF642B2F163D00086624 /* FSCalendarView.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
@@ -310,6 +311,7 @@
 		C8F0E0222B163C7800B7A3C5 /* ManageTeacherSchedualsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherSchedualsVM.swift; sourceTree = "<group>"; };
 		C8F0E0242B163C8F00B7A3C5 /* ManageTeacherSubjectM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherSubjectM.swift; sourceTree = "<group>"; };
 		C8F100C82B175FF000B39FB1 /* ManageSchedualCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSchedualCell.swift; sourceTree = "<group>"; };
+		C8F4433F2B9F580B0018D9D9 /* TeacherTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherTabBarView.swift; sourceTree = "<group>"; };
 		C8F5FF642B2F163D00086624 /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
@@ -1575,6 +1577,7 @@
 			isa = PBXGroup;
 			children = (
 				C8CA13312B1DFAA700570B2F /* TeacherHomeView.swift */,
+				C8F4433F2B9F580B0018D9D9 /* TeacherTabBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2096,6 +2099,7 @@
 				C85397CE2B0A0FF400164338 /* TeacherServices.swift in Sources */,
 				C815A0232B84C17500416A2A /* StudentCompletedLessonsVM.swift in Sources */,
 				C854DE2D2B14B5600057C75F /* ManageLessonMaterialCell.swift in Sources */,
+				C8F443402B9F580B0018D9D9 /* TeacherTabBarView.swift in Sources */,
 				C8BC6F562B6914DC00C6585E /* LessonDetailsM.swift in Sources */,
 				C8FCB6B32AEAA446009C838A /* TeacherSubjectsVM.swift in Sources */,
 				C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */,

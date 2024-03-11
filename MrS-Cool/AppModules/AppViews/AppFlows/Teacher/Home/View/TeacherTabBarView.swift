@@ -1,19 +1,19 @@
 //
-//  StudentTabBarView.swift
+//  TeacherTabBarView.swift
 //  MrS-Cool
 //
-//  Created by wecancity on 03/01/2024.
+//  Created by wecancity on 11/03/2024.
 //
 
-
 import SwiftUI
-enum Studentdestinations{
-    case editProfile, calendar, changePassword, tickets, signOut, deleteAccount
+
+enum Teacherdestinations{
+    case editProfile,documents,subjects,scheduals,subjectgroup,lessonGroups ,calendar,rates ,changePassword, tickets, signOut, deleteAccount
 }
-struct StudentTabBarView: View {
-    @StateObject var studenttabbarvm = StudentTabBarVM()
+struct TeacherTabBarView: View {
+    @StateObject var tabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
-    @State private var selectedDestination : Studentdestinations = .editProfile
+    @State private var selectedDestination : Teacherdestinations = .editProfile
 
     private let tabBarItems = [
         TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -23,7 +23,7 @@ struct StudentTabBarView: View {
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
     
-    @StateObject var studentsignupvm = StudentEditProfileVM()
+    @StateObject var teacherProfilevm = StudentEditProfileVM()
 
 //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
 //    @StateObject var chatListvm = ChatListVM()
@@ -37,7 +37,7 @@ struct StudentTabBarView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Group{
-                            Text("Hi ".localized())+Text(studentsignupvm.name)
+                            Text("Hi ".localized())+Text(teacherProfilevm.name)
                             
 //                            Text("Lets Start Learning! ".localized())
 //                                .font(Font.SoraRegular(size: 11))
@@ -89,7 +89,7 @@ struct StudentTabBarView: View {
                     
                     StudentHomeView() // home
                         .tag(2)
-                        .environmentObject(studenttabbarvm)
+                        .environmentObject(tabbarvm)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
@@ -105,7 +105,7 @@ struct StudentTabBarView: View {
 //                    )
                     ChatsListView(hasNavBar : false) // chats
                         .tag(3)
-                        .environmentObject(studenttabbarvm)
+                        .environmentObject(tabbarvm)
 //                        .environmentObject(chatListvm)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -118,7 +118,7 @@ struct StudentTabBarView: View {
                         .tag(4)
 //                        .environmentObject(LookUpsVM())
 //                        .environmentObject(completedlessonsvm)
-                        .environmentObject(studenttabbarvm)
+                        .environmentObject(tabbarvm)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
@@ -134,7 +134,7 @@ struct StudentTabBarView: View {
 
             }
             .onAppear(perform: {
-                studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
+                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(teacherProfilevm))
             })
             .overlay(content: {
                 SideMenuView()
@@ -146,143 +146,44 @@ struct StudentTabBarView: View {
             })
             .onChange(of: selectedDestination) {newval in
                 if newval == .editProfile{ //edit Profile
-                    studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
+                    tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(teacherProfilevm))
                 }else if newval == .calendar { //calendar
-                    studenttabbarvm.destination = AnyView(CalView1())
+                    tabbarvm.destination = AnyView(CalView1())
 //                }else if newval == .rates { // rates
 //                    studenttabbarvm.destination = AnyView(Text("Rates"))
+                    
+                }else if newval == .rates { //calendar
+                    tabbarvm.destination = AnyView(TeacherRatesView())
+                    
                 }else if newval == .changePassword { // change password
-                    studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
+                    tabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
                 }else if newval == .tickets { // tickets
                     
                 }else if newval == .signOut { // signout
-                    studenttabbarvm.destination =
+                    tabbarvm.destination =
                    AnyView(SignInView())
                     Helper.shared.IsLoggedIn(value: false)
                 }
             }
 //        }
-            NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
+            NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
     
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $studenttabbarvm.ispush).environmentObject(studentsignupvm)), direction: .leading)
+        SideView(isShowing: $presentSideMenu, content: AnyView(TeacherSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
     }
 }
 
 #Preview{
-    StudentTabBarView()
+    TeacherTabBarView()
 }
 
-enum HomeTabs {
-    case tab0,tab1,tab2,tab3,tab4
-}
-struct CustomTabBarView: View {
-    @Binding var selectedIndex : Int
-    let tabBarItems : [TabBarItem]
-    private let middleTabWidth: CGFloat = 60
-    private let middleTabHeight: CGFloat = 66
-    private let middleTabCurveHeight: CGFloat = 30
-    var body: some View {
-        VStack(spacing: 0) {
-
-            HStack(spacing: 0) {
-                ForEach(0..<tabBarItems.count) { index in
-                    TabBarItemView(
-                        item: tabBarItems[index],
-                        isSelected: selectedIndex == index,
-                        onTap: {
-                            selectedIndex = index
-                        }
-                    )
-                    .offset(y:index == tabBarItems.count / 2  ? -12 : 8 )
-                    if index == tabBarItems.count / 2 - 1 {
-                        Spacer()
-                    }
-                }
-            }
-            .frame(height: middleTabHeight)
-            .background(content: {
-                tabshape(midpoint: UIScreen.main.bounds.midX+4)
-                    .fill(ColorConstants.WhiteA700)
-                    .shadow(color: ColorConstants.Black900.opacity(0.2), radius: 10, x: 0, y: 0)
-                    .edgesIgnoringSafeArea(.bottom)
-                
-            })
-            //            }
-            //            .frame(height: middleTabHeight)
-        }
-        
-        //        .frame(height: middleTabHeight)
-        
-    }
-}
-
-struct TabBarItemView: View {
-    let item: TabBarItem
-    let isSelected: Bool
-    let onTap: () -> Void
-    
-    var body: some View {
-//        Button(action: onTap) {
-            VStack(spacing: 4) {
-                Image(isSelected ? item.selectedicon:item.icon)
-                    .font(.system(size: 24))
-                    .foregroundColor(isSelected ? .blue : .gray)
-                
-                Text(item.title)
-                    .font(.caption)
-                    .foregroundColor(isSelected ? .blue : .gray)
-            }
-            .frame(maxWidth: .infinity)
-            .onTapGesture {
-                onTap()
-            }
-//        }
-//        .frame(maxWidth: .infinity)
-    }
-}
-
-struct TabBarItem {
-    let icon: String
-    let selectedicon: String
-    let title: String
-}
-
-struct tabshape:Shape {
-    var midpoint:CGFloat
-    func path(in rect:CGRect) -> Path {
-        return Path{ path in
-            path.addPath(Rectangle().path(in: rect))
-            
-            path.move(to: .init(x: midpoint - 60, y: 0))
-            let to = CGPoint(x: midpoint, y: -25)
-            let cont1 = CGPoint(x: midpoint - 25 , y: 0)
-            let cont2 = CGPoint(x: midpoint - 25, y: -25)
-            path.addCurve(to: to, control1: cont1, control2: cont2)
-            
-            let to1 = CGPoint(x: midpoint + 60, y: 0)
-            let cont3 = CGPoint(x: midpoint + 25 , y: -25)
-            let cont4 = CGPoint(x: midpoint + 25, y: 0)
-            path.addCurve(to: to1, control1: cont3, control2: cont4)
-            
-        }
-    }
-}
-
-enum Categories:String{
-    case home = "home"
-    case favorite = "favorite"
-    case chat = "chat"
-    case profile = "profile"
-}
-
-struct StudentSideMenuContent: View {
+struct TeacherSideMenuContent: View {
     @EnvironmentObject var studentsignupvm : StudentEditProfileVM
 
     @Binding var presentSideMenu: Bool
-    @Binding var selectedDestination: Studentdestinations
+    @Binding var selectedDestination: Teacherdestinations
     @Binding var isPush: Bool
 
     var body: some View {
@@ -325,7 +226,40 @@ struct StudentSideMenuContent: View {
                     isPush = true
 
                 }
+                
+                SideMenuSectionTitle(title: "My Information")
+                SideMenuButton(image: "MenuSt_calendar", title: "My Documents"){
+                    selectedDestination = .subjects // calendar
+                    presentSideMenu =  false
+                    isPush = true
+                }
                 SideMenuSectionTitle(title: "Academic")
+                SideMenuButton(image: "img_group_512380", title: "My Subjects"){
+                    selectedDestination = .subjects // calendar
+                    presentSideMenu =  false
+                    isPush = true
+                }
+
+                SideMenuButton(image: "img_group148", title: "My Schedule"){
+                    selectedDestination = .scheduals // rates
+                    presentSideMenu =  false
+                    isPush = true
+                } 
+                
+                SideMenuButton(image: "img_group58", title: "Manage Subject Groups"){
+                    selectedDestination = .subjectgroup // calendar
+                    presentSideMenu =  false
+                    isPush = true
+                }
+
+                SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
+                    selectedDestination = .lessonGroups // rates
+                    presentSideMenu =  false
+                    isPush = true
+                }
+                
+                
+                SideMenuSectionTitle(title: "Student Sessions")
                 
                 SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
                     selectedDestination = .calendar // calendar
@@ -333,11 +267,11 @@ struct StudentSideMenuContent: View {
                     isPush = true
                 }
 
-//                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-//                    selectedDestination = .rates // rates
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
+                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+                    selectedDestination = .rates // rates
+                    presentSideMenu =  false
+                    isPush = true
+                }
                 
                 SideMenuSectionTitle(title: "Settings")
 
@@ -375,48 +309,4 @@ struct StudentSideMenuContent: View {
         }
     }
     
-}
-
-struct SideMenuSectionTitle: View {
-    var title : String
-    var backgroundcolor : Color? = Color("StudentBtnBg")
-
-    var body: some View {
-        HStack {
-            Text(title.localized())
-                .font(.SoraBold(size: 18))
-                .foregroundColor(ColorConstants.WhiteA700)
-                .multilineTextAlignment(.leading)
-            Spacer()
-        }
-        .padding()
-        .background(content: {
-            backgroundcolor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
-                .padding(.leading,-20)
-        })
-    }
-}
-
-struct SideMenuButton: View {
-    var image : String
-    var imagecolor:Color?
-    var title : String
-    var titleColor : Color?
-    var action : () -> ()
-    var body: some View {
-        Button(action: {
-            action()
-        }, label: {
-            HStack{
-                Image(image)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color("StudentBtnBg"))
-                Text(title.localized())
-                    .font(.SoraSemiBold(size: 13))
-                    .foregroundStyle(titleColor ?? ColorConstants.WhiteA700)
-                Spacer()
-            }
-            .padding()
-        })
-    }
 }

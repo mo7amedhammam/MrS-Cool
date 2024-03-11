@@ -17,7 +17,7 @@ struct ContentView: View {
 
                 }else if Helper().CheckIfLoggedIn(){
                     if Helper().getSelectedUserType() == .Teacher{
-                        TeacherHomeView()
+                        TeacherTabBarView()
                     }else if Helper().getSelectedUserType() == .Student{
                         StudentTabBarView()
                     }else{

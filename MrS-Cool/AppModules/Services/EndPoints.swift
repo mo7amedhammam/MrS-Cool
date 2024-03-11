@@ -129,6 +129,9 @@ enum EndPoints: String {
     case GetAllStudentsChatComments = "TeacherLessonSessionComment/GetAllLessonChatByTeacher"
     case CreateComment = "TeacherLessonSessionComment/CreateComment"
     
+    // MARK: -- Teacher Rates --
+    case GetTeacherRates = "Teacher/TeacherLessonRate"
+    
     //    MARK: -- Student Home --
     case GetStudentSubjects = "Student/GetStudentSubjects"
     
