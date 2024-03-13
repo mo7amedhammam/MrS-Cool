@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ManageMyDocumentsView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var lookupsvm : LookUpsVM
-    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var teacherdocumentsvm : TeacherDocumentsVM
+    @StateObject var lookupsvm = LookUpsVM()
+    @StateObject var signupvm = SignUpViewModel()
+    @StateObject var teacherdocumentsvm = TeacherDocumentsVM()
 
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -330,8 +330,8 @@ struct ManageMyDocumentsView: View {
 //@available(iOS 16.0, *)
 #Preview{
     ManageMyDocumentsView(isFinish: .constant(false))
-        .environmentObject(LookUpsVM())
-        .environmentObject(SignUpViewModel())
-        .environmentObject(TeacherDocumentsVM())
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(SignUpViewModel())
+//        .environmentObject(TeacherDocumentsVM())
 }
 

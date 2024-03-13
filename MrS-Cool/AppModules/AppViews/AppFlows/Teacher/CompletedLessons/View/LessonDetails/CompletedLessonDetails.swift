@@ -87,9 +87,13 @@ struct CompletedLessonDetails: View {
                         LazyVGrid(columns: [.init(), .init(),.init()]) {
                             ForEach(completedlessonsvm.completedLessonDetails?.teacherCompletedLessonStudentList ?? [], id:\.self) {student in
                                 LessonDetailsCell(model: student, studentchatBtnAction: {
-                                    
+                                    destination = AnyView(MessagesListView( selectedLessonId: student.studentID ?? 0 ).environmentObject(ChatListVM()))
+                                    isPush = true
+
                                 }, parentchatBtnAction: {
-                                    
+                                    destination = AnyView(MessagesListView( selectedLessonId: student.parentID ?? 0 ).environmentObject(ChatListVM()))
+                                    isPush = true
+
                                 })
                             }
                         }
@@ -110,9 +114,9 @@ struct CompletedLessonDetails: View {
             hideKeyboard()
         })
         
-        .onDisappear {
-            completedlessonsvm.cleanup()
-        }
+//        .onDisappear {
+//            completedlessonsvm.cleanup()
+//        }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         

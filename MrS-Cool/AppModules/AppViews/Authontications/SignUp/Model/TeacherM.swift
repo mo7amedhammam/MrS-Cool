@@ -54,27 +54,52 @@ struct CreatedTeacherSubjectM: Codable {
 }
 
 // MARK: - TeacherSubjectM -
+//struct TeacherSubjectM: Codable,Hashable {
+//    var subjectSemesterYearId, groupCost, individualCost, minGroup: Int?
+//    var maxGroup: Int?
+//    var teacherBrief: String?
+//    var statusID, id: Int?
+//    var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
+//    var subjectDisplayName: String?
+//    var educationTypeID, educationLevelID, academicYearId: Int?
+//    var statusIDName,brief,teacherBriefEn: String?
+////    var academicYearId:Int?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case subjectSemesterYearId = "subjectSemesterYearId"
+//        case groupCost, individualCost, minGroup, maxGroup, teacherBrief
+//        case statusID = "statusId"
+//        case id, educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName, subjectDisplayName
+//        case educationTypeID = "educationTypeId"
+//        case educationLevelID = "educationLevelId"
+//        case academicYearId = "academicYearId"
+//        case statusIDName = "statusIdName"
+//        case brief,teacherBriefEn
+////        case academicYearId
+//    }
+//}
 struct TeacherSubjectM: Codable,Hashable {
-    var subjectSemesterYearId, groupCost, individualCost, minGroup: Int?
-    var maxGroup: Int?
-    var teacherBrief: String?
-    var statusID, id: Int?
+    var subjectSemesterYearID, minGroup: Int?
+    var groupCost, individualCost:Float?
+    var maxGroup, statusID, id: Int?
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
     var subjectDisplayName: String?
-    var educationTypeID, educationLevelID, subjectSemesterID: Int?
-    var statusIDName: String?
+    var educationTypeID, educationLevelID, academicYearID: Int?
+    var statusIDName, brief, teacherBrief, teacherBriefEn: String?
 
     enum CodingKeys: String, CodingKey {
-        case subjectSemesterYearId = "subjectSemesterYearId"
-        case groupCost, individualCost, minGroup, maxGroup, teacherBrief
+        case subjectSemesterYearID = "subjectSemesterYearId"
+        case groupCost, individualCost, minGroup, maxGroup
         case statusID = "statusId"
         case id, educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName, subjectDisplayName
         case educationTypeID = "educationTypeId"
         case educationLevelID = "educationLevelId"
-        case subjectSemesterID = "subjectSemesterId"
+        case academicYearID = "academicYearId"
         case statusIDName = "statusIdName"
+        case brief, teacherBrief, teacherBriefEn
     }
 }
+
 
 
 //MARK: -- Teacher Documents --

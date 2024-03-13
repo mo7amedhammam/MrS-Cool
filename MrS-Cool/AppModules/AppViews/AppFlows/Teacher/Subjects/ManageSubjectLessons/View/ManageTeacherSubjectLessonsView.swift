@@ -175,7 +175,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                     }
                 }
                 .onAppear(perform: {
-                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectSemesterYearId ?? 0
+                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectSemesterYearID ?? 0
                     manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
                 })
      

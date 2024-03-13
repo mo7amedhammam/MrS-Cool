@@ -13,7 +13,7 @@ enum Teacherdestinations{
 struct TeacherTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
-    @State private var selectedDestination : Teacherdestinations = .editProfile
+    @State private var selectedDestination : Teacherdestinations?
 
     private let tabBarItems = [
         TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -23,12 +23,12 @@ struct TeacherTabBarView: View {
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
     
-    @StateObject var teacherProfilevm = StudentEditProfileVM()
+    @StateObject var teacherProfilevm = ManageTeacherProfileVM()
 
 //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
 //    @StateObject var chatListvm = ChatListVM()
 //    @State var isPush = false
-//    @State var destination = AnyView(EmptyView())
+    @State var destination = AnyView(EmptyView())
     
     @State var presentSideMenu = false
     var body: some View {
@@ -37,7 +37,7 @@ struct TeacherTabBarView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Group{
-                            Text("Hi ".localized())+Text(teacherProfilevm.name)
+                            Text("Hi, ".localized())+Text(teacherProfilevm.name)
                             
 //                            Text("Lets Start Learning! ".localized())
 //                                .font(Font.SoraRegular(size: 11))
@@ -87,7 +87,8 @@ struct TeacherTabBarView: View {
                             }
                         )
                     
-                    StudentHomeView() // home
+//                    StudentHomeView() // home
+                    Text("tab2")
                         .tag(2)
                         .environmentObject(tabbarvm)
                         .gesture(
@@ -114,7 +115,8 @@ struct TeacherTabBarView: View {
                         )
                     
 //                    StudentHomeView()
-                    StudentCompletedLessonsView(hasNavBar : false) // completed lessons
+                    CompletedLessonsList(hasNavBar : false)
+//                    StudentCompletedLessonsView(hasNavBar : false) // completed lessons
                         .tag(4)
 //                        .environmentObject(LookUpsVM())
 //                        .environmentObject(completedlessonsvm)
@@ -133,9 +135,9 @@ struct TeacherTabBarView: View {
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
             }
-            .onAppear(perform: {
-                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(teacherProfilevm))
-            })
+//            .onAppear(perform: {
+//                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
+//            })
             .overlay(content: {
                 SideMenuView()
             })
@@ -146,7 +148,48 @@ struct TeacherTabBarView: View {
             })
             .onChange(of: selectedDestination) {newval in
                 if newval == .editProfile{ //edit Profile
-                    tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(teacherProfilevm))
+                    tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
+                    
+                }else if newval == .documents{
+                    tabbarvm.destination = AnyView(ManageMyDocumentsView( isFinish: .constant(false))
+                                                   //                        .environmentObject(lookupsvm)
+                                                   //                        .environmentObject(signupvm)
+                                                   //                        .environmentObject(teacherdocumentsvm)
+                                                   //                                .hideNavigationBar()
+                    )
+                    
+                }else if newval == .subjects{
+                    
+                    tabbarvm.destination = AnyView(ManageTeacherSubjectsView()
+//                        .environmentObject(lookupsvm)
+//                        .environmentObject(manageteachersubjectsvm)
+//                                .hideNavigationBar()
+                    )
+                    
+                    
+                }else if newval == .scheduals{
+                    
+                    tabbarvm.destination = AnyView(ManageTeacherSchedualsView()
+//                        .environmentObject(lookupsvm)
+//                        .environmentObject(manageteacherschedualsvm)
+//                            .hideNavigationBar()
+                    )
+                    
+                }else if newval == .subjectgroup{
+                    
+                    tabbarvm.destination = AnyView(GroupForLessonView() 
+//                        .environmentObject(lookupsvm)
+//                        .environmentObject(groupsforlessonvm)
+//                                .hideNavigationBar()
+                    )
+                }else if newval == .lessonGroups{
+                    
+                    tabbarvm.destination = AnyView(ManageSubjectGroupView() 
+//                        .environmentObject(lookupsvm)
+//                        .environmentObject(subjectgroupvm)
+//                                .hideNavigationBar()
+                    )
+                    
                 }else if newval == .calendar { //calendar
                     tabbarvm.destination = AnyView(CalView1())
 //                }else if newval == .rates { // rates
@@ -180,10 +223,10 @@ struct TeacherTabBarView: View {
 }
 
 struct TeacherSideMenuContent: View {
-    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
+    @EnvironmentObject var teacherprofilevm : ManageTeacherProfileVM
 
     @Binding var presentSideMenu: Bool
-    @Binding var selectedDestination: Teacherdestinations
+    @Binding var selectedDestination: Teacherdestinations?
     @Binding var isPush: Bool
 
     var body: some View {
@@ -191,7 +234,7 @@ struct TeacherSideMenuContent: View {
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
                     ZStack(alignment: .topLeading){
-                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(teacherprofilevm.imageStr ?? ""))
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
@@ -208,7 +251,7 @@ struct TeacherSideMenuContent: View {
                         
                     }
                     VStack(alignment:.leading) {
-                        Text(studentsignupvm.name)
+                        Text(teacherprofilevm.name)
                             .font(.SoraBold(size: 18))
                             .foregroundStyle(.whiteA700)
                         
@@ -229,7 +272,7 @@ struct TeacherSideMenuContent: View {
                 
                 SideMenuSectionTitle(title: "My Information")
                 SideMenuButton(image: "MenuSt_calendar", title: "My Documents"){
-                    selectedDestination = .subjects // calendar
+                    selectedDestination = .documents // calendar
                     presentSideMenu =  false
                     isPush = true
                 }

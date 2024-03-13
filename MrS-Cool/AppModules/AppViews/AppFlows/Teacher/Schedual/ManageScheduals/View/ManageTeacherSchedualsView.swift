@@ -10,9 +10,9 @@ import SwiftUI
 //@available(iOS 16.0, *)
 struct ManageTeacherSchedualsView: View {
     //        @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var lookupsvm : LookUpsVM
+    @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var manageteacherschedualsvm : ManageTeacherSchedualsVM
+    @StateObject var manageteacherschedualsvm = ManageTeacherSchedualsVM()
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -187,6 +187,6 @@ struct ManageTeacherSchedualsView: View {
 //@available(iOS 16.0, *)
 #Preview {
     ManageTeacherSchedualsView()
-        .environmentObject(LookUpsVM())
-        .environmentObject(ManageTeacherSchedualsVM())
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(ManageTeacherSchedualsVM())
 }

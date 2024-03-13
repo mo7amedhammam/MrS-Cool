@@ -192,6 +192,7 @@ extension ManageTeacherSubjectsVM{
             parameters["statusId"] = statusId
         }
         let target = Authintications.TeacherGetSubjects(parameters: parameters)
+//        print(target)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[TeacherSubjectM]>.self)
             .sink(receiveCompletion: {[weak self] completion in
@@ -279,8 +280,8 @@ extension ManageTeacherSubjectsVM{
         editId = item.id ?? 0
         educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
         educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
-        academicYear = .init(id: item.subjectSemesterYearId,Title: item.academicYearName)
-        subject = .init(id: item.subjectSemesterYearId,Title: item.subjectDisplayName)
+        academicYear = .init(id: item.subjectSemesterYearID,Title: item.academicYearName)
+        subject = .init(id: item.subjectSemesterYearID,Title: item.subjectDisplayName)
         if let min = item.minGroup{
             minGroup = String(min)
         }

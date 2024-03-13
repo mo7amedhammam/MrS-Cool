@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ManageTeacherSubjectsView: View {
     //    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var lookupsvm : LookUpsVM
+    @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var manageteachersubjectsvm : ManageTeacherSubjectsVM
+    @StateObject var manageteachersubjectsvm = ManageTeacherSubjectsVM()
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -254,6 +254,6 @@ struct ManageTeacherSubjectsView: View {
 
 #Preview {
     ManageTeacherSubjectsView()
-        .environmentObject(LookUpsVM())
-        .environmentObject(ManageTeacherSubjectsVM())
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(ManageTeacherSubjectsVM())
 }

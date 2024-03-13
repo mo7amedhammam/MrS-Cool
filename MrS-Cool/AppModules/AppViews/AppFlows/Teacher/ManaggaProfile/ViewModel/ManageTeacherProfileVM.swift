@@ -47,6 +47,7 @@ class ManageTeacherProfileVM: ObservableObject {
     
     init()  {
 //        getGendersArr()
+        GetTeacherProfile()
     }
 }
 

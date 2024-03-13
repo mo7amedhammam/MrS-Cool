@@ -13,7 +13,7 @@ enum Studentdestinations{
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
-    @State private var selectedDestination : Studentdestinations = .editProfile
+    @State private var selectedDestination : Studentdestinations?
 
     private let tabBarItems = [
         TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -37,7 +37,7 @@ struct StudentTabBarView: View {
                 HStack {
                     VStack(alignment: .leading){
                         Group{
-                            Text("Hi ".localized())+Text(studentsignupvm.name)
+                            Text("Hi, ".localized())+Text(studentsignupvm.name)
                             
 //                            Text("Lets Start Learning! ".localized())
 //                                .font(Font.SoraRegular(size: 11))
@@ -133,9 +133,9 @@ struct StudentTabBarView: View {
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
             }
-            .onAppear(perform: {
-                studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
-            })
+//            .onAppear(perform: {
+//                studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
+//            })
             .overlay(content: {
                 SideMenuView()
             })
@@ -282,7 +282,7 @@ struct StudentSideMenuContent: View {
     @EnvironmentObject var studentsignupvm : StudentEditProfileVM
 
     @Binding var presentSideMenu: Bool
-    @Binding var selectedDestination: Studentdestinations
+    @Binding var selectedDestination: Studentdestinations?
     @Binding var isPush: Bool
 
     var body: some View {

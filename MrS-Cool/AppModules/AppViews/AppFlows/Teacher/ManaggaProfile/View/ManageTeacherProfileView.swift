@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManageTeacherProfileView: View {
-    @EnvironmentObject var lookupsvm : LookUpsVM
+    @StateObject var lookupsvm = LookUpsVM()
     @EnvironmentObject var manageprofilevm : ManageTeacherProfileVM
     
     @State private var showImageSheet = false
@@ -120,11 +120,11 @@ struct ManageTeacherProfileView: View {
                     .disabled(!isEditing)
                 }
             }
-            .onAppear(perform: {
-                Task(priority: .background, operation: {
-                manageprofilevm.GetTeacherProfile()
-                })
-                })
+//            .onAppear(perform: {
+//                Task(priority: .background, operation: {
+//                manageprofilevm.GetTeacherProfile()
+//                })
+//                })
             .onChange(of: isEditing){newval in
                 if newval{
                     Task(priority: .background, operation: {
@@ -186,7 +186,7 @@ struct ManageTeacherProfileView: View {
 
 #Preview {
     ManageTeacherProfileView()
-        .environmentObject(LookUpsVM())
+//        .environmentObject(LookUpsVM())
         .environmentObject(ManageTeacherProfileVM())
     
 }

@@ -10,9 +10,9 @@ import SwiftUI
 
 struct ManageSubjectGroupView: View {
     //        @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var lookupsvm : LookUpsVM
+    @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var subjectgroupvm : ManageSubjectGroupVM
+    @StateObject var subjectgroupvm = ManageSubjectGroupVM()
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -255,8 +255,7 @@ struct ManageSubjectGroupView: View {
 
 #Preview {
     ManageSubjectGroupView()
-        .environmentObject(LookUpsVM())
-        .environmentObject(ManageSubjectGroupVM())
-    
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(ManageSubjectGroupVM())
 }
 

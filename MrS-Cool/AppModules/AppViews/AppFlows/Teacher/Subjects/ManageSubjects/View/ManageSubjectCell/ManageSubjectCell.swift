@@ -93,7 +93,7 @@ struct ManageSubjectCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         Group{
-                            Text("\(model.groupCost ?? 0) ")+Text("EGP".localized())
+                            Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
                         }
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)
@@ -117,7 +117,7 @@ struct ManageSubjectCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         Group{
-                            Text("\(model.individualCost  ?? 0) ")+Text("EGP".localized())
+                            Text("\(model.individualCost  ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
                         }
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)

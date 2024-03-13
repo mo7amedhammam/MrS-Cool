@@ -9,20 +9,23 @@ import SwiftUI
 
 struct CompletedLessonsList: View {  
     //        @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var lookupsvm : LookUpsVM
+    @EnvironmentObject var tabbarvm : StudentTabBarVM
+    @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var completedlessonsvm : CompletedLessonsVM
+    @StateObject var completedlessonsvm = CompletedLessonsVM()
     
     @State var showFilter : Bool = false
     //    var currentSubject:TeacherSubjectM?
     
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
+    var hasNavBar : Bool? = true
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
     
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Completed Lessons")
-            
+            if hasNavBar ?? true{
+                CustomTitleBarView(title: "Completed Lessons")
+            }
             GeometryReader { gr in
                 ScrollView(.vertical,showsIndicators: false){
                     VStack{ // (Title - Data - Submit Button)
@@ -46,9 +49,15 @@ struct CompletedLessonsList: View {
                             
                             CompletedLessonCell(model: lesson,reviewBtnAction: {
                                 completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
-                                destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
-                                
-                                isPush = true
+//                                if hasNavBar ?? true{
+//                                    
+//                                    destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
+//                                    isPush = true
+//                                }else{
+                                    tabbarvm.destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
+                                    tabbarvm.ispush = true
+
+//                                }
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
@@ -156,13 +165,15 @@ struct CompletedLessonsList: View {
             }
         }
         
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        if hasNavBar ?? true{
+//            NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        }
     }
 }
 
 #Preview {
     CompletedLessonsList()
-        .environmentObject(LookUpsVM())
-        .environmentObject(CompletedLessonsVM())
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(CompletedLessonsVM())
     
 }

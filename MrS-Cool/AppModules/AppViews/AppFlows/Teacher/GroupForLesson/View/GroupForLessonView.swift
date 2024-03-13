@@ -9,9 +9,9 @@ import SwiftUI
 
 struct GroupForLessonView: View {
     //        @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var lookupsvm : LookUpsVM
+    @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @EnvironmentObject var groupsforlessonvm : GroupForLessonVM
+    @StateObject var groupsforlessonvm = GroupForLessonVM()
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -229,8 +229,8 @@ struct GroupForLessonView: View {
 
 #Preview {
     GroupForLessonView()
-        .environmentObject(LookUpsVM())
-        .environmentObject(GroupForLessonVM())
+//        .environmentObject(LookUpsVM())
+//        .environmentObject(GroupForLessonVM())
 }
 
 
