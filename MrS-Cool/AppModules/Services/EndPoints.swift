@@ -172,3 +172,9 @@ enum EndPoints: String {
     case UpdateStudentProfile = "Student/UpdateProfile"
     
 }
+
+enum ParentEndPoints:String{
+    // MARK: -- parent --
+    case GetMyChildren = "Parent/GetMyChildren"
+    case CreateStudentByParent = "Student/CreateByParent"
+}

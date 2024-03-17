@@ -10,11 +10,10 @@ import SwiftUI
 struct ParentSignUpView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
-    @EnvironmentObject var signupvm : SignUpViewModel
+    @EnvironmentObject var signupvm : ParentSignupVM
 
     @State var isPush = false
     @State var destination = EmptyView()
-    
     
     var body: some View {
         GeometryReader { gr in
@@ -26,11 +25,22 @@ struct ParentSignUpView: View {
                         
                         // -- inputs --
                         Group {
-                            CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $signupvm.name,textContentType:.name)
+                            CustomTextField(iconName:"img_group51",placeholder: "Parent Name *", text: $signupvm.name,textContentType:.name)
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $signupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
                             
+                            CustomTextField(iconName:"img_group172",placeholder: "Email *", text: $signupvm.email,textContentType:.emailAddress,keyboardType:.emailAddress)
+
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
+                            
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr)
+
+                            
+                            CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.country,options:lookupsvm.CountriesList)
+                       
+                            CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $signupvm.governorte,options:lookupsvm.GovernoratesList)
+                         
+                            CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
                             
@@ -62,6 +72,9 @@ struct ParentSignUpView: View {
                 .padding(.horizontal)
                 
             }
+            .onAppear(perform: {
+                lookupsvm.getGendersArr()
+            })
             NavigationLink(destination: destination, isActive: $isPush, label: {})
             
         }
@@ -71,5 +84,5 @@ struct ParentSignUpView: View {
 #Preview{
     ParentSignUpView()
         .environmentObject(LookUpsVM())
-        .environmentObject(SignUpViewModel())
+        .environmentObject(ParentSignupVM())
 }

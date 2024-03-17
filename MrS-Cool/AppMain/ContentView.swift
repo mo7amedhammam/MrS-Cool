@@ -21,7 +21,7 @@ struct ContentView: View {
                     }else if Helper().getSelectedUserType() == .Student{
                         StudentTabBarView()
                     }else{
-                        
+                        ParentTabBarView()
                     }
                 }else{
                     SignInView()
@@ -34,7 +34,6 @@ struct ContentView: View {
         }
         .hideNavigationBar()
         .localizeView()
-
 
     }
 }
