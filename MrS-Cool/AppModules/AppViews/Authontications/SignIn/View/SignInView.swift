@@ -50,7 +50,6 @@ struct SignInView: View {
                                         .fontWeight(.regular)
                                         .foregroundColor(ColorConstants.Black900)
                                         .multilineTextAlignment(.leading)
-                                    
                                 }
                                 Group {
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)

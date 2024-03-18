@@ -107,7 +107,11 @@ extension ParentSignupVM{
     func clearSelections(){
         name = ""
         phone = ""
+        email = ""
         selectedGender = nil
+        country = nil
+        governorte = nil
+        city = nil
 //        educationType = nil
 //        educationLevel = nil
 //        academicYear = nil

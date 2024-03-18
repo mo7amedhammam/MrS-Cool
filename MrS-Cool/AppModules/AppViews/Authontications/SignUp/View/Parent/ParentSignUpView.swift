@@ -12,9 +12,10 @@ struct ParentSignUpView: View {
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : ParentSignupVM
 
-    @State var isPush = false
-    @State var destination = EmptyView()
-    
+//    @State var isPush = false
+//    @State var destination = AnyView(ParentTabBarView())
+    @State private var isVerified = false
+
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -34,12 +35,20 @@ struct ParentSignUpView: View {
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
                             
                             CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr)
-
                             
                             CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.country,options:lookupsvm.CountriesList)
+                                .onChange(of: signupvm.country, perform: { value in
+                                    lookupsvm.SelectedCountry = value
+                                    signupvm.governorte = nil
+                                    signupvm.city = nil
+                                })
                        
                             CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $signupvm.governorte,options:lookupsvm.GovernoratesList)
-                         
+                                .onChange(of: signupvm.governorte, perform: { value in
+                                    lookupsvm.SelectedGovernorate = value
+                                    signupvm.city = nil
+                                })
+                            
                             CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
@@ -57,7 +66,8 @@ struct ParentSignUpView: View {
                     Spacer()
                     
                     CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
-                        isPush = true
+                        signupvm.RegisterParent()
+//                        isPush = true
 //                        destination = AnyView(OTPVerificationView().hideNavigationBar())
                     })
                     .frame(height: 50)
@@ -70,14 +80,28 @@ struct ParentSignUpView: View {
                 }
                 .frame(minHeight: gr.size.height)
                 .padding(.horizontal)
-                
             }
+            .fullScreenCover(isPresented: $signupvm.isDataUploaded, onDismiss: {
+                print("dismissed ")
+                if isVerified {
+//                    destination = AnyView(StudentHomeView())
+//                    currentStep = .subjectsData
+//                    isPush = true
+                    dismiss()
+                }
+            }, content: {
+                OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
+                    .hideNavigationBar()
+            })
             .onAppear(perform: {
                 lookupsvm.getGendersArr()
+                lookupsvm.getCountriesArr()
             })
-            NavigationLink(destination: destination, isActive: $isPush, label: {})
-            
+
+
+//            NavigationLink(destination: destination, isActive: $signupvm.isDataUploaded, label: {})
         }
+        
     }
 }
 

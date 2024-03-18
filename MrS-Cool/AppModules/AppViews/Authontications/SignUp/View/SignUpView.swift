@@ -13,6 +13,7 @@ struct SignUpView: View {
     @StateObject var signupvmsubject = TeacherSubjectsVM()
     @StateObject var signupvmdocument = TeacherDocumentsVM()
     @StateObject var studentsignupvm = StudentSignUpVM()
+    @StateObject var parentsignupvm = ParentSignupVM()
 
     @Binding var selecteduser : UserType
 
@@ -27,6 +28,8 @@ struct SignUpView: View {
                     switch selecteduser.user{
                     case .Parent:
                         ParentSignUpView()
+                            .environmentObject(parentsignupvm)
+
                     case .Teacher:
                         TeacherSignUpView()
                             .environmentObject(signupvmsubject)
@@ -52,8 +55,8 @@ struct SignUpView: View {
 //
 //                    }.tabViewStyle(.page(indexDisplayMode: .never))
                 }
-                                        .environmentObject(lookupsvm)
-                                        .environmentObject(signupvm)
+                .environmentObject(lookupsvm)
+                .environmentObject(signupvm)
             }
         }
         .background(ColorConstants.Gray50.ignoresSafeArea()
