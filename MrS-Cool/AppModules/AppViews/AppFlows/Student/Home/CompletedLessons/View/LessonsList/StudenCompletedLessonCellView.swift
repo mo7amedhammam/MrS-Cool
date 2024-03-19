@@ -10,14 +10,15 @@ import SwiftUI
 struct StudenCompletedLessonCellView: View {
     var model = StudentCompletedLessonItemM()
     var reviewBtnAction : (()->())?
-    
+    var chatBtnAction : (()->())?
+
     var body: some View {
-        Button(action: {
-            reviewBtnAction?()
-        }){
+//        Button(action: {
+//            reviewBtnAction?()
+//        }){
             VStack(alignment:.leading,spacing: 10){
                 
-                HStack(alignment: .top,spacing: 20) {
+                HStack(spacing: 20) {
                     Image("img_group512382")
                         .scaleEffect(1.2, anchor: .center)
                         .background(
@@ -29,18 +30,44 @@ struct StudenCompletedLessonCellView: View {
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(.mainBlue)
 
-                    
                     Spacer()
                     
-    //                Button(action: {
-    //                    reviewBtnAction?()
-    //                }, label: {
-    //                    Image("img_group8733_gray_908")
-    ////                        .resizable()
-    ////                        .frame(width: 15, height: 18,alignment: .leading)
-    //                        .aspectRatio(contentMode: .fill)
-    //                })
-    //                .buttonStyle(.plain)
+                    Rectangle().fill(model.attendance ?? true ? ColorConstants.LightGreen800:ColorConstants.Red400)
+                        .frame(width: 10, height: 10, alignment: .center)
+
+                    Button(action: {
+                        chatBtnAction?()
+                    }, label: {
+                        Image("img_message2")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(ColorConstants.MainColor)
+                            .frame(width: 15, height: 18,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                    
+                    Button(action: {
+                        reviewBtnAction?()
+                    }, label: {
+                        Image("img_book22243953")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(ColorConstants.MainColor)
+                            .frame(width: 15, height: 18,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                    
+//                    Button(action: {
+//                        reviewBtnAction?()
+//                    }, label: {
+//                        Image("img_group8733_gray_908")
+//    //                        .resizable()
+//    //                        .frame(width: 15, height: 18,alignment: .leading)
+//                            .aspectRatio(contentMode: .fill)
+//                    })
+//                    .buttonStyle(.plain)
                 }
                 HStack{
                     VStack (alignment:.leading,spacing: 10){
@@ -48,7 +75,6 @@ struct StudenCompletedLessonCellView: View {
                             .font(Font.SoraSemiBold(size:13.0))
                             .foregroundColor(.mainBlue)
 
-                        
                         Text(model.groupName ?? "Group 1")
                             .font(Font.SoraRegular(size: 12.0))
                             .fontWeight(.regular)
@@ -88,8 +114,6 @@ struct StudenCompletedLessonCellView: View {
                             }                            .font(Font.SoraRegular(size: 12))
                                 .foregroundColor(.mainBlue)
                             
-                            Rectangle().fill(model.attendance ?? true ? ColorConstants.LightGreen800:ColorConstants.Red400)
-                                .frame(width: 10, height: 10, alignment: .center)
                         }
                         .padding(.top,8)
                     }
@@ -102,7 +126,7 @@ struct StudenCompletedLessonCellView: View {
                         lineWidth: 1))
             .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
             .fill(ColorConstants.WhiteA700))
-        }
+//        }
     }
 }
 

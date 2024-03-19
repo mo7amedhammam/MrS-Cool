@@ -48,6 +48,10 @@ struct StudentCompletedLessonsView: View {
                                 completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
                                 studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
                                 studenthometabbarvm.ispush = true
+                            },chatBtnAction: {
+                                studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.teacherLessonId ?? 0 ).environmentObject(ChatListVM()))
+                                studenthometabbarvm.ispush = true
+                                
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
