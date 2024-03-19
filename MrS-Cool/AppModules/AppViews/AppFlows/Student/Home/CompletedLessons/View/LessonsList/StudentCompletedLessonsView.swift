@@ -49,7 +49,7 @@ struct StudentCompletedLessonsView: View {
                                 studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
                                 studenthometabbarvm.ispush = true
                             },chatBtnAction: {
-                                studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.teacherLessonId ?? 0 ).environmentObject(ChatListVM()))
+                                studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
                                 studenthometabbarvm.ispush = true
                                 
                             })

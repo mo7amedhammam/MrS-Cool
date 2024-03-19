@@ -514,8 +514,8 @@
 		C815A01D2B84C12000416A2A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C88B1C5D2B8F4CDD00681D38 /* LessonDetails */,
 				C88B1C5C2B8F4CD100681D38 /* LessonsList */,
+				C88B1C5D2B8F4CDD00681D38 /* LessonDetails */,
 			);
 			path = View;
 			sourceTree = "<group>";
