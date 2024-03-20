@@ -82,7 +82,7 @@ struct TeacherSignUpView: View {
                         currentStep = .subjectsData
                     }
                 }, content: {
-                    OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.teacherRegistered))
+                    OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, verifycase: .creatinguser, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.teacherRegistered))
                         .hideNavigationBar()
                 })
             }

@@ -53,7 +53,8 @@ enum EndPoints: String {
     //Teacher Subjects
     case sendOTPTeacher = "Teacher/SendOTP" ///Post
     case VerifyOTPTeacher = "Teacher/VefiryUser" /// Post
-    
+    case VerifyResetOTPTeacher = "Teacher/VerifyOTP" /// Post
+
     case ResetPasswordTeacher = "Teacher/ResetPassword"
     case ChangePasswordTeacher = "Teacher/ChangePassword"
     
@@ -63,17 +64,19 @@ enum EndPoints: String {
     
     case sendOTPStudent = "Student/SendOTP" ///Post
     case VerifyOTPStudent = "Student/VefiryUser" /// Post
-    
+    case VerifyResetOTPStudent = "Student/VerifyOTP" /// Post
+
     case ResetPasswordStudent = "Student/ResetPassword"
     case ChangePasswordStudent = "Student/ChangePassword"
     
-    // MARK: -- Student Auth --
+    // MARK: -- parent Auth --
     case RegisterParent = "Parent/Register" ///post
     case LoginParent = "Parent/Login"///post
     
     case sendOTPParent = "Parent/SendOTP" ///Post
     case VerifyOTPParent = "Parent/VefiryUser" /// Post
-    
+    case VerifyResetOTPParent = "Parent/VerifyOTP" /// Post
+
     case ResetPasswordParent = "Parent/ResetPassword"
     case ChangePasswordParent = "Parent/ChangePassword"
     

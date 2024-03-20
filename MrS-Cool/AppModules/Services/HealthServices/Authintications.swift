@@ -23,7 +23,7 @@ enum Authintications {
     case TeacherLogin(user:UserTypeEnum, parameters : [String:Any])
 
     case SendOtp(user:UserTypeEnum,parameters : [String:Any])
-//    case VerifyOtp(parameters : [String:Any])
+    case VerifyOtpReset(parameters : [String:Any])
 
     case ResetPassword(user:UserTypeEnum,parameters : [String:Any])
     case ChangePassword(user:UserTypeEnum,parameters : [String:Any])
@@ -67,8 +67,15 @@ extension Authintications : TargetType {
                 return EndPoints.LoginTeacher.rawValue
             }
 
-        case .SendOtp:
-            return EndPoints.sendOTPTeacher.rawValue
+        case .SendOtp(let user,_):
+            switch user{
+            case .Student:
+                return EndPoints.sendOTPStudent.rawValue
+            case .Parent:
+                return EndPoints.sendOTPParent.rawValue
+            case .Teacher:
+                return EndPoints.sendOTPTeacher.rawValue
+            }
             
         case .VerifyOtpUser(let user, _):
             switch user {
@@ -109,6 +116,20 @@ extension Authintications : TargetType {
 
             }
             
+        case .VerifyOtpReset:
+            switch Helper.shared.getSelectedUserType() {
+            case .Student:
+                return EndPoints.VerifyResetOTPStudent.rawValue
+
+            case .Parent:
+                return EndPoints.VerifyResetOTPParent.rawValue
+
+            case .Teacher:
+                return EndPoints.VerifyResetOTPTeacher.rawValue
+
+            case .none:
+                return ""
+            }
         }
     }
     
@@ -123,7 +144,8 @@ extension Authintications : TargetType {
                 .TeacherLogin,
                 .SendOtp,
                 .ResetPassword,
-                .ChangePassword:
+                .ChangePassword,
+                .VerifyOtpReset:
             return .post
             
         case .TeacherDeleteSubjects,
@@ -143,7 +165,8 @@ extension Authintications : TargetType {
                 .SendOtp(_, let parameters),
                 .VerifyOtpUser(_, let parameters),
                 .ResetPassword(_, let parameters),
-                .ChangePassword(_, let parameters):
+                .ChangePassword(_, let parameters),
+                .VerifyOtpReset(let parameters):
             return .parameterRequest(Parameters: parameters, Encoding: .default)
             
         case .TeacherDeleteSubjects(parameters: let parameters),

@@ -137,6 +137,9 @@
 		C8BF20102B6BDA1E00779C04 /* WeeklyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BF200F2B6BDA1E00779C04 /* WeeklyCalendarView.swift */; };
 		C8C0ED142B28A0560086C4AD /* CompletedLessonsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C0ED132B28A0560086C4AD /* CompletedLessonsList.swift */; };
 		C8C0ED172B28A5040086C4AD /* CompletedLessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C0ED162B28A5040086C4AD /* CompletedLessonCell.swift */; };
+		C8C66BF02BAB227200636038 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C66BEF2BAB227200636038 /* ResetPasswordView.swift */; };
+		C8C66BF22BAB246C00636038 /* EnterMobileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C66BF12BAB246C00636038 /* EnterMobileView.swift */; };
+		C8C66BF42BAB25BE00636038 /* ResetPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8C66BF32BAB25BE00636038 /* ResetPasswordVM.swift */; };
 		C8CA13322B1DFAA700570B2F /* TeacherHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CA13312B1DFAA700570B2F /* TeacherHomeView.swift */; };
 		C8D3F3AA2B42D304003CFE45 /* StudentHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D3F3A92B42D304003CFE45 /* StudentHomeView.swift */; };
 		C8D7C0742B063D01009D5533 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */; };
@@ -308,6 +311,9 @@
 		C8BF200F2B6BDA1E00779C04 /* WeeklyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalendarView.swift; sourceTree = "<group>"; };
 		C8C0ED132B28A0560086C4AD /* CompletedLessonsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedLessonsList.swift; sourceTree = "<group>"; };
 		C8C0ED162B28A5040086C4AD /* CompletedLessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedLessonCell.swift; sourceTree = "<group>"; };
+		C8C66BEF2BAB227200636038 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		C8C66BF12BAB246C00636038 /* EnterMobileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMobileView.swift; sourceTree = "<group>"; };
+		C8C66BF32BAB25BE00636038 /* ResetPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVM.swift; sourceTree = "<group>"; };
 		C8CA13312B1DFAA700570B2F /* TeacherHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeView.swift; sourceTree = "<group>"; };
 		C8D3F3A92B42D304003CFE45 /* StudentHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentHomeView.swift; sourceTree = "<group>"; };
 		C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
@@ -634,6 +640,7 @@
 		C82A96C92AE56E7E00A63134 /* Authontications */ = {
 			isa = PBXGroup;
 			children = (
+				C8C66BE92BAB1D3100636038 /* ForgetPassword */,
 				C8D7C06F2B063C98009D5533 /* ChangePassword */,
 				C80425F42AF2804000E876E2 /* SuccessView */,
 				C8AA98032AE40D7E0073442A /* OTPVerification */,
@@ -1646,6 +1653,40 @@
 			path = CompletedLessonCell;
 			sourceTree = "<group>";
 		};
+		C8C66BE92BAB1D3100636038 /* ForgetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				C8C66BEC2BAB1DE300636038 /* Model */,
+				C8C66BEB2BAB1DE000636038 /* ViewModel */,
+				C8C66BEA2BAB1DDE00636038 /* View */,
+			);
+			path = ForgetPassword;
+			sourceTree = "<group>";
+		};
+		C8C66BEA2BAB1DDE00636038 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8C66BEF2BAB227200636038 /* ResetPasswordView.swift */,
+				C8C66BF12BAB246C00636038 /* EnterMobileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8C66BEB2BAB1DE000636038 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8C66BF32BAB25BE00636038 /* ResetPasswordVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8C66BEC2BAB1DE300636038 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C8CA132F2B1DFA6C00570B2F /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2189,6 +2230,7 @@
 				C89907DF2BA7479400FC6D23 /* ParentSignupVM.swift in Sources */,
 				C8740EB72B4EAF5800AF0154 /* StudentHomeLessonCell.swift in Sources */,
 				C8F0E0252B163C8F00B7A3C5 /* ManageTeacherSubjectM.swift in Sources */,
+				C8C66BF22BAB246C00636038 /* EnterMobileView.swift in Sources */,
 				C85397DB2B0A2B6800164338 /* ManageSubjectLessonCell.swift in Sources */,
 				C87051B62B6E5F6E00ABE01A /* BookingCheckoutM.swift in Sources */,
 				C85397D62B0A16CC00164338 /* ManageTeacherSubjectLessonsVM.swift in Sources */,
@@ -2203,12 +2245,14 @@
 				C82B048C2B9C81F200E56046 /* TeacherRatesVM.swift in Sources */,
 				C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */,
 				C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */,
+				C8C66BF02BAB227200636038 /* ResetPasswordView.swift in Sources */,
 				C877F53C2B21DE6400CEF08F /* ManageSubjectGroupVM.swift in Sources */,
 				C80403442B554E3E003279AD /* HomeSubjectDetailsM.swift in Sources */,
 				C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */,
 				C899E3F02ADED3D800593369 /* Roundedcorners.swift in Sources */,
 				C80403482B554F01003279AD /* HomeSubjectDetailsView.swift in Sources */,
 				C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */,
+				C8C66BF42BAB25BE00636038 /* ResetPasswordVM.swift in Sources */,
 				C897B3402B53E866008BA13D /* StudentMostViewedSubjectCell.swift in Sources */,
 				C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */,
 				C899E3F42ADEEBC000593369 /* UserTypesList.swift in Sources */,

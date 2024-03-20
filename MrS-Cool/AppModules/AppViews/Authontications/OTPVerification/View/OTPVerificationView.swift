@@ -15,6 +15,8 @@ struct OTPVerificationView: View {
     //    @State var destination = AnyView(Text(""))
     var PhoneNumber : String?
     var CurrentOTP : Int?
+    var verifycase : VerifyCases
+
     @State var secondsCount : Int? = 110
     @Binding var isVerified: Bool
     @Binding var sussessStep : successSteps
@@ -120,6 +122,7 @@ struct OTPVerificationView: View {
         
         .onAppear(perform: {
             otpvm.mobile = PhoneNumber
+            otpvm.verifycase = verifycase
             if secondsCount ?? 0 > 0{
                 otpvm.CurrentOtp = String(CurrentOTP ?? 0)
                 otpvm.remainingSeconds = secondsCount ?? 0
@@ -127,6 +130,10 @@ struct OTPVerificationView: View {
             }
         })
         
+        .onChange(of: otpvm.isResetOTPVerified, perform: { value in
+            dismiss()
+            isVerified = true
+        })
         .fullScreenCover(isPresented: $otpvm.isOTPVerified, onDismiss: {
             print("dismissed ")
             //            isVerified = true
@@ -141,6 +148,6 @@ struct OTPVerificationView: View {
 }
 
 #Preview {
-    OTPVerificationView(PhoneNumber: "01101201322", CurrentOTP: 0, secondsCount: 110,isVerified: .constant(false), sussessStep: .constant(.teacherRegistered))
+    OTPVerificationView(PhoneNumber: "01101201322", CurrentOTP: 0, verifycase: .creatinguser, secondsCount: 110,isVerified: .constant(false), sussessStep: .constant(.teacherRegistered))
 }
 

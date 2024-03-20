@@ -70,7 +70,7 @@ struct SignInView: View {
                                     
                                     Button(action: {
                                         isPush = true
-                                        destination = AnyView( Text("Forget password"))
+                                        destination = AnyView(EnterMobileView())
                                     }, label: {
                                         Text("Forget password ?".localized())
                                             .font(Font.SoraRegular(size: 13))

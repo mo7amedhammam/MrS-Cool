@@ -8,10 +8,15 @@
 import Foundation
 import Combine
 
+enum VerifyCases{
+    case creatinguser,ressetingpassword
+}
 class OTPVerificationVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
 
     var mobile: String?
+    var verifycase: VerifyCases = .creatinguser
+    
     @Published var CurrentOtp: String?
 
     @Published var remainingSeconds: Int = 0
@@ -20,7 +25,7 @@ class OTPVerificationVM: ObservableObject {
     @Published var EnteredOtp: String?{
         didSet{
             if EnteredOtp?.count == 6 {
-                VerifyOtp()
+                VerifyOtp(verifycase: verifycase)
             }
         }
     }
@@ -29,6 +34,7 @@ class OTPVerificationVM: ObservableObject {
     @Published var newOTPM : OtpM?
     @Published var isOTPVerified : Bool = false
 
+    @Published var isResetOTPVerified : Bool = false
 
     //    MARK: --- States ---
         @Published var isLoading : Bool?
@@ -78,7 +84,7 @@ class OTPVerificationVM: ObservableObject {
      }
     
     
-    func VerifyOtp() {
+    func VerifyOtp(verifycase:VerifyCases) {
         guard let otp = EnteredOtp ,let mobile = mobile else {
             // Handle missing username or password
             return
@@ -86,7 +92,12 @@ class OTPVerificationVM: ObservableObject {
         let parametersarr : [String : Any] =  ["otp" : otp,"mobile" : mobile ]
         isLoading = true
         // Create your API request with the username and password
-        let target = Authintications.VerifyOtpUser(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+        let target = switch verifycase {
+        case .creatinguser:
+             Authintications.VerifyOtpUser(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+        case .ressetingpassword:
+             Authintications.VerifyOtpReset(parameters: parametersarr)
+        }
         
         // Make the API call using your APIManager or networking code
         BaseNetwork.CallApi(target, BaseResponse<TeacherModel>.self)
@@ -104,10 +115,17 @@ class OTPVerificationVM: ObservableObject {
             }, receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if  receivedData.success == true{
-                    guard let model = receivedData.data else{return}
-                    Helper.shared.saveUser(user: model  )
-                        isOTPVerified = true
+                if receivedData.success == true{
+                    
+                    switch verifycase {
+                    case .creatinguser:
+                        guard let model = receivedData.data else{return}
+                        Helper.shared.saveUser(user: model)
+                            isOTPVerified = true
+                        
+                    case .ressetingpassword:
+                        isResetOTPVerified = true
+                    }
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
