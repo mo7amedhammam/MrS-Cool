@@ -70,6 +70,9 @@ struct ListChildrenView: View {
             }
          Spacer()
         }
+        .onAppear(perform: {
+            listchildrenvm.GetMyChildren()
+        })
         .padding()
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {

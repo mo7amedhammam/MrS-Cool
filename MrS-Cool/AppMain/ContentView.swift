@@ -24,7 +24,9 @@ struct ContentView: View {
                         ParentTabBarView()
                     }
                 }else{
-                    SignInView()
+//                    SignInView()
+                    AnonymousHomeView() // home
+
                 }
 //                ManageTeacherSchedualsView()
 //                    .environmentObject(LookUpsVM())

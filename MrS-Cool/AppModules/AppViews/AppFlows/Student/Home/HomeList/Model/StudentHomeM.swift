@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - SubjectGroupM -
+// MARK: - SubjectGroupM - for loged in student
 struct StudentSubjectsM: Codable,Hashable {
     var id: Int?
     var name, image: String?
@@ -16,6 +16,21 @@ struct StudentSubjectsM: Codable,Hashable {
         case id
         case  name, image
     }
+}
+
+// MARK: - AnonymousallSubjectM - for anonymous
+struct AnonymousallSubjectM: Codable {
+    var academicLevelName: String?
+    var getAllSubjects: [GetAllSubject]?
+}
+
+// MARK: - GetAllSubject - for anonymous
+struct GetAllSubject: Codable {
+    var id: Int?
+    var name, image, systemBrief: String?
+    var availableTeacherCount: Int?
+    var academicEducationLevelName, academicSemesterName: String?
+    var minPrice, maxPrice, lessonsCount: Int?
 }
 
 // MARK: - mostviewedlessons -

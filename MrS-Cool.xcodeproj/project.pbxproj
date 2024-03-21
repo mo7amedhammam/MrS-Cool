@@ -145,6 +145,7 @@
 		C8D7C0742B063D01009D5533 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */; };
 		C8D7C0762B063D6B009D5533 /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0752B063D6B009D5533 /* ChangePasswordVM.swift */; };
 		C8D7C0782B063EC9009D5533 /* ChangePasswordM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7C0772B063EC9009D5533 /* ChangePasswordM.swift */; };
+		C8D83C702BAC882100801710 /* AnonymousHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D83C6F2BAC882100801710 /* AnonymousHomeView.swift */; };
 		C8DDFB5A2B3AF88800C785D4 /* ChatsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DDFB592B3AF88800C785D4 /* ChatsListView.swift */; };
 		C8DDFB5C2B3B1B5F00C785D4 /* ChatListM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DDFB5B2B3B1B5F00C785D4 /* ChatListM.swift */; };
 		C8DDFB5E2B3B1B8200C785D4 /* ChatListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DDFB5D2B3B1B8200C785D4 /* ChatListVM.swift */; };
@@ -319,6 +320,7 @@
 		C8D7C0732B063D01009D5533 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		C8D7C0752B063D6B009D5533 /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
 		C8D7C0772B063EC9009D5533 /* ChangePasswordM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordM.swift; sourceTree = "<group>"; };
+		C8D83C6F2BAC882100801710 /* AnonymousHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousHomeView.swift; sourceTree = "<group>"; };
 		C8DDFB592B3AF88800C785D4 /* ChatsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsListView.swift; sourceTree = "<group>"; };
 		C8DDFB5B2B3B1B5F00C785D4 /* ChatListM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListM.swift; sourceTree = "<group>"; };
 		C8DDFB5D2B3B1B8200C785D4 /* ChatListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListVM.swift; sourceTree = "<group>"; };
@@ -925,6 +927,7 @@
 		C85397CC2B0A0FBA00164338 /* AppFlows */ = {
 			isa = PBXGroup;
 			children = (
+				C8D83C6D2BAC880600801710 /* AnonymousHomeView */,
 				C8B89DDE2AFA514800219AEC /* Teacher */,
 				C8B89DDD2AFA513B00219AEC /* Parent */,
 				C85397CB2B0A0FA100164338 /* Student */,
@@ -1750,6 +1753,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C8D83C6D2BAC880600801710 /* AnonymousHomeView */ = {
+			isa = PBXGroup;
+			children = (
+				C8D83C6E2BAC881500801710 /* View */,
+			);
+			path = AnonymousHomeView;
+			sourceTree = "<group>";
+		};
+		C8D83C6E2BAC881500801710 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8D83C6F2BAC882100801710 /* AnonymousHomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C8DDFB552B3AF7CF00C785D4 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
@@ -2327,6 +2346,7 @@
 				C89907DA2BA7336800FC6D23 /* ListChildrenVM.swift in Sources */,
 				C8357E7E2B61169100911371 /* SubjectTeachersListView.swift in Sources */,
 				C865D2B12B78BD0D007F116A /* PaymentStatusView.swift in Sources */,
+				C8D83C702BAC882100801710 /* AnonymousHomeView.swift in Sources */,
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C85A71152B4D5D7300462277 /* StudentHomeSubjectCell.swift in Sources */,

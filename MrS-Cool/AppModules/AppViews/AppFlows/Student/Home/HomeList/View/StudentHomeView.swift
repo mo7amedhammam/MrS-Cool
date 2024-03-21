@@ -7,12 +7,16 @@
 
 import SwiftUI
 
+enum HomeSubjectCase{
+    case anonymous, loggedinStudent
+}
+
 struct StudentHomeView: View {
     @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
     
     @StateObject var studenthomevm = StudentHomeVM()
     
-//    @State var isPush = false
+    @State var isSearch = false
 //    @State var destination = AnyView(EmptyView())
     
 //    @State var searchText = ""
@@ -21,7 +25,8 @@ struct StudentHomeView: View {
         GeometryReader{gr in
 
         LazyVStack(spacing:0) {
-                ScrollView(showsIndicators:false){
+            ScrollView(showsIndicators:false){
+                
                     HStack {
                         Text("Subjects".localized())
                             .font(Font.SoraBold(size: 18))
@@ -32,22 +37,30 @@ struct StudentHomeView: View {
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 160)
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
-                                Spacer().frame(width:1)
-                                ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
-                                    StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
-                                        studenthometabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
-                                        studenthometabbarvm.ispush = true
-                                    }
-                                    .frame(width: gr.size.width/2.7, height: 160)
+                        LazyVGrid(columns: [.init(), .init(),.init()]) {
+                            
+                            ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
+                                StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
+                                    studenthometabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
+                                    studenthometabbarvm.ispush = true
                                 }
-                                Spacer().frame(width:1)
+                                //                                    .frame(width: gr.size.width/2.7, height: 160)
                             }
-                            .frame(height: 160)
-                            .padding(.bottom,10)
                         }
+                        //                            .frame(height: 160)
+                        .padding(.horizontal)
+                        .padding(.bottom,10)
+                        //                        }
                     }
+                    
+
+//                }
+//                .frame(minHeight:20)
+                    
+      
+                    
+//            }
+                    
                     HStack {
                         Text("Most Viewed Lessons".localized())
                             .font(Font.SoraBold(size: 18))

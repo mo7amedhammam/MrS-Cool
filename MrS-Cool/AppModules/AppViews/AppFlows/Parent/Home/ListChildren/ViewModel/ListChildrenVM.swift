@@ -21,8 +21,10 @@ class ListChildrenVM: ObservableObject {
     //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
-    @Published var Children : [ChildrenM]? = [ChildrenM.init(id: 1, code: "dddddd", image: "", academicYearEducationLevelName: "egyption education", academicYearEducationLevelID: 2, name: "name"),ChildrenM.init(id: 2, code: "ssss", image: "", academicYearEducationLevelName: "egyption education", academicYearEducationLevelID: 3, name: "name 2")]
+    @Published var Children : [ChildrenM]? = []
+//    [ChildrenM.init(id: 1, code: "dddddd", image: "", academicYearEducationLevelName: "egyption education", academicYearEducationLevelID: 2, name: "name"),ChildrenM.init(id: 2, code: "ssss", image: "", academicYearEducationLevelName: "egyption education", academicYearEducationLevelID: 3, name: "name 2")]
     init()  {
+        
     }
 }
 

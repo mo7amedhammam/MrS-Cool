@@ -136,7 +136,8 @@ enum EndPoints: String {
     case GetTeacherRates = "Teacher/TeacherLessonRate"
     
     //    MARK: -- Student Home --
-    case GetStudentSubjects = "Student/GetStudentSubjects"
+    case GetStudentSubjects = "Student/GetStudentSubjects" // for loggedin student
+    case GetAllAnonymousSubjects = "SubjectOrLessonTeachers/GetAllSubjects" // for anonymous
     
     case MostViewedLessons = "Lesson/MostViewedLessons"
     case MostBookedLessons = "Lesson/MostBookedLessons"

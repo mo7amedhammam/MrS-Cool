@@ -36,7 +36,11 @@ extension StudentServices:TargetType{
     var path: String {
         switch self {
         case .GetStudentSubjects:
-            return EndPoints.GetStudentSubjects.rawValue
+            if Helper.shared.CheckIfLoggedIn(){
+                return EndPoints.GetStudentSubjects.rawValue
+            }else {
+                return EndPoints.GetAllAnonymousSubjects.rawValue
+            }
             
         case .GetMostLessons(mostType:let mostType,_):
             switch mostType{

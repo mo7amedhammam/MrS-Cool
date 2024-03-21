@@ -7,13 +7,13 @@
 
 import Foundation
 import Combine
+
 enum studentLessonMostCases{
     case mostviewed, mostBooked
 }
 enum studentTeacherMostCases{
     case mostviewed, topRated
 }
-
 
 class StudentHomeVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -29,8 +29,7 @@ class StudentHomeVM: ObservableObject {
     //    @Published var isTeacherHasSubjects: Bool = false
     //    @Published var letsPreview : Bool = false
     
-    @Published var StudentSubjects : [StudentSubjectsM]? = []
-    //    [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2")]
+    @Published var StudentSubjects : [StudentSubjectsM]? = [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2"),StudentSubjectsM.init(id: 3, name: "arabic2", image: "tab2")]
     @Published var SelectedStudentSubjects : StudentSubjectsM = StudentSubjectsM()
     
     @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = []
@@ -81,34 +80,73 @@ extension StudentHomeVM{
     func GetStudentSubjects(){
         var parameters:[String:Any] = [:]
         print("parameters",parameters)
-        let target = StudentServices.GetStudentSubjects(parameters: parameters)
-        //        isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<[StudentSubjectsM]>.self)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {[weak self] completion in
-                guard let self = self else{return}
-                //                isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    isError =  true
-                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                }
-            },receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                if receivedData.success == true {
-                    //                    TeacherSubjects?.append(model)
-                    StudentSubjects = receivedData.data
-                }else{
-                    //                    isError =  true
-                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                }
-                //                isLoading = false
-            })
-            .store(in: &cancellables)
+        if Helper.shared.CheckIfLoggedIn() == true{
+            let target = StudentServices.GetStudentSubjects(parameters: parameters)
+            //        isLoading = true
+            BaseNetwork.CallApi(target, BaseResponse<[StudentSubjectsM]>.self)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: {[weak self] completion in
+                    guard let self = self else{return}
+                    //                isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        isError =  true
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    }
+                },receiveValue: {[weak self] receivedData in
+                    guard let self = self else{return}
+                    print("receivedData",receivedData)
+                    if receivedData.success == true {
+                        //                    TeacherSubjects?.append(model)
+                        StudentSubjects = receivedData.data
+                    }else{
+                        //                    isError =  true
+                        //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                        error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    }
+                    //                isLoading = false
+                })
+                .store(in: &cancellables)
+            
+        }else{
+            // MARK: -- anonymous --
+            parameters["maxResultCount"] = 25
+            parameters["skipCount"] = 0
+            parameters["academicEducationLevelId"] = 0
+            parameters["semesterId"] = 0
+
+            let target = StudentServices.GetStudentSubjects(parameters: parameters)
+            //        isLoading = true
+            BaseNetwork.CallApi(target, BaseResponse<AnonymousallSubjectM>.self)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: {[weak self] completion in
+                    guard let self = self else{return}
+                    //                isLoading = false
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        isError =  true
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    }
+                },receiveValue: {[weak self] receivedData in
+                    guard let self = self else{return}
+                    print("receivedData",receivedData)
+                    if receivedData.success == true {
+                        //                    TeacherSubjects?.append(model)
+                        StudentSubjects = receivedData.data?.getAllSubjects?.convertToStudentSubjects()
+                    }else{
+                        //                    isError =  true
+                        //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                        error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    }
+                    //                isLoading = false
+                })
+                .store(in: &cancellables)
+        }
+        
     }
     
     func GetStudentMostSubjects(mostType:studentLessonMostCases){
@@ -149,6 +187,7 @@ extension StudentHomeVM{
             })
             .store(in: &cancellables)
     }
+    
     func GetStudentLessons(mostType:studentLessonMostCases){
         var parameters:[String:Any] = [:]
         print("parameters",parameters)
@@ -247,5 +286,14 @@ extension StudentHomeVM{
 }
 
 
-
-
+extension Array where Element == GetAllSubject {
+    func convertToStudentSubjects() -> [StudentSubjectsM] {
+        return self.map { getAllSubject in
+            return StudentSubjectsM(
+                id: getAllSubject.id,
+                name: getAllSubject.name,
+                image: getAllSubject.image
+            )
+        }
+    }
+}
