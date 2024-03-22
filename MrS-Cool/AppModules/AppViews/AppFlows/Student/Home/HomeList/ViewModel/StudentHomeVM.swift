@@ -19,6 +19,23 @@ class StudentHomeVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
+    @Published var educationType : DropDownOption?{
+        didSet{
+                educationLevel = nil
+        }
+    }
+    @Published var educationLevel : DropDownOption?{
+        didSet{
+                academicYear = nil
+        }
+    }
+    @Published var academicYear : DropDownOption?{
+        didSet{
+                term = nil
+        }
+    }
+    @Published var term : DropDownOption?
+    
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -29,7 +46,8 @@ class StudentHomeVM: ObservableObject {
     //    @Published var isTeacherHasSubjects: Bool = false
     //    @Published var letsPreview : Bool = false
     
-    @Published var StudentSubjects : [StudentSubjectsM]? = [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2"),StudentSubjectsM.init(id: 3, name: "arabic2", image: "tab2")]
+    @Published var StudentSubjects : [StudentSubjectsM]? = []
+//    [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2"),StudentSubjectsM.init(id: 3, name: "arabic2", image: "tab2")]
     @Published var SelectedStudentSubjects : StudentSubjectsM = StudentSubjectsM()
     
     @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = []
@@ -57,21 +75,8 @@ class StudentHomeVM: ObservableObject {
     @Published var SelectedStudentMostRatedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
     
     init()  {
-        DispatchQueue.global(qos: .background).async {[weak self] in
-            
-            guard let self = self else{return}
-            GetStudentSubjects()
-            
-            // Perform the background task here
-            GetStudentLessons(mostType: .mostviewed)
-            GetStudentLessons(mostType: .mostBooked)
-            
-            GetStudentMostSubjects(mostType: .mostviewed)
-            GetStudentMostSubjects(mostType: .mostBooked)
-            
-            GetStudentTeachers(mostType: .mostviewed)
-            GetStudentTeachers(mostType: .topRated)
-        }
+
+        getHomeData()
     }
 }
 
@@ -114,9 +119,13 @@ extension StudentHomeVM{
             // MARK: -- anonymous --
             parameters["maxResultCount"] = 25
             parameters["skipCount"] = 0
-            parameters["academicEducationLevelId"] = 0
-            parameters["semesterId"] = 0
-
+            if let educationLevelid = educationLevel?.id {
+                parameters["academicEducationLevelId"] = educationLevelid
+            }
+            if let termid = term?.id{
+                parameters["semesterId"] = term?.id ?? 0
+            }
+            
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true
             BaseNetwork.CallApi(target, BaseResponse<AnonymousallSubjectM>.self)
@@ -266,6 +275,24 @@ extension StudentHomeVM{
             .store(in: &cancellables)
     }
     
+    func getHomeData(){
+    DispatchQueue.global(qos: .background).async {[weak self] in
+        
+        guard let self = self else{return}
+        GetStudentSubjects()
+        
+        // Perform the background task here
+        GetStudentLessons(mostType: .mostviewed)
+        GetStudentLessons(mostType: .mostBooked)
+        
+        GetStudentMostSubjects(mostType: .mostviewed)
+        GetStudentMostSubjects(mostType: .mostBooked)
+        
+        GetStudentTeachers(mostType: .mostviewed)
+        GetStudentTeachers(mostType: .topRated)
+    }
+}
+    
     func clearselections(){
         SelectedStudentSubjects = StudentSubjectsM()
         SelectedStudentMostViewedLesson = StudentMostViewedLessonsM()
@@ -274,6 +301,10 @@ extension StudentHomeVM{
         SelectedStudentMostBookedSubject = StudentMostViewedSubjectsM()
         SelectedStudentMostViewedTeachers = StudentMostViewedTeachersM()
         SelectedStudentMostRatedTeachers = StudentMostViewedTeachersM()
+    }
+    func clearsearch(){
+        educationType = nil
+        term = nil
     }
     
     func cleanup() {

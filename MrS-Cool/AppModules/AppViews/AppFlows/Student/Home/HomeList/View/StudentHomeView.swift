@@ -240,6 +240,8 @@ struct StudentHomeView: View {
 
                 .onAppear {
                     studenthomevm.clearselections()
+                    studenthomevm.GetStudentSubjects()
+                    studenthomevm.getHomeData()
                 }
             }
         .frame(height:gr.size.height)

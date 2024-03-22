@@ -13,6 +13,7 @@ struct CustomButton: View {
     var imageName:String?
 //    var imageColor:Color?
     var Title = ""
+    var bgColor:Color?
     @Binding var IsDisabled:Bool
     var action: () -> Void
 
@@ -47,7 +48,7 @@ struct CustomButton: View {
 
             .background(
                 RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
-                .fill(IsDisabled ? ColorConstants.Gray300:ColorConstants.MainColor)
+                .fill(IsDisabled ? ColorConstants.Gray300:bgColor ?? ColorConstants.MainColor)
 //                .opacity(IsDisabled ? 0.5:1)
             )
 

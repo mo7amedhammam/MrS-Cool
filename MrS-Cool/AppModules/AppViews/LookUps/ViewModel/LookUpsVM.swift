@@ -171,6 +171,20 @@ class LookUpsVM: ObservableObject {
         }
     }
     
+    @Published var SemestersArray: [AcademicSemesterM] = []{
+        didSet{
+            if !SemestersArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                SemestersList = SemestersArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                SemestersList.removeAll()
+            }
+        }
+    }
+    @Published var SemestersList: [DropDownOption] = []
+    
     
     @Published var documentTypesArray: [DocumentTypeM] = []{
         didSet{
@@ -424,6 +438,24 @@ extension LookUpsVM {
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 SubjectsArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    
+    func GetSemesters() {
+        let target = LookupsServices.GetSemesters
+        BaseNetwork.CallApi(target, BaseResponse<[AcademicSemesterM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                SemestersArray = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

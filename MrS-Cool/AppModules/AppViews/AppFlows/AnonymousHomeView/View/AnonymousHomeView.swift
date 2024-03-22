@@ -13,7 +13,7 @@ import SwiftUI
 
 struct AnonymousHomeView: View {
     //    @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
-    
+    @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
     
     @State var isSearch = false
@@ -62,14 +62,34 @@ struct AnonymousHomeView: View {
                     ScrollView(showsIndicators:false){
                         
                         if !isSearch{
-                            CustomButton(Title:"Search",IsDisabled:.constant(false) , action: {
-                                withAnimation{
-                                    isSearch = true
+                            VStack {
+                                
+                                HStack {
+                                    SignUpHeaderTitle(Title: "Search For Your Subjects", subTitle:"")
+                                    Spacer()
                                 }
-                            })
-                            .frame(height: 50)
-                            .padding(.top,40)
+                                
+                                
+                                CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studenthomevm.educationType,options:lookupsvm.EducationTypesList)
+                                
+                                CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studenthomevm.educationLevel,options:lookupsvm.EducationLevelsList)
+                                
+                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studenthomevm.academicYear,options:lookupsvm.AcademicYearsList)
+                                
+                                CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
+                                
+                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant(studenthomevm.term == nil || studenthomevm.academicYear == nil) , action: {
+                                    withAnimation{
+                                        isSearch = true
+                                    }
+                                })
+                                .frame(height: 50)
+                                .padding(.top,10)
+                            }
+                            .padding()
+                            .borderRadius(Color.mainBlue, width: 1, cornerRadius: 8, corners: [.allCorners])
                             .padding(.horizontal)
+
                         }
                         
                         if isSearch {
@@ -86,14 +106,27 @@ struct AnonymousHomeView: View {
                                         .onTapGesture {
                                             withAnimation{
                                                 isSearch = false
+                                                studenthomevm.clearsearch()
                                             }
                                         }
                                         .padding()
-                                    Text("Showing Results For".localized())
-                                        .font(Font.SoraBold(size: 18))
-                                        .foregroundColor(.mainBlue)
+//                                    Text("Showing Results For".localized())
+//                                        .font(Font.SoraBold(size: 18))
+//                                        .foregroundColor(.mainBlue)
+                                    
+                                    SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
+                                        ZStack{
+                                            if studenthomevm.term != nil && studenthomevm.academicYear != nil{
+                                                let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")"
+                                                Text(searchselections)
+                                                    .font(Font.SoraRegular(size: 10.0))
+                                                    .foregroundColor(ColorConstants.Red400)
+                                            }}
+                                    ))
+                                    
                                     Spacer()
-                                }.padding([.top,.horizontal])
+                                }
+//                                .padding([.top,.horizontal])
                                 //                        }
                                 if studenthomevm.StudentSubjects == []{
                                     ProgressView()
@@ -296,8 +329,21 @@ struct AnonymousHomeView: View {
                     .frame(height:gr.size.height)
                     
                     .onAppear {
-                        studenthomevm.clearselections()
+                        lookupsvm.GetEducationTypes()
+                        lookupsvm.GetSemesters()
+//                        studenthomevm.clearselections()
+                        studenthomevm.getHomeData()
+                        studenthomevm.GetStudentSubjects()
                     }
+                    .onChange(of: studenthomevm.educationType, perform: { value in
+                        lookupsvm.SelectedEducationType = value
+                    })
+                    .onChange(of: studenthomevm.educationLevel, perform: { value in
+                        lookupsvm.SelectedEducationLevel = value
+                    })
+                    .onChange(of: studenthomevm.academicYear, perform: { value in
+                        lookupsvm.SelectedAcademicYear = value
+                    })
                 }
                 .frame(height:gr.size.height)
                 //            Spacer()

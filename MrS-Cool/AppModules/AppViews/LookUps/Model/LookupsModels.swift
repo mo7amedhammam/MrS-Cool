@@ -70,3 +70,19 @@ struct LessonForListM: Codable {
     var  id,groupDuration: Int?
     var lessonName: String?
 }
+
+
+// MARK: - AcademicSemesterM -
+struct AcademicSemesterM: Codable {
+    var id, createdByID: Int?
+    var createdByName, creationDate, name, startDate: String?
+    var endDate: String?
+    var order: Int?
+    var isSystem: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case createdByID = "createdById"
+        case createdByName, creationDate, name, startDate, endDate, order, isSystem
+    }
+}
