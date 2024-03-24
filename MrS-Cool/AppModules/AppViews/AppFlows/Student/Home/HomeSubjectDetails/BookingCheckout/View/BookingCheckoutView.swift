@@ -110,8 +110,16 @@ struct BookingCheckoutView: View {
                         
                         
                         CustomButton(Title: "Confirm Payment", IsDisabled: .constant(false), action: {
-                            checkoutvm.CreateBookCheckout(Id: selectedid)
-                            
+                            if Helper.shared.CheckIfLoggedIn(){
+                                checkoutvm.CreateBookCheckout(Id: selectedid)
+                            }else{
+                                checkoutvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
+                                    destination = AnyView(SignInView())
+                                    isPush = true
+                                })
+                                checkoutvm.isError = true
+
+                            }
                         })
                         .frame(height:40)
                         

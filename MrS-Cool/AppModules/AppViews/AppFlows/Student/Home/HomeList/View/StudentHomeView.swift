@@ -76,7 +76,7 @@ struct StudentHomeView: View {
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-                                        studenthometabbarvm.destination = AnyView(Text("most viewed Lesson details"))
+                                        studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                         studenthometabbarvm.ispush = true
                                         
                                     }
@@ -103,7 +103,7 @@ struct StudentHomeView: View {
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
-                                        studenthometabbarvm.destination = AnyView(Text("most booked lesson details"))
+                                        studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                         studenthometabbarvm.ispush = true
                                         
                                     }
@@ -133,7 +133,7 @@ struct StudentHomeView: View {
                                 
                                 ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
                                     StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-                                        studenthometabbarvm.destination = AnyView(Text("most viewed subject details"))
+                                        studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                         studenthometabbarvm.ispush = true
                                         
                                     }
@@ -163,7 +163,7 @@ struct StudentHomeView: View {
                                 
                                 ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
                                     StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-                                        studenthometabbarvm.destination = AnyView(Text("most booked subject details"))
+                                        studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                         studenthometabbarvm.ispush = true
                                         
                                     }
@@ -195,12 +195,10 @@ struct StudentHomeView: View {
                                     StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
                                         studenthometabbarvm.destination = AnyView(Text("most viewed teacher details"))
                                         studenthometabbarvm.ispush = true
-                                        
                                     }
                                     .frame(width: gr.size.width/3.8, height: 180)
                                 }
                                 Spacer().frame(width:1)
-                                
                             }
                             .frame(height: 180)
                             .padding(.bottom,10)

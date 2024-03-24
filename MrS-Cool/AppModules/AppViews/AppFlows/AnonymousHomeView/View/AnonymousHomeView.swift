@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-//enum HomeSubjectCase{
-//    case anonymous, loggedinStudent
-//}
+enum AnonymousDestinations{
+    case login
+}
 
 struct AnonymousHomeView: View {
     //    @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
@@ -17,10 +17,10 @@ struct AnonymousHomeView: View {
     @StateObject var studenthomevm = StudentHomeVM()
     
     @State var isSearch = false
-    
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
-    
+    @State var selectedDestination : AnonymousDestinations?
+
     //    @State var searchText = ""
     @State var presentSideMenu = false
     
@@ -166,7 +166,7 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
                                         StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-                                            destination = AnyView(Text("most viewed Lesson details"))
+                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             isPush = true
                                             
                                         }
@@ -193,7 +193,7 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                         StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
-                                            destination = AnyView(Text("most booked lesson details"))
+                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             isPush = true
                                             
                                         }
@@ -223,7 +223,7 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-                                            destination = AnyView(Text("most viewed subject details"))
+                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
                                             
                                         }
@@ -253,7 +253,7 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-                                            destination = AnyView(Text("most booked subject details"))
+                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
                                             
                                         }
@@ -344,6 +344,14 @@ struct AnonymousHomeView: View {
                     .onChange(of: studenthomevm.academicYear, perform: { value in
                         lookupsvm.SelectedAcademicYear = value
                     })
+                    
+                    .onChange(of: selectedDestination) {newval in
+                        if newval == .login { // sign in
+                            destination =
+                           AnyView(SignInView())
+                                isPush = true
+                        }
+                    }
                 }
                 .frame(height:gr.size.height)
                 //            Spacer()
@@ -354,12 +362,15 @@ struct AnonymousHomeView: View {
                 hideKeyboard()
             })
         }
+        .overlay(content: {
+            SideMenuView()
+        })
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
     
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(Text("mm"))
+        SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination))
                  , direction: .leading)
     }
     
@@ -370,3 +381,102 @@ struct AnonymousHomeView: View {
     //        .environmentObject(StudentTabBarVM())
 }
 
+
+struct AnonymousSideMenuContent: View {
+//    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
+
+    @Binding var presentSideMenu: Bool
+    @Binding var selectedDestination: AnonymousDestinations?
+//    @Binding var isPush: Bool
+
+    var body: some View {
+        ScrollView{
+            VStack(alignment: .trailing, spacing: 10) {
+                HStack(spacing:20){
+//                    ZStack(alignment: .topLeading){
+//                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
+//                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(width: 60,height: 60)
+//                            .clipShape(Circle())
+//
+//                        
+//                        Image("Edit_fill")
+//                        //                        .resizable().aspectRatio(contentMode: .fit)
+//                        //                        .font(.InterMedium(size: 12))
+//                            .frame(width: 15,height: 15)
+//                            .background(.white)
+//                            .clipShape(Circle())
+//                            .offset(x:0,y:2)
+//                        
+//                    }
+                    VStack(alignment:.leading) {
+                        Text("Anonymous".localized())
+                            .font(.SoraBold(size: 18))
+                            .foregroundStyle(.whiteA700)
+                        
+//                        Text("Edit your profile")
+//                            .font(.SoraRegular(size: 12))
+//                            .foregroundStyle(.whiteA700)
+                    }
+                    
+                    Spacer()
+                    }
+                .padding()
+//                .onTapGesture {
+//                    selectedDestination = .login
+//                    presentSideMenu =  false
+////                    isPush = true
+//
+//                }
+//                SideMenuSectionTitle(title: "Academic")
+                
+//                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
+//                    selectedDestination = .calendar // calendar
+//                    presentSideMenu =  false
+//                    isPush = true
+//                }
+
+//                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+//                    selectedDestination = .rates // rates
+//                    presentSideMenu =  false
+//                    isPush = true
+//                }
+                
+                SideMenuSectionTitle(title: "Settings")
+
+//                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+//                    selectedDestination = .changePassword // cahnage Password
+//                    presentSideMenu =  false
+//                    isPush = true
+//                }
+
+//                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
+//                    selectedDestination = .tickets // Tickets
+//                    presentSideMenu =  false
+//                    isPush = true
+//                }
+
+                SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
+                    selectedDestination = .login // sign out
+                    presentSideMenu =  false
+//                    isPush = true
+                }
+                
+//                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
+//                    selectedDestination = .deleteAccount // delete account
+//                    presentSideMenu =  false
+//                    isPush = true
+//                }
+
+                Spacer()
+            }
+        }
+            .frame(width: UIScreen.main.bounds.width - 80)
+            .padding(.top, 55)
+            .background{
+                Color.mainBlue
+        }
+    }
+    
+}
