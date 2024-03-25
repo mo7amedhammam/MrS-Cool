@@ -31,6 +31,9 @@
 		C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */; };
 		C823446B2B455E2E002D90A3 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823446A2B455E2E002D90A3 /* ExViews.swift */; };
 		C823446E2B45AC3B002D90A3 /* StudentTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823446D2B45AC3B002D90A3 /* StudentTabBarView.swift */; };
+		C823B1D82BB1A824007256D8 /* TeacherInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823B1D72BB1A824007256D8 /* TeacherInfoView.swift */; };
+		C823B1DA2BB1B24B007256D8 /* TeacherInfoM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823B1D92BB1B24B007256D8 /* TeacherInfoM.swift */; };
+		C823B1DC2BB1B294007256D8 /* TeacherInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823B1DB2BB1B294007256D8 /* TeacherInfoVM.swift */; };
 		C82582442B3C58AA00D57629 /* MessagesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82582432B3C58AA00D57629 /* MessagesListView.swift */; };
 		C82689322B25CE9C004529AA /* SubjectGroupDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82689312B25CE9C004529AA /* SubjectGroupDetailsView.swift */; };
 		C82689352B25CEE4004529AA /* SubjectGroupDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82689342B25CEE4004529AA /* SubjectGroupDetailsCell.swift */; };
@@ -206,6 +209,9 @@
 		C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpVM.swift; sourceTree = "<group>"; };
 		C823446A2B455E2E002D90A3 /* ExViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
 		C823446D2B45AC3B002D90A3 /* StudentTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTabBarView.swift; sourceTree = "<group>"; };
+		C823B1D72BB1A824007256D8 /* TeacherInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherInfoView.swift; sourceTree = "<group>"; };
+		C823B1D92BB1B24B007256D8 /* TeacherInfoM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherInfoM.swift; sourceTree = "<group>"; };
+		C823B1DB2BB1B294007256D8 /* TeacherInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherInfoVM.swift; sourceTree = "<group>"; };
 		C82582432B3C58AA00D57629 /* MessagesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesListView.swift; sourceTree = "<group>"; };
 		C82689312B25CE9C004529AA /* SubjectGroupDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectGroupDetailsView.swift; sourceTree = "<group>"; };
 		C82689342B25CEE4004529AA /* SubjectGroupDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectGroupDetailsCell.swift; sourceTree = "<group>"; };
@@ -595,6 +601,40 @@
 				C897B3442B541B6E008BA13D /* StudentTabBarVM.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		C823B1D32BB1A7B9007256D8 /* TeacherInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C823B1D62BB1A801007256D8 /* Model */,
+				C823B1D52BB1A7FD007256D8 /* ViewModel */,
+				C823B1D42BB1A7F8007256D8 /* View */,
+			);
+			path = TeacherInfo;
+			sourceTree = "<group>";
+		};
+		C823B1D42BB1A7F8007256D8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C823B1D72BB1A824007256D8 /* TeacherInfoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C823B1D52BB1A7FD007256D8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C823B1DB2BB1B294007256D8 /* TeacherInfoVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C823B1D62BB1A801007256D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C823B1D92BB1B24B007256D8 /* TeacherInfoM.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C82582422B3C589400D57629 /* Messages */ = {
@@ -1710,6 +1750,7 @@
 		C8D3F3A82B42D2EE003CFE45 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C823B1D32BB1A7B9007256D8 /* TeacherInfo */,
 				C8438EF22B947C5C00D9412D /* EditProfile */,
 				C815A01C2B84C11000416A2A /* CompletedLessons */,
 				C865D2B22B78D9D4007F116A /* StudentSideMenue */,
@@ -2262,6 +2303,7 @@
 				C877F53E2B21EBD200CEF08F /* ManageSubjectGroupM.swift in Sources */,
 				C8BF200E2B6BB73000779C04 /* LessonTeacherInfoView.swift in Sources */,
 				C82B048C2B9C81F200E56046 /* TeacherRatesVM.swift in Sources */,
+				C823B1DA2BB1B24B007256D8 /* TeacherInfoM.swift in Sources */,
 				C80D096A2AE7D9C500F83DB4 /* TeacherDocumentDataView.swift in Sources */,
 				C82A96C82AE56D5A00A63134 /* LookupsServices.swift in Sources */,
 				C8C66BF02BAB227200636038 /* ResetPasswordView.swift in Sources */,
@@ -2346,6 +2388,7 @@
 				C89907DA2BA7336800FC6D23 /* ListChildrenVM.swift in Sources */,
 				C8357E7E2B61169100911371 /* SubjectTeachersListView.swift in Sources */,
 				C865D2B12B78BD0D007F116A /* PaymentStatusView.swift in Sources */,
+				C823B1DC2BB1B294007256D8 /* TeacherInfoVM.swift in Sources */,
 				C8D83C702BAC882100801710 /* AnonymousHomeView.swift in Sources */,
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
@@ -2367,6 +2410,7 @@
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,
 				C86CABCA2B65206800BF8E21 /* SubjectDetailsView.swift in Sources */,
 				C8986C7F2AE932A4003E9179 /* StudentM.swift in Sources */,
+				C823B1D82BB1A824007256D8 /* TeacherInfoView.swift in Sources */,
 				C897B3452B541B6E008BA13D /* StudentTabBarVM.swift in Sources */,
 				C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */,
 				C8D3F3AA2B42D304003CFE45 /* StudentHomeView.swift in Sources */,

@@ -283,7 +283,7 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
-                                            destination = AnyView(Text("most viewed teacher details"))
+                                            destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
                                             isPush = true
                                             
                                         }
@@ -312,7 +312,7 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
-                                            destination = AnyView(Text("top rated teacher details"))
+                                            destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
                                             isPush = true
                                         }
                                         .frame(width: gr.size.width/3.8, height: 180)

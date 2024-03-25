@@ -13,6 +13,7 @@ enum StudentServices{
     case GetMostLessons(mostType:studentLessonMostCases,parameters : [String:Any])
     case GetMostSubjects(mostType:studentLessonMostCases,parameters : [String:Any])
     case GetMostTeachers(mostType:studentTeacherMostCases,parameters : [String:Any])
+    case GetTeacherProfileView(parameters : [String:Any])
     
     case GetHomeSubjectDetails(parameters : [String:Any])
     case GetSubjectOrLessonTeachers(parameters : [String:Any])
@@ -93,6 +94,8 @@ extension StudentServices:TargetType{
         case .UpdateStudentProfile:
             return EndPoints.UpdateStudentProfile.rawValue
 
+        case .GetTeacherProfileView:
+            return EndPoints.GetTeacherProfileView.rawValue
         }
     }
     
@@ -105,7 +108,8 @@ extension StudentServices:TargetType{
                 .GetHomeSubjectDetails,
                 .GetSubjectGroupDetails,.GetLessonGroupDetails,.GetAvaliableScheduals,
                 .GetStudentCompletedLessonDetails,
-                .GetStudentProfile:
+                .GetStudentProfile,
+                .GetTeacherProfileView:
             return .get
             
         case  .GetSubjectOrLessonTeachers,
@@ -128,7 +132,8 @@ extension StudentServices:TargetType{
                 .GetHomeSubjectDetails(parameters: let Parameters),
                 .GetSubjectGroupDetails(parameters: let Parameters),
                 .GetLessonGroupDetails(parameters: let Parameters),.GetAvaliableScheduals(parameters: let Parameters),
-                .GetStudentCompletedLessonDetails(parameters: let Parameters):
+                .GetStudentCompletedLessonDetails(parameters: let Parameters),
+                .GetTeacherProfileView(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),
