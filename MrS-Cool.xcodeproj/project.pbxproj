@@ -127,6 +127,7 @@
 		C89EA9082ADD906300891D41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89EA9072ADD906300891D41 /* ContentView.swift */; };
 		C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA9092ADD906800891D41 /* Assets.xcassets */; };
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
+		C8A529B32BB4640A005F54BE /* AddExistingStudentPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */; };
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
 		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
 		C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */; };
@@ -305,6 +306,7 @@
 		C89EA9072ADD906300891D41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C89EA9092ADD906800891D41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExistingStudentPhone.swift; sourceTree = "<group>"; };
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
@@ -908,6 +910,8 @@
 		C85168A92BA5C6FF00B83E4A /* AddChildren */ = {
 			isa = PBXGroup;
 			children = (
+				C8A529B12BB463CD005F54BE /* AddNewStudent */,
+				C8A529B02BB463C9005F54BE /* AddExistingStudent */,
 			);
 			path = AddChildren;
 			sourceTree = "<group>";
@@ -1520,6 +1524,21 @@
 				C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C8A529B02BB463C9005F54BE /* AddExistingStudent */ = {
+			isa = PBXGroup;
+			children = (
+				C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */,
+			);
+			path = AddExistingStudent;
+			sourceTree = "<group>";
+		};
+		C8A529B12BB463CD005F54BE /* AddNewStudent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddNewStudent;
 			sourceTree = "<group>";
 		};
 		C8AA98032AE40D7E0073442A /* OTPVerification */ = {
@@ -2330,6 +2349,7 @@
 				C8438EFB2B94906E00D9412D /* StudentEditProfileM.swift in Sources */,
 				C82A96D32AE5C28800A63134 /* CustomAlertView.swift in Sources */,
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
+				C8A529B32BB4640A005F54BE /* AddExistingStudentPhone.swift in Sources */,
 				C8DDFB5E2B3B1B8200C785D4 /* ChatListVM.swift in Sources */,
 				C87A49182B4ACA6D00C82945 /* StudentHomeM.swift in Sources */,
 				C89907DC2BA733D300FC6D23 /* ListChildrenM.swift in Sources */,

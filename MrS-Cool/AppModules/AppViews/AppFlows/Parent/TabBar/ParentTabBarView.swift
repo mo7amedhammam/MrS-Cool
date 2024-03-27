@@ -203,6 +203,9 @@ struct ParentTabBarView: View {
             }
         }
         //        }
+        
+//                .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
+
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
     

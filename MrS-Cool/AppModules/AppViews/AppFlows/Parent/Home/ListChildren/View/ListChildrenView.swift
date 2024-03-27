@@ -14,59 +14,71 @@ struct ListChildrenView: View {
 
     var body: some View {
         VStack {
-            LazyVGrid(columns: [.init(), .init(),.init()]) {
-                ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
-                    ChildrenCell(children: children, selectedChild: $selectedChild){ id in
-                        print(id)
-                    }
-                }
-                
-                Button(action: {
-                    tabbarvm.destination = AnyView( StudentSignUpView()
-                        .environmentObject(LookUpsVM())
-                        .environmentObject(StudentSignUpVM())
-                    )
-                    tabbarvm.ispush = true
-                }, label: {
-                    VStack (spacing:0){
-                        HStack{
-                            Image(systemName: "plus")
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundColor(.mainBlue)
-                                .frame(width: 12, height: 12, alignment: .center)
-                                .padding(5)
-                                .background(){
-                                    Color.white.clipShape(Circle())
-                                }
-                                .padding(5)
-                            
-                            Spacer()
+            ScrollView {
+                LazyVGrid(columns: [.init(), .init(),.init()]) {
+                    ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
+                        ChildrenCell(children: children, selectedChild: $selectedChild){ id in
+                            print(id)
                         }
-                        Image("studenticon")
-                            .resizable()
-                            .frame(width: 75,
-                                   height: 75, alignment: .center)
-                        
-                        Text("Add New".localized())
-                            .font(Font.SoraSemiBold(size: 8))
-                            .foregroundColor(.mainBlue)
-                            .multilineTextAlignment(.center)
-                            .padding(.top,4)
-                        
-                        Text("Student".localized())
-                            .font(Font.SoraSemiBold(size: 12))
-                            .foregroundColor(.mainBlue)
-                            .multilineTextAlignment(.center)
-                        
-                    Spacer()
                     }
-                    .frame(height:150)
-                    .frame(minWidth: 0,maxWidth: 110)
-                    .background(
-                        CornersRadious(radius: 8, corners: .allCorners).fill(ColorConstants.Bluegray100).opacity(0.33))
-                })
-                
+                    
+                    Button(action: {
+                        tabbarvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
+                            tabbarvm.destination = AnyView( StudentSignUpView()
+                                .environmentObject(LookUpsVM())
+                                .environmentObject(StudentSignUpVM())
+                            )
+                            tabbarvm.ispush = true
+                        }, secondBtnAction: {
+                            tabbarvm.destination = AnyView( AddExistingStudentPhone()
+                            )
+                            tabbarvm.ispush = true
+                            
+                        })
+                        tabbarvm.isError = true
+                        
+                        
+                    }, label: {
+                        VStack (spacing:0){
+                            HStack{
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.mainBlue)
+                                    .frame(width: 12, height: 12, alignment: .center)
+                                    .padding(5)
+                                    .background(){
+                                        Color.white.clipShape(Circle())
+                                    }
+                                    .padding(5)
+                                
+                                Spacer()
+                            }
+                            Image("studenticon")
+                                .resizable()
+                                .frame(width: 75,
+                                       height: 75, alignment: .center)
+                            
+                            Text("Add New".localized())
+                                .font(Font.SoraSemiBold(size: 8))
+                                .foregroundColor(.mainBlue)
+                                .multilineTextAlignment(.center)
+                                .padding(.top,4)
+                            
+                            Text("Student".localized())
+                                .font(Font.SoraSemiBold(size: 12))
+                                .foregroundColor(.mainBlue)
+                                .multilineTextAlignment(.center)
+                            
+                        Spacer()
+                        }
+                        .frame(height:150)
+                        .frame(minWidth: 0,maxWidth: 110)
+                        .background(
+                            CornersRadious(radius: 8, corners: .allCorners).fill(ColorConstants.Bluegray100).opacity(0.33))
+                    })
+                    
+                }
             }
          Spacer()
         }
@@ -78,6 +90,8 @@ struct ListChildrenView: View {
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
         })
+            .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
+
         
     }
 }
