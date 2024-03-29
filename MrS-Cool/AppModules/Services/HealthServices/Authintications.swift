@@ -23,7 +23,7 @@ enum Authintications {
     case TeacherLogin(user:UserTypeEnum, parameters : [String:Any])
 
     case SendOtp(user:UserTypeEnum,parameters : [String:Any])
-    case VerifyOtpReset(parameters : [String:Any])
+    case VerifyOtpReset(user:UserTypeEnum,parameters : [String:Any])
 
     case ResetPassword(user:UserTypeEnum,parameters : [String:Any])
     case ChangePassword(user:UserTypeEnum,parameters : [String:Any])
@@ -116,8 +116,8 @@ extension Authintications : TargetType {
 
             }
             
-        case .VerifyOtpReset:
-            switch Helper.shared.getSelectedUserType() {
+        case .VerifyOtpReset(let user, _):
+            switch user{
             case .Student:
                 return EndPoints.VerifyResetOTPStudent.rawValue
 
@@ -127,9 +127,8 @@ extension Authintications : TargetType {
             case .Teacher:
                 return EndPoints.VerifyResetOTPTeacher.rawValue
 
-            case .none:
-                return ""
             }
+            
         }
     }
     
@@ -166,7 +165,7 @@ extension Authintications : TargetType {
                 .VerifyOtpUser(_, let parameters),
                 .ResetPassword(_, let parameters),
                 .ChangePassword(_, let parameters),
-                .VerifyOtpReset(let parameters):
+                .VerifyOtpReset(_,let parameters):
             return .parameterRequest(Parameters: parameters, Encoding: .default)
             
         case .TeacherDeleteSubjects(parameters: let parameters),

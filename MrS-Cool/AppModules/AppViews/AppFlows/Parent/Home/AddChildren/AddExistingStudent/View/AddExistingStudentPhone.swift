@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct AddExistingStudentPhone: View {
-//    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
 
-    @StateObject var resetpasswordvm = ResetPasswordVM()
+    @StateObject var verifystudentvm = AddExistingStudentVM()
     var hideImage : Bool? = false
     @State private var isVerified : Bool = false
     @State var isPush = false
@@ -18,7 +18,8 @@ struct AddExistingStudentPhone: View {
 
     var body: some View {
         VStack(spacing:0) {
-            CustomTitleBarView(title: "Add Existing Account",hideImage: hideImage)
+            CustomTitleBarView(title: "Add Existing Account",hideImage: hideImage)                      
+
             VStack{
                 GeometryReader{gr in
                     ScrollView(.vertical){
@@ -26,15 +27,14 @@ struct AddExistingStudentPhone: View {
                             VStack(alignment: .leading, spacing: 0) {
 
                                 Group {
-                                    
                                     Text("Add Existing Student Account".localized())
                                         .foregroundColor(Color.mainBlue)
                                         .font(.SoraBold(size: 18))
 
-                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $resetpasswordvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
-                                        .onChange(of: resetpasswordvm.phone) { newValue in
+                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $verifystudentvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                        .onChange(of: verifystudentvm.phone) { newValue in
                                             if newValue.count > 11 {
-                                                resetpasswordvm.phone = String(newValue.prefix(11))
+                                                verifystudentvm.phone = String(newValue.prefix(11))
                                             }
                                         }
 
@@ -50,10 +50,10 @@ struct AddExistingStudentPhone: View {
                             .padding(.top, 20)
                             Spacer()
                             VStack{
-                                CustomButton(Title:"Verify",IsDisabled:.constant(!(resetpasswordvm.isPhoneValid)) , action: {
+                                CustomButton(Title:"Verify",IsDisabled:.constant(!(verifystudentvm.isPhoneValid)) , action: {
                                 //    sendotp for student "student\sendotp"
 //                                    resetpasswordvm.SendResetOtp()
-                                    
+                                    verifystudentvm.SendVerifyOtp()
                                 })
                                 .frame(height: 50)
                                 .padding(.top,40)
@@ -72,43 +72,22 @@ struct AddExistingStudentPhone: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-//        .onAppear(perform: {
-//            switch Helper.shared.getSelectedUserType(){
-//            case .Parent:
-//                selectedUser.user = .Parent
-//            case .Teacher:
-//                selectedUser.user = .Student
-//            default:
-//                selectedUser.user = .Student
-//            }
-//        })
         
-        .fullScreenCover(isPresented: $resetpasswordvm.isOtpReceived, onDismiss: {
+        .fullScreenCover(isPresented: $verifystudentvm.isOtpReceived, onDismiss: {
             print("dismissed ")
             if isVerified {
-                destination = AnyView(ResetPasswordView().environmentObject(resetpasswordvm))
-//                    currentStep = .subjectsData
-                    isPush = true
-//                dismiss()
-                
+////                destination = AnyView(ResetPasswordView().environmentObject(verifystudentvm))
+////                    isPush = true
+                dismiss()
+//                
             }
         }, content: {
-            OTPVerificationView(PhoneNumber:resetpasswordvm.phone,CurrentOTP: resetpasswordvm.OtpM?.otp ?? 0, verifycase: .ressetingpassword, secondsCount:resetpasswordvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
+            OTPVerificationView(PhoneNumber:verifystudentvm.phone,CurrentOTP: verifystudentvm.OtpM?.otp ?? 0, verifycase: .addexistingstudent, secondsCount:verifystudentvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.childrenAccountAdded))
                 .hideNavigationBar()
         })
-//        .fullScreenCover(isPresented: $resetpasswordvm.isPasswordChanged, onDismiss: {
-//            print("dismissed ")
-//            //            isVerified = true
-//            //            self.dismiss()
-//        }, content: {
-//            CustomSuccessView(action: {
-//                dismiss()
-////                isVerified = true
-//            }, successStep: .constant(.passwordCahnged))
-//        })
         
-        .showHud(isShowing: $resetpasswordvm.isLoading)
-        .showAlert(hasAlert: $resetpasswordvm.isError, alertType: .error( message: "\(resetpasswordvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+        .showHud(isShowing: $verifystudentvm.isLoading)
+        .showAlert(hasAlert: $verifystudentvm.isError, alertType: .error( message: "\(verifystudentvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
 
         NavigationLink(destination: destination, isActive: $isPush, label: {})
 

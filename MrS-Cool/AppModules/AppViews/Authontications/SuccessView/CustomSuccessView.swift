@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum successSteps{
-    case teacherRegistered, accountCreated, passwordReset, passwordCahnged
+    case teacherRegistered, accountCreated, passwordReset, passwordCahnged,childrenAccountAdded
 }
 struct CustomSuccessView: View {
     @Environment(\.dismiss) private var dismiss
@@ -84,6 +84,11 @@ struct CustomSuccessView: View {
                 title = "Reset Password"
                 subtitle = "Change Your New Password"
                 describtion = "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
+            case .childrenAccountAdded:
+                title = "Phone Verification"
+                subtitle = "Account Added !"
+                describtion = "Your Student mobile number had\nbeed verified successfully."
+                
             }
         })
         

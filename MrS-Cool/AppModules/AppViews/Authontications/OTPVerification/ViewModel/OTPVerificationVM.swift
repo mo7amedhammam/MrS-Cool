@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 enum VerifyCases{
-    case creatinguser,ressetingpassword
+    case creatinguser,ressetingpassword,addexistingstudent
 }
 class OTPVerificationVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -53,7 +53,18 @@ class OTPVerificationVM: ObservableObject {
         let parametersarr : [String : Any] =  ["mobile" : mobile ]
         isLoading = true
         // Create your API request with the username and password
-        let target = Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+//        let target = Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+        
+            let target = switch verifycase {
+            case .creatinguser:
+                Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+                
+            case .ressetingpassword:
+                Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+                
+            case .addexistingstudent: // for case if parent adding student
+                Authintications.SendOtp(user: .Student,parameters: parametersarr)
+            }
 
         // Make the API call using your APIManager or networking code
         BaseNetwork.CallApi(target, BaseResponse<OtpM>.self)
@@ -95,8 +106,13 @@ class OTPVerificationVM: ObservableObject {
         let target = switch verifycase {
         case .creatinguser:
              Authintications.VerifyOtpUser(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+            
         case .ressetingpassword:
-             Authintications.VerifyOtpReset(parameters: parametersarr)
+            Authintications.VerifyOtpReset(user:Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
+            
+        case .addexistingstudent:// for case if parent adding student
+            Authintications.VerifyOtpReset(user:.Student,parameters: parametersarr)
+
         }
         
         // Make the API call using your APIManager or networking code
@@ -125,6 +141,10 @@ class OTPVerificationVM: ObservableObject {
                         
                     case .ressetingpassword:
                         isResetOTPVerified = true
+                        
+                    case .addexistingstudent:
+                        isOTPVerified = true
+
                     }
                 }else{
                     isError =  true

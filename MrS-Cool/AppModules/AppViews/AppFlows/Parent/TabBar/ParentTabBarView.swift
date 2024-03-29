@@ -108,7 +108,6 @@ struct ParentTabBarView: View {
                         }
                     )
                 
-                
                 Text("tab4")
                 //                    CompletedLessonsList(hasNavBar : false) // completed lessons
                     .tag(4)
@@ -211,7 +210,7 @@ struct ParentTabBarView: View {
     
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(TeacherSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
+        SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
     }
 }
 
@@ -237,7 +236,6 @@ struct ParentSideMenuContent: View {
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())
                         
-                        
                         Image("Edit_fill")
                         //                        .resizable().aspectRatio(contentMode: .fit)
                         //                        .font(.InterMedium(size: 12))
@@ -245,8 +243,8 @@ struct ParentSideMenuContent: View {
                             .background(.white)
                             .clipShape(Circle())
                             .offset(x:0,y:2)
-                        
                     }
+                    
                     VStack(alignment:.leading) {
                         Text(teacherprofilevm.name)
                             .font(.SoraBold(size: 18))
@@ -267,40 +265,60 @@ struct ParentSideMenuContent: View {
                     
                 }
                 
-                SideMenuSectionTitle(title: "My Information")
-                SideMenuButton(image: "MenuSt_calendar", title: "My Documents"){
-                    selectedDestination = .documents // calendar
+                SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
+                
+                Group {
+                    HStack(spacing:20){
+                        ZStack(alignment: .topLeading){
+                            let imageURL : URL? = URL(string: Constants.baseURL+(teacherprofilevm.imageStr ?? ""))
+                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 60,height: 60)
+                                .clipShape(Circle())
+                            
+                            Image("Edit_fill")
+                            //                        .resizable().aspectRatio(contentMode: .fit)
+                            //                        .font(.InterMedium(size: 12))
+                                .frame(width: 15,height: 15)
+                                .background(.white)
+                                .clipShape(Circle())
+                                .offset(x:0,y:2)
+                        }
+                        VStack(alignment:.leading) {
+                            Text(teacherprofilevm.name)
+                                .font(.SoraBold(size: 18))
+                                .foregroundStyle(.whiteA700)
+                            
+                            Text("Edit your kid profile")
+                                .font(.SoraRegular(size: 12))
+                                .foregroundStyle(.whiteA700)
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding()
+                    .onTapGesture {
+                        selectedDestination = .editProfile // for child
+                        presentSideMenu =  false
+                        isPush = true
+                }
+                
+                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    selectedDestination = .changePassword // cahnage Password for child
                     presentSideMenu =  false
                     isPush = true
                 }
+                SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                    selectedDestination = .signOut // sign out for child
+                    presentSideMenu =  false
+                    isPush = true
+                }
+                }
+                .padding(.leading,30)
+
+
                 SideMenuSectionTitle(title: "Academic")
-                SideMenuButton(image: "img_group_512380", title: "My Subjects"){
-                    selectedDestination = .subjects // calendar
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "img_group148", title: "My Schedule"){
-                    selectedDestination = .scheduals // rates
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "img_group58", title: "Manage Subject Groups"){
-                    selectedDestination = .subjectgroup // calendar
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
-                    selectedDestination = .lessonGroups // rates
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                
-                SideMenuSectionTitle(title: "Student Sessions")
-                
+
                 SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
                     selectedDestination = .calendar // calendar
                     presentSideMenu =  false
