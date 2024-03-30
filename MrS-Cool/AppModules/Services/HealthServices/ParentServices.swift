@@ -10,7 +10,8 @@ import Alamofire
 
 enum ParentServices{
     case GetMyChildern
-    case CreateChilren(parameters : [String:Any])
+    case AddNewChild(parameters : [String:Any])
+    
 }
 
 extension ParentServices:TargetType{
@@ -19,7 +20,7 @@ extension ParentServices:TargetType{
         case .GetMyChildern:
             return ParentEndPoints.GetMyChildren.rawValue
      
-        case .CreateChilren:
+        case .AddNewChild:
             return ParentEndPoints.CreateStudentByParent.rawValue
         }
     }
@@ -29,7 +30,7 @@ extension ParentServices:TargetType{
         case .GetMyChildern:
             return .get
             
-        case .CreateChilren:
+        case .AddNewChild:
             return .post
         }
     }
@@ -42,7 +43,7 @@ extension ParentServices:TargetType{
 //        case .GetStudentCompletedLessonDetails(parameters: let Parameters):
 //            return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
-        case .CreateChilren(parameters: let Parameters):
+        case .AddNewChild(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

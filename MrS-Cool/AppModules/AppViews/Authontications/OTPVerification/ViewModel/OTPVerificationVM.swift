@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 enum VerifyCases{
-    case creatinguser,ressetingpassword,addexistingstudent
+    case creatinguser,ressetingpassword,addexistingstudent,addnewstudent
 }
 class OTPVerificationVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -56,13 +56,10 @@ class OTPVerificationVM: ObservableObject {
 //        let target = Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
         
             let target = switch verifycase {
-            case .creatinguser:
+            case .creatinguser,.ressetingpassword:
                 Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
-                
-            case .ressetingpassword:
-                Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
-                
-            case .addexistingstudent: // for case if parent adding student
+
+            case .addexistingstudent,.addnewstudent: // for case if parent adding student
                 Authintications.SendOtp(user: .Student,parameters: parametersarr)
             }
 
@@ -110,9 +107,12 @@ class OTPVerificationVM: ObservableObject {
         case .ressetingpassword:
             Authintications.VerifyOtpReset(user:Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)
             
-        case .addexistingstudent:// for case if parent adding student
+        case .addexistingstudent:// for case if parent adding existing student
             Authintications.VerifyOtpReset(user:.Student,parameters: parametersarr)
-
+            
+        case .addnewstudent: // for case if parent adding new student
+            Authintications.VerifyOtpUser(user: .Student,parameters: parametersarr)
+            
         }
         
         // Make the API call using your APIManager or networking code
@@ -142,8 +142,13 @@ class OTPVerificationVM: ObservableObject {
                     case .ressetingpassword:
                         isResetOTPVerified = true
                         
-                    case .addexistingstudent:
+                    case .addexistingstudent,.addnewstudent:
                         isOTPVerified = true
+                        
+//                    case .addnewstudent:
+//                        guard let model = receivedData.data else{return}
+//                        Helper.shared.saveUser(user: model)
+//                            isOTPVerified = true
 
                     }
                 }else{

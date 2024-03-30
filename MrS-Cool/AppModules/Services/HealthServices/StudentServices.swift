@@ -30,7 +30,6 @@ enum StudentServices{
     case GetStudentProfile
     case UpdateStudentProfile(parameters : [String:Any])
 
-
 }
 
 extension StudentServices:TargetType{

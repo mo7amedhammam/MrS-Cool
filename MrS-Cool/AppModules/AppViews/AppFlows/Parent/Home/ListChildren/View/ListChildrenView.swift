@@ -24,9 +24,11 @@ struct ListChildrenView: View {
                     
                     Button(action: {
                         tabbarvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
-                            tabbarvm.destination = AnyView( StudentSignUpView()
-                                .environmentObject(LookUpsVM())
-                                .environmentObject(StudentSignUpVM())
+                            tabbarvm.destination = AnyView(
+                                AddNewStudentView()
+//                                StudentSignUpView()
+//                                .environmentObject(LookUpsVM())
+//                                .environmentObject(StudentSignUpVM())
                             )
                             tabbarvm.ispush = true
                         }, secondBtnAction: {
