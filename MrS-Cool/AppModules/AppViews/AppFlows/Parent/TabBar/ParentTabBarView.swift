@@ -24,7 +24,8 @@ struct ParentTabBarView: View {
     ]
     
     @StateObject var teacherProfilevm = ManageTeacherProfileVM()
-    
+    @StateObject var listchildrenvm = ListChildrenVM()
+
     //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
     //    @StateObject var chatListvm = ChatListVM()
     //    @State var isPush = false
@@ -91,11 +92,13 @@ struct ParentTabBarView: View {
                 //                    Text("tab2")
                     .tag(2)
                     .environmentObject(tabbarvm)
+                    .environmentObject(listchildrenvm)
                     .gesture(
                         DragGesture().onChanged { _ in
                             // Disable swipe gestures
                         }
                     )
+                
                 
                 Text("tab 3")
                 //                    ChatsListView(hasNavBar : false) // chats

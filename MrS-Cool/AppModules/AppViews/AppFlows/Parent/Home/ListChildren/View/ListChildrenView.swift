@@ -9,16 +9,22 @@ import SwiftUI
 
 struct ListChildrenView: View {
     @EnvironmentObject var tabbarvm : StudentTabBarVM
-    @StateObject var listchildrenvm = ListChildrenVM()
-    @State private var selectedChild : ChildrenM = ChildrenM.init()
+    @EnvironmentObject var listchildrenvm : ListChildrenVM
+//    @State private var selectedChild : ChildrenM = ChildrenM.init()
 
     var body: some View {
         VStack {
             ScrollView {
                 LazyVGrid(columns: [.init(), .init(),.init()]) {
                     ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
-                        ChildrenCell(children: children, selectedChild: $selectedChild){ id in
+                        ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild){ id in
                             print(id)
+                            listchildrenvm.selectedChild = children
+                            tabbarvm.destination = AnyView(
+                                SelectedStudentHome().environmentObject(listchildrenvm)
+                            )
+                            tabbarvm.ispush = true
+
                         }
                     }
                     
@@ -26,9 +32,6 @@ struct ListChildrenView: View {
                         tabbarvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
                             tabbarvm.destination = AnyView(
                                 AddNewStudentView()
-//                                StudentSignUpView()
-//                                .environmentObject(LookUpsVM())
-//                                .environmentObject(StudentSignUpVM())
                             )
                             tabbarvm.ispush = true
                         }, secondBtnAction: {
@@ -101,6 +104,7 @@ struct ListChildrenView: View {
 #Preview {
     ListChildrenView()
         .environmentObject(StudentTabBarVM())
+        .environmentObject(ListChildrenVM())
 }
 
 struct ChildrenCell: View {

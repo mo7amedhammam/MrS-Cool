@@ -13,6 +13,7 @@
 		C80403462B554ED9003279AD /* HomeSubjectDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */; };
 		C80403482B554F01003279AD /* HomeSubjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403472B554F01003279AD /* HomeSubjectDetailsView.swift */; };
 		C80425F62AF2805E00E876E2 /* CustomSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */; };
+		C809D0972BBAE7C000AD5DF6 /* SelectedStudentHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809D0962BBAE7C000AD5DF6 /* SelectedStudentHome.swift */; };
 		C80D09622AE7D90C00F83DB4 /* StudentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */; };
 		C80D09642AE7D91500F83DB4 /* ParentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */; };
 		C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */; };
@@ -195,6 +196,7 @@
 		C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsVM.swift; sourceTree = "<group>"; };
 		C80403472B554F01003279AD /* HomeSubjectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsView.swift; sourceTree = "<group>"; };
 		C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSuccessView.swift; sourceTree = "<group>"; };
+		C809D0962BBAE7C000AD5DF6 /* SelectedStudentHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStudentHome.swift; sourceTree = "<group>"; };
 		C80D09612AE7D90C00F83DB4 /* StudentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpView.swift; sourceTree = "<group>"; };
 		C80D09632AE7D91500F83DB4 /* ParentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentSignUpView.swift; sourceTree = "<group>"; };
 		C80D09652AE7D94A00F83DB4 /* TeacherPersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherPersonalDataView.swift; sourceTree = "<group>"; };
@@ -452,6 +454,22 @@
 				C80425F52AF2805E00E876E2 /* CustomSuccessView.swift */,
 			);
 			path = SuccessView;
+			sourceTree = "<group>";
+		};
+		C809D0922BBAE75400AD5DF6 /* SelectedStudentHome */ = {
+			isa = PBXGroup;
+			children = (
+				C809D0932BBAE79500AD5DF6 /* View */,
+			);
+			path = SelectedStudentHome;
+			sourceTree = "<group>";
+		};
+		C809D0932BBAE79500AD5DF6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C809D0962BBAE7C000AD5DF6 /* SelectedStudentHome.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C80D095E2AE7D8D100F83DB4 /* Teacher */ = {
@@ -930,6 +948,7 @@
 		C85168A82BA5C6B000B83E4A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C809D0922BBAE75400AD5DF6 /* SelectedStudentHome */,
 				C85168AA2BA5C70400B83E4A /* ListChildren */,
 				C85168A92BA5C6FF00B83E4A /* AddChildren */,
 			);
@@ -2357,6 +2376,7 @@
 				C85168AC2BA5E01F00B83E4A /* ListChildrenView.swift in Sources */,
 				C815A0272B84C24900416A2A /* StudenCompletedLessonCellView.swift in Sources */,
 				C85397CE2B0A0FF400164338 /* TeacherServices.swift in Sources */,
+				C809D0972BBAE7C000AD5DF6 /* SelectedStudentHome.swift in Sources */,
 				C815A0232B84C17500416A2A /* StudentCompletedLessonsVM.swift in Sources */,
 				C854DE2D2B14B5600057C75F /* ManageLessonMaterialCell.swift in Sources */,
 				C8F443402B9F580B0018D9D9 /* TeacherTabBarView.swift in Sources */,
