@@ -23,7 +23,7 @@ struct ParentTabBarView: View {
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
     
-    @StateObject var teacherProfilevm = ManageTeacherProfileVM()
+    @StateObject var parentProfilevm = ParentProfileVM()
     @StateObject var listchildrenvm = ListChildrenVM()
 
     //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
@@ -38,7 +38,7 @@ struct ParentTabBarView: View {
             HStack {
                 VStack(alignment: .leading){
                     Group{
-                        Text("Hi, ".localized())+Text(teacherProfilevm.name)
+                        Text("Hi, ".localized())+Text(parentProfilevm.name)
                         
                         //                            Text("Lets Start Learning! ".localized())
                         //                                .font(Font.SoraRegular(size: 11))
@@ -144,7 +144,7 @@ struct ParentTabBarView: View {
         })
         .onChange(of: selectedDestination) {newval in
             if newval == .editProfile{ //edit Profile
-                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
+//                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
                 
             }else if newval == .documents{
                 tabbarvm.destination = AnyView(ManageMyDocumentsView( isFinish: .constant(false))
@@ -213,7 +213,7 @@ struct ParentTabBarView: View {
     
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
+        SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(parentProfilevm)                    .environmentObject(listchildrenvm)), direction: .leading)
     }
 }
 
@@ -222,8 +222,9 @@ struct ParentTabBarView: View {
 }
 
 struct ParentSideMenuContent: View {
-    @EnvironmentObject var teacherprofilevm : ManageTeacherProfileVM
-    
+    @EnvironmentObject var parentprofilevm : ParentProfileVM
+    @EnvironmentObject var listchildrenvm : ListChildrenVM
+
     @Binding var presentSideMenu: Bool
     @Binding var selectedDestination: Teacherdestinations?
     @Binding var isPush: Bool
@@ -233,7 +234,7 @@ struct ParentSideMenuContent: View {
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
                     ZStack(alignment: .topLeading){
-                        let imageURL : URL? = URL(string: Constants.baseURL+(teacherprofilevm.imageStr ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(parentprofilevm.imageStr ?? ""))
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
@@ -249,7 +250,7 @@ struct ParentSideMenuContent: View {
                     }
                     
                     VStack(alignment:.leading) {
-                        Text(teacherprofilevm.name)
+                        Text(parentprofilevm.name)
                             .font(.SoraBold(size: 18))
                             .foregroundStyle(.whiteA700)
                         
@@ -268,57 +269,58 @@ struct ParentSideMenuContent: View {
                     
                 }
                 
-                SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
-                
-                Group {
-                    HStack(spacing:20){
-                        ZStack(alignment: .topLeading){
-                            let imageURL : URL? = URL(string: Constants.baseURL+(teacherprofilevm.imageStr ?? ""))
-                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 60,height: 60)
-                                .clipShape(Circle())
+                if listchildrenvm.selectedChild != nil{
+                    SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
+                    Group {
+                        HStack(spacing:20){
+                            ZStack(alignment: .topLeading){
+                                let imageURL : URL? = URL(string: Constants.baseURL+(listchildrenvm.selectedChild?.image ?? ""))
+                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60,height: 60)
+                                    .clipShape(Circle())
+                                
+                                Image("Edit_fill")
+                                //                        .resizable().aspectRatio(contentMode: .fit)
+                                //                        .font(.InterMedium(size: 12))
+                                    .frame(width: 15,height: 15)
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .offset(x:0,y:2)
+                            }
+                            VStack(alignment:.leading) {
+                                Text(listchildrenvm.selectedChild?.name ?? "")
+                                    .font(.SoraBold(size: 14))
+                                    .foregroundStyle(.whiteA700)
+                                
+                                Text("Edit your kid profile")
+                                    .font(.SoraRegular(size: 12))
+                                    .foregroundStyle(.whiteA700)
+                            }
                             
-                            Image("Edit_fill")
-                            //                        .resizable().aspectRatio(contentMode: .fit)
-                            //                        .font(.InterMedium(size: 12))
-                                .frame(width: 15,height: 15)
-                                .background(.white)
-                                .clipShape(Circle())
-                                .offset(x:0,y:2)
+                            Spacer()
                         }
-                        VStack(alignment:.leading) {
-                            Text(teacherprofilevm.name)
-                                .font(.SoraBold(size: 18))
-                                .foregroundStyle(.whiteA700)
-                            
-                            Text("Edit your kid profile")
-                                .font(.SoraRegular(size: 12))
-                                .foregroundStyle(.whiteA700)
+                        .padding()
+                        .onTapGesture {
+                            selectedDestination = .editProfile // for child
+                            presentSideMenu =  false
+                            isPush = true
                         }
                         
-                        Spacer()
+                        SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                            selectedDestination = .changePassword // cahnage Password for child
+                            presentSideMenu =  false
+                            isPush = true
+                        }
+                        SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+//                            selectedDestination = .signOut // sign out for child
+                            listchildrenvm.selectedChild = nil
+                            presentSideMenu =  false
+//                            isPush = true
+                        }
                     }
-                    .padding()
-                    .onTapGesture {
-                        selectedDestination = .editProfile // for child
-                        presentSideMenu =  false
-                        isPush = true
+                    .padding(.leading,30)
                 }
-                
-                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-                    selectedDestination = .changePassword // cahnage Password for child
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
-                    selectedDestination = .signOut // sign out for child
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                }
-                .padding(.leading,30)
-
 
                 SideMenuSectionTitle(title: "Academic")
 

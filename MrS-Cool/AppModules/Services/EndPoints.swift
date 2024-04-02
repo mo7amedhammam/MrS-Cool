@@ -189,4 +189,8 @@ enum ParentEndPoints:String{
     // MARK: -- parent --
     case GetMyChildren = "Parent/GetMyChildren"
     case CreateStudentByParent = "Student/CreateByParent"
+    
+    case GetParentProfile = "Parent/Profile"
+    case UpdateParentProfile = "Parent/UpdateProfile"
+
 }

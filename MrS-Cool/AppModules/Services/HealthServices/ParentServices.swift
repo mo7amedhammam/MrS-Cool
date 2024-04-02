@@ -12,6 +12,8 @@ enum ParentServices{
     case GetMyChildern
     case AddNewChild(parameters : [String:Any])
     
+    case GetParentProfile
+    case UpdateParentProfile(parameters : [String:Any])
 }
 
 extension ParentServices:TargetType{
@@ -22,28 +24,37 @@ extension ParentServices:TargetType{
      
         case .AddNewChild:
             return ParentEndPoints.CreateStudentByParent.rawValue
+            
+        case .GetParentProfile:
+            return ParentEndPoints.GetParentProfile.rawValue
+        case .UpdateParentProfile:
+            return ParentEndPoints.UpdateParentProfile.rawValue
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .GetMyChildern:
+        case .GetMyChildern,
+                .GetParentProfile:
             return .get
             
-        case .AddNewChild:
+        case .AddNewChild,
+                .UpdateParentProfile:
             return .post
         }
     }
     
     var parameter: parameterType {
         switch self {
-        case .GetMyChildern:
+        case .GetMyChildern,
+                .GetParentProfile:
             return .plainRequest
             
 //        case .GetStudentCompletedLessonDetails(parameters: let Parameters):
 //            return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
-        case .AddNewChild(parameters: let Parameters):
+        case .AddNewChild(parameters: let Parameters),
+                .UpdateParentProfile(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

@@ -65,13 +65,13 @@ struct SelectedStudentHome: View {
                 }
             
                 HStack{
-                    let imageURL : URL? = URL(string: Constants.baseURL + (listchildrenvm.selectedChild.image ?? "image"))
+                    let imageURL : URL? = URL(string: Constants.baseURL + (listchildrenvm.selectedChild?.image ?? "image"))
                          
                     KFImageLoader(url: imageURL, placeholder: Image("studenticon"))
                 //                .resizable()
                                 .frame(width: 50, height: 50, alignment: .center)
                     
-                    Text(listchildrenvm.selectedChild.name ?? "")
+                    Text(listchildrenvm.selectedChild?.name ?? "")
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.whiteA700)
                     

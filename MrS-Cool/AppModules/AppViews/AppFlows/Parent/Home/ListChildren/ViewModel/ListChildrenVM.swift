@@ -15,7 +15,7 @@ class ListChildrenVM: ObservableObject {
 //    @Published var maxResultCount = 10
 //    @Published var skipCount = 0
     
-    @Published var selectedChild : ChildrenM = ChildrenM.init()
+    @Published var selectedChild : ChildrenM?
 
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?

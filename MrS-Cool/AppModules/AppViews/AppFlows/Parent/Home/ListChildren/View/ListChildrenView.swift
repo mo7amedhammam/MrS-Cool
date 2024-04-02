@@ -17,14 +17,14 @@ struct ListChildrenView: View {
             ScrollView {
                 LazyVGrid(columns: [.init(), .init(),.init()]) {
                     ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
-                        ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild){ id in
-                            print(id)
+                        ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild){
+//                            print(id)
                             listchildrenvm.selectedChild = children
+                            Helper.shared.selectedchild = children
                             tabbarvm.destination = AnyView(
                                 SelectedStudentHome().environmentObject(listchildrenvm)
                             )
                             tabbarvm.ispush = true
-
                         }
                     }
                     
@@ -96,7 +96,6 @@ struct ListChildrenView: View {
                 hideKeyboard()
         })
             .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
-
         
     }
 }
@@ -109,9 +108,9 @@ struct ListChildrenView: View {
 
 struct ChildrenCell: View {
     var children:ChildrenM
-    @Binding var selectedChild:ChildrenM
+    @Binding var selectedChild:ChildrenM?
 
-    var detailsaction: ((Int) -> Void)?
+    var detailsaction: (() -> Void)?
 
     var body: some View {
         VStack{
@@ -151,9 +150,8 @@ struct ChildrenCell: View {
                 .padding(.vertical,2)
             
             Spacer()
-            
             Button(action:{
-                self.detailsaction?(5)
+                    self.detailsaction?()
             },label: {
                 Text("Details".localized())
                     .font(Font.SoraSemiBold(size:9))

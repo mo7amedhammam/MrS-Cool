@@ -118,6 +118,7 @@ class Helper: NSObject {
         return (isReachable && !needsConnection)
     }
     
+    var selectedchild:ChildrenM?
 }
 
 //MARK: -- view helper --

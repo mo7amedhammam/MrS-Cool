@@ -84,7 +84,7 @@ extension StudentHomeVM{
     
     func GetStudentSubjects(){
         var parameters:[String:Any] = [:]
-        print("parameters",parameters)
+        print("parameters",parameters) // id
         if Helper.shared.CheckIfLoggedIn() == true{
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true

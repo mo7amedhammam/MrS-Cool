@@ -49,6 +49,10 @@ extension BookingCheckoutVM{
         case .none:
             parameters["teacherLessonSessionId"] = Id
         }
+        
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["studentId"] = Helper.shared.selectedchild?.id
+        }
         print("parameters",parameters)
         let target = StudentServices.GetCheckOutBookTeacherSession(parameters: parameters)
         isLoading = true
@@ -93,6 +97,9 @@ extension BookingCheckoutVM{
 
         case .none:
             parameters["teacherLessonSessionId"] = Id
+        }
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["studentId"] = Helper.shared.selectedchild?.id
         }
         print("parameters",parameters)
         let target = StudentServices.CreateOutBookTeacherSession(parameters: parameters)
