@@ -40,7 +40,7 @@ enum teacherServices{
     case GetMyCompletedLessons(parameters : [String:Any])
     case GetMyCompletedLessonDetails(parameters : [String:Any])
     
-    case GetMyCalenderSchedual
+    case GetMyCalenderSchedual(parameters : [String:Any])
     case cancelMyCalenderSchedual(parameters : [String:Any])
     
     case GetAllComentsList
@@ -110,16 +110,16 @@ extension teacherServices:TargetType{
             return EndPoints.GetMyCompletedLessonDetails.rawValue
             
         case .GetMyCalenderSchedual:
-           if Helper.shared.getSelectedUserType() == .Student{
-                return EndPoints.GetStudentCalenderSchedual.rawValue
+           if Helper.shared.getSelectedUserType() == .Teacher{
+               return EndPoints.GetMyCalenderSchedual.rawValue
             }else{
-                return EndPoints.GetMyCalenderSchedual.rawValue
+                return EndPoints.GetStudentCalenderSchedual.rawValue
             }
         case .cancelMyCalenderSchedual:
-            if Helper.shared.getSelectedUserType() == .Student{
-                 return EndPoints.CancelStudentCalenderSchedual.rawValue
+            if Helper.shared.getSelectedUserType() == .Teacher{
+                return EndPoints.CancelMyCalenderSchedual.rawValue
              }else{
-                 return EndPoints.CancelMyCalenderSchedual.rawValue
+                 return EndPoints.CancelStudentCalenderSchedual.rawValue
              }
             
         case .GetAllComentsList:
@@ -179,7 +179,6 @@ extension teacherServices:TargetType{
     var parameter: parameterType {
         switch self {
         case .GetTeacherProfile,
-                .GetMyCalenderSchedual,
                 .GetAllComentsList:
             return .plainRequest
             
@@ -190,6 +189,7 @@ extension teacherServices:TargetType{
                 .DeleteMySubjectGroup(parameters: let Parameters),
                 .GetMySubjectGroupDetails(parameters: let Parameters),
                 .GetMyCompletedLessonDetails(parameters: let Parameters),
+                .GetMyCalenderSchedual(parameters:let Parameters),
                 .cancelMyCalenderSchedual(parameters: let Parameters),
                 .GetAllComentsListById(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)

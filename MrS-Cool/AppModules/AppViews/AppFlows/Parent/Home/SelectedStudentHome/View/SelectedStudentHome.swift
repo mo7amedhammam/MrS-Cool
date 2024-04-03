@@ -12,7 +12,7 @@ struct SelectedStudentHome: View {
 
     @StateObject var tabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
-    @State private var selectedDestination : Teacherdestinations?
+//    @State private var selectedDestination : Teacherdestinations?
     
 //    private let tabBarItems = [
 //        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -382,9 +382,9 @@ struct SelectedStudentHome: View {
         //            .onAppear(perform: {
         //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
         //            })
-        .overlay(content: {
-            SideMenuView()
-        })
+//        .overlay(content: {
+//            SideMenuView()
+//        })
         .edgesIgnoringSafeArea(.bottom)
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -459,10 +459,10 @@ struct SelectedStudentHome: View {
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
     
-    @ViewBuilder
-    private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
-    }
+//    @ViewBuilder
+//    private func SideMenuView() -> some View {
+//        SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
+//    }
 }
 
 #Preview{

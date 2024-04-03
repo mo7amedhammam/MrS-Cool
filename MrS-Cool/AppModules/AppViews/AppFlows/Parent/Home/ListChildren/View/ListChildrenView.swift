@@ -19,8 +19,9 @@ struct ListChildrenView: View {
                     ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
                         ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild){
 //                            print(id)
-                            listchildrenvm.selectedChild = children
-                            Helper.shared.selectedchild = children
+//                            listchildrenvm.selectedChild = children
+//                            Helper.shared.selectedchild = children
+
                             tabbarvm.destination = AnyView(
                                 SelectedStudentHome().environmentObject(listchildrenvm)
                             )
@@ -173,6 +174,7 @@ struct ChildrenCell: View {
             .borderRadius(ColorConstants.Red400, width: 1, cornerRadius: 8, corners: [.allCorners]))
         .onTapGesture {
             selectedChild = children
+            Helper.shared.selectedchild = children
         }
     }
 }

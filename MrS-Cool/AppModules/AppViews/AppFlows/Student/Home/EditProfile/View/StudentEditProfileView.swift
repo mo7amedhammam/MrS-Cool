@@ -135,6 +135,11 @@ struct StudentEditProfileView: View {
                 lookupsvm.getGendersArr()
                 lookupsvm.GetEducationTypes()
                 lookupsvm.getCountriesArr()
+            
+            // if parent is editing student profile
+            if Helper.shared.getSelectedUserType() == .Parent{
+                studentsignupvm.GetStudentProfile()
+            }
         })
         
         .showHud(isShowing: $studentsignupvm.isLoading)

@@ -30,7 +30,12 @@ class TeacherCalendarSvhedualsVM: ObservableObject {
 extension TeacherCalendarSvhedualsVM{
     
     func GetCalendarCheduals(){
-        let target = teacherServices.GetMyCalenderSchedual
+        var parameters:[String:Any] = [:]
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["StudentId"] = Helper.shared.selectedchild?.id
+        }
+        print("parameters",parameters)
+        let target = teacherServices.GetMyCalenderSchedual(parameters: parameters)
         isLoading = true
         if Helper.shared.getSelectedUserType() == .Teacher{
             BaseNetwork.CallApi(target, BaseResponse<[EventM]>.self)
@@ -59,7 +64,7 @@ extension TeacherCalendarSvhedualsVM{
                     isLoading = false
                 })
                 .store(in: &cancellables)
-        }else if Helper.shared.getSelectedUserType() == .Student{
+        }else {
             BaseNetwork.CallApi(target, BaseResponse<[StudentEventM]>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
@@ -90,8 +95,12 @@ extension TeacherCalendarSvhedualsVM{
     }
     
     func CancelCalendarCheduals(id:Int){
-        let Parameters = ["TeacherLessonSessionSchedualSlotId":id]
+        var Parameters = ["TeacherLessonSessionSchedualSlotId":id]
+        if Helper.shared.getSelectedUserType() == .Parent {
+            Parameters["StudentId"] = Helper.shared.selectedchild?.id
+        }
         print(Parameters)
+
         let target = teacherServices.cancelMyCalenderSchedual(parameters: Parameters)
         isLoading = true
         if Helper.shared.getSelectedUserType() == .Teacher {
@@ -123,7 +132,7 @@ extension TeacherCalendarSvhedualsVM{
                 })
                 .store(in: &cancellables)
             
-        }else if Helper.shared.getSelectedUserType() == .Student{
+        }else {
             BaseNetwork.CallApi(target, BaseResponse<[StudentEventM]>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in

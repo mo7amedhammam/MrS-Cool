@@ -176,7 +176,8 @@ enum EndPoints: String {
     // MARK: -- student profile --
     case GetStudentProfile = "Student/Profile"
     case UpdateStudentProfile = "Student/UpdateProfile"
-    
+    case GetStudentProfileByParent = "Student/GetStudentProfile"
+
     
     //MARK: - firebase notifications -
     case UpdateTeacherDeviceToken = "Student/UpdateTeacherDeviceToken"

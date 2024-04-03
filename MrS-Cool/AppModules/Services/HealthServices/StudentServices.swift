@@ -27,7 +27,7 @@ enum StudentServices{
     case GetStudentCompletedLessons(parameters : [String:Any])
     case GetStudentCompletedLessonDetails(parameters : [String:Any])
     
-    case GetStudentProfile
+    case GetStudentProfile(parameters : [String:Any])
     case UpdateStudentProfile(parameters : [String:Any])
 
 }
@@ -89,7 +89,11 @@ extension StudentServices:TargetType{
             return EndPoints.GetStudentCompletedLessonDetails.rawValue
             
         case .GetStudentProfile:
-            return EndPoints.GetStudentProfile.rawValue
+            if Helper.shared.getSelectedUserType() == .Parent{
+                return EndPoints.GetStudentProfileByParent.rawValue
+            }else{
+                return EndPoints.GetStudentProfile.rawValue
+            }
         case .UpdateStudentProfile:
             return EndPoints.UpdateStudentProfile.rawValue
 
@@ -121,10 +125,11 @@ extension StudentServices:TargetType{
     
     var parameter: parameterType {
         switch self {
-        case .GetStudentProfile:
-            return .plainRequest
+//        case :
+//            return .plainRequest
             
-        case .GetStudentSubjects(parameters: let Parameters),
+        case .GetStudentProfile(parameters: let Parameters),
+                .GetStudentSubjects(parameters: let Parameters),
                 .GetMostLessons(_,parameters: let Parameters),
                 .GetMostSubjects(_,parameters: let Parameters),
                 .GetMostTeachers(_,parameters: let Parameters),

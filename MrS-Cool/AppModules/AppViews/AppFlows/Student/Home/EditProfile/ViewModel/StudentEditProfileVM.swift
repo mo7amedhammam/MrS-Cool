@@ -92,7 +92,12 @@ extension StudentEditProfileVM{
     }
     
     func GetStudentProfile(){
-        let target = StudentServices.GetStudentProfile
+        var parameters:[String:Any] = [:]
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["id"] = Helper.shared.selectedchild?.id
+        }
+        print(parameters)
+        let target = StudentServices.GetStudentProfile(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<StudentProfileM>.self)
             .receive(on: DispatchQueue.main)
@@ -131,6 +136,9 @@ extension StudentEditProfileVM{
 
         if let image = image {
             parameters["StudentImage"] = image
+        }
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["StudentId"] = Helper.shared.selectedchild?.id
         }
         print("parameters",parameters)
         let target = StudentServices.UpdateStudentProfile(parameters: parameters)

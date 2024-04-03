@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-//enum Parentdestinations{
-//    case editProfile,documents,subjects,scheduals,subjectgroup,lessonGroups ,calendar,rates ,changePassword, tickets, signOut, deleteAccount
-//}
+enum Parentdestinations{
+    case editProfile,changePassword,signOut, deleteAccount,editStudentProfile,calendar, tickets
+}
 struct ParentTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
     @State private var selectedIndex = 2
-    @State private var selectedDestination : Teacherdestinations?
+    @State private var selectedDestination : Parentdestinations?
     
     private let tabBarItems = [
         TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -143,56 +143,22 @@ struct ParentTabBarView: View {
             hideKeyboard()
         })
         .onChange(of: selectedDestination) {newval in
+            
+            
             if newval == .editProfile{ //edit Profile
 //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
+               
                 
-            }else if newval == .documents{
-                tabbarvm.destination = AnyView(ManageMyDocumentsView( isFinish: .constant(false))
-                                               //                        .environmentObject(lookupsvm)
-                                               //                        .environmentObject(signupvm)
-                                               //                        .environmentObject(teacherdocumentsvm)
-                                               //                                .hideNavigationBar()
-                )
+                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM()))
                 
-            }else if newval == .subjects{
-                
-                tabbarvm.destination = AnyView(ManageTeacherSubjectsView()
-                                               //                        .environmentObject(lookupsvm)
-                                               //                        .environmentObject(manageteachersubjectsvm)
-                                               //                                .hideNavigationBar()
-                )
-                
-                
-            }else if newval == .scheduals{
-                
-                tabbarvm.destination = AnyView(ManageTeacherSchedualsView()
-                                               //                        .environmentObject(lookupsvm)
-                                               //                        .environmentObject(manageteacherschedualsvm)
-                                               //                            .hideNavigationBar()
-                )
-                
-            }else if newval == .subjectgroup{
-                
-                tabbarvm.destination = AnyView(GroupForLessonView()
-                                               //                        .environmentObject(lookupsvm)
-                                               //                        .environmentObject(groupsforlessonvm)
-                                               //                                .hideNavigationBar()
-                )
-            }else if newval == .lessonGroups{
-                
-                tabbarvm.destination = AnyView(ManageSubjectGroupView()
-                                               //                        .environmentObject(lookupsvm)
-                                               //                        .environmentObject(subjectgroupvm)
-                                               //                                .hideNavigationBar()
-                )
+            }else if newval == .editStudentProfile{
+                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM()))
+
                 
             }else if newval == .calendar { //calendar
                 tabbarvm.destination = AnyView(CalView1())
                 //                }else if newval == .rates { // rates
                 //                    studenttabbarvm.destination = AnyView(Text("Rates"))
-                
-            }else if newval == .rates { //calendar
-                tabbarvm.destination = AnyView(TeacherRatesView())
                 
             }else if newval == .changePassword { // change password
                 tabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
@@ -226,7 +192,7 @@ struct ParentSideMenuContent: View {
     @EnvironmentObject var listchildrenvm : ListChildrenVM
 
     @Binding var presentSideMenu: Bool
-    @Binding var selectedDestination: Teacherdestinations?
+    @Binding var selectedDestination: Parentdestinations?
     @Binding var isPush: Bool
     
     var body: some View {
@@ -269,9 +235,26 @@ struct ParentSideMenuContent: View {
                     
                 }
                 
+                SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
+
+                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    selectedDestination = .changePassword // cahnage Password for child
+                    presentSideMenu =  false
+                    isPush = true
+                }
+                SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                    selectedDestination = .signOut // sign out
+                    presentSideMenu =  false
+                    isPush = true
+                }
+            
+            SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
+                selectedDestination = .deleteAccount // delete account
+                presentSideMenu =  false
+                isPush = true
+            }
+                
                 if listchildrenvm.selectedChild != nil{
-                    SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
-                    Group {
                         HStack(spacing:20){
                             ZStack(alignment: .topLeading){
                                 let imageURL : URL? = URL(string: Constants.baseURL+(listchildrenvm.selectedChild?.image ?? ""))
@@ -300,6 +283,7 @@ struct ParentSideMenuContent: View {
                             
                             Spacer()
                         }
+                        .padding(.leading,30)
                         .padding()
                         .onTapGesture {
                             selectedDestination = .editProfile // for child
@@ -307,60 +291,54 @@ struct ParentSideMenuContent: View {
                             isPush = true
                         }
                         
-                        SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-                            selectedDestination = .changePassword // cahnage Password for child
-                            presentSideMenu =  false
-                            isPush = true
-                        }
-                        SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
-//                            selectedDestination = .signOut // sign out for child
-                            listchildrenvm.selectedChild = nil
-                            presentSideMenu =  false
-//                            isPush = true
-                        }
+                        //                        SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                        //                            selectedDestination = .changePassword // cahnage Password for child
+                        //                            presentSideMenu =  false
+                        //                            isPush = true
+                        //                        }
+                        //                        SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                        ////                            selectedDestination = .signOut // sign out for child
+                        //                            listchildrenvm.selectedChild = nil
+                        //                            presentSideMenu =  false
+                        ////                            isPush = true
+                        //                        }
+                    
+                    
+                    
+                    SideMenuSectionTitle(title: "Academic")
+                    
+                    SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
+                        selectedDestination = .calendar // calendar
+                        presentSideMenu =  false
+                        isPush = true
+                    } 
+                    .padding(.leading,30)
+
+                    
+//                    SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+//                        selectedDestination = .rates // rates
+//                        presentSideMenu =  false
+//                        isPush = true
+//                    }
+                    
+                    SideMenuSectionTitle(title: "Settings")
+                    
+//                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+//                        selectedDestination = .changePassword // cahnage Password
+//                        presentSideMenu =  false
+//                        isPush = true
+//                    }
+                    
+                    SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
+                        selectedDestination = .tickets // Tickets
+                        presentSideMenu =  false
+                        isPush = true
                     }
                     .padding(.leading,30)
+
+                    
                 }
 
-                SideMenuSectionTitle(title: "Academic")
-
-                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
-                    selectedDestination = .calendar // calendar
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-                    selectedDestination = .rates // rates
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuSectionTitle(title: "Settings")
-                
-                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-                    selectedDestination = .changePassword // cahnage Password
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
-                    selectedDestination = .tickets // Tickets
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
-                    selectedDestination = .signOut // sign out
-                    presentSideMenu =  false
-                    isPush = true
-                }
-                
-                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
-                    selectedDestination = .deleteAccount // delete account
-                    presentSideMenu =  false
-                    isPush = true
-                }
                 
                 Spacer()
             }
