@@ -149,7 +149,7 @@ struct ParentTabBarView: View {
 //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
                
                 
-                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM()))
+                tabbarvm.destination = AnyView(EditParentProfileView().environmentObject(parentProfilevm))
                 
             }else if newval == .editStudentProfile{
                 tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM()))

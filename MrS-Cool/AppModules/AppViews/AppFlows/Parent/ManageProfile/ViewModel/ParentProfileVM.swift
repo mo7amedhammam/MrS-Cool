@@ -18,19 +18,19 @@ class ParentProfileVM: ObservableObject {
     @Published var imageStr : String?
     @Published var name = ""
     @Published var code = ""
-    @Published var accountStatus : ProfileStatus?
+//    @Published var accountStatus : ProfileStatus?
 
     @Published var phone = ""
     @Published var selectedGender : DropDownOption?
 
     //Teacher personal data
-    @Published var isTeacher : Bool?
+//    @Published var isTeacher : Bool?
     @Published var country : DropDownOption?
     @Published var governorte : DropDownOption?
     @Published var city : DropDownOption?
     @Published var birthDateStr : String?
     @Published var email = ""
-    @Published var bio = ""
+//    @Published var bio = ""
 
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -92,10 +92,10 @@ extension ParentProfileVM{
     }
     
     func UpdateParentProfile(){
-        guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"),let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-        var parameters:[String:Any] = ["Name":name,"Email":email,"Birthdate":birthDateStr,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
+        guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"),let genderid = selectedGender?.id, let cityid = city?.id else {return}
+        var parameters:[String:Any] = ["Name":name,"Email":email,"Birthdate":birthDateStr,"GenderId":genderid, "CityId":cityid]
         if let image = image {
-            parameters["TeacherImage"] = image
+            parameters["ParentImage"] = image
         }
         print("parameters",parameters)
         let target = ParentServices.UpdateParentProfile(parameters: parameters)
@@ -119,6 +119,7 @@ extension ParentProfileVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
 //                    OtpM = model
+                    GetParentProfile()
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
