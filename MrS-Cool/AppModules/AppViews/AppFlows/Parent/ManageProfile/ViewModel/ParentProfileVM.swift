@@ -117,7 +117,7 @@ extension ParentProfileVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true {
 //                    OtpM = model
                     GetParentProfile()
                 }else{
