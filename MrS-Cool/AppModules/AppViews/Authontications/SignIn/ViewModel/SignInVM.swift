@@ -76,6 +76,8 @@ extension SignInVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
                         self.teachermodel = model
+                    FirebaseNotificationsVM.shared.SendFirebaseToken()
+
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")

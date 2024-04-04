@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCalendarsUsageDescription</key>
-	<string>We need calendar access to provide you with event information.</string>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>We need to send you notifications to keep you updated.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>InterMedium.ttf</string>
@@ -11,6 +11,12 @@
 		<string>RobotoRegular.ttf</string>
 		<string>SoraSemiBold.ttf</string>
 		<string>SoraRegular.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
 	</array>
 </dict>
 </plist>

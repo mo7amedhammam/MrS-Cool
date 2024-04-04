@@ -23,6 +23,7 @@ struct ContentView: View {
                     }else{
                         ParentTabBarView()
                     }
+                    
                 }else{
 //                    SignInView()
                     AnonymousHomeView() // home

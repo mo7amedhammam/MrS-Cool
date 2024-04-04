@@ -180,9 +180,9 @@ enum EndPoints: String {
 
     
     //MARK: - firebase notifications -
-    case UpdateTeacherDeviceToken = "Student/UpdateTeacherDeviceToken"
+    case UpdateTeacherDeviceToken = "Teacher/UpdateTeacherDeviceToken"
     case UpdateStudentDeviceToken = "Student/UpdateStudentDeviceToken"
-    case UpdateParentDeviceToken = "Student/UpdateParentDeviceToken"
+    case UpdateParentDeviceToken = "Parent/UpdateParentDeviceToken"
 
 }
 

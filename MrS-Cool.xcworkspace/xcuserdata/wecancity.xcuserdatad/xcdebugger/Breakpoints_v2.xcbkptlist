@@ -64,5 +64,84 @@
             endingLineNumber = "802">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CD33EB86-E350-497A-B5A4-1DB126F1FB84"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MrS-Cool/AppMain/MrS_CoolApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "userNotificationCenter(_:willPresent:withCompletionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CD33EB86-E350-497A-B5A4-1DB126F1FB84 - 720a39654509ad71"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MrS_Cool.AppDelegate.userNotificationCenter(_: __C.UNUserNotificationCenter, willPresent: __C.UNNotification, withCompletionHandler: (__C.UNNotificationPresentationOptions) -&gt; ()) -&gt; ()"
+                  moduleName = "MrS-Cool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wecancity/Desktop/wecancity/MrS-Cool/MrS-Cool/AppMain/MrS_CoolApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "560">
+               </Location>
+               <Location
+                  uuid = "CD33EB86-E350-497A-B5A4-1DB126F1FB84 - 720a39654509ad71"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MrS_Cool.AppDelegate.userNotificationCenter(_: __C.UNUserNotificationCenter, willPresent: __C.UNNotification, withCompletionHandler: (__C.UNNotificationPresentationOptions) -&gt; ()) -&gt; ()"
+                  moduleName = "MrS-Cool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wecancity/Desktop/wecancity/MrS-Cool/MrS-Cool/AppMain/MrS_CoolApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "CD33EB86-E350-497A-B5A4-1DB126F1FB84 - 720a39654509aeb7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MrS_Cool.AppDelegate.userNotificationCenter(_: __C.UNUserNotificationCenter, willPresent: __C.UNNotification, withCompletionHandler: (__C.UNNotificationPresentationOptions) -&gt; ()) -&gt; ()"
+                  moduleName = "MrS-Cool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wecancity/Desktop/wecancity/MrS-Cool/MrS-Cool/AppMain/MrS_CoolApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "448">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8B3C341-CFA9-41DA-9EAC-838FF31F5EE7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MrS-Cool/AppModules/AppViews/Authontications/SignIn/ViewModel/SignInVM.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "TeacherLogin()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

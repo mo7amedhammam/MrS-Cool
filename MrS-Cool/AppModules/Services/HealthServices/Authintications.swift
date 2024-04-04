@@ -27,7 +27,9 @@ enum Authintications {
 
     case ResetPassword(user:UserTypeEnum,parameters : [String:Any])
     case ChangePassword(user:UserTypeEnum,parameters : [String:Any])
-    
+
+    case SendFirebaseToken(parameters : [String:Any])
+
 }
 
 extension Authintications : TargetType {
@@ -129,6 +131,20 @@ extension Authintications : TargetType {
 
             }
             
+        case .SendFirebaseToken:
+            switch Helper.shared.getSelectedUserType() {
+            case .Student:
+                return EndPoints.UpdateStudentDeviceToken.rawValue
+
+            case .Parent:
+                return EndPoints.UpdateParentDeviceToken.rawValue
+
+            case .Teacher:
+                return EndPoints.UpdateTeacherDeviceToken.rawValue
+
+            case .none:
+                return ""
+            }
         }
     }
     
@@ -144,7 +160,8 @@ extension Authintications : TargetType {
                 .SendOtp,
                 .ResetPassword,
                 .ChangePassword,
-                .VerifyOtpReset:
+                .VerifyOtpReset,
+                .SendFirebaseToken:
             return .post
             
         case .TeacherDeleteSubjects,
@@ -169,7 +186,8 @@ extension Authintications : TargetType {
             return .parameterRequest(Parameters: parameters, Encoding: .default)
             
         case .TeacherDeleteSubjects(parameters: let parameters),
-                .TeacherDeleteDocuments(parameters: let parameters):
+                .TeacherDeleteDocuments(parameters: let parameters),
+                .SendFirebaseToken(parameters: let parameters):
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
             
         }
