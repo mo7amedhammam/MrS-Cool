@@ -286,7 +286,7 @@ struct ParentSideMenuContent: View {
                         .padding(.leading,30)
                         .padding()
                         .onTapGesture {
-                            selectedDestination = .editProfile // for child
+                            selectedDestination = .editStudentProfile // for child
                             presentSideMenu =  false
                             isPush = true
                         }
