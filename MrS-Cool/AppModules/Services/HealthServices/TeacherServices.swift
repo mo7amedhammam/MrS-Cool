@@ -43,7 +43,7 @@ enum teacherServices{
     case GetMyCalenderSchedual(parameters : [String:Any])
     case cancelMyCalenderSchedual(parameters : [String:Any])
     
-    case GetAllComentsList
+    case GetAllComentsList(parameters : [String:Any])
     case GetAllComentsListById(parameters : [String:Any])
     case CreateComment(parameters : [String:Any])
     
@@ -123,22 +123,28 @@ extension teacherServices:TargetType{
              }
             
         case .GetAllComentsList:
-            if Helper.shared.getSelectedUserType() == .Student{
-                 return EndPoints.GetStudentAllStudentsChat.rawValue
+            if Helper.shared.getSelectedUserType() == .Teacher{
+                return EndPoints.GetAllStudentsChat.rawValue
+
              }else{
-                 return EndPoints.GetAllStudentsChat.rawValue
+                 return EndPoints.GetStudentAllStudentsChat.rawValue
+
              }
         case .GetAllComentsListById:
-            if Helper.shared.getSelectedUserType() == .Student{
-                 return EndPoints.GetStudentAllStudentsChatComments.rawValue
+            if Helper.shared.getSelectedUserType() == .Teacher{
+                return EndPoints.GetAllStudentsChatComments.rawValue
+
              }else{
-                 return EndPoints.GetAllStudentsChatComments.rawValue
+                 return EndPoints.GetStudentAllStudentsChatComments.rawValue
+
              }
         case .CreateComment:
-            if Helper.shared.getSelectedUserType() == .Student{
-                 return EndPoints.CreateStudentComment.rawValue
+            if Helper.shared.getSelectedUserType() == .Teacher{
+                return EndPoints.CreateComment.rawValue
+
              }else{
-                 return EndPoints.CreateComment.rawValue
+                 return EndPoints.CreateStudentComment.rawValue
+
              }
 
         case .GetTeacherRates:
@@ -178,8 +184,7 @@ extension teacherServices:TargetType{
     
     var parameter: parameterType {
         switch self {
-        case .GetTeacherProfile,
-                .GetAllComentsList:
+        case .GetTeacherProfile:
             return .plainRequest
             
         case .GetSubjectLessonsBrief(parameters: let Parameters),
@@ -191,6 +196,7 @@ extension teacherServices:TargetType{
                 .GetMyCompletedLessonDetails(parameters: let Parameters),
                 .GetMyCalenderSchedual(parameters:let Parameters),
                 .cancelMyCalenderSchedual(parameters: let Parameters),
+                .GetAllComentsList(parameters: let Parameters),
                 .GetAllComentsListById(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
@@ -213,6 +219,10 @@ extension teacherServices:TargetType{
                 .CreateComment(parameters: let Parameters),
                 .GetTeacherRates(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
+            
+//        case  .GetAllComentsList(parameters: let Parameters):
+//            return .parameterdGetRequest(Parameters: Parameters, Encoding: .default)
+
         }
     }
     

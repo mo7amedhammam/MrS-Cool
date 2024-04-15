@@ -56,6 +56,9 @@ extension StudentCompletedLessonsVM{
         if let filterdate = filterdate{
             parameters["lessonDate"] = filterdate
         }
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["studentId"] = Helper.shared.selectedchild?.id
+        }
         
         print("parameters",parameters)
         let target = StudentServices.GetStudentCompletedLessons(parameters: parameters)

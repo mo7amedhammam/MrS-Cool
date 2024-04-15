@@ -40,7 +40,12 @@ extension ChatListVM{
     
     func GetChatsList(){
 //        isLoading = false
-        let target = teacherServices.GetAllComentsList
+        var parameters:[String:Any] = [:]
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["studentId"] = Helper.shared.selectedchild?.id
+        }
+        print("parameters",parameters)
+        let target = teacherServices.GetAllComentsList(parameters: parameters)
         isLoading = true
         if Helper.shared.getSelectedUserType() == .Teacher {
             BaseNetwork.CallApi(target, BaseResponse<[ChatListM]>.self)
@@ -68,8 +73,7 @@ extension ChatListVM{
                     isLoading = false
                 })
                 .store(in: &cancellables)
-            
-        }else if Helper.shared.getSelectedUserType() == .Student{
+        }else {
             BaseNetwork.CallApi(target, BaseResponse<[StudentChatListM]>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
@@ -104,10 +108,10 @@ extension ChatListVM{
         if let chatid = selectedChatId{
             parameters["bookTeacherLessonSessionDetailId"] = chatid
         }
+        
         print("parameters",parameters)
         let target = teacherServices.GetAllComentsListById(parameters: parameters)
         isLoading = true
-        
         if Helper.shared.getSelectedUserType() == .Teacher{
             BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
                 .receive(on: DispatchQueue.main)
@@ -135,7 +139,7 @@ extension ChatListVM{
                     isLoading = false
                 })
                 .store(in: &cancellables)
-        }else if Helper.shared.getSelectedUserType() == .Student{
+        }else{
             BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
@@ -165,8 +169,11 @@ extension ChatListVM{
     }
     func CreateChatComment(){
 //        isLoading = false
-        let parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ]
+        var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ]
         print("parameters",parameters)
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["studentId"] = Helper.shared.selectedchild?.id
+        }
         let target = teacherServices.CreateComment(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<ChatDetailsM>.self)
@@ -186,6 +193,7 @@ extension ChatListVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     ChatDetails = receivedData.data
+                    comment.removeAll()
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

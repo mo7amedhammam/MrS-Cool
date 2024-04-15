@@ -100,8 +100,8 @@ struct ParentTabBarView: View {
                     )
                 
                 
-                Text("tab 3")
-                //                    ChatsListView(hasNavBar : false) // chats
+//                Text("tab 3")
+                ChatsListView(hasNavBar : false) // chats
                     .tag(3)
                     .environmentObject(tabbarvm)
                 //                        .environmentObject(chatListvm)
@@ -111,8 +111,9 @@ struct ParentTabBarView: View {
                         }
                     )
                 
-                Text("tab4")
-                //                    CompletedLessonsList(hasNavBar : false) // completed lessons
+//                Text("tab4")
+                            
+                StudentCompletedLessonsView(hasNavBar : false) // completed lessons
                     .tag(4)
                 //                        .environmentObject(LookUpsVM())
                 //                        .environmentObject(completedlessonsvm)

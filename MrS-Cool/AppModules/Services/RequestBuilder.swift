@@ -37,8 +37,32 @@ public extension TargetType {
         return URL(string: Constants.apiURL)!
     }
     // MARK: - Request URL
-    var requestURL: URL {
-        return baseURL.appendingPathComponent(path)
+    var requestURL: URL{
+                    return baseURL.appendingPathComponent(path)
+
+//        switch parameter {
+//        case .plainRequest:
+//            return baseURL.appendingPathComponent(path)
+//        case .parameterRequest(let parameters, _):
+//            var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
+//            let queryItems = parameters.map { key, value in
+//                URLQueryItem(name: key, value: "\(value)")
+//            }
+//            components.queryItems = queryItems
+//            return components.url!
+//        case .BodyparameterRequest(_, _):
+//            // For URLEncoding, parameters will be included in the request body
+//            return baseURL.appendingPathComponent(path)
+            
+//        case .parameterdGetRequest(let parameters, _):
+//            // For GET requests with parameters in the URL
+//            var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
+//            let queryItems = parameters.map { key, value in
+//                URLQueryItem(name: key, value: "\(value)")
+//            }
+//            components.queryItems = queryItems
+//            return components.url!
+//        }
     }
     var headers: [String: String]? {
         var header = [String: String]()
@@ -62,6 +86,7 @@ public enum parameterType{
     case plainRequest
     case parameterRequest(Parameters:[String:Any],Encoding:JSONEncoding)
     case BodyparameterRequest(Parameters:[String:Any],Encoding:URLEncoding)
+//    case parameterdGetRequest(Parameters: [String: Any], Encoding: URLEncoding)
 
 }
 
