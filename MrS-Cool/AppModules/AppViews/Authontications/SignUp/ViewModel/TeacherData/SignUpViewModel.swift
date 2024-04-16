@@ -36,7 +36,7 @@ class SignUpViewModel: ObservableObject {
     @Published var academicYear : DropDownOption?
     
     //Teacher personal data
-    @Published var isTeacher : Bool?
+    @Published var isTeacher : Bool? = true
     @Published var country : DropDownOption?
     @Published var governorte : DropDownOption?
     @Published var city : DropDownOption?

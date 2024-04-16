@@ -24,14 +24,12 @@ struct EnterMobileView: View {
                     ScrollView(.vertical){
                         VStack{
                             VStack(alignment: .leading, spacing: 0) {
-
                                 Group {
-                                    
                                     Text("Welcome To Mr.S-cool...".localized())
                                         .foregroundColor(Color.mainBlue)
                                         .font(.SoraBold(size: 18))
 
-                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $resetpasswordvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $resetpasswordvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
                                         .onChange(of: resetpasswordvm.phone) { newValue in
                                             if newValue.count > 11 {
                                                 resetpasswordvm.phone = String(newValue.prefix(11))

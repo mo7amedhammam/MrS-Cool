@@ -28,7 +28,12 @@ struct StudentSignUpView: View {
                         Group {
                             CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $studentsignupvm.name,textContentType:.name)
                             
-                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
+                                .onChange(of: studentsignupvm.phone) { newValue in
+                                    if newValue.count > 11 {
+                                        studentsignupvm.phone = String(newValue.prefix(11))
+                                    }
+                                }
                             
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $studentsignupvm.selectedGender,options:lookupsvm.GendersList)
 

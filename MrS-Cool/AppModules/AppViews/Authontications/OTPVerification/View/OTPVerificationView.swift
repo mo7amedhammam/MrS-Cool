@@ -96,7 +96,8 @@ struct OTPVerificationView: View {
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
                             Button(action: {
-                                otpvm.isOTPVerified.toggle()
+//                                otpvm.isOTPVerified.toggle()
+                                dismiss()
                             }, label:{
                                 Text("Modify Now".localized())
                                     .font(Font.SoraSemiBold(size: 13.0))
@@ -129,6 +130,13 @@ struct OTPVerificationView: View {
                 otpvm.startCountdownTimer(seconds: otpvm.remainingSeconds)
             }
         })
+//        .onChange(of: otpvm.remainingSeconds, perform: { value in
+//            if value > 0{
+//                otpvm.CurrentOtp = String(CurrentOTP ?? 0)
+//                otpvm.remainingSeconds = secondsCount ?? 0
+//                otpvm.startCountdownTimer(seconds: otpvm.remainingSeconds)
+//            }
+//        })
         
         .onChange(of: otpvm.isResetOTPVerified, perform: { value in
             dismiss()

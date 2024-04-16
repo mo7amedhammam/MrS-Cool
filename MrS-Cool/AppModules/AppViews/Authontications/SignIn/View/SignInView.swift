@@ -52,7 +52,7 @@ struct SignInView: View {
                                         .multilineTextAlignment(.leading)
                                 }
                                 Group {
-                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
                                         .onChange(of: teachersigninvm.phone) { newValue in
                                             if newValue.count > 11 {
                                                 teachersigninvm.phone = String(newValue.prefix(11))

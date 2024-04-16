@@ -79,9 +79,9 @@ class OTPVerificationVM: ObservableObject {
             }, receiveValue: {[weak self] receivedData in
                     guard let self = self else{return}
                     print("receivedData",receivedData)
-                if receivedData.data != nil{
-                    CurrentOtp = String(newOTPM?.otp ?? 0)
-                    remainingSeconds = newOTPM?.secondsCount ?? 0
+                if receivedData.success == true{
+                    CurrentOtp = String(receivedData.data?.otp ?? 0)
+                    remainingSeconds = receivedData.data?.secondsCount ?? 0
                     startCountdownTimer(seconds: remainingSeconds)
                     }else{
                         isError =  true
