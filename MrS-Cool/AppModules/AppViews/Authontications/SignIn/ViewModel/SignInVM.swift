@@ -52,6 +52,7 @@ class SignInVM: ObservableObject {
 
 extension SignInVM{
     func TeacherLogin(){
+        isLogedin = false
         //        guard let genderid = selectedGender?.id, let cityid = city?.id else {return}
         let parameters:[String:Any] = ["mobile":phone,"password":Password]
         

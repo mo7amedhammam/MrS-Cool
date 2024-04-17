@@ -134,7 +134,8 @@ struct TeacherTabBarView: View {
                 Spacer()
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
-            }
+            }.disableSwipeBack()
+
 //            .onAppear(perform: {
 //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
 //            })
@@ -215,6 +216,9 @@ struct TeacherTabBarView: View {
     @ViewBuilder
     private func SideMenuView() -> some View {
         SideView(isShowing: $presentSideMenu, content: AnyView(TeacherSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
+            .onDisappear(perform: {
+            selectedDestination = nil
+        })
     }
 }
 
@@ -352,4 +356,37 @@ struct TeacherSideMenuContent: View {
         }
     }
     
+}
+
+extension View {
+    func disableSwipeBack() -> some View {
+        self.background(
+            DisableSwipeBackView()
+        )
+    }
+}
+
+struct DisableSwipeBackView: UIViewControllerRepresentable {
+    
+    typealias UIViewControllerType = DisableSwipeBackViewController
+    
+    
+    func makeUIViewController(context: Context) -> UIViewControllerType {
+        UIViewControllerType()
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    }
+}
+
+class DisableSwipeBackViewController: UIViewController {
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        if let parent = parent?.parent,
+           let navigationController = parent.navigationController,
+           let interactivePopGestureRecognizer = navigationController.interactivePopGestureRecognizer {
+            navigationController.view.removeGestureRecognizer(interactivePopGestureRecognizer)
+        }
+    }
 }

@@ -144,8 +144,6 @@ struct ParentTabBarView: View {
             hideKeyboard()
         })
         .onChange(of: selectedDestination) {newval in
-            
-            
             if newval == .editProfile{ //edit Profile
 //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
                
@@ -181,6 +179,9 @@ struct ParentTabBarView: View {
     @ViewBuilder
     private func SideMenuView() -> some View {
         SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(parentProfilevm)                    .environmentObject(listchildrenvm)), direction: .leading)
+            .onDisappear(perform: {
+            selectedDestination = nil
+        })
     }
 }
 

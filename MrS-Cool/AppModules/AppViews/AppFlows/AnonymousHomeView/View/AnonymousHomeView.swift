@@ -370,8 +370,10 @@ struct AnonymousHomeView: View {
     
     @ViewBuilder
     private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination))
-                 , direction: .leading)
+        SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination)), direction: .leading)
+        .onDisappear(perform: {
+        selectedDestination = nil
+    })
     }
     
 }

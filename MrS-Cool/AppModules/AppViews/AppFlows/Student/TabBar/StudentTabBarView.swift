@@ -168,6 +168,9 @@ struct StudentTabBarView: View {
     @ViewBuilder
     private func SideMenuView() -> some View {
         SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $studenttabbarvm.ispush).environmentObject(studentsignupvm)), direction: .leading)
+            .onDisappear(perform: {
+            selectedDestination = nil
+        })
     }
 }
 

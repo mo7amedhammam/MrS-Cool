@@ -123,11 +123,6 @@ struct SignInView: View {
             }
             .padding(.horizontal)
         }
-        .gesture(
-            DragGesture().onChanged { _ in
-                // Disable swipe gestures
-            }
-        )
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
@@ -147,6 +142,7 @@ struct SignInView: View {
           })
         .showHud(isShowing: $teachersigninvm.isLoading)
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+        .navigationViewStyle(StackNavigationViewStyle()) // Disable swipe back gesture
 
         NavigationLink(destination: destination, isActive: $isPush, label: {})
             .onDisappear{
@@ -155,6 +151,13 @@ struct SignInView: View {
             .onChange(of: teachersigninvm.isLogedin) { newval in
                 isPush = newval
             }
+            .gesture(
+                DragGesture().onChanged { _ in
+                    // Disable swipe gestures
+                }
+            )
+
+        
     }
 }
 

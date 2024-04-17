@@ -23,6 +23,13 @@ struct MrS_CoolApp: App {
                         await notificationManager.request()
                     }
                 }
+//                .onAppear(perform: {
+//                    // Disable swipe back gesture
+//                             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//                             appDelegate.window?.rootViewController?.children.first?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+
+//                })
+
         }
         .onChange(of: scenePhase) { newScenePhase in
             switch newScenePhase {
@@ -54,6 +61,9 @@ import FirebaseMessaging
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+//    var window: UIWindow?
+
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch
         do {
@@ -64,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              FirebaseApp.configure()
              Messaging.messaging().delegate = self
              UNUserNotificationCenter.current().delegate = self
+            
 
             if Helper.shared.CheckIfLoggedIn() == false {
                 Helper.shared.setSelectedUserType(userType: .Student)

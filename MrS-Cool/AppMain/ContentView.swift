@@ -32,12 +32,10 @@ struct ContentView: View {
 //                ManageTeacherSchedualsView()
 //                    .environmentObject(LookUpsVM())
 //                    .environmentObject(ManageTeacherSchedualsVM())
-
             }
         }
         .hideNavigationBar()
         .localizeView()
-
     }
 }
 #Preview {
