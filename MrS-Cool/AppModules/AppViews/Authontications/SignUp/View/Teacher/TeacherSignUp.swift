@@ -62,7 +62,7 @@ struct TeacherSignUpView: View {
                 })
                 .frame(width: 130,height: 40)
                 Spacer()
-                CustomButton(Title:currentStep == .personalData ? "Save & Next" : (currentStep == .subjectsData ? "Next":"Submit"),IsDisabled: .constant((currentStep == .subjectsData && !signupvm.isTeacherHasSubjects)||(currentStep == .documentsData && !signupvm.isTeacherHasDocuments)), action: {
+                CustomButton(Title:currentStep == .personalData ? "Save & Next" : (currentStep == .subjectsData ? "Next":"Submit"),IsDisabled: .constant((currentStep == .subjectsData && !signupvm.isTeacherHasSubjects)||(currentStep == .documentsData && !signupvm.isTeacherHasDocuments) || (currentStep == .personalData && !signupvm.isFormValid)), action: {
                     switch currentStep{
                     case .personalData:
                         signupvm.RegisterTeacherData()
@@ -93,7 +93,6 @@ struct TeacherSignUpView: View {
                     dismiss()
                 }
             }
-            
         }
         
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})

@@ -37,7 +37,7 @@ class ParentSignupVM: ObservableObject {
 //    @Published var academicYear : DropDownOption?
     
     //Teacher personal data
-//    @Published var isTeacher : Bool?
+    @Published var isFormValid : Bool = false
 //    @Published var bio = ""
 
     //Teacher subjects data (have 4 common with student)
@@ -62,6 +62,7 @@ class ParentSignupVM: ObservableObject {
 //    @Published var isTeacherHasDocuments: Bool = false
     init()  {
 //        getGendersArr()
+        setupFormValidation()
     }
 }
 
@@ -83,9 +84,9 @@ extension ParentSignupVM{
                     break
                 case .failure(let error):
                     isError =  true
-//                    self.error = error
+                    //                    self.error = error
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-
+                    
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -95,9 +96,9 @@ extension ParentSignupVM{
                     isDataUploaded = true
                 }else{
                     isError =  true
-//                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
+                    //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-
+                    
                 }
                 isLoading = false
             })
@@ -112,22 +113,159 @@ extension ParentSignupVM{
         country = nil
         governorte = nil
         city = nil
-//        educationType = nil
-//        educationLevel = nil
-//        academicYear = nil
-
+        //        educationType = nil
+        //        educationLevel = nil
+        //        academicYear = nil
+        
         Password = ""
         confirmPassword = ""
         acceptTerms = false
         
-//        birthDate = nil
+        //        birthDate = nil
         birthDateStr = ""
     }
-    
-
 }
 
-
+extension ParentSignupVM{
+    
+    // Publisher for checking if the name is not empty
+    var isNameValidPublisher: AnyPublisher<Bool, Never> {
+        $name
+            .map { name in
+                return !name.isEmpty
+            }
+            .eraseToAnyPublisher()
+    }
+    // Publisher for checking if the phone is not empty and 11 char
+    var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+        $phone
+            .map { phone in
+                return !phone.isEmpty && phone.count == 11
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the gender is not empty
+    var isGenderSelectedPublisher: AnyPublisher<Bool, Never> {
+        $selectedGender
+            .map { gender in
+                return gender != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the birthDateStr is not empty
+    var isBirthDateValidPublisher: AnyPublisher<Bool, Never> {
+        $birthDateStr
+            .map { birthDateStr in
+                return birthDateStr != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    // Publisher for checking if the birthDateStr is not empty
+    var isEmailValidPublisher: AnyPublisher<Bool, Never> {
+        $email
+            .map { email in
+                let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+                return !email.isEmpty && emailPredicate.evaluate(with: email)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the educationtype is not empty
+    var isCountrySelectedPublisher: AnyPublisher<Bool, Never> {
+        $country
+            .map { country in
+                return country != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the educationlevel is not empty
+    var isgovernorateSelectedPublisher: AnyPublisher<Bool, Never> {
+        $governorte
+            .map { governorte in
+                return governorte != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the academicyear is not empty
+    var isCitySelectedPublisher: AnyPublisher<Bool, Never> {
+        $city
+            .map { city in
+                return city != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the password is not empty and meets the length requirement
+    var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
+        $Password
+            .map { password in
+                return !password.isEmpty && password.count > 5
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the confirmPassword matches the Password
+    var isConfirmPasswordValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest($Password, $confirmPassword)
+            .map { password, confirmPassword in
+                return confirmPassword == password
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    // Publisher for checking if the user has accepted the terms
+    var hasAcceptedTermsPublisher: AnyPublisher<Bool, Never> {
+        $acceptTerms
+            .eraseToAnyPublisher()
+    }
+    
+    
+    // Publisher for checking if the personal data is valid
+    var isPersonalInfoValid : AnyPublisher<Bool,Never>{
+        Publishers.CombineLatest4(isNameValidPublisher,isPhoneValidPublisher,isGenderSelectedPublisher,isBirthDateValidPublisher)
+            .map{valid1,valid2,valid3,valid4 in
+                guard valid1 && valid2 && valid3 && valid4 else{return false}
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the academic data is valid
+    var isAddressInfoValid : AnyPublisher<Bool,Never>{
+        Publishers.CombineLatest4(isEmailValidPublisher,isCountrySelectedPublisher,isgovernorateSelectedPublisher,isCitySelectedPublisher)
+            .map{valid1,valid2,valid3,valid4 in
+                guard valid1 && valid2 && valid3 && valid4  else{return false}
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the password & its confirmation is valid
+    var isPasswordValid : AnyPublisher<Bool,Never>{
+        Publishers.CombineLatest3(isPasswordValidPublisher,isConfirmPasswordValidPublisher,hasAcceptedTermsPublisher)
+            .map{valid1,valid2,valid3 in
+                guard valid1 && valid2 && valid3  else{return false}
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    private func setupFormValidation() {
+        Publishers.CombineLatest3(isPersonalInfoValid, isAddressInfoValid, isPasswordValid)
+            .map { valid1,valid2,valid3 in
+                guard valid1 && valid2 && valid3  else{return false}
+                return true
+            }
+            .assign(to: &$isFormValid)
+        
+    }
+}
 
 
 

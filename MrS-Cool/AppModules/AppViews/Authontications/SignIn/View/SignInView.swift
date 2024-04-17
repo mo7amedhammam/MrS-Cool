@@ -59,6 +59,11 @@ struct SignInView: View {
                                             }
                                         }
                                     CustomTextField(fieldType:.Password,placeholder: "Password *", text: $teachersigninvm.Password)
+                                        .onChange(of: teachersigninvm.Password) { newValue in
+                                                if newValue.containsNonEnglishOrNumbers() {
+                                                    teachersigninvm.Password = String(newValue.dropLast())
+                                                }
+                                            }
                                 }
                                 .padding([.top])
                                 

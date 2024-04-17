@@ -52,8 +52,19 @@ struct StudentSignUpView: View {
                             CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.AcademicYearsList)
 
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $studentsignupvm.Password)
+                                .onChange(of: studentsignupvm.Password) { newValue in
+                                        if newValue.containsNonEnglishOrNumbers() {
+                                            studentsignupvm.Password = String(newValue.dropLast())
+                                        }
+                                    }
                             
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $studentsignupvm.confirmPassword)
+                                .onChange(of: studentsignupvm.confirmPassword) { newValue in
+                                        if newValue.containsNonEnglishOrNumbers() {
+                                            studentsignupvm.confirmPassword = String(newValue.dropLast())
+                                        }
+                                    }
+
                         }
                         .padding([.top])
                         CheckboxField(label: "Accept the Terms and Privacy Policy",color: ColorConstants.Black900,textSize: 13,isMarked: $studentsignupvm.acceptTerms)
@@ -62,7 +73,7 @@ struct StudentSignUpView: View {
                     .padding(.top,20)
                     Spacer()
                     
-                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
+                    CustomButton(Title:"Submit",IsDisabled:.constant(!studentsignupvm.isFormValid), action: {
                         studentsignupvm.RegisterStudent()
 //                        isPush = true
 //                        destination = AnyView(OTPVerificationView().hideNavigationBar())

@@ -56,8 +56,18 @@ struct ParentSignUpView: View {
                             CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
+                                .onChange(of: signupvm.Password) { newValue in
+                                        if newValue.containsNonEnglishOrNumbers() {
+                                            signupvm.Password = String(newValue.dropLast())
+                                        }
+                                    }
                             
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
+                                .onChange(of: signupvm.confirmPassword) { newValue in
+                                        if newValue.containsNonEnglishOrNumbers() {
+                                            signupvm.confirmPassword = String(newValue.dropLast())
+                                        }
+                                    }
                         }
                         .padding([.top])
                         CheckboxField(label: "Accept the Terms and Privacy Policy",
@@ -69,7 +79,7 @@ struct ParentSignUpView: View {
                     .padding(.top,20)
                     Spacer()
                     
-                    CustomButton(Title:"Submit",IsDisabled: .constant(false), action: {
+                    CustomButton(Title:"Submit",IsDisabled: .constant(!signupvm.isFormValid), action: {
                         signupvm.RegisterParent()
 //                        isPush = true
 //                        destination = AnyView(OTPVerificationView().hideNavigationBar())

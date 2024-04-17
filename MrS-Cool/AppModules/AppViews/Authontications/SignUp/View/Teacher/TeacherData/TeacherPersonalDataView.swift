@@ -52,8 +52,18 @@ struct TeacherPersonalDataView: View {
                             CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
+                                .onChange(of: signupvm.Password) { newValue in
+                                        if newValue.containsNonEnglishOrNumbers() {
+                                            signupvm.Password = String(newValue.dropLast())
+                                        }
+                                    }
                             
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
+                                .onChange(of: signupvm.confirmPassword) { newValue in
+                                        if newValue.containsNonEnglishOrNumbers() {
+                                            signupvm.confirmPassword = String(newValue.dropLast())
+                                        }
+                                    }
                             
                             CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio,charLimit: 1000)
                         }

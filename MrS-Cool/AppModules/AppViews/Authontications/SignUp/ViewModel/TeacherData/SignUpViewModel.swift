@@ -28,12 +28,12 @@ class SignUpViewModel: ObservableObject {
     @Published var acceptTerms = false
 
     //Student data
-    @Published var birthDate : Date?
-    // next 4  common with teacher subjects
-    @Published var birthDateStr = ""
-    @Published var educationType : DropDownOption?
-    @Published var educationLevel : DropDownOption?
-    @Published var academicYear : DropDownOption?
+//    @Published var birthDate : Date?
+//    // next 4  common with teacher subjects
+//    @Published var birthDateStr = ""
+//    @Published var educationType : DropDownOption?
+//    @Published var educationLevel : DropDownOption?
+//    @Published var academicYear : DropDownOption?
     
     //Teacher personal data
     @Published var isTeacher : Bool? = true
@@ -43,12 +43,12 @@ class SignUpViewModel: ObservableObject {
     @Published var bio = ""
 
     //Teacher subjects data (have 4 common with student)
-    @Published var subject : DropDownOption?
+//    @Published var subject : DropDownOption?
 
     //Teacher documents data
-    @Published var documentType : DropDownOption?
-    @Published var documentTitle : DropDownOption?
-    @Published var documentOrder : String?
+    @Published var isFormValid : Bool =  false
+//    @Published var documentTitle : DropDownOption?
+//    @Published var documentOrder : String?
 
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -67,6 +67,7 @@ class SignUpViewModel: ObservableObject {
     @Published var isTeacherHasDocuments: Bool = false
     init()  {
 //        getGendersArr()
+        setupFormValidation()
     }
 }
 
@@ -116,26 +117,161 @@ extension SignUpViewModel{
         Password = ""
         confirmPassword = ""
         acceptTerms = false
+        country = nil
+        governorte = nil
+        city = nil
+        bio = ""
         
-        birthDate = nil
-        birthDateStr = ""
+//        birthDate = nil
+//        birthDateStr = ""
     }
     
-    func clearTeachersSubject(){
-        educationType = nil
-        educationLevel = nil
-        academicYear = nil
-        subject = nil
-    }
+//    func clearTeachersSubject(){
+//        educationType = nil
+//        educationLevel = nil
+//        academicYear = nil
+//        subject = nil
+//    }
 
-    func clearTeachersDocument(){
-        documentType = nil
-        documentTitle = nil
-        documentOrder = nil
-    }
+//    func clearTeachersDocument(){
+//        documentType = nil
+//        documentTitle = nil
+//        documentOrder = nil
+//    }
 
 }
 
 
 
 
+extension SignUpViewModel{
+    
+    // Publisher for checking if the name is not empty
+    var isNameValidPublisher: AnyPublisher<Bool, Never> {
+        $name
+            .map { name in
+                return !name.isEmpty
+            }
+            .eraseToAnyPublisher()
+    }
+    // Publisher for checking if the phone is not empty and 11 char
+    var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+        $phone
+            .map { phone in
+                return !phone.isEmpty && phone.count == 11
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the gender is not empty
+    var isGenderSelectedPublisher: AnyPublisher<Bool, Never> {
+        $selectedGender
+            .map { gender in
+                return gender != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the birthDateStr is not empty
+    var isBioValidPublisher: AnyPublisher<Bool, Never> {
+        $bio
+            .map { bio in
+                return !bio.isEmpty
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the educationtype is not empty
+    var isCountrySelectedPublisher: AnyPublisher<Bool, Never> {
+        $country
+            .map { country in
+                return country != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the educationlevel is not empty
+    var isGovernorateSelectedPublisher: AnyPublisher<Bool, Never> {
+        $governorte
+            .map { governorte in
+                return governorte != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the academicyear is not empty
+    var isCitySelectedPublisher: AnyPublisher<Bool, Never> {
+        $city
+            .map { city in
+                return city != nil
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the password is not empty and meets the length requirement
+    var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
+        $Password
+            .map { password in
+                return !password.isEmpty && password.count > 5
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the confirmPassword matches the Password
+    var isConfirmPasswordValidPublisher: AnyPublisher<Bool, Never> {
+        Publishers.CombineLatest($Password, $confirmPassword)
+            .map { password, confirmPassword in
+                return confirmPassword == password
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    // Publisher for checking if the user has accepted the terms
+    var hasAcceptedTermsPublisher: AnyPublisher<Bool, Never> {
+        $acceptTerms
+            .eraseToAnyPublisher()
+    }
+    
+    
+    // Publisher for checking if the personal data is valid
+    var isPersonalInfoValid : AnyPublisher<Bool,Never>{
+        Publishers.CombineLatest4(isNameValidPublisher,isPhoneValidPublisher,isGenderSelectedPublisher,isBioValidPublisher)
+            .map{valid1,valid2,valid3,valid4 in
+                guard valid1 && valid2 && valid3 && valid4 else{return false}
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the academic data is valid
+    var isAddressInfoValid : AnyPublisher<Bool,Never>{
+        Publishers.CombineLatest3(isCountrySelectedPublisher,isGovernorateSelectedPublisher,isCitySelectedPublisher)
+            .map{valid1,valid2,valid3 in
+                guard valid1 && valid2 && valid3  else{return false}
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // Publisher for checking if the password & its confirmation is valid
+    var isPasswordValid : AnyPublisher<Bool,Never>{
+        Publishers.CombineLatest3(isPasswordValidPublisher,isConfirmPasswordValidPublisher,hasAcceptedTermsPublisher)
+            .map{valid1,valid2,valid3 in
+                guard valid1 && valid2 && valid3  else{return false}
+                return true
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    private func setupFormValidation() {
+        Publishers.CombineLatest3(isPersonalInfoValid, isAddressInfoValid, isPasswordValid)
+            .map { valid1,valid2,valid3 in
+                guard valid1 && valid2 && valid3  else{return false}
+                return true
+            }
+            .assign(to: &$isFormValid)
+        
+    }
+}

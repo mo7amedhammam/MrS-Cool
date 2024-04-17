@@ -70,3 +70,23 @@ extension String {
           return totalMinutes
       }
 }
+
+extension String {
+    func containsNonEnglishOrNumbers() -> Bool {
+        let englishLettersAndNumbersCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        
+        // Check if the string contains characters other than English letters and numbers
+        return self.rangeOfCharacter(from: englishLettersAndNumbersCharacterSet.inverted) != nil
+    }
+    
+    // Function to validate the password and remove non-English characters or numbers if present
+//     func validatePassword() -> String {
+//        if self.containsNonEnglishOrNumbers() {
+//            // If the password contains non-English characters or numbers, drop the last character
+//            return String(self.dropLast())
+//        } else {
+//            // If the password is valid, return it as is
+//            return self
+//        }
+//    }
+}
