@@ -15,21 +15,22 @@ struct MrS_CoolApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.light) // Set to force light mode
-            
-                .task {
-                    if notificationManager.hasPermission == false{
-                        await notificationManager.request()
+//            NavigationView{
+                ContentView()
+                    .preferredColorScheme(.light) // Set to force light mode
+                
+                    .task {
+                        if notificationManager.hasPermission == false{
+                            await notificationManager.request()
+                        }
                     }
-                }
-//                .onAppear(perform: {
-//                    // Disable swipe back gesture
-//                             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-//                             appDelegate.window?.rootViewController?.children.first?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-
-//                })
-
+                //                .onAppear(perform: {
+                //                    // Disable swipe back gesture
+                //                             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                //                             appDelegate.window?.rootViewController?.children.first?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                
+                //                })
+//            }
         }
         .onChange(of: scenePhase) { newScenePhase in
             switch newScenePhase {
@@ -79,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if Helper.shared.CheckIfLoggedIn() == false {
                 Helper.shared.setSelectedUserType(userType: .Student)
              }
-
+            
          } catch {
              print("Error initializing app:", error.localizedDescription)
          }

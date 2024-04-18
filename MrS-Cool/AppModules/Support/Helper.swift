@@ -119,6 +119,30 @@ class Helper: NSObject {
     }
     
     var selectedchild:ChildrenM?
+    
+    
+    func changeRoot(toView:any View) {
+        let window = UIApplication
+            .shared
+            .connectedScenes
+            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+            .first { $0.isKeyWindow }
+        
+        //                                    window?.rootViewController = UIHostingController(rootView: SignInView())
+        //                                    window?.makeKeyAndVisible()
+        
+        if let window = window {
+            let signInView = AnyView(toView)
+            let signInHostingController = UIHostingController(rootView: signInView)
+            let navigationController = UINavigationController(rootViewController: signInHostingController)
+            
+            // Disable swipe back gesture
+            navigationController.interactivePopGestureRecognizer?.isEnabled = false
+            
+            window.rootViewController = navigationController
+            window.makeKeyAndVisible()
+        }
+    }
 }
 
 //MARK: -- view helper --

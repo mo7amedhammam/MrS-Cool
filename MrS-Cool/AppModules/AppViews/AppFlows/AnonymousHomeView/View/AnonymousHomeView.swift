@@ -347,9 +347,31 @@ struct AnonymousHomeView: View {
                     
                     .onChange(of: selectedDestination) {newval in
                         if newval == .login { // sign in
-                            destination =
-                           AnyView(SignInView())
-                                isPush = true
+//                            destination =                           AnyView(SignInView())
+//                                isPush = true
+                            
+                            Helper.shared.changeRoot(toView: SignInView())
+//                            let window = UIApplication
+//                                        .shared
+//                                        .connectedScenes
+//                                        .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+//                                        .first { $0.isKeyWindow }
+
+//                                    window?.rootViewController = UIHostingController(rootView: SignInView())
+//                                    window?.makeKeyAndVisible()
+                            
+//                            if let window = window {
+//                                let signInView = SignInView()
+//                                let signInHostingController = UIHostingController(rootView: signInView)
+//                                let navigationController = UINavigationController(rootViewController: signInHostingController)
+//                                
+//                                // Disable swipe back gesture
+//                                navigationController.interactivePopGestureRecognizer?.isEnabled = false
+//                                
+//                                window.rootViewController = navigationController
+//                                window.makeKeyAndVisible()
+//                            }
+
                         }
                     }
                 }

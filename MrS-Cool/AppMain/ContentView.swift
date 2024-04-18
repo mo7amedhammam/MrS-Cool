@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
 
-        NavigationView{
+//        NavigationView{
             VStack {
                 if Helper().checkOnBoard(){
                     SignInView()
@@ -33,7 +33,7 @@ struct ContentView: View {
 //                    .environmentObject(LookUpsVM())
 //                    .environmentObject(ManageTeacherSchedualsVM())
             }
-        }
+//        }
         .hideNavigationBar()
         .localizeView()
     }

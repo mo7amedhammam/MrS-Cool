@@ -156,8 +156,8 @@ struct StudentTabBarView: View {
                 }else if newval == .tickets { // tickets
                     
                 }else if newval == .signOut { // signout
-                    studenttabbarvm.destination =
-                   AnyView(SignInView())
+//                    studenttabbarvm.destination = AnyView(SignInView())
+                    Helper.shared.changeRoot(toView: SignInView())
                     Helper.shared.IsLoggedIn(value: false)
                 }
             }
@@ -359,7 +359,7 @@ struct StudentSideMenuContent: View {
                 SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
                     selectedDestination = .signOut // sign out
                     presentSideMenu =  false
-                    isPush = true
+//                    isPush = true
                 }
                 
                 SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
