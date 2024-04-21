@@ -52,13 +52,13 @@ struct SignInView: View {
                                         .multilineTextAlignment(.leading)
                                 }
                                 Group {
-                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad, isvalid:teachersigninvm.isphonevalid)
                                         .onChange(of: teachersigninvm.phone) { newValue in
-                                            if newValue.count > 11 {
+                                          if newValue.count > 11 {
                                                 teachersigninvm.phone = String(newValue.prefix(11))
                                             }
                                         }
-                                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $teachersigninvm.Password)
+                                    CustomTextField(fieldType:.Password,placeholder: "Password *", text: $teachersigninvm.Password,isvalid:teachersigninvm.isPasswordvalid)
                                         .onChange(of: teachersigninvm.Password) { newValue in
                                                 if newValue.containsNonEnglishOrNumbers() {
                                                     teachersigninvm.Password = String(newValue.dropLast())

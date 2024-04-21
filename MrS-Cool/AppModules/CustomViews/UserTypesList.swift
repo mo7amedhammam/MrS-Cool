@@ -8,9 +8,9 @@
 import SwiftUI
 
 var users:[UserType] = [
-    UserType(id: 0, imgName: "img_group141_9",user: .Student),
-    UserType(id: 1, imgName: "img_group142_14",user: .Parent),
-    UserType(id: 2, imgName: "img_group140_19",user: .Teacher)
+    UserType(id: 0, imgName: "student-vector",user: .Student,tintColor: .studentTint),
+    UserType(id: 1, imgName: "parent-vector",user: .Parent,tintColor: .parentTint),
+    UserType(id: 2, imgName: "teacher-vector",user: .Teacher,tintColor: .teacherTint)
 ]
 struct UserTypesList: View {
     @Binding var selectedUser:UserType

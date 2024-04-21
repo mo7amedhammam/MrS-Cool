@@ -23,7 +23,7 @@ struct CustomTextField: View {
     var textContentType : UITextContentType? = .name
     var keyboardType : UIKeyboardType? = .default
     var Disabled : Bool?
-    
+    var isvalid : Bool? = true
     @State private var isSecured: Bool = true
     @FocusState private var focusedField : Bool
     var body: some View {
@@ -94,7 +94,7 @@ struct CustomTextField: View {
         .disableAutocorrection(true)
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
                                 bottomRight: 5.0)
-            .stroke(ColorConstants.Bluegray30066,
+            .stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,
                     lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
                                    bottomRight: 5.0)
@@ -108,7 +108,7 @@ struct CustomTextField: View {
 }
 
 #Preview {
-    CustomTextField(fieldType:.Default, iconName:"img_group172", placeholder: "password", text: .constant("mmm"))
+    CustomTextField(fieldType:.Default, iconName:"img_group172", placeholder: "password", text: .constant("mmm"), isvalid: true)
 }
 
 
@@ -368,7 +368,7 @@ struct CustomTextEditor: View {
 
     var textContentType : UITextContentType? = .name
     var keyboardType : UIKeyboardType? = .default
-    
+    var isvalid : Bool? = true
     @FocusState private var focusedField : Bool
     var body: some View {
         VStack (spacing:0){
@@ -429,12 +429,10 @@ struct CustomTextEditor: View {
         .frame( height: 160, alignment: .center)
         .padding([.horizontal,.bottom],12)
         .disableAutocorrection(true)
-        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
-                                bottomRight: 5.0)
-            .stroke(ColorConstants.Bluegray30066,
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0)
+            .stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,
                     lineWidth: 1))
-        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
-                                   bottomRight: 5.0)
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0)
             .fill(ColorConstants.WhiteA700))
         .onTapGesture {
             focusedField = true

@@ -14,8 +14,22 @@ class SignInVM: ObservableObject {
     
     //    MARK: --- inputs ---
     @Published var selecteduser = UserType()
-    @Published var phone = "" 
-    @Published var Password = ""
+    @Published var phone = "" {
+        didSet{
+            if phone.count == 11{
+                isphonevalid = true
+            }
+        }
+    }
+    @Published var isphonevalid : Bool? = true
+    @Published var Password = ""{
+        didSet{
+            if Password.count >= 6{
+                isPasswordvalid = true
+            }
+        }
+    }
+    @Published var isPasswordvalid :Bool? = true
     
     //  MARK: -- validations --
     // Published properties for length validation
@@ -52,6 +66,8 @@ class SignInVM: ObservableObject {
 
 extension SignInVM{
     func TeacherLogin(){
+        guard checkValidfields() else {return}
+        
         isLogedin = false
         //        guard let genderid = selectedGender?.id, let cityid = city?.id else {return}
         let parameters:[String:Any] = ["mobile":phone,"password":Password]
@@ -91,13 +107,12 @@ extension SignInVM{
 
 extension SignInVM{
     private func monitorTextFields() {
-        
         // Combine publishers for form validation
               Publishers.CombineLatest($phone, $Password)
                   .map { [weak self] phone, password in
                       // Perform the validation checks
-                      let isPhoneValid = phone.count == 11
-                      let isPasswordValid = password.count >= 6
+                      let isPhoneValid = !phone.isEmpty
+                      let isPasswordValid = !password.isEmpty
                       
                       // Return the overall form validity
                       return isPhoneValid && isPasswordValid
@@ -105,5 +120,17 @@ extension SignInVM{
                   .assign(to: &$isFormValid)
     }
     
-
+    private func checkValidfields()->Bool{
+            isphonevalid = phone.count == 11
+            isPasswordvalid = Password.count >= 6
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+        return isphonevalid ?? true && isPasswordvalid ?? true
+    }
 }

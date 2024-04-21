@@ -11,13 +11,34 @@ import Combine
 class ParentSignupVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     @Published var isUserChangagble = true // available unless teacher save personal data
-
-//    MARK: --- inputs ---
+    
+    //    MARK: --- inputs ---
     //Common data (note: same exact data for parent)
-//    @Published var selecteduser = UserType()
+    //    @Published var selecteduser = UserType()
     @Published var name = ""
-    @Published var phone = ""
-    @Published var email = ""
+    @Published var phone = ""{
+        didSet{
+            if phone.count == 11{
+                isphonevalid = true
+            }
+        }
+    }
+    @Published var isphonevalid : Bool? = true
+    @Published var email = ""{
+        didSet{
+            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+            if !email.isEmpty{
+                if  emailPredicate.evaluate(with: email){
+                    isemailvalid = true
+                }else{
+                    isemailvalid = false
+                    }
+                }
+            }
+    }
+    
+    @Published var isemailvalid : Bool? = true
+
     @Published var selectedGender : DropDownOption?
 
     @Published var country : DropDownOption?
@@ -25,8 +46,27 @@ class ParentSignupVM: ObservableObject {
     @Published var city : DropDownOption?
 
     @Published var birthDateStr : String?
-    @Published var Password = ""
-    @Published var confirmPassword = ""
+    @Published var Password = ""{
+        didSet{
+            if Password.count >= 6{
+                isPasswordvalid = true
+            }
+        }
+    }
+    @Published var isPasswordvalid : Bool? = true
+    @Published var confirmPassword = ""{
+        didSet{
+            if !confirmPassword.isEmpty{
+                if  confirmPassword == Password {
+                    isconfirmPasswordvalid = true
+                }else{
+                    isconfirmPasswordvalid = false
+                }
+            }
+        }
+    }
+    @Published var isconfirmPasswordvalid : Bool? = true
+
     @Published var acceptTerms = false
 
     //Student data
@@ -68,6 +108,7 @@ class ParentSignupVM: ObservableObject {
 
 extension ParentSignupVM{
     func RegisterParent(){
+        guard checkValidfields() else{return}
         guard let genderid = selectedGender?.id,let cityid = city?.id ,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS") else {return}
         let parameters:[String:Any] = ["name":name,"mobile":phone,"email":email,"passwordHash":Password,"genderId":genderid,"cityId":cityid,"birthdate":birthdate]
         
@@ -140,7 +181,7 @@ extension ParentSignupVM{
     var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
         $phone
             .map { phone in
-                return !phone.isEmpty && phone.count == 11
+                return !phone.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -162,12 +203,12 @@ extension ParentSignupVM{
             }
             .eraseToAnyPublisher()
     }
+    
     // Publisher for checking if the birthDateStr is not empty
     var isEmailValidPublisher: AnyPublisher<Bool, Never> {
         $email
             .map { email in
-                let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
-                return !email.isEmpty && emailPredicate.evaluate(with: email)
+                return !email.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -203,7 +244,7 @@ extension ParentSignupVM{
     var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
         $Password
             .map { password in
-                return !password.isEmpty && password.count > 5
+                return !password.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -212,7 +253,7 @@ extension ParentSignupVM{
     var isConfirmPasswordValidPublisher: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest($Password, $confirmPassword)
             .map { password, confirmPassword in
-                return confirmPassword == password
+                return !confirmPassword.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -264,6 +305,13 @@ extension ParentSignupVM{
             }
             .assign(to: &$isFormValid)
         
+    }
+    
+    private func checkValidfields()->Bool{
+            isphonevalid = phone.count == 11
+            isPasswordvalid = Password.count >= 5
+            isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
+        return isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true
     }
 }
 

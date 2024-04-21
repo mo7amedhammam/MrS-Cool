@@ -32,7 +32,7 @@ struct TeacherPersonalDataView: View {
                         Group {
                             CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $signupvm.name,textContentType:.name)
                             
-                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $signupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
+                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $signupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad,isvalid: signupvm.isphonevalid)
                                 .onChange(of: signupvm.phone) { newValue in
                                     if newValue.count > 11 {
                                         signupvm.phone = String(newValue.prefix(11))
@@ -51,14 +51,14 @@ struct TeacherPersonalDataView: View {
                          
                             CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
-                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password)
+                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password,isvalid: signupvm.isPasswordvalid)
                                 .onChange(of: signupvm.Password) { newValue in
                                         if newValue.containsNonEnglishOrNumbers() {
                                             signupvm.Password = String(newValue.dropLast())
                                         }
                                     }
                             
-                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword)
+                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword,isvalid: signupvm.isconfirmPasswordvalid)
                                 .onChange(of: signupvm.confirmPassword) { newValue in
                                         if newValue.containsNonEnglishOrNumbers() {
                                             signupvm.confirmPassword = String(newValue.dropLast())
@@ -68,8 +68,7 @@ struct TeacherPersonalDataView: View {
                             CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio,charLimit: 1000)
                         }
                         .padding([.top])
-                        CheckboxField(label: "Accept the Terms and Privacy Policy",
-                                      color: ColorConstants.Black900, textSize: 13,
+                        CheckboxField(label: "Accept the Terms and Privacy Policy", color: ColorConstants.Black900, textSize: 13,
                                       isMarked: $signupvm.acceptTerms)
                         .padding(.top,15)
                     }.padding(.top,20)

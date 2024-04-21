@@ -28,7 +28,7 @@ struct StudentSignUpView: View {
                         Group {
                             CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $studentsignupvm.name,textContentType:.name)
                             
-                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
+                            CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad,isvalid: studentsignupvm.isphonevalid)
                                 .onChange(of: studentsignupvm.phone) { newValue in
                                     if newValue.count > 11 {
                                         studentsignupvm.phone = String(newValue.prefix(11))
@@ -51,14 +51,14 @@ struct StudentSignUpView: View {
 
                             CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.AcademicYearsList)
 
-                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $studentsignupvm.Password)
+                            CustomTextField(fieldType:.Password,placeholder: "Password *", text: $studentsignupvm.Password,isvalid: studentsignupvm.isPasswordvalid)
                                 .onChange(of: studentsignupvm.Password) { newValue in
                                         if newValue.containsNonEnglishOrNumbers() {
                                             studentsignupvm.Password = String(newValue.dropLast())
                                         }
                                     }
                             
-                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $studentsignupvm.confirmPassword)
+                            CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $studentsignupvm.confirmPassword,isvalid: studentsignupvm.isconfirmPasswordvalid)
                                 .onChange(of: studentsignupvm.confirmPassword) { newValue in
                                         if newValue.containsNonEnglishOrNumbers() {
                                             studentsignupvm.confirmPassword = String(newValue.dropLast())

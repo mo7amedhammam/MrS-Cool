@@ -21,10 +21,36 @@ class SignUpViewModel: ObservableObject {
     //Common data (note: same exact data for parent)
 //    @Published var selecteduser = UserType()
     @Published var name = ""
-    @Published var phone = ""
-    @Published var Password = ""
+    @Published var phone = ""{
+        didSet{
+            if phone.count == 11{
+                isphonevalid = true
+            }
+        }
+    }
+    @Published var isphonevalid : Bool? = true
+
+    @Published var Password = ""{
+        didSet{
+            if Password.count >= 6{
+                isPasswordvalid = true
+            }
+        }
+    }
+    @Published var isPasswordvalid : Bool? = true
     @Published var selectedGender : DropDownOption?
-    @Published var confirmPassword = ""
+    @Published var confirmPassword = ""{
+        didSet{
+            if !confirmPassword.isEmpty{
+                if  confirmPassword == Password {
+                    isconfirmPasswordvalid = true
+                }else{
+                    isconfirmPasswordvalid = false
+                }
+            }
+        }
+    }
+    @Published var isconfirmPasswordvalid : Bool? = true
     @Published var acceptTerms = false
 
     //Student data
@@ -73,6 +99,8 @@ class SignUpViewModel: ObservableObject {
 
 extension SignUpViewModel{
     func RegisterTeacherData(){
+        guard checkValidfields() else{return}
+
         guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
         let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
         
@@ -158,7 +186,7 @@ extension SignUpViewModel{
     var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
         $phone
             .map { phone in
-                return !phone.isEmpty && phone.count == 11
+                return !phone.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -212,7 +240,7 @@ extension SignUpViewModel{
     var isPasswordValidPublisher: AnyPublisher<Bool, Never> {
         $Password
             .map { password in
-                return !password.isEmpty && password.count > 5
+                return !password.isEmpty
             }
             .eraseToAnyPublisher()
     }
@@ -273,5 +301,12 @@ extension SignUpViewModel{
             }
             .assign(to: &$isFormValid)
         
+    }
+    
+    private func checkValidfields()->Bool{
+            isphonevalid = phone.count == 11
+            isPasswordvalid = Password.count >= 5
+            isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
+        return isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true
     }
 }
