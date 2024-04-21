@@ -46,9 +46,9 @@ struct TeacherDocumentDataView: View {
                         VStack(alignment: .leading, spacing: 0){
                             // -- Data Title --
                             HStack(alignment:.top){
-                                SignUpHeaderTitle(Title: "Subjects Information")
+                                SignUpHeaderTitle(Title: "Document Information")
                                 Spacer()
-                                Text("(3 / 3)")
+                                Text("(3 / 3)".localized())
                                     .font(.SoraRegular(size: 14))
                                     .foregroundColor(.black)
                             }

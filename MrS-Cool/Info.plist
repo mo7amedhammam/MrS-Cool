@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>we need to use your camera for selecting images for documents</string>
+	<key>NSCameraUsageDescription</key>
+	<string>we need to use your camera for picking images for documents</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.example.app.backgroundTaskIdentifier</string>

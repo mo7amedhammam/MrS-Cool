@@ -3,4 +3,54 @@
    uuid = "11E0F59A-02B0-4F0A-A7EE-45A8719B30E6"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5891C15-D282-4B4A-976B-3267B29E93C9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MrS-Cool/AppModules/Services/BaseRequest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "uploadApi(_:_:progressHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B5891C15-D282-4B4A-976B-3267B29E93C9 - a2c592cf5b4ccc71"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in closure #1 ((Swift.Result&lt;&#x3c4;_0_1, MrS_Cool.NetworkError&gt;) -&gt; ()) -&gt; () in static MrS_Cool.BaseNetwork.uploadApi&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: MrS_Cool.TargetType, &#x3c4;_0_1: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(_: &#x3c4;_0_0, _: &#x3c4;_0_1.Type, progressHandler: (Swift.Double) -&gt; ()) -&gt; Combine.AnyPublisher&lt;&#x3c4;_0_1, MrS_Cool.NetworkError&gt;"
+                  moduleName = "MrS-Cool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wecancity/Desktop/wecancity/MrS-Cool/MrS-Cool/AppModules/Services/BaseRequest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "219"
+                  endingLineNumber = "219"
+                  offsetFromSymbolStart = "1808">
+               </Location>
+               <Location
+                  uuid = "B5891C15-D282-4B4A-976B-3267B29E93C9 - a2c592cf5b4ccc71"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in closure #1 ((Swift.Result&lt;&#x3c4;_0_1, MrS_Cool.NetworkError&gt;) -&gt; ()) -&gt; () in static MrS_Cool.BaseNetwork.uploadApi&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: MrS_Cool.TargetType, &#x3c4;_0_1: Swift.Decodable, &#x3c4;_0_1: Swift.Encodable&gt;(_: &#x3c4;_0_0, _: &#x3c4;_0_1.Type, progressHandler: (Swift.Double) -&gt; ()) -&gt; Combine.AnyPublisher&lt;&#x3c4;_0_1, MrS_Cool.NetworkError&gt;"
+                  moduleName = "MrS-Cool"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wecancity/Desktop/wecancity/MrS-Cool/MrS-Cool/AppModules/Services/BaseRequest.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "219"
+                  endingLineNumber = "219"
+                  offsetFromSymbolStart = "1996">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

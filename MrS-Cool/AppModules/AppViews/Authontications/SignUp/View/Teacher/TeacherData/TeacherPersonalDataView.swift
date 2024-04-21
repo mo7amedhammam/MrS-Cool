@@ -24,7 +24,7 @@ struct TeacherPersonalDataView: View {
                         HStack(alignment:.top){
                             SignUpHeaderTitle()
                             Spacer()
-                            Text("(1 / 3)")
+                            Text("(1 / 3)".localized())
                                 .font(.SoraRegular(size: 14))
                                 .foregroundColor(.black)
                         }

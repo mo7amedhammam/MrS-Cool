@@ -92,7 +92,7 @@ struct SignUpView: View {
 
 
 #Preview {
-    SignUpView(selecteduser: .constant(UserType()))
+    SignUpView(selecteduser: .constant(UserType(id: 2, imgName: "teacher-vector", user: .Teacher, tintColor: .teacherTint)))
 }
 
 struct haveAccountView: View {

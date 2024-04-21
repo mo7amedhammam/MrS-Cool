@@ -25,7 +25,7 @@ struct TeacherSubjectsDataView: View {
                         HStack(alignment: .top){
                             SignUpHeaderTitle(Title: "Subjects Information")
                             Spacer()
-                            Text("(2 / 3)")
+                            Text("(2 / 3)".localized())
                                 .font(.SoraRegular(size: 14))
                                 .foregroundColor(.black)
                         }

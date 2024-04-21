@@ -25,7 +25,7 @@ struct TeacherSignUpView: View {
     //    @State var isPush = false
     //    @State var destination = AnyView(Text("destination"))
     
-    @State var currentStep:teacherSteps = .personalData
+    @State var currentStep:teacherSteps = .documentsData
     @State private var isVerified = false
     @State private var isFinish = false
     
@@ -106,4 +106,5 @@ struct TeacherSignUpView: View {
     TeacherSignUpView()
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
+        .environmentObject(TeacherDocumentsVM())
 }

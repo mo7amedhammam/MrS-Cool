@@ -10,18 +10,18 @@ enum UserTypeEnum:String{
     case Parent = "Parent"
     case Teacher = "Teacher"
 }
-struct UserType:Equatable {
+struct UserType {
     var id : Int = 0
     //    var title : String = "Student"
-    var imgName : String = "img_group141_9"
+    var imgName : String = "student-vector"
     var user : UserTypeEnum = .Student
-    var tintColor : Color = Color("StudentBtnTxtColor")
+    var tintColor : Color = .studentTint
 }
 
 import SwiftUI
 
 struct UserTypeCell: View {
-    var user:UserType = UserType.init(id: 0, imgName: "student-vector", user: .Student)
+    var user:UserType = UserType.init(id: 0, imgName: "student-vector", user: .Student,tintColor: .studentTint)
     @Binding var selectedUser:UserType
     var action:(()->())?
 
@@ -31,8 +31,8 @@ struct UserTypeCell: View {
             action?()
             if selectedUser.user == .Student{
                 Helper.shared.setSelectedUserType(userType: .Student)
-            }
-            else if selectedUser.user == .Parent{
+                
+            }else if selectedUser.user == .Parent{
                 Helper.shared.setSelectedUserType(userType: .Parent)
 
             }else {
@@ -44,7 +44,7 @@ struct UserTypeCell: View {
                     .resizable()
 //                    .renderingMode(.template)
                     .background(user.id == selectedUser.id ? ColorConstants.WhiteA700 :ColorConstants.Bluegray100)
-                    .foregroundColor(user == selectedUser ? ColorConstants.Black900 :ColorConstants.Gray600)
+                    .foregroundColor(user.id == selectedUser.id ? ColorConstants.Black900 :ColorConstants.Gray600)
                     .frame(width: 77,
                            height: 77, alignment: .center)
                     .scaledToFit()
@@ -54,19 +54,19 @@ struct UserTypeCell: View {
                 Text(user.user.rawValue.localized())
                     .font(Font.SoraSemiBold(size: 12))
                     .fontWeight(.semibold)
-                    .foregroundColor(user == selectedUser ? ColorConstants.WhiteA700 :ColorConstants.Gray600)
+                    .foregroundColor(user.id == selectedUser.id ? ColorConstants.WhiteA700 :ColorConstants.Gray600)
                     .multilineTextAlignment(.center)
                     .padding(.vertical, 19.0)
             }
             .frame(minWidth: 0,maxWidth: .infinity)
             .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
-                .fill(user == selectedUser ? ColorConstants.MainColor :user.tintColor))
+                .fill(user.id == selectedUser.id ? ColorConstants.MainColor : user.tintColor))
         })
     }
 }
 
 #Preview {
-    UserTypeCell(selectedUser: .constant(UserType.init(id: 0, imgName: "student-vector", user: .Parent,tintColor: Color("StudentBtnTxtColor"))))
+    UserTypeCell(selectedUser: .constant(UserType.init(id: 0, imgName: "student-vector", user: .Parent,tintColor: .studentTint)))
 }
 
 
