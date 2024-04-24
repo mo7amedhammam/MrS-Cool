@@ -139,6 +139,13 @@ class Helper: NSObject {
             // Disable swipe back gesture
             navigationController.interactivePopGestureRecognizer?.isEnabled = false
             
+            // Set up the flip animation
+            let transition = CATransition()
+            transition.duration = 0.5
+            transition.type = CATransitionType(rawValue: "flip")
+            transition.subtype = CATransitionSubtype(rawValue: "fromRight")
+            window.layer.add(transition, forKey: kCATransition)
+            
             window.rootViewController = navigationController
             window.makeKeyAndVisible()
         }

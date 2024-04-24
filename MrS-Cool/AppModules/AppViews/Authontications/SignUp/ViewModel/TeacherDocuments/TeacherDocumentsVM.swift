@@ -18,7 +18,7 @@ class TeacherDocumentsVM: ObservableObject {
     @Published var documentImg : UIImage? = nil
 
     @Published var documentPdf : URL? = nil
-
+    @Published var isFormValid : Bool = true
 
     @Published var filterdocumentType : DropDownOption?
 
@@ -40,7 +40,7 @@ class TeacherDocumentsVM: ObservableObject {
     }
     
     init()  {
-//        GetTeacherDocument()
+        monitorTextFields()
     }
 }
 
@@ -174,6 +174,31 @@ extension TeacherDocumentsVM{
         documentPdf = nil
     }
 
+  
+    
+
+    func monitorTextFields() {
+        // Publisher for checking if the password & its confirmation is valid
+        var isFileValid : AnyPublisher<Bool,Never>{
+            Publishers.CombineLatest3($documentImg,$documentPdf,$documentType)
+                .map{valid1,valid2, valid3 in
+                    guard valid1 != nil && (valid2 != nil || valid3 != nil) else{return false}
+                    return true
+                }
+                .eraseToAnyPublisher()
+        }
+        // Combine publishers for form validation
+              Publishers.CombineLatest3( $documentTitle,$documentOrder,isFileValid)
+                  .map { [weak self] valid1, valid2, valid3 in
+                      // Perform the validation checks
+                      let type = !valid1.isEmpty
+                      let title = !valid2.isEmpty
+
+                      // Return the overall form validity
+                      return type && title && valid3
+                  }
+                  .assign(to: &$isFormValid)
+    }
 
 }
 

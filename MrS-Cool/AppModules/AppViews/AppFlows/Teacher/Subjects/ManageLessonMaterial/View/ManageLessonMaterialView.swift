@@ -285,16 +285,10 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                         })
                                     
                                         .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
-                                            // Optional: Handle actions on closing the preview sheet
-                                        }, content: {
-                                            VStack{
-                                                CustomTitleBarView(title: "")
-                                                FilePreviewerSheet(url: $previewurl).edgesIgnoringSafeArea(.bottom)
-                                                Spacer()
-                                            }
-                                            .frame(width:UIScreen.main.bounds.width)
-                                        })
-                                    
+                                        // Optional: Handle actions on closing the preview sheet
+                                    }, content: {
+                                        FilePreviewerSheet(url:$previewurl)
+                                    })
                                 }
                                 
                             }

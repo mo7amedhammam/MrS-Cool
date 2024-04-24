@@ -98,7 +98,7 @@ struct TeacherDocumentDataView: View {
                                 .padding(.horizontal,80)
                                 
                                 
-                                Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB")
+                                Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
                                     .lineSpacing(4)
                                     .frame(minWidth: 0,maxWidth: .infinity)
                                     .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
@@ -110,7 +110,7 @@ struct TeacherDocumentDataView: View {
                         
                         HStack {
                             Group{
-                                CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                                CustomButton(Title:"Save",IsDisabled: .constant(!teacherdocumentsvm.isFormValid), action: {
                                     teacherdocumentsvm.CreateTeacherDocument(fileType: selectedFileType)
                                 })
                                 CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
@@ -214,15 +214,10 @@ struct TeacherDocumentDataView: View {
                 }
             })
         
-        .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
+            .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
             // Optional: Handle actions on closing the preview sheet
         }, content: {
-            VStack{
-                CustomTitleBarView(title: "")
-                FilePreviewerSheet(url: $previewurl).edgesIgnoringSafeArea(.bottom)
-                Spacer()
-                }
-            .frame(width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height)
+            FilePreviewerSheet(url:$previewurl)
         })
         
         .fullScreenCover(isPresented: $isFinish, onDismiss: {

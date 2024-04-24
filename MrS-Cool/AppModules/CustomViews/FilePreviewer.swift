@@ -13,36 +13,57 @@ struct FilePreviewerSheet: View {
    @Binding var url: String
     
     var body: some View {
-        ZStack {
-            if url.hasSuffix(".pdf") {
-                
-                // Display PDF view
-                if let url = URL(string: url.reverseSlaches()){
-                    PDFViewer(url: url)
-                }
-            } else if url.hasSuffix(".jpg") || url.hasSuffix(".jpeg") || url.hasSuffix(".png") {
-                // Display image view
-                // Display image view
-                if let imageURL = URL(string: url.reverseSlaches()) {
-                    ImageView(url: imageURL)
-//                    ImagePreviewer(IsPresented: .constant(true), imageUrl: .constant(url.reverseSlaches()))
+        ZStack(){
+                if url.hasSuffix(".pdf") {
+                    
+                    // Display PDF view
+                    if let url = URL(string: url.reverseSlaches()){
+                        PDFViewer(url: url)
+                        
+                    }
+                } else if url.hasSuffix(".jpg") || url.hasSuffix(".jpeg") || url.hasSuffix(".png") {
+                    // Display image view
+                    if let imageURL = URL(string: url.reverseSlaches()) {
+                        ImageView(url: imageURL)
+                    } else {
+                        Text("Invalid Image URL")
+                    }
                 } else {
-                    Text("Invalid Image URL")
+                    Text("Unsupported file type")
                 }
-            } else {
-                Text("Unsupported file type")
-            }
-            
-            Spacer()
+                closeButton
         }
-        .padding(.top)
-//        .frame(maxHeight:UIScreen.main.bounds.height - 120)
+            .background{ ColorConstants.WhiteA700}
         
         .onAppear(perform: {
             print("final url:",url.reverseSlaches())
         })
     }
+    
+    var closeButton: some View {
+           VStack {
+               HStack {
+                   Button(action: {
+                       presentationMode.wrappedValue.dismiss()
+                   }) {
+                       Image(systemName: "xmark")
+                           .padding(10)
+                           .foregroundStyle(ColorConstants.WhiteA700)
+                   }
+                   Spacer()
+               }
+               .padding(.top, 5)
+               Spacer()
+           }
+       }
 }
+#Preview{
+    FilePreviewerSheet(url: .constant("https://mrscoolapi.azurewebsites.net/Images//TeacherDocument//36ca43e4-eede-4d67-a5e4-8c926d6ec35d.pdf"))
+
+
+}
+
+
 
 struct PDFViewer: View {
     var url: URL
@@ -89,57 +110,94 @@ struct ImageView: View {
     @State private var initialPosition: CGSize = .zero
     
     var body: some View {
+        
         if let imageURL = url {
-            AsyncImage(url: imageURL) { phase in
-                switch phase {
-                case .empty:
-                    // Placeholder view while loading
-                    ProgressView()
-                case .success(let image):
-                    // Display the loaded image
-                    image
-                        .resizable()
-                        .background(.ultraThinMaterial)
-                        .aspectRatio(contentMode: .fill)
-                        .scaleEffect(scale * currentScale)
-                        .offset(position)
-                        .gesture(
-                            MagnificationGesture()
-                                .updating($scale) { value, scale, _ in
-                                    scale = value
-                                }
-                                .onEnded { value in
-                                    currentScale *= value
-                                    if currentScale < 1.0 {
-                                        currentScale = 1.0
-                                    }
-                                }
-                        )
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    if currentScale > 1.0 {
-                                        let newPosition = CGSize(
-                                            width: initialPosition.width + value.translation.width,
-                                            height: initialPosition.height + value.translation.height
-                                        )
-                                        position = constrainedPosition(for: newPosition)
-                                    }
-                                }
-                                .onEnded { value in
-                                    if currentScale > 1.0 {
-                                        initialPosition = position
-                                    }
-                                }
-                        )
-                case .failure(let error):
-                    Text("Failed to load image"+error.localizedDescription)
+                    KFImageLoader(url: url, placeholder: Image("img_younghappysmi"))
+                  
+                .aspectRatio(contentMode: .fill)
+                .scaleEffect(scale * currentScale)
+                .offset(position)
+                .gesture(
+                MagnificationGesture()
+                    .updating($scale) { value, scale, _ in
+                        scale = value
+                    }
+                    .onEnded { value in
+                        currentScale *= value
+                        if currentScale < 1.0 {
+                            currentScale = 1.0
+                        }
+                    }
+            )
+            .gesture(
+                DragGesture()
+                    .onChanged { value in
+                        if currentScale > 1.0 {
+                            let newPosition = CGSize(
+                                width: initialPosition.width + value.translation.width,
+                                height: initialPosition.height + value.translation.height
+                            )
+                            position = constrainedPosition(for: newPosition)
+                        }
+                    }
+                    .onEnded { value in
+                        if currentScale > 1.0 {
+                            initialPosition = position
+                        }
+                    }
+            )
 
-                @unknown default:
-                    // Handle other cases (optional)
-                    Text("Failed to load image")
-                }
-            }
+            
+//            AsyncImage(url: imageURL) { phase in
+//                switch phase {
+//                case .empty:
+//                    // Placeholder view while loading
+//                    ProgressView()
+//                case .success(let image):
+//                    // Display the loaded image
+//                    image
+//                        .resizable()
+//                        .background(.ultraThinMaterial)
+//                        .aspectRatio(contentMode: .fill)
+//                        .scaleEffect(scale * currentScale)
+//                        .offset(position)
+//                        .gesture(
+//                            MagnificationGesture()
+//                                .updating($scale) { value, scale, _ in
+//                                    scale = value
+//                                }
+//                                .onEnded { value in
+//                                    currentScale *= value
+//                                    if currentScale < 1.0 {
+//                                        currentScale = 1.0
+//                                    }
+//                                }
+//                        )
+//                        .gesture(
+//                            DragGesture()
+//                                .onChanged { value in
+//                                    if currentScale > 1.0 {
+//                                        let newPosition = CGSize(
+//                                            width: initialPosition.width + value.translation.width,
+//                                            height: initialPosition.height + value.translation.height
+//                                        )
+//                                        position = constrainedPosition(for: newPosition)
+//                                    }
+//                                }
+//                                .onEnded { value in
+//                                    if currentScale > 1.0 {
+//                                        initialPosition = position
+//                                    }
+//                                }
+//                        )
+//                case .failure(let error):
+//                    Text("Failed to load image"+error.localizedDescription)
+//
+//                @unknown default:
+//                    // Handle other cases (optional)
+//                    Text("Failed to load image")
+//                }
+//            }
         } else {
             Text("Invalid Image URL")
         }
