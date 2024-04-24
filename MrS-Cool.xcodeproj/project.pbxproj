@@ -219,7 +219,6 @@
 		C815A0242B84C19100416A2A /* StudentCompletedLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCompletedLessonsView.swift; sourceTree = "<group>"; };
 		C815A0262B84C24900416A2A /* StudenCompletedLessonCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudenCompletedLessonCellView.swift; sourceTree = "<group>"; };
 		C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpVM.swift; sourceTree = "<group>"; };
-		C81A2EBC2BBEB55100B4CE99 /* MrS-Cool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MrS-Cool.entitlements"; sourceTree = "<group>"; };
 		C81A2EBD2BBEC7E400B4CE99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C81A2EBF2BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_66DNB8S82R.p8; sourceTree = "<group>"; };
 		C81A2EC22BBEE96100B4CE99 /* FirebaseNotificationsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNotificationsVM.swift; sourceTree = "<group>"; };
@@ -301,6 +300,7 @@
 		C88C52D72ADFE4EC003DE051 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C88C52DA2AE00124003DE051 /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		C88C52DD2AE02548003DE051 /* ExStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExStrings.swift; sourceTree = "<group>"; };
+		C88E99362BD6F42300F063FA /* MrS-Cool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MrS-Cool.entitlements"; sourceTree = "<group>"; };
 		C88FF1DF2B00D8E1007158E6 /* ManageTeacherProfileM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherProfileM.swift; sourceTree = "<group>"; };
 		C897B33F2B53E866008BA13D /* StudentMostViewedSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentMostViewedSubjectCell.swift; sourceTree = "<group>"; };
 		C897B3422B53FD22008BA13D /* StudentTopRatedTeachersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTopRatedTeachersCell.swift; sourceTree = "<group>"; };
@@ -1603,7 +1603,7 @@
 		C89EA9042ADD906300891D41 /* MrS-Cool */ = {
 			isa = PBXGroup;
 			children = (
-				C81A2EBC2BBEB55100B4CE99 /* MrS-Cool.entitlements */,
+				C88E99362BD6F42300F063FA /* MrS-Cool.entitlements */,
 				C81A2EBF2BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 */,
 				C81A2EBD2BBEC7E400B4CE99 /* GoogleService-Info.plist */,
 				C8FB11CE2ADDA6610051715F /* Info.plist */,
@@ -2783,7 +2783,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";

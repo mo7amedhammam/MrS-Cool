@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+//import UniformTypeIdentifiers
+
 
 enum fileTypesList{
     case image,pdf
@@ -77,7 +79,7 @@ struct TeacherDocumentDataView: View {
                                                 .aspectRatio(contentMode: .fill)
                                         })
                                         
-                                        Text("Your file uploaded\nsuccessfully")
+                                        Text(teacherdocumentsvm.documentPdf?.lastPathComponent ?? "")
                                             .font(Font.SoraRegular(size:12))
                                             .foregroundColor(ColorConstants.Gray900)
                                             .multilineTextAlignment(.center)
@@ -201,13 +203,14 @@ struct TeacherDocumentDataView: View {
                     ImagePicker(sourceType: sourceType , selectedImage: $teacherdocumentsvm.documentImg)
                 }
             }
-            .fileImporter(isPresented: $startPickingPdf, allowedContentTypes: [.pdf], onCompletion: {file in
-                do{
-                    let url = try file.get()
-                    print("file url ",url)
+            .fileImporter(isPresented: $startPickingPdf, allowedContentTypes: [.pdf], onCompletion: {result in
+                
+                switch result {
+                case .success(let url):
                     teacherdocumentsvm.documentPdf = url
-                }catch{
-                    print("can't get file",error)
+
+                case .failure(let failure):
+                    print("Importer error: \(failure)")
                 }
             })
         
@@ -217,9 +220,9 @@ struct TeacherDocumentDataView: View {
             VStack{
                 CustomTitleBarView(title: "")
                 FilePreviewerSheet(url: $previewurl).edgesIgnoringSafeArea(.bottom)
-                                                                    Spacer()
+                Spacer()
                 }
-            .frame(width:UIScreen.main.bounds.width)
+            .frame(width:UIScreen.main.bounds.width,height:UIScreen.main.bounds.height)
         })
         
         .fullScreenCover(isPresented: $isFinish, onDismiss: {

@@ -35,6 +35,7 @@ struct FilePreviewerSheet: View {
             
             Spacer()
         }
+        .padding(.top)
 //        .frame(maxHeight:UIScreen.main.bounds.height - 120)
         
         .onAppear(perform: {

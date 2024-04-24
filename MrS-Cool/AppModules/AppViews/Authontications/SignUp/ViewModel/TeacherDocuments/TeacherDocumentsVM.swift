@@ -56,7 +56,6 @@ extension TeacherDocumentsVM{
             parameters["Document"] = documentImg
         case .pdf:
             parameters["Document"] = documentPdf
-
         }
         
         print("parameters",parameters)

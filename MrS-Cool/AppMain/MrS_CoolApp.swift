@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              FirebaseApp.configure()
              Messaging.messaging().delegate = self
              UNUserNotificationCenter.current().delegate = self
-            
+             UIApplication.shared.applicationIconBadgeNumber = 0
 
             if Helper.shared.CheckIfLoggedIn() == false {
                 Helper.shared.setSelectedUserType(userType: .Student)

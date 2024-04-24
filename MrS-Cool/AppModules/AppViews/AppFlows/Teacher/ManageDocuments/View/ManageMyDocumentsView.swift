@@ -75,7 +75,7 @@ struct ManageMyDocumentsView: View {
                                                     .aspectRatio(contentMode: .fill)
                                             })
                                             
-                                            Text("Your file uploaded\nsuccessfully")
+                                            Text(teacherdocumentsvm.documentPdf?.lastPathComponent ?? "")
                                                 .font(Font.SoraRegular(size:12))
                                                 .foregroundColor(ColorConstants.Gray900)
                                                 .multilineTextAlignment(.center)
@@ -225,13 +225,13 @@ struct ManageMyDocumentsView: View {
                         ImagePicker(sourceType: sourceType , selectedImage: $teacherdocumentsvm.documentImg)
                     }
                 }
-                .fileImporter(isPresented: $startPickingPdf, allowedContentTypes: [.pdf], onCompletion: {file in
-                    do{
-                        let url = try file.get()
-                        print("file url ",url)
+                .fileImporter(isPresented: $startPickingPdf, allowedContentTypes: [.pdf], onCompletion: {result in
+                    switch result {
+                    case .success(let url):
                         teacherdocumentsvm.documentPdf = url
-                    }catch{
-                        print("can't get file",error)
+
+                    case .failure(let failure):
+                        print("Importer error: \(failure)")
                     }
                 })
             
