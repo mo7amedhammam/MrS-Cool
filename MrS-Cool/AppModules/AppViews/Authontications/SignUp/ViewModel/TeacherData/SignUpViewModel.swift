@@ -102,8 +102,8 @@ extension SignUpViewModel{
         guard checkValidfields() else{return}
 
         guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-        let parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
-        
+        var parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher]
+        parameters["TeacherBio"] = bio
 //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
         let target = Authintications.Register(user: .Teacher, parameters: parameters)
@@ -200,15 +200,6 @@ extension SignUpViewModel{
             .eraseToAnyPublisher()
     }
     
-    // Publisher for checking if the birthDateStr is not empty
-    var isBioValidPublisher: AnyPublisher<Bool, Never> {
-        $bio
-            .map { bio in
-                return !bio.isEmpty
-            }
-            .eraseToAnyPublisher()
-    }
-    
     // Publisher for checking if the educationtype is not empty
     var isCountrySelectedPublisher: AnyPublisher<Bool, Never> {
         $country
@@ -264,9 +255,9 @@ extension SignUpViewModel{
     
     // Publisher for checking if the personal data is valid
     var isPersonalInfoValid : AnyPublisher<Bool,Never>{
-        Publishers.CombineLatest4(isNameValidPublisher,isPhoneValidPublisher,isGenderSelectedPublisher,isBioValidPublisher)
-            .map{valid1,valid2,valid3,valid4 in
-                guard valid1 && valid2 && valid3 && valid4 else{return false}
+        Publishers.CombineLatest3(isNameValidPublisher,isPhoneValidPublisher,isGenderSelectedPublisher)
+            .map{valid1,valid2,valid3 in
+                guard valid1 && valid2 && valid3  else{return false}
                 return true
             }
             .eraseToAnyPublisher()

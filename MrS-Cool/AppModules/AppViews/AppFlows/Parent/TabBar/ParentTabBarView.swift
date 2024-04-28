@@ -346,6 +346,9 @@ struct ParentSideMenuContent: View {
                 Spacer()
             }
         }
+        .onAppear{
+            parentprofilevm.GetParentProfile()
+        }
         .frame(width: UIScreen.main.bounds.width - 80)
         .padding(.top, 55)
         .background{

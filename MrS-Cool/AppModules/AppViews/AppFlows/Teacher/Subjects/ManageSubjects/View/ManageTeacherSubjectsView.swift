@@ -38,24 +38,26 @@ struct ManageTeacherSubjectsView: View {
                                 }
                                 // -- inputs --
                                 Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList)
+                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,isvalid:manageteachersubjectsvm.iseducationTypevalid)
                                     
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList)
+                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
                                     
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList)
+                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:manageteachersubjectsvm.isacademicYearvalid)
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid:manageteachersubjectsvm.issubjectvalid)
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isminGroupvalid)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.ismaxGroupvalid)
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
                                     
-                                    CustomTextEditor(iconName:"img_group512375",placeholder: "Subject Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000)
+                                    CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
                                     
+                                    CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000).reversLocalizeView()
+                                        
                                 }
                                 .padding([.top])
                             }.padding(.top,20)

@@ -16,7 +16,14 @@ class ManageTeacherProfileVM: ObservableObject {
     //Common data (note: same exact data for parent)
     @Published var image : UIImage? 
     @Published var imageStr : String?
-    @Published var name = ""
+    @Published var name = ""{
+        didSet{
+            if name.count >= 2{
+                isnamevalid = true
+            }
+        }
+    }
+    @Published var isnamevalid : Bool?
     @Published var code = ""
     @Published var accountStatus : ProfileStatus?
 
@@ -26,10 +33,41 @@ class ManageTeacherProfileVM: ObservableObject {
     //Teacher personal data
     @Published var isTeacher : Bool?
     @Published var country : DropDownOption?
-    @Published var governorte : DropDownOption?
-    @Published var city : DropDownOption?
-    @Published var birthDateStr : String?
-    @Published var email = ""
+    @Published var governorte : DropDownOption?{
+        didSet{
+            isgovernortevalid = governorte == nil ? false:true
+        }
+    }
+    @Published var isgovernortevalid : Bool?
+
+    @Published var city : DropDownOption?{
+        didSet{
+            iscityvalid = city == nil ? false:true
+        }
+    }
+    @Published var iscityvalid : Bool?
+    
+    @Published var birthDateStr : String?{
+        didSet{
+            isbirthDateStrvalid = birthDateStr == nil ? false:true
+        }
+    }
+    @Published var isbirthDateStrvalid : Bool?
+
+    @Published var email = ""{
+        didSet{
+            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+            if !email.isEmpty{
+                if  emailPredicate.evaluate(with: email){
+                    isemailvalid = true
+                }else{
+                    isemailvalid = false
+                    }
+                }
+            }
+    }
+    
+    @Published var isemailvalid : Bool?
     @Published var bio = ""
 
 //    MARK: --- outpust ---
@@ -92,6 +130,8 @@ extension ManageTeacherProfileVM{
     }
     
     func UpdateTeacherProfile(){
+        guard checkValidfields() else{return}
+
         guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"),let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"Email":email,"Birthdate":birthDateStr,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
         if let image = image {
@@ -117,7 +157,8 @@ extension ManageTeacherProfileVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true{
+                    isDataUploaded = true
 //                    OtpM = model
                 }else{
                     isError =  true
@@ -149,6 +190,21 @@ extension ManageTeacherProfileVM{
         email =  model.email ?? ""
         bio = model.teacherBio ?? ""
     }
+    
+    private func checkValidfields()->Bool{
+        isnamevalid = !name.isEmpty
+        isemailvalid = !email.isEmpty
+        isgovernortevalid = governorte != nil
+        iscityvalid = city != nil
+        isbirthDateStrvalid = birthDateStr != nil
+        
+        return isnamevalid ?? true &&
+        isemailvalid ?? true &&
+        isgovernortevalid ?? true &&
+        iscityvalid ?? true &&
+        isbirthDateStrvalid ?? true
+    }
+    
 }
 
 

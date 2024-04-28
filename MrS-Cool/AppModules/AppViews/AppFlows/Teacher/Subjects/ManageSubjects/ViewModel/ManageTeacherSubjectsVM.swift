@@ -32,32 +32,71 @@ class ManageTeacherSubjectsVM: ObservableObject {
         didSet{
             if !isEditing{
                 educationLevel = nil
+                iseducationTypevalid = educationType == nil ? false:true
             }
         }
     }
+    @Published var iseducationTypevalid:Bool?
+
     @Published var educationLevel : DropDownOption?{
         didSet{
             if !isEditing{
                 academicYear = nil
+                iseducationLevelvalid = educationLevel == nil ? false:true
             }
         }
     }
+    @Published var iseducationLevelvalid:Bool?
+
     @Published var academicYear : DropDownOption?{
         didSet{
             if !isEditing{
                 subject = nil
+                isacademicYearvalid = academicYear == nil ? false:true
             }
         }
     }
-    @Published var subject : DropDownOption?
+    @Published var isacademicYearvalid:Bool?
+
+    @Published var subject : DropDownOption?{
+        didSet{
+            issubjectvalid = subject == nil ? false:true
+        }
+    }
+    @Published var issubjectvalid:Bool? 
     
     // for update subject
     @Published var editId : Int = 0
-    @Published var groupCost : String = ""
-    @Published var individualCost : String = ""
-    @Published var minGroup : String = ""
-    @Published var maxGroup : String = ""
+    @Published var groupCost : String = ""{
+        didSet{
+            isgroupCostvalid = groupCost.isEmpty ? false:true
+        }
+    }
+    @Published var isgroupCostvalid:Bool?
+
+    @Published var individualCost : String = ""{
+        didSet{
+            isindividualCostvalid = individualCost.isEmpty ? false:true
+        }
+    }
+    @Published var isindividualCostvalid:Bool?
+    
+    @Published var minGroup : String = ""{
+        didSet{
+            isminGroupvalid = minGroup.isEmpty ? false:true
+        }
+    }
+    @Published var isminGroupvalid:Bool?
+    
+    @Published var maxGroup : String = ""{
+        didSet{
+            ismaxGroupvalid = maxGroup.isEmpty ? false:true
+        }
+    }
+    @Published var ismaxGroupvalid:Bool?
+    
     @Published var subjectBrief : String = ""
+    @Published var subjectBriefEn : String = ""
     
     @Published var filterEducationType : DropDownOption?{
         didSet{
@@ -107,9 +146,18 @@ class ManageTeacherSubjectsVM: ObservableObject {
 extension ManageTeacherSubjectsVM{
     
     func CreateTeacherSubject(){
-        guard let subjectAcademicYearId = subject?.id else {return}
-        let parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId]
+        guard checkValidfields() else {return}
         
+        guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
+        var parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
+        
+        if !subjectBrief.isEmpty{
+            parameters[ "teacherBrief" ] = subjectBrief
+        }
+        if !subjectBriefEn.isEmpty{
+            parameters["teacherBriefEn"] = subjectBriefEn
+        }
+
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
         isLoading = true
@@ -130,6 +178,7 @@ extension ManageTeacherSubjectsVM{
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
                     GetTeacherSubjects()
+                    clearTeachersSubject()
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -142,8 +191,14 @@ extension ManageTeacherSubjectsVM{
     
     func UpdateTeacherSubject(){
         guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
-        let parameters:[String:Any] = ["id":editId,"subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup,"teacherBrief":subjectBrief ]
-        
+        var parameters:[String:Any] = ["id":editId,"subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
+        if !subjectBrief.isEmpty{
+            parameters[ "teacherBrief" ] = subjectBrief
+        }
+        if !subjectBriefEn.isEmpty{
+            parameters["teacherBriefEn"] = subjectBriefEn
+        }
+
         print("parameters",parameters)
         let target = teacherServices.UpdateTeacherSubject(parameters: parameters)
         isLoading = true
@@ -267,6 +322,17 @@ extension ManageTeacherSubjectsVM{
         groupCost = ""
         individualCost = ""
         subjectBrief =  ""
+        subjectBriefEn = ""
+        
+        isminGroupvalid = true
+        ismaxGroupvalid = true
+        isgroupCostvalid = true
+        isindividualCostvalid = true
+        iseducationTypevalid = true
+        iseducationLevelvalid = true
+        isacademicYearvalid =  true
+        issubjectvalid = true
+        
     }
     func clearFilter(){
         filterEducationType = nil
@@ -295,6 +361,7 @@ extension ManageTeacherSubjectsVM{
             individualCost = String(indcost)
         }
         subjectBrief = item.teacherBrief ?? ""
+        subjectBriefEn = item.teacherBriefEn ?? ""
         isEditing = true
     }
     
@@ -305,6 +372,28 @@ extension ManageTeacherSubjectsVM{
          }
          cancellables.removeAll()
      }
+    
+    private func checkValidfields()->Bool{
+        iseducationTypevalid = educationType != nil
+        iseducationLevelvalid = educationLevel != nil
+        isacademicYearvalid = academicYear != nil
+        issubjectvalid = subject != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+        isminGroupvalid = !minGroup.isEmpty
+        ismaxGroupvalid = !maxGroup.isEmpty
+        isgroupCostvalid = !groupCost.isEmpty
+        isindividualCostvalid = !individualCost.isEmpty
+        
+        return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true && isminGroupvalid ?? true && ismaxGroupvalid ?? true && isgroupCostvalid ?? true && isindividualCostvalid ?? true
+    }
 }
 
 

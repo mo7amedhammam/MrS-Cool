@@ -210,8 +210,8 @@ struct TeacherTabBarView: View {
                     Helper.shared.IsLoggedIn(value: false)
                     
                 }
-            }
-//        }
+//            }
+        }
             NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
     
@@ -350,6 +350,9 @@ struct TeacherSideMenuContent: View {
 
                 Spacer()
             }
+        }
+        .onAppear{
+            teacherprofilevm.GetTeacherProfile()
         }
             .frame(width: UIScreen.main.bounds.width - 80)
             .padding(.top, 55)

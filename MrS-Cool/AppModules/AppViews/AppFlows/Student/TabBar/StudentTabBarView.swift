@@ -217,6 +217,7 @@ struct CustomTabBarView: View {
             //            .frame(height: middleTabHeight)
         }
         
+        
         //        .frame(height: middleTabHeight)
         
     }
@@ -370,7 +371,11 @@ struct StudentSideMenuContent: View {
 
                 Spacer()
             }
+        }  
+        .onAppear{
+            studentsignupvm.GetStudentProfile()
         }
+
             .frame(width: UIScreen.main.bounds.width - 80)
             .padding(.top, 55)
             .background{

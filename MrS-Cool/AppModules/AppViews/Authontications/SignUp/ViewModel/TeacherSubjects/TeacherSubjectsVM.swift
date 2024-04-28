@@ -13,36 +13,38 @@ class TeacherSubjectsVM: ObservableObject {
 //    @Published var isUserChangagble = true // available unless teacher save personal data
 
 //    MARK: --- inputs ---
-    //Common data (note: same exact data for parent)
-//    @Published var selecteduser = UserType()
-//    @Published var name = ""
-//    @Published var phone = ""
-//    @Published var Password = ""
-//    @Published var selectedGender : DropDownOption?
-//    @Published var confirmPassword = ""
-//    @Published var acceptTerms = false
-
-    //Student data
-//    @Published var birthDate : Date?
-//    // next 4  common with teacher subjects
-//    @Published var birthDateStr = ""
     
     @Published var educationType : DropDownOption?{
         didSet{
             educationLevel = nil
+            
+            iseducationTypevalid = educationType == nil ? false:true
         }
     }
+    @Published var iseducationTypevalid:Bool? 
+
     @Published var educationLevel : DropDownOption?{
         didSet{
                 academicYear = nil
+            iseducationLevelvalid = educationLevel == nil ? false:true
         }
     }
+    @Published var iseducationLevelvalid:Bool?
+
     @Published var academicYear : DropDownOption?{
         didSet{
                 subject = nil
+            isacademicYearvalid = academicYear == nil ? false:true
         }
     }
-    @Published var subject : DropDownOption?
+    @Published var isacademicYearvalid:Bool?
+
+    @Published var subject : DropDownOption?{
+        didSet{
+            issubjectvalid = subject == nil ? false:true
+        }
+    }
+    @Published var issubjectvalid:Bool?
 
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -66,8 +68,9 @@ class TeacherSubjectsVM: ObservableObject {
 extension TeacherSubjectsVM{
     
     func CreateTeacherSubject(){
+        guard checkValidfields() else {return}
         guard let subjectAcademicYearId = subject?.id else {return}
-        let parameters:[String:Any] = ["subjectAcademicYearId":subjectAcademicYearId]
+        let parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId]
         
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
@@ -90,6 +93,7 @@ extension TeacherSubjectsVM{
                 if receivedData.success == true {
 //                    TeacherSubjects?.append(model)
                     GetTeacherSubjects()
+                    clearTeachersSubject()
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -174,9 +178,30 @@ extension TeacherSubjectsVM{
         educationLevel = nil
         academicYear = nil
         subject = nil
+        
+        iseducationTypevalid = true
+        iseducationLevelvalid = true
+        isacademicYearvalid =  true
+        issubjectvalid = true
+
     }
 
+    private func checkValidfields()->Bool{
+        iseducationTypevalid = educationType != nil
+        iseducationLevelvalid = educationLevel != nil
+        isacademicYearvalid = academicYear != nil
+        issubjectvalid = subject != nil
 
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+        return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true
+    }
 }
 
 

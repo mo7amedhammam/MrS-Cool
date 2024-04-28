@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ManageTeacherProfileView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var lookupsvm = LookUpsVM()
     @EnvironmentObject var manageprofilevm : ManageTeacherProfileVM
     
@@ -15,21 +17,21 @@ struct ManageTeacherProfileView: View {
     @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
     @State private var startPickingImage = false
 
-    @State private var isEditing = false
+//    @State private var isEditing = false
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Edit Profile")
-                .overlay{
-                    HStack{
-                        Spacer()
-                        Button(action: {
-                            isEditing.toggle()
-                        }) {
-                            Text(isEditing ? "Done" : "Edit")
-                                .foregroundColor(.mainBlue)
-                        }
-                    }.padding([.bottom,.horizontal])
-                }
+//                .overlay{
+//                    HStack{
+//                        Spacer()
+//                        Button(action: {
+//                            isEditing.toggle()
+//                        }) {
+//                            Text(isEditing ? "Done" : "Edit")
+//                                .foregroundColor(.mainBlue)
+//                        }
+//                    }.padding([.bottom,.horizontal])
+//                }
             
             GeometryReader { gr in
                 ScrollView(.vertical,showsIndicators: false){
@@ -82,9 +84,10 @@ struct ManageTeacherProfileView: View {
                             
                             // -- inputs --
                             Group {
-                                CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $manageprofilevm.name,textContentType:.name)
+                                CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $manageprofilevm.name,textContentType:.name,isvalid:manageprofilevm.isnamevalid)
                                 
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $manageprofilevm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,Disabled:true)
+                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $manageprofilevm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,Disabled:true,isdimmed: true)
+                                    
                                 
                                 CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $manageprofilevm.selectedGender,options:lookupsvm.GendersList)
                                 
@@ -95,13 +98,13 @@ struct ManageTeacherProfileView: View {
                                 
                                 CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $manageprofilevm.country,options:lookupsvm.CountriesList)
                                 
-                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $manageprofilevm.governorte,options:lookupsvm.GovernoratesList)
+                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $manageprofilevm.governorte,options:lookupsvm.GovernoratesList,isvalid:manageprofilevm.isgovernortevalid)
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $manageprofilevm.city,options:lookupsvm.CitiesList)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $manageprofilevm.city,options:lookupsvm.CitiesList,isvalid:manageprofilevm.iscityvalid)
                                 
-                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $manageprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress)
+                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $manageprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid:manageprofilevm.isemailvalid)
                                 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr)
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,isvalid:manageprofilevm.isbirthDateStrvalid)
                                 
                                 CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $manageprofilevm.bio,charLimit: 1000)
                             }
@@ -117,29 +120,40 @@ struct ManageTeacherProfileView: View {
                     }
                     .frame(minHeight: gr.size.height)
                     .padding(.horizontal)
-                    .disabled(!isEditing)
+//                    .disabled(!isEditing)
                 }
             }
-//            .onAppear(perform: {
+            .onAppear(perform: {
 //                Task(priority: .background, operation: {
 //                manageprofilevm.GetTeacherProfile()
 //                })
-//                })
-            .onChange(of: isEditing){newval in
-                if newval{
-                    Task(priority: .background, operation: {
-                    lookupsvm.getGendersArr()
-                    lookupsvm.getCountriesArr()
-                        
-                        lookupsvm.SelectedCountry = manageprofilevm.country
-                        lookupsvm.SelectedGovernorate = manageprofilevm.governorte
-                        lookupsvm.SelectedCity = manageprofilevm.city
+                
+                Task(priority: .background, operation: {
+                lookupsvm.getGendersArr()
+                lookupsvm.getCountriesArr()
+                    
+                    lookupsvm.SelectedCountry = manageprofilevm.country
+                    lookupsvm.SelectedGovernorate = manageprofilevm.governorte
+                    lookupsvm.SelectedCity = manageprofilevm.city
 
-                    })
-                }
-            }
+                })
+                
+                })
+//            .onChange(of: isEditing){newval in
+//                if newval{
+//                    Task(priority: .background, operation: {
+//                    lookupsvm.getGendersArr()
+//                    lookupsvm.getCountriesArr()
+//                        
+//                        lookupsvm.SelectedCountry = manageprofilevm.country
+//                        lookupsvm.SelectedGovernorate = manageprofilevm.governorte
+//                        lookupsvm.SelectedCity = manageprofilevm.city
+//
+//                    })
+//                }
+//            }
             .onChange(of: manageprofilevm.country, perform: { value in
-                guard isEditing else {return}
+//                guard isEditing else {return}
                 lookupsvm.SelectedCountry = value
                 manageprofilevm.governorte = nil
 //                manageprofilevm.city = nil
@@ -147,10 +161,15 @@ struct ManageTeacherProfileView: View {
 //                lookupsvm.CitiesList.removeAll()
             })
             .onChange(of: manageprofilevm.governorte, perform: { value in
-                guard isEditing else {return}
+//                guard isEditing else {return}
                 lookupsvm.SelectedGovernorate = value
                 manageprofilevm.city = nil
 //                lookupsvm.getCitiesArr()
+            })
+            .onChange(of: manageprofilevm.isDataUploaded, perform: { value in
+                if value == true{
+                    dismiss()
+                }
             })
         }
         .hideNavigationBar()

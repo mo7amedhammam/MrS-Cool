@@ -11,14 +11,41 @@ import SwiftUI
 
 class TeacherDocumentsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
-    @Published var documentType : DropDownOption?
-    @Published var documentTitle = ""
-    @Published var documentOrder = ""
+    @Published var documentType : DropDownOption?{
+        didSet{
+            isdocumentTypevalid = documentType == nil ? false : true
+        }
+    }
+    @Published var isdocumentTypevalid :Bool? = true
 
-    @Published var documentImg : UIImage? = nil
+    @Published var documentTitle = ""{
+        didSet{
+            isdocumentTitlevalid = documentTitle.isEmpty ? false : true
+        }
+    }
+    @Published var isdocumentTitlevalid :Bool? = true
 
-    @Published var documentPdf : URL? = nil
-    @Published var isFormValid : Bool = true
+    @Published var documentOrder = ""{
+        didSet{
+            isdocumentOrdervalid = documentOrder.isEmpty ? false : true
+        }
+    }
+    @Published var isdocumentOrdervalid :Bool? = true
+
+    @Published var documentImg : UIImage? = nil{
+        didSet{
+            isdocumentFilevalid = (documentImg == nil && documentPdf == nil) ? false : true
+        }
+    }
+
+    @Published var documentPdf : URL? = nil{
+        didSet{
+            isdocumentFilevalid = (documentImg == nil && documentPdf == nil) ? false : true
+        }
+    }
+    @Published var isdocumentFilevalid :Bool? = true
+
+//    @Published var isFormValid : Bool = true
 
     @Published var filterdocumentType : DropDownOption?
 
@@ -40,15 +67,15 @@ class TeacherDocumentsVM: ObservableObject {
     }
     
     init()  {
-        monitorTextFields()
+//        monitorTextFields()
     }
 }
 
 extension TeacherDocumentsVM{
     
     func CreateTeacherDocument(fileType:fileTypesList){
+        guard checkValidfields() else {return}
         guard let DocumentTypeId = documentType?.id else {return}
-        
         
         var parameters:[String:Any] = ["DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":Int(documentOrder) ?? 0]
         switch fileType {
@@ -165,41 +192,63 @@ extension TeacherDocumentsVM{
             .store(in: &cancellables)
     }
     
-    
     func clearTeachersDocument(){
         documentType = nil
         documentTitle = ""
         documentOrder = ""
         documentImg = nil
         documentPdf = nil
+        
+        isdocumentTypevalid = true
+        isdocumentTitlevalid = true
+        isdocumentOrdervalid =  true
+        isdocumentFilevalid = true
+
     }
 
   
     
 
-    func monitorTextFields() {
-        // Publisher for checking if the password & its confirmation is valid
-        var isFileValid : AnyPublisher<Bool,Never>{
-            Publishers.CombineLatest3($documentImg,$documentPdf,$documentType)
-                .map{valid1,valid2, valid3 in
-                    guard valid1 != nil && (valid2 != nil || valid3 != nil) else{return false}
-                    return true
-                }
-                .eraseToAnyPublisher()
-        }
-        // Combine publishers for form validation
-              Publishers.CombineLatest3( $documentTitle,$documentOrder,isFileValid)
-                  .map { [weak self] valid1, valid2, valid3 in
-                      // Perform the validation checks
-                      let type = !valid1.isEmpty
-                      let title = !valid2.isEmpty
+//    func monitorTextFields() {
+//        // Publisher for checking if the password & its confirmation is valid
+//        var isFileValid : AnyPublisher<Bool,Never>{
+//            Publishers.CombineLatest3($documentImg,$documentPdf,$documentType)
+//                .map{valid1,valid2, valid3 in
+//                    guard valid1 != nil && (valid2 != nil || valid3 != nil) else{return false}
+//                    return true
+//                }
+//                .eraseToAnyPublisher()
+//        }
+//        // Combine publishers for form validation
+//              Publishers.CombineLatest3( $documentTitle,$documentOrder,isFileValid)
+//                  .map { [weak self] valid1, valid2, valid3 in
+//                      // Perform the validation checks
+//                      let type = !valid1.isEmpty
+//                      let title = !valid2.isEmpty
+//
+//                      // Return the overall form validity
+//                      return type && title && valid3
+//                  }
+//                  .assign(to: &$isFormValid)
+//    }
 
-                      // Return the overall form validity
-                      return type && title && valid3
-                  }
-                  .assign(to: &$isFormValid)
+    
+    private func checkValidfields()->Bool{
+        isdocumentTypevalid = documentType != nil
+        isdocumentTitlevalid = !documentTitle.isEmpty
+        isdocumentOrdervalid = !documentOrder.isEmpty
+        isdocumentFilevalid = documentImg != nil || documentPdf != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+        return isdocumentTypevalid ?? true && isdocumentTitlevalid ?? true && isdocumentOrdervalid ?? true && isdocumentFilevalid ?? true
     }
-
 }
 
 

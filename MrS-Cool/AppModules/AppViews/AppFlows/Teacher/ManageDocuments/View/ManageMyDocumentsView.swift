@@ -53,11 +53,11 @@ struct ManageMyDocumentsView: View {
                                 
                                 // -- inputs --
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.documentType,options:lookupsvm.documentTypesList)
+                                    CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.documentType,options:lookupsvm.documentTypesList,isvalid: teacherdocumentsvm.isdocumentTypevalid)
                                     
-                                    CustomTextField(iconName:"img_group_512388",placeholder: "Documents Title *", text: $teacherdocumentsvm.documentTitle)
+                                    CustomTextField(iconName:"img_group_512388",placeholder: "Documents Title *", text: $teacherdocumentsvm.documentTitle,isvalid:teacherdocumentsvm.isdocumentTitlevalid)
                                     
-                                    CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad,isvalid:teacherdocumentsvm.isdocumentOrdervalid)
                                 }
                                 .padding([.top])
                                 
@@ -84,7 +84,15 @@ struct ManageMyDocumentsView: View {
                                     .padding(.top)
                                     .frame(minWidth:0,maxWidth:.infinity)
                                 }else{
-                                    
+                                    if !(teacherdocumentsvm.isdocumentFilevalid ?? true){
+                                        Text("File or image not selected".localized())
+                                            .lineSpacing(4)
+                                            .frame(minWidth: 0,maxWidth: .infinity)
+                                            .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                            .foregroundColor(ColorConstants.Red400)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.top)
+                                    }
                                     CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(false)){
                                         hideKeyboard()
                                         isSheetPresented = true
@@ -106,7 +114,7 @@ struct ManageMyDocumentsView: View {
                             
                             HStack {
                                 Group{
-                                    CustomButton(Title:"Save",IsDisabled: .constant(!teacherdocumentsvm.isFormValid), action: {
+                                    CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
                                         teacherdocumentsvm.CreateTeacherDocument(fileType: selectedFileType)
                                     })
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
@@ -188,21 +196,21 @@ struct ManageMyDocumentsView: View {
     //        .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: .error( message: "\(teacherdocumentsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
             
             //MARK: -------- imagePicker From Camera and Library ------
-    //        .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
-    //            Button("Image".localized()) {
-    //                selectedFileType = .image
-    //                showImageSheet = true
-    //                print("upload image")
-    //                // Call a function to show an image picker
-    //            }
-    //            Button("PDF".localized()) {
-    //                selectedFileType = .pdf
-    //                startPickingPdf = true
-    //                print("upload pdf")
-    //                // Call a function to add a PDF document
-    //            }
-    //            Button("Cancel".localized(), role: .cancel) { }
-    //        } message: {Text("this is the file type you will add".localized())}
+            .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
+                Button("Image".localized()) {
+                    selectedFileType = .image
+                    showImageSheet = true
+                    print("upload image")
+                    // Call a function to show an image picker
+                }
+                Button("PDF".localized()) {
+                    selectedFileType = .pdf
+                    startPickingPdf = true
+                    print("upload pdf")
+                    // Call a function to add a PDF document
+                }
+                Button("Cancel".localized(), role: .cancel) { }
+            } message: {Text("this is the file type you will add".localized())}
             
             //MARK: -------- imagePicker From Camera and Library ------
                 .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {

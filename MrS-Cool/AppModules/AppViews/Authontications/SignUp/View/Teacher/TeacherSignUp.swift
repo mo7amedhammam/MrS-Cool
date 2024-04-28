@@ -25,7 +25,7 @@ struct TeacherSignUpView: View {
     //    @State var isPush = false
     //    @State var destination = AnyView(Text("destination"))
     
-    @State var currentStep:teacherSteps = .documentsData
+    @State var currentStep:teacherSteps = .personalData
     @State private var isVerified = false
     @State private var isFinish = false
     

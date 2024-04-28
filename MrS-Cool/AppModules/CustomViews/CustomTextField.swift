@@ -24,6 +24,8 @@ struct CustomTextField: View {
     var keyboardType : UIKeyboardType? = .default
     var Disabled : Bool?
     var isvalid : Bool? = true
+    var isdimmed : Bool? = false
+
     @State private var isSecured: Bool = true
     @FocusState private var focusedField : Bool
     var body: some View {
@@ -96,9 +98,8 @@ struct CustomTextField: View {
                                 bottomRight: 5.0)
             .stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,
                     lineWidth: 1))
-        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
-                                   bottomRight: 5.0)
-            .fill(ColorConstants.WhiteA700))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0)
+            .fill(isdimmed ?? false ?  ColorConstants.Bluegray30066: ColorConstants.WhiteA700))
         .onTapGesture {
             //            DispatchQueue.main.async(execute: {
             focusedField = true
@@ -108,7 +109,7 @@ struct CustomTextField: View {
 }
 
 #Preview {
-    CustomTextField(fieldType:.Default, iconName:"img_group172", placeholder: "password", text: .constant("mmm"), isvalid: true)
+    CustomTextField(fieldType:.Default, iconName:"img_group172", placeholder: "password", text: .constant("mmm"), isvalid: true,isdimmed:true)
 }
 
 
@@ -220,7 +221,8 @@ struct CustomDropDownField: View {
     var textContentType : UITextContentType? = .name
     var keyboardType : UIKeyboardType? = .default
     var Disabled : Bool?
-    
+    var isvalid : Bool? = true
+
     @State private var isSecured: Bool = true
     @FocusState private var focusedField : Bool
     var body: some View {
@@ -235,7 +237,6 @@ struct CustomDropDownField: View {
         //                }
         //            }
         //        } label: {
-        
         
         VStack(alignment:.leading,spacing:-15){
             HStack(spacing:0){
@@ -280,11 +281,13 @@ struct CustomDropDownField: View {
                         VStack(alignment:.leading,spacing:0){
                             ForEach(options,id:\.self){option in
                                 Button(action: {
-                                    selectedOption = option
+                                    if selectedOption != option{
+                                        selectedOption = option
+                                        print("selected option" ,option)
+                                    }
                                     withAnimation{
                                         isMenuVisible = false
                                     }
-                                    print("selected option" ,option)
                                 }) {
                                     HStack() {
                                         Text(option.Title ?? "")
@@ -308,7 +311,7 @@ struct CustomDropDownField: View {
         }
         .frame(height:withAnimation{isMenuVisible ? (options.count*35 > 200 ? 200:CGFloat(options.count)*35) + 57:57})
         
-        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
         
         .onTapGesture {
@@ -458,6 +461,7 @@ struct CustomDatePickerField: View {
 
     @State private var isCalenderVisible = false
     var datePickerComponent:DatePickerComponents = .date
+    var isvalid : Bool? = true
 
     var body: some View {
         VStack(alignment:.leading,spacing:-15){
@@ -513,7 +517,7 @@ struct CustomDatePickerField: View {
             }
 
         }
-        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(ColorConstants.Bluegray30066,lineWidth: 1))
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
         .onChange(of: selectedDate) {date in
             selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")

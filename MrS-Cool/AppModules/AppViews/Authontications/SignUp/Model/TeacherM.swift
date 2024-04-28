@@ -33,9 +33,9 @@ struct TeacherModel: Codable {
 }
 // MARK: - CreatedTeacherSubjectM -
 struct CreatedTeacherSubjectM: Codable {
-    var subjectSemesterYearId, groupCost, individualCost, minGroup: Int?
-    var maxGroup: Int?
-    var teacherBrief: String?
+    var subjectSemesterYearId, minGroup, maxGroup: Int?
+    var groupCost, individualCost : Double?
+    var teacherBrief,teacherBriefEn: String?
     var statusID, id, teacherID: Int?
     var creationDate: String?
     var verifiedByID: Int?
@@ -43,7 +43,7 @@ struct CreatedTeacherSubjectM: Codable {
 
     enum CodingKeys: String, CodingKey {
         case subjectSemesterYearId = "subjectSemesterYearId"
-        case groupCost, individualCost, minGroup, maxGroup, teacherBrief
+        case groupCost, individualCost, minGroup, maxGroup, teacherBrief,teacherBriefEn
         case statusID = "statusId"
         case id
         case teacherID = "teacherId"
