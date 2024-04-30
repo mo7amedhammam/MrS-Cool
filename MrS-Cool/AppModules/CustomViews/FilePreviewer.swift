@@ -13,31 +13,33 @@ struct FilePreviewerSheet: View {
    @Binding var url: String
     
     var body: some View {
-        ZStack(){
+        ZStack{
                 if url.hasSuffix(".pdf") {
                     
                     // Display PDF view
                     if let url = URL(string: url.reverseSlaches()){
                         PDFViewer(url: url)
-                        
                     }
                 } else if url.hasSuffix(".jpg") || url.hasSuffix(".jpeg") || url.hasSuffix(".png") {
                     // Display image view
                     if let imageURL = URL(string: url.reverseSlaches()) {
                         ImageView(url: imageURL)
+                        
                     } else {
                         Text("Invalid Image URL")
                     }
+                    
                 } else {
                     Text("Unsupported file type")
                 }
-                closeButton
         }
-            .background{ ColorConstants.WhiteA700}
-        
+        .frame(maxWidth: UIScreen.main.bounds.width,maxHeight: UIScreen.main.bounds.height)
+        .background{ ColorConstants.WhiteA700}
         .onAppear(perform: {
             print("final url:",url.reverseSlaches())
         })
+        .overlay(closeButton, alignment: .topTrailing)
+
     }
     
     var closeButton: some View {
@@ -47,9 +49,15 @@ struct FilePreviewerSheet: View {
                        presentationMode.wrappedValue.dismiss()
                    }) {
                        Image(systemName: "xmark")
-                           .padding(10)
+                           .padding(7)
+                           .font(.system(size: 22))
                            .foregroundStyle(ColorConstants.WhiteA700)
                    }
+                   .background{
+                       Color.black.opacity(0.2)
+                           .clipShape(.circle)
+                   }
+                   
                    Spacer()
                }
                .padding(.top, 5)
@@ -58,8 +66,11 @@ struct FilePreviewerSheet: View {
        }
 }
 #Preview{
-    FilePreviewerSheet(url: .constant("https://mrscoolapi.azurewebsites.net/Images//TeacherDocument//36ca43e4-eede-4d67-a5e4-8c926d6ec35d.pdf"))
-
+    Group{
+        FilePreviewerSheet(url: .constant("https://mrscoolapi.azurewebsites.net/Images//Teacher//f90a317d-5e3d-4674-b450-de34335d4715.jpeg"))
+//        FilePreviewerSheet(url: .constant("https://mrscoolapi.azurewebsites.net/Images//TeacherDocument//36ca43e4-eede-4d67-a5e4-8c926d6ec35d.pdf"))
+        
+    }
 
 }
 
@@ -111,10 +122,9 @@ struct ImageView: View {
     
     var body: some View {
         
-        if let imageURL = url {
+//        if let imageURL = url {
                     KFImageLoader(url: url, placeholder: Image("img_younghappysmi"))
-                  
-                .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: .fit)
                 .scaleEffect(scale * currentScale)
                 .offset(position)
                 .gesture(
@@ -198,9 +208,9 @@ struct ImageView: View {
 //                    Text("Failed to load image")
 //                }
 //            }
-        } else {
-            Text("Invalid Image URL")
-        }
+//        } else {
+//            Text("Invalid Image URL")
+//        }
     }
     
     

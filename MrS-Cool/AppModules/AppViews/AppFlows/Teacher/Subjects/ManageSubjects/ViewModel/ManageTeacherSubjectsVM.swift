@@ -69,33 +69,43 @@ class ManageTeacherSubjectsVM: ObservableObject {
     @Published var editId : Int = 0
     @Published var groupCost : String = ""{
         didSet{
-            isgroupCostvalid = groupCost.isEmpty ? false:true
+            isgroupCostvalid = (groupCost.isEmpty || Int(groupCost) == 0) ? false:true
         }
     }
     @Published var isgroupCostvalid:Bool?
 
     @Published var individualCost : String = ""{
         didSet{
-            isindividualCostvalid = individualCost.isEmpty ? false:true
+            isindividualCostvalid = (individualCost.isEmpty || Int(individualCost) == 0) ? false:true
         }
     }
     @Published var isindividualCostvalid:Bool?
     
     @Published var minGroup : String = ""{
         didSet{
-            isminGroupvalid = minGroup.isEmpty ? false:true
+            isminGroupvalid = (minGroup.isEmpty || Int(minGroup) == 0) ? false:true
         }
     }
     @Published var isminGroupvalid:Bool?
     
     @Published var maxGroup : String = ""{
         didSet{
-            ismaxGroupvalid = maxGroup.isEmpty ? false:true
+            ismaxGroupvalid = (maxGroup.isEmpty || Int(maxGroup) == 0) ? false:true
         }
     }
     @Published var ismaxGroupvalid:Bool?
-    
+
     @Published var subjectBrief : String = ""
+    
+//@Published var isSubjectBriefValid: Bool?
+
+//private func validateSubjectBrief() {
+// // Regular expression to match Arabic characters
+// let arabicRegex = "^[\\p{Arabic} ]+$"
+// let predicate = NSPredicate(format:"SELF MATCHES %@", arabicRegex)
+// isSubjectBriefValid = predicate.evaluate(with: subjectBrief)
+//}
+    
     @Published var subjectBriefEn : String = ""
     
     @Published var filterEducationType : DropDownOption?{
@@ -190,7 +200,8 @@ extension ManageTeacherSubjectsVM{
     }
     
     func UpdateTeacherSubject(){
-        guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
+        guard checkValidfields() else {return}
+        guard let subjectAcademicYearId = subject?.id,let groupCost = Float(groupCost),let  individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup) else {return}
         var parameters:[String:Any] = ["id":editId,"subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
         if !subjectBrief.isEmpty{
             parameters[ "teacherBrief" ] = subjectBrief
@@ -342,6 +353,7 @@ extension ManageTeacherSubjectsVM{
         filterSubjectStatus = nil
     }
     func selectSubjectForEdit(item:TeacherSubjectM){
+//        print(item)
         isEditing = false
         editId = item.id ?? 0
         educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
@@ -351,9 +363,11 @@ extension ManageTeacherSubjectsVM{
         if let min = item.minGroup{
             minGroup = String(min)
         }
+        
         if let max = item.maxGroup{
             maxGroup = String(max)
         }
+        
         if let gcost = item.groupCost{
             groupCost = String(gcost)
         }
@@ -387,10 +401,10 @@ extension ManageTeacherSubjectsVM{
 //                }
 //                .eraseToAnyPublisher()
 //        }
-        isminGroupvalid = !minGroup.isEmpty
-        ismaxGroupvalid = !maxGroup.isEmpty
-        isgroupCostvalid = !groupCost.isEmpty
-        isindividualCostvalid = !individualCost.isEmpty
+        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
         
         return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true && isminGroupvalid ?? true && ismaxGroupvalid ?? true && isgroupCostvalid ?? true && isindividualCostvalid ?? true
     }
@@ -398,4 +412,11 @@ extension ManageTeacherSubjectsVM{
 
 
 
+extension String {
+    // Only Arabic input validation
+     func isArabicInput() -> Bool {
+        let arabicCharacterSet = CharacterSet(charactersIn: "\u{0600}-\u{06FF}\u{0750}-\u{077F}\u{08A0}-\u{08FF}\u{FB50}-\u{FDFF}\u{FE70}-\u{FEFF}\u{10E60}-\u{10E7F}\u{1EC70}-\u{1ECBF}")
+        return self.rangeOfCharacter(from: arabicCharacterSet.inverted) == nil
+    }
+}
 

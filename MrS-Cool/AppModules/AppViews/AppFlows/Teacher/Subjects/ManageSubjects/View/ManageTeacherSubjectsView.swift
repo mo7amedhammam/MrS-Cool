@@ -171,6 +171,15 @@ struct ManageTeacherSubjectsView: View {
         .onDisappear {
             manageteachersubjectsvm.cleanup()
         }
+//        .onChange(of: manageteachersubjectsvm.subjectBrief, perform: { value in
+//            if value.isArabicInput(){
+//                manageteachersubjectsvm.subjectBrief = value
+//            }
+//            else{
+//                var newval = value
+//                manageteachersubjectsvm.subjectBrief = "\(newval.removeLast())"
+//            }
+//        })
         .showHud(isShowing: $manageteachersubjectsvm.isLoading)
         .showAlert(hasAlert: $manageteachersubjectsvm.isError, alertType: manageteachersubjectsvm.error)
         .overlay{

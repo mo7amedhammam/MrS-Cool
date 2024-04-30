@@ -51,7 +51,7 @@ struct ManageTeacherProfileView: View {
 //                                    Image("img_younghappysmi")
 //                                        .resizable()
 //                                }
-                                let imageURL : URL? = URL(string: Constants.baseURL+(manageprofilevm.imageStr ?? ""))
+                                let imageURL : URL? = URL(string: Constants.baseURL+(manageprofilevm.imageStr ?? "").reverseSlaches())
                                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                                 .aspectRatio(contentMode: .fill)
@@ -77,6 +77,18 @@ struct ManageTeacherProfileView: View {
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.black900)
                             .padding(.top,2)
+                        
+//                        if let rate = manageprofilevm.rate{
+                            HStack{
+                                Text("\(manageprofilevm.rate ?? 0,specifier: "%.1f")")
+                                    .foregroundColor(ColorConstants.MainColor)
+                                    .font(.SoraSemiBold(size: 13))
+                                StarsView(rating: manageprofilevm.rate ?? 0)
+
+                            }
+//                        }
+                        
+                        
                         TeacherAccountStatus(profileStatus: manageprofilevm.accountStatus ?? ProfileStatus() )
                         
                         VStack(alignment: .leading, spacing: 0){
@@ -129,8 +141,9 @@ struct ManageTeacherProfileView: View {
 //                })
                 
                 Task(priority: .background, operation: {
-                lookupsvm.getGendersArr()
-                lookupsvm.getCountriesArr()
+//                    manageprofilevm.GetTeacherProfile()
+                    lookupsvm.getGendersArr()
+                    lookupsvm.getCountriesArr()
                     
                     lookupsvm.SelectedCountry = manageprofilevm.country
                     lookupsvm.SelectedGovernorate = manageprofilevm.governorte

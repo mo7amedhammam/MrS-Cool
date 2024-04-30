@@ -135,10 +135,11 @@ struct TeacherTabBarView: View {
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
             }.disableSwipeBack()
-
-//            .onAppear(perform: {
-//                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
-//            })
+            .onAppear{
+                Task(priority: .background, operation: {
+                    teacherProfilevm.GetTeacherProfile()
+                })
+            }
             .overlay(content: {
                 SideMenuView()
             })
@@ -240,7 +241,7 @@ struct TeacherSideMenuContent: View {
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
                     ZStack(alignment: .topLeading){
-                        let imageURL : URL? = URL(string: Constants.baseURL+(teacherprofilevm.imageStr ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(teacherprofilevm.imageStr ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
@@ -295,13 +296,13 @@ struct TeacherSideMenuContent: View {
                     isPush = true
                 } 
                 
-                SideMenuButton(image: "img_group58", title: "Manage Subject Groups"){
+                SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
                     selectedDestination = .subjectgroup // calendar
                     presentSideMenu =  false
                     isPush = true
                 }
 
-                SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
+                SideMenuButton(image: "img_group58", title: "Manage Subject Groups"){
                     selectedDestination = .lessonGroups // rates
                     presentSideMenu =  false
                     isPush = true
@@ -350,9 +351,6 @@ struct TeacherSideMenuContent: View {
 
                 Spacer()
             }
-        }
-        .onAppear{
-            teacherprofilevm.GetTeacherProfile()
         }
             .frame(width: UIScreen.main.bounds.width - 80)
             .padding(.top, 55)

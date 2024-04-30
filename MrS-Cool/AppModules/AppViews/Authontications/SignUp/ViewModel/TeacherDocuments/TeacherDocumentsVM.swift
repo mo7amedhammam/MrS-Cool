@@ -104,7 +104,8 @@ extension TeacherDocumentsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
-                    TeacherDocuments?.append(model)
+                    GetTeacherDocument()
+//                    TeacherDocuments?.append(model)
 //                    GetTeacherDocument()
                     clearTeachersDocument()
                 }else{

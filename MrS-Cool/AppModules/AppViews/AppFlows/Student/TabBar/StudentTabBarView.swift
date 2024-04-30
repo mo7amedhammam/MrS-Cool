@@ -133,9 +133,11 @@ struct StudentTabBarView: View {
                 CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
 
             }
-//            .onAppear(perform: {
-//                studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
-//            })
+            .onAppear{
+                Task(priority: .background, operation: {
+                    studentsignupvm.GetStudentProfile()
+                })
+            }
             .overlay(content: {
                 SideMenuView()
             })
@@ -294,7 +296,7 @@ struct StudentSideMenuContent: View {
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
                     ZStack(alignment: .topLeading){
-                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
@@ -371,12 +373,8 @@ struct StudentSideMenuContent: View {
 
                 Spacer()
             }
-        }  
-        .onAppear{
-            studentsignupvm.GetStudentProfile()
         }
-
-            .frame(width: UIScreen.main.bounds.width - 80)
+        .frame(width: UIScreen.main.bounds.width - 80)
             .padding(.top, 55)
             .background{
                 Color.mainBlue

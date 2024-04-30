@@ -132,6 +132,11 @@ struct ParentTabBarView: View {
             CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
             
         }
+        .onAppear{
+            Task(priority: .background, operation: {
+            parentProfilevm.GetParentProfile()
+            })
+        }
         //            .onAppear(perform: {
         //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
         //            })
@@ -260,7 +265,7 @@ struct ParentSideMenuContent: View {
                 if listchildrenvm.selectedChild != nil{
                         HStack(spacing:20){
                             ZStack(alignment: .topLeading){
-                                let imageURL : URL? = URL(string: Constants.baseURL+(listchildrenvm.selectedChild?.image ?? ""))
+                                let imageURL : URL? = URL(string: Constants.baseURL+(listchildrenvm.selectedChild?.image ?? "").reverseSlaches())
                                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 60,height: 60)
@@ -345,9 +350,6 @@ struct ParentSideMenuContent: View {
                 
                 Spacer()
             }
-        }
-        .onAppear{
-            parentprofilevm.GetParentProfile()
         }
         .frame(width: UIScreen.main.bounds.width - 80)
         .padding(.top, 55)

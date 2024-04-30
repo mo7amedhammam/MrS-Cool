@@ -15,7 +15,8 @@ struct ManageTeacherProfileM: Codable {
     var birthdate: String?
     var countryID, governorateID: Int?
     var statusName: String?
-    var statusID, rate: Int?
+    var statusID: Int?
+    var rate: Float?
     var creationDate, countryName, governorateName, cityName: String?
     var name: String?
     var cityID, genderID: Int?

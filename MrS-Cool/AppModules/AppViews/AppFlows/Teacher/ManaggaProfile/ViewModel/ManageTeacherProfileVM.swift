@@ -25,6 +25,7 @@ class ManageTeacherProfileVM: ObservableObject {
     }
     @Published var isnamevalid : Bool?
     @Published var code = ""
+    @Published var rate : Float?
     @Published var accountStatus : ProfileStatus?
 
     @Published var phone = ""
@@ -85,7 +86,7 @@ class ManageTeacherProfileVM: ObservableObject {
     
     init()  {
 //        getGendersArr()
-        GetTeacherProfile()
+//        GetTeacherProfile()
     }
 }
 
@@ -179,6 +180,7 @@ extension ManageTeacherProfileVM{
         name = model.name ?? ""
         imageStr =  model.image ?? ""
         code = model.code ?? ""
+        rate = model.rate ?? 0
         accountStatus = .init(ProfileStatus(statusId: model.statusID,statusName: model.statusName))
         phone = model.mobile ?? ""
         selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )

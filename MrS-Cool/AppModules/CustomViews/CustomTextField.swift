@@ -99,7 +99,7 @@ struct CustomTextField: View {
             .stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,
                     lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0)
-            .fill(isdimmed ?? false ?  ColorConstants.Bluegray30066: ColorConstants.WhiteA700))
+            .fill(isdimmed ?? false ?  ColorConstants.Bluegray30066.opacity(0.5): ColorConstants.WhiteA700))
         .onTapGesture {
             //            DispatchQueue.main.async(execute: {
             focusedField = true
