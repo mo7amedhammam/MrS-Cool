@@ -55,9 +55,15 @@ struct ManageTeacherSubjectsView: View {
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
                                     
                                     CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
+                                        .onChange(of: manageteachersubjectsvm.subjectBriefEn) { newValue in
+                                            manageteachersubjectsvm.subjectBriefEn = newValue.filter { $0.isEnglish }
+                                        }
                                     
                                     CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000).reversLocalizeView()
-                                        
+                                        .onChange(of: manageteachersubjectsvm.subjectBrief) { newValue in
+                                            manageteachersubjectsvm.subjectBrief = newValue.filter { $0.isArabic }
+                                        }
+                                    
                                 }
                                 .padding([.top])
                             }.padding(.top,20)
@@ -136,9 +142,9 @@ struct ManageTeacherSubjectsView: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .padding(.vertical,-4)
-                    }
-//                    .scrollContentBackground(.hidden)
-                    .listStyle(.plain)
+                        }
+                        //                    .scrollContentBackground(.hidden)
+                        .listStyle(.plain)
                         .frame(height: gr.size.height/2)
                         Spacer()
                     }
@@ -171,15 +177,6 @@ struct ManageTeacherSubjectsView: View {
         .onDisappear {
             manageteachersubjectsvm.cleanup()
         }
-//        .onChange(of: manageteachersubjectsvm.subjectBrief, perform: { value in
-//            if value.isArabicInput(){
-//                manageteachersubjectsvm.subjectBrief = value
-//            }
-//            else{
-//                var newval = value
-//                manageteachersubjectsvm.subjectBrief = "\(newval.removeLast())"
-//            }
-//        })
         .showHud(isShowing: $manageteachersubjectsvm.isLoading)
         .showAlert(hasAlert: $manageteachersubjectsvm.isError, alertType: manageteachersubjectsvm.error)
         .overlay{
@@ -253,9 +250,9 @@ struct ManageTeacherSubjectsView: View {
                     }
                     .padding()
                     .frame(height:515)
-//                    .keyboardAdaptive()
+                    //                    .keyboardAdaptive()
                 }
-
+                
             }
         }
         NavigationLink(destination: destination, isActive: $isPush, label: {})
@@ -265,6 +262,8 @@ struct ManageTeacherSubjectsView: View {
 
 #Preview {
     ManageTeacherSubjectsView()
-//        .environmentObject(LookUpsVM())
-//        .environmentObject(ManageTeacherSubjectsVM())
+    //        .environmentObject(LookUpsVM())
+    //        .environmentObject(ManageTeacherSubjectsVM())
 }
+
+
