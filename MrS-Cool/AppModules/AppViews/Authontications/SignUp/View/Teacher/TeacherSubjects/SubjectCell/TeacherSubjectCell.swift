@@ -22,7 +22,7 @@ struct TeacherSubjectCell: View {
                     )
                 
                 VStack{
-                    Text(model.subjectDisplayName ?? "English")
+                    Text(model.subjectSemesterYearName ?? "English")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(ColorConstants.Black900)
                         .fontWeight(.semibold)

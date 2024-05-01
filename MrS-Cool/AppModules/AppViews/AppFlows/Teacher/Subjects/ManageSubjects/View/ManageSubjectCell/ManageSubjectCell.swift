@@ -26,7 +26,7 @@ struct ManageSubjectCell: View {
                     )
                 
                 VStack{
-                    Text(model.subjectSemesterYearName ?? "English")
+                    Text(model.subjectDisplayName ?? "English")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }
@@ -34,7 +34,7 @@ struct ManageSubjectCell: View {
                 Spacer()
                 HStack(spacing: 15){
                     Rectangle().frame(width: 15, height: 15)
-                        .foregroundColor(model.statusID == 1 ? .green:model.statusID == 2 ? .yellow:.red)
+                        .foregroundColor(model.statusID == 1 ? .green:model.statusID == 2 ? .red:.yellow)
                     Button(action: {
                         editSubjectBtnAction?()
                     }, label: {

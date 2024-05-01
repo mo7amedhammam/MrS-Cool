@@ -26,11 +26,10 @@ struct TeacherUnitLesson: Codable,Hashable {
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
     var teacherID: Int?
     var lessonName: String?
-    var defaultGroupCost: Double?
-    var defaultGroupDuration: Int?
-    var defaultIndividualCost: Double?
-    var defaultIndividualDuration, lessonID, groupCost, groupDuration: Int?
-    var individualCost, individualDuration: Int?
+    var defaultGroupCost,groupCost: Float?
+    var defaultIndividualCost,individualCost: Float?
+    var defaultIndividualDuration, defaultGroupDuration, lessonID: Int?
+    var individualDuration,groupDuration: Int?
     var teacherBrief: String?
 
     enum CodingKeys: String, CodingKey {
@@ -44,8 +43,9 @@ struct TeacherUnitLesson: Codable,Hashable {
 
 // MARK: - UpdatedTeacherSubjectLessonsM -
 struct UpdatedTeacherSubjectLessonsM: Codable {
-    var lessonID, groupCost, groupDuration, individualCost: Int?
-    var individualDuration: Int?
+    var lessonID: Int?
+    var groupCost, individualCost: Float?
+    var individualDuration,groupDuration: Int?
     var teacherBrief: String?
     var id, teacherSubjectAcademicSemesterYearID: Int?
 

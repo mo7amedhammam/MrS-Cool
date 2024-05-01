@@ -46,13 +46,20 @@ struct ManageTeacherSubjectsView: View {
                                     
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid:manageteachersubjectsvm.issubjectvalid)
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
+                                        .onChange(of: manageteachersubjectsvm.groupCost) { newValue in
+                                            manageteachersubjectsvm.groupCost = newValue.filter { $0.isEnglish }
+                                        }
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isminGroupvalid)
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.ismaxGroupvalid)
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
+                                        .onChange(of: manageteachersubjectsvm.individualCost) { newValue in
+                                            manageteachersubjectsvm.individualCost = newValue.filter { $0.isEnglish }
+                                        }
+                                    
                                     
                                     CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
                                         .onChange(of: manageteachersubjectsvm.subjectBriefEn) { newValue in

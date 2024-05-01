@@ -150,7 +150,7 @@ extension ManageTeacherSubjectLessonsVM{
     }
     
     func UpdateTeacherSubjectLesson(){
-        guard let groupCost = Int(groupCost), let individualCost = Int(individualCost),let groupTime = groupTime.convertTimeToMinutes(),let individualTime = individualTime.convertTimeToMinutes()  else {return}
+        guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = groupTime.convertTimeToMinutes(),let individualTime = individualTime.convertTimeToMinutes()  else {return}
         let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,"id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
         
         print("parameters",parameters)

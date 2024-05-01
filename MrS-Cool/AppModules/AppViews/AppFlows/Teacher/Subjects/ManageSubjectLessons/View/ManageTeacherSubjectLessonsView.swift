@@ -207,15 +207,22 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     Spacer()
                                 }
                                 Group {
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost
+                                                    ,keyboardType:.decimalPad)
+                                        .onChange(of: manageteachersubjectlessonsvm.groupCost) { newValue in
+                                            manageteachersubjectlessonsvm.groupCost = newValue.filter { $0.isEnglish }
+                                        }
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad)
                                     
                                     //                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
                                     
                                     //                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.decimalPad)
+                                        .onChange(of: manageteachersubjectlessonsvm.individualCost) { newValue in
+                                            manageteachersubjectlessonsvm.individualCost = newValue.filter { $0.isEnglish }
+                                        }
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.individualTime,keyboardType:.asciiCapableNumberPad)
                                 }
                                 HStack {
@@ -261,8 +268,15 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                 }
                                 Group {
                                     CustomTextEditor(iconName: "img_group512375",placeholder: "Lesson Brief",insidePlaceholder: "Tell us about your Lesson", text: $manageteachersubjectlessonsvm.subjectBriefEn,charLimit: 1000)
+                                        .onChange(of: manageteachersubjectlessonsvm.subjectBriefEn) { newValue in
+                                            manageteachersubjectlessonsvm.subjectBriefEn = newValue.filter { $0.isEnglish }
+                                        }
 
-                                    CustomTextEditor(iconName: "img_group512375",placeholder: "عن الدرس",insidePlaceholder: "اخبرنا عن الدرس", text: $manageteachersubjectlessonsvm.subjectBrief,charLimit: 1000).localizeView()
+                                    CustomTextEditor(iconName: "img_group512375",placeholder: "عن الدرس",insidePlaceholder: "اخبرنا عن الدرس", text: $manageteachersubjectlessonsvm.subjectBrief,charLimit: 1000)
+                                        .reversLocalizeView()
+                                        .onChange(of: manageteachersubjectlessonsvm.subjectBrief) { newValue in
+                                            manageteachersubjectlessonsvm.subjectBrief = newValue.filter { $0.isArabic }
+                                        }
                                 }
                                 HStack {
                                     Group{
@@ -347,11 +361,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                     }
 
                 }
-        }
-            
-
-            
-        
+        }        
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
 
