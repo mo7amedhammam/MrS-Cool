@@ -60,10 +60,13 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
 
     @Published var groupCost : String = ""
     @Published var individualCost : String = ""
-//    @Published var minGroup : String = ""
-//    @Published var maxGroup : String = ""
-    @Published var groupTime = "0"
-    @Published var individualTime = "0"
+    @Published var recommendedgroupCost : String = ""
+    @Published var recommendedindividualCost: String = ""
+
+    @Published var minGroup : String = ""
+    @Published var maxGroup : String = ""
+    @Published var groupTime = ""
+    @Published var individualTime = ""
     
     @Published var subjectBrief : String = ""
     @Published var subjectBriefEn : String = ""
@@ -150,8 +153,8 @@ extension ManageTeacherSubjectLessonsVM{
     }
     
     func UpdateTeacherSubjectLesson(){
-        guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = groupTime.convertTimeToMinutes(),let individualTime = individualTime.convertTimeToMinutes()  else {return}
-        let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,"id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
+        guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = Int(groupTime),let individualTime = Int(individualTime),let mingroup = Int(minGroup),let maxgroup = Int(maxGroup)  else {return}
+        let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,"minGroup":mingroup,"maxGroup":maxgroup,"id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
         
         print("parameters",parameters)
         let target = teacherServices.UpdateTeacherSubjectLessons(parameters: parameters)
@@ -274,25 +277,30 @@ extension ManageTeacherSubjectLessonsVM{
 //        educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
 //        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
 //        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
+        
 //        if let min = item.minGroup{
 //            minGroup = String(min)
 //        }
 //        if let max = item.maxGroup{
 //            maxGroup = String(max)
 //        }
-        if let gcost = item.groupCost{
+        if let gcost = item.groupCost, let rgcost = item.defaultGroupCost{
             groupCost = String(gcost)
+            recommendedgroupCost = String(rgcost)
         }
-        if let indcost = item.individualCost{
+        if let indcost = item.individualCost, let rindcost = item.defaultIndividualCost{
             individualCost = String(indcost)
+            recommendedindividualCost = String(rindcost)
         }
 
         if let groupDuration = item.groupDuration{
-            groupTime = groupDuration.formattedTime()
+//            groupTime = groupDuration.formattedTime()
+            groupTime = String(groupDuration)
         }
 
         if let individualDuration = item.individualDuration{
-            individualTime = individualDuration.formattedTime()
+//            individualTime = individualDuration.formattedTime()
+            individualTime = String(individualDuration)
         }
         //        subjectBrief = item.teacherBrief ?? ""
         isEditing = true

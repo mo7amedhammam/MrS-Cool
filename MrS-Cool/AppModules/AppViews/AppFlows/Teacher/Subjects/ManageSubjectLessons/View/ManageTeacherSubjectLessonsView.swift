@@ -207,22 +207,44 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     Spacer()
                                 }
                                 Group {
+                                    ZStack(alignment:.bottomTrailing){
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost
                                                     ,keyboardType:.decimalPad)
                                         .onChange(of: manageteachersubjectlessonsvm.groupCost) { newValue in
                                             manageteachersubjectlessonsvm.groupCost = newValue.filter { $0.isEnglish }
                                         }
+                                        HStack(spacing:5){
+                                            Text("Recommended".localized())
+                                             Text(manageteachersubjectlessonsvm.recommendedgroupCost)
+                                             Text("EGP".localized())
+                                        }
+                                        .font(Font.SoraRegular(size: 9))
+                                        .foregroundColor(ColorConstants.Bluegray402)
+                                        .padding(5)
+                                    }
+                                        
                                     
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Group Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad)
                                     
-                                    //                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
                                     
-                                    //                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
                                     
+                                    ZStack(alignment:.bottomTrailing){
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.decimalPad)
                                         .onChange(of: manageteachersubjectlessonsvm.individualCost) { newValue in
                                             manageteachersubjectlessonsvm.individualCost = newValue.filter { $0.isEnglish }
                                         }
+                                    HStack(spacing:5){
+                                        Text("Recommended".localized())
+                                         Text(manageteachersubjectlessonsvm.recommendedindividualCost)
+                                         Text("EGP".localized())
+                                    }
+                                    .font(Font.SoraRegular(size: 9))
+                                    .foregroundColor(ColorConstants.Bluegray402)
+                                    .padding(5)
+                                }
+                                    
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.individualTime,keyboardType:.asciiCapableNumberPad)
                                 }
                                 HStack {

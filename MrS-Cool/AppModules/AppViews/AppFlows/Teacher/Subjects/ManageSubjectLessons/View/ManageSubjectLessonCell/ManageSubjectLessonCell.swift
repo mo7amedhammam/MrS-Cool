@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManageSubjectLessonCell: View {
-    var model = TeacherUnitLesson()
+    var model : TeacherUnitLesson
     var editBtnAction : (()->())?
     var addBriefBtnAction : (()->())?
     var addMaterialBtnAction : (()->())?
@@ -20,12 +20,12 @@ struct ManageSubjectLessonCell: View {
                 Image("img_group512382")
                     .scaleEffect(1.2, anchor: .center)
                     .background(
-                        Color.black.clipShape(Circle())
+                        Color.mainBlue.clipShape(Circle())
                             .frame(width: 30 ,height: 30)
                     )
                 
                 VStack{
-                    Text(model.lessonName ?? "English")
+                    Text(model.subjectSemesterYearName ?? "English")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }
@@ -98,7 +98,7 @@ struct ManageSubjectLessonCell: View {
                         Group{
                             Text("\(model.groupDuration?.formattedTime() ?? "00:00")")
 
-                            Text("\(model.groupCost ?? 0) ")+Text("EGP".localized())
+                            Text(String(format: "%.2f",(model.groupCost ?? 0)))+Text("EGP".localized())
                         }
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)
@@ -123,7 +123,7 @@ struct ManageSubjectLessonCell: View {
                         Group{
                             Text("\(model.individualDuration?.formattedTime() ?? "00:00")")
 
-                            Text("\(model.individualCost  ?? 0) ")+Text("EGP".localized())
+                            Text(String(format: "%.2f",(model.individualCost  ?? 0)))+Text("EGP".localized())
                         }
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)
@@ -143,5 +143,5 @@ struct ManageSubjectLessonCell: View {
 }
 
 #Preview {
-    ManageSubjectLessonCell()
+    ManageSubjectLessonCell(model: TeacherUnitLesson())
 }

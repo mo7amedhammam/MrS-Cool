@@ -200,9 +200,13 @@ struct CustomTextField: View {
 
 
 struct DropDownOption:Hashable{
+//    static func == (lhs: DropDownOption, rhs: DropDownOption) -> Bool {
+//        return lhs.id == rhs.id
+//    }
     var id:Int? = 0
     var Title:String? = ""
     var subTitle:Int? = 0
+    var subject:SubjectsByAcademicLevelM? = SubjectsByAcademicLevelM()
 }
 
 struct CustomDropDownField: View {

@@ -8,8 +8,9 @@
 import Foundation
 // MARK: - ManageTeacherSubjectsM -
 struct ManageTeacherSubjectsM: Codable {
-    var subjectAcademicYearID, groupCost, individualCost, minGroup: Int?
-    var maxGroup: Int?
+    var subjectAcademicYearID: Int?
+    var groupCost, individualCost: Float?
+    var maxGroup, minGroup: Int?
     var teacherBrief: String?
     var statusID, id: Int?
 

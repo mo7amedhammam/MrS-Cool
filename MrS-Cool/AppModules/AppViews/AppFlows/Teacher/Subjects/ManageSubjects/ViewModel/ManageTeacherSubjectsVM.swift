@@ -73,6 +73,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
         }
     }
     @Published var isgroupCostvalid:Bool?
+    @Published var recommendedgroupCost : String = ""
 
     @Published var individualCost : String = ""{
         didSet{
@@ -80,6 +81,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
         }
     }
     @Published var isindividualCostvalid:Bool?
+    @Published var recommendedindividualCost : String = ""
     
     @Published var minGroup : String = ""{
         didSet{

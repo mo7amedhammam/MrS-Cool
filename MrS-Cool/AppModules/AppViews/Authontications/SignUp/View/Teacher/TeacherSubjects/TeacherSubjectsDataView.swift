@@ -36,6 +36,7 @@ struct TeacherSubjectsDataView: View {
                             CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $teachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid: teachersubjectsvm.iseducationLevelvalid)
                             
                             CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $teachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid: teachersubjectsvm.isacademicYearvalid)
+                            
                             CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid: teachersubjectsvm.issubjectvalid)
                         }
                         .padding([.top])
@@ -68,7 +69,6 @@ struct TeacherSubjectsDataView: View {
                     List(teachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
                         TeacherSubjectCell(model: subject){
                             teachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                                    
                                 teachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                             })
                             teachersubjectsvm.isError.toggle()
@@ -113,5 +113,4 @@ struct TeacherSubjectsDataView: View {
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
         .environmentObject(TeacherSubjectsVM())
-
 }
