@@ -107,16 +107,16 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                         
                                                         // -- inputs --
                                                         Group {
-                                                            CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList)
+                                                            CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList,isvalid:managelessonmaterialvm.ismaterialTypevalid)
                                                             
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialName)
+                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid)
                                                             
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialNameEn).reversLocalizeView()
+                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNameEnvalid).reversLocalizeView()
                                                             
                                                             
                                                             //                                                        CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.documentOrder,keyboardType: .asciiCapableNumberPad)
                                                             
-                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL)
+                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:!managelessonmaterialvm.isdocumentFilevalid)
                                                             
                                                         }
                                                         .padding([.top])
@@ -136,7 +136,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                             .aspectRatio(contentMode: .fill)
                                                                     })
                                                                     
-                                                                    Text("Your file uploaded\nsuccessfully")
+                                                                    Text(managelessonmaterialvm.materialPdf?.lastPathComponent ?? "")
                                                                         .font(Font.SoraRegular(size:12))
                                                                         .foregroundColor(ColorConstants.Gray900)
                                                                         .multilineTextAlignment(.center)
@@ -145,7 +145,18 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                             .padding(.top)
                                                             .frame(minWidth:0,maxWidth:.infinity)
                                                         }else{
-                                                            CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(false)){
+                                                            
+                                                            if !(managelessonmaterialvm.isdocumentFilevalid ?? true){
+                                                                Text("File or image not selected".localized())
+                                                                    .lineSpacing(4)
+                                                                    .frame(minWidth: 0,maxWidth: .infinity)
+                                                                    .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                                                    .foregroundColor(ColorConstants.Red400)
+                                                                    .multilineTextAlignment(.center)
+                                                                    .padding(.top)
+                                                            }
+                                                            
+                                                            CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(!managelessonmaterialvm.ismaterialUrlvalid ?? false)){
                                                                 hideKeyboard()
                                                                 isSheetPresented = true
                                                             }
@@ -274,16 +285,16 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 ImagePicker(sourceType: sourceType , selectedImage: $managelessonmaterialvm.materialImg)
                                             }
                                         }
-                                        .fileImporter(isPresented: $startPickingPdf, allowedContentTypes: [.pdf], onCompletion: {file in
-                                            do{
-                                                let url = try file.get()
-                                                print("file url ",url)
+                                        .fileImporter(isPresented: $startPickingPdf, allowedContentTypes: [.pdf], onCompletion: {result in
+                                            
+                                            switch result {
+                                            case .success(let url):
                                                 managelessonmaterialvm.materialPdf = url
-                                            }catch{
-                                                print("can't get file",error)
+
+                                            case .failure(let failure):
+                                                print("Importer error: \(failure)")
                                             }
                                         })
-                                    
                                         .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
                                         // Optional: Handle actions on closing the preview sheet
                                     }, content: {

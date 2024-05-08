@@ -17,15 +17,49 @@ class ManageLessonMaterialVM: ObservableObject {
     @Published var showEdit = false
     @Published var showBrief = false
     
-    @Published var materialType : DropDownOption?
-    @Published var materialName = ""
-    @Published var materialNameEn = ""
+    @Published var materialType : DropDownOption?{
+        didSet{
+            ismaterialTypevalid = materialType == nil ? false : true
+        }
+    }
+    @Published var ismaterialTypevalid :Bool? = true
+    
+    @Published var materialName = ""{
+        didSet{
+            ismaterialNamevalid = materialName.isEmpty ? false : true
+        }
+    }
+    @Published var ismaterialNamevalid :Bool? = true
+    
+    @Published var materialNameEn = ""{
+        didSet{
+            ismaterialNameEnvalid = materialNameEn.isEmpty ? false : true
+        }
+    }
+    @Published var ismaterialNameEnvalid :Bool? = true
+    
     //    @Published var materialOrder = ""
-    @Published var materialUrl = ""
+    @Published var materialUrl = ""{
+        didSet{
+            if !materialUrl.isEmpty{
+                ismaterialUrlvalid = true
+            }
+        }
+    }
+    @Published var ismaterialUrlvalid :Bool? = true
     
-    @Published var materialImg : UIImage? = nil
+    @Published var materialImg : UIImage? = nil{
+        didSet{
+            isdocumentFilevalid = (materialImg == nil && materialPdf == nil ) ? false : true
+        }
+    }
     
-    @Published var materialPdf : URL? = nil
+    @Published var materialPdf : URL? = nil{
+        didSet{
+            isdocumentFilevalid = (materialImg == nil && materialPdf == nil ) ? false : true
+        }
+    }
+    @Published var isdocumentFilevalid :Bool? = true
         
     @Published var filtermaterialType : DropDownOption?
     @Published var filtermaterialName : String = ""
@@ -77,6 +111,7 @@ class ManageLessonMaterialVM: ObservableObject {
 extension ManageLessonMaterialVM{
     
     func CreateLessonMaterial(fileType:fileTypesList){
+        guard checkValidfields() else {return}
         guard let materialTypeId = materialType?.id else {return}
         
         var parameters:[String:Any] = ["MaterialTypeId":materialTypeId,"TeacherLessonId":TeacherLessonId,"Name":materialName,"NameEn":materialNameEn,"MaterialUrl":materialUrl]
@@ -249,8 +284,26 @@ extension ManageLessonMaterialVM{
         materialName = ""
         materialNameEn = ""
         materialImg = nil
-        materialPdf = nil
+        materialImg = nil
         materialUrl = ""
+    }
+    
+    private func checkValidfields()->Bool{
+        ismaterialTypevalid = materialType != nil
+        ismaterialNamevalid = !materialName.isEmpty
+        ismaterialNameEnvalid = !materialNameEn.isEmpty
+        ismaterialUrlvalid = !materialUrl.isEmpty
+        isdocumentFilevalid = materialImg != nil || materialImg != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+        return ismaterialTypevalid ?? true && ismaterialNamevalid ?? true && ismaterialNameEnvalid ?? true && (ismaterialUrlvalid ?? true || isdocumentFilevalid ?? true )
     }
 }
 
