@@ -98,6 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Handle actions before the app gets terminated
         print("app terminated")
     }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+         .portrait
+     }
 }
 
 extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {

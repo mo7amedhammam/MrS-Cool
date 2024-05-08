@@ -109,14 +109,21 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                         Group {
                                                             CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList,isvalid:managelessonmaterialvm.ismaterialTypevalid)
                                                             
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid)
+                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNamevalid)
+                                                                .onChange(of: managelessonmaterialvm.materialNameEn) { newValue in
+                                                                    managelessonmaterialvm.materialNameEn = newValue.filter { $0.isEnglish }
+                                                                }
+
                                                             
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNameEnvalid).reversLocalizeView()
+                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNameEnvalid).reversLocalizeView()
+                                                                .onChange(of: managelessonmaterialvm.materialName) { newValue in
+                                                                    managelessonmaterialvm.materialName = newValue.filter { $0.isArabic }
+                                                                }
                                                             
                                                             
                                                             //                                                        CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.documentOrder,keyboardType: .asciiCapableNumberPad)
                                                             
-                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:!managelessonmaterialvm.isdocumentFilevalid)
+                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:managelessonmaterialvm.isdocumentFilevalid)
                                                             
                                                         }
                                                         .padding([.top])
@@ -156,7 +163,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                     .padding(.top)
                                                             }
                                                             
-                                                            CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(!managelessonmaterialvm.ismaterialUrlvalid ?? false)){
+                                                            CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(managelessonmaterialvm.ismaterialUrlvalid ?? false)){
                                                                 hideKeyboard()
                                                                 isSheetPresented = true
                                                             }
@@ -164,7 +171,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                             .padding(.top)
                                                             .padding(.horizontal,80)
                                                             
-                                                            Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB")
+                                                            Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
                                                                 .lineSpacing(4)
                                                                 .frame(minWidth: 0,maxWidth: .infinity)
                                                                 .font(Font.SoraRegular(size: 12.0))

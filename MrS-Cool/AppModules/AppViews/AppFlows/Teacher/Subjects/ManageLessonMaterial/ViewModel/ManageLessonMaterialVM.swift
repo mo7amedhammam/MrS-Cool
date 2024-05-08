@@ -22,31 +22,31 @@ class ManageLessonMaterialVM: ObservableObject {
             ismaterialTypevalid = materialType == nil ? false : true
         }
     }
-    @Published var ismaterialTypevalid :Bool? = true
+    @Published var ismaterialTypevalid :Bool?
     
     @Published var materialName = ""{
         didSet{
             ismaterialNamevalid = materialName.isEmpty ? false : true
         }
     }
-    @Published var ismaterialNamevalid :Bool? = true
+    @Published var ismaterialNamevalid :Bool?
     
     @Published var materialNameEn = ""{
         didSet{
             ismaterialNameEnvalid = materialNameEn.isEmpty ? false : true
         }
     }
-    @Published var ismaterialNameEnvalid :Bool? = true
+    @Published var ismaterialNameEnvalid :Bool?
     
     //    @Published var materialOrder = ""
     @Published var materialUrl = ""{
         didSet{
-            if !materialUrl.isEmpty{
-                ismaterialUrlvalid = true
-            }
+//            if !materialUrl.isEmpty{
+                ismaterialUrlvalid = materialUrl.isEmpty ? false:true
+//            }
         }
     }
-    @Published var ismaterialUrlvalid :Bool? = true
+    @Published var ismaterialUrlvalid :Bool?
     
     @Published var materialImg : UIImage? = nil{
         didSet{
@@ -59,7 +59,7 @@ class ManageLessonMaterialVM: ObservableObject {
             isdocumentFilevalid = (materialImg == nil && materialPdf == nil ) ? false : true
         }
     }
-    @Published var isdocumentFilevalid :Bool? = true
+    @Published var isdocumentFilevalid :Bool?
         
     @Published var filtermaterialType : DropDownOption?
     @Published var filtermaterialName : String = ""
@@ -87,21 +87,13 @@ class ManageLessonMaterialVM: ObservableObject {
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
-    //    {
-    //        didSet{
-    //            Shared.shared.state.isLoading.wrappedValue = .constant(isLoading)
-    //        }
-    //    }
+ 
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     //    @Published var isTeacherHasDocuments: Bool = false
     @Published var TeacherLessonMaterial : [TeacherLessonMaterialDto]?
-    //    {
-    //        didSet{
-    //            isTeacherHasDocuments = !(TeacherDocuments?.isEmpty ?? true)
-    //        }
-    //    }
+  
     
     init()  {
         //        GetTeacherDocument()
@@ -114,13 +106,17 @@ extension ManageLessonMaterialVM{
         guard checkValidfields() else {return}
         guard let materialTypeId = materialType?.id else {return}
         
-        var parameters:[String:Any] = ["MaterialTypeId":materialTypeId,"TeacherLessonId":TeacherLessonId,"Name":materialName,"NameEn":materialNameEn,"MaterialUrl":materialUrl]
-        switch fileType {
-        case .image:
-            parameters["MaterialFile"] = materialImg
-        case .pdf:
-            parameters["MaterialFile"] = materialPdf
-            
+        var parameters:[String:Any] = ["MaterialTypeId":materialTypeId,"TeacherLessonId":TeacherLessonId,"Name":materialName,"NameEn":materialNameEn]
+
+        if !materialUrl.isEmpty{
+            parameters["MaterialUrl"] = materialUrl
+        }else{
+            switch fileType {
+            case .image:
+                parameters["MaterialFile"] = materialImg
+            case .pdf:
+                parameters["MaterialFile"] = materialPdf
+            }
         }
         
         print("parameters",parameters)

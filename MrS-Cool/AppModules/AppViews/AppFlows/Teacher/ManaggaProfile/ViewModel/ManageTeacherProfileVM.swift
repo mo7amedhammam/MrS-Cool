@@ -78,6 +78,7 @@ class ManageTeacherProfileVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
 
     @Published var isDataUploaded: Bool = false
+    @Published var isFillingData : Bool = true
 //    @Published var OtpM: OtpM?{
 //        didSet{
 //            isDataUploaded = true
@@ -176,6 +177,7 @@ extension ManageTeacherProfileVM{
 
 extension ManageTeacherProfileVM{
     private func fillTeacherData(model:ManageTeacherProfileM){
+        isFillingData = true
 //        guard let model = model else { return }
         name = model.name ?? ""
         imageStr =  model.image ?? ""
@@ -191,6 +193,10 @@ extension ManageTeacherProfileVM{
         birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
         email =  model.email ?? ""
         bio = model.teacherBio ?? ""
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
+            isFillingData = false
+        })
     }
     
     private func checkValidfields()->Bool{

@@ -141,14 +141,13 @@ struct ManageTeacherProfileView: View {
 //                })
                 
                 Task(priority: .background, operation: {
-//                    manageprofilevm.GetTeacherProfile()
+                    manageprofilevm.GetTeacherProfile()
                     lookupsvm.getGendersArr()
                     lookupsvm.getCountriesArr()
                     
                     lookupsvm.SelectedCountry = manageprofilevm.country
                     lookupsvm.SelectedGovernorate = manageprofilevm.governorte
                     lookupsvm.SelectedCity = manageprofilevm.city
-
                 })
                 
                 })
@@ -166,15 +165,20 @@ struct ManageTeacherProfileView: View {
 //                }
 //            }
             .onChange(of: manageprofilevm.country, perform: { value in
-//                guard isEditing else {return}
+                //                guard isEditing else {return}
+                guard !manageprofilevm.isFillingData else {return}
+                
                 lookupsvm.SelectedCountry = value
                 manageprofilevm.governorte = nil
+                
 //                manageprofilevm.city = nil
 //                lookupsvm.getGovernoratesArr()
 //                lookupsvm.CitiesList.removeAll()
             })
             .onChange(of: manageprofilevm.governorte, perform: { value in
-//                guard isEditing else {return}
+                //                guard isEditing else {return}
+                guard !manageprofilevm.isFillingData else {return}
+
                 lookupsvm.SelectedGovernorate = value
                 manageprofilevm.city = nil
 //                lookupsvm.getCitiesArr()
