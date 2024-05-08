@@ -37,16 +37,16 @@ struct ManageTeacherSchedualsView: View {
                                     }
                                     // -- inputs --
                                     Group {
-                                        CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteacherschedualsvm.day,options:lookupsvm.daysList)
+                                        CustomDropDownField(iconName:"img_vector",placeholder: "Day *", selectedOption: $manageteacherschedualsvm.day,options:lookupsvm.daysList,isvalid:manageteacherschedualsvm.isdayvalid)
                                         
                                         
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.startDate,datePickerComponent:.date)
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.startDate,datePickerComponent:.date,isvalid:manageteacherschedualsvm.isstartDatevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$manageteacherschedualsvm.endDate,datePickerComponent:.date)
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$manageteacherschedualsvm.endDate,datePickerComponent:.date,isvalid:manageteacherschedualsvm.isendDatevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,datePickerComponent:.hourAndMinute)
+                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,datePickerComponent:.hourAndMinute)
+                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isendTimevalid)
                                     }
                                     .padding([.top])
                                 }.padding(.top,20)

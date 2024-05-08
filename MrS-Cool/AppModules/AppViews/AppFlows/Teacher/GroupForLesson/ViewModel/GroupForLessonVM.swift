@@ -12,18 +12,45 @@ class GroupForLessonVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var subject : DropDownOption?
-    @Published var lesson : DropDownOption?
-    @Published var groupName : String = ""
-    @Published var date : String?
+    @Published var subject : DropDownOption?{
+        didSet{
+            issubjectvalid = (subject == nil) ? false:true
+        }
+    }
+    @Published var issubjectvalid:Bool?
+    
+    @Published var lesson : DropDownOption?{
+        didSet{
+            islessonvalid = (lesson == nil) ? false:true
+        }
+    }
+    @Published var islessonvalid:Bool?
+    
+    @Published var groupName : String = ""{
+        didSet{
+            isgroupNamevalid = (groupName.isEmpty) ? false:true
+        }
+    }
+    @Published var isgroupNamevalid:Bool?
+    
+    @Published var date : String?{
+        didSet{
+            isdatevalid = (date == nil) ? false:true
+        }
+    }
+    @Published var isdatevalid:Bool?
+    
     @Published var time : String?{
         didSet{
+            istimevalid = (time == nil) ? false:true
             if time != nil && lesson != nil{
-                endTime = time?.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "HH:mm aa") ?? ""
+                endTime = time?.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
             }
         }
     }
+    @Published var istimevalid:Bool?
     
+
     @Published var endTime : String?
 
     @Published var filtersubject : DropDownOption?
@@ -46,11 +73,12 @@ class GroupForLessonVM: ObservableObject {
 
 extension GroupForLessonVM{
     func CreateTeacherGroup(){
-        guard let lessonid = lesson?.id,let date = date,let time = time,let endTime = endTime else {return}
+        guard checkValidfields() else {return}
+        guard let lessonid = lesson?.id,let date = date,let starttime = time,let endtime = endTime else {return}
         
         let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
-                                "timeFrom":time.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
-                                "timeTo":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")]
+                                "timeFrom":starttime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
+                                "timeTo":endtime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm")]
         let parameters:[String:Any] = [ "groupName":groupName,
                                         "teacherLessonId":lessonid,
                                         "teacherLessonSessionScheduleSlotsDto":[Dto]]
@@ -218,6 +246,31 @@ extension GroupForLessonVM{
             cancellable.cancel()
         }
         cancellables.removeAll()
+    }
+    
+    private func checkValidfields()->Bool{
+        issubjectvalid = subject != nil
+        islessonvalid = lesson != nil
+        isdatevalid = date != nil
+        istimevalid = time != nil
+        isgroupNamevalid = !groupName.isEmpty
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+//        isstartDatevalid = ((startDate?.isEmpty) == nil)
+//        isendDatevalid = !endDate.isEmpty
+//        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+//        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+//        isgroupTimevalid = !groupTime.isEmpty && Int(groupTime) != 0
+//        isindividualTimevalid = !individualTime.isEmpty && Int(individualTime) != 0
+
+        return issubjectvalid ?? true && islessonvalid ?? true && isdatevalid ?? true && istimevalid ?? true && isgroupNamevalid ?? true
     }
 }
 

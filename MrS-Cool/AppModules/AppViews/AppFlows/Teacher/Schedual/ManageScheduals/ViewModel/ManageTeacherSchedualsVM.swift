@@ -12,11 +12,40 @@ class ManageTeacherSchedualsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var day : DropDownOption?
-    @Published var startDate : String? 
-    @Published var endDate : String?
-    @Published var startTime : String?
-    @Published var endTime : String?
+    @Published var day : DropDownOption?{
+        didSet{
+            isdayvalid = (day == nil) ? false:true
+        }
+    }
+    @Published var isdayvalid:Bool?
+    
+    @Published var startDate : String?{
+        didSet{
+            isstartDatevalid = (startDate == nil) ? false:true
+        }
+    }
+    @Published var isstartDatevalid:Bool?
+    
+    @Published var endDate : String?{
+        didSet{
+            isendDatevalid = (endDate == nil) ? false:true
+        }
+    }
+    @Published var isendDatevalid:Bool?
+    
+    @Published var startTime : String?{
+        didSet{
+            isstartTimevalid = (startTime == nil) ? false:true
+        }
+    }
+    @Published var isstartTimevalid:Bool?
+    
+    @Published var endTime : String?{
+        didSet{
+            isendTimevalid = (endTime == nil) ? false:true
+        }
+    }
+    @Published var isendTimevalid:Bool?
     
     @Published var filterDay : DropDownOption?
     @Published var filterStartDate : String?
@@ -45,6 +74,7 @@ class ManageTeacherSchedualsVM: ObservableObject {
 extension ManageTeacherSchedualsVM{
     
     func CreateTeacherSchedual(){
+        guard checkValidfields() else {return}
         guard let dayId = day?.id,let startDate = startDate,let endDate = endDate,let startTime = startTime ,let endTime = endTime else {return}
         let parameters:[String:Any] = ["dayId":dayId,
                                        "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
@@ -69,7 +99,7 @@ extension ManageTeacherSchedualsVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if receivedData.success == true,let model = receivedData.data {
+                if receivedData.success == true{
 //                    TeacherScheduals?.append(model)
                     GetTeacherScheduals()
                 }else{
@@ -170,6 +200,11 @@ extension ManageTeacherSchedualsVM{
 //        groupCost = ""
 //        individualCost = ""
 //        subjectBrief =  ""
+        day = nil
+        startDate = nil
+        endDate = nil
+        startTime = nil
+        endTime = nil
     }
     func clearFilter(){
         filterDay = nil
@@ -206,6 +241,32 @@ extension ManageTeacherSchedualsVM{
          }
          cancellables.removeAll()
      }
+    
+    
+    private func checkValidfields()->Bool{
+        isdayvalid = day != nil
+        isstartDatevalid = startDate != nil
+        isendDatevalid = endDate != nil
+        isstartTimevalid = startTime != nil
+        isendTimevalid = endTime != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+//        isstartDatevalid = ((startDate?.isEmpty) == nil)
+//        isendDatevalid = !endDate.isEmpty
+//        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+//        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+//        isgroupTimevalid = !groupTime.isEmpty && Int(groupTime) != 0
+//        isindividualTimevalid = !individualTime.isEmpty && Int(individualTime) != 0
+
+        return isdayvalid ?? true && isstartDatevalid ?? true && isendDatevalid ?? true && isstartTimevalid ?? true && isendTimevalid ?? true
+    }
 }
 
 

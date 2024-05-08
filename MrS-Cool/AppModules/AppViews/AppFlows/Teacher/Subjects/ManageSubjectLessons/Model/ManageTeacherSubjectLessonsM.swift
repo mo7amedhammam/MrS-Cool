@@ -12,7 +12,8 @@ struct ManageTeacherSubjectLessonsM: Codable, Hashable {
     static func == (lhs: ManageTeacherSubjectLessonsM, rhs: ManageTeacherSubjectLessonsM) -> Bool {
         return lhs.unitName == rhs.unitName
     }
-    
+     
+    var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
     var unitName: String?
     var teacherUnitLessons: [TeacherUnitLesson]?
 }
@@ -23,21 +24,25 @@ struct TeacherUnitLesson: Codable,Hashable {
         return lhs.lessonID == rhs.lessonID
     }
     var id: Int?
-    var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
     var teacherID: Int?
     var lessonName: String?
     var defaultGroupCost,groupCost: Float?
     var defaultIndividualCost,individualCost: Float?
-    var defaultIndividualDuration, defaultGroupDuration, lessonID: Int?
+    var defaultIndividualDuration, defaultGroupDuration: Int?
+    var lessonID,minGroup,maxGroup : Int?
     var individualDuration,groupDuration: Int?
     var teacherBrief: String?
+    var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String? //not in api but edded to handle design
+
 
     enum CodingKeys: String, CodingKey {
-        case id, educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName
+        case id
         case teacherID = "teacherId"
         case lessonName, defaultGroupCost, defaultGroupDuration, defaultIndividualCost, defaultIndividualDuration
-        case lessonID = "lessonId"
+        case lessonID = "lessonId",minGroup,maxGroup
         case groupCost, groupDuration, individualCost, individualDuration, teacherBrief
+
+        case educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName  //not in api but edded to handle design
     }
 }
 

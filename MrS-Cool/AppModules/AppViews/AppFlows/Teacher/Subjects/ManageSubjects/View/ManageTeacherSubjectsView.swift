@@ -185,7 +185,7 @@ struct ManageTeacherSubjectsView: View {
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
-                            .padding(.vertical,-4)
+                            .padding(.vertical,-8)
                         }
                         //                    .scrollContentBackground(.hidden)
                         .listStyle(.plain)

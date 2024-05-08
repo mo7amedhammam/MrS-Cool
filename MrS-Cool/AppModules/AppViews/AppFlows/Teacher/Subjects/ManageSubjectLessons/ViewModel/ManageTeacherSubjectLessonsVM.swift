@@ -58,19 +58,53 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     @Published var editRowId : Int = 0
     @Published var editSubjectSemesterYearId : Int = 0
 
-    @Published var groupCost : String = ""
-    @Published var individualCost : String = ""
+    @Published var groupCost : String = ""{
+        didSet{
+            isgroupCostvalid = (groupCost.isEmpty || Int(groupCost) == 0) ? false:true
+        }
+    }
+    @Published var isgroupCostvalid:Bool?
+    
+    @Published var individualCost : String = ""{
+        didSet{
+            isindividualCostvalid = (individualCost.isEmpty || Int(individualCost) == 0) ? false:true
+        }
+    }
+    @Published var isindividualCostvalid:Bool?
+    
     @Published var recommendedgroupCost : String = ""
     @Published var recommendedindividualCost: String = ""
 
-    @Published var minGroup : String = ""
-    @Published var maxGroup : String = ""
-    @Published var groupTime = ""
-    @Published var individualTime = ""
+    @Published var minGroup : String = ""{
+        didSet{
+            isminGroupvalid = (minGroup.isEmpty || Int(minGroup) == 0) ? false:true
+        }
+    }
+    @Published var isminGroupvalid:Bool?
+    
+    @Published var maxGroup : String = ""{
+        didSet{
+            ismaxGroupvalid = (maxGroup.isEmpty || Int(maxGroup) == 0) ? false:true
+        }
+    }
+    @Published var ismaxGroupvalid:Bool?
+    
+    @Published var groupTime = ""{
+        didSet{
+            isgroupTimevalid = (groupTime.isEmpty || Int(groupTime) == 0) ? false:true
+        }
+    }
+    @Published var isgroupTimevalid:Bool?
+    
+    @Published var individualTime = ""{
+        didSet{
+            isindividualTimevalid = (individualTime.isEmpty || Int(individualTime) == 0) ? false:true
+        }
+    }
+    @Published var isindividualTimevalid:Bool?
     
     @Published var subjectBrief : String = ""
     @Published var subjectBriefEn : String = ""
-
 
 //    @Published var filterEducationType : DropDownOption?{
 //        didSet{
@@ -104,9 +138,9 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
-//    @Published var isTeacherHasSubjects: Bool = false
     @Published var TeacherSubjectLessons : [ManageTeacherSubjectLessonsM]?
-    
+//    @Published var isTeacherLessonUpdated: Bool = false
+
     init()  {
         //        GetTeacherSubjects()
     }
@@ -153,6 +187,7 @@ extension ManageTeacherSubjectLessonsVM{
     }
     
     func UpdateTeacherSubjectLesson(){
+        guard checkValidfields() else {return }
         guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = Int(groupTime),let individualTime = Int(individualTime),let mingroup = Int(minGroup),let maxgroup = Int(maxGroup)  else {return}
         let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,"minGroup":mingroup,"maxGroup":maxgroup,"id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
         
@@ -175,6 +210,7 @@ extension ManageTeacherSubjectLessonsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
+                    showEdit = false
                     GetTeacherSubjectLessons()
                 }else{
                     isError =  true
@@ -185,7 +221,6 @@ extension ManageTeacherSubjectLessonsVM{
             })
             .store(in: &cancellables)
     }
-
     
     func GetSubjectLessonBrief(){
         let parameters:[String:Any] = ["Id":editRowId]
@@ -242,6 +277,7 @@ extension ManageTeacherSubjectLessonsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
+                    showBrief = false
                     UpdateLessonBriefField(receivedData)
                 }else{
                     isError =  true
@@ -253,17 +289,19 @@ extension ManageTeacherSubjectLessonsVM{
             .store(in: &cancellables)
     }
     
-    func clearTeachersSubject(){
+    func clearTeachersLesson(){
 //        educationType = nil
 //        educationLevel = nil
 //        academicYear = nil
 //        subject = nil
 //        
-//        minGroup = ""
-//        maxGroup = ""
-//        groupCost = ""
-//        individualCost = ""
-//        subjectBrief =  ""
+        minGroup = ""
+        maxGroup = ""
+        groupCost = ""
+        individualCost = ""
+        groupTime = ""
+        individualTime = ""
+        subjectBrief =  ""
     }
     func clearFilter(){
         lessonName = ""
@@ -278,12 +316,12 @@ extension ManageTeacherSubjectLessonsVM{
 //        academicYear = .init(id: item.subjectAcademicYearID,Title: item.academicYearName)
 //        subject = .init(id: item.subjectAcademicYearID,Title: item.subjectDisplayName)
         
-//        if let min = item.minGroup{
-//            minGroup = String(min)
-//        }
-//        if let max = item.maxGroup{
-//            maxGroup = String(max)
-//        }
+        if let min = item.minGroup{
+            minGroup = String(min)
+        }
+        if let max = item.maxGroup{
+            maxGroup = String(max)
+        }
         if let gcost = item.groupCost, let rgcost = item.defaultGroupCost{
             groupCost = String(gcost)
             recommendedgroupCost = String(rgcost)
@@ -330,6 +368,31 @@ extension ManageTeacherSubjectLessonsVM{
             print("Lesson not found")
         }
     }
+    
+    private func checkValidfields()->Bool{
+//        iseducationTypevalid = educationType != nil
+//        iseducationLevelvalid = educationLevel != nil
+//        isacademicYearvalid = academicYear != nil
+//        issubjectvalid = subject != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+        isgroupTimevalid = !groupTime.isEmpty && Int(groupTime) != 0
+        isindividualTimevalid = !individualTime.isEmpty && Int(individualTime) != 0
+
+        return isgroupTimevalid ?? true && isindividualTimevalid ?? true && isminGroupvalid ?? true && ismaxGroupvalid ?? true && isgroupCostvalid ?? true && isindividualCostvalid ?? true
+    }
+
 }
 
 

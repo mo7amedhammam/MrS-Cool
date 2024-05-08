@@ -137,8 +137,11 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                             //                                        .frame(height:40)
                                     ) {
                                         ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
-                                            ManageSubjectLessonCell(model: lesson, editBtnAction: {
-
+                                            // declared to pass values in unit not exist inside lesson
+                                            let modifiedlesson : TeacherUnitLesson = TeacherUnitLesson(id: lesson.id ?? 0, teacherID: lesson.teacherID ?? 0, lessonName: lesson.lessonName ?? "", defaultGroupCost: lesson.defaultGroupCost ?? 0, groupCost: lesson.groupCost, defaultIndividualCost: lesson.defaultIndividualCost, individualCost: lesson.individualCost, defaultIndividualDuration: lesson.defaultIndividualDuration, defaultGroupDuration: lesson.defaultGroupDuration, lessonID: lesson.lessonID, minGroup: lesson.minGroup, maxGroup: lesson.maxGroup, individualDuration: lesson.individualDuration, groupDuration: lesson.groupDuration, teacherBrief: lesson.teacherBrief, educationTypeName: unit.educationTypeName, educationLevelName: unit.educationLevelName, academicYearName: unit.academicYearName, subjectSemesterYearName: unit.subjectSemesterYearName)
+                                            
+                                            
+                                            ManageSubjectLessonCell(model: modifiedlesson, editBtnAction: {
                                                 manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
                                                 manageteachersubjectlessonsvm.showEdit = true
                                             }, addBriefBtnAction: {
@@ -188,8 +191,6 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
             .onDisappear {
                 manageteachersubjectlessonsvm.cleanup()
             }
-            .showHud(isShowing: $manageteachersubjectlessonsvm.isLoading)
-            .showAlert(hasAlert: $manageteachersubjectlessonsvm.isError, alertType: manageteachersubjectlessonsvm.error)
             
             .overlay{
                 if manageteachersubjectlessonsvm.showEdit{
@@ -208,8 +209,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                 }
                                 Group {
                                     ZStack(alignment:.bottomTrailing){
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost
-                                                    ,keyboardType:.decimalPad)
+                                        CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectlessonsvm.groupCost ,keyboardType:.decimalPad,isvalid:manageteachersubjectlessonsvm.isgroupCostvalid)
                                         .onChange(of: manageteachersubjectlessonsvm.groupCost) { newValue in
                                             manageteachersubjectlessonsvm.groupCost = newValue.filter { $0.isEnglish }
                                         }
@@ -224,14 +224,14 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     }
                                         
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.isgroupTimevalid)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.isminGroupvalid)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.ismaxGroupvalid)
                                     
                                     ZStack(alignment:.bottomTrailing){
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.decimalPad)
+                                        CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectlessonsvm.isindividualCostvalid)
                                         .onChange(of: manageteachersubjectlessonsvm.individualCost) { newValue in
                                             manageteachersubjectlessonsvm.individualCost = newValue.filter { $0.isEnglish }
                                         }
@@ -245,18 +245,17 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     .padding(5)
                                 }
                                     
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.individualTime,keyboardType:.asciiCapableNumberPad)
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Time", text: $manageteachersubjectlessonsvm.individualTime,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.isindividualTimevalid)
                                 }
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Update",IsDisabled: .constant(false), action: {
                                             manageteachersubjectlessonsvm .UpdateTeacherSubjectLesson()
-                                            manageteachersubjectlessonsvm.showEdit = false
+//                                            manageteachersubjectlessonsvm.showEdit = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-    //                                        manageteachersubjectlessonsvm.clearFilter()
-    //                                        manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
+                                            manageteachersubjectlessonsvm.clearTeachersLesson()
                                             manageteachersubjectlessonsvm.showEdit = false
                                         })
                                     } .frame(width:130,height:40)
@@ -383,8 +382,11 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                     }
 
                 }
-        }        
-        
+                
+        }
+            .showHud(isShowing: $manageteachersubjectlessonsvm.isLoading)
+            .showAlert(hasAlert: $manageteachersubjectlessonsvm.isError, alertType: manageteachersubjectlessonsvm.error)
+
         NavigationLink(destination: destination, isActive: $isPush, label: {})
 
     }
