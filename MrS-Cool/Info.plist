@@ -2,36 +2,49 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.example.app.backgroundTaskIdentifier</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.26283973925-u4e25me332aoq6n3ci3bn13qb5amc1hb</string>
-			</array>
-		</dict>
-	</array>
-	<key>NSUserNotificationUsageDescription</key>
-	<string>We need to send you notifications to keep you updated.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>InterMedium.ttf</string>
-		<string>SoraBold.ttf</string>
-		<string>RobotoRegular.ttf</string>
-		<string>SoraSemiBold.ttf</string>
-		<string>SoraRegular.ttf</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>processing</string>
-		<string>remote-notification</string>
-	</array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.26283973925-u4e25me332aoq6n3ci3bn13qb5amc1hb</string>
+            </array>
+        </dict>
+    </array>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>we need to use your permission to select documents for your certificates.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>we need to use your library for selecting images for documents</string>
+    <key>NSCameraUsageDescription</key>
+    <string>we need to use your camera for picking images for documents</string>
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>com.example.app.backgroundTaskIdentifier</string>
+    </array>
+    <key>NSUserNotificationUsageDescription</key>
+    <string>We need to send you notifications to keep you updated.</string>
+    <key>UIAppFonts</key>
+    <array>
+        <string>InterMedium.ttf</string>
+        <string>SoraBold.ttf</string>
+        <string>RobotoRegular.ttf</string>
+        <string>SoraSemiBold.ttf</string>
+        <string>SoraRegular.ttf</string>
+    </array>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>processing</string>
+        <string>remote-notification</string>
+    </array>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
 </dict>
 </plist>
