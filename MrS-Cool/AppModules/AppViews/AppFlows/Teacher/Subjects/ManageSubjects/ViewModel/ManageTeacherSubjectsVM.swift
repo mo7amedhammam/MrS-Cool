@@ -361,7 +361,7 @@ extension ManageTeacherSubjectsVM{
         educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
         educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
         academicYear = .init(id: item.subjectSemesterYearID,Title: item.academicYearName)
-        subject = .init(id: item.subjectSemesterYearID,Title: item.subjectDisplayName)
+        subject = .init(id: item.subjectSemesterYearID,Title: item.subjectSemesterYearName)
         if let min = item.minGroup{
             minGroup = String(min)
         }

@@ -169,12 +169,17 @@ struct SubjectGroupDetailsView: View {
 //                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
 //                    manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
 //                })
+
             }
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
             })
-            
+            .onChange(of: subjectgroupvm.TeacherSubjectGroupCreated){value in
+                if value == true {
+                    dismiss()
+                }
+            }
 //            .onDisappear {
 //                subjectgroupvm.cleanup()
 //            }

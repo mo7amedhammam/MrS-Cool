@@ -34,6 +34,7 @@ enum EndPoints: String {
     case GetMaterialTypes = "MaterialType/Get"
     case GetDays = "Lookups/GetDay"
     case GetAcademicSemester = "AcademicSemester/Get"
+    case GetStatus = "Lookups/GetStatus"
     
     
     // MARK: -- Teacher Auth --

@@ -170,28 +170,29 @@ class LookUpsVM: ObservableObject {
             }
         }
     }
-//    @Published var SubjectsArrayByAcademicLevel: [SubjectsByAcademicLevelM] = []{
-//        didSet{
-//            if !SubjectsArrayByAcademicLevel.isEmpty {
-//                // Use map to transform GendersM into DropDownOption
-//                SubjectsListByAcademicLevel = SubjectsArrayByAcademicLevel.map { subject in
-//                    return subject
-////                    DropDownOption(id: gender.id, Title: gender.name)
-//                }
-//            }else{
-//                SubjectsListByAcademicLevel.removeAll()
-//            }
-//        }
-//    }
-//    @Published var SubjectsListByAcademicLevel: [SubjectsByAcademicLevelM] = []
-//    @Published var SelectedSubjectByAcademicLevel: SubjectsByAcademicLevelM?{
-//        didSet{
-//            if SelectedSubjectByAcademicLevel == nil{
-//                SubjectsListByAcademicLevel.removeAll()
-//            }
-//        }
-//    }
-        
+
+    @Published var StatusArray: [GendersM] = []{
+        didSet{
+            if !StatusArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                StatusList = StatusArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                StatusList.removeAll()
+            }
+        }
+    }
+    @Published var StatusList: [DropDownOption] = []
+    @Published var SelectedStatus: DropDownOption?{
+        didSet{
+            if SelectedStatus == nil{
+                StatusList.removeAll()
+            }
+        }
+    }
+    
+    
     @Published var SemestersArray: [AcademicSemesterM] = []{
         didSet{
             if !SemestersArray.isEmpty {
@@ -462,26 +463,24 @@ extension LookUpsVM {
             })
             .store(in: &cancellables)
     }
-//    func GetSubjectsByAcademicLevel(academicYearId:Int) {
-////        guard let academicYearId = SelectedAcademicYear?.id else {return}
-//        let parameters = ["academicEducationLevelId":academicYearId]
-//        
-//        let target = LookupsServices.GetAllSubjects(parameters: parameters)
-//        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    self.error = error
-//                }
-//            }, receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                SubjectsArrayByAcademicLevel = receivedData.data ?? []
-//            })
-//            .store(in: &cancellables)
-//    }
+    
+    func GetStatus() {
+        let target = LookupsServices.GetStatus
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                StatusArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
     
     func GetSemesters() {
         let target = LookupsServices.GetSemesters

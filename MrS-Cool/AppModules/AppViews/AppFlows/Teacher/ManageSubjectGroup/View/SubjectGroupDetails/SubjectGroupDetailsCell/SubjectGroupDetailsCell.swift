@@ -40,7 +40,7 @@ struct SubjectGroupDetailsCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         
-                        Text("\(model.timeFrom ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))
+                        Text("\(model.timeFrom ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm", FormatTo: "hh:mm aa"))
                             .font(Font.SoraRegular(size: 12))
                             .foregroundColor(.mainBlue)
                     }
@@ -50,7 +50,7 @@ struct SubjectGroupDetailsCell: View {
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         
-                        Text("\(model.timeTo ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))
+                        Text("\(model.timeTo ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm", FormatTo: "hh:mm aa"))
                             .font(Font.SoraRegular(size: 12))
                             .foregroundColor(.mainBlue)
                     }

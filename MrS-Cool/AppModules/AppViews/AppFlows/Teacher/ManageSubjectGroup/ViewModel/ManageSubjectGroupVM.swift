@@ -12,9 +12,27 @@ class ManageSubjectGroupVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var subject : DropDownOption?
-    @Published var groupName : String = ""
-    @Published var startDate : String?
+    @Published var subject : DropDownOption?{
+        didSet{
+            issubjectvalid = subject == nil ? false:true
+        }
+    }
+    @Published var issubjectvalid:Bool?
+    
+    @Published var groupName : String = ""{
+        didSet{
+            isgroupNamevalid = groupName.isEmpty ? false:true
+        }
+    }
+    @Published var isgroupNamevalid:Bool?
+    
+    @Published var startDate : String?{
+        didSet{
+            isstartDatevalid = startDate == nil ? false:true
+        }
+    }
+    @Published var isstartDatevalid:Bool?
+
     //    @Published var endDate : String?
     
     @Published var filtersubject : DropDownOption?
@@ -49,6 +67,7 @@ class ManageSubjectGroupVM: ObservableObject {
             }
         }
     }
+    @Published var TeacherSubjectGroupCreated : Bool = false
     
     init()  {
         GetTeacherSubjectGroups()
@@ -103,6 +122,7 @@ extension ManageSubjectGroupVM{
     }
     
     func ReviewTeacherGroup(){
+        guard checkValidfields() else {return}
         guard let subjectid = subject?.id ,let subjectname = subject?.Title ,let startdate = startDate else {return}
         prepareSlotsArrays()
 
@@ -163,6 +183,7 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
+                    TeacherSubjectGroupCreated = true
                     clearTeacherGroup()
                     clearFilter()
                     GetTeacherSubjectGroups()
@@ -284,6 +305,28 @@ extension ManageSubjectGroupVM{
         }
         cancellables.removeAll()
     }
+    
+    private func checkValidfields()->Bool{
+        issubjectvalid = subject != nil
+        isgroupNamevalid = !groupName.isEmpty
+        isstartDatevalid = startDate != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+//        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+//        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+//        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+//        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+        
+        return issubjectvalid ?? true && isgroupNamevalid ?? true && isstartDatevalid ?? true
+    }
+
 }
 
 

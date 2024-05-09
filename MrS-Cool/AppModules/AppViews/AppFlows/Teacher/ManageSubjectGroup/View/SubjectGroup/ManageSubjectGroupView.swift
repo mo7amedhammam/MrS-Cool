@@ -35,12 +35,11 @@ struct ManageSubjectGroupView: View {
                                     }
                                     // -- inputs --
                                     Group {
-                                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList)
+                                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
 
-                                        CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName)
+                                        CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName,isvalid:subjectgroupvm.isgroupNamevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.startDate,datePickerComponent:.date)
-                                        
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.startDate,datePickerComponent:.date,isvalid:subjectgroupvm.isstartDatevalid)
                                     }
                                     .padding([.top])
                                     
@@ -109,7 +108,7 @@ struct ManageSubjectGroupView: View {
                                 
                                 HStack {
                                     Group{
-                                        CustomButton(Title: "Review Details" ,IsDisabled: .constant(false), action: {
+                                        CustomButton(Title: "Review Details" ,IsDisabled: .constant(subjectgroupvm.DisplaySchedualSlotsArr.isEmpty), action: {
                                             subjectgroupvm.ReviewTeacherGroup()
                                             destination = AnyView(    SubjectGroupDetailsView(previewOption: .newGroup).hideNavigationBar().environmentObject(subjectgroupvm).environmentObject(lookupsvm))
                                         })

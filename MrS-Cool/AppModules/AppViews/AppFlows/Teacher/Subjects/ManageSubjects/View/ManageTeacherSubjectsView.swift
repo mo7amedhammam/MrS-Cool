@@ -196,9 +196,10 @@ struct ManageTeacherSubjectsView: View {
                 }
             }
             .onAppear(perform: {
+                manageteachersubjectsvm.GetTeacherSubjects()
                 //                                signupvm.isUserChangagble = false
                 lookupsvm.GetEducationTypes()
-                manageteachersubjectsvm.GetTeacherSubjects()
+                lookupsvm.GetStatus()
             })
             .onChange(of: manageteachersubjectsvm.educationType, perform: { value in
                 lookupsvm.SelectedEducationType = value
@@ -268,7 +269,7 @@ struct ManageTeacherSubjectsView: View {
                                             lookupsvm.SelectedAcademicYear = val
                                         }
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $manageteachersubjectsvm.filterSubject,options:lookupsvm.SubjectsList)
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $manageteachersubjectsvm.filterSubjectStatus,options:lookupsvm.SubjectsList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $manageteachersubjectsvm.filterSubjectStatus,options:lookupsvm.StatusList)
                                 }
                                 .padding(.top,5)
                                 Spacer()
