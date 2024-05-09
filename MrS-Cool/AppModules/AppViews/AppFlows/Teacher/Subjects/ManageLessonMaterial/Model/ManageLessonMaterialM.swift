@@ -41,13 +41,15 @@ struct TeacherLessonMaterialDto: Codable,Hashable,Identifiable {
 struct CreateLessonMaterialM: Codable {
     var name: String?
     var teacherLessonID, materialTypeID: Int?
-    var materialURL, nameEn, materialFile: String?
+    var materialURL, nameEn: String?
+//    var materialFile: String?
 
     enum CodingKeys: String, CodingKey {
         case name
         case teacherLessonID = "teacherLessonId"
         case materialTypeID = "materialTypeId"
         case materialURL = "materialUrl"
-        case nameEn, materialFile
+        case nameEn
+//        case materialFile
     }
 }
