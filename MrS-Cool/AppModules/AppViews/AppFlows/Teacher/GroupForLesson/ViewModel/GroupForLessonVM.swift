@@ -15,6 +15,7 @@ class GroupForLessonVM: ObservableObject {
     @Published var subject : DropDownOption?{
         didSet{
             issubjectvalid = (subject == nil) ? false:true
+            lesson = nil
         }
     }
     @Published var issubjectvalid:Bool?
@@ -22,6 +23,8 @@ class GroupForLessonVM: ObservableObject {
     @Published var lesson : DropDownOption?{
         didSet{
             islessonvalid = (lesson == nil) ? false:true
+            
+            calculateendTime()
         }
     }
     @Published var islessonvalid:Bool?
@@ -43,9 +46,7 @@ class GroupForLessonVM: ObservableObject {
     @Published var time : String?{
         didSet{
             istimevalid = (time == nil) ? false:true
-            if time != nil && lesson != nil{
-                endTime = time?.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
-            }
+            calculateendTime()
         }
     }
     @Published var istimevalid:Bool?
@@ -209,6 +210,7 @@ extension GroupForLessonVM{
         lesson = nil
         date = nil
         time = nil
+        endTime = nil
         groupName = ""
     }
     func clearFilter(){
@@ -239,6 +241,11 @@ extension GroupForLessonVM{
     //        subjectBrief = item.teacherBrief ?? ""
     //        isEditing = true
     //    }
+  func calculateendTime(){
+        if time != nil && lesson != nil{
+            endTime = time?.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
+        }
+    }
     
     func cleanup() {
         // Cancel any ongoing Combine subscriptions

@@ -126,13 +126,15 @@ struct SubjectGroupDetailsView: View {
                                 
                             }
                             .padding(.horizontal)
-                            List(subjectgroupvm.TeacherSubjectGroupsDetails?.scheduleSlots ?? [], id:\.self) { group in
-                                SubjectGroupDetailsCell(number:1 ,model: group)
-                                    .listRowSpacing(0)
-                                    .listRowSeparator(.hidden)
-                                    .listRowBackground(Color.clear)
-                                    .padding(.vertical,-4)
-                                
+
+                            let scheduleSlots = subjectgroupvm.TeacherSubjectGroupsDetails?.scheduleSlots ?? []
+                            let enumeratedSlots = Array(scheduleSlots.enumerated())
+                                List(enumeratedSlots, id: \.element) { index, group in
+                                SubjectGroupDetailsCell(number: index+1, model: group)
+                                        .listRowSpacing(0)
+                                        .listRowSeparator(.hidden)
+                                        .listRowBackground(Color.clear)
+                                        .padding(.vertical,-4)
                             }
                             .padding(.horizontal,-4)
                             .listStyle(.plain)

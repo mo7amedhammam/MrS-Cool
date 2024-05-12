@@ -14,15 +14,17 @@ struct FilePreviewerSheet: View {
     
     var body: some View {
         ZStack{
+            let url = url.reverseSlaches()
+            
                 if url.hasSuffix(".pdf") {
                     
                     // Display PDF view
-                    if let url = URL(string: url.reverseSlaches()){
+                    if let url = URL(string: url){
                         PDFViewer(url: url)
                     }
                 } else if url.hasSuffix(".jpg") || url.hasSuffix(".jpeg") || url.hasSuffix(".png") {
                     // Display image view
-                    if let imageURL = URL(string: url.reverseSlaches()) {
+                    if let imageURL = URL(string: url) {
                         ImageView(url: imageURL)
                         
                     } else {
@@ -31,6 +33,15 @@ struct FilePreviewerSheet: View {
                     
                 } else {
                     Text("Unsupported file type")
+                    
+//                    Button(action: {
+//                        if let url = URL(string: url) {
+//                            UIApplication.shared.open(url)
+//                        }
+//                    }) {
+//                        Text("Open in Safari")
+//                    }
+
                 }
         }
         .frame(maxWidth: UIScreen.main.bounds.width,maxHeight: UIScreen.main.bounds.height)

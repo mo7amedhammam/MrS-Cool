@@ -22,7 +22,7 @@ class TeacherRatesVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var Rates : TeacherRateM? = TeacherRateM.init(items: [RateItem.init(teacherRate: 3.5, teacherLessonName: "The best LMS Design", teacherLessonRate: 4, teacherLessonComment: "This course is a very applicable. Professor Ng explains precisely each algorithm and even tries to give an intuition for mathematical and statistic concepts behind each algorithm. Thank you very much.", creationDate: "2024-03-11T10:53:14.468Z")],totalCount: 35)
-    
+//
     init()  {
     }
 }
@@ -30,7 +30,7 @@ class TeacherRatesVM: ObservableObject {
 extension TeacherRatesVM{
     
     func GetRates(){
-        var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
+        let parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
         
         print("parameters",parameters)
         let target = teacherServices.GetTeacherRates(parameters: parameters)

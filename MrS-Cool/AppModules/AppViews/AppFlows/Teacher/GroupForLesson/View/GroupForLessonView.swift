@@ -41,6 +41,7 @@ struct GroupForLessonView: View {
                                         .onChange(of: groupsforlessonvm.subject){newval in
                                             if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
                                                 lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
+
                                             }
                                         }
                                     
@@ -120,6 +121,7 @@ struct GroupForLessonView: View {
                             GroupForLessonCell(model: schedual, deleteBtnAction: {
                                 groupsforlessonvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     groupsforlessonvm.DeleteTeacherGroup(id: schedual.id)
+                                    
                                 })
                                 groupsforlessonvm.isError = true
                             })

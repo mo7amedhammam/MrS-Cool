@@ -265,11 +265,11 @@ class LookUpsVM: ObservableObject {
     @Published var SubjectsForList: [DropDownOption] = []
     @Published var SelectedSubjectForList: DropDownOption?{
         didSet{
-            if SelectedSubjectForList == nil{
-                SubjectsForList.removeAll()
-            }else{
+//            if SelectedSubjectForList == nil{
+//                SubjectsForList.removeAll()
+//            }else{
                 GetLessonsForList()
-            }
+//            }
         }
     }
     @Published var LessonsForListArray: [LessonForListM] = []{

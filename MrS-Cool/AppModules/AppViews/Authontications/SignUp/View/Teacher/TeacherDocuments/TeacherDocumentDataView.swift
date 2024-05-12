@@ -149,7 +149,8 @@ struct TeacherDocumentDataView: View {
                         }){
                             print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
                                 previewurl = Constants.baseURL + (document.documentPath ?? "")
-                            isPreviewPresented.toggle()
+//                            isPreviewPresented.toggle()
+                            UIApplication.shared.open(URL(string: previewurl)!)
                         }
                         .listRowSpacing(0)
                         .listRowSeparator(.hidden)
@@ -223,11 +224,11 @@ struct TeacherDocumentDataView: View {
                 }
             })
         
-            .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
-            // Optional: Handle actions on closing the preview sheet
-        }, content: {
-            FilePreviewerSheet(url:$previewurl)
-        })
+//            .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
+//            // Optional: Handle actions on closing the preview sheet
+//        }, content: {
+//            FilePreviewerSheet(url:$previewurl)
+//        })
         
         .fullScreenCover(isPresented: $isFinish, onDismiss: {
             print("dismissed ")

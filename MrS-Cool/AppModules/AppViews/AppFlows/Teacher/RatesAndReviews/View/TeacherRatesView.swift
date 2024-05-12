@@ -27,41 +27,41 @@ struct TeacherRatesView: View {
                 CustomTitleBarView(title: "Rates and Reviews")
 //            }
             GeometryReader { gr in
-                if let array = ratesvm.Rates{
+//                if let array = ratesvm.Rates{
                     
-                    VStack(alignment:.leading) {
-                        HStack (alignment:.top,spacing:15){
-                            Image("MenuSt_rates")
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundStyle(Color.mainBlue)
-                                .frame(width: 35, height: 35, alignment: .center)
+                VStack(alignment:.leading) {
+                    HStack (alignment:.top,spacing:15){
+                        Image("MenuSt_rates")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.mainBlue)
+                            .frame(width: 35, height: 35, alignment: .center)
+                        
+                        VStack(alignment:.leading,spacing:10){ // (Title - Data - Submit Button)
                             
-                            VStack(alignment:.leading,spacing:10){ // (Title - Data - Submit Button)
-                                
-                                SignUpHeaderTitle(Title: "Rates and Reviews")
-                                    .foregroundStyle(Color.mainBlue)
-                                
-                                Group{
-                                    Text("\(array.items?.first?.teacherRate ?? 4.3,specifier: "%.1f")")
-                                        .font(.SoraBold(size: 30))
-                                    + Text( " of 5 ".localized())
-                                        .font(.SoraBold(size: 30))
-                                    
-                                    + Text(" /   ")
-                                    + Text("\(array.items?.count ?? Int(112))  ")
-                                        .font(.SoraBold(size: 16))
-                                    + Text("Rate".localized())
-                                        .font(.SoraRegular(size: 13))
-                                }
+                            SignUpHeaderTitle(Title: "Rates and Reviews")
                                 .foregroundStyle(Color.mainBlue)
+                            
+                            Group{
+                                Text("\(ratesvm.Rates?.items?.first?.teacherRate ?? 4.3,specifier: "%.1f")")
+                                    .font(.SoraBold(size: 30))
+                                + Text( " of 5 ".localized())
+                                    .font(.SoraBold(size: 30))
+                                
+                                + Text(" /   ")
+                                + Text("\(ratesvm.Rates?.items?.count ?? Int(112))  ")
+                                    .font(.SoraBold(size: 16))
+                                + Text("Rate".localized())
+                                    .font(.SoraRegular(size: 13))
                             }
-                        } 
-//                        .redacted(reason: .placeholder)
-
-                        List(array.items ?? [],id:\.self){rate in
+                            .foregroundStyle(Color.mainBlue)
+                        }
+                    }
+                    //                        .redacted(reason: .placeholder)
+                    if let array = ratesvm.Rates?.items{
+                        List(array,id:\.self){rate in
                             RateCellView(rate: rate)
-//                                .redacted(reason: .placeholder)
+                            //                                .redacted(reason: .placeholder)
                                 .onAppear {
                                     if let totalCount = ratesvm.Rates?.totalCount, let itemsCount = ratesvm.Rates?.items?.count, itemsCount < totalCount {
                                         // Load the next page if there are more items to fetch
@@ -71,12 +71,13 @@ struct TeacherRatesView: View {
                                 }
                         }.listStyle(.plain)
                     }
+                    }
                      
                     .frame(minHeight:gr.size.height)
                     .onAppear(perform: {
                         ratesvm.GetRates()
                     })
-                }
+//                }
                 
             }
             .padding(.top)

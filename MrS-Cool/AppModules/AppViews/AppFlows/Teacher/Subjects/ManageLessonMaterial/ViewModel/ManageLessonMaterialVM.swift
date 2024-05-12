@@ -283,6 +283,8 @@ extension ManageLessonMaterialVM{
         materialImg = nil
         materialImg = nil
         materialUrl = ""
+        
+        isEditing = false
     }
     
     private func checkValidfields()->Bool{

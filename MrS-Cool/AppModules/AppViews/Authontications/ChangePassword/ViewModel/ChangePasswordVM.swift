@@ -85,6 +85,7 @@ extension ChangePasswordVM{
                 if receivedData.success == true{
 //                    teachermodel = model
                     isPasswordChanged = true
+                    clearpassword()
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
@@ -96,6 +97,12 @@ extension ChangePasswordVM{
 }
 
 extension ChangePasswordVM{
+    
+    func clearpassword(){
+        currentPassword = ""
+        newPassword = ""
+        confirmNewPassword = ""
+    }
     private func monitorTextFields() {
         
         // Combine publishers for form validation

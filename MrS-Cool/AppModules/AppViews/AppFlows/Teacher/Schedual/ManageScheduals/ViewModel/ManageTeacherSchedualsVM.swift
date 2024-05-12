@@ -101,6 +101,7 @@ extension ManageTeacherSchedualsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true{
 //                    TeacherScheduals?.append(model)
+                    clearTeacherSchedual()
                     GetTeacherScheduals()
                 }else{
                     isError =  true

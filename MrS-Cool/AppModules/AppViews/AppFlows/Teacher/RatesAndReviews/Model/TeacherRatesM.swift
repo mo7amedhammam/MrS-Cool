@@ -20,7 +20,7 @@ struct RateItem: Codable, Hashable {
     }
     var teacherRate: Float?
     var teacherLessonName: String?
-    var teacherLessonRate: Int?
+    var teacherLessonRate: Float?
     var teacherLessonComment, creationDate: String?
 }
 

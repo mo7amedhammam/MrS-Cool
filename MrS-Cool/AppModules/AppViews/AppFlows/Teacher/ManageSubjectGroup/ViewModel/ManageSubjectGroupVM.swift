@@ -58,7 +58,7 @@ class ManageSubjectGroupVM: ObservableObject {
     @Published var letsPreview : Bool = false
 
     @Published var TeacherSubjectGroups : [SubjectGroupM]?
-    @Published var TeacherSubjectGroupsDetails : SubjectGroupDetailsM?{
+    @Published var TeacherSubjectGroupsDetails : SubjectGroupDetailsM? = nil{
         didSet{
             if TeacherSubjectGroupsDetails != nil{
                 letsPreview = true
@@ -150,7 +150,7 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    TeacherSubjectGroupsDetails = receivedData.data
+                    TeacherSubjectGroupsDetails = receivedData.data ?? nil
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -289,6 +289,7 @@ extension ManageSubjectGroupVM{
         subject = nil
         groupName = ""
         startDate = nil
+        DisplaySchedualSlotsArr.removeAll()
         CreateSchedualSlotsArr.removeAll()
     }
     func clearFilter(){

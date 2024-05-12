@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SubjectGroupDetailsCell: View {
-    var number = 0
+    var number : Int = 0
     var model = ScheduleSlot()
 
     var body: some View {

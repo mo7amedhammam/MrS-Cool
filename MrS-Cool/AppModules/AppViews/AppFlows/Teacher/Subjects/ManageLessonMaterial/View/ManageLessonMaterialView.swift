@@ -109,13 +109,13 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                         Group {
                                                             CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList,isvalid:managelessonmaterialvm.ismaterialTypevalid)
                                                             
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNamevalid)
+                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNameEnvalid)
                                                                 .onChange(of: managelessonmaterialvm.materialNameEn) { newValue in
                                                                     managelessonmaterialvm.materialNameEn = newValue.filter { $0.isEnglish }
                                                                 }
                                                             
                                                             
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNameEnvalid).reversLocalizeView()
+                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid).reversLocalizeView()
                                                                 .onChange(of: managelessonmaterialvm.materialName) { newValue in
                                                                     managelessonmaterialvm.materialName = newValue.filter { $0.isArabic }
                                                                 }
@@ -226,13 +226,18 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                         }, deleteBtnAction: {
                                                             managelessonmaterialvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                                                 managelessonmaterialvm.DeleteLessonMaterial(id: material.id)
+                                                                managelessonmaterialvm.clearTeachersMaterial()
                                                             })
                                                             managelessonmaterialvm.isError.toggle()
                                                             
                                                         }, previewBtnAction: {
                                                             previewurl = (material.materialURL ?? "")
-                                                            isPreviewPresented.toggle()
-                                                        })
+//                                                            isPreviewPresented.toggle()
+
+                                                                UIApplication.shared.open(URL(string: previewurl)!)
+                                                            
+                                                        }
+                                                        )
                                                         .listRowSpacing(0)
                                                         .listRowSeparator(.hidden)
                                                         .listRowBackground(Color.clear)
@@ -302,11 +307,11 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 print("Importer error: \(failure)")
                                             }
                                         })
-                                        .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
-                                        // Optional: Handle actions on closing the preview sheet
-                                    }, content: {
-                                        FilePreviewerSheet(url:$previewurl)
-                                    })
+//                                        .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
+//                                        // Optional: Handle actions on closing the preview sheet
+//                                    }, content: {
+//                                        FilePreviewerSheet(url:$previewurl)
+//                                    })
                                 }
                                 
                             }
