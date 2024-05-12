@@ -113,7 +113,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                 .onChange(of: managelessonmaterialvm.materialNameEn) { newValue in
                                                                     managelessonmaterialvm.materialNameEn = newValue.filter { $0.isEnglish }
                                                                 }
-
+                                                            
                                                             
                                                             CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNameEnvalid).reversLocalizeView()
                                                                 .onChange(of: managelessonmaterialvm.materialName) { newValue in
@@ -123,7 +123,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                             
                                                             //                                                        CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.documentOrder,keyboardType: .asciiCapableNumberPad)
                                                             
-                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:managelessonmaterialvm.isdocumentFilevalid)
+                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,Disabled:managelessonmaterialvm.isdocumentFilevalid,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:managelessonmaterialvm.isdocumentFilevalid)
                                                             
                                                         }
                                                         .padding([.top])

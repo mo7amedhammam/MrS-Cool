@@ -60,14 +60,14 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
 
     @Published var groupCost : String = ""{
         didSet{
-            isgroupCostvalid = (groupCost.isEmpty || Int(groupCost) == 0) ? false:true
+            isgroupCostvalid = (groupCost.isEmpty || Float(groupCost) == 0) ? false:true
         }
     }
     @Published var isgroupCostvalid:Bool?
     
     @Published var individualCost : String = ""{
         didSet{
-            isindividualCostvalid = (individualCost.isEmpty || Int(individualCost) == 0) ? false:true
+            isindividualCostvalid = (individualCost.isEmpty || Float(individualCost) == 0) ? false:true
         }
     }
     @Published var isindividualCostvalid:Bool?
@@ -263,6 +263,7 @@ extension ManageTeacherSubjectLessonsVM{
         let target = teacherServices.UpdateSubjectLessonsBrief(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<SubjecLessonBriefM>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -278,7 +279,8 @@ extension ManageTeacherSubjectLessonsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     showBrief = false
-                    UpdateLessonBriefField(receivedData)
+//                    UpdateLessonBriefField(receivedData)
+                    GetTeacherSubjectLessons()
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

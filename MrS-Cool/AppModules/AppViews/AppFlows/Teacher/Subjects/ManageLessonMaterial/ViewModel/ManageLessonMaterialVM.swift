@@ -151,8 +151,9 @@ extension ManageLessonMaterialVM{
     }
 
     func UpdateLessonMaterial(fileType:fileTypesList){
-        guard let materialTypeId = materialType?.id else {return}
-        
+        guard checkValidfields() else {return}
+
+        guard let materialTypeId = materialType?.id else { return }
         var parameters:[String:Any] = ["id":editingId,"MaterialTypeId":materialTypeId,"TeacherLessonId":TeacherLessonId,"Name":materialName,"NameEn":materialNameEn,"MaterialUrl":materialUrl]
         switch fileType {
         case .image:

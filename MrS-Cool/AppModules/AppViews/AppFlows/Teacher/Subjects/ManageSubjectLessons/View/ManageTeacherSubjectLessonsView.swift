@@ -151,7 +151,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                                 manageteachersubjectlessonsvm.showBrief = true
                                             },addMaterialBtnAction:{
                                                 
-                                                destination = AnyView(ManageLessonMaterialView(currentLesson:lesson)
+                                                destination = AnyView(ManageLessonMaterialView(currentLesson:modifiedlesson)
                                                     .environmentObject(LookUpsVM())
                                                     .environmentObject(ManageLessonMaterialVM())
                                                                       )
