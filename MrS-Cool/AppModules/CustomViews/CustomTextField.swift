@@ -526,6 +526,15 @@ struct CustomDatePickerField: View {
         .onChange(of: selectedDate) {date in
             selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
         }
+        .onAppear(perform: {
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now()+1, execute: {
+                if ((selectedDateStr?.isEmpty) != nil){
+                    selectedDate = selectedDateStr?.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a") ?? Date()
+//                    print("selectedDateStr",selectedDateStr)
+//                    print("selectedDate",selectedDate)
+                }
+            })
+        })
 
     }
 }
