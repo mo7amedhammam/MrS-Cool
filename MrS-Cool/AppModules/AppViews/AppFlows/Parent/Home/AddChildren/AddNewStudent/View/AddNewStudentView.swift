@@ -42,7 +42,7 @@ struct AddNewStudentView: View {
 //                                    Image("img_younghappysmi")
 //                                        .resizable()
 //                                }
-                                let imageURL : URL? = URL(string: Constants.baseURL+(addnewstudentvm.imageStr ?? ""))
+                                let imageURL : URL? = URL(string: Constants.baseURL+(addnewstudentvm.imageStr ?? "").reverseSlaches())
                                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                                 .aspectRatio(contentMode: .fill)

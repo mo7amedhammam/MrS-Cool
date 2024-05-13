@@ -29,7 +29,7 @@ struct ChatListCell: View {
 //                        .resizable()
 //                }
 
-                let imageURL : URL? = URL(string: Constants.baseURL+(model.studentImage ?? ""))
+                let imageURL : URL? = URL(string: Constants.baseURL+(model.studentImage ?? "").reverseSlaches())
                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 40,height: 40)

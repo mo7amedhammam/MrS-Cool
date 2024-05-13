@@ -65,7 +65,7 @@ struct SelectedStudentHome: View {
                 }
             
                 HStack{
-                    let imageURL : URL? = URL(string: Constants.baseURL + (listchildrenvm.selectedChild?.image ?? "image"))
+                    let imageURL : URL? = URL(string: Constants.baseURL + (listchildrenvm.selectedChild?.image ?? "image").reverseSlaches())
                          
                     KFImageLoader(url: imageURL, placeholder: Image("studenticon"))
                 //                .resizable()

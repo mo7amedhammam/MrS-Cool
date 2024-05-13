@@ -39,7 +39,7 @@ struct BookingCheckoutView: View {
 //                                Image("img_younghappysmi")
 //                                    .resizable()
 //                            }
-                            let imageURL : URL? = URL(string: Constants.baseURL+(details.headerName ?? ""))
+                            let imageURL : URL? = URL(string: Constants.baseURL+(details.headerName ?? "").reverseSlaches())
                             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                             .aspectRatio(contentMode: .fill)

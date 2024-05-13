@@ -35,7 +35,7 @@ struct HomeSubjectDetailsView: View {
 //                            Image("img_younghappysmi")
 //                                .resizable()
 //                        }
-                        let imageURL : URL? = URL(string: Constants.baseURL+(details.image ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(details.image ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                         .aspectRatio(contentMode: .fill)

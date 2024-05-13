@@ -27,7 +27,7 @@ struct TeacherRatesView: View {
                 CustomTitleBarView(title: "Rates and Reviews")
 //            }
             GeometryReader { gr in
-//                if let array = ratesvm.Rates{
+                if let rates = ratesvm.Rates{
                     
                 VStack(alignment:.leading) {
                     HStack (alignment:.top,spacing:15){
@@ -43,13 +43,13 @@ struct TeacherRatesView: View {
                                 .foregroundStyle(Color.mainBlue)
                             
                             Group{
-                                Text("\(ratesvm.Rates?.items?.first?.teacherRate ?? 4.3,specifier: "%.1f")")
+                                Text("\(rates.items?.first?.teacherRate ?? 4.3,specifier: "%.1f")")
                                     .font(.SoraBold(size: 30))
                                 + Text( " of 5 ".localized())
                                     .font(.SoraBold(size: 30))
                                 
                                 + Text(" /   ")
-                                + Text("\(ratesvm.Rates?.items?.count ?? Int(112))  ")
+                                + Text("\(rates.totalCount ?? Int(112))  ")
                                     .font(.SoraBold(size: 16))
                                 + Text("Rate".localized())
                                     .font(.SoraRegular(size: 13))
@@ -58,12 +58,14 @@ struct TeacherRatesView: View {
                         }
                     }
                     //                        .redacted(reason: .placeholder)
-                    if let array = ratesvm.Rates?.items{
-                        List(array,id:\.self){rate in
+                    if let items = rates.items{
+                        List(items,id:\.self){rate in
                             RateCellView(rate: rate)
                             //                                .redacted(reason: .placeholder)
                                 .onAppear {
-                                    if let totalCount = ratesvm.Rates?.totalCount, let itemsCount = ratesvm.Rates?.items?.count, itemsCount < totalCount {
+                                    guard rate == items.last else {return}
+                                    
+                                    if let totalCount = rates.totalCount, items.count < totalCount {
                                         // Load the next page if there are more items to fetch
                                         ratesvm.skipCount += ratesvm.maxResultCount
                                         ratesvm.GetRates()
@@ -74,27 +76,29 @@ struct TeacherRatesView: View {
                     }
                      
                     .frame(minHeight:gr.size.height)
-                    .onAppear(perform: {
-                        ratesvm.GetRates()
-                    })
-//                }
+                }
                 
             }
             .padding(.top)
             .padding(.horizontal)
             
         }
+        
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+        .onAppear(perform: {
+            ratesvm.GetRates()
+        })
+
 //        .onDisappear {
 ////            chatlistvm.isLoading = false
 //
 ////            chatlistvm.cleanup()
 //        }
-//        .showHud(isShowing: $ratesvm.isLoading)
-//        .showAlert(hasAlert: $ratesvm.isError, alertType: chatlistvm.error)
+        .showHud(isShowing: $ratesvm.isLoading)
+        .showAlert(hasAlert: $ratesvm.isError, alertType: ratesvm.error)
 //        if hasNavBar == true{
 //            NavigationLink(destination: destination, isActive: $isPush, label: {})
 //        }
@@ -115,6 +119,8 @@ struct RateCellView: View {
     var body: some View {
         VStack(alignment:.leading){
             HStack{
+                StarsView(rating: rate.teacherLessonRate ?? 0)
+
                 Text(rate.creationDate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", FormatTo:"dd  MMM  yyyy") ?? "2024-03-11T10:53:14.468Z")
                     .font(.SoraRegular(size: 14))
                     .foregroundStyle(ColorConstants.Bluegray40099)

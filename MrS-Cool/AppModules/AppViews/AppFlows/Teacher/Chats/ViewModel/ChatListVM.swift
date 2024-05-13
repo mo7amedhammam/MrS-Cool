@@ -17,7 +17,7 @@ class ChatListVM: ObservableObject {
 //    @Published var filtersubject : DropDownOption?
 //    @Published var filterlesson : DropDownOption?
 //    @Published var filtergroupName : String = ""
-    @Published var comment : String=""
+    @Published var comment : String = ""
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -169,6 +169,7 @@ extension ChatListVM{
     }
     func CreateChatComment(){
 //        isLoading = false
+        guard comment != "" else {return}
         var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ]
         print("parameters",parameters)
         if Helper.shared.getSelectedUserType() == .Parent {

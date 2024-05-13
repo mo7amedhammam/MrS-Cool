@@ -22,7 +22,7 @@ struct LessonDetailsCell: View {
 //                Image("img_younghappysmi")
 //                    .resizable()
 //            }
-            let imageURL : URL? = URL(string: Constants.baseURL+(model.studentImageURL ?? ""))
+            let imageURL : URL? = URL(string: Constants.baseURL+(model.studentImageURL ?? "").reverseSlaches())
             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
             .aspectRatio(contentMode: .fill)
             .frame(width: 100,height: 100)

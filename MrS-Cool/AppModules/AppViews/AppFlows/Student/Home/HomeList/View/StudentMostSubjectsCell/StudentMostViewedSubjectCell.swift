@@ -34,7 +34,7 @@ struct StudentMostViewedSubjectCell: View {
 //                    Image("img_younghappysmi")
 ////                        .resizable()
 //                }
-                let imageURL : URL? = URL(string: Constants.baseURL+(subject.image ?? ""))
+                let imageURL : URL? = URL(string: Constants.baseURL+(subject.image ?? "").reverseSlaches())
                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                 .aspectRatio(contentMode: .fill)
                 .frame(height: 126)

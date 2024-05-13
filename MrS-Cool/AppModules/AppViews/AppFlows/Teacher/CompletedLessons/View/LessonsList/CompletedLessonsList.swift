@@ -45,7 +45,9 @@ struct CompletedLessonsList: View {
                             .padding(.top)
                         }
                         .padding(.horizontal)
-                        List(completedlessonsvm.completedLessonsList?.items ?? [], id:\.self) { lesson in
+                        
+                        let lessons = completedlessonsvm.completedLessonsList?.items ?? []
+                        List(lessons, id:\.self) { lesson in
                             
                             CompletedLessonCell(model: lesson,reviewBtnAction: {
                                 completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
@@ -63,7 +65,9 @@ struct CompletedLessonsList: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .onAppear {
-                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, let itemsCount = completedlessonsvm.completedLessonsList?.items?.count, itemsCount < totalCount {
+                                guard lesson == lessons.last else {return}
+                                
+                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, lessons.count < totalCount {
                                     // Load the next page if there are more items to fetch
                                     completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
                                     completedlessonsvm.GetCompletedLessons()

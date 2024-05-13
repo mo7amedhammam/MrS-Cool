@@ -38,7 +38,7 @@ struct SubjectTeachersListView: View {
 //                            Image("img_younghappysmi")
 //                                .resizable()
 //                        }
-                        let imageURL : URL? = URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                         .aspectRatio(contentMode: .fill)
@@ -515,7 +515,7 @@ struct TeacherCellView : View {
 //                Image("img_younghappysmi")
 //                    .resizable()
 //            }
-            let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? ""))
+            let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? "").reverseSlaches())
             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
             .aspectRatio(contentMode: .fill)
             .frame(width: 72,height: 72)

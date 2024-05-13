@@ -208,7 +208,7 @@ struct ParentSideMenuContent: View {
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
                     ZStack(alignment: .topLeading){
-                        let imageURL : URL? = URL(string: Constants.baseURL+(parentprofilevm.imageStr ?? ""))
+                        let imageURL : URL? = URL(string: Constants.baseURL+(parentprofilevm.imageStr ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)

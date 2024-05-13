@@ -42,7 +42,7 @@ struct EditParentProfileView: View {
 //                                    Image("img_younghappysmi")
 //                                        .resizable()
 //                                }
-                                let imageURL : URL? = URL(string: Constants.baseURL+(parentprofilevm.imageStr ?? ""))
+                                let imageURL : URL? = URL(string: Constants.baseURL+(parentprofilevm.imageStr ?? "").reverseSlaches())
                                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                                 .aspectRatio(contentMode: .fill)

@@ -128,7 +128,7 @@ struct ChildrenCell: View {
                 Spacer()
             }
 //            Image("studenticon")
-            let imageURL : URL? = URL(string: Constants.baseURL + (children.image ?? "image"))
+            let imageURL : URL? = URL(string: Constants.baseURL + (children.image ?? "image").reverseSlaches())
             KFImageLoader(url: imageURL, placeholder: Image("studenticon"))
 //                .resizable()
                 .frame(width: 50, height: 50, alignment: .center)

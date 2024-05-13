@@ -40,7 +40,7 @@ struct MessagesListView: View {
 //                                Image("img_younghappysmi")
 //                                    .resizable()
 //                            }
-                            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ))
+                            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ).reverseSlaches())
                             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                             .aspectRatio(contentMode: .fill)
@@ -79,7 +79,7 @@ struct MessagesListView: View {
 //                                                    Image("img_younghappysmi")
 //                                                        .resizable()
 //                                                }
-                                                    let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ))
+                                                    let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ).reverseSlaches())
                                                     KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                                                 .aspectRatio(contentMode: .fill)

@@ -43,7 +43,8 @@ struct StudentCompletedLessonsView: View {
                             .padding(.top)
                         }
                         .padding(.horizontal)
-                        List(completedlessonsvm.completedLessonsList?.items ?? [], id:\.self) { lesson in
+                        if let lessons = completedlessonsvm.completedLessonsList?.items{
+                        List(lessons, id:\.self) { lesson in
                             StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
                                 completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
                                 studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
@@ -57,7 +58,9 @@ struct StudentCompletedLessonsView: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .onAppear {
-                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, let itemsCount = completedlessonsvm.completedLessonsList?.items?.count, itemsCount < totalCount {
+                                guard lesson == lessons.last else {return}
+                                
+                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, lessons.count < totalCount {
                                     // Load the next page if there are more items to fetch
                                     completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
                                     completedlessonsvm.GetCompletedLessons()
@@ -67,19 +70,20 @@ struct StudentCompletedLessonsView: View {
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
                         .frame(minHeight: gr.size.height/2)
+                    }
                         Spacer()
                     }
                     .frame(minHeight: gr.size.height)
                 }
             }
-            .onAppear(perform: {
-                lookupsvm.GetSubjestForList()
-                completedlessonsvm.GetCompletedLessons()
-            })
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
+        })
+        .onAppear(perform: {
+            lookupsvm.GetSubjestForList()
+            completedlessonsvm.GetCompletedLessons()
         })
         .onDisappear {
 //            completedlessonsvm.cleanup()
