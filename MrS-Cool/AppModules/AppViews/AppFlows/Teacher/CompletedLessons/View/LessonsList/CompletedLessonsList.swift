@@ -83,20 +83,21 @@ struct CompletedLessonsList: View {
                     .frame(minHeight: gr.size.height)
                 }
             }
-            .onAppear(perform: {
-                lookupsvm.GetSubjestForList()
-                completedlessonsvm.GetCompletedLessons()
-            })
             
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
-        .onDisappear {
-            completedlessonsvm.cleanup()
-        }
+        .onAppear(perform: {
+            completedlessonsvm.skipCount = 0
+            lookupsvm.GetSubjestForList()
+            completedlessonsvm.GetCompletedLessons()
+        })
+
+//        .onDisappear {
+//            completedlessonsvm.cleanup()
+//        }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         
