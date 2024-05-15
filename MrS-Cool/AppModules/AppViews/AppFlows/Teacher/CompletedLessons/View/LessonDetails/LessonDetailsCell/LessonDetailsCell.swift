@@ -45,7 +45,7 @@ struct LessonDetailsCell: View {
             }
             
             HStack(){
-                Text(model.studentName ?? "student name ")
+                Text(model.studentName ?? "")
                     .font(Font.SoraSemiBold(size: 12.0))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
@@ -70,11 +70,17 @@ struct LessonDetailsCell: View {
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
 
-                Text(model.parentName ?? "parent name ")
-                    .font(Font.SoraSemiBold(size: 10))
-                    .foregroundColor(.mainBlue)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
+                if model.parentName != "" || ((model.parentName?.isEmpty) == nil){
+                    Text(model.parentName ?? "")
+                        .font(Font.SoraSemiBold(size: 10))
+                        .foregroundColor(.mainBlue)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                }else{
+                    ColorConstants.Bluegray20099
+                        .frame(width:50,height:4)
+                        .cornerRadius(8)
+                }
                 Spacer()
                 
                 Button(action: {
@@ -87,6 +93,8 @@ struct LessonDetailsCell: View {
                 })
                 .buttonStyle(.plain)
             }
+            .disabled(model.parentName == "" || ((model.parentName?.isEmpty) == nil))
+            .opacity(model.parentName == "" || ((model.parentName?.isEmpty) == nil) ? 0.7 : 1)
 
         }
         .padding(5)

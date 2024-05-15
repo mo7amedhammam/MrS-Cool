@@ -33,7 +33,7 @@ struct TeacherInfoView: View {
                             .clipShape(Circle())
                         
                         VStack(alignment:.leading){
-                            Text(teacher.teacherName ?? "Teacher Name")
+                            Text(teacher.teacherName ?? "")
                                 .font(.SoraBold(size: 18))
                             
                             //                            if let rate = teacher.teacherRate{
@@ -48,7 +48,7 @@ struct TeacherInfoView: View {
                             //                if let ratescount = teacher.teacherReview, ratescount > 0{
                             Group{
                                 Text("\(teacher.totalReviews ?? 0) ")
-                                + Text("Reviews")
+                                + Text("Reviews".localized())
                             }
                             .foregroundColor(Color.mainBlue)
                             .font(.SoraRegular(size: 12))
@@ -61,7 +61,7 @@ struct TeacherInfoView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(teacher.teacherBIO ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                    Text(teacher.teacherBIO ?? "")
                         .font(.SoraRegular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)

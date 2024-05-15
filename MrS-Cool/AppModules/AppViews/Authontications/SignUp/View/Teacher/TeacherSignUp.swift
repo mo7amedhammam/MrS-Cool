@@ -56,8 +56,10 @@ struct TeacherSignUpView: View {
                         break
                     case .subjectsData:
                         currentStep = .personalData
+                        signupvmsubjects.clearTeachersSubject()
                     case .documentsData:
                         currentStep = .subjectsData
+                        signupvmdocuments.clearTeachersDocument()
                     }
                 })
                 .frame(width: 130,height: 40)

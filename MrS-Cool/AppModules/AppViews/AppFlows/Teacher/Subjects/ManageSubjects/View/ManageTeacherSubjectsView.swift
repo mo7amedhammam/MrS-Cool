@@ -38,16 +38,16 @@ struct ManageTeacherSubjectsView: View {
                                 }
                                 // -- inputs --
                                 Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,isvalid:manageteachersubjectsvm.iseducationTypevalid)
+                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.iseducationTypevalid)
                                     
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
+                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
                                     
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:manageteachersubjectsvm.isacademicYearvalid)
+                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.isacademicYearvalid)
 //                                        .onChange(of: ){newval in
 //                                            lookupsvm.GetSubjectsByAcademicLevel(academicYearId: manageteachersubjectsvm.academicYear?.id ?? 0)
 //                                        }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid:manageteachersubjectsvm.issubjectvalid)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
                                    
                                     ZStack(alignment:.bottomTrailing){
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
@@ -173,10 +173,8 @@ struct ManageTeacherSubjectsView: View {
                                 isEditing = false
 
                             }, deleteBtnAction:{
-                                if isEditing {
-                                    isEditing = false
-                                    manageteachersubjectsvm.clearTeachersSubject()
-                                }
+                                isEditing = false
+                                manageteachersubjectsvm.clearTeachersSubject()
                                 manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                                 })
@@ -210,9 +208,27 @@ struct ManageTeacherSubjectsView: View {
             .onChange(of: manageteachersubjectsvm.academicYear, perform: { value in
                 lookupsvm.SelectedAcademicYear = value
             })
-            //            .onChange(of: teachersubjectsvm.isTeacherHasSubjects, perform: { value in
-            //                signupvm.isTeacherHasSubjects = value
-            //        })
+//            .onChange(of: manageteachersubjectsvm.subject, perform: { value in
+//                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+//                    print("lookupsvm.SubjectsList",lookupsvm.SubjectsList)
+//                    if let subject = value,
+//                       let matchingSubject = lookupsvm.SubjectsList.first(where: { $0.id == subject.id }) {
+//                        // Perform your action with matchingSubject
+//                        print("Matching subject: \(matchingSubject)")
+//                        manageteachersubjectsvm.subject = matchingSubject
+//                    }
+//                })
+//            })
+            .onChange(of: manageteachersubjectsvm.subject) { newValue in
+                if let subject = newValue {
+                    // Check if lookupsvm.SubjectsList contains the subject with the same ID
+                    if let matchingSubject = lookupsvm.SubjectsList.first(where: { $0.id == subject.id }) {
+                        // Perform your action with matchingSubject
+                        print("Matching subject: \(matchingSubject)")
+                        manageteachersubjectsvm.subject = matchingSubject
+                    }
+                }
+            }
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {

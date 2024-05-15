@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StudentTopRatedTeachersCell: View {
-    var teacher:StudentMostViewedTeachersM = StudentMostViewedTeachersM.init()
+    var teacher:StudentMostViewedTeachersM = StudentMostViewedTeachersM()
     @Binding var selectedteacher:StudentMostViewedTeachersM
     var action:(()->())?
 
@@ -34,7 +34,7 @@ struct StudentTopRatedTeachersCell: View {
                 .clipShape(Circle())
                 .padding(.top, 10)
 
-                Text(teacher.teacherName ?? "teacher name")
+                Text(teacher.teacherName ?? "")
                     .font(Font.SoraSemiBold(size: 13))
                     .fontWeight(.semibold)
                     .foregroundColor(teacher.id == selectedteacher.id ? ColorConstants.WhiteA700 : .mainBlue)

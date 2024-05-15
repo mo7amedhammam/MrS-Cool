@@ -69,7 +69,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
     @Published var editId : Int = 0
     @Published var groupCost : String = ""{
         didSet{
-            isgroupCostvalid = (groupCost.isEmpty || Int(groupCost) == 0) ? false:true
+            isgroupCostvalid = (groupCost.isEmpty || groupCost == "") ? false:true
         }
     }
     @Published var isgroupCostvalid:Bool?
@@ -77,7 +77,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
 
     @Published var individualCost : String = ""{
         didSet{
-            isindividualCostvalid = (individualCost.isEmpty || Int(individualCost) == 0) ? false:true
+            isindividualCostvalid = (individualCost.isEmpty || individualCost == "") ? false:true
         }
     }
     @Published var isindividualCostvalid:Bool?
@@ -85,14 +85,14 @@ class ManageTeacherSubjectsVM: ObservableObject {
     
     @Published var minGroup : String = ""{
         didSet{
-            isminGroupvalid = (minGroup.isEmpty || Int(minGroup) == 0) ? false:true
+            isminGroupvalid = (minGroup.isEmpty || minGroup == "") ? false:true
         }
     }
     @Published var isminGroupvalid:Bool?
     
     @Published var maxGroup : String = ""{
         didSet{
-            ismaxGroupvalid = (maxGroup.isEmpty || Int(maxGroup) == 0) ? false:true
+            ismaxGroupvalid = (maxGroup.isEmpty || maxGroup == "") ? false:true
         }
     }
     @Published var ismaxGroupvalid:Bool?
@@ -160,7 +160,7 @@ extension ManageTeacherSubjectsVM{
     func CreateTeacherSubject(){
         guard checkValidfields() else {return}
         
-        guard let subjectAcademicYearId = subject?.id, let groupCost = Int(groupCost), let individualCost = Int(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
+        guard let subjectAcademicYearId = subject?.id, let groupCost = Float(groupCost), let individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
         var parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
         
         if !subjectBrief.isEmpty{
@@ -181,8 +181,8 @@ extension ManageTeacherSubjectsVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -192,9 +192,9 @@ extension ManageTeacherSubjectsVM{
                     GetTeacherSubjects()
                     clearTeachersSubject()
                 }else{
-                    isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    isError =  true
                 }
                 isLoading = false
             })
@@ -223,8 +223,8 @@ extension ManageTeacherSubjectsVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -232,10 +232,11 @@ extension ManageTeacherSubjectsVM{
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
                     GetTeacherSubjects()
+                    clearTeachersSubject()
                 }else{
-                    isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    isError =  true
                 }
                 isLoading = false
             })
@@ -270,8 +271,8 @@ extension ManageTeacherSubjectsVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error( image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -279,10 +280,9 @@ extension ManageTeacherSubjectsVM{
                 if let model = receivedData.data{
                     TeacherSubjects = model
                 }else{
-                    isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                    
+                    isError =  true
                 }
                 isLoading = false
             })
@@ -292,7 +292,6 @@ extension ManageTeacherSubjectsVM{
     func DeleteTeacherSubject(id:Int?){
         guard let id = id else {return}
         let parameters:[String:Any] = ["id":id]
-        
         print("parameters",parameters)
         let target = Authintications.TeacherDeleteSubjects(parameters: parameters)
         isLoading = true
@@ -304,8 +303,8 @@ extension ManageTeacherSubjectsVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -314,10 +313,9 @@ extension ManageTeacherSubjectsVM{
                     //                    TeacherSubjects = model
                     TeacherSubjects?.removeAll(where: {$0.id == model.id})
                 }else{
-                    isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                    
+                    isError =  true
                 }
                 isLoading = false
             })
@@ -345,6 +343,7 @@ extension ManageTeacherSubjectsVM{
         iseducationLevelvalid = true
         isacademicYearvalid =  true
         issubjectvalid = true
+        isEditing = false
         
     }
     func clearFilter(){
@@ -360,7 +359,7 @@ extension ManageTeacherSubjectsVM{
         editId = item.id ?? 0
         educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
         educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
-        academicYear = .init(id: item.subjectSemesterYearID,Title: item.academicYearName)
+        academicYear = .init(id: item.academicYearID,Title: item.academicYearName)
         subject = .init(id: item.subjectSemesterYearID,Title: item.subjectSemesterYearName)
         if let min = item.minGroup{
             minGroup = String(min)

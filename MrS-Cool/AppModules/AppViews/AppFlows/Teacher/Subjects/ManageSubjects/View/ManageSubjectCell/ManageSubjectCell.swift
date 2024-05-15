@@ -54,6 +54,8 @@ struct ManageSubjectCell: View {
                             .aspectRatio(contentMode: .fill)
                     })
                     .buttonStyle(.plain)
+                    .disabled(model.statusID == 2) // inactive
+                    .opacity(model.statusID == 2 ? 0.6 : 1) // inactive
                     
                     Button(action: {
                         deleteBtnAction?()

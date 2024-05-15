@@ -81,7 +81,7 @@ struct ManageSubjectLessonCell: View {
 //                            .font(Font.SoraRegular(size: 12.0))
 //                            .foregroundColor(ColorConstants.Bluegray402)
                         
-                    Text((model.teacherBrief == ""||model.teacherBrief == nil) ? "Lesson brief not added":"Lesson brief added")
+                    Text((model.teacherBrief == ""||model.teacherBrief == nil) ? "Lesson brief not added".localized():"Lesson brief added".localized())
                             .font(Font.SoraRegular(size: 7))
                             .foregroundColor((model.teacherBrief == ""||model.teacherBrief == nil) ? ColorConstants.Red400:ColorConstants.LightGreen800)
                 }

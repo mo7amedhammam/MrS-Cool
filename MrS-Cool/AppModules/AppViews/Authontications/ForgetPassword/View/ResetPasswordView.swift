@@ -18,7 +18,7 @@ struct ResetPasswordView: View {
 
     var body: some View {
         VStack(spacing:0) {
-            CustomTitleBarView(title: "Change Password",hideImage: hideImage)
+            CustomTitleBarView(title: "Reset New Password",hideImage: hideImage)
             VStack{
                 GeometryReader{gr in
                     ScrollView(.vertical){
@@ -38,7 +38,7 @@ struct ResetPasswordView: View {
                             .padding(.top, 20)
                             Spacer()
                             VStack{
-                                CustomButton(Title:"Change_Password",IsDisabled:.constant(!(resetpasswordvm.isFormValid)) , action: {
+                                CustomButton(Title:"Submit",IsDisabled:.constant(!(resetpasswordvm.isFormValid)) , action: {
                                     resetpasswordvm.ResetPassword()
                                 })
                                 .frame(height: 50)

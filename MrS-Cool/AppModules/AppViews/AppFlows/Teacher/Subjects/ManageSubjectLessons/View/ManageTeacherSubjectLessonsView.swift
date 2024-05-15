@@ -125,7 +125,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                             .padding(.horizontal)
                             //                        ScrollView{
                             List{
-                                ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.self) { unit in
+                                ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.hashValue) { unit in
                                     Section(header:
                                                 HStack {
                                         Text(unit.unitName ?? "")
@@ -136,7 +136,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     }
                                             //                                        .frame(height:40)
                                     ) {
-                                        ForEach(unit.teacherUnitLessons ?? [], id:\.id) { lesson in
+                                        ForEach(unit.teacherUnitLessons ?? [], id:\.hashValue) { lesson in
                                             // declared to pass values in unit not exist inside lesson
                                             let modifiedlesson : TeacherUnitLesson = TeacherUnitLesson(id: lesson.id ?? 0, teacherID: lesson.teacherID ?? 0, lessonName: lesson.lessonName ?? "", defaultGroupCost: lesson.defaultGroupCost ?? 0, groupCost: lesson.groupCost, defaultIndividualCost: lesson.defaultIndividualCost, individualCost: lesson.individualCost, defaultIndividualDuration: lesson.defaultIndividualDuration, defaultGroupDuration: lesson.defaultGroupDuration, lessonID: lesson.lessonID, minGroup: lesson.minGroup, maxGroup: lesson.maxGroup, individualDuration: lesson.individualDuration, groupDuration: lesson.groupDuration, teacherBrief: lesson.teacherBrief, educationTypeName: unit.educationTypeName, educationLevelName: unit.educationLevelName, academicYearName: unit.academicYearName, subjectSemesterYearName: unit.subjectSemesterYearName)
                                             

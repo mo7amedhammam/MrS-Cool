@@ -141,6 +141,7 @@ struct ManageTeacherProfileView: View {
 //                })
                 
                 Task(priority: .background, operation: {
+                    manageprofilevm.image = nil
                     manageprofilevm.GetTeacherProfile()
                     lookupsvm.getGendersArr()
                     lookupsvm.getCountriesArr()

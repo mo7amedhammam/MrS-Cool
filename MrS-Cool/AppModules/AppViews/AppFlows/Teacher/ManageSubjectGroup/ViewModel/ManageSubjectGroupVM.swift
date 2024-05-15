@@ -102,8 +102,8 @@ extension ManageSubjectGroupVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -143,8 +143,8 @@ extension ManageSubjectGroupVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -176,8 +176,8 @@ extension ManageSubjectGroupVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -213,8 +213,8 @@ extension ManageSubjectGroupVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -246,8 +246,8 @@ extension ManageSubjectGroupVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}

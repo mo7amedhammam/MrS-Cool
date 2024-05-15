@@ -51,25 +51,25 @@ struct CompletedLessonDetails: View {
                                 Text("Subject".localized())
                                     .font(Font.SoraBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.subjectName ?? "Subject Name")
+                                Text(completedlessonsvm.completedLessonDetails?.subjectName ?? "")
                                     .font(Font.SoraBold(size: 18))
                                 
                                 Text("Subject Brief".localized())
                                     .font(Font.SoraBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "Subject Brief")
+                                Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
                                     .font(Font.SoraRegular(size: 12))
                                 
                                 Text("Lesson".localized())
                                     .font(Font.SoraSemiBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "Subject Brief")
+                                Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "")
                                     .font(Font.SoraRegular(size: 12))
                                 
                                 Text("Lesson Brief".localized())
                                     .font(Font.SoraSemiBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "Lesson Brief")
+                                Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
                                     .font(Font.SoraRegular(size: 12))
                                 
                             }

@@ -225,6 +225,7 @@ struct CustomDropDownField: View {
     var textContentType : UITextContentType? = .name
     var keyboardType : UIKeyboardType? = .default
     var Disabled : Bool?
+    var isdimmed : Bool?
     var isvalid : Bool? = true
 
     @State private var isSecured: Bool = true
@@ -316,13 +317,15 @@ struct CustomDropDownField: View {
         .frame(height:withAnimation{isMenuVisible ? (options.count*35 > 200 ? 200:CGFloat(options.count)*35) + 57:57})
         
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,lineWidth: 1))
-        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(isdimmed ?? false ?  ColorConstants.Bluegray30066.opacity(0.5):ColorConstants.WhiteA700))
         
         .onTapGesture {
             withAnimation{
                 isMenuVisible.toggle()
             }
         }
+        .disabled(Disabled ?? false)
+
         //        }
         //        .menuStyle(BorderlessButtonMenuStyle()) // Use BorderlessButtonMenuStyle for a clean appearance
         

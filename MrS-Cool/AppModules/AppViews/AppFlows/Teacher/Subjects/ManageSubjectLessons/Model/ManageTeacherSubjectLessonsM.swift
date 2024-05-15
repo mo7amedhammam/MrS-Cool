@@ -10,7 +10,7 @@ import Foundation
 // MARK: - ManageTeacherSubjectLessonsM
 struct ManageTeacherSubjectLessonsM: Codable, Hashable {
     static func == (lhs: ManageTeacherSubjectLessonsM, rhs: ManageTeacherSubjectLessonsM) -> Bool {
-        return lhs.unitName == rhs.unitName
+        return lhs.unitName == rhs.unitName && lhs.teacherUnitLessons == rhs.teacherUnitLessons
     }
      
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
@@ -21,7 +21,7 @@ struct ManageTeacherSubjectLessonsM: Codable, Hashable {
 // MARK: - TeacherUnitLesson
 struct TeacherUnitLesson: Codable,Hashable {
     static func == (lhs: TeacherUnitLesson, rhs: TeacherUnitLesson) -> Bool {
-        return lhs.lessonID == rhs.lessonID
+        return lhs.lessonID == rhs.lessonID && lhs.lessonName == rhs.lessonName
     }
     var id: Int?
     var teacherID: Int?
