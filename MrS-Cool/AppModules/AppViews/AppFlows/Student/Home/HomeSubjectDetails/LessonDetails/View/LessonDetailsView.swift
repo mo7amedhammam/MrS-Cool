@@ -34,7 +34,8 @@ struct LessonDetailsView: View {
     
     @State var selectedDate : Date? = Date()
     @State private var ispastdate:Bool = false
-    
+//    @State var isselected = false
+
     init(selectedlessonid : Int) {
         self.selectedlessonid = selectedlessonid
         self.calendar = Calendar.current
@@ -51,7 +52,7 @@ struct LessonDetailsView: View {
     }()
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Subject Info")
+            CustomTitleBarView(title: "Lesson Info")
             
             VStack (alignment: .leading){
                 
@@ -72,7 +73,7 @@ struct LessonDetailsView: View {
                         .clipShape(Circle())
                         
                         VStack{
-                            Text(details.SubjectOrLessonDto?.headerName ?? "subjectname")
+                            Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
                         }
                         .foregroundColor(.mainBlue)
@@ -82,7 +83,7 @@ struct LessonDetailsView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(details.SubjectOrLessonDto?.systemBrief ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
                         .font(.SoraRegular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
@@ -110,158 +111,178 @@ struct LessonDetailsView: View {
                                 
                                 LessonTeacherInfoView(teacher: details)
                                 
-                                HStack{
-                                    Button(action: {
-                                        lessoncase = .Group
-                                    }, label: {
-                                        Text("Group".localized())
+                                    HStack{
+                                        Button(action: {
+                                            lessoncase = .Group
+                                        }, label: {
+                                            Text("Group".localized())
+                                                .font(.SoraBold(size: 18))
+                                                .padding()
+                                                .frame(minWidth:80,maxWidth:.infinity)
+                                                .foregroundColor(lessoncase == .Group ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
+                                                .background(content: {
+                                                    Group{lessoncase == .Group ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                                })
+                                        })
+                                        
+                                        Button(action: {
+                                            lessoncase = .Individual
+                                        }, label: {
+                                            Text("Individual".localized())
+                                                .font(.SoraBold(size: 18))
+                                                .padding()
+                                                .frame(minWidth:80,maxWidth:.infinity)
+                                                .foregroundColor(lessoncase == .Individual ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
+                                                .background(content: {
+                                                    Group{lessoncase == .Individual ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                                })
+                                        })
+                                        
+                                    }
+                                    HStack {
+                                        Text(lessoncase == .Group ? "Group Booking".localized():"Individual Booking".localized())
                                             .font(.SoraBold(size: 18))
-                                            .padding()
-                                            .frame(minWidth:80,maxWidth:.infinity)
-                                            .foregroundColor(lessoncase == .Group ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
-                                            .background(content: {
-                                                Group{lessoncase == .Group ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                            })
+                                            .foregroundColor(ColorConstants.WhiteA700)
+                                        //                                        .multilineTextAlignment(.leading)
+                                    }
+                                    .frame(minWidth:50,maxWidth:.infinity)
+                                    .frame(height: 45)
+                                    .padding(.horizontal)
+                                    .background(content: {
+                                        ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
                                     })
                                     
-                                    Button(action: {
-                                        lessoncase = .Individual
-                                    }, label: {
-                                        Text("Individual".localized())
-                                            .font(.SoraBold(size: 18))
-                                            .padding()
-                                            .frame(minWidth:80,maxWidth:.infinity)
-                                            .foregroundColor(lessoncase == .Individual ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
-                                            .background(content: {
-                                                Group{lessoncase == .Individual ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                            })
-                                    })
-                                }
-                                HStack {
-                                    Text(lessoncase == .Group ? "Group Booking".localized():"Individual Booking".localized())
-                                        .font(.SoraBold(size: 18))
-                                        .foregroundColor(ColorConstants.WhiteA700)
-                                    //                                        .multilineTextAlignment(.leading)
-                                }
-                                .frame(minWidth:50,maxWidth:.infinity)
-                                .frame(height: 45)
-                                .padding(.horizontal)
-                                .background(content: {
-                                    ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
-                                })
                                 
                                 switch lessoncase {
                                 case .Group:
-                                    HStack {
-                                        Button(action: {
-                                            forwards = true
-                                            withAnimation {
-                                                currentPage = min(currentPage + 1, (details.LessonGroupsDto?.count ?? 0) - 1)
-                                            }
-                                        }) {
-                                            Image(currentPage >= 0 && currentPage < (details.LessonGroupsDto?.count ?? 0) - 1 ? "nextfill":"nextempty")
-                                                .resizable()
-                                                .frame(width:30,height:30)
-                                        }
-                                        .padding()
-                                        .buttonStyle(.plain)
+                                    if details.LessonGroupsDto != [] , let slot = details.LessonGroupsDto?[currentPage]{
                                         
-                                        Spacer()
-                                        
-                                        let isselected = lessondetailsvm .selectedLessonGroup == details.LessonGroupsDto?[currentPage].teacherLessonSessionID
-                                        VStack(alignment:.leading){
-                                            HStack {
-                                                ZStack{
-                                                    Image("circleempty")
-                                                    Image("img_line1")
-                                                        .renderingMode(.template)
-                                                        .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
+                                        HStack {
+                                            Button(action: {
+                                                forwards = true
+                                                withAnimation {
+                                                    currentPage = min(currentPage + 1, (details.LessonGroupsDto?.count ?? 0) - 1)
                                                 }
-                                                .offset(x:-40)
-                                                Text(details.LessonGroupsDto?[currentPage].groupName ?? "group 1")
-                                                    .font(.SoraBold(size: 18))
-                                                    .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
+                                            }) {
+                                                Image(currentPage >= 0 && currentPage < (details.LessonGroupsDto?.count ?? 0) - 1 ? "nextfill":"nextempty")
+                                                    .resizable()
+                                                    .frame(width:30,height:30)
                                             }
-                                            .frame(width:170,height: 45)
-                                            .padding(.horizontal)
-                                            .background(content: {
-                                                if isselected {
-                                                    ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
-                                                        Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
-                                                    }
-                                            })
-                                            Group{
-                                                Label(title: {
-                                                    Group {
-                                                        Text("Date".localized())+Text(details.LessonGroupsDto?[currentPage].date ?? "15 Nov 2023")
-                                                    }
-                                                    .font(.SoraRegular(size: 10))
-                                                    .foregroundColor(.mainBlue)
-                                                }, icon: {
-                                                    Image("calvector")
-                                                        .resizable()
-                                                        .frame(width:15,height:15)
-                                                })
-                                                
-                                                Label(title: {
-                                                    Group {
-                                                        Text("Start Time".localized())+Text(details.LessonGroupsDto?[currentPage].timeFrom ?? "15 Nov 2023")
-                                                    }
-                                                    .font(.SoraRegular(size: 10))
-                                                    .foregroundColor(.mainBlue)
-                                                }, icon: {
-                                                    Image("caltimevector")
-                                                        .resizable()
-                                                        .frame(width:15,height:15)
-                                                })
-                                                Label(title: {
-                                                    Group {
-                                                        Text("End Time".localized())+Text(details.LessonGroupsDto?[currentPage].timeTo ?? "15 Nov 2023")
-                                                    }
-                                                    .font(.SoraRegular(size: 10))
-                                                    .foregroundColor(.mainBlue)
-                                                }, icon: {
-                                                    Image("caltimevector")
-                                                        .resizable()
-                                                        .frame(width:15,height:15)
-                                                })
-                                            }
-                                            .padding(.top,8)
-                                            .padding(.horizontal)
+                                            .padding()
+                                            .buttonStyle(.plain)
                                             
-                                        }
-                                        .padding(.bottom)
-                                        .background(content: {
-                                            ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                        })
-                                        .onTapGesture(perform: {
-                                            lessondetailsvm.selectedLessonGroup = details.LessonGroupsDto?[currentPage].teacherLessonSessionID
-                                        })
-                                        .transition(
-                                            .asymmetric(
-                                                insertion: .move(edge: forwards ? .trailing : .leading),
-                                                removal: .move(edge: forwards ? .leading : .trailing)
-                                            )
-                                        )
-                                        .id(UUID())
-                                        
-                                        Spacer()
-                                        
-                                        Button(action: {
-                                            forwards = false
-                                            withAnimation {
-                                                currentPage = max(currentPage - 1, 0)
+                                            Spacer()
+                                            
+                                                              
+                                            let isselected = lessondetailsvm.selectedLessonGroup == details.LessonGroupsDto?[currentPage].teacherLessonSessionID
+                                            
+                                            VStack(alignment:.leading){
+                                                HStack {
+                                                    ZStack{
+                                                        Image("circleempty")
+                                                        Image("img_line1")
+                                                            .renderingMode(.template)
+                                                            .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
+                                                    }
+                                                    .offset(x:-40)
+                                                    Text(slot.groupName ?? "")
+                                                        .font(.SoraBold(size: 18))
+                                                        .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
+                                                }
+                                                .frame(width:170,height: 45)
+                                                .padding(.horizontal)
+                                                .background(content: {
+                                                    if isselected {
+                                                        ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
+                                                            Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
+                                                        }
+                                                })
+                                                Group{
+                                                    Label(title: {
+                                                        Group {
+                                                            Text("Date".localized())+Text(slot.date ?? "15 Nov 2023")
+                                                        }
+                                                        .font(.SoraRegular(size: 10))
+                                                        .foregroundColor(.mainBlue)
+                                                    }, icon: {
+                                                        Image("calvector")
+                                                            .resizable()
+                                                            .frame(width:15,height:15)
+                                                    })
+                                                    
+                                                    Label(title: {
+                                                        Group {
+                                                            Text("Start Time".localized())+Text(slot.timeFrom ?? "15 Nov 2023")
+                                                        }
+                                                        .font(.SoraRegular(size: 10))
+                                                        .foregroundColor(.mainBlue)
+                                                    }, icon: {
+                                                        Image("caltimevector")
+                                                            .resizable()
+                                                            .frame(width:15,height:15)
+                                                    })
+                                                    Label(title: {
+                                                        Group {
+                                                            Text("End Time".localized())+Text(slot.timeTo ?? "15 Nov 2023")
+                                                        }
+                                                        .font(.SoraRegular(size: 10))
+                                                        .foregroundColor(.mainBlue)
+                                                    }, icon: {
+                                                        Image("caltimevector")
+                                                            .resizable()
+                                                            .frame(width:15,height:15)
+                                                    })
+                                                }
+                                                .padding(.top,8)
+                                                .padding(.horizontal)
+                                                
                                             }
-                                        }) {
-                                            Image((currentPage > 0 && currentPage <= (details.LessonGroupsDto?.count ?? 0) - 1) ? "prevfill":"prevempty")
-                                                .resizable()
-                                                .frame(width:30,height:30)
+                                            .padding(.bottom)
+                                            .background(content: {
+                                                ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                            })
+                                            .onTapGesture(perform: {
+                                                lessondetailsvm.selectedLessonGroup = slot.teacherLessonSessionID
+                                            })
+                                            .transition(
+                                                .asymmetric(
+                                                    insertion: .move(edge: forwards ? .trailing : .leading),
+                                                    removal: .move(edge: forwards ? .leading : .trailing)
+                                                )
+                                            )
+                                            .id(UUID())
+//                                            .onChange(of: lessondetailsvm.selectedLessonGroup){value in
+//                                                isselected = value == slot.teacherLessonSessionID
+//                                                
+//                                            }
+                                            
+                                            
+                                            
+                                            Spacer()
+                                            
+                                            Button(action: {
+                                                forwards = false
+                                                withAnimation {
+                                                    currentPage = max(currentPage - 1, 0)
+                                                }
+                                            }) {
+                                                Image((currentPage > 0 && currentPage <= (details.LessonGroupsDto?.count ?? 0) - 1) ? "prevfill":"prevempty")
+                                                    .resizable()
+                                                    .frame(width:30,height:30)
+                                            }
+                                            .padding()
+                                            .buttonStyle(.plain)
                                         }
-                                        .padding()
-                                        .buttonStyle(.plain)
+                                        .padding(.vertical)
+                                        .frame(width: gr.size.width-50)
+                                        
+                                    }else{
+                                        Text("No Available Group Times".localized())
+                                            .font(Font.SoraBold(size: 15))
+                                            .foregroundColor(ColorConstants.MainColor)
+
+                                        //                                          print("no slots to display")
                                     }
-                                    .padding(.vertical)
-                                    .frame(width: gr.size.width-50)
                                 case .Individual:
                                     
                                     Image("calendar_done")
@@ -294,8 +315,13 @@ struct LessonDetailsView: View {
                                         .frame(width:40,height:40)
                                         .padding(.vertical,8)
                                     
+                                    Group{
                                     Text("Available Times on".localized())
                                     + Text(" \(selectedDate ?? Date())")
+                                    }
+                                    .font(Font.SoraBold(size: 15))
+                                    .foregroundColor(ColorConstants.MainColor)
+
                                     
                                     ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
                                         .padding(.horizontal)

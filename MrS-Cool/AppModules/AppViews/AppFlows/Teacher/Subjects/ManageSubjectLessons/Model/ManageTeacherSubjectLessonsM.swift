@@ -31,16 +31,15 @@ struct TeacherUnitLesson: Codable,Hashable {
     var defaultIndividualDuration, defaultGroupDuration: Int?
     var lessonID,minGroup,maxGroup : Int?
     var individualDuration,groupDuration: Int?
-    var teacherBrief: String?
+    var teacherBrief,teacherBriefEn: String?
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String? //not in api but edded to handle design
-
 
     enum CodingKeys: String, CodingKey {
         case id
         case teacherID = "teacherId"
         case lessonName, defaultGroupCost, defaultGroupDuration, defaultIndividualCost, defaultIndividualDuration
         case lessonID = "lessonId",minGroup,maxGroup
-        case groupCost, groupDuration, individualCost, individualDuration, teacherBrief
+        case groupCost, groupDuration, individualCost, individualDuration, teacherBrief, teacherBriefEn
 
         case educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName  //not in api but edded to handle design
     }

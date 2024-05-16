@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SafariServices
 
 struct BookingCheckoutView: View {
     var selectedid : Int
@@ -47,7 +48,7 @@ struct BookingCheckoutView: View {
                             .clipShape(Circle())
                             
                             VStack{
-                                Text(details.headerName ?? "Header Name")
+                                Text(details.headerName ?? "")
                                     .font(.SoraBold(size: 18))
                             }
                             .foregroundColor(.mainBlue)
@@ -66,7 +67,7 @@ struct BookingCheckoutView: View {
                             
                         }
                         
-                        Text(details.lessonOrSubjectBrief ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                        Text(details.lessonOrSubjectBrief ?? "")
                             .font(.SoraRegular(size: 10))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
@@ -78,18 +79,14 @@ struct BookingCheckoutView: View {
                             CheckOutFullSubjectInfo(details: details)
                         }else{
                             CheckOutLessonInfo(details: details)
-                            
                         }
                         
-                        
                     }
-                    
                     .padding()
                     .background{
                         Color.clear.borderRadius(ColorConstants.Gray300, width: 1.5, cornerRadius: 15, corners: [.allCorners])
                     }
                     .padding()
-                    
                     
                     VStack{
                         VStack(spacing: 10){
@@ -99,10 +96,10 @@ struct BookingCheckoutView: View {
                                 .foregroundColor(ColorConstants.MainColor )
                                 .frame(width: 82,height: 71, alignment: .center)
                             Group {
-                                Text("\(details.price ?? 222) ")
+                                Text(String(format: "%.2f",details.price ?? 0))
                                     .foregroundColor(.mainBlue)
                                 
-                                Text("EGP".localized())
+                                Text(" EGP".localized())
                                     .foregroundColor(ColorConstants.MainColor)
                             }
                             .font(Font.SoraBold(size: 18))
@@ -151,15 +148,22 @@ struct BookingCheckoutView: View {
         .onDisappear {
             checkoutvm.cleanup()
         }
-        .onChange(of: checkoutvm.isCheckoutSuccess, perform: { value in
-            guard let value = value else{return}
-            destination = AnyView(PaymentStatusView(paymentsuccess: value))
-            isPush = true
-        })
+//        .onChange(of: checkoutvm.isCheckoutSuccess, perform: { value in
+//            guard let value = value else{return}
+//            destination = AnyView(PaymentStatusView(paymentsuccess: value))
+//            isPush = true
+//        })
+        .sheet(isPresented: $checkoutvm.isCheckoutSuccess) {
+            if let strurl = checkoutvm.CreatedBooking?.paymentURL{
+                SafariView(url: URL(string: strurl)!)
+            }
+        }
+        
         .showHud(isShowing: $checkoutvm.isLoading)
         .showAlert(hasAlert: $checkoutvm.isError, alertType: checkoutvm.error)
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
+          
     }
 }
 
@@ -184,7 +188,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.teacherName ?? "Teacher Name")
+                Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -202,7 +206,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.startDate ?? "startDate")
+                Text(details.startDate ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -220,7 +224,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.endDate ?? "startDate")
+                Text(details.endDate ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -241,7 +245,7 @@ struct CheckOutFullSubjectInfo: View {
                 VStack{
                     ForEach(details.bookSchedules ?? [bookSchedules()],id:\.self){sched in
                         Group{
-                            Text("\(sched.dayName ?? "dayname") ")+Text(sched.fromTime ?? "01:20")
+                            Text("\(sched.dayName ?? "") ")+Text(sched.fromTime ?? "01:20")
                         }
                         .foregroundColor(.mainBlue)
                         .font(Font.SoraRegular(size: 10))
@@ -262,7 +266,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.endDate ?? "startDate")
+                Text(details.endDate ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -281,7 +285,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(details.price ?? 120) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f", details.price ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.SoraBold(size: 12))
             }
@@ -300,7 +304,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(details.price ?? 120) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.SoraBold(size: 12))
             }
@@ -324,7 +328,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.teacherName ?? "Teacher Name")
+                Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -342,7 +346,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.bookType ?? "Booking Type")
+                Text(details.bookType ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -360,7 +364,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.endDate ?? "startDate")
+                Text("\(details.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -378,7 +382,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.startDate ?? "startDate")
+                Text("\(details.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -397,7 +401,7 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(details.price ?? 120) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f",details.price ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.SoraBold(size: 12))
             }
@@ -416,10 +420,22 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(details.price ?? 120) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.SoraBold(size: 12))
             }
         }
+    }
+}
+
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        return SFSafariViewController(url: url)
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
     }
 }

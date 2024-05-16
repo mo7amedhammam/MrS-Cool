@@ -43,7 +43,7 @@ struct TeacherRatesView: View {
                                 .foregroundStyle(Color.mainBlue)
                             
                             Group{
-                                Text("\(rates.items?.first?.teacherRate ?? 4.3,specifier: "%.1f")")
+                                Text("\(rates.items?.first?.teacherRate ?? 0,specifier: "%.1f")")
                                     .font(.SoraBold(size: 30))
                                 + Text( " of 5 ".localized())
                                     .font(.SoraBold(size: 30))

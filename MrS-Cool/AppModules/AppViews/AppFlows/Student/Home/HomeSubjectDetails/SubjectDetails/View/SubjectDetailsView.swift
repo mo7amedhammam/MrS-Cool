@@ -60,7 +60,7 @@ struct SubjectDetailsView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(details.SubjectOrLessonDto?.systemBrief ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
                         .font(.SoraRegular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
@@ -127,7 +127,7 @@ struct SubjectDetailsView: View {
                                                             .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
                                                     }
                                                     .offset(x:-40)
-                                                Text(details.SubjectGroups?[currentPage].groupName ?? "group 1")
+                                                Text(details.SubjectGroups?[currentPage].groupName ?? "")
                                                     .font(.SoraBold(size: 18))
                                                     .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
                                             }

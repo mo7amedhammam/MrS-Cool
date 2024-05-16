@@ -35,6 +35,9 @@ struct WeeklyCalendarRepresentableView: UIViewRepresentable {
         calendar.allowsMultipleSelection = false
         calendar.today = nil
         
+        // Set the calendar to select the current date
+        calendar.select(Date(), scrollToDate: true)
+
         return calendar
     }
     

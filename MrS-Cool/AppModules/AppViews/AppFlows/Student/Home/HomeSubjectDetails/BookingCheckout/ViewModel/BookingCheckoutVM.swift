@@ -25,9 +25,11 @@ class BookingCheckoutVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
 
     @Published var Checkout:BookingCheckoutM? = BookingCheckoutM.init()
+    @Published var CreatedBooking:BookingCreateM? = BookingCreateM.init()
+    
 //    @Published var selectedLessonGroup:Int? = 0
 //    @Published var selectedsched:TeacherAvaliableSchedualDto?
-    @Published var isCheckoutSuccess : Bool?
+    @Published var isCheckoutSuccess : Bool = false
 
     init()  {
     }
@@ -104,7 +106,7 @@ extension BookingCheckoutVM{
         print("parameters",parameters)
         let target = StudentServices.CreateOutBookTeacherSession(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<BookingCheckoutM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<BookingCreateM>.self)
             .receive(on: DispatchQueue.main) // Receive on the main thread if you want to update UI
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
@@ -113,20 +115,23 @@ extension BookingCheckoutVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
+
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if receivedData.success == true {
+                if receivedData.success == true ,let model = receivedData.data{
+                    CreatedBooking = model
                     isCheckoutSuccess = true
                 }else{
                     isCheckoutSuccess = false
 
-//                    isError =  true
 //                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    isError =  true
+
                 }
                 isLoading = false
             })
@@ -134,7 +139,7 @@ extension BookingCheckoutVM{
     }
 
     func cleanup() {
-        isCheckoutSuccess = nil
+        isCheckoutSuccess = false
         // Cancel any ongoing Combine subscriptions
         cancellables.forEach { cancellable in
             cancellable.cancel()

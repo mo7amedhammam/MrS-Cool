@@ -10,7 +10,7 @@ import Foundation
 // MARK: - BookingCheckoutM -
 struct BookingCheckoutM: Codable {
     var headerName, teacherName, lessonOrSubjectBrief, bookType: String?
-    var price, currentBalance: Int?
+    var price, currentBalance: Float?
     var startDate, endDate, fromTime, timeTo: String?
     var bookSchedules: [bookSchedules]?
 
@@ -31,5 +31,20 @@ struct bookSchedules: Codable, Hashable {
     enum CodingKeys: String, CodingKey {
         case dayName = "dayName"
         case fromTime = "fromTime"
+    }
+}
+
+// MARK: - BookingCreateM
+struct BookingCreateM: Codable {
+    var studentID, teacherlessonsessionID, bookTeacherLessonSessionID: Int?
+    var paymentURL: String?
+    var amount: Float?
+
+    enum CodingKeys: String, CodingKey {
+        case studentID = "studentId"
+        case teacherlessonsessionID = "teacherlessonsessionId"
+        case bookTeacherLessonSessionID = "bookTeacherLessonSessionId"
+        case paymentURL = "paymentUrl"
+        case amount
     }
 }
