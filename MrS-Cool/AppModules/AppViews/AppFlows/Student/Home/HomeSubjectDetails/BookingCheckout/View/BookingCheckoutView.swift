@@ -8,8 +8,16 @@
 import SwiftUI
 import SafariServices
 
+struct selectedDataToBook {
+//    var TLessonId:Int?
+//    var TLessonSessionId:Int?
+    var selectedId: Int?
+    var Date,DayName,FromTime,ToTime:String?
+}
 struct BookingCheckoutView: View {
-    var selectedid : Int
+    @Environment(\.dismiss) var dismiss
+
+    var selectedgroupid : selectedDataToBook
     var bookingcase:LessonCases?
     @StateObject var checkoutvm = BookingCheckoutVM()
     
@@ -47,9 +55,16 @@ struct BookingCheckoutView: View {
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())
                             
-                            VStack{
-                                Text(details.headerName ?? "")
+                            VStack(alignment:.leading){
+                                if bookingcase != nil{
+                                    Text(details.headerName ?? "")
+                                        .font(.SoraBold(size: 18))
+                                }
+                                Text(details.subjectSemesterName ?? "")
                                     .font(.SoraBold(size: 18))
+                                Text(details.academicYearName ?? "")
+                                    .font(.SoraSemiBold(size: 16))
+                                
                             }
                             .foregroundColor(.mainBlue)
                             
@@ -108,11 +123,12 @@ struct BookingCheckoutView: View {
                         
                         CustomButton(Title: "Confirm Payment", IsDisabled: .constant(false), action: {
                             if Helper.shared.CheckIfLoggedIn(){
-                                checkoutvm.CreateBookCheckout(Id: selectedid)
+                                checkoutvm.CreateBookCheckout(Id: selectedgroupid.selectedId ?? 0)
                             }else{
                                 checkoutvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
-                                    destination = AnyView(SignInView())
-                                    isPush = true
+//                                    destination = AnyView(SignInView())
+//                                    isPush = true
+                                    Helper.shared.changeRoot(toView: SignInView())
                                 })
                                 checkoutvm.isError = true
 
@@ -121,7 +137,7 @@ struct BookingCheckoutView: View {
                         .frame(height:40)
                         
                         CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
-                            
+                          dismiss()
                         })
                         .frame(height:40)
                         
@@ -143,7 +159,8 @@ struct BookingCheckoutView: View {
         
         .onAppear(perform: {
             checkoutvm.bookingcase =  bookingcase
-            checkoutvm.GetBookCheckout(Id: selectedid)
+            checkoutvm.selectedDataToBook = selectedgroupid
+            checkoutvm.GetBookCheckout(Id: selectedgroupid.selectedId ?? 0)
         })
         .onDisappear {
             checkoutvm.cleanup()
@@ -168,7 +185,7 @@ struct BookingCheckoutView: View {
 }
 
 #Preview {
-    BookingCheckoutView(selectedid: 0, bookingcase: .Group)
+    BookingCheckoutView(selectedgroupid: .init(), bookingcase: .Group)
 }
 
 
@@ -206,7 +223,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.startDate ?? "")
+                Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -224,7 +241,7 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.endDate ?? "")
+                Text("\(details.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -243,9 +260,9 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 VStack{
-                    ForEach(details.bookSchedules ?? [bookSchedules()],id:\.self){sched in
+                    ForEach(details.bookSchedules ?? [],id:\.self){sched in
                         Group{
-                            Text("\(sched.dayName ?? "") ")+Text(sched.fromTime ?? "01:20")
+                            Text("\(sched.dayName ?? "") ")+Text("\(sched.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                         }
                         .foregroundColor(.mainBlue)
                         .font(Font.SoraRegular(size: 10))
@@ -266,7 +283,8 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text(details.endDate ?? "")
+                Text("\(Int(details.duration ?? "")?.formattedTime() ?? "0")")
+//                    .ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -286,6 +304,40 @@ struct CheckOutFullSubjectInfo: View {
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f", details.price ?? 0)) ")+Text("EGP".localized())
+                }.foregroundColor(ColorConstants.MainColor)
+                    .font(Font.SoraBold(size: 12))
+            }
+            HStack(spacing: 10){
+                Image("moneyicon")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor )
+                    .frame(width: 18,height: 18, alignment: .center)
+                
+                Text("Tax Amoun".localized())
+                    .foregroundColor(.mainBlue)
+                    .font(Font.SoraBold(size: 12))
+                
+                Spacer()
+                Group{
+                    Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text("EGP".localized())
+                }.foregroundColor(ColorConstants.MainColor)
+                    .font(Font.SoraBold(size: 12))
+            }
+            HStack(spacing: 10){
+                Image("moneyicon")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor )
+                    .frame(width: 18,height: 18, alignment: .center)
+                
+                Text("Total Price With Taxs".localized())
+                    .foregroundColor(.mainBlue)
+                    .font(Font.SoraBold(size: 12))
+                
+                Spacer()
+                Group{
+                    Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.SoraBold(size: 12))
             }
@@ -364,7 +416,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text("\(details.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
+                Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraRegular(size: 10))
             }
@@ -402,6 +454,40 @@ struct CheckOutLessonInfo: View {
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f",details.price ?? 0)) ")+Text("EGP".localized())
+                }.foregroundColor(ColorConstants.MainColor)
+                    .font(Font.SoraBold(size: 12))
+            }
+            HStack(spacing: 10){
+                Image("moneyicon")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor )
+                    .frame(width: 18,height: 18, alignment: .center)
+                
+                Text("Tax Amoun".localized())
+                    .foregroundColor(.mainBlue)
+                    .font(Font.SoraBold(size: 12))
+                
+                Spacer()
+                Group{
+                    Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text("EGP".localized())
+                }.foregroundColor(ColorConstants.MainColor)
+                    .font(Font.SoraBold(size: 12))
+            }
+            HStack(spacing: 10){
+                Image("moneyicon")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor )
+                    .frame(width: 18,height: 18, alignment: .center)
+                
+                Text("Total Price With Taxs".localized())
+                    .foregroundColor(.mainBlue)
+                    .font(Font.SoraBold(size: 12))
+                
+                Spacer()
+                Group{
+                    Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.SoraBold(size: 12))
             }

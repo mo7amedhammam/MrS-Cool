@@ -18,8 +18,8 @@ struct SubjectTeacherM: Codable,Hashable {
     var getSubjectOrLessonDto: GetSubjectOrLessonDto?
     var teacherID, teacherLessonID, teacherSubjectID: Int?
     var teacherImage, teacherName, teacherBIO, teacherBrief: String?
-    var teacherRate: Float?
-    var teacherReview, duration, price: Int?
+    var teacherRate,price: Float?
+    var teacherReview, duration : Int?
 
     enum CodingKeys: String, CodingKey {
         case getSubjectOrLessonDto

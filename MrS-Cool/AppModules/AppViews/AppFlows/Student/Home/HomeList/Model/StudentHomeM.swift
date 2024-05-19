@@ -6,9 +6,15 @@
 //
 
 import Foundation
+// MARK: - SubjectGroupM - for loged in student
+struct StudentSubjectsM: Codable {
+    var studentId: Int?
+    var academicLevelName: String?
+    var subjects: [HomeSubject]?
+}
 
 // MARK: - SubjectGroupM - for loged in student
-struct StudentSubjectsM: Codable,Hashable {
+struct HomeSubject: Codable,Hashable {
     var id: Int?
     var name, image: String?
 
@@ -28,16 +34,17 @@ struct AnonymousallSubjectM: Codable {
 struct GetAllSubject: Codable {
     var id: Int?
     var name, image, systemBrief: String?
-    var availableTeacherCount: Int?
+    var availableTeacherCount,lessonsCount: Int?
     var academicEducationLevelName, academicSemesterName: String?
-    var minPrice, maxPrice, lessonsCount: Int?
+    var minPrice, maxPrice: Float?
 }
 
 // MARK: - mostviewedlessons -
 struct StudentMostViewedLessonsM: Codable,Hashable {
     var id: Int?
     var lessonName, subjectName,lessonBrief: String?
-    var availableTeacher,minPrice,maxPrice: Int?
+    var availableTeacher:Int?
+    var minPrice,maxPrice: Float?
     enum CodingKeys: String, CodingKey {
         case id = "lessonId"
         case  lessonName, subjectName
@@ -61,8 +68,8 @@ struct StudentMostViewedSubjectsM: Codable,Hashable {
 struct StudentMostViewedTeachersM: Codable,Hashable {
     var id: Int?
     var teacherName, teacherImage: String?
-    var teacherLessonId,teacherSubjectId,duration,teacherReview,price: Int?
-    var teacherRate : Float?
+    var teacherLessonId,teacherSubjectId,duration,teacherReview: Int?
+    var teacherRate, price : Float?
     enum CodingKeys: String, CodingKey {
         case id = "teacherId"
         case teacherName, teacherImage

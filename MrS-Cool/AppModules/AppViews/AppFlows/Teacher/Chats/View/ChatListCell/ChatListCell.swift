@@ -95,7 +95,7 @@ struct ChatLessonNameCell: View {
             Circle()
                 .fill(isLessonSelected ? .black : .bluegray100 )
                 .frame(width: 8, height: 8, alignment: .center)
-            Text(model.lessonName ?? "lesson name ")
+            Text(model.lessonName ?? "")
                 .font(Font.SoraRegular(size:13))
             Spacer()
         }

@@ -90,7 +90,7 @@ struct TeacherInfoView: View {
                                     //                            }
                                     
                                     VStack{
-                                        ForEach(teacher.teacherRatePercents ?? [TeacherRatePercent.init(rateNumber:5,ratePercents: 90),TeacherRatePercent.init(rateNumber:4,ratePercents: 9),TeacherRatePercent.init(rateNumber:3,ratePercents: 40),TeacherRatePercent.init(rateNumber:2.5,ratePercents: 25)],id:\.self){percent in
+                                        ForEach(teacher.teacherRatePercents ?? [],id:\.self){percent in
                                             
                                             HStack {
                                                 Slider(value:.constant(percent.ratePercents ?? 20),in:0...100)
@@ -98,7 +98,7 @@ struct TeacherInfoView: View {
                                                 
                                                 StarsView(rating: percent.rateNumber ?? 0)
                                                 
-                                                Text("\(percent.ratePercents ?? 20,specifier: "%.1f") %")
+                                                Text("\(percent.ratePercents ?? 0,specifier: "%.1f") %")
                                                     .foregroundColor(Color.mainBlue)
                                                     .font(.SoraRegular(size: 10))
                                             }
@@ -116,9 +116,9 @@ struct TeacherInfoView: View {
                                 
                                 LazyVGrid(columns: [.init(), .init(),.init()]) {
                                     
-                                    let studentSubjects: [StudentSubjectsM] = teacher.subjects?.convertToStudentSubjectsM() ?? []
+                                    let studentSubjects: [HomeSubject] = teacher.subjects?.convertToStudentSubjectsM() ?? []
                                     ForEach(studentSubjects,id:\.self){subject in
-                                        StudentHomeSubjectCell(subject:subject,selectedSubject:.constant(StudentSubjectsM(id: -132, name: "", image: ""))){
+                                        StudentHomeSubjectCell(subject:subject,selectedSubject:.constant(HomeSubject(id: -132, name: "", image: ""))){
                                             //                                            destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
                                             //                                            isPush = true
                                         }

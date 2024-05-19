@@ -43,7 +43,7 @@ struct HomeSubjectDetailsView: View {
                         .clipShape(Circle())
                         
                         VStack{
-                            Text(details.name ?? "Arabic")
+                            Text(details.name ?? "")
                                 .font(.SoraBold(size: 18))
                         }
                         .foregroundColor(.mainBlue)
@@ -53,7 +53,7 @@ struct HomeSubjectDetailsView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(details.systemBrief ?? "brief")
+                    Text(details.systemBrief ?? "")
                         .font(.SoraRegular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
@@ -65,9 +65,9 @@ struct HomeSubjectDetailsView: View {
                             
                             HStack(){
                                 SignUpHeaderTitle(Title:"Subject Content",subTitleView: AnyView(
-                                    Text("\(details.getSubjectLessonsDetailsDtoList?.count ?? 2)") +
+                                    Text("\(details.getSubjectLessonsDetailsDtoList?.count ?? 0)") +
                                     Text(" units .".localized()) +
-                                    Text(" \(details.lessonsCount ?? 25) ") +
+                                    Text(" \(details.lessonsCount ?? 0) ") +
                                     Text("Lessons".localized())))
                                 .foregroundColor(.mainBlue)
                                 .font(.SoraRegular(size: 10))
@@ -113,7 +113,7 @@ struct HomeSubjectDetailsView: View {
                                     
                                     HStack(){
                                         Group {
-                                            Text("\(details.availableTeacherCount ?? 25)  ")
+                                            Text("\(details.availableTeacherCount ?? 0)  ")
                                                 .font(Font.SoraSemiBold(size: 12))
                                             + Text("Available Teachers".localized())
                                         }
@@ -139,7 +139,7 @@ struct HomeSubjectDetailsView: View {
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 14,height: 14, alignment: .center)
                                         Group {
-                                             Text("  \(details.lessonsCount ?? 12) ")
+                                             Text("  \(details.lessonsCount ?? 0) ")
                                                 .font(Font.SoraSemiBold(size: 12))
                                             + Text("Lessons".localized())
                                         }
@@ -155,7 +155,7 @@ struct HomeSubjectDetailsView: View {
                                             .frame(width: 14,height: 14, alignment: .center)
                                         Group {
                                             Text("Highest Price :".localized())
-                                            + Text("  \(details.maxPrice ?? 444) ")
+                                            + Text("  \(details.maxPrice ?? 0,specifier: "%.1f") ")
                                                 .font(Font.SoraSemiBold(size: 12))
                                             + Text("EGP".localized())
                                         }
@@ -171,7 +171,7 @@ struct HomeSubjectDetailsView: View {
                                             .frame(width: 14,height: 14, alignment: .center)
                                         Group {
                                             Text("Lowest Price :".localized())
-                                            + Text("  \(details.minPrice ?? 222) ")
+                                            + Text("  \(details.minPrice ?? 0,specifier: "%.1f") ")
                                                 .font(Font.SoraSemiBold(size: 12))
                                             + Text("EGP".localized())
                                         }
@@ -203,16 +203,8 @@ struct HomeSubjectDetailsView: View {
                         ColorConstants.WhiteA700
                             .clipShape(RoundedCorners(topLeft: 25, topRight: 25, bottomLeft: 0, bottomRight: 0))
                             .ignoresSafeArea()
-                        
                     }
-                    
-                    .onAppear(perform: {
-                        homesubjectdetailsvm.SelectedStudentSubjectId = selectedsubjectid
-                        homesubjectdetailsvm.GetStudentSubjectDetails()
-                    })
                 }else{
-                 
-
                     Spacer()
                 }
                 
@@ -229,12 +221,15 @@ struct HomeSubjectDetailsView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
+        .onAppear(perform: {
+            homesubjectdetailsvm.SelectedStudentSubjectId = selectedsubjectid
+            homesubjectdetailsvm.GetStudentSubjectDetails()
+        })
         .onDisappear {
             homesubjectdetailsvm.cleanup()
         }
-        //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
-        //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
+        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
+        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }

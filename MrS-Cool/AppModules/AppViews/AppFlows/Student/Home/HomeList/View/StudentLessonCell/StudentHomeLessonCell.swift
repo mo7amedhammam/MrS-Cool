@@ -28,21 +28,20 @@ struct StudentHomeLessonCell: View {
                     .aspectRatio(contentMode: .fill)
                     .padding(.top, 10)
                 
-                Text(lesson.lessonName ?? "Grammar And Reading")
+                Text(lesson.lessonName ?? "")
                     .font(Font.SoraSemiBold(size: 13))
                     .fontWeight(.semibold)
                     .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 :.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 19.0)
                 
-                Text(lesson.subjectName ?? "Arabic")
+                Text(lesson.subjectName ?? "")
                     .font(Font.SoraRegular(size: 13))
                     .fontWeight(.semibold)
                     .foregroundColor(ColorConstants.MainColor)
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
                     .padding(.top, 5)
-                
                 
                 Group{
                     if lesson.id == selectedlesson.id {
@@ -61,7 +60,7 @@ struct StudentHomeLessonCell: View {
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
-                           Text("\(lesson.availableTeacher ?? 25)  ")
+                           Text("\(lesson.availableTeacher ?? 0)  ")
                                 .font(Font.SoraSemiBold(size: 7))
                             + Text("Available Teachers".localized())
                         }
@@ -78,7 +77,7 @@ struct StudentHomeLessonCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
                             Text("Min Price :".localized())
-                            + Text("  \(lesson.minPrice ?? 222) ")
+                           + Text("\(lesson.minPrice ?? 0,specifier: "%.2f")")
                                 .font(Font.SoraSemiBold(size: 7))
                             + Text("EGP".localized())
                         }
@@ -95,7 +94,7 @@ struct StudentHomeLessonCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
                             Text("Max Price :".localized())
-                            + Text("  \(lesson.maxPrice ?? 444) ")
+                            + Text("  \(lesson.maxPrice ?? 250,specifier: "%.2f") ")
                                 .font(Font.SoraSemiBold(size: 7))
                             + Text("EGP".localized())
                         }
@@ -104,6 +103,7 @@ struct StudentHomeLessonCell: View {
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
                         Spacer()
                     }
+                    
                 }.padding(.horizontal)
             
             }

@@ -13,6 +13,7 @@ class BookingCheckoutVM: ObservableObject {
     
     //    MARK: --- inputs ---
     @Published var bookingcase : LessonCases? 
+    @Published var selectedDataToBook :selectedDataToBook?
 //    @Published var subjectId : Int?
 //    @Published var lessonId : Int?
 //    @Published var rate : Int = 0
@@ -37,19 +38,20 @@ class BookingCheckoutVM: ObservableObject {
 
 extension BookingCheckoutVM{
     func GetBookCheckout(Id:Int){
+        guard let data = selectedDataToBook else{return}
         var parameters:[String:Any] = [:]
         switch bookingcase{
         case .Group:
-            parameters["teacherLessonSessionId"] = Id
+            parameters["teacherLessonSessionId"] = data.selectedId
             
         case .Individual:
-            parameters["teacherLessonId"] = Id
-            parameters["startDate"] = Id
-            parameters["timeTo"] = Id
-            parameters["timeFrom"] = Id
+            parameters["teacherLessonId"] = data.selectedId
+            parameters["date"] = data.Date
+            parameters["toTime"] = data.ToTime
+            parameters["fromTime"] = data.FromTime
 
         case .none:
-            parameters["teacherLessonSessionId"] = Id
+            parameters["teacherLessonSessionId"] = data.selectedId
         }
         
         if Helper.shared.getSelectedUserType() == .Parent {
@@ -93,9 +95,9 @@ extension BookingCheckoutVM{
             
         case .Individual:
             parameters["teacherLessonId"] = Id
-            parameters["startDate"] = Checkout?.startDate ?? ""
-            parameters["timeFrom"] = Checkout?.fromTime ?? ""
-            parameters["timeTo"] = Checkout?.timeTo ?? ""
+            parameters["date"] = Checkout?.startDate ?? ""
+            parameters["fromTime"] = Checkout?.fromTime ?? ""
+            parameters["toTime"] = Checkout?.toTime ?? ""
 
         case .none:
             parameters["teacherLessonSessionId"] = Id

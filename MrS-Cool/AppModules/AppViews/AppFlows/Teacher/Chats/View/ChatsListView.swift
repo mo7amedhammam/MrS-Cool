@@ -53,6 +53,7 @@ struct ChatsListView: View {
                                 }else{
                                     selectedChatId = nil
                                 }
+                                chatlistvm.comment = ""
                             }, label: {
                                 ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectedLessonId: $selectedLessonId, selectLessonBtnAction: {
                                     destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId ).environmentObject(chatlistvm))

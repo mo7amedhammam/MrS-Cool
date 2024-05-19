@@ -111,47 +111,48 @@ struct LessonDetailsView: View {
                                 
                                 LessonTeacherInfoView(teacher: details)
                                 
-                                    HStack{
-                                        Button(action: {
-                                            lessoncase = .Group
-                                        }, label: {
-                                            Text("Group".localized())
-                                                .font(.SoraBold(size: 18))
-                                                .padding()
-                                                .frame(minWidth:80,maxWidth:.infinity)
-                                                .foregroundColor(lessoncase == .Group ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
-                                                .background(content: {
-                                                    Group{lessoncase == .Group ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                                })
-                                        })
-                                        
-                                        Button(action: {
-                                            lessoncase = .Individual
-                                        }, label: {
-                                            Text("Individual".localized())
-                                                .font(.SoraBold(size: 18))
-                                                .padding()
-                                                .frame(minWidth:80,maxWidth:.infinity)
-                                                .foregroundColor(lessoncase == .Individual ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
-                                                .background(content: {
-                                                    Group{lessoncase == .Individual ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                                })
-                                        })
-                                        
-                                    }
-                                    HStack {
-                                        Text(lessoncase == .Group ? "Group Booking".localized():"Individual Booking".localized())
+                                HStack{
+                                    Button(action: {
+                                        lessoncase = .Group
+                                        lessondetailsvm.selectedsched = nil //clear individual
+                                    }, label: {
+                                        Text("Group".localized())
                                             .font(.SoraBold(size: 18))
-                                            .foregroundColor(ColorConstants.WhiteA700)
-                                        //                                        .multilineTextAlignment(.leading)
-                                    }
-                                    .frame(minWidth:50,maxWidth:.infinity)
-                                    .frame(height: 45)
-                                    .padding(.horizontal)
-                                    .background(content: {
-                                        ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
+                                            .padding()
+                                            .frame(minWidth:80,maxWidth:.infinity)
+                                            .foregroundColor(lessoncase == .Group ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
+                                            .background(content: {
+                                                Group{lessoncase == .Group ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                            })
                                     })
                                     
+                                    Button(action: {
+                                        lessoncase = .Individual
+                                        lessondetailsvm.selectedLessonGroup = nil // clear group
+                                    }, label: {
+                                        Text("Individual".localized())
+                                            .font(.SoraBold(size: 18))
+                                            .padding()
+                                            .frame(minWidth:80,maxWidth:.infinity)
+                                            .foregroundColor(lessoncase == .Individual ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
+                                            .background(content: {
+                                                Group{lessoncase == .Individual ? ColorConstants.MainColor : ColorConstants.ParentDisableBg}.clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                            })
+                                    })
+                                    
+                                }
+                                HStack {
+                                    Text(lessoncase == .Group ? "Group Booking".localized():"Individual Booking".localized())
+                                        .font(.SoraBold(size: 18))
+                                        .foregroundColor(ColorConstants.WhiteA700)
+                                    //                                        .multilineTextAlignment(.leading)
+                                }
+                                .frame(minWidth:50,maxWidth:.infinity)
+                                .frame(height: 45)
+                                .padding(.horizontal)
+                                .background(content: {
+                                    ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
+                                })
                                 
                                 switch lessoncase {
                                 case .Group:
@@ -173,7 +174,7 @@ struct LessonDetailsView: View {
                                             
                                             Spacer()
                                             
-                                                              
+                                            
                                             let isselected = lessondetailsvm.selectedLessonGroup == details.LessonGroupsDto?[currentPage].teacherLessonSessionID
                                             
                                             VStack(alignment:.leading){
@@ -200,7 +201,7 @@ struct LessonDetailsView: View {
                                                 Group{
                                                     Label(title: {
                                                         Group {
-                                                            Text("Date".localized())+Text(slot.date ?? "15 Nov 2023")
+                                                            Text("Date".localized())+Text(slot.date ?? "")
                                                         }
                                                         .font(.SoraRegular(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -212,7 +213,7 @@ struct LessonDetailsView: View {
                                                     
                                                     Label(title: {
                                                         Group {
-                                                            Text("Start Time".localized())+Text(slot.timeFrom ?? "15 Nov 2023")
+                                                            Text("Start Time".localized())+Text(slot.timeFrom ?? "")
                                                         }
                                                         .font(.SoraRegular(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -223,7 +224,7 @@ struct LessonDetailsView: View {
                                                     })
                                                     Label(title: {
                                                         Group {
-                                                            Text("End Time".localized())+Text(slot.timeTo ?? "15 Nov 2023")
+                                                            Text("End Time".localized())+Text(slot.timeTo ?? "")
                                                         }
                                                         .font(.SoraRegular(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -251,12 +252,6 @@ struct LessonDetailsView: View {
                                                 )
                                             )
                                             .id(UUID())
-//                                            .onChange(of: lessondetailsvm.selectedLessonGroup){value in
-//                                                isselected = value == slot.teacherLessonSessionID
-//                                                
-//                                            }
-                                            
-                                            
                                             
                                             Spacer()
                                             
@@ -280,7 +275,7 @@ struct LessonDetailsView: View {
                                         Text("No Available Group Times".localized())
                                             .font(Font.SoraBold(size: 15))
                                             .foregroundColor(ColorConstants.MainColor)
-
+                                        
                                         //                                          print("no slots to display")
                                     }
                                 case .Individual:
@@ -296,7 +291,7 @@ struct LessonDetailsView: View {
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 20,height: 20, alignment: .center)
                                         Group {
-                                            Text("  \(details.price ?? 222) ")
+                                            Text("  \(details.individualCost ?? 0,specifier:"%.2f") ")
                                             + Text("EGP".localized())
                                         }
                                         .font(Font.SoraBold(size: 18))
@@ -316,27 +311,29 @@ struct LessonDetailsView: View {
                                         .padding(.vertical,8)
                                     
                                     Group{
-                                    Text("Available Times on".localized())
-                                    + Text(" \(selectedDate ?? Date())")
+                                        Text("Available Times on".localized())
+                                        + Text(" \(selectedDate ?? Date())")
                                     }
                                     .font(Font.SoraBold(size: 15))
                                     .foregroundColor(ColorConstants.MainColor)
-
+                                    
                                     
                                     ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
                                         .padding(.horizontal)
                                     
                                     HorizontalScrollWithTwoRows(items:  $lessondetailsvm.availableScheduals ,selectedsched:$lessondetailsvm.selectedsched)
-
+                                    
                                 }
                                 
-                                CustomButton(Title:"Book Now",IsDisabled:.constant(lessondetailsvm.selectedLessonGroup == nil) , action: {
-                                    destination = AnyView(BookingCheckoutView(selectedid: lessondetailsvm.selectedLessonGroup ?? 0, bookingcase: lessoncase))
+                                if (lessoncase == .Group && details.LessonGroupsDto != []) || (lessoncase == .Individual && lessondetailsvm.availableScheduals != [])  {
+                                    CustomButton(Title:"Book Now",IsDisabled:.constant( lessondetailsvm.selectedLessonGroup == nil && lessondetailsvm.selectedsched == nil) , action: {
+                                        destination = AnyView(BookingCheckoutView(selectedgroupid: selectedDataToBook(selectedId: lessoncase == .Group ? lessondetailsvm.selectedLessonGroup:selectedlessonid, Date: lessondetailsvm.selectedsched?.date, DayName: lessondetailsvm.selectedsched?.dayName, FromTime: lessondetailsvm.selectedsched?.fromTime, ToTime: lessondetailsvm.selectedsched?.toTime), bookingcase: lessoncase))
                                     isPush = true
                                 })
                                 .frame(height: 40)
                                 .padding(.top,10)
                                 .padding(.horizontal)
+                            }
                                 
                                 Spacer()
                                     .frame(height:50)
@@ -366,9 +363,13 @@ struct LessonDetailsView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
         .onAppear(perform: {
-            lessondetailsvm.GetLessonDetails(lessonId: selectedlessonid)
+            if lessoncase == .Group {
+                lessondetailsvm.GetLessonDetails(lessonId: selectedlessonid)
+            }else{
+                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'")
+                lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
+            }
         })
         .onDisappear {
             lessondetailsvm.cleanup()
@@ -379,8 +380,8 @@ struct LessonDetailsView: View {
             lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
 //            }
         }
-        //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
-        //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
+                .showHud(isShowing: $lessondetailsvm.isLoading)
+                .showAlert(hasAlert: $lessondetailsvm.isError, alertType: lessondetailsvm.error)
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }

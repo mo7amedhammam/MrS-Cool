@@ -52,14 +52,7 @@ struct StudentHomeView: View {
                         .padding(.bottom,10)
                         //                        }
                     }
-                    
-
-//                }
-//                .frame(minHeight:20)
-                    
-      
-                    
-//            }
+  
                     
                     HStack {
                         Text("Most Viewed Lessons".localized())

@@ -27,11 +27,11 @@ struct LessonTeacherInfoView : View {
             
             VStack(alignment: .center, spacing:0){
                 //                VStack {
-                Text(teacher.teacherName ?? "teacher name")
+                Text(teacher.teacherName ?? "")
                     .font(.SoraBold(size: 20))
                 //                    Spacer()
                 
-                Text(teacher.teacherBIO ?? "Teacher Bio")
+                Text(teacher.teacherBIO ?? "")
                     .font(.SoraRegular(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
@@ -64,7 +64,7 @@ struct LessonTeacherInfoView : View {
                         .foregroundColor(ColorConstants.MainColor )
                         .frame(width: 20,height: 20, alignment: .center)
                     Group {
-                        Text("  \(teacher.price ?? 222) ")
+                        Text("  \(teacher.price ?? 0,specifier: "%.2f") ")
                         + Text("EGP".localized())
                     }
                     .font(Font.SoraBold(size: 18))
@@ -78,7 +78,7 @@ struct LessonTeacherInfoView : View {
                         .font(Font.SoraSemiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
-                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "Subject Breif")
+                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
                         .font(.SoraRegular(size: 9))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)

@@ -45,7 +45,6 @@ struct StudentCompletedLessonDetails: View {
                             .background(ColorConstants.MainColor)
                             .cornerRadius(8)
                             
-                            
                             Group{
                                 Text("Subject".localized())
                                     .font(Font.SoraBold(size: 16))

@@ -11,10 +11,10 @@ import Foundation
 struct TeacherLessonDetailsM: Codable {
     var SubjectOrLessonDto: SubjectOrLessonDto?
     var teacherID, teacherLessonID, teacherSubjectID: Int?
-    var teacherImage, teacherName, teacherBIO, teacherBrief: String?
-    var teacherRate: Float?
-    var teacherReview, duration, price: Int?
-    var minGroup, maxGroup, individualCost, individualDuration: Int?
+    var teacherImage, teacherName, teacherBIO, teacherBrief,academicSemesterName,academicEducationLevelName: String?
+    var teacherRate,price,individualCost: Float?
+    var teacherReview, duration : Int?
+    var minGroup, maxGroup, individualDuration: Int?
     var LessonGroupsDto: [LessonGroupsDto]?
     var teacherRateDto: TeacherRateDto?
     var TeacherAvaliableSchedualDtos: [TeacherAvaliableSchedualDto]?
@@ -28,6 +28,7 @@ struct TeacherLessonDetailsM: Codable {
         case LessonGroupsDto = "getLessonGroupsDto"
         case teacherRateDto
         case TeacherAvaliableSchedualDtos = "getTeacherAvaliableSchedualDtos"
+        case academicSemesterName,academicEducationLevelName
     }
 }
 

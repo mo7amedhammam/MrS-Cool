@@ -47,11 +47,11 @@ struct MessagesListView: View {
                             .frame(width: 50,height: 50)
                             .clipShape(Circle())
                             VStack(alignment: .leading,spacing: 4){
-                                Text(student.studentName ?? "Student Name")
+                                Text(student.studentName ?? "")
                                     .font(Font.SoraSemiBold(size:15))
                                     .foregroundColor(.mainBlue)
                                 
-                                Text(student.subjectName ?? "Student Name")
+                                Text(student.subjectName ?? "")
                                     .font(Font.SoraSemiBold(size:15))
                                     .foregroundColor(.bluegray400)
                             }

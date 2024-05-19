@@ -46,9 +46,9 @@ class StudentHomeVM: ObservableObject {
     //    @Published var isTeacherHasSubjects: Bool = false
     //    @Published var letsPreview : Bool = false
     
-    @Published var StudentSubjects : [StudentSubjectsM]? = []
+    @Published var StudentSubjects : [HomeSubject]? = []
 //    [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2"),StudentSubjectsM.init(id: 3, name: "arabic2", image: "tab2")]
-    @Published var SelectedStudentSubjects : StudentSubjectsM = StudentSubjectsM()
+    @Published var SelectedStudentSubjects : HomeSubject = HomeSubject()
     
     @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = []
     //    [StudentMostViewedLessonsM.init(id: 0, lessonName: "grammer", subjectName: "arabic", lessonBrief: "brief 0", availableTeacher: 12, minPrice: 220, maxPrice: 550)]
@@ -88,7 +88,7 @@ extension StudentHomeVM{
         if Helper.shared.CheckIfLoggedIn() == true{
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true
-            BaseNetwork.CallApi(target, BaseResponse<[StudentSubjectsM]>.self)
+            BaseNetwork.CallApi(target, BaseResponse<StudentSubjectsM>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
                     guard let self = self else{return}
@@ -105,7 +105,7 @@ extension StudentHomeVM{
                     print("receivedData",receivedData)
                     if receivedData.success == true {
                         //                    TeacherSubjects?.append(model)
-                        StudentSubjects = receivedData.data
+                        StudentSubjects = receivedData.data?.subjects
                     }else{
                         //                    isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -294,7 +294,7 @@ extension StudentHomeVM{
 }
     
     func clearselections(){
-        SelectedStudentSubjects = StudentSubjectsM()
+        SelectedStudentSubjects = HomeSubject()
         SelectedStudentMostViewedLesson = StudentMostViewedLessonsM()
         SelectedStudentMostBookedLesson = StudentMostViewedLessonsM()
         SelectedStudentMostViewedSubject = StudentMostViewedSubjectsM()
@@ -318,9 +318,9 @@ extension StudentHomeVM{
 
 
 extension Array where Element == GetAllSubject {
-    func convertToStudentSubjects() -> [StudentSubjectsM] {
+    func convertToStudentSubjects() -> [HomeSubject] {
         return self.map { getAllSubject in
-            return StudentSubjectsM(
+            return HomeSubject(
                 id: getAllSubject.id,
                 name: getAllSubject.name,
                 image: getAllSubject.image

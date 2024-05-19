@@ -58,7 +58,7 @@ struct CompletedLessonCell: View {
                 VStack(alignment:.trailing){
                     
                     VStack(alignment:.leading,spacing: 2.5){
-                        Text("End".localized())
+                        Text("Date".localized())
                             .font(Font.SoraSemiBold(size: 6))
                             .foregroundColor(.grayBtnText)
                         

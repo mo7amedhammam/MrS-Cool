@@ -11,7 +11,8 @@
 struct StudentHomeSubjectDetailsM: Codable,Hashable {
     var id: Int?
     var name, image, systemBrief: String?
-    var availableTeacherCount, minPrice, maxPrice, lessonsCount: Int?
+    var availableTeacherCount,lessonsCount: Int?
+    var minPrice, maxPrice: Float?
     var getSubjectLessonsDetailsDtoList: [GetSubjectLessonsDetailsDtoList]?
     var unitLessonDtoList: [UnitLessonDtoList]?
 }
@@ -27,8 +28,8 @@ struct GetSubjectLessonsDetailsDtoList: Codable,Hashable {
 struct UnitLessonDtoList: Codable,Hashable {
     var lessonID: Int?
     var lessonName, unitName: String?
-    var unitID, availableTeacherCount, minPrice, maxPrice: Int?
-
+    var unitID, availableTeacherCount: Int?
+    var minPrice, maxPrice: Float?
     enum CodingKeys: String, CodingKey {
         case lessonID = "lessonId"
         case lessonName, unitName

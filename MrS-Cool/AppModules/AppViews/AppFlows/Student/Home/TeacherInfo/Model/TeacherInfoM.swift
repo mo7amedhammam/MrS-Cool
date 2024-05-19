@@ -29,9 +29,9 @@ struct TeacherRatePercent: Codable,Hashable {
 }
 
 extension Array where Element == Subject {
-    func convertToStudentSubjectsM() -> [StudentSubjectsM] {
+    func convertToStudentSubjectsM() -> [HomeSubject] {
         return self.map { subject in
-            return StudentSubjectsM(id: 0, name: subject.subjectName, image: subject.subjectImage)
+            return HomeSubject(id: 0, name: subject.subjectName, image: subject.subjectImage)
         }
     }
 }

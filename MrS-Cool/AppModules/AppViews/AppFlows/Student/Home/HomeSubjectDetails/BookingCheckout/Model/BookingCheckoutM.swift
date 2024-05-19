@@ -8,24 +8,35 @@
 import Foundation
 
 // MARK: - BookingCheckoutM -
-struct BookingCheckoutM: Codable {
-    var headerName, teacherName, lessonOrSubjectBrief, bookType: String?
-    var price, currentBalance: Float?
-    var startDate, endDate, fromTime, timeTo: String?
-    var bookSchedules: [bookSchedules]?
+//struct BookingCheckoutM: Codable {
+//    var headerName, teacherName, lessonOrSubjectBrief, bookType: String?
+//    var price, currentBalance: Float?
+//    var startDate, endDate, fromTime, timeTo: String?
+//    var bookSchedules: [bookSchedules]?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case headerName = "headerName"
+//        case teacherName = "teacherName"
+//        case lessonOrSubjectBrief = "lessonOrSubjectBrief"
+//        case bookType = "bookType"
+//        case price, currentBalance, startDate, endDate, fromTime, timeTo, bookSchedules
+//    }
+//}
 
-    enum CodingKeys: String, CodingKey {
-        case headerName = "headerName"
-        case teacherName = "teacherName"
-        case lessonOrSubjectBrief = "lessonOrSubjectBrief"
-        case bookType = "bookType"
-        case price, currentBalance, startDate, endDate, fromTime, timeTo, bookSchedules
-    }
+// MARK: - BookingCheckoutM
+struct BookingCheckoutM: Codable {
+    var headerName, subjectSemesterName, academicYearName, teacherName: String?
+    var lessonOrSubjectBrief, bookType, duration: String?
+    var price, currentBalance: Float?
+    var startDate, endDate, fromTime, toTime: String?
+    var paymentAmount, taxAmount, totalPriceWithTax: Float?
+    var bookSchedules: [BookSchedule]?
 }
 
 
-// MARK: - bookSchedules -
-struct bookSchedules: Codable, Hashable {
+
+// MARK: - BookSchedule -
+struct BookSchedule: Codable, Hashable {
     var dayName, fromTime: String?
 
     enum CodingKeys: String, CodingKey {

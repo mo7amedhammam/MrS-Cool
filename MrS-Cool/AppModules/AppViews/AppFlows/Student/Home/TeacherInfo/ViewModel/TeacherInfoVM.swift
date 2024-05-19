@@ -18,7 +18,7 @@ class TeacherInfoVM: ObservableObject {
 //    @Published var rate : Int = 0
 //    @Published var priceFrom : Int?
     
-    @Published var SelectedStudentSubjects : StudentSubjectsM = StudentSubjectsM(id: nil, name: nil, image: nil)
+    @Published var SelectedStudentSubjects : HomeSubject = HomeSubject(id: nil, name: nil, image: nil)
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?

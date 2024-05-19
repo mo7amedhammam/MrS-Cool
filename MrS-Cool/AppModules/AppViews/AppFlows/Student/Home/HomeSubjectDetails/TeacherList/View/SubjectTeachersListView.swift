@@ -46,7 +46,7 @@ struct SubjectTeachersListView: View {
                         .clipShape(Circle())
                         
                         VStack{
-                            Text(teachers.items?.first?.getSubjectOrLessonDto?.headerName ?? "Arabic")
+                            Text(teachers.items?.first?.getSubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
                         }
                         .foregroundColor(.mainBlue)
@@ -56,7 +56,7 @@ struct SubjectTeachersListView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(teachers.items?.first?.getSubjectOrLessonDto?.systemBrief ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                    Text(teachers.items?.first?.getSubjectOrLessonDto?.systemBrief ?? "")
                         .font(.SoraRegular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
@@ -97,9 +97,11 @@ struct SubjectTeachersListView: View {
                             }
                             .padding(.top)
                             .padding(.horizontal)
+                            
+                            if let items = teachers.items{
                             ScrollView(.vertical,showsIndicators: false){
                                 Spacer().frame(height:20)
-                                ForEach(teachers.items ?? [SubjectTeacherM.init()],id:\.self){teacher in
+                                ForEach(items,id:\.self){teacher in
                                     Button(action: {
                                         switch bookingcase {
                                         case .subject:
@@ -107,29 +109,31 @@ struct SubjectTeachersListView: View {
                                         case .lesson:
                                             destination = AnyView(LessonDetailsView(selectedlessonid: teacher.teacherLessonID ?? 0))
                                         }
-                                            
+                                        
                                         isPush = true
                                     }, label: {
                                         TeacherCellView(teacher: teacher)
                                     })
                                     
-                                        .onAppear {
-                                            if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, let itemsCount = homesubjectteachersvm.TeachersModel?.items?.count, itemsCount < totalCount {
-                                                // Load the next page if there are more items to fetch
-                                                homesubjectteachersvm.skipCount += homesubjectteachersvm.maxResultCount
-                                                homesubjectteachersvm.GetStudentSubjectTeachers()
-                                            }
+                                    .onAppear {
+                                        guard teacher == items.last else {return}
+                                        
+                                        if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, items.count < totalCount {
+                                            // Load the next page if there are more items to fetch
+                                            homesubjectteachersvm.skipCount += homesubjectteachersvm.maxResultCount
+                                            homesubjectteachersvm.GetStudentSubjectTeachers()
                                         }
+                                    }
                                 }
-                                
                                 
                                 Spacer()
                                     .frame(height:50)
                             }
                             .frame(minHeight: gr.size.height)
                         }
+                        
+                        }
                     }
-                    
                     .background{
                         ColorConstants.WhiteA700
                             .clipShape(RoundedCorners(topLeft: 25, topRight: 25, bottomLeft: 0, bottomRight: 0))
@@ -164,8 +168,8 @@ struct SubjectTeachersListView: View {
         .onDisappear {
             homesubjectteachersvm.cleanup()
         }
-        //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
-        //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
+                .showHud(isShowing: $homesubjectteachersvm.isLoading)
+                .showAlert(hasAlert: $homesubjectteachersvm.isError, alertType: homesubjectteachersvm.error)
         
         .overlay{
             if showFilter{
@@ -523,7 +527,7 @@ struct TeacherCellView : View {
             
             VStack(alignment: .leading, spacing:0){
                 HStack {
-                    Text(teacher.teacherName ?? "teacher name")
+                    Text(teacher.teacherName ?? "")
                         .font(.SoraSemiBold(size: 13))
                     Spacer()
                     HStack{
@@ -536,7 +540,7 @@ struct TeacherCellView : View {
                     }
                 }
                 
-                Text(teacher.teacherBrief ?? "briefbriefb riefb riefbrief briefbr iefbriefbr iefbri efbriefbr iefbriefbri efbriefbriefbrief briefbriefbriefbrief briefbrie fbrief briefb riefbrief briefbrief briefbriefbrief briefbrief brief briefbrief brief brief brief brief brief brief brief brief brief")
+                Text(teacher.teacherBrief ?? "")
                     .font(.SoraRegular(size: 7))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
@@ -566,7 +570,7 @@ struct TeacherCellView : View {
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
-                            Text("  \(teacher.price ?? 222) ")
+                            Text("  \(teacher.price ?? 0,specifier:"%.2f") ")
                             + Text("EGP".localized())
                         }
                         .font(Font.SoraSemiBold(size: 13))

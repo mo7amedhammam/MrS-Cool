@@ -50,7 +50,7 @@ struct SubjectDetailsView: View {
                         .clipShape(Circle())
                         
                         VStack{
-                            Text(details.SubjectOrLessonDto?.headerName ?? "subjectname")
+                            Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
                         }
                         .foregroundColor(.mainBlue)
@@ -101,6 +101,8 @@ struct SubjectDetailsView: View {
                                     ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight]))
                                 })
                                 
+                                if details.SubjectGroups != [] , let slot = details.SubjectGroups?[currentPage]{
+
                                 HStack {
                                     Button(action: {
                                         forwards = true
@@ -118,32 +120,33 @@ struct SubjectDetailsView: View {
                                     Spacer()
                                     
                                     let isselected = subjectdetailsvm.selectedSubjectId == details.SubjectGroups?[currentPage].teacherLessonSessionID
-                                        VStack(alignment:.leading){
-                                            HStack {
-                                                ZStack{
-                                                    Image("circleempty")
-                                                    Image("img_line1")
-                                                        .renderingMode(.template)
-                                                            .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
-                                                    }
-                                                    .offset(x:-40)
-                                                Text(details.SubjectGroups?[currentPage].groupName ?? "")
-                                                    .font(.SoraBold(size: 18))
-                                                    .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
+                                    
+                                    VStack(alignment:.leading){
+                                        HStack {
+                                            ZStack{
+                                                Image("circleempty")
+                                                Image("img_line1")
+                                                    .renderingMode(.template)
+                                                    .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
                                             }
-                                            .frame(width:170,height: 45)
-                                            .padding(.horizontal)
-                                            .background(content: {
-                                                if isselected {
-                                                    ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
-                                                        Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
-                                                        
-                                                    }
-                                            })
-                                            Group{
+                                            .offset(x:-40)
+                                            Text(slot.groupName ?? "")
+                                                .font(.SoraBold(size: 18))
+                                                .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
+                                        }
+                                        .frame(width:170,height: 45)
+                                        .padding(.horizontal)
+                                        .background(content: {
+                                            if isselected {
+                                                ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
+                                                    Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
+                                                    
+                                                }
+                                        })
+                                        Group{
                                             Label(title: {
                                                 Group {
-                                                    Text("Start Date".localized())+Text(details.SubjectGroups?[currentPage].startDate ?? "15 Nov 2023")
+                                                    Text("Start Date".localized())+Text(slot.startDate ?? "")
                                                 }
                                                 .font(.SoraRegular(size: 10))
                                                 .foregroundColor(.mainBlue)
@@ -155,7 +158,7 @@ struct SubjectDetailsView: View {
                                             
                                             Label(title: {
                                                 Group {
-                                                    Text("End Date".localized())+Text(details.SubjectGroups?[currentPage].startDate ?? "15 Nov 2023")
+                                                    Text("End Date".localized())+Text(slot.endDate ?? "")
                                                 }
                                                 .font(.SoraRegular(size: 10))
                                                 .foregroundColor(.mainBlue)
@@ -165,10 +168,10 @@ struct SubjectDetailsView: View {
                                                     .frame(width:15,height:15)
                                             })
                                             
-                                            ForEach (details.SubjectGroups?[currentPage].getSubjectScheduleGroups ?? [],id:\.self){ schedual in
+                                            ForEach (slot.getSubjectScheduleGroups ?? [],id:\.self){ schedual in
                                                 Label(title: {
                                                     Group {
-                                                        Text(schedual.dayName ?? "sunday" )+Text(schedual.fromTime ?? "1:20 am")
+                                                        Text(schedual.dayName ?? "" )+Text(schedual.fromTime ?? "")
                                                     }
                                                     .font(.SoraRegular(size: 10))
                                                     .foregroundColor(.mainBlue)
@@ -180,17 +183,17 @@ struct SubjectDetailsView: View {
                                                 .padding(.top,8)
                                             }
                                         }
-                                            .padding(.top,8)
-                                            .padding(.horizontal)
-
-                                        }
-                                        .padding(.bottom)
-                                        .background(content: {
-                                            ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                        })
-                                        .onTapGesture(perform: {
-                                            subjectdetailsvm.selectedSubjectId = details.SubjectGroups?[currentPage].teacherLessonSessionID
-                                        })
+                                        .padding(.top,8)
+                                        .padding(.horizontal)
+                                        
+                                    }
+                                    .padding(.bottom)
+                                    .background(content: {
+                                        ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                    })
+                                    .onTapGesture(perform: {
+                                        subjectdetailsvm.selectedSubjectId = details.SubjectGroups?[currentPage].teacherLessonSessionID
+                                    })
                                     
                                     .transition(
                                         .asymmetric(
@@ -217,16 +220,20 @@ struct SubjectDetailsView: View {
                                 }
                                 .padding(.vertical)
                                 .frame(width: gr.size.width-50)
-
-                                CustomButton(Title:"Book Now",IsDisabled:.constant(false) , action: {
-                                    destination = AnyView(BookingCheckoutView(selectedid: subjectdetailsvm.selectedSubjectId ?? 0, bookingcase: nil))
-                                    isPush = true
-
-                                })
-                                .frame(height: 40)
-                                .padding(.top,10)
-                                .padding(.horizontal)
-                                
+                                    
+                                    CustomButton(Title:"Book Now",IsDisabled:.constant(subjectdetailsvm.selectedSubjectId == nil) , action: {
+                                        destination = AnyView(BookingCheckoutView(selectedgroupid:selectedDataToBook(selectedId: subjectdetailsvm.selectedSubjectId ?? 0) , bookingcase: nil))
+                                        isPush = true
+                                    })
+                                    .frame(height: 40)
+                                    .padding(.top,10)
+                                    .padding(.horizontal)
+                                    
+                                }else{
+                                    Text("No Available Subject Groups".localized())
+                                        .font(Font.SoraBold(size: 15))
+                                        .foregroundColor(ColorConstants.MainColor)
+                                }
                                 
                                 Spacer()
                                     .frame(height:50)
@@ -264,8 +271,8 @@ struct SubjectDetailsView: View {
         .onDisappear {
             subjectdetailsvm.cleanup()
         }
-        //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
-        //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
+                .showHud(isShowing: $subjectdetailsvm.isLoading)
+                .showAlert(hasAlert: $subjectdetailsvm.isError, alertType: subjectdetailsvm.error)
         
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
@@ -298,11 +305,11 @@ struct SubjectTeacherInfoView : View {
             
             VStack(alignment: .center, spacing:0){
                 //                VStack {
-                Text(teacher.teacherName ?? "teacher name")
+                Text(teacher.teacherName ?? "")
                     .font(.SoraBold(size: 20))
                 //                    Spacer()
                 
-                Text(teacher.teacherBIO ?? "Teacher Bio")
+                Text(teacher.teacherBIO ?? "")
                     .font(.SoraRegular(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
@@ -333,7 +340,7 @@ struct SubjectTeacherInfoView : View {
                         .foregroundColor(ColorConstants.MainColor )
                         .frame(width: 20,height: 20, alignment: .center)
                     Group {
-                        Text("  \(teacher.price ?? 222) ")
+                        Text("  \(teacher.price ?? 0,specifier:"%.2f") ")
                         + Text("EGP".localized())
                     }
                     .font(Font.SoraBold(size: 18))
@@ -347,7 +354,7 @@ struct SubjectTeacherInfoView : View {
                         .font(Font.SoraSemiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
-                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "Subject Breif")
+                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
                         .font(.SoraRegular(size: 9))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
@@ -362,7 +369,7 @@ struct SubjectTeacherInfoView : View {
                                 .frame(width: 12,height: 12, alignment: .center)
                             Group {
                                 Text("Duration :".localized())
-                                + Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
+                                + Text("  \(teacher.duration?.formattedTime() ?? "") ")
                                     .font(Font.SoraSemiBold(size: 13))
                                 + Text("hrs".localized())
                                     .font(Font.SoraSemiBold(size: 13))

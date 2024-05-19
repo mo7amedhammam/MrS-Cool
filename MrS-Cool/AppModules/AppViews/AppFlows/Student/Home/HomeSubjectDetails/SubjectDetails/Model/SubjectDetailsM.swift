@@ -12,8 +12,8 @@ struct TeacherSubjectDetailsM: Codable {
     var SubjectOrLessonDto: SubjectOrLessonDto?
     var teacherID, teacherLessonID, teacherSubjectID: Int?
     var teacherImage, teacherName, teacherBIO, teacherBrief: String?
-    var teacherRate : Float?
-    var teacherReview, duration, price: Int?
+    var teacherRate,price : Float?
+    var teacherReview, duration : Int?
     var lessonsCount, minGroup, maxGroup: Int?
     var SubjectGroups: [SubjectGroup]?
     var teacherRateDto: TeacherRateDto?

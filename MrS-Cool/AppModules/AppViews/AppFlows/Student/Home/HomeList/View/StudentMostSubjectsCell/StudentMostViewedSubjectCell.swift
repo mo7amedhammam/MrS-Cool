@@ -42,20 +42,20 @@ struct StudentMostViewedSubjectCell: View {
                 .clipped()
 //                .padding(.top, 10)
                 
-                Text(subject.subjectName ?? "Grammar And Reading")
+                Text(subject.subjectName ?? "")
                     .font(Font.SoraSemiBold(size: 13))
                     .fontWeight(.semibold)
                     .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 :.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 19.0)
                 
-                Text(subject.image ?? "Arabic")
-                    .font(Font.SoraRegular(size: 13))
-                    .fontWeight(.semibold)
-                    .foregroundColor(ColorConstants.MainColor)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(3)
-                    .padding(.top, 5)
+//                Text(subject.image ?? "")
+//                    .font(Font.SoraRegular(size: 13))
+//                    .fontWeight(.semibold)
+//                    .foregroundColor(ColorConstants.MainColor)
+//                    .multilineTextAlignment(.center)
+//                    .lineLimit(3)
+//                    .padding(.top, 5)
                 
                 Group{
                     if subject.id == selectedsubject.id {
@@ -74,7 +74,7 @@ struct StudentMostViewedSubjectCell: View {
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
-                            Text("\(subject.teacherCount ?? 25)  ")
+                            Text("\(subject.teacherCount ?? 0)  ")
                                 .font(Font.SoraSemiBold(size: 7))
                             + Text("Available Teachers".localized())
                         }
@@ -90,7 +90,7 @@ struct StudentMostViewedSubjectCell: View {
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
-                            Text("\(subject.lessonsCount ?? 12)  ")
+                            Text("\(subject.lessonsCount ?? 0)  ")
                                 .font(Font.SoraSemiBold(size: 7))
                             + Text("Lessons".localized())
                         }

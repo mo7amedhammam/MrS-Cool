@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct StudentHomeSubjectCell: View {
-    var subject:StudentSubjectsM = StudentSubjectsM.init()
-    @Binding var selectedSubject:StudentSubjectsM
+    var subject:HomeSubject = HomeSubject.init()
+    @Binding var selectedSubject:HomeSubject
     var action:(()->())?
 
     var body: some View {
@@ -33,7 +33,7 @@ struct StudentHomeSubjectCell: View {
                 .clipShape(Circle())
                 .padding(.top, 10)
 
-                Text(subject.name ?? "ArabicArabic ArabicArabicArabic ArabicArabicArabic ArabicArabicArabic ArabicArabicArabic ArabicArabicArabic ArabicArabicArabic Arabic")
+                Text(subject.name ?? "")
                     .font(Font.SoraSemiBold(size: 13))
                     .fontWeight(.semibold)
                     .foregroundColor(subject.id == selectedSubject.id ? ColorConstants.WhiteA700 : .mainBlue)
@@ -48,5 +48,5 @@ struct StudentHomeSubjectCell: View {
 }
 
 #Preview {
-    StudentHomeSubjectCell(selectedSubject: .constant(StudentSubjectsM.init()))
+    StudentHomeSubjectCell(selectedSubject: .constant(HomeSubject.init()))
 }

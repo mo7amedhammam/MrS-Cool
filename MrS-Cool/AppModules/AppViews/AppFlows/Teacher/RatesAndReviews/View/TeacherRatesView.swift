@@ -49,7 +49,7 @@ struct TeacherRatesView: View {
                                     .font(.SoraBold(size: 30))
                                 
                                 + Text(" /   ")
-                                + Text("\(rates.totalCount ?? Int(112))  ")
+                                + Text("\(rates.totalCount ?? Int(0))  ")
                                     .font(.SoraBold(size: 16))
                                 + Text("Rate".localized())
                                     .font(.SoraRegular(size: 13))
@@ -125,11 +125,11 @@ struct RateCellView: View {
                     .font(.SoraRegular(size: 14))
                     .foregroundStyle(ColorConstants.Bluegray40099)
             }
-            Text(rate.teacherLessonName ?? "lesson name")
+            Text(rate.teacherLessonName ?? "")
                 .font(.SoraSemiBold(size: 13))
                 .foregroundStyle(Color.mainBlue)
             
-            Text(rate.teacherLessonComment ?? "lesson comment")
+            Text(rate.teacherLessonComment ?? "")
                 .font(.SoraRegular(size: 14))
                 .foregroundStyle(Color.mainBlue)
                 .padding(.vertical,6)
