@@ -56,12 +56,14 @@ struct BookingCheckoutView: View {
                             .clipShape(Circle())
                             
                             VStack(alignment:.leading){
-                                if bookingcase != nil{
-                                    Text(details.headerName ?? "")
+                                if let headerName = details.headerName{
+                                    Text(headerName)
                                         .font(.SoraBold(size: 18))
                                 }
-                                Text(details.subjectSemesterName ?? "")
-                                    .font(.SoraBold(size: 18))
+                                if let subjectSemesterName = details.subjectSemesterName{
+                                    Text(subjectSemesterName)
+                                        .font(.SoraBold(size: 18))
+                                }
                                 Text(details.academicYearName ?? "")
                                     .font(.SoraSemiBold(size: 16))
                                 
