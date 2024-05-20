@@ -84,7 +84,7 @@ struct CompletedLessonDetails: View {
                             .padding()
                         
                         
-                        LazyVGrid(columns: [.init(), .init(),.init()]) {
+                        LazyVGrid(columns: [.init(), .init()]) {
                             ForEach(completedlessonsvm.completedLessonDetails?.teacherCompletedLessonStudentList ?? [], id:\.self) {student in
                                 LessonDetailsCell(model: student, studentchatBtnAction: {
                                     destination = AnyView(MessagesListView( selectedLessonId: student.bookSessionDetailID ?? 0 ).environmentObject(ChatListVM()))

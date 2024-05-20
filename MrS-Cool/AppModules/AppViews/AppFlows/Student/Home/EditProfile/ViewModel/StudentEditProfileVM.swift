@@ -16,7 +16,14 @@ class StudentEditProfileVM: ObservableObject {
     //Common data (note: same exact data for parent)
     @Published var image : UIImage?
     @Published var imageStr : String?
-    @Published var name = ""
+    @Published var name = ""{
+        didSet{
+            if name.count >= 2{
+                isnamevalid = true
+            }
+        }
+    }
+    @Published var isnamevalid : Bool?
     @Published var code = ""
 
     @Published var phone = ""
@@ -26,34 +33,81 @@ class StudentEditProfileVM: ObservableObject {
 //    @Published var birthDate : Date?
     // next 4  common with teacher subjects
     @Published var birthDateStr : String?
-    
+//    {
+//        didSet{
+//            isbirthDateStrvalid = birthDateStr == nil ? false:true
+//        }
+//    }
+//    @Published var isbirthDateStrvalid : Bool?
+//    
     @Published var educationType : DropDownOption?{
         didSet{
             educationLevel = nil
-            academicYear = nil
         }
     }
     @Published var educationLevel : DropDownOption?{
         didSet{
             academicYear = nil
+            iseducationLevelvalid = educationLevel == nil ? false:true
         }
     }
-    @Published var academicYear : DropDownOption?
-    @Published var email = ""
-    @Published var SchoolName = ""
+    @Published var iseducationLevelvalid : Bool?
+
+    @Published var academicYear : DropDownOption?{
+        didSet{
+            isacademicYearvalid = academicYear == nil ? false:true
+        }
+    }
+    @Published var isacademicYearvalid : Bool?
+
+
+    @Published var email = ""{
+        didSet{
+            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+            if !email.isEmpty{
+                if  emailPredicate.evaluate(with: email){
+                    isemailvalid = true
+                }else{
+                    isemailvalid = false
+                    }
+                }
+            }
+    }
+    @Published var isemailvalid : Bool?
+    
+    @Published var SchoolName = ""{
+        didSet{
+            if SchoolName.count >= 2{
+                isSchoolNamevalid = true
+            }
+        }
+    }
+    
+    @Published var isSchoolNamevalid : Bool?
 
     @Published var country : DropDownOption?{
         didSet{
             governorte = nil
-            city = nil
+            iscountryvalid = country == nil ? false:true
         }
     }
+    @Published var iscountryvalid : Bool?
+    
     @Published var governorte : DropDownOption?{
         didSet{
             city = nil
+            isgovernortevalid = governorte == nil ? false:true
         }
     }
-    @Published var city : DropDownOption?
+    @Published var isgovernortevalid : Bool?
+    
+    @Published var city : DropDownOption?{
+        didSet{
+            iscityvalid = city == nil ? false:true
+        }
+    }
+    @Published var iscityvalid : Bool?
+
 
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -63,33 +117,18 @@ class StudentEditProfileVM: ObservableObject {
 
 
     @Published var isDataUpdated: Bool = false
+    @Published var isFillingData : Bool = true
+
 //    @Published var OtpM: OtpM?
     
 //    @Published var isTeacherHasSubjects: Bool = false
 //    @Published var isTeacherHasDocuments: Bool = false
     init()  {
-        GetStudentProfile()
+//        GetStudentProfile()
     }
 }
 
 extension StudentEditProfileVM{
-
-    private func fillTeacherData(model:StudentProfileM){
-        name = model.name ?? ""
-        imageStr =  model.image ?? ""
-        code = model.code ?? ""
-        phone = model.mobile ?? ""
-        selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
-        country = .init(id:model.countryID,Title: model.countryName)
-        governorte = .init(id:model.governorateID,Title: model.governorateName)
-        city = .init(id:model.cityID,Title: model.cityName)
-        educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
-        educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
-        academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
-        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
-        email =  model.email ?? ""
-        SchoolName = model.schoolName ?? ""
-    }
     
     func GetStudentProfile(){
         var parameters:[String:Any] = [:]
@@ -131,6 +170,7 @@ extension StudentEditProfileVM{
     }
     
     func UpdateStudentProfile(){
+        guard checkValidfields() else {return}
         guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName]
 
@@ -171,6 +211,55 @@ extension StudentEditProfileVM{
                 isLoading = false
             })
             .store(in: &cancellables)
+    }
+    private func fillTeacherData(model:StudentProfileM){
+        isFillingData = true
+        name = model.name ?? ""
+        imageStr =  model.image ?? ""
+        code = model.code ?? ""
+        phone = model.mobile ?? ""
+        selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
+        if let countryID = model.countryID, let countryName = model.countryName{
+            country = .init(id:countryID,Title: countryName)
+        }
+        if let governorateID = model.governorateID, let governorateName = model.governorateName{
+            governorte = .init(id: governorateID,Title: governorateName)
+        }
+        if let cityID = model.cityID, let cityName = model.cityName{
+            city = .init(id: cityID,Title: cityName)
+        }
+        educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
+        educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
+        academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
+        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
+        email =  model.email ?? ""
+        SchoolName = model.schoolName ?? ""
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
+            isFillingData = false
+        })
+
+    }
+    
+    private func checkValidfields()->Bool{
+        isnamevalid = !name.isEmpty
+        isemailvalid = !email.isEmpty
+        iseducationLevelvalid = educationLevel != nil
+        isacademicYearvalid = academicYear != nil
+        iscountryvalid = country != nil
+        isgovernortevalid = governorte != nil
+        iscityvalid = city != nil
+        isSchoolNamevalid = !SchoolName.isEmpty
+        
+        return isnamevalid ?? true &&
+        isemailvalid ?? true &&
+        iseducationLevelvalid ?? true &&
+        isacademicYearvalid ?? true &&
+        iscountryvalid ?? true &&
+        isgovernortevalid ?? true &&
+        iscityvalid ?? true &&
+        isSchoolNamevalid ?? true
+
     }
     
 }

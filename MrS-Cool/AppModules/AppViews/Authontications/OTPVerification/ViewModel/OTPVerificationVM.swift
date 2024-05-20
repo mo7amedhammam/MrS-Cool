@@ -46,6 +46,7 @@ class OTPVerificationVM: ObservableObject {
      }
     
     func SendOtp() {
+        EnteredOtp = nil
         guard let mobile = mobile else {
             // Handle missing username or password
             return
@@ -138,7 +139,8 @@ class OTPVerificationVM: ObservableObject {
                         guard let model = receivedData.data else{return}
                         Helper.shared.saveUser(user: model)
                             isOTPVerified = true
-                        
+                        FirebaseNotificationsVM.shared.SendFirebaseToken()
+
                     case .ressetingpassword:
                         isResetOTPVerified = true
                         

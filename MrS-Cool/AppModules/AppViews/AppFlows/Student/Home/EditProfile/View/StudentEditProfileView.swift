@@ -71,13 +71,12 @@ struct StudentEditProfileView: View {
 
                         VStack(alignment: .leading, spacing: 0){
                             // -- Data Title --
-
                             
                             // -- inputs --
                             Group {
-                                CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $studentsignupvm.name,textContentType:.name)
+                                CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $studentsignupvm.name,textContentType:.name,isvalid:studentsignupvm.isnamevalid)
                                 
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,Disabled:true,isdimmed: true)
                                 
                                 CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $studentsignupvm.selectedGender,options:lookupsvm.GendersList)
                                 
@@ -85,31 +84,35 @@ struct StudentEditProfileView: View {
                                 
                                 CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.EducationTypesList)
                                     .onChange(of: studentsignupvm.educationType, perform: { val in
+                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedEducationType = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studentsignupvm.educationLevel,options:lookupsvm.EducationLevelsList)
+                                CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studentsignupvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid:studentsignupvm.iseducationLevelvalid)
                                     .onChange(of: studentsignupvm.educationLevel, perform: { val in
+                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedEducationLevel = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.AcademicYearsList)
+                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:studentsignupvm.isacademicYearvalid)
                                 
-                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $studentsignupvm.email,textContentType:.emailAddress,keyboardType: .emailAddress)
+                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $studentsignupvm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid:studentsignupvm.isemailvalid)
                                 
-                                CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $studentsignupvm.SchoolName,textContentType:.name)
+                                CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $studentsignupvm.SchoolName,textContentType:.name,isvalid:studentsignupvm.isSchoolNamevalid)
 
-                                CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $studentsignupvm.country,options:lookupsvm.CountriesList)
+                                CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $studentsignupvm.country,options:lookupsvm.CountriesList,isvalid:studentsignupvm.iscountryvalid)
                                     .onChange(of: studentsignupvm.country, perform: { val in
+                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedCountry = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $studentsignupvm.governorte,options:lookupsvm.GovernoratesList)
+                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $studentsignupvm.governorte,options:lookupsvm.GovernoratesList,isvalid:studentsignupvm.isgovernortevalid)
                                     .onChange(of: studentsignupvm.governorte, perform: { val in
+                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $studentsignupvm.city,options:lookupsvm.CitiesList)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $studentsignupvm.city,options:lookupsvm.CitiesList,isvalid:studentsignupvm.iscityvalid)
                             }
                             .padding([.top])
                         }
@@ -132,14 +135,28 @@ struct StudentEditProfileView: View {
             hideKeyboard()
         })
         .onAppear(perform: {
+            Task(priority: .background, operation: {
+                // if parent is editing student profile
+                
+                studentsignupvm.GetStudentProfile()
+                
+                //                if Helper.shared.getSelectedUserType() == .Parent{
+                //                    studentsignupvm.GetStudentProfile()
+                //                }
+                studentsignupvm.image = nil
                 lookupsvm.getGendersArr()
                 lookupsvm.GetEducationTypes()
                 lookupsvm.getCountriesArr()
-            
-            // if parent is editing student profile
-            if Helper.shared.getSelectedUserType() == .Parent{
-                studentsignupvm.GetStudentProfile()
-            }
+                
+                lookupsvm.SelectedCountry = studentsignupvm.country
+                lookupsvm.SelectedGovernorate = studentsignupvm.governorte
+                lookupsvm.SelectedEducationType = studentsignupvm.educationType
+                lookupsvm.SelectedEducationLevel = studentsignupvm.educationLevel
+
+                
+            })
+//            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
+//            })
         })
         
         .showHud(isShowing: $studentsignupvm.isLoading)

@@ -155,7 +155,7 @@ struct StudentHomeView: View {
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
-                                    StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
+                                    StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
                                         studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                         studenthometabbarvm.ispush = true
                                         

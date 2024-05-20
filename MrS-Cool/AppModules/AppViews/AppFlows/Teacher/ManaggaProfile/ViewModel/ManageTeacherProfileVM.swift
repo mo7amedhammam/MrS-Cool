@@ -112,7 +112,6 @@ extension ManageTeacherProfileVM{
                     isError =  true
 //                    self.error = error
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
@@ -124,7 +123,6 @@ extension ManageTeacherProfileVM{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-
                 }
                 isLoading = false
             })

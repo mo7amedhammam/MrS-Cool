@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignInView: View {
     @StateObject var teachersigninvm = SignInVM()
-    @State private var selectedUser : UserType = UserType.init()
+    @State var selectedUser : UserType = UserType.init()
     
     @State var rememberMe = false
     @State var isPush = false
@@ -74,8 +74,8 @@ struct SignInView: View {
                                     Spacer()
                                     
                                     Button(action: {
-                                        isPush = true
                                         destination = AnyView(EnterMobileView())
+                                        isPush = true
                                     }, label: {
                                         Text("Forget password ?".localized())
                                             .font(Font.SoraRegular(size: 13))
@@ -102,8 +102,8 @@ struct SignInView: View {
                                         .font(Font.SoraRegular(size: 12))
                                     
                                     Button(action: {
-                                        isPush = true
                                         destination = AnyView(SignUpView(selecteduser:$selectedUser).hideNavigationBar())
+                                        isPush = true
                                     }, label: {
                                         Text("sign_up".localized())
                                             .foregroundColor(ColorConstants.Red400)
@@ -148,7 +148,17 @@ struct SignInView: View {
             .onDisappear{
                 teachersigninvm.cleanup()
             }
-            .onChange(of: teachersigninvm.isLogedin) { newval in
+            .onChange(of: teachersigninvm.isLogedin) { newval in                
+                switch selectedUser.user {
+            case .Student:
+                destination = AnyView(StudentTabBarView())
+                
+            case .Parent:
+                destination = AnyView(ParentTabBarView())
+                
+            case .Teacher:
+                destination = AnyView(TeacherTabBarView())
+            }
                 isPush = newval
             }
             .gesture(

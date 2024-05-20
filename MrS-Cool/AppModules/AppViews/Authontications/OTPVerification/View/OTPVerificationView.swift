@@ -150,6 +150,7 @@ struct OTPVerificationView: View {
             CustomSuccessView(action: {
                 dismiss()
                 isVerified = true
+                
             }, successStep: $sussessStep)
         })
     }

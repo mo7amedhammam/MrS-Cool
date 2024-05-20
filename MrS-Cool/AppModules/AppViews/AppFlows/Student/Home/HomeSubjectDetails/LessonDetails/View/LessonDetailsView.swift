@@ -129,6 +129,7 @@ struct LessonDetailsView: View {
                                     Button(action: {
                                         lessoncase = .Individual
                                         lessondetailsvm.selectedLessonGroup = nil // clear group
+                                        selectedDate = Date()
                                     }, label: {
                                         Text("Individual".localized())
                                             .font(.SoraBold(size: 18))

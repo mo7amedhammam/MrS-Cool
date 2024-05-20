@@ -21,7 +21,8 @@ struct UserType {
 import SwiftUI
 
 struct UserTypeCell: View {
-    var user:UserType = UserType.init(id: 0, imgName: "student-vector", user: .Student,tintColor: .studentTint)
+    var user:UserType 
+//    = UserType.init(id: 0, imgName: "student-vector", user: .Student,tintColor: .studentTint)
     @Binding var selectedUser:UserType
     var action:(()->())?
 
@@ -66,7 +67,7 @@ struct UserTypeCell: View {
 }
 
 #Preview {
-    UserTypeCell(selectedUser: .constant(UserType.init(id: 0, imgName: "student-vector", user: .Parent,tintColor: .studentTint)))
+    UserTypeCell(user: UserType.init(), selectedUser: .constant(UserType.init(id: 0, imgName: "student-vector", user: .Parent,tintColor: .studentTint)))
 }
 
 

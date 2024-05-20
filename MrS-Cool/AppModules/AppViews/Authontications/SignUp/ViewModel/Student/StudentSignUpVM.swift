@@ -55,8 +55,16 @@ class StudentSignUpVM: ObservableObject {
     @Published var birthDateStr : String?
     
     
-    @Published var educationType : DropDownOption?
-    @Published var educationLevel : DropDownOption?
+    @Published var educationType : DropDownOption?{
+        didSet{
+            educationLevel = nil
+        }
+    }
+    @Published var educationLevel : DropDownOption?{
+        didSet{
+            academicYear = nil
+        }
+    }
     @Published var academicYear : DropDownOption?
     
     //Teacher personal data
@@ -281,12 +289,14 @@ extension StudentSignUpVM{
             .assign(to: &$isFormValid)
         
     }
+    
     private func checkValidfields()->Bool{
             isphonevalid = phone.count == 11
             isPasswordvalid = Password.count >= 5
             isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
         return isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true
     }
+    
 }
 
 

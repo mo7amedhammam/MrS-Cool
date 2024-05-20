@@ -15,7 +15,7 @@ struct ResetPasswordView: View {
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
-
+    @Binding var passwordresset : Bool
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "Reset New Password",hideImage: hideImage)
@@ -76,10 +76,12 @@ struct ResetPasswordView: View {
             //            self.dismiss()
         }, content: {
             CustomSuccessView(action: {
-//                dismiss()
+                dismiss()
 //                isVerified = true
-                destination = AnyView(SignInView())
-                    isPush = true
+//                destination = AnyView(SignInView())
+//                    isPush = true
+                passwordresset = true
+
             }, successStep: .constant(.passwordCahnged))
         })
         
@@ -92,6 +94,6 @@ struct ResetPasswordView: View {
 }
 
 #Preview {
-    ResetPasswordView()
+    ResetPasswordView( passwordresset: .constant(false))
         .environmentObject(ResetPasswordVM())
 }

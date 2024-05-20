@@ -70,17 +70,10 @@ struct SignUpView: View {
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})
 //        .showHud(isShowing: $signupvm.isLoading)
 
-        .showHud(isShowing: .constant( signupvm.isLoading ?? false || signupvmsubject.isLoading ?? false || signupvmdocument.isLoading ?? false || studentsignupvm.isLoading ?? false))
+        .showHud(isShowing: .constant( signupvm.isLoading ?? false || signupvmsubject.isLoading ?? false || signupvmdocument.isLoading ?? false || studentsignupvm.isLoading ?? false || parentsignupvm.isLoading ?? false))
         
-//        .showAlert(hasAlert: $signupvm.isError, alertType: .error( message: "\(signupvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-//        .showHud(isShowing: $appenvironmenrs.isLoading)
-
-//        .showHud(isShowing: $signupvmsubject.isLoading)
-//        .showAlert(hasAlert: $signupvmsubject.isError, alertType: .error( message: "\(signupvmsubject.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-        
-//        .showHud(isShowing: $signupvmdocument.isLoading)
-//        .showAlert(hasAlert: $signupvmdocument.isError, alertType: .error( message: "\(signupvmdocument.error?.localizedDescription ?? "")",buttonTitle:"Done"))
-
+        .showAlert(hasAlert: $studentsignupvm.isError, alertType: studentsignupvm.error)
+        .showAlert(hasAlert: $parentsignupvm.isError, alertType: parentsignupvm.error)
         .showAlert(hasAlert: $signupvm.isError, alertType: signupvm.error)
         .showAlert(hasAlert: $signupvmsubject.isError, alertType: signupvmsubject.error)
         .showAlert(hasAlert: $signupvmdocument.isError, alertType: signupvmdocument.error)

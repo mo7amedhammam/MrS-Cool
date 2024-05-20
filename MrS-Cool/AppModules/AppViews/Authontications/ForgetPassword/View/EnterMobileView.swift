@@ -15,6 +15,7 @@ struct EnterMobileView: View {
     @State private var isVerified : Bool = false
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
+    @State var passwordresset = false
 
     var body: some View {
         VStack(spacing:0) {
@@ -68,6 +69,7 @@ struct EnterMobileView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+    
 //        .onAppear(perform: {
 //            switch Helper.shared.getSelectedUserType(){
 //            case .Parent:
@@ -82,7 +84,7 @@ struct EnterMobileView: View {
         .fullScreenCover(isPresented: $resetpasswordvm.isOtpReceived, onDismiss: {
             print("dismissed ")
             if isVerified {
-                destination = AnyView(ResetPasswordView().environmentObject(resetpasswordvm))
+                destination = AnyView(ResetPasswordView(passwordresset: $passwordresset).environmentObject(resetpasswordvm))
 //                    currentStep = .subjectsData
                     isPush = true
 //                dismiss()
@@ -91,6 +93,11 @@ struct EnterMobileView: View {
         }, content: {
             OTPVerificationView(PhoneNumber:resetpasswordvm.phone,CurrentOTP: resetpasswordvm.OtpM?.otp ?? 0, verifycase: .ressetingpassword, secondsCount:resetpasswordvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
                 .hideNavigationBar()
+        })
+        .onChange(of: passwordresset, perform: { value in
+            if value == true {
+                dismiss()
+            }
         })
 //        .fullScreenCover(isPresented: $resetpasswordvm.isPasswordChanged, onDismiss: {
 //            print("dismissed ")

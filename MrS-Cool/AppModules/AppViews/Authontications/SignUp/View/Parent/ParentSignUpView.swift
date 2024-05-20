@@ -101,7 +101,9 @@ struct ParentSignUpView: View {
                     //                    destination = AnyView(StudentHomeView())
                     //                    currentStep = .subjectsData
                     //                    isPush = true
-                    dismiss()
+//                    dismiss() // after signup back to login
+                    Helper.shared.changeRoot(toView: ParentTabBarView())// after signup go home
+
                 }
             }, content: {
                 OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, verifycase: .creatinguser, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))

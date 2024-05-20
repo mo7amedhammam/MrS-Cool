@@ -238,7 +238,9 @@ struct TeacherDocumentDataView: View {
         }, content: {
             CustomSuccessView(action: {
 //                destination = AnyView(SignInView())
-                dismiss()
+//                dismiss() // after signup back to login
+                Helper.shared.changeRoot(toView: TeacherTabBarView()) // after signup - go home
+
             }, successStep: .constant(.accountCreated))
         })
     }

@@ -148,7 +148,7 @@ struct ManageTeacherProfileView: View {
                     
                     lookupsvm.SelectedCountry = manageprofilevm.country
                     lookupsvm.SelectedGovernorate = manageprofilevm.governorte
-                    lookupsvm.SelectedCity = manageprofilevm.city
+//                    lookupsvm.SelectedCity = manageprofilevm.city
                 })
                 
                 })
