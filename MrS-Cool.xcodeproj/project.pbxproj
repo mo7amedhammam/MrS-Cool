@@ -428,7 +428,6 @@
 		C804033F2B554DFF003279AD /* HomeSubjectDetails */ = {
 			isa = PBXGroup;
 			children = (
-				C8BC6F572B6914F000C6585E /* LessonDetailsVM.swift */,
 				C87051AD2B6E5F1400ABE01A /* BookingCheckout */,
 				C8BC6F512B6914AA00C6585E /* LessonDetails */,
 				C86CABC52B65200500BF8E21 /* SubjectDetails */,
@@ -1744,6 +1743,7 @@
 		C8BC6F532B6914BE00C6585E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C8BC6F572B6914F000C6585E /* LessonDetailsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
