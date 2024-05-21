@@ -15,12 +15,17 @@ struct StudentSubjectsM: Codable {
 
 // MARK: - SubjectGroupM - for loged in student
 struct HomeSubject: Codable,Hashable {
+//    static func == (lhs: HomeSubject, rhs: HomeSubject) -> Bool {
+//        return lhs.id == rhs.id && lhs.name == rhs.name
+//    }
     var id: Int?
     var name, image: String?
+    var teacherSubject: teacherTitle?
 
     enum CodingKeys: String, CodingKey {
         case id
         case  name, image
+        case teacherSubject
     }
 }
 

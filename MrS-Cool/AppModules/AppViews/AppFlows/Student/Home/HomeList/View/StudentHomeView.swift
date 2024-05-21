@@ -40,7 +40,8 @@ struct StudentHomeView: View {
                         LazyVGrid(columns: [.init(), .init(),.init()]) {
                             
                             ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
-                                StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
+                                StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects
+                                ){
                                     studenthometabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
                                     studenthometabbarvm.ispush = true
                                 }

@@ -51,7 +51,7 @@ struct LessonTeacherInfoView : View {
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
                 Group{
                     Text("\(teacher.teacherReview ?? 0) ")
-                    + Text("Reviews")
+                    + Text("Reviews".localized())
                 }
                 .foregroundColor(ColorConstants.Black900)
                 .font(.SoraRegular(size: 12))
@@ -74,17 +74,27 @@ struct LessonTeacherInfoView : View {
                 ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
                 
                 VStack(alignment:.leading){
-                    Text("Subject Breif:".localized())
+                    Text("Lesson Breif:".localized())
                         .font(Font.SoraSemiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
-                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                        .font(.SoraRegular(size: 9))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .frame(minHeight:40)
-                        .padding(.bottom,8)
-                    
+                    if let teacherbrief = teacher.teacherBrief{
+                        
+                        Text(teacherbrief)
+                            .font(.SoraRegular(size: 9))
+                            .foregroundColor(.mainBlue)
+                            .multilineTextAlignment(.leading)
+                            .frame(minHeight:40)
+                            .padding(.bottom,8)
+                    }else{
+                        
+                        Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
+                            .font(.SoraRegular(size: 9))
+                            .foregroundColor(.mainBlue)
+                            .multilineTextAlignment(.leading)
+                            .frame(minHeight:40)
+                            .padding(.bottom,8)
+                    }
                     HStack{
                         HStack(){
                             Image("img_maskgroup7cl")

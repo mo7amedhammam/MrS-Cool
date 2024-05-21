@@ -31,7 +31,7 @@ struct TeacherRatePercent: Codable,Hashable {
 extension Array where Element == Subject {
     func convertToStudentSubjectsM() -> [HomeSubject] {
         return self.map { subject in
-            return HomeSubject(id: 0, name: subject.subjectName, image: subject.subjectImage)
+            return HomeSubject(id: 0, name: subject.subjectName, image: subject.subjectImage,teacherSubject: teacherTitle(subjectAcademicYear: subject.subjectAcademicYear,subjectLevel: subject.subjectLevel))
         }
     }
 }

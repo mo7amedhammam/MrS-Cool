@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+struct teacherTitle:Codable,Hashable {
+    var subjectAcademicYear,subjectLevel: String?
+    enum CodingKeys: String, CodingKey {
+        case  subjectAcademicYear, subjectLevel
+    }
+//    init(subjectAcademicYear: String? = nil, subjectLevel: String? = nil) {
+//        self.subjectAcademicYear = subjectAcademicYear
+//        self.subjectLevel = subjectLevel
+//    }
+}
 
 struct StudentHomeSubjectCell: View {
     var subject:HomeSubject = HomeSubject.init()
     @Binding var selectedSubject:HomeSubject
     var action:(()->())?
-
+//    var teacherInfoTitle: teacherTitle?
     var body: some View {
         Button(action: {
             selectedSubject = subject
@@ -32,13 +42,28 @@ struct StudentHomeSubjectCell: View {
                 .frame(width: 70,height: 70)
                 .clipShape(Circle())
                 .padding(.top, 10)
+                
+                            Text(subject.name ?? "")
+                            .font(Font.SoraSemiBold(size: 13))
+                            .foregroundColor(subject.id == selectedSubject.id ? ColorConstants.WhiteA700 : .mainBlue)
+                            .multilineTextAlignment(.center)
+                            .frame(height:70)
+                
+                if let teachertitle = subject.teacherSubject {
+                    Group{
+                        Text(teachertitle.subjectAcademicYear ?? "")
+                            .padding(.top,-30)
+                        Text(teachertitle.subjectLevel ?? "")
+                            .padding(.top,-30)
 
-                Text(subject.name ?? "")
+                    }
                     .font(Font.SoraSemiBold(size: 13))
-                    .fontWeight(.semibold)
                     .foregroundColor(subject.id == selectedSubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
-                    .frame(height:70)
+                    .frame(height:20)
+                    
+                }
+                    
             }
             .frame(minWidth: 0,maxWidth: .infinity)
             .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)

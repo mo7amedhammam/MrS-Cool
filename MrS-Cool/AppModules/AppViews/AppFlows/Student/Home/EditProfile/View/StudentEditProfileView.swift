@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StudentEditProfileView: View {
-//    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @StateObject var lookupsvm = LookUpsVM()
     @EnvironmentObject var studentsignupvm : StudentEditProfileVM
     
@@ -155,10 +155,13 @@ struct StudentEditProfileView: View {
 
                 
             })
-//            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
-//            })
         })
-        
+        .onChange(of: studentsignupvm.isDataUpdated, perform: { value in
+            if value == true{
+                dismiss()
+            }
+        })
+
         .showHud(isShowing: $studentsignupvm.isLoading)
         .showAlert(hasAlert: $studentsignupvm.isError, alertType: studentsignupvm.error)
 

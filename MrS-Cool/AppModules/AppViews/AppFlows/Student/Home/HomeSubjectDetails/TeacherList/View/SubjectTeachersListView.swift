@@ -40,7 +40,6 @@ struct SubjectTeachersListView: View {
 //                        }
                         let imageURL : URL? = URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())
@@ -65,8 +64,6 @@ struct SubjectTeachersListView: View {
                     
                     GeometryReader { gr in
                         VStack(alignment:.leading){ // (Title - Data - Submit Button)
-                            
-                            
                             SignUpHeaderTitle(Title:"Teachers")
                                 .padding([.top,.horizontal])
                                 .foregroundColor(.mainBlue)
@@ -99,9 +96,9 @@ struct SubjectTeachersListView: View {
                             .padding(.horizontal)
                             
                             if let items = teachers.items{
-                            ScrollView(.vertical,showsIndicators: false){
-                                Spacer().frame(height:20)
-                                ForEach(items,id:\.self){teacher in
+//                            ScrollView(.vertical,showsIndicators: false){
+//                                Spacer().frame(height:20)
+                                List(items,id:\.self){teacher in
                                     Button(action: {
                                         switch bookingcase {
                                         case .subject:
@@ -114,22 +111,22 @@ struct SubjectTeachersListView: View {
                                     }, label: {
                                         TeacherCellView(teacher: teacher)
                                     })
-                                    
                                     .onAppear {
                                         guard teacher == items.last else {return}
-                                        
                                         if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, items.count < totalCount {
                                             // Load the next page if there are more items to fetch
                                             homesubjectteachersvm.skipCount += homesubjectteachersvm.maxResultCount
                                             homesubjectteachersvm.GetStudentSubjectTeachers()
                                         }
                                     }
+                                    .listRowSeparator(.hidden)
+//                                    .listRowSpacing(-15)
                                 }
-                                
-                                Spacer()
-                                    .frame(height:50)
-                            }
-                            .frame(minHeight: gr.size.height)
+                                .listStyle(.plain)
+//                                Spacer()
+//                                    .frame(height:50)
+//                            }
+//                            .frame(minHeight: gr.size.height)
                         }
                         
                         }
@@ -418,7 +415,7 @@ struct SubjectTeachersListView: View {
                                         Image(systemName:homesubjectteachersvm.sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
-                                        Text("Most Booked ")
+                                        Text("Most Booked ".localized())
                                             .font(Font.SoraSemiBold(size: 13))
                                             .foregroundColor(.mainBlue)
                                         Spacer()

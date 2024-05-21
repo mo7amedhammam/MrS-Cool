@@ -354,13 +354,21 @@ struct SubjectTeacherInfoView : View {
                         .font(Font.SoraSemiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
-                    Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                        .font(.SoraRegular(size: 9))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .frame(minHeight:40)
-                        .padding(.bottom,8)
-                    
+                    if let teacherBrief = teacher.teacherBrief{
+                        Text(teacherBrief)
+                            .font(.SoraRegular(size: 9))
+                            .foregroundColor(.mainBlue)
+                            .multilineTextAlignment(.leading)
+                            .frame(minHeight:40)
+                            .padding(.bottom,8)
+                    }else{
+                        Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
+                            .font(.SoraRegular(size: 9))
+                            .foregroundColor(.mainBlue)
+                            .multilineTextAlignment(.leading)
+                            .frame(minHeight:40)
+                            .padding(.bottom,8)
+                    }
                     HStack{
                         HStack(){
                             Image("img_maskgroup7cl")

@@ -259,7 +259,7 @@ struct UnitListCell: View {
                             ColorConstants.MainColor.clipShape(Circle())
                         }
                     
-                    Text(unit.unitName ?? "button")
+                    Text(unit.unitName ?? "")
                         .font(.SoraSemiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     Spacer()
@@ -290,9 +290,8 @@ struct UnitListCell: View {
                                     ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
                                 }
                             
-                            
                             VStack(alignment: .leading,spacing:10){
-                                Text("\(lesson.lessonName ?? "lesson name")")
+                                Text("\(lesson.lessonName ?? "")")
                                     .font(.SoraSemiBold(size: 13))
                                     .foregroundColor(.mainBlue)
                                 
@@ -304,7 +303,7 @@ struct UnitListCell: View {
                                         .frame(width: 12,height: 12, alignment: .center)
                                     Group {
                                         Text("Min Price :".localized())
-                                        + Text("  \(lesson.minPrice ?? 222) ")
+                                        + Text("  \(lesson.minPrice ?? 0,specifier: "%.1f") ")
                                             .font(Font.SoraSemiBold(size: 7))
                                         + Text("EGP".localized())
                                     }
@@ -321,7 +320,7 @@ struct UnitListCell: View {
                                         .frame(width: 12,height: 12, alignment: .center)
                                     Group {
                                         Text("Max Price :".localized())
-                                        + Text("  \(lesson.maxPrice ?? 444) ")
+                                        + Text("  \(lesson.maxPrice ?? 0,specifier: "%.1f") ")
                                             .font(Font.SoraSemiBold(size: 7))
                                         + Text("EGP".localized())
                                     }
@@ -336,7 +335,7 @@ struct UnitListCell: View {
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 12,height: 12, alignment: .center)
                                         Group {
-                                            Text("\(lesson.availableTeacherCount ?? 25)  ")
+                                            Text("\(lesson.availableTeacherCount ?? 0)  ")
                                                 .font(Font.SoraSemiBold(size: 7))
                                             + Text(" Teachers".localized())
                                         }
@@ -346,10 +345,8 @@ struct UnitListCell: View {
 //                                        Spacer()
                                     }
                                 }
-                                
                             }
                             .padding(.horizontal)
-                            
                             
                             Spacer()
                         }

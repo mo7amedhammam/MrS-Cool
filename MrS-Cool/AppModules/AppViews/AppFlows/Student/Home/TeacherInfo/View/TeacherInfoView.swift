@@ -113,12 +113,15 @@ struct TeacherInfoView: View {
                                 SignUpHeaderTitle(Title: "Subjects", subTitle: "")
                                     .frame(maxWidth:.infinity,alignment:.leading)
                                     .foregroundStyle(Color.mainBlue)
-                                
+
+                                let studentSubjects = teacher.subjects
+                                    let homesbject: [HomeSubject] = studentSubjects?.convertToStudentSubjectsM() ?? []
                                 LazyVGrid(columns: [.init(), .init(),.init()]) {
-                                    
-                                    let studentSubjects: [HomeSubject] = teacher.subjects?.convertToStudentSubjectsM() ?? []
-                                    ForEach(studentSubjects,id:\.self){subject in
-                                        StudentHomeSubjectCell(subject:subject,selectedSubject:.constant(HomeSubject(id: -132, name: "", image: ""))){
+                                    ForEach(Array(homesbject.enumerated()),id:\.element){index,subject in
+//                                        let teachersubject = teacherTitle(subjectAcademicYear: "studentSubjects[index].subjectAcademicYear" , subjectLevel: "studentSubjects[index].subjectLevel")
+                                        
+                                        StudentHomeSubjectCell(subject:subject,selectedSubject:.constant(HomeSubject(id: -132, name: "", image: ""))
+                                        ){
                                             //                                            destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
                                             //                                            isPush = true
                                         }
