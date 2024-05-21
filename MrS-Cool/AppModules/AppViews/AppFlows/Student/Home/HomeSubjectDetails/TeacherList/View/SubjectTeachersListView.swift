@@ -25,7 +25,7 @@ struct SubjectTeachersListView: View {
     @State private var isGenderVisible = false
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Subject Info")
+            CustomTitleBarView(title:bookingcase == .subject ? "Subject Info":"Lesson Info")
             
             VStack (alignment: .leading){
                 
@@ -47,6 +47,8 @@ struct SubjectTeachersListView: View {
                         VStack{
                             Text(teachers.items?.first?.getSubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
+                            
+                    
                         }
                         .foregroundColor(.mainBlue)
                         
