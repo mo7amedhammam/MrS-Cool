@@ -44,10 +44,12 @@ struct SubjectTeachersListView: View {
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())
                         
-                        VStack{
+                        VStack(alignment:.leading){
                             Text(teachers.items?.first?.getSubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
-                            
+                            Text(teachers.items?.first?.getSubjectOrLessonDto?.subjectName ?? "")
+                                .font(.SoraSemiBold(size: 16))
+
                     
                         }
                         .foregroundColor(.mainBlue)
