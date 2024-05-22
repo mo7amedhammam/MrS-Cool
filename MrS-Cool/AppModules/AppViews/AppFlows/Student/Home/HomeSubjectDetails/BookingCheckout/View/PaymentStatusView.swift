@@ -10,8 +10,8 @@ struct PaymentStatusView: View {
 
     var paymentsuccess : Bool
     
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
     
     var body: some View {
         VStack {
@@ -42,8 +42,10 @@ struct PaymentStatusView: View {
 
             Spacer()
             CustomButton(Title: "Go To Home", IsDisabled: .constant(false), action: {
-                destination = Helper.shared.getSelectedUserType() == .Parent ? AnyView(ParentTabBarView()):AnyView(StudentTabBarView())
-                isPush = true
+                Helper.shared.getSelectedUserType() == .Parent ? Helper.shared.changeRoot(toView:ParentTabBarView()):Helper.shared.changeRoot(toView:StudentTabBarView())
+
+//                destination = Helper.shared.getSelectedUserType() == .Parent ? AnyView(ParentTabBarView()):AnyView(StudentTabBarView())
+//                isPush = true
             })
             .frame(height:40)
             .padding()
@@ -58,7 +60,7 @@ struct PaymentStatusView: View {
         //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
         //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
         
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
 #Preview {

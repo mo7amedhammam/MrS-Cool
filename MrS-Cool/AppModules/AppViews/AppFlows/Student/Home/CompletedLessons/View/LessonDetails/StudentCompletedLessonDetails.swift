@@ -24,26 +24,26 @@ struct StudentCompletedLessonDetails: View {
                         Group{
                             SignUpHeaderTitle(Title: "Subject and Lesson Info")
                             
-                            Button(action: {
-                                destination =  AnyView(ManageLessonMaterialView(currentLesson: TeacherUnitLesson.init(id: completedlessonsvm.completedLessonDetails?.teacherLessonId))
-                                    .environmentObject(LookUpsVM())
-                                    .environmentObject(ManageLessonMaterialVM())
-                                )
-                                isPush = true
-                            }, label: {
-                                HStack{
-                                    Text("Manage Lesson Materials".localized())
-                                        .font(Font.SoraRegular(size: 11))
-                                    Image("img_group_white_a700")
-                                        .resizable()
-                                        .frame(width: 10, height: 10, alignment: .center)
-                                }
-                                .padding(.horizontal)
-                            })
-                            .frame(width:180,height:33)
-                            .foregroundColor(.white)
-                            .background(ColorConstants.MainColor)
-                            .cornerRadius(8)
+//                            Button(action: {
+//                                destination =  AnyView(ManageLessonMaterialView(currentLesson: TeacherUnitLesson.init(id: completedlessonsvm.completedLessonDetails?.teacherLessonId))
+//                                    .environmentObject(LookUpsVM())
+//                                    .environmentObject(ManageLessonMaterialVM())
+//                                )
+//                                isPush = true
+//                            }, label: {
+//                                HStack{
+//                                    Text("Manage Lesson Materials".localized())
+//                                        .font(Font.SoraRegular(size: 11))
+//                                    Image("img_group_white_a700")
+//                                        .resizable()
+//                                        .frame(width: 10, height: 10, alignment: .center)
+//                                }
+//                                .padding(.horizontal)
+//                            })
+//                            .frame(width:180,height:33)
+//                            .foregroundColor(.white)
+//                            .background(ColorConstants.MainColor)
+//                            .cornerRadius(8)
                             
                             Group{
                                 Text("Subject".localized())

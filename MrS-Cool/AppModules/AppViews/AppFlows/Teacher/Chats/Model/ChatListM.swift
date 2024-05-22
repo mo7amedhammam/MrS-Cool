@@ -69,21 +69,22 @@ struct StudentChatListM: Codable,Hashable {
 }
 
 // MARK: - StudentLessonDetailsM -
-struct StudentChatDetailsM: Codable {
-    var bookTeacherLessonSessionDetailID: Int?
+struct StudentChatDetailsM: Codable,Hashable {
+    var bookTeacherLessonSessionDetailID,teacherSubjectAcademicSemesterYearId: Int?
     var teacherName, teacherImage, studentName, studentImage: String?
     var subjectName: String?
-    var teacherLessonSessionCommentDetailsDtos: [StudentLessonSessionCommentDetailsDto]?
+    var comments: [StudentLessonSessionCommentDetailsDto]?
 
     enum CodingKeys: String, CodingKey {
-        case bookTeacherLessonSessionDetailID = "bookTeacherLessonSessionDetailId"
-        case teacherName, teacherImage, studentName, studentImage, subjectName, teacherLessonSessionCommentDetailsDtos
+        case bookTeacherLessonSessionDetailID = "bookTeacherLessonSessionDetailId",teacherSubjectAcademicSemesterYearId
+        case teacherName, teacherImage, studentName, studentImage, subjectName
+        case comments = "teacherLessonSessionCommentDetailsDtos"
     }
 }
 
 // MARK: - StudentLessonSessionCommentDetailsDto
-struct StudentLessonSessionCommentDetailsDto: Codable {
-    var comment, fromName, toName, fromImage: String?
-    var toImage, creationDate: String?
+struct StudentLessonSessionCommentDetailsDto: Codable,Hashable {
+    var comment, fromName, toName: String?
+    var fromImage,toImage, creationDate: String?
 }
 

@@ -32,7 +32,9 @@ struct MessagesListView: View {
                 if let student = chatlistvm.ChatDetails{
                     VStack{
                         HStack{
-                            let imageurl = student.comments?.first(where:{$0.fromImage != nil })?.fromImage ?? ""
+                            let imageurl = Helper.shared.getSelectedUserType() == .Teacher ? student.studentImage ?? "":student.teacherImage ?? ""
+//                            let studentimageurl = student.studentImage ?? ""
+
 //                            AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
 //                                image
 //                                    .resizable()
@@ -40,14 +42,14 @@ struct MessagesListView: View {
 //                                Image("img_younghappysmi")
 //                                    .resizable()
 //                            }
-                            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ).reverseSlaches())
+                            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl).reverseSlaches())
                             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 50,height: 50)
                             .clipShape(Circle())
                             VStack(alignment: .leading,spacing: 4){
-                                Text(student.studentName ?? "")
+                                Text(Helper.shared.getSelectedUserType() == .Teacher ? student.studentName ?? "" : student.teacherName ?? "")
                                     .font(Font.SoraSemiBold(size:15))
                                     .foregroundColor(.mainBlue)
                                 
@@ -60,7 +62,7 @@ struct MessagesListView: View {
                         .padding([.top,.horizontal])
                         Divider().padding(.horizontal)
                         
-                        if let array = student.comments{
+                        if let array = student.comments {
                             ScrollViewReader { scrollView in
                                 ScrollView {
                                     ForEach(Array(array.enumerated()), id:\.element.hashValue){ index,comment in
@@ -70,7 +72,7 @@ struct MessagesListView: View {
                                             }
                                             VStack(alignment:comment.fromName != nil ? .trailing : .leading) {
                                                 HStack{
-                                                    let imageurl = comment.fromName != nil ? comment.fromImage ?? "":comment.toImage ?? ""
+                                                    let imageurl = comment.fromImage != nil ? comment.fromImage ?? "":comment.toImage ?? ""
 //                                                    AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
 //                                                        image
 //                                                            .resizable()
@@ -87,13 +89,14 @@ struct MessagesListView: View {
                                                 .clipShape(Circle())
                                                 .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
                                                     
+                                                    
                                                     HStack(spacing: 4){
-                                                        Text(comment.fromName != nil ? comment.fromName ?? "from name" :comment.toName ?? "to name")
+                                                        Text(comment.fromName != nil ? comment.fromName ?? "" :comment.toName ?? "")
                                                             .font(Font.SoraSemiBold(size:15))
                                                             .foregroundColor(.mainBlue)
                                                             .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
                                                         
-                                                        Text(comment.creationDate ?? "creationDate")
+                                                        Text(comment.creationDate ?? "")
                                                             .font(Font.SoraRegular(size:10))
                                                             .foregroundColor(.bluegray400)
                                                             .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
@@ -135,11 +138,13 @@ struct MessagesListView: View {
                                 .foregroundColor(.mainBlue)
                                 .disableAutocorrection(true)
                                 .textInputAutocapitalization(.never)
+                            
                             Button(action: {
                                 chatlistvm.CreateChatComment()
                             }, label: {
                                 Image("sendmessage")
                             })
+                            .disabled(chatlistvm.comment.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         }
                         .padding(.horizontal)
                         .padding(.vertical,8)
