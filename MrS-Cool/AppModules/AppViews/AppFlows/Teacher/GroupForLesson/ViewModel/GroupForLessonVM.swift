@@ -133,9 +133,9 @@ extension GroupForLessonVM{
             parameters["groupName"] = filtergroupName
         }
         
-        if let date = date{
+        if let date = date?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["startDate"] = date
-        }else if let filterdate = filterdate{
+        }else if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["startDate"] = filterdate
         }
         if let time = time{

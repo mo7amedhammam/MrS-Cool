@@ -50,7 +50,7 @@ extension CompletedLessonsVM{
         if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate{
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["lessonDate"] = filterdate
         }
         

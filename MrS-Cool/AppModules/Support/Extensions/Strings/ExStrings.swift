@@ -60,7 +60,8 @@ extension String {
     func ChangeDateFormat( FormatFrom:String, FormatTo:String, local:String? = "en" ) -> String {
         var newdate = ""
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: local ?? "ar")
+//        formatter.locale = Locale(identifier: local ?? "ar")
+        formatter.timeZone = TimeZone(identifier: "GMT")
         formatter.dateFormat = FormatFrom
         if let date = formatter.date(from: self) {
             formatter.dateFormat = FormatTo
@@ -71,6 +72,7 @@ extension String {
     func toDate(withFormat format: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone(identifier: "GMT")
         return dateFormatter.date(from: self)
     }
     
@@ -78,7 +80,7 @@ extension String {
     func toDate() -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        //        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.timeZone = TimeZone(identifier: "GMT")
         return dateFormatter.date(from: self)
     }
     

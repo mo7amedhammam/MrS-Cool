@@ -67,7 +67,6 @@ struct GroupForLessonView: View {
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,datePickerComponent:.date,isvalid:groupsforlessonvm.isdatevalid)
                                     
-                                    
                                     CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.time,datePickerComponent:.hourAndMinute,isvalid:groupsforlessonvm.istimevalid)
                                         .overlay(content: {
                                             if  (groupsforlessonvm.endTime) != nil {

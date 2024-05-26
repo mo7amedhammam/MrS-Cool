@@ -522,11 +522,11 @@ struct CustomDatePickerField: View {
                     .labelsHidden()
                     .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
             }
-
         }
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
         .onChange(of: selectedDate) {date in
+            print(date)
             selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
         }
         .onAppear(perform: {
@@ -571,6 +571,9 @@ extension Date{
     func formatDate(format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
+//        dateFormatter.timeZone = .current
+        dateFormatter.timeZone = TimeZone(identifier: "GMT")
+
         return dateFormatter.string(from: self)
     }
 }

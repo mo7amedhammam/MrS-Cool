@@ -77,7 +77,7 @@ extension ManageTeacherSchedualsVM{
         guard checkValidfields() else {return}
         guard let dayId = day?.id,let startDate = startDate,let endDate = endDate,let startTime = startTime ,let endTime = endTime else {return}
         let parameters:[String:Any] = ["dayId":dayId,
-                                       "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                       "fromStartDate":startDate,
                                        "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
                                        "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
                                        "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm")]
@@ -119,10 +119,10 @@ extension ManageTeacherSchedualsVM{
         if let filterDay = filterDay{
             parameters["dayId"] = filterDay.id
         }
-        if let filterStartDate = filterStartDate{
+        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["fromStartDate"] = filterStartDate
         }
-        if let filterEndDate = filterEndDate{
+        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["toEndDate"] = filterEndDate
         }
         print("parameters",parameters)

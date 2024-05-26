@@ -22,7 +22,7 @@ struct ManageSubjectGroupView: View {
     //    var selectedSubject:TeacherSubjectM?
     var body: some View {
             VStack {
-                CustomTitleBarView(title: "Manage Groups For Lesson")
+                CustomTitleBarView(title: "Manage Groups For Subject")
                 
                 GeometryReader { gr in
                     ScrollView(.vertical,showsIndicators: false){

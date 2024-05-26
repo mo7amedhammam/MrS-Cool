@@ -128,11 +128,11 @@ struct CompletedLessonsList: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.SubjectsForList)
                                         .onChange(of: completedlessonsvm.filtersubject){newval in
-                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
-                                            {
-                                                completedlessonsvm.filterlesson = nil
-                                                lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
-                                            }
+//                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
+//                                            {
+//                                                completedlessonsvm.filterlesson = nil
+                                                lookupsvm.SelectedSubjectForList = newval
+//                                            }
                                         }
                                     
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.LessonsForList)
@@ -146,11 +146,13 @@ struct CompletedLessonsList: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            completedlessonsvm .GetCompletedLessons()
+                                            completedlessonsvm.skipCount = 0
+                                            completedlessonsvm.GetCompletedLessons()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            completedlessonsvm.skipCount = 0
                                             completedlessonsvm.clearFilter()
                                             completedlessonsvm .GetCompletedLessons()
                                             showFilter = false
@@ -167,6 +169,9 @@ struct CompletedLessonsList: View {
                     .frame(height:430)
                     .keyboardAdaptive()
                 }
+                .onAppear(perform: {
+                    lookupsvm.SelectedSubjectForList = nil
+                })
             }
         }
         

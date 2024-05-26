@@ -84,10 +84,10 @@ extension ManageSubjectGroupVM{
             parameters["groupName"] = filtergroupName
         }
         
-        if let filterstartdate = filterstartdate{
+        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["startDate"] = filterstartdate
         }
-        if let filterenddate = filterenddate{
+        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["endDate"] = filterenddate
         }
         
@@ -291,6 +291,7 @@ extension ManageSubjectGroupVM{
         startDate = nil
         DisplaySchedualSlotsArr.removeAll()
         CreateSchedualSlotsArr.removeAll()
+        clearCurrentSlot()
     }
     func clearFilter(){
         filtersubject = nil

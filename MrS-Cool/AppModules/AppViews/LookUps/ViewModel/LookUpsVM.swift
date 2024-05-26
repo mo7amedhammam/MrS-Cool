@@ -618,7 +618,7 @@ extension LookUpsVM{
             .store(in: &cancellables)
     }
     func GetLessonsForList() {
-        guard let SelectedSubjectForListid = SelectedSubjectForList?.id else {return}
+        guard let SelectedSubjectForListid = SelectedSubjectForList?.id else {LessonsForListArray.removeAll(); return}
         let parameters:[String:Any] = ["teacherSubjectAcademicSemesterYearId":SelectedSubjectForListid]
         let target = LookupsServices.GetLessonsForList(parameters: parameters)
         BaseNetwork.CallApi(target, BaseResponse<[LessonForListM]>.self)
