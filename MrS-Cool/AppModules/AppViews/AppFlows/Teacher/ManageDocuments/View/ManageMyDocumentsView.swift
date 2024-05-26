@@ -169,9 +169,11 @@ struct ManageMyDocumentsView: View {
                                 teacherdocumentsvm.isError.toggle()
                             }){
                                 print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
-                                    previewurl = Constants.baseURL + (document.documentPath ?? "").reverseSlaches()
+                                    previewurl = Constants.baseURL + (document.documentPath ?? "")
+                                previewurl.openAsURL()
+
 //                                isPreviewPresented.toggle()
-                                UIApplication.shared.open(URL(string: previewurl)!)
+//                                UIApplication.shared.open(URL(string: previewurl)!)
 
                             }
                             .listRowSpacing(0)

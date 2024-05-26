@@ -285,6 +285,43 @@ class LookUpsVM: ObservableObject {
         }
     }
     @Published var LessonsForList: [DropDownOption] = []
+
+    @Published var BookedSubjectsForListArray: [BookedStudentSubjectsM] = []{
+        didSet{
+            if !BookedSubjectsForListArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                BookedSubjectsForList = BookedSubjectsForListArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                BookedSubjectsForList.removeAll()
+            }
+        }
+    }
+    @Published var BookedSubjectsForList: [DropDownOption] = []
+    @Published var SelectedBookedSubjectForList: DropDownOption?{
+        didSet{
+//            if SelectedSubjectForList == nil{
+//                SubjectsForList.removeAll()
+//            }else{
+                GetBookedLessonsForList()
+//            }
+        }
+    }
+    @Published var BookedLessonsForListArray: [BookedStudentLessonsM] = []{
+        didSet{
+            if !BookedLessonsForListArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                BookedLessonsForList = BookedLessonsForListArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                BookedLessonsForList.removeAll()
+            }
+        }
+    }
+    @Published var BookedLessonsForList: [DropDownOption] = []
+
     
     @Published private var error: Error?
     
@@ -596,6 +633,52 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 LessonsForListArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    
+    func GetBookedSubjestForList() {
+        var parameters:[String:Any] = [:]
+        if Helper.shared.getSelectedUserType() == .Parent{
+//            guard let SelectedSubjectForListid = SelectedSubjectForList?.id else {return}
+            parameters["StudentId"] = Helper.shared.selectedchild?.id
+                       }
+        
+        let target = LookupsServices.GetBookedStudentSubjects(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<[BookedStudentSubjectsM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                BookedSubjectsForListArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    func GetBookedLessonsForList(){
+        guard let SelectedSubjectForListid = SelectedBookedSubjectForList?.id else {return}
+        var parameters:[String:Any] = ["SubjectId":SelectedSubjectForListid]
+        if Helper.shared.getSelectedUserType() == .Parent{
+            parameters["StudentId"] = Helper.shared.selectedchild?.id
+                       }
+        let target = LookupsServices.GetBookedStudentLessons(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<[BookedStudentLessonsM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                BookedLessonsForListArray = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

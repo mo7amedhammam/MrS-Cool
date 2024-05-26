@@ -26,7 +26,7 @@ struct StudenCompletedLessonCellView: View {
                                 .frame(width: 30 ,height: 30)
                         )
                     
-                    Text(model.subject ?? "Subject Name")
+                    Text(model.subject ?? "")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(.mainBlue)
 
@@ -71,18 +71,18 @@ struct StudenCompletedLessonCellView: View {
                 }
                 HStack{
                     VStack (alignment:.leading,spacing: 10){
-                        Text(model.teacherName ?? "Teacher Name")
+                        Text(model.teacherName ?? "")
                             .font(Font.SoraSemiBold(size:13.0))
                             .foregroundColor(.mainBlue)
 
-                        Text(model.groupName ?? "Group 1")
+                        Text(model.groupName ?? "")
                             .font(Font.SoraRegular(size: 12.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Black900)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                         
-                        Text(model.lessonname ?? "Lesson 1")
+                        Text(model.lessonname ?? "")
                             .font(Font.SoraRegular(size: 12.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Black900)

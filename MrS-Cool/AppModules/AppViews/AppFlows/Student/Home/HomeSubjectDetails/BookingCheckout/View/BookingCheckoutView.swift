@@ -108,22 +108,24 @@ struct BookingCheckoutView: View {
                     .padding()
                     
                     VStack{
-                        VStack(spacing: 10){
-                            Image("money_checkout")
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundColor(ColorConstants.MainColor )
-                                .frame(width: 82,height: 71, alignment: .center)
+                        Image("money_checkout")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundColor(ColorConstants.MainColor )
+                            .frame(width: 82,height: 71, alignment: .center)
+
+                        Text("Total Payment".localized())
+                            .foregroundColor(.mainBlue)
+
+                    .font(Font.SoraBold(size: 18))
+                        HStack(spacing: 0){
                             Group {
-                                Text(String(format: "%.2f",details.price ?? 0))
-                                    .foregroundColor(.mainBlue)
-                                
+                                Text(String(format: "%.2f",details.paymentAmount ?? 0))
                                 Text(" EGP".localized())
-                                    .foregroundColor(ColorConstants.MainColor)
                             }
+                            .foregroundColor(ColorConstants.MainColor)
                             .font(Font.SoraBold(size: 18))
                         }.padding(7)
-                        
                         
                         CustomButton(Title: "Confirm Payment", IsDisabled: .constant(false), action: {
                             if Helper.shared.CheckIfLoggedIn(){

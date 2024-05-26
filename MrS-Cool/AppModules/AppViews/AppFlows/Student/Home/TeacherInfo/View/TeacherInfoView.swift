@@ -36,16 +36,10 @@ struct TeacherInfoView: View {
                             Text(teacher.teacherName ?? "")
                                 .font(.SoraBold(size: 18))
                             
-                            //                            if let rate = teacher.teacherRate{
-                            HStack{
-                                StarsView(rating: teacher.teacherRate ?? 0)
-                                //                                    Text("\(rate ,specifier: "%.1f")")
-                                //                                        .foregroundColor(ColorConstants.Black900)
-                                //                                        .font(.SoraSemiBold(size: 13))
+                                if let rate = teacher.teacherRate{
+                                    StarsView(rating:rate)
                             }
-                            //                            }
-                            
-                            //                if let ratescount = teacher.teacherReview, ratescount > 0{
+
                             Group{
                                 Text("\(teacher.totalReviews ?? 0) ")
                                 + Text("Reviews".localized())
@@ -74,41 +68,42 @@ struct TeacherInfoView: View {
                             ScrollView(.vertical,showsIndicators: false){
                                 Spacer().frame(height:20)
                                 
+                                if let rate = teacher.teacherRate,rate > 0{
                                 SignUpHeaderTitle(Title: "Student feedback", subTitle: "")
                                     .frame(maxWidth:.infinity,alignment:.leading)
                                     .foregroundStyle(Color.mainBlue)
-                                
-                                HStack{
-                                    //                            if let rate = teacher.teacherRate{
-                                    VStack{
-                                        Text("\(teacher.teacherRate ?? 0 ,specifier: "%.1f")")
-                                            .foregroundColor(Color.mainBlue)
-                                            .font(.SoraBold(size: 18))
-                                        StarsView(rating: teacher.teacherRate ?? 0)
-                                    }
-                                    .frame(width:110)
-                                    //                            }
-                                    
-                                    VStack{
-                                        ForEach(teacher.teacherRatePercents ?? [],id:\.self){percent in
-                                            
-                                            HStack {
-                                                Slider(value:.constant(percent.ratePercents ?? 20),in:0...100)
-                                                    .tint(Color.orange)
+                                    HStack{
+                                        VStack{
+                                            Text("\(rate ,specifier: "%.1f")")
+                                                .foregroundColor(Color.mainBlue)
+                                                .font(.SoraBold(size: 18))
+                                            StarsView(rating: rate)
+                                        }
+                                        .frame(width:110)
+                                        //                            }
+                                        
+                                        VStack{
+                                            ForEach(teacher.teacherRatePercents ?? [],id:\.self){percent in
                                                 
-                                                StarsView(rating: percent.rateNumber ?? 0)
-                                                
-                                                Text("\(percent.ratePercents ?? 0,specifier: "%.1f") %")
-                                                    .foregroundColor(Color.mainBlue)
-                                                    .font(.SoraRegular(size: 10))
+                                                HStack {
+                                                    Slider(value:.constant(percent.ratePercents ?? 20),in:0...100)
+                                                        .tint(Color.orange)
+                                                    
+                                                    StarsView(rating: percent.rateNumber ?? 0)
+                                                    
+                                                    Text("\(percent.ratePercents ?? 0,specifier: "%.1f") %")
+                                                        .foregroundColor(Color.mainBlue)
+                                                        .font(.SoraRegular(size: 10))
+                                                }
                                             }
                                         }
-                                    }
-                                    .onAppear {
-                                        UISlider
-                                            .appearance().thumbTintColor = .clear
+                                        .onAppear {
+                                            UISlider
+                                                .appearance().thumbTintColor = .clear
+                                        }
                                     }
                                 }
+                                
                                 
                                 SignUpHeaderTitle(Title: "Subjects", subTitle: "")
                                     .frame(maxWidth:.infinity,alignment:.leading)
@@ -153,16 +148,16 @@ struct TeacherInfoView: View {
                 ColorConstants.ParentDisableBg
                     .ignoresSafeArea()
             }
-            
             Spacer()
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
         .onAppear(perform: {
-            teacherinfovm.GetTeacherInfo(TeacherId: teacherid)
+            DispatchQueue.main.async{
+                teacherinfovm.GetTeacherInfo(TeacherId: teacherid)
+            }
         })
         //        .onDisappear {
         //            lessondetailsvm.cleanup()

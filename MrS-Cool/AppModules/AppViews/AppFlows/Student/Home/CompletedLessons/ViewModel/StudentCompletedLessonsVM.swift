@@ -42,10 +42,7 @@ extension StudentCompletedLessonsVM{
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
             
         if let filtersubjectid = filtersubject?.id{
-            parameters["studentId"] = filtersubjectid
-        }
-         if let filterlessonid = filterlesson?.id{
-            parameters["subjectId"] = filterlessonid
+            parameters["subjectId"] = filtersubjectid
         }
         if let filterlessonid = filterlesson?.id{
            parameters["lessonId"] = filterlessonid
@@ -53,7 +50,7 @@ extension StudentCompletedLessonsVM{
         if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate{
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"){
             parameters["lessonDate"] = filterdate
         }
         if Helper.shared.getSelectedUserType() == .Parent {

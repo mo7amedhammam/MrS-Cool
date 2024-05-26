@@ -82,12 +82,12 @@ struct StudentCompletedLessonsView: View {
             hideKeyboard()
         })
         .onAppear(perform: {
-            lookupsvm.GetSubjestForList()
             completedlessonsvm.GetCompletedLessons()
+            lookupsvm.GetBookedSubjestForList()
         })
-        .onDisappear {
-//            completedlessonsvm.cleanup()
-        }
+//        .onDisappear {
+////            completedlessonsvm.cleanup()
+//        }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         
@@ -116,16 +116,16 @@ struct StudentCompletedLessonsView: View {
                         ScrollView{
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.SubjectsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.BookedSubjectsForList)
                                         .onChange(of: completedlessonsvm.filtersubject){newval in
-                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
+                                            if                                                     lookupsvm.SelectedBookedSubjectForList != completedlessonsvm.filtersubject
                                             {
                                                 completedlessonsvm.filterlesson = nil
-                                                lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
+                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
                                             }
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.LessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.BookedLessonsForList)
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
                                     
@@ -136,11 +136,13 @@ struct StudentCompletedLessonsView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            completedlessonsvm .GetCompletedLessons()
+                                            completedlessonsvm.skipCount = 0
+                                            completedlessonsvm.GetCompletedLessons()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            completedlessonsvm.skipCount = 0
                                             completedlessonsvm.clearFilter()
                                             completedlessonsvm .GetCompletedLessons()
                                             showFilter = false

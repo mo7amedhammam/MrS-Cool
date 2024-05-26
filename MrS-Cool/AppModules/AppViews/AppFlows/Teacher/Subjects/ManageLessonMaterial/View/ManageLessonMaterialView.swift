@@ -231,13 +231,14 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                             managelessonmaterialvm.isError.toggle()
                                                             
                                                         }, previewBtnAction: {
-                                                            previewurl = (material.materialURL ?? "").reverseSlaches()
+                                                            previewurl = (material.materialURL ?? "")
+                                                            previewurl.openAsURL()
                                                        
 //                                                            isPreviewPresented.toggle()
 
 //                                                            print("previewurl: \(previewurl)")
 
-                                                            UIApplication.shared.open(URL(string: previewurl)!)
+//                                                            UIApplication.shared.open(URL(string: previewurl)!)
                                                             
                                                         }
                                                         )

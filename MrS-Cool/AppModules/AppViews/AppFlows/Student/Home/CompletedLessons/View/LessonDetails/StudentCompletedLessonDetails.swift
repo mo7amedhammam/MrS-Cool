@@ -9,11 +9,12 @@ import SwiftUI
 
 struct StudentCompletedLessonDetails: View {
     @EnvironmentObject var completedlessonsvm : StudentCompletedLessonsVM
-    @State var showFilter : Bool = false
+//    @State var showFilter : Bool = false
     
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
-    
+//    @State var isPush = false
+//    @State var destination = AnyView(EmptyView())
+    @State var previewurl : String = ""
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Completed Lessons")
@@ -49,25 +50,25 @@ struct StudentCompletedLessonDetails: View {
                                 Text("Subject".localized())
                                     .font(Font.SoraBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.subjectName ?? "Subject Name")
+                                Text(completedlessonsvm.completedLessonDetails?.subjectName ?? "")
                                     .font(Font.SoraBold(size: 18))
                                 
                                 Text("Subject Brief".localized())
                                     .font(Font.SoraBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "Subject Brief")
+                                Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
                                     .font(Font.SoraRegular(size: 12))
                                 
                                 Text("Lesson".localized())
                                     .font(Font.SoraSemiBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "lesson Name ")
+                                Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "")
                                     .font(Font.SoraRegular(size: 12))
                                 
                                 Text("Lesson Brief".localized())
                                     .font(Font.SoraSemiBold(size: 16))
                                 
-                                Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "Lesson Brief")
+                                Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
                                     .font(Font.SoraRegular(size: 12))
                                 
                             }
@@ -75,7 +76,6 @@ struct StudentCompletedLessonDetails: View {
                             
                         }
                         .padding(.top)
-                        
                         .padding(.horizontal)
                         
                         if let MaterialArr = completedlessonsvm.completedLessonDetails?.teacherLessonMaterials{
@@ -85,7 +85,9 @@ struct StudentCompletedLessonDetails: View {
                             LazyVGrid(columns: [.init(), .init()]) {
                                 ForEach(MaterialArr, id:\.self) {material in
                                     StudentLessonDetailsCell(model: material, DownloadBtnAction: {
-                                        print("lets download lesson",material.id ?? 0)
+                                        print("lets download lesson",material.materialUrl ?? 0)
+                                        previewurl = (material.materialUrl ?? "")
+                                        previewurl.openAsURL()
                                     })
                                 }
                             }
@@ -109,7 +111,7 @@ struct StudentCompletedLessonDetails: View {
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
 
@@ -118,6 +120,8 @@ struct StudentCompletedLessonDetails: View {
         .environmentObject(StudentCompletedLessonsVM())
     
 }
+
+
 
 //
 //  LessonDetailsCell.swift

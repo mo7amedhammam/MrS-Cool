@@ -162,9 +162,12 @@ enum EndPoints: String {
     case GetCheckOutBookTeacherSession = "BookTeacherLessonSession/GetCheckOutBookTeacherSession"
     case CreateBookTeacherSession = "BookTeacherLessonSession/CreateBookTeacherLessonSession"
 
+    // MARK: -- student completed lessons --
     case GetStudentCompletedLessons = "StudentCompletedLesson/GetStudentCompletedLessons"
     case GetStudentCompletedLessonDetails = "StudentCompletedLesson/GetStudentLessonMaterials"
-    
+    case GetBookedStudentSubjects = "Student/GetBookedStudentSubjects"
+    case GetBookedStudentLessons = "Student/GetBookedStudentLessons"
+
     // MARK: -- student Calendar Schedual --
     case GetStudentCalenderSchedual = "StudentCalenderSchedule/GetMyCalenderSchedual"
     case CancelStudentCalenderSchedual = "StudentCalenderSchedule/CancelBookLessonSession"

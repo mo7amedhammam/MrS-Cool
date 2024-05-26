@@ -108,7 +108,7 @@ struct MessagesListView: View {
                                                 Text(comment.comment ?? "")
                                                     .padding(10)
                                                     .foregroundColor(Color.black)
-                                                    .background(comment.fromName != nil ? Color.clear : ColorConstants.Red400.opacity(0.08))
+                                                    .background(comment.fromName != nil ? Color.myMsgBg : ColorConstants.Red400.opacity(0.08))
                                                     .cornerRadius(10)
                                             }
                                             

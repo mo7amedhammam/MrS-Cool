@@ -86,3 +86,25 @@ struct AcademicSemesterM: Codable {
         case createdByName, creationDate, name, startDate, endDate, order, isSystem
     }
 }
+
+// MARK: - st booked subjects list -
+struct BookedStudentSubjectsM: Codable {
+    var id: Int?
+    var name: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "subjectId"
+        case name = "subjectName"
+    }
+}
+
+// MARK: - st booked Lessons list -
+struct BookedStudentLessonsM: Codable {
+    var id: Int?
+    var name: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "lessonId"
+        case name = "lessonName"
+    }
+}

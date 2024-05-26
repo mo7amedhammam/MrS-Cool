@@ -370,6 +370,32 @@ final class BaseNetwork{
             }
     }
     
+    static func downloadFileWithProgress(
+           from sourceURL: URL,
+           to destinationURL: URL
+       ) -> AnyPublisher<Double, Error> {
+           let destination: DownloadRequest.Destination = { _, _ in
+               return (destinationURL, [.removePreviousFile, .createIntermediateDirectories])
+           }
+           
+           let subject = PassthroughSubject<Double, Error>()
+           
+           AF.download(sourceURL, to: destination)
+               .downloadProgress { progress in
+                   subject.send(progress.fractionCompleted)
+               }
+               .response { response in
+                   switch response.result {
+                   case .success:
+                       subject.send(completion: .finished)
+                   case .failure(let error):
+                       subject.send(completion: .failure(error))
+                   }
+               }
+           
+           return subject.eraseToAnyPublisher()
+       }
+    
 }
 
 

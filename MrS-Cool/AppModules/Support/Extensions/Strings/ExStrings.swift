@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func removingSpaces() -> String {
@@ -14,6 +15,30 @@ extension String {
     func reverseSlaches() -> String {
         return self.replacingOccurrences(of: "\\", with: "/")
     }
+    
+    func openAsURL() {
+        var urlString = self.reverseSlaches()
+        
+        // Ensure the URL starts with a valid scheme
+        if !urlString.hasPrefix("http://") && !urlString.hasPrefix("https://") {
+            urlString = "https://" + urlString
+        }
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL: \(urlString)")
+            return
+        }
+        
+        UIApplication.shared.open(url, options: [:]) { success in
+            if success {
+                print("Opened URL: \(urlString)")
+            } else {
+                print("Failed to open URL: \(urlString)")
+            }
+        }
+    }
+    
+    
     func getValidLanguageCode() -> String {
         if self.contains("ar"){
             return "ar"
