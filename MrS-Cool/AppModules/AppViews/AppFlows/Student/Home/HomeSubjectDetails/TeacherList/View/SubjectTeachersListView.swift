@@ -29,28 +29,28 @@ struct SubjectTeachersListView: View {
             
             VStack (alignment: .leading){
                 
-                if let teachers = homesubjectteachersvm.TeachersModel{
+                if let subjectorLesson = homesubjectteachersvm.SubjectOrLessonDto{
                     HStack {
-//                        AsyncImage(url: URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "")  )){image in
-//                            image
-//                                .resizable()
-//                        }placeholder: {
-//                            Image("img_younghappysmi")
-//                                .resizable()
-//                        }
-                        let imageURL : URL? = URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "").reverseSlaches())
+                        //                        AsyncImage(url: URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "")  )){image in
+                        //                            image
+                        //                                .resizable()
+                        //                        }placeholder: {
+                        //                            Image("img_younghappysmi")
+                        //                                .resizable()
+                        //                        }
+                        let imageURL : URL? = URL(string: Constants.baseURL+((subjectorLesson.image)?.reverseSlaches() ?? ""))
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60,height: 60)
-                        .clipShape(Circle())
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60,height: 60)
+                            .clipShape(Circle())
                         
                         VStack(alignment:.leading){
-                            Text(teachers.items?.first?.getSubjectOrLessonDto?.headerName ?? "")
+                            Text(subjectorLesson.headerName ?? "" )
                                 .font(.SoraBold(size: 18))
-                            Text(teachers.items?.first?.getSubjectOrLessonDto?.subjectName ?? "")
+                            Text(subjectorLesson.subjectName ?? "")
                                 .font(.SoraSemiBold(size: 16))
-
-                    
+                            
+                            
                         }
                         .foregroundColor(.mainBlue)
                         
@@ -59,13 +59,15 @@ struct SubjectTeachersListView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(teachers.items?.first?.getSubjectOrLessonDto?.systemBrief ?? "")
+                    Text(subjectorLesson.systemBrief ?? "")
                         .font(.SoraRegular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal,30)
                         .frame(minHeight: 20)
+                }
                     
+                if let teachers = homesubjectteachersvm.TeachersModel{
                     GeometryReader { gr in
                         VStack(alignment:.leading){ // (Title - Data - Submit Button)
                             SignUpHeaderTitle(Title:"Teachers")
@@ -252,9 +254,15 @@ struct SubjectTeachersListView: View {
                                         .padding(.vertical)
                                         if isPriceVisible{
                                             HStack{
-                                                CustomTextField(iconName:"",placeholder: "Price From", text: $homesubjectteachersvm.teacherName)
+                                                CustomTextField(iconName:"",placeholder: "Price From", text: $homesubjectteachersvm.priceFrom,keyboardType: .decimalPad)
+                                                    .onChange(of: homesubjectteachersvm.priceFrom) { newValue in
+                                                        homesubjectteachersvm.priceFrom = newValue.filter { $0.isEnglish }
+                                                    }
                                                 
-                                                CustomTextField(iconName:"",placeholder: "Price To", text: $homesubjectteachersvm.teacherName)
+                                                CustomTextField(iconName:"",placeholder: "Price To", text: $homesubjectteachersvm.priceTo,keyboardType: .decimalPad)
+                                                    .onChange(of: homesubjectteachersvm.priceTo) { newValue in
+                                                        homesubjectteachersvm.priceTo = newValue.filter { $0.isEnglish }
+                                                    }
                                             }
                                         }
                                     }
@@ -363,14 +371,21 @@ struct SubjectTeachersListView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            homesubjectteachersvm.skipCount = 0
                                             homesubjectteachersvm .GetStudentSubjectTeachers()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            homesubjectteachersvm.skipCount = 0
                                             homesubjectteachersvm.clearFilter()
                                             homesubjectteachersvm .GetStudentSubjectTeachers()
                                             showFilter = false
+                                            isNameVisible = false
+                                            isPriceVisible = false
+                                            isRateVisible = false
+                                            isGenderVisible = false
+
                                         })
                                     } .frame(width:130,height:40)
                                         .padding(.vertical)
@@ -585,6 +600,6 @@ struct TeacherCellView : View {
             Spacer()
         }
         .padding(.vertical)
-        .padding(.horizontal,20)
+//        .padding(.horizontal,20)
     }
 }

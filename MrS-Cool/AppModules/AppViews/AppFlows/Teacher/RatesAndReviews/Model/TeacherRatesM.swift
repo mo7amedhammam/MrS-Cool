@@ -16,7 +16,7 @@ struct TeacherRateM: Codable,Hashable {
 // MARK: - Item
 struct RateItem: Codable, Hashable {
     static func == (lhs: RateItem, rhs: RateItem) -> Bool {
-        return lhs.creationDate == rhs.creationDate
+        return lhs.creationDate == rhs.creationDate && lhs.teacherLessonComment == rhs.teacherLessonComment
     }
     var teacherRate: Float?
     var teacherLessonName: String?

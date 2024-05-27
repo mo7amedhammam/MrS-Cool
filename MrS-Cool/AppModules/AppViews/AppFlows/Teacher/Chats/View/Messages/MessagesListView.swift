@@ -135,6 +135,7 @@ struct MessagesListView: View {
                         HStack{
                             MultilineTextField("Send a message", text: $chatlistvm.comment, onCommit: {
                                 print("Final text: \(chatlistvm.comment)")
+                                chatlistvm.CreateChatComment()
                             })
 //                            TextField("Send a message".localized(), text: $chatlistvm.comment)
                                 .font(Font.SoraSemiBold(size:15))
@@ -186,7 +187,7 @@ struct MessagesListView: View {
             }
             
             .onAppear(perform: {
-//                chatlistvm.isLoading = false
+                chatlistvm.comment.removeAll()
                 chatlistvm.selectedChatId = selectedLessonId
                 chatlistvm.GetChatComments()
             })
@@ -327,7 +328,8 @@ struct MultilineTextField: View {
     var placeholderView: some View {
         Group {
             if showingPlaceholder {
-                Text(placeholder.localized()).foregroundColor(.gray)
+                Text(placeholder.localized())
+                    .foregroundColor(.gray)
                     .padding(.leading, 4)
                     .padding(.top, 8)
             }

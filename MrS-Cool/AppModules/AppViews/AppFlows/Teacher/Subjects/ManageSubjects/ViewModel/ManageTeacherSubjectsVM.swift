@@ -149,7 +149,6 @@ class ManageTeacherSubjectsVM: ObservableObject {
         }
     }
     
-    
     init()  {
         //        GetTeacherSubjects()
     }
@@ -163,10 +162,10 @@ extension ManageTeacherSubjectsVM{
         guard let subjectAcademicYearId = subject?.id, let groupCost = Float(groupCost), let individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
         var parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
         
-        if !subjectBrief.isEmpty{
+        if !subjectBrief.isEmpty || subjectBrief.count > 0 {
             parameters[ "teacherBrief" ] = subjectBrief
         }
-        if !subjectBriefEn.isEmpty{
+        if !subjectBriefEn.isEmpty || subjectBriefEn.count > 0{
             parameters["teacherBriefEn"] = subjectBriefEn
         }
 
@@ -344,7 +343,6 @@ extension ManageTeacherSubjectsVM{
         isacademicYearvalid =  true
         issubjectvalid = true
         isEditing = false
-        
     }
     func clearFilter(){
         filterEducationType = nil

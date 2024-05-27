@@ -27,8 +27,8 @@ class SubjectTeachersListVM: ObservableObject {
     @Published var subjectId : Int?
     @Published var lessonId : Int?
     @Published var rate : Int = 0
-    @Published var priceFrom : Int?
-    @Published var priceTo : Int?
+    @Published var priceFrom : String = ""
+    @Published var priceTo : String = ""
     
     @Published var genderCase : teachersGenders?{
         didSet{
@@ -68,7 +68,13 @@ class SubjectTeachersListVM: ObservableObject {
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
-    @Published var TeachersModel:StudentHomeSubjectTeachersListM? 
+    @Published var SubjectOrLessonDto : GetSubjectOrLessonDto?
+    @Published var TeachersModel:StudentHomeSubjectTeachersListM?{
+        didSet{
+            guard !(TeachersModel?.items?.isEmpty ?? false) else{return}
+            SubjectOrLessonDto = TeachersModel?.items?.first?.getSubjectOrLessonDto
+        }
+    }
 //    = StudentHomeSubjectTeachersListM()
 //    @Published var SelectedStudentLesson : UnitLessonDtoList = UnitLessonDtoList.init()
   
@@ -92,11 +98,11 @@ extension SubjectTeachersListVM{
         if rate > 0{
             parameters["rate"] = rate
         }
-        if let priceFrom = priceFrom{
-            parameters["priceFrom"] = priceFrom
+        if priceFrom.count > 0{
+            parameters["priceFrom"] = Float(priceFrom)
         }
-        if let priceTo = priceTo{
-            parameters["priceTo"] = priceTo
+        if priceTo.count > 0{
+            parameters["priceTo"] = Float(priceTo)
         }
         if let genderId = genderId{
             parameters["genderId"] = genderId
@@ -144,10 +150,12 @@ extension SubjectTeachersListVM{
   
     func clearFilter(){
         rate = 0
-        priceFrom = nil
-        priceTo = nil
+        priceFrom = ""
+        priceTo = ""
         genderId = nil
+        genderCase = nil
         teacherName = ""
+    
     }
     func clearSort(){
         sortCase = nil

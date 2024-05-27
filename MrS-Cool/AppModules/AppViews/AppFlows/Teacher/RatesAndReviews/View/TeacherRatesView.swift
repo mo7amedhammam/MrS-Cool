@@ -59,7 +59,7 @@ struct TeacherRatesView: View {
                     }
                     //                        .redacted(reason: .placeholder)
                     if let items = rates.items{
-                        List(items,id:\.self){rate in
+                        List(items,id:\.hashValue){rate in
                             RateCellView(rate: rate)
                             //                                .redacted(reason: .placeholder)
                                 .onAppear {
@@ -119,8 +119,9 @@ struct RateCellView: View {
     var body: some View {
         VStack(alignment:.leading){
             HStack{
-                StarsView(rating: rate.teacherLessonRate ?? 0)
-
+                if let rate = rate.teacherLessonRate{
+                    StarsView(rating: rate)
+                }
                 Text(rate.creationDate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", FormatTo:"dd  MMM  yyyy") ?? "2024-03-11T10:53:14.468Z")
                     .font(.SoraRegular(size: 14))
                     .foregroundStyle(ColorConstants.Bluegray40099)

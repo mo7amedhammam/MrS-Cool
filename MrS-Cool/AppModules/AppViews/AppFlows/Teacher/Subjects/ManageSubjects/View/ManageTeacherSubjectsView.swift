@@ -15,7 +15,7 @@ struct ManageTeacherSubjectsView: View {
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
-    @State private var isEditing = false
+//    @State private var isEditing = false
     
     @State var showFilter : Bool = false
     var selectedSubject:TeacherSubjectM?
@@ -30,7 +30,7 @@ struct ManageTeacherSubjectsView: View {
                             VStack(alignment: .leading, spacing: 0){
                                 // -- Data Title --
                                 HStack(alignment: .top){
-                                    SignUpHeaderTitle(Title:isEditing ? "Update Your Subject" : "Request New Subject")
+                                    SignUpHeaderTitle(Title:manageteachersubjectsvm.isEditing ? "Update Your Subject" : "Request New Subject")
                                     //                                Spacer()
                                     //                                Text("(2 / 3)")
                                     //                                    .font(.SoraRegular(size: 14))
@@ -38,16 +38,16 @@ struct ManageTeacherSubjectsView: View {
                                 }
                                 // -- inputs --
                                 Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.iseducationTypevalid)
+                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.iseducationTypevalid)
                                     
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
+                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
                                     
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.isacademicYearvalid)
+                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.isacademicYearvalid)
 //                                        .onChange(of: ){newval in
 //                                            lookupsvm.GetSubjectsByAcademicLevel(academicYearId: manageteachersubjectsvm.academicYear?.id ?? 0)
 //                                        }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:isEditing,isdimmed:isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
                                    
                                     ZStack(alignment:.bottomTrailing){
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
@@ -107,8 +107,8 @@ struct ManageTeacherSubjectsView: View {
                             
                             HStack {
                                 Group{
-                                    CustomButton(Title:isEditing ? "Update" : "Save" ,IsDisabled: .constant(false), action: {
-                                        if isEditing{
+                                    CustomButton(Title:manageteachersubjectsvm.isEditing ? "Update" : "Save" ,IsDisabled: .constant(false), action: {
+                                        if manageteachersubjectsvm.isEditing{
                                             manageteachersubjectsvm.UpdateTeacherSubject()
                                         }else{
                                             manageteachersubjectsvm.CreateTeacherSubject()
@@ -116,7 +116,7 @@ struct ManageTeacherSubjectsView: View {
                                     })
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                         manageteachersubjectsvm.clearTeachersSubject()
-                                        isEditing = false
+                                        manageteachersubjectsvm.isEditing = false
                                     })
                                 }
                                 .frame(width:120,height: 40)
@@ -161,8 +161,9 @@ struct ManageTeacherSubjectsView: View {
                         
                         List(manageteachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
                             ManageSubjectCell(model: subject, editSubjectBtnAction:{
-                                isEditing = true
+                                manageteachersubjectsvm.isEditing = true
                                 manageteachersubjectsvm.selectSubjectForEdit(item: subject)
+                                
                             },editLessonsBtnAction: {
                                 destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
                                     .environmentObject(LookUpsVM())
@@ -170,10 +171,10 @@ struct ManageTeacherSubjectsView: View {
                                 )
                                 isPush = true
                                 manageteachersubjectsvm.clearTeachersSubject()
-                                isEditing = false
+                                manageteachersubjectsvm.isEditing = false
 
                             }, deleteBtnAction:{
-                                isEditing = false
+                                manageteachersubjectsvm.isEditing = false
                                 manageteachersubjectsvm.clearTeachersSubject()
                                 manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)

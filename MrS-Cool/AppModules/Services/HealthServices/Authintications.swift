@@ -186,9 +186,12 @@ extension Authintications : TargetType {
             return .parameterRequest(Parameters: parameters, Encoding: .default)
             
         case .TeacherDeleteSubjects(parameters: let parameters),
-                .TeacherDeleteDocuments(parameters: let parameters),
-                .SendFirebaseToken(parameters: let parameters):
+                .TeacherDeleteDocuments(parameters: let parameters):
+//                .SendFirebaseToken(parameters: let parameters):
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
+            
+        case .SendFirebaseToken(parameters: let parameters):
+            return .parameterdGetRequest(Parameters: parameters, Encoding: .default)
             
         }
     }

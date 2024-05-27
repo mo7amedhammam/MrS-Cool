@@ -18,8 +18,8 @@ func buildparameter(paramaters:parameterType)->([String:Any],ParameterEncoding){
     case .BodyparameterRequest(Parameters: let Parameters, Encoding: let Encoding):
         return(Parameters,Encoding)
         
-        //    case .parameterdGetRequest(Parameters: let Parameters, Encoding: let Encoding):
-        //        return(Parameters,Encoding)
+            case .parameterdGetRequest(Parameters: let Parameters, Encoding: let Encoding):
+                return(Parameters,Encoding)
         
     }
 }

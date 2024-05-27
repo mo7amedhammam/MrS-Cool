@@ -25,7 +25,7 @@ struct ManageSubjectLessonCell: View {
                     )
                 
                 VStack{
-                    Text(model.subjectSemesterYearName ?? "English")
+                    Text(model.subjectSemesterYearName ?? "")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }
@@ -81,9 +81,9 @@ struct ManageSubjectLessonCell: View {
 //                            .font(Font.SoraRegular(size: 12.0))
 //                            .foregroundColor(ColorConstants.Bluegray402)
                         
-                    Text((model.teacherBrief == nil && model.teacherBriefEn == nil) ? "Lesson brief not added".localized():"Lesson brief added".localized())
+                    Text(((model.teacherBrief == nil ) && (model.teacherBriefEn == nil )) ? "Lesson brief not added".localized():"Lesson brief added".localized())
                             .font(Font.SoraRegular(size: 7))
-                            .foregroundColor((model.teacherBrief == nil && model.teacherBriefEn == nil) ? ColorConstants.Red400:ColorConstants.LightGreen800)
+                            .foregroundColor(((model.teacherBrief == nil) && (model.teacherBriefEn == nil )) ? ColorConstants.Red400:ColorConstants.LightGreen800)
                 }
                 .padding(.leading,30)
                 

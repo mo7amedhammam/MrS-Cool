@@ -257,7 +257,14 @@ extension ManageTeacherSubjectLessonsVM{
     }
     
     func UpdateSubjectLessonBrief(){
-        let parameters:[String:Any] = ["id":editRowId,"teacherBrief":subjectBrief,"teacherBriefEn":subjectBriefEn]
+        var parameters:[String:Any] = ["id":editRowId]
+        
+        if !subjectBrief.isEmpty || subjectBrief.count > 0{
+            parameters[ "teacherBrief" ] = subjectBrief
+        }
+        if !subjectBriefEn.isEmpty || subjectBriefEn.count > 0{
+            parameters["teacherBriefEn"] = subjectBriefEn
+        }
         
         print("parameters",parameters)
         let target = teacherServices.UpdateSubjectLessonsBrief(parameters: parameters)
