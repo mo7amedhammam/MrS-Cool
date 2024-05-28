@@ -486,11 +486,13 @@ struct SubjectTeachersListView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
+                                        homesubjectteachersvm.skipCount = 0
                                         homesubjectteachersvm .GetStudentSubjectTeachers()
                                         showSort = false
                                     })
                                     
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                        homesubjectteachersvm.skipCount = 0
                                         homesubjectteachersvm.clearSort()
                                         homesubjectteachersvm .GetStudentSubjectTeachers()
                                         showSort = false

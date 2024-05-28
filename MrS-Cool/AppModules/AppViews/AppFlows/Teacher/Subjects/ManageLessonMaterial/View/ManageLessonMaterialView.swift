@@ -98,162 +98,165 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                 
                                 VStack {
                                     GeometryReader { gr in
-                                        ScrollView(.vertical,showsIndicators: false){
-                                            VStack{ // (Title - Data - Submit Button)
-                                                Group{
-                                                    VStack(alignment: .leading, spacing: 0){
-                                                        // -- Data Title --
-                                                        SignUpHeaderTitle(Title:managelessonmaterialvm.isEditing ? "Update My Material" : "Add New Material")
-                                                        
-                                                        // -- inputs --
-                                                        Group {
-                                                            CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList,isvalid:managelessonmaterialvm.ismaterialTypevalid)
-                                                            
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNameEnvalid)
-                                                                .onChange(of: managelessonmaterialvm.materialNameEn) { newValue in
-                                                                    managelessonmaterialvm.materialNameEn = newValue.filter { $0.isEnglish }
-                                                                }
-                                                            
-                                                            
-                                                            CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid).reversLocalizeView()
-                                                                .onChange(of: managelessonmaterialvm.materialName) { newValue in
-                                                                    managelessonmaterialvm.materialName = newValue.filter { $0.isArabic }
-                                                                }
-                                                            
-                                                            
-                                                            //                                                        CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.documentOrder,keyboardType: .asciiCapableNumberPad)
-                                                            
-                                                            CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,Disabled:managelessonmaterialvm.isdocumentFilevalid,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:managelessonmaterialvm.isdocumentFilevalid)
-                                                            
-                                                        }
-                                                        .padding([.top])
-                                                        .padding(.horizontal,2)
-                                                        
-                                                        if managelessonmaterialvm.materialImg != nil || managelessonmaterialvm.materialPdf != nil{
-                                                            VStack(alignment: .center,spacing:15) {
-                                                                Image("img_maskgroup192")
-                                                                HStack(alignment:.top,spacing: 10){
-                                                                    Button(action: {
-                                                                        managelessonmaterialvm.materialImg = nil
-                                                                        managelessonmaterialvm.materialPdf = nil
-                                                                    }, label: {
-                                                                        Image("img_group")
-                                                                            .resizable()
-                                                                            .frame(width: 15, height: 18,alignment: .leading)
-                                                                            .aspectRatio(contentMode: .fill)
-                                                                    })
-                                                                    
-                                                                    Text(managelessonmaterialvm.materialPdf?.lastPathComponent ?? "")
-                                                                        .font(Font.SoraRegular(size:12))
-                                                                        .foregroundColor(ColorConstants.Gray900)
-                                                                        .multilineTextAlignment(.center)
-                                                                }
+                                        ScrollViewReader{ scrollViewProxy in
+                                            ScrollView(.vertical, showsIndicators: false) {
+                                                VStack{ // (Title - Data - Submit Button)
+                                                    Group{
+                                                        VStack(alignment: .leading, spacing: 0){
+                                                            // -- Data Title --
+                                                            SignUpHeaderTitle(Title:managelessonmaterialvm.isEditing ? "Update My Material" : "Add New Material")
+                                                                .id(1)
+
+                                                            // -- inputs --
+                                                            Group {
+                                                                CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList,isvalid:managelessonmaterialvm.ismaterialTypevalid)
+                                                                
+                                                                CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.materialNameEn,isvalid:managelessonmaterialvm.ismaterialNameEnvalid)
+                                                                    .onChange(of: managelessonmaterialvm.materialNameEn) { newValue in
+                                                                        managelessonmaterialvm.materialNameEn = newValue.filter { $0.isEnglish }
+                                                                    }
+                                                                
+                                                                
+                                                                CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid).reversLocalizeView()
+                                                                    .onChange(of: managelessonmaterialvm.materialName) { newValue in
+                                                                        managelessonmaterialvm.materialName = newValue.filter { $0.isArabic }
+                                                                    }
+                                                                
+                                                                
+                                                                //                                                        CustomTextField(iconName:"img_group_512386",placeholder: "Order", text: $managelessonmaterialvm.documentOrder,keyboardType: .asciiCapableNumberPad)
+                                                                
+                                                                CustomTextField(iconName:"img_group_512411",placeholder: "URL", text: $managelessonmaterialvm.materialUrl,keyboardType: .URL,Disabled:managelessonmaterialvm.isdocumentFilevalid,isvalid:managelessonmaterialvm.isdocumentFilevalid,isdimmed:managelessonmaterialvm.isdocumentFilevalid)
+                                                                
                                                             }
-                                                            .padding(.top)
-                                                            .frame(minWidth:0,maxWidth:.infinity)
-                                                        }else{
+                                                            .padding([.top])
+                                                            .padding(.horizontal,2)
                                                             
-                                                            if !(managelessonmaterialvm.isdocumentFilevalid ?? true){
-                                                                Text("File or image not selected".localized())
+                                                            if managelessonmaterialvm.materialImg != nil || managelessonmaterialvm.materialPdf != nil{
+                                                                VStack(alignment: .center,spacing:15) {
+                                                                    Image("img_maskgroup192")
+                                                                    HStack(alignment:.top,spacing: 10){
+                                                                        Button(action: {
+                                                                            managelessonmaterialvm.materialImg = nil
+                                                                            managelessonmaterialvm.materialPdf = nil
+                                                                        }, label: {
+                                                                            Image("img_group")
+                                                                                .resizable()
+                                                                                .frame(width: 15, height: 18,alignment: .leading)
+                                                                                .aspectRatio(contentMode: .fill)
+                                                                        })
+                                                                        
+                                                                        Text(managelessonmaterialvm.materialPdf?.lastPathComponent ?? "")
+                                                                            .font(Font.SoraRegular(size:12))
+                                                                            .foregroundColor(ColorConstants.Gray900)
+                                                                            .multilineTextAlignment(.center)
+                                                                    }
+                                                                }
+                                                                .padding(.top)
+                                                                .frame(minWidth:0,maxWidth:.infinity)
+                                                            }else{
+                                                                
+                                                                if !(managelessonmaterialvm.isdocumentFilevalid ?? true){
+                                                                    Text("File or image not selected".localized())
+                                                                        .lineSpacing(4)
+                                                                        .frame(minWidth: 0,maxWidth: .infinity)
+                                                                        .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                                                        .foregroundColor(ColorConstants.Red400)
+                                                                        .multilineTextAlignment(.center)
+                                                                        .padding(.top)
+                                                                }
+                                                                
+                                                                CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(managelessonmaterialvm.ismaterialUrlvalid ?? false)){
+                                                                    hideKeyboard()
+                                                                    isSheetPresented = true
+                                                                }
+                                                                .frame(height: 50)
+                                                                .padding(.top)
+                                                                .padding(.horizontal,80)
+                                                                
+                                                                Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
                                                                     .lineSpacing(4)
                                                                     .frame(minWidth: 0,maxWidth: .infinity)
-                                                                    .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
-                                                                    .foregroundColor(ColorConstants.Red400)
+                                                                    .font(Font.SoraRegular(size: 12.0))
+                                                                    .foregroundColor(ColorConstants.Gray901)
                                                                     .multilineTextAlignment(.center)
                                                                     .padding(.top)
                                                             }
-                                                            
-                                                            CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(managelessonmaterialvm.ismaterialUrlvalid ?? false)){
-                                                                hideKeyboard()
-                                                                isSheetPresented = true
-                                                            }
-                                                            .frame(height: 50)
-                                                            .padding(.top)
-                                                            .padding(.horizontal,80)
-                                                            
-                                                            Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
-                                                                .lineSpacing(4)
-                                                                .frame(minWidth: 0,maxWidth: .infinity)
-                                                                .font(Font.SoraRegular(size: 12.0))
-                                                                .foregroundColor(ColorConstants.Gray901)
-                                                                .multilineTextAlignment(.center)
-                                                                .padding(.top)
-                                                        }
-                                                    }.padding(.top,20)
-                                                    
-                                                    HStack {
-                                                        Group{
-                                                            CustomButton(Title:managelessonmaterialvm.isEditing ? "Update" : "Save",IsDisabled: .constant(false), action: {
-                                                                if managelessonmaterialvm.isEditing{
-                                                                    managelessonmaterialvm.UpdateLessonMaterial(fileType: selectedFileType)
-                                                                }else{
-                                                                    managelessonmaterialvm.CreateLessonMaterial(fileType: selectedFileType)
-                                                                }
-                                                            })
-                                                            CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                                                if managelessonmaterialvm.isEditing{
-                                                                    managelessonmaterialvm.isEditing = false
-                                                                    managelessonmaterialvm.editingMaterial = nil
-                                                                }else{
-                                                                    managelessonmaterialvm.clearTeachersMaterial()
-                                                                }
-                                                            })
-                                                        }
-                                                        .frame(width:120,height: 40)
-                                                    }
-                                                    .padding(.vertical)
-                                                    //                        if teacherdocumentsvm.TeacherDocuments.count > 0{
-                                                    HStack(){
-                                                        SignUpHeaderTitle(Title: "Manage My Material")
-                                                        Spacer()
-                                                        Image("img_maskgroup62_clipped")
-                                                            .resizable()
-                                                            .renderingMode(.template)
-                                                            .foregroundColor(ColorConstants.MainColor)
-                                                            .frame(width: 25, height: 25, alignment: .center)
-                                                            .onTapGesture(perform: {
-                                                                showFilter = true
-                                                            })
-                                                    }
-                                                }
-                                                if (managelessonmaterialvm.TeacherLessonMaterial ?? []).count > 0{
-                                                    List(managelessonmaterialvm.TeacherLessonMaterial ?? [] ,id:\.self){ material in
+                                                        }.padding(.top,20)
                                                         
-                                                        ManageLessonMaterialCell(model: material,editBtnAction:{
-                                                            managelessonmaterialvm.isEditing = true
-                                                            managelessonmaterialvm.editingMaterial = material
-                                                            
-                                                        }, deleteBtnAction: {
-                                                            managelessonmaterialvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                                                                managelessonmaterialvm.DeleteLessonMaterial(id: material.id)
-                                                                managelessonmaterialvm.clearTeachersMaterial()
-                                                            })
-                                                            managelessonmaterialvm.isError.toggle()
-                                                            
-                                                        }, previewBtnAction: {
-                                                            previewurl = (material.materialURL ?? "")
-                                                            previewurl.openAsURL()
-                                                       
-//                                                            isPreviewPresented.toggle()
-
-//                                                            print("previewurl: \(previewurl)")
-
-//                                                            UIApplication.shared.open(URL(string: previewurl)!)
-                                                            
+                                                        HStack {
+                                                            Group{
+                                                                CustomButton(Title:managelessonmaterialvm.isEditing ? "Update" : "Save",IsDisabled: .constant(false), action: {
+                                                                    if managelessonmaterialvm.isEditing{
+                                                                        managelessonmaterialvm.UpdateLessonMaterial(fileType: selectedFileType)
+                                                                    }else{
+                                                                        managelessonmaterialvm.CreateLessonMaterial(fileType: selectedFileType)
+                                                                    }
+                                                                })
+                                                                CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                                                    if managelessonmaterialvm.isEditing{
+                                                                        managelessonmaterialvm.isEditing = false
+                                                                        managelessonmaterialvm.editingMaterial = nil
+                                                                    }else{
+                                                                        managelessonmaterialvm.clearTeachersMaterial()
+                                                                    }
+                                                                })
+                                                            }
+                                                            .frame(width:120,height: 40)
                                                         }
-                                                        )
-                                                        .listRowSpacing(0)
-                                                        .listRowSeparator(.hidden)
-                                                        .listRowBackground(Color.clear)
-                                                        .padding(.vertical,-4)
+                                                        .padding(.vertical)
+                                                        //                        if teacherdocumentsvm.TeacherDocuments.count > 0{
+                                                        HStack(){
+                                                            SignUpHeaderTitle(Title: "Manage My Material")
+                                                            Spacer()
+                                                            Image("img_maskgroup62_clipped")
+                                                                .resizable()
+                                                                .renderingMode(.template)
+                                                                .foregroundColor(ColorConstants.MainColor)
+                                                                .frame(width: 25, height: 25, alignment: .center)
+                                                                .onTapGesture(perform: {
+                                                                    showFilter = true
+                                                                })
+                                                        }
                                                     }
-//                                                    .scrollContentBackground(.hidden)
-                                                    .listStyle(.plain)
-                                                    .frame(height: gr.size.height/3*3)
-                                                    .padding(.horizontal,-18)
+                                                    if (managelessonmaterialvm.TeacherLessonMaterial ?? []).count > 0{
+                                                        List(managelessonmaterialvm.TeacherLessonMaterial ?? [] ,id:\.self){ material in
+                                                            
+                                                            ManageLessonMaterialCell(model: material,editBtnAction:{
+                                                                managelessonmaterialvm.isEditing = true
+                                                                managelessonmaterialvm.editingMaterial = material
+                                                                scrollViewProxy.scrollTo(1)
+                                                            }, deleteBtnAction: {
+                                                                managelessonmaterialvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                                                    managelessonmaterialvm.DeleteLessonMaterial(id: material.id)
+                                                                    managelessonmaterialvm.clearTeachersMaterial()
+                                                                })
+                                                                managelessonmaterialvm.isError.toggle()
+                                                                
+                                                            }, previewBtnAction: {
+                                                                previewurl = (material.materialURL ?? "")
+                                                                previewurl.openAsURL()
+                                                                
+                                                                //                                                            isPreviewPresented.toggle()
+                                                                
+                                                                //                                                            print("previewurl: \(previewurl)")
+                                                                
+                                                                //                                                            UIApplication.shared.open(URL(string: previewurl)!)
+                                                                
+                                                            }
+                                                            )
+                                                            .listRowSpacing(0)
+                                                            .listRowSeparator(.hidden)
+                                                            .listRowBackground(Color.clear)
+                                                            .padding(.vertical,-4)
+                                                        }
+                                                        //                                                    .scrollContentBackground(.hidden)
+                                                        .listStyle(.plain)
+                                                        .frame(height: gr.size.height/3*3)
+                                                        .padding(.horizontal,-18)
+                                                    }
                                                 }
+                                                //                                        .frame(minHeight: gr.size.height)
                                             }
-                                            //                                        .frame(minHeight: gr.size.height)
                                         }
                                     }
                                     .onAppear(perform: {

@@ -24,174 +24,177 @@ struct ManageTeacherSubjectsView: View {
             CustomTitleBarView(title: "Manage my Subjects")
             
             GeometryReader { gr in
-                ScrollView(.vertical,showsIndicators: false){
-                    VStack{ // (Title - Data - Submit Button)
-                        Group{
-                            VStack(alignment: .leading, spacing: 0){
-                                // -- Data Title --
-                                HStack(alignment: .top){
-                                    SignUpHeaderTitle(Title:manageteachersubjectsvm.isEditing ? "Update Your Subject" : "Request New Subject")
-                                    //                                Spacer()
-                                    //                                Text("(2 / 3)")
-                                    //                                    .font(.SoraRegular(size: 14))
-                                    //                                    .foregroundColor(.black)
-                                }
-                                // -- inputs --
-                                Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.iseducationTypevalid)
-                                    
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
-                                    
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.isacademicYearvalid)
-//                                        .onChange(of: ){newval in
-//                                            lookupsvm.GetSubjectsByAcademicLevel(academicYearId: manageteachersubjectsvm.academicYear?.id ?? 0)
-//                                        }
-                                    
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
-                                   
-                                    ZStack(alignment:.bottomTrailing){
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
-                                        .onChange(of: manageteachersubjectsvm.groupCost) { newValue in
-                                            manageteachersubjectsvm.groupCost = newValue.filter { $0.isEnglish }
-                                        }
-                                        if let cost = manageteachersubjectsvm.subject?.subject{
-                                            HStack(spacing:5){
-                                                Text("Recommended".localized())
-                                                Text(String(cost.groupCostFrom ?? 0))
-                                                Text("To".localized())
-                                                Text(String(cost.groupCostTo ?? 0))
-                                                Text("EGP".localized())
-                                            }
-                                            .font(Font.SoraRegular(size: 9))
-                                            .foregroundColor(ColorConstants.Bluegray402)
-                                            .padding(5)
-                                        }
-                                }
-                                    
-                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isminGroupvalid)
-                                    
-                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.ismaxGroupvalid)
-                                    
-                                ZStack(alignment:.bottomTrailing){
-                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
-                                        .onChange(of: manageteachersubjectsvm.individualCost) { newValue in
-                                            manageteachersubjectsvm.individualCost = newValue.filter { $0.isEnglish }
-                                        }
-                                    if let cost = manageteachersubjectsvm.subject?.subject{
-                                        HStack(spacing:5){
-                                            Text("Recommended".localized())
-                                            Text(String(cost.individualCostFrom ?? 0))
-                                            Text("To".localized())
-                                            Text(String(cost.individualCostTo ?? 0))
-                                            Text("EGP".localized())
-                                        }
-                                        .font(Font.SoraRegular(size: 9))
-                                        .foregroundColor(ColorConstants.Bluegray402)
-                                        .padding(5)
+                ScrollViewReader{ scrollViewProxy in
+                    ScrollView(.vertical,showsIndicators: false){
+                        VStack{ // (Title - Data - Submit Button)
+                            Group{
+                                VStack(alignment: .leading, spacing: 0){
+                                    // -- Data Title --
+                                    HStack(alignment: .top){
+                                        SignUpHeaderTitle(Title:manageteachersubjectsvm.isEditing ? "Update Your Subject" : "Request New Subject")
+                                        //                                Spacer()
+                                        //                                Text("(2 / 3)")
+                                        //                                    .font(.SoraRegular(size: 14))
+                                        //                                    .foregroundColor(.black)
                                     }
-                                }
-                                    
-                                    CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
-                                        .onChange(of: manageteachersubjectsvm.subjectBriefEn) { newValue in
-                                            manageteachersubjectsvm.subjectBriefEn = newValue.filter { $0.isEnglish }
+                                    // -- inputs --
+                                    Group {
+                                        CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $manageteachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.iseducationTypevalid)
+                                        
+                                        CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $manageteachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.iseducationLevelvalid)
+                                        
+                                        CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $manageteachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.isacademicYearvalid)
+                                        //                                        .onChange(of: ){newval in
+                                        //                                            lookupsvm.GetSubjectsByAcademicLevel(academicYearId: manageteachersubjectsvm.academicYear?.id ?? 0)
+                                        //                                        }
+                                        
+                                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
+                                        
+                                        ZStack(alignment:.bottomTrailing){
+                                            CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
+                                                .onChange(of: manageteachersubjectsvm.groupCost) { newValue in
+                                                    manageteachersubjectsvm.groupCost = newValue.filter { $0.isEnglish }
+                                                }
+                                                .id(1)
+                                            if let cost = manageteachersubjectsvm.subject?.subject{
+                                                HStack(spacing:5){
+                                                    Text("Recommended".localized())
+                                                    Text(String(cost.groupCostFrom ?? 0))
+                                                    Text("To".localized())
+                                                    Text(String(cost.groupCostTo ?? 0))
+                                                    Text("EGP".localized())
+                                                }
+                                                .font(Font.SoraRegular(size: 9))
+                                                .foregroundColor(ColorConstants.Bluegray402)
+                                                .padding(5)
+                                            }
                                         }
-                                    
-                                    CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000).reversLocalizeView()
-                                        .onChange(of: manageteachersubjectsvm.subjectBrief) { newValue in
-                                            manageteachersubjectsvm.subjectBrief = newValue.filter { $0.isArabic }
+                                        
+                                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isminGroupvalid)
+                                        
+                                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.ismaxGroupvalid)
+                                        
+                                        ZStack(alignment:.bottomTrailing){
+                                            CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
+                                                .onChange(of: manageteachersubjectsvm.individualCost) { newValue in
+                                                    manageteachersubjectsvm.individualCost = newValue.filter { $0.isEnglish }
+                                                }
+                                            if let cost = manageteachersubjectsvm.subject?.subject{
+                                                HStack(spacing:5){
+                                                    Text("Recommended".localized())
+                                                    Text(String(cost.individualCostFrom ?? 0))
+                                                    Text("To".localized())
+                                                    Text(String(cost.individualCostTo ?? 0))
+                                                    Text("EGP".localized())
+                                                }
+                                                .font(Font.SoraRegular(size: 9))
+                                                .foregroundColor(ColorConstants.Bluegray402)
+                                                .padding(5)
+                                            }
                                         }
-                                    
-                                }
-                                .padding([.top])
-                            }.padding(.top,20)
-                            
-                            HStack {
-                                Group{
-                                    CustomButton(Title:manageteachersubjectsvm.isEditing ? "Update" : "Save" ,IsDisabled: .constant(false), action: {
-                                        if manageteachersubjectsvm.isEditing{
-                                            manageteachersubjectsvm.UpdateTeacherSubject()
-                                        }else{
-                                            manageteachersubjectsvm.CreateTeacherSubject()
-                                        }
-                                    })
-                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                        manageteachersubjectsvm.clearTeachersSubject()
-                                        manageteachersubjectsvm.isEditing = false
-                                    })
-                                }
-                                .frame(width:120,height: 40)
+                                        
+                                        CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
+                                            .onChange(of: manageteachersubjectsvm.subjectBriefEn) { newValue in
+                                                manageteachersubjectsvm.subjectBriefEn = newValue.filter { $0.isEnglish }
+                                            }
+                                        
+                                        CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000).reversLocalizeView()
+                                            .onChange(of: manageteachersubjectsvm.subjectBrief) { newValue in
+                                                manageteachersubjectsvm.subjectBrief = newValue.filter { $0.isArabic }
+                                            }
+                                        
+                                    }
+                                    .padding([.top])
+                                }.padding(.top,20)
                                 
-                            }.padding(.vertical)
-                            
-                            HStack(){
-                                SignUpHeaderTitle(Title: "Manage My Subjects")
-                                Spacer()
-                                Image("img_maskgroup62_clipped")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(ColorConstants.MainColor)
-                                    .frame(width: 25, height: 25, alignment: .center)
-                                    .onTapGesture(perform: {
-                                        showFilter = true
-                                    })
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:manageteachersubjectsvm.isEditing ? "Update" : "Save" ,IsDisabled: .constant(false), action: {
+                                            if manageteachersubjectsvm.isEditing{
+                                                manageteachersubjectsvm.UpdateTeacherSubject()
+                                            }else{
+                                                manageteachersubjectsvm.CreateTeacherSubject()
+                                            }
+                                        })
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            manageteachersubjectsvm.clearTeachersSubject()
+                                            manageteachersubjectsvm.isEditing = false
+                                        })
+                                    }
+                                    .frame(width:120,height: 40)
+                                    
+                                }.padding(.vertical)
                                 
+                                HStack(){
+                                    SignUpHeaderTitle(Title: "Manage My Subjects")
+                                    Spacer()
+                                    Image("img_maskgroup62_clipped")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                        .frame(width: 25, height: 25, alignment: .center)
+                                        .onTapGesture(perform: {
+                                            showFilter = true
+                                        })
+                                    
+                                }
+                                HStack(){
+                                    Spacer()
+                                    Rectangle().frame(width: 14, height: 14)
+                                        .foregroundColor(.yellow)
+                                    Text("In Review".localized())
+                                        .foregroundColor(.mainBlue)
+                                        .font(Font.SoraRegular(size: 7))
+                                    
+                                    Rectangle().frame(width: 14, height: 14)
+                                        .foregroundColor(.green)
+                                    Text("Approved".localized())
+                                        .foregroundColor(.mainBlue)
+                                        .font(Font.SoraRegular(size: 7))
+                                    
+                                    Rectangle().frame(width: 14, height: 14)
+                                        .foregroundColor(.red)
+                                    Text("Rejected".localized())
+                                        .foregroundColor(.mainBlue)
+                                        .font(Font.SoraRegular(size: 7))
+                                }
                             }
-                            HStack(){
-                                Spacer()
-                                Rectangle().frame(width: 14, height: 14)
-                                    .foregroundColor(.yellow)
-                                Text("In Review".localized())
-                                    .foregroundColor(.mainBlue)
-                                    .font(Font.SoraRegular(size: 7))
-                                
-                                Rectangle().frame(width: 14, height: 14)
-                                    .foregroundColor(.green)
-                                Text("Approved".localized())
-                                    .foregroundColor(.mainBlue)
-                                    .font(Font.SoraRegular(size: 7))
-                                
-                                Rectangle().frame(width: 14, height: 14)
-                                    .foregroundColor(.red)
-                                Text("Rejected".localized())
-                                    .foregroundColor(.mainBlue)
-                                    .font(Font.SoraRegular(size: 7))
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        List(manageteachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
-                            ManageSubjectCell(model: subject, editSubjectBtnAction:{
-                                manageteachersubjectsvm.isEditing = true
-                                manageteachersubjectsvm.selectSubjectForEdit(item: subject)
-                                
-                            },editLessonsBtnAction: {
-                                destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
-                                    .environmentObject(LookUpsVM())
-                                    .environmentObject(ManageTeacherSubjectLessonsVM())
-                                )
-                                isPush = true
-                                manageteachersubjectsvm.clearTeachersSubject()
-                                manageteachersubjectsvm.isEditing = false
-
-                            }, deleteBtnAction:{
-                                manageteachersubjectsvm.isEditing = false
-                                manageteachersubjectsvm.clearTeachersSubject()
-                                manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                                    manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
+                            .padding(.horizontal)
+                            
+                            List(manageteachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
+                                ManageSubjectCell(model: subject, editSubjectBtnAction:{
+                                    manageteachersubjectsvm.isEditing = true
+                                    manageteachersubjectsvm.selectSubjectForEdit(item: subject)
+                                    scrollViewProxy.scrollTo(1)
+                                },editLessonsBtnAction: {
+                                    destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
+                                        .environmentObject(LookUpsVM())
+                                        .environmentObject(ManageTeacherSubjectLessonsVM())
+                                    )
+                                    isPush = true
+                                    manageteachersubjectsvm.clearTeachersSubject()
+                                    manageteachersubjectsvm.isEditing = false
+                                    
+                                }, deleteBtnAction:{
+                                    manageteachersubjectsvm.isEditing = false
+                                    manageteachersubjectsvm.clearTeachersSubject()
+                                    manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                        manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
+                                    })
+                                    manageteachersubjectsvm.isError.toggle()
                                 })
-                                manageteachersubjectsvm.isError.toggle()
-                            })
-                            .listRowSpacing(0)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .padding(.vertical,-8)
+                                .listRowSpacing(0)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                                .padding(.vertical,-8)
+                            }
+                            //                    .scrollContentBackground(.hidden)
+                            .listStyle(.plain)
+                            .frame(height: gr.size.height/2)
+                            Spacer()
                         }
-                        //                    .scrollContentBackground(.hidden)
-                        .listStyle(.plain)
-                        .frame(height: gr.size.height/2)
-                        Spacer()
+                        .frame(minHeight: gr.size.height)
                     }
-                    .frame(minHeight: gr.size.height)
                 }
             }
             .onAppear(perform: {

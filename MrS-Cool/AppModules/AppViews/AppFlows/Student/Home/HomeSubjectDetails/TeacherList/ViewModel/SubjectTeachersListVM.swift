@@ -44,7 +44,7 @@ class SubjectTeachersListVM: ObservableObject {
     }
     @Published var genderId : Int?
     @Published var teacherName : String = ""
-    @Published var sortCase : teachersSortCases?{
+    @Published var sortCase : teachersSortCases? = .MostBooked{
         didSet{
             switch sortCase {
             case .MostBooked:

@@ -281,7 +281,7 @@ extension ManageLessonMaterialVM{
         materialName = ""
         materialNameEn = ""
         materialImg = nil
-        materialImg = nil
+        materialPdf = nil
         materialUrl = ""
         
         isEditing = false
@@ -292,7 +292,7 @@ extension ManageLessonMaterialVM{
         ismaterialNamevalid = !materialName.isEmpty
         ismaterialNameEnvalid = !materialNameEn.isEmpty
         ismaterialUrlvalid = !materialUrl.isEmpty
-        isdocumentFilevalid = materialImg != nil || materialImg != nil
+        isdocumentFilevalid = materialImg != nil || materialPdf != nil
 
         // Publisher for checking if the phone is 11 char
 //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {

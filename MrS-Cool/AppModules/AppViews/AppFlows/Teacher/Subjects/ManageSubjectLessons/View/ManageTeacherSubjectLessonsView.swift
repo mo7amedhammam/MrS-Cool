@@ -124,54 +124,55 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                             }
                             .padding(.horizontal)
                             //                        ScrollView{
-                            List{
-                                ForEach(manageteachersubjectlessonsvm.TeacherSubjectLessons ?? [], id:\.hashValue) { unit in
-                                    Section(header:
-                                                HStack {
-                                        Text(unit.unitName ?? "")
-                                            .font(Font.SoraBold(size: 18))
-                                            .foregroundColor(.mainBlue)
-                                            .padding(.top)
-                                        Spacer()
-                                    }
-                                            //                                        .frame(height:40)
-                                    ) {
-                                        ForEach(unit.teacherUnitLessons ?? [], id:\.hashValue) { lesson in
-                                            // declared to pass values in unit not exist inside lesson
-                                            let modifiedlesson : TeacherUnitLesson = TeacherUnitLesson(id: lesson.id ?? 0, teacherID: lesson.teacherID ?? 0, lessonName: lesson.lessonName ?? "", defaultGroupCost: lesson.defaultGroupCost ?? 0, groupCost: lesson.groupCost, defaultIndividualCost: lesson.defaultIndividualCost, individualCost: lesson.individualCost, defaultIndividualDuration: lesson.defaultIndividualDuration, defaultGroupDuration: lesson.defaultGroupDuration, lessonID: lesson.lessonID, minGroup: lesson.minGroup, maxGroup: lesson.maxGroup, individualDuration: lesson.individualDuration, groupDuration: lesson.groupDuration, teacherBrief: lesson.teacherBrief, educationTypeName: unit.educationTypeName, educationLevelName: unit.educationLevelName, academicYearName: unit.academicYearName, subjectSemesterYearName: unit.subjectSemesterYearName)
-                                            
-                                            
-                                            ManageSubjectLessonCell(model: modifiedlesson, editBtnAction: {
-                                                manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
-                                                manageteachersubjectlessonsvm.showEdit = true
-                                            }, addBriefBtnAction: {
-                                              
-                                                manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
-                                                manageteachersubjectlessonsvm.GetSubjectLessonBrief()
-                                                manageteachersubjectlessonsvm.showBrief = true
-                                            },addMaterialBtnAction:{
+                            if let units = manageteachersubjectlessonsvm.TeacherSubjectLessons,units.first?.teacherUnitLessons != nil{
+                                List{
+                                    ForEach(units, id:\.hashValue) { unit in
+                                        Section(header:
+                                                    HStack {
+                                            Text(unit.unitName ?? "")
+                                                .font(Font.SoraBold(size: 18))
+                                                .foregroundColor(.mainBlue)
+                                                .padding(.top)
+                                            Spacer()
+                                        }
+                                        ) {
+                                            ForEach(unit.teacherUnitLessons ?? [], id:\.hashValue) { lesson in
+                                                // declared to pass values in unit not exist inside lesson
+                                                let modifiedlesson : TeacherUnitLesson = TeacherUnitLesson(id: lesson.id ?? 0, teacherID: lesson.teacherID ?? 0, lessonName: lesson.lessonName ?? "", defaultGroupCost: lesson.defaultGroupCost ?? 0, groupCost: lesson.groupCost, defaultIndividualCost: lesson.defaultIndividualCost, individualCost: lesson.individualCost, defaultIndividualDuration: lesson.defaultIndividualDuration, defaultGroupDuration: lesson.defaultGroupDuration, lessonID: lesson.lessonID, minGroup: lesson.minGroup, maxGroup: lesson.maxGroup, individualDuration: lesson.individualDuration, groupDuration: lesson.groupDuration, teacherBrief: lesson.teacherBrief, educationTypeName: unit.educationTypeName, educationLevelName: unit.educationLevelName, academicYearName: unit.academicYearName, subjectSemesterYearName: unit.subjectSemesterYearName)
                                                 
-                                                destination = AnyView(ManageLessonMaterialView(currentLesson:modifiedlesson)
-                                                    .environmentObject(LookUpsVM())
-                                                    .environmentObject(ManageLessonMaterialVM())
-                                                                      )
-                                                isPush = true
-
                                                 
-                                            })
-                                            .listRowSpacing(0)
-                                            .listRowSeparator(.hidden)
-                                            .listRowBackground(Color.clear)
+                                                ManageSubjectLessonCell(model: modifiedlesson, editBtnAction: {
+                                                    manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
+                                                    manageteachersubjectlessonsvm.showEdit = true
+                                                }, addBriefBtnAction: {
+                                                    
+                                                    manageteachersubjectlessonsvm.selectSubjectForEdit(subjectSemeterYearId:currentSubject?.id,item: lesson)
+                                                    manageteachersubjectlessonsvm.GetSubjectLessonBrief()
+                                                    manageteachersubjectlessonsvm.showBrief = true
+                                                },addMaterialBtnAction:{
+                                                    
+                                                    destination = AnyView(ManageLessonMaterialView(currentLesson:modifiedlesson)
+                                                        .environmentObject(LookUpsVM())
+                                                        .environmentObject(ManageLessonMaterialVM())
+                                                    )
+                                                    isPush = true
+                                                    
+                                                    
+                                                })
+                                                .listRowSpacing(0)
+                                                .listRowSeparator(.hidden)
+                                                .listRowBackground(Color.clear)
+                                            }
                                         }
                                     }
+                                    
                                 }
-                                //                            }
+                                
+                                .padding(.horizontal,-4)
+                                .listStyle(.plain)
+                                //                            .scrollContentBackground(.hidden)
+                                .frame(minHeight: gr.size.height/2)
                             }
-                            .padding(.horizontal,-4)
-                            .listStyle(.plain)
-//                            .scrollContentBackground(.hidden)
-                            .frame(minHeight: gr.size.height/2)
-                            
                             Spacer()
                         }
                         .frame(minHeight: gr.size.height)
