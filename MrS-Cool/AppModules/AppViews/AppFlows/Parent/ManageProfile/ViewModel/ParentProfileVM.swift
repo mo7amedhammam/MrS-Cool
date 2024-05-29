@@ -16,7 +16,14 @@ class ParentProfileVM: ObservableObject {
     //Common data (note: same exact data for parent)
     @Published var image : UIImage?
     @Published var imageStr : String?
-    @Published var name = ""
+    @Published var name = ""{
+        didSet{
+            if name.count >= 2{
+                isnamevalid = true
+            }
+        }
+    }
+    @Published var isnamevalid : Bool?
     @Published var code = ""
 //    @Published var accountStatus : ProfileStatus?
 
@@ -25,11 +32,43 @@ class ParentProfileVM: ObservableObject {
 
     //Teacher personal data
 //    @Published var isTeacher : Bool?
-    @Published var country : DropDownOption?
-    @Published var governorte : DropDownOption?
-    @Published var city : DropDownOption?
+    @Published var country : DropDownOption?{
+        didSet{
+            governorte = nil
+            iscountryvalid = country == nil ? false:true
+        }
+    }
+    @Published var iscountryvalid : Bool?
+    
+    @Published var governorte : DropDownOption?{
+        didSet{
+            city = nil
+            isgovernortevalid = governorte == nil ? false:true
+        }
+    }
+    @Published var isgovernortevalid : Bool?
+    
+    @Published var city : DropDownOption?{
+        didSet{
+            iscityvalid = city == nil ? false:true
+        }
+    }
+    @Published var iscityvalid : Bool?
+
     @Published var birthDateStr : String?
-    @Published var email = ""
+    @Published var email = ""{
+        didSet{
+            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+            if !email.isEmpty{
+                if  emailPredicate.evaluate(with: email){
+                    isemailvalid = true
+                }else{
+                    isemailvalid = false
+                    }
+                }
+            }
+    }
+    @Published var isemailvalid : Bool?
 //    @Published var bio = ""
 
 //    MARK: --- outpust ---
@@ -38,7 +77,8 @@ class ParentProfileVM: ObservableObject {
 //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
 
-    @Published var isDataUploaded: Bool = false
+    @Published var isFillingData : Bool = true
+    @Published var isDataUpdated: Bool = false
 //    @Published var OtpM: OtpM?{
 //        didSet{
 //            isDataUploaded = true
@@ -47,7 +87,7 @@ class ParentProfileVM: ObservableObject {
     
     init()  {
 //        getGendersArr()
-        GetParentProfile()
+//        GetParentProfile()
     }
 }
 
@@ -92,6 +132,8 @@ extension ParentProfileVM{
     }
     
     func UpdateParentProfile(){
+        guard checkValidfields() else {return}
+
         guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"),let genderid = selectedGender?.id, let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"Email":email,"Birthdate":birthDateStr,"GenderId":genderid, "CityId":cityid]
         if let image = image {
@@ -120,6 +162,7 @@ extension ParentProfileVM{
                 if receivedData.success == true {
 //                    OtpM = model
                     GetParentProfile()
+                    isDataUpdated = true
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
@@ -135,6 +178,8 @@ extension ParentProfileVM{
 
 extension ParentProfileVM{
     private func fillParentData(model:ParentProfileM){
+        isFillingData = true
+
 //        guard let model = model else { return }
         name = model.name ?? ""
         imageStr =  model.image ?? ""
@@ -149,6 +194,30 @@ extension ParentProfileVM{
         birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
         email =  model.email ?? ""
 //        bio = model.teacherBio ?? ""
+        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
+            isFillingData = false
+        })
+
+    }
+    private func checkValidfields()->Bool{
+        isnamevalid = !name.isEmpty
+        isemailvalid = !email.isEmpty
+//        iseducationLevelvalid = educationLevel != nil
+//        isacademicYearvalid = academicYear != nil
+        iscountryvalid = country != nil
+        isgovernortevalid = governorte != nil
+        iscityvalid = city != nil
+//        isSchoolNamevalid = !SchoolName.isEmpty
+        
+        return isnamevalid ?? true &&
+        isemailvalid ?? true &&
+//        iseducationLevelvalid ?? true &&
+//        isacademicYearvalid ?? true &&
+        iscountryvalid ?? true &&
+        isgovernortevalid ?? true &&
+        iscityvalid ?? true 
+//        isSchoolNamevalid ?? true
+
     }
 }
 

@@ -47,6 +47,8 @@ class OTPVerificationVM: ObservableObject {
     
     func SendOtp() {
         EnteredOtp = nil
+
+//        EnteredOtp?.removeAll()
         guard let mobile = mobile else {
             // Handle missing username or password
             return

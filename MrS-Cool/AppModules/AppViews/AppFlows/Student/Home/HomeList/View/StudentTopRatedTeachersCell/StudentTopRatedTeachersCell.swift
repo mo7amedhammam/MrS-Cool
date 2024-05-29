@@ -63,52 +63,96 @@ struct StudentTopRatedTeachersCell: View {
 }
 
 
+//struct StarsView: View {
+//    private static let MAX_RATING: Float = 5 // Defines upper limit of the rating
+//    private static let COLOR = Color.orange // The color of the stars
+//    
+//    let rating: Float
+//    private let fullCount: Int
+//    private let emptyCount: Int
+//    private let halfFullCount: Int
+//    
+//    init(rating: Float) {
+//        self.rating = rating
+//        fullCount = Int(rating)
+//        emptyCount = Int(StarsView.MAX_RATING - rating)
+//        halfFullCount = (Float(fullCount + emptyCount) < StarsView.MAX_RATING) ? 1 : 0
+//    }
+//    
+//    var body: some View {
+//        HStack (spacing:5){
+//            ForEach(0..<fullCount) { _ in
+//                self.fullStar
+//                    .frame(width:10,height: 10)
+//            }
+//            ForEach(0..<halfFullCount) { _ in
+//                self.halfFullStar
+//                    .frame(width:10,height: 10)
+//            }
+//            ForEach(0..<emptyCount) { _ in
+//                self.emptyStar
+//                    .frame(width:10,height: 10)
+//            }
+//        }
+//    }
+//    
+//    private var fullStar: some View {
+//        Image(systemName: "star.fill").resizable().foregroundColor(StarsView.COLOR)
+//    }
+//    
+//    private var halfFullStar: some View {
+//        Image(systemName: "star.lefthalf.fill").resizable().foregroundColor(StarsView.COLOR)
+//    }
+//    
+//    private var emptyStar: some View {
+//        Image(systemName: "star").resizable().foregroundColor(StarsView.COLOR)
+//    }
+//}
+
+//#Preview{
+//    StarsView(rating: 3.5)
+//}
+
+/// A view displaying a star rating with a step of 0.5.
 struct StarsView: View {
-    private static let MAX_RATING: Float = 5 // Defines upper limit of the rating
-    private static let COLOR = Color.orange // The color of the stars
+  /// A value in range of 0.0 to 5.0.
+  let rating: Float
     
-    let rating: Float
-    private let fullCount: Int
-    private let emptyCount: Int
-    private let halfFullCount: Int
-    
-    init(rating: Float) {
-        self.rating = rating
-        fullCount = Int(rating)
-        emptyCount = Int(StarsView.MAX_RATING - rating)
-        halfFullCount = (Float(fullCount + emptyCount) < StarsView.MAX_RATING) ? 1 : 0
+  var body: some View {
+    HStack(spacing: 5) {
+      ForEach(0..<5) { index in
+        Image(systemName: imageName(for: index, value: rating))
+              .resizable()
+              .frame(width:10,height: 10)
+              .aspectRatio(contentMode: .fit)
+          
+      }
     }
-    
-    var body: some View {
-        HStack (spacing:5){
-            ForEach(0..<fullCount) { _ in
-                self.fullStar
-                    .frame(width:10,height: 10)
-            }
-            ForEach(0..<halfFullCount) { _ in
-                self.halfFullStar
-                    .frame(width:10,height: 10)
-            }
-            ForEach(0..<emptyCount) { _ in
-                self.emptyStar
-                    .frame(width:10,height: 10)
-            }
-        }
-    }
-    
-    private var fullStar: some View {
-        Image(systemName: "star.fill").resizable().foregroundColor(StarsView.COLOR)
-    }
-    
-    private var halfFullStar: some View {
-        Image(systemName: "star.lefthalf.fill").resizable().foregroundColor(StarsView.COLOR)
-    }
-    
-    private var emptyStar: some View {
-        Image(systemName: "star").resizable().foregroundColor(StarsView.COLOR)
+    .foregroundColor(.yellow)
+  }
+  
+    func imageName(for starIndex: Int, value: Float) -> String {
+      // Version A
+//      if value >= Double(starIndex + 1) {
+//        return "star.fill"
+//      }
+//      else if value >= Double(starIndex) + 0.5 {
+//        return "star.leadinghalf.filled"
+//      }
+//      else {
+//        return "star"
+//      }
+            
+      // Version B
+      switch value - Float(starIndex) {
+      case ..<0.5: return "star"
+      case 0.5..<1.0: return "star.leadinghalf.filled"
+      default: return "star.fill"
+      }
     }
 }
 
 #Preview{
     StarsView(rating: 3.5)
+        .frame(width:120)
 }

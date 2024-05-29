@@ -137,12 +137,8 @@ struct StudentEditProfileView: View {
         .onAppear(perform: {
             Task(priority: .background, operation: {
                 // if parent is editing student profile
-                
                 studentsignupvm.GetStudentProfile()
-                
-                //                if Helper.shared.getSelectedUserType() == .Parent{
-                //                    studentsignupvm.GetStudentProfile()
-                //                }
+
                 studentsignupvm.image = nil
                 lookupsvm.getGendersArr()
                 lookupsvm.GetEducationTypes()

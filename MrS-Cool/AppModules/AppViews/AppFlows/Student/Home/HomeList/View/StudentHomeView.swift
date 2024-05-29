@@ -27,12 +27,18 @@ struct StudentHomeView: View {
         LazyVStack(spacing:0) {
             ScrollView(showsIndicators:false){
                 
-                    HStack {
-                        Text("Subjects".localized())
+                HStack(alignment:.top){
+                        Text("Subjects For".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
+                        
+                        Text(studenthomevm.StudentSubjectsM?.academicLevelName ?? "")
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                        
+//                        Spacer()
                     }.padding([.top,.horizontal])
+                    .frame(maxWidth:.infinity,alignment: .leading)
                     if studenthomevm.StudentSubjects == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 160)
@@ -59,8 +65,9 @@ struct StudentHomeView: View {
                         Text("Most Viewed Lessons".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
                     }.padding([.top,.horizontal])
+                    .frame(maxWidth:.infinity,alignment: .leading)
+
                     if studenthomevm.StudentMostViewedLessons == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 240)
@@ -86,8 +93,9 @@ struct StudentHomeView: View {
                         Text("Most Booked Lessons".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
                     }.padding([.top,.horizontal])
+                    .frame(maxWidth:.infinity,alignment: .leading)
+
                     if studenthomevm.StudentMostBookedLessons == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 240)
@@ -114,9 +122,9 @@ struct StudentHomeView: View {
                         Text("Most Viewed Subjects".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
                     }.padding([.top,.horizontal])
-                    
+                    .frame(maxWidth:.infinity,alignment: .leading)
+
                     if studenthomevm.StudentMostViewedSubjects == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 280)
@@ -144,9 +152,9 @@ struct StudentHomeView: View {
                         Text("Most Booked Subjects".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
                     }.padding([.top,.horizontal])
-                    
+                    .frame(maxWidth:.infinity,alignment: .leading)
+
                     if studenthomevm.StudentMostBookedsubjects == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 280)
@@ -175,8 +183,9 @@ struct StudentHomeView: View {
                         Text("Most Viewed Teachers".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
                     }.padding([.top,.horizontal])
+                    .frame(maxWidth:.infinity,alignment: .leading)
+
                     if studenthomevm.StudentMostViewedTeachers == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 180)
@@ -203,8 +212,9 @@ struct StudentHomeView: View {
                         Text("Top Rated Teachers".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
-                        Spacer()
                     }.padding([.top,.horizontal])
+                    .frame(maxWidth:.infinity,alignment: .leading)
+
                     if studenthomevm.StudentMostRatedTeachers == []{
                         ProgressView()
                             .frame(width: gr.size.width/2.7, height: 180)
@@ -226,7 +236,6 @@ struct StudentHomeView: View {
                             .padding(.bottom,10)
                         }
                     }
-                    
                 }
                 .frame(height:gr.size.height)
 
@@ -238,7 +247,6 @@ struct StudentHomeView: View {
             }
         .frame(height:gr.size.height)
 //            Spacer()
-            
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {

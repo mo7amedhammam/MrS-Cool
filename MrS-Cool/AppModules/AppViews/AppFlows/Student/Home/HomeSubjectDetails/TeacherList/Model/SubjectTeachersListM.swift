@@ -14,16 +14,17 @@ struct StudentHomeSubjectTeachersListM: Codable {
 }
 
 // MARK: - Item -
-struct SubjectTeacherM: Codable,Hashable {
+struct SubjectTeacherM: Codable,Identifiable,Hashable {
+    var id: Int?
     var getSubjectOrLessonDto: GetSubjectOrLessonDto?
-    var teacherID, teacherLessonID, teacherSubjectID: Int?
+    var teacherLessonID, teacherSubjectID: Int?
     var teacherImage, teacherName, teacherBIO, teacherBrief: String?
     var teacherRate,price: Float?
     var teacherReview, duration : Int?
     var academicSemesterName, academicEducationLevelName : String?
     enum CodingKeys: String, CodingKey {
+        case id = "teacherId"
         case getSubjectOrLessonDto
-        case teacherID = "teacherId"
         case teacherLessonID = "teacherLessonId"
         case teacherSubjectID = "teacherSubjectId"
         case teacherImage, teacherName, teacherBIO, teacherBrief, teacherRate, teacherReview, duration, price

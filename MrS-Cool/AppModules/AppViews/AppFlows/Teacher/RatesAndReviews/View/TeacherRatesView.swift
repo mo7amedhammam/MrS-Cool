@@ -57,7 +57,7 @@ struct TeacherRatesView: View {
 //                        LazyVStack{
                                              
 //                    List{
-                        List(ratesvm.RatesArr ?? [], id:\.id){rate in
+                        List(ratesvm.RatesArr ?? [], id:\.self){rate in
                             RateCellView(rate: rate)
                                 .onAppear {
                                     guard rate == ratesvm.RatesArr?.last else {return}

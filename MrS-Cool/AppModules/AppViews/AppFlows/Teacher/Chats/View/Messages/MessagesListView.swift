@@ -212,9 +212,6 @@ struct MessagesListView: View {
         .environmentObject(ChatListVM())
 }
 
-
-
-
 import UIKit
 
 fileprivate struct UITextViewWrapper: UIViewRepresentable {
@@ -226,29 +223,28 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
     var onDone: (() -> Void)?
 
     func makeUIView(context: UIViewRepresentableContext<UITextViewWrapper>) -> UITextView {
-        let textField = UITextView()
-        textField.delegate = context.coordinator
+        let textView = UITextView()
+        textView.delegate = context.coordinator
 
-        textField.isEditable = true
-        textField.font = UIFont.preferredFont(forTextStyle: .body)
-        textField.isSelectable = true
-        textField.isUserInteractionEnabled = true
-        textField.isScrollEnabled = true
-        textField.backgroundColor = UIColor.clear
+        textView.isEditable = true
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.isSelectable = true
+        textView.isUserInteractionEnabled = true
+        textView.isScrollEnabled = true
+        textView.autocorrectionType = .no
+        textView.autocapitalizationType = .none
+        textView.backgroundColor = UIColor.clear
         if nil != onDone {
-            textField.returnKeyType = .done
+            textView.returnKeyType = .done
         }
 
-        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        return textField
+        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        return textView
     }
 
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<UITextViewWrapper>) {
         if uiView.text != self.text {
             uiView.text = self.text
-        }
-        if uiView.window != nil, !uiView.isFirstResponder {
-            uiView.becomeFirstResponder()
         }
         UITextViewWrapper.recalculateHeight(view: uiView, result: $calculatedHeight, maxHeight: maxHeight)
     }
@@ -258,7 +254,7 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
         let newHeight = min(newSize.height, maxHeight)
         if result.wrappedValue != newHeight {
             DispatchQueue.main.async {
-                result.wrappedValue = newHeight // !! must be called asynchronously
+                result.wrappedValue = newHeight // Must be called asynchronously
             }
         }
     }
@@ -301,9 +297,9 @@ struct MultilineTextField: View {
 
     @Binding private var text: String
     private var internalText: Binding<String> {
-        Binding<String>(get: { self.text } ) {
-            self.text = $0
-            self.showingPlaceholder = $0.isEmpty
+        Binding<String>(get: { self.text } ) { newValue in
+            self.text = newValue
+            self.updatePlaceholderVisibility()
         }
     }
 
@@ -315,14 +311,17 @@ struct MultilineTextField: View {
         self.placeholder = placeholder
         self.onCommit = onCommit
         self._text = text
-        self._showingPlaceholder = State<Bool>(initialValue: self.text.isEmpty)
         self.maxHeight = maxHeight
+        self._showingPlaceholder = State(initialValue: text.wrappedValue.isEmpty)
     }
 
     var body: some View {
         UITextViewWrapper(text: self.internalText, calculatedHeight: $dynamicHeight, maxHeight: maxHeight, onDone: onCommit)
             .frame(minHeight: dynamicHeight, maxHeight: dynamicHeight)
             .background(placeholderView, alignment: .topLeading)
+            .onAppear {
+                self.updatePlaceholderVisibility()
+            }
     }
 
     var placeholderView: some View {
@@ -335,4 +334,9 @@ struct MultilineTextField: View {
             }
         }
     }
+
+    private func updatePlaceholderVisibility() {
+        self.showingPlaceholder = self.text.isEmpty
+    }
 }
+

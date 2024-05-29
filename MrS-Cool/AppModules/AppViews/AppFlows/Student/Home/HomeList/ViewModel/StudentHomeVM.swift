@@ -29,11 +29,8 @@ class StudentHomeVM: ObservableObject {
                 academicYear = nil
         }
     }
-    @Published var academicYear : DropDownOption?{
-        didSet{
-                term = nil
-        }
-    }
+    @Published var academicYear : DropDownOption?
+    
     @Published var term : DropDownOption?
     
     
@@ -45,6 +42,12 @@ class StudentHomeVM: ObservableObject {
     
     //    @Published var isTeacherHasSubjects: Bool = false
     //    @Published var letsPreview : Bool = false
+    
+    @Published var StudentSubjectsM: StudentSubjectsM?{
+        didSet{
+            StudentSubjects = StudentSubjectsM?.subjects
+        }
+    }
     
     @Published var StudentSubjects : [HomeSubject]? = []
 //    [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2"),StudentSubjectsM.init(id: 3, name: "arabic2", image: "tab2")]
@@ -105,7 +108,7 @@ extension StudentHomeVM{
                     print("receivedData",receivedData)
                     if receivedData.success == true {
                         //                    TeacherSubjects?.append(model)
-                        StudentSubjects = receivedData.data?.subjects
+                        StudentSubjectsM = receivedData.data
                     }else{
                         //                    isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -123,7 +126,7 @@ extension StudentHomeVM{
                 parameters["academicEducationLevelId"] = educationLevelid
             }
             if let termid = term?.id{
-                parameters["semesterId"] = term?.id ?? 0
+                parameters["semesterId"] = termid
             }
             
             let target = StudentServices.GetStudentSubjects(parameters: parameters)

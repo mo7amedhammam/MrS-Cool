@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditParentProfileView: View {
-//    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @StateObject var lookupsvm = LookUpsVM()
     @EnvironmentObject var parentprofilevm : ParentProfileVM
     
@@ -74,27 +74,27 @@ struct EditParentProfileView: View {
                             
                             // -- inputs --
                             Group {
-                                CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $parentprofilevm.name,textContentType:.name)
+                                CustomTextField(iconName:"img_group51",placeholder: "Parent Name *", text: $parentprofilevm.name,textContentType:.name,isvalid: parentprofilevm.isnamevalid)
                                 
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $parentprofilevm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $parentprofilevm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,Disabled:true,isdimmed: true)
                                 
                                 CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $parentprofilevm.selectedGender,options:lookupsvm.GendersList)
                                 
-                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $parentprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress)
+                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $parentprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid: parentprofilevm.isemailvalid)
                                 
                                 CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$parentprofilevm.birthDateStr)
                                 
-                                CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $parentprofilevm.country,options:lookupsvm.CountriesList)
+                                CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $parentprofilevm.country,options:lookupsvm.CountriesList,isvalid: parentprofilevm.iscountryvalid)
                                     .onChange(of: parentprofilevm.country, perform: { val in
                                         lookupsvm.SelectedCountry = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $parentprofilevm.governorte,options:lookupsvm.GovernoratesList)
+                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $parentprofilevm.governorte,options:lookupsvm.GovernoratesList,isvalid: parentprofilevm.isgovernortevalid)
                                     .onChange(of: parentprofilevm.governorte, perform: { val in
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $parentprofilevm.city,options:lookupsvm.CitiesList)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $parentprofilevm.city,options:lookupsvm.CitiesList,isvalid: parentprofilevm.iscityvalid)
                             }
                             .padding([.top])
                         }
@@ -116,11 +116,31 @@ struct EditParentProfileView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
+//        .onAppear(perform: {
+//                lookupsvm.getGendersArr()
+//                lookupsvm.GetEducationTypes()
+//                lookupsvm.getCountriesArr()
+//        })
         .onAppear(perform: {
+            Task(priority: .background, operation: {
+                // if parent is editing student profile
+                parentprofilevm.GetParentProfile()
+
+                parentprofilevm.image = nil
                 lookupsvm.getGendersArr()
-                lookupsvm.GetEducationTypes()
                 lookupsvm.getCountriesArr()
+                
+                lookupsvm.SelectedCountry = parentprofilevm.country
+                lookupsvm.SelectedGovernorate = parentprofilevm.governorte
+                
+            })
         })
+        .onChange(of: parentprofilevm.isDataUpdated, perform: { value in
+            if value == true{
+                dismiss()
+            }
+        })
+        
         
         .showHud(isShowing: $parentprofilevm.isLoading)
         .showAlert(hasAlert: $parentprofilevm.isError, alertType: parentprofilevm.error)

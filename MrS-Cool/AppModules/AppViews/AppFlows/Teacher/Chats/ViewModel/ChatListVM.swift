@@ -169,8 +169,15 @@
         }
         func CreateChatComment(){
     //        isLoading = false
-            guard comment != "" else {return}
-            var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":comment ]
+            // Trim leading and trailing spaces
+            let trimmedComment = comment.trimmingCharacters(in: .whitespacesAndNewlines)
+            // Check if the trimmed comment is empty
+               guard !trimmedComment.isEmpty,comment != "" else {
+                   print("Comment is empty or only contains spaces")
+                   return
+               }
+            
+            var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":trimmedComment ]
             print("parameters",parameters)
             if Helper.shared.getSelectedUserType() == .Parent {
                 parameters["studentId"] = Helper.shared.selectedchild?.id

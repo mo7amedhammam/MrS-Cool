@@ -20,7 +20,7 @@ struct OTPVerificationView: View {
     @State var secondsCount : Int? = 110
     @Binding var isVerified: Bool
     @Binding var sussessStep : successSteps
-    
+
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "Phone Verification")

@@ -10,12 +10,7 @@ import Foundation
 //import Foundation
 
 // MARK: - TeacherRateM -
-struct TeacherRateM: Codable, Hashable {
-//    var id = UUID()
-    
-//    static func == (lhs: TeacherRateM, rhs: TeacherRateM) -> Bool {
-//        return lhs.items == rhs.items
-//    }
+struct TeacherRateM: Codable {
     var items: [RateItem]?
     var totalCount: Int?
     enum CodingKeys: String, CodingKey {
@@ -25,9 +20,7 @@ struct TeacherRateM: Codable, Hashable {
 }
 
 // MARK: - Item
-struct RateItem: Codable,Identifiable , Hashable{
-    var id = UUID()
-    
+struct RateItem: Codable , Hashable{
     static func == (lhs: RateItem, rhs: RateItem) -> Bool {
         return lhs.creationDate == rhs.creationDate && lhs.teacherLessonComment == rhs.teacherLessonComment
     }

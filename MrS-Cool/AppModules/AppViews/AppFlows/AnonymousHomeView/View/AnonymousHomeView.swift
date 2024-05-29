@@ -69,7 +69,6 @@ struct AnonymousHomeView: View {
                                     Spacer()
                                 }
                                 
-                                
                                 CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studenthomevm.educationType,options:lookupsvm.EducationTypesList)
                                 
                                 CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studenthomevm.educationLevel,options:lookupsvm.EducationLevelsList)
@@ -78,7 +77,7 @@ struct AnonymousHomeView: View {
                                 
                                 CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
-                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant(studenthomevm.term == nil || studenthomevm.academicYear == nil) , action: {
+                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant(studenthomevm.term != nil || studenthomevm.academicYear != nil) , action: {
                                     withAnimation{
                                         isSearch = true
                                     }
@@ -89,7 +88,6 @@ struct AnonymousHomeView: View {
                             .padding()
                             .borderRadius(Color.mainBlue, width: 1, cornerRadius: 8, corners: [.allCorners])
                             .padding(.horizontal)
-
                         }
                         
                         if isSearch {

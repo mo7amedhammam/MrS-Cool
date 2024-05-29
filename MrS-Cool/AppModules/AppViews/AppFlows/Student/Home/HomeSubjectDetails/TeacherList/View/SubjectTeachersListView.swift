@@ -104,7 +104,7 @@ struct SubjectTeachersListView: View {
                             if let items = teachers.items{
 //                            ScrollView(.vertical,showsIndicators: false){
 //                                Spacer().frame(height:20)
-                                List(items,id:\.self){teacher in
+                                List(items,id:\.id){teacher in
                                     Button(action: {
                                         switch bookingcase {
                                         case .subject:
@@ -171,9 +171,6 @@ struct SubjectTeachersListView: View {
         .onDisappear {
             homesubjectteachersvm.cleanup()
         }
-                .showHud(isShowing: $homesubjectteachersvm.isLoading)
-                .showAlert(hasAlert: $homesubjectteachersvm.isError, alertType: homesubjectteachersvm.error)
-        
         .overlay{
             if showFilter{
                 // Blurred Background and Sheet
@@ -513,7 +510,9 @@ struct SubjectTeachersListView: View {
                 }
             }
         }
-        
+        .showHud(isShowing: $homesubjectteachersvm.isLoading)
+        .showAlert(hasAlert: $homesubjectteachersvm.isError, alertType: homesubjectteachersvm.error)
+
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
@@ -527,7 +526,7 @@ struct SubjectTeachersListView: View {
 
 
 struct TeacherCellView : View {
-    var teacher : SubjectTeacherM = SubjectTeacherM.init()
+    var teacher : SubjectTeacherM
     var body: some View {
         HStack {
 //            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
@@ -550,6 +549,7 @@ struct TeacherCellView : View {
                     Spacer()
                     HStack{
                         StarsView(rating: teacher.teacherRate ?? 0.0)
+//                        RatingsView(value: Double(teacher.teacherRate ?? 0.0))
                         if let ratescount = teacher.teacherReview, ratescount > 0{
                             Text(" \(ratescount)")
                                 .foregroundColor(ColorConstants.Bluegray30066)
@@ -605,3 +605,5 @@ struct TeacherCellView : View {
 //        .padding(.horizontal,20)
     }
 }
+
+
