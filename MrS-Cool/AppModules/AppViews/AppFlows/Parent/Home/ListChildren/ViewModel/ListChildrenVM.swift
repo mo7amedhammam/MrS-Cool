@@ -66,6 +66,40 @@ extension ListChildrenVM{
             .store(in: &cancellables)
     }
     
+    func DeleteStudent(id:Int){
+                let parameters:[String:Any] = ["id":id]
+        //        print("parameters",parameters)
+        
+        let target = ParentServices.DeleteChild(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<[ChildrenM]>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+//                    Children = receivedData.data
+                    GetMyChildren()
+//                    isError = false
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
     func cleanup() {
         // Cancel any ongoing Combine subscriptions
         cancellables.forEach { cancellable in

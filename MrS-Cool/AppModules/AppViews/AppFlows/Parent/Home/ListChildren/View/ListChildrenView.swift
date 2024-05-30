@@ -17,32 +17,38 @@ struct ListChildrenView: View {
             ScrollView {
                 LazyVGrid(columns: [.init(), .init(),.init()]) {
                     ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
-                        ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild){
-//                            print(id)
-//                            listchildrenvm.selectedChild = children
-//                            Helper.shared.selectedchild = children
+                        ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild, deleteAction: {
+                            
+                            listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to delete this child account ?", buttonTitle: "Delete", secondButtonTitle: "Not Now",isVertical:false, mainBtnAction: {
+                                listchildrenvm.DeleteStudent(id: children.id ?? 0)
+                            }, secondBtnAction: {
+//                                listchildrenvm.isError = false
+                            })
+                            listchildrenvm.isError = true
 
+                        }, detailsaction: {
+                            //                            print(id)
+                            listchildrenvm.selectedChild = children
+                            Helper.shared.selectedchild = children
+                            
                             tabbarvm.destination = AnyView(
                                 SelectedStudentHome().environmentObject(listchildrenvm)
                             )
                             tabbarvm.ispush = true
-                        }
+                        })
                     }
                     
                     Button(action: {
-                        tabbarvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
+                        listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
                             tabbarvm.destination = AnyView(
                                 AddNewStudentView()
                             )
                             tabbarvm.ispush = true
                         }, secondBtnAction: {
-                            tabbarvm.destination = AnyView( AddExistingStudentPhone()
-                            )
+                            tabbarvm.destination = AnyView( AddExistingStudentPhone())
                             tabbarvm.ispush = true
-                            
                         })
-                        tabbarvm.isError = true
-                        
+                        listchildrenvm.isError = true
                         
                     }, label: {
                         VStack (spacing:0){
@@ -88,15 +94,22 @@ struct ListChildrenView: View {
             }
          Spacer()
         }
-        .onAppear(perform: {
-            listchildrenvm.GetMyChildren()
-        })
         .padding()
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
         })
-            .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
+        .onAppear(perform: {
+            listchildrenvm.GetMyChildren()
+        })
+//        .onChange(of: listchildrenvm.isError, perform: { value in
+//            tabbarvm.error = listchildrenvm.error
+//            tabbarvm.isError = value
+//        })
+        .showHud(isShowing: $listchildrenvm.isLoading)
+        .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
+
+       
         
     }
 }
@@ -110,7 +123,7 @@ struct ListChildrenView: View {
 struct ChildrenCell: View {
     var children:ChildrenM
     @Binding var selectedChild:ChildrenM?
-
+    var deleteAction:(() -> Void)?
     var detailsaction: (() -> Void)?
 
     var body: some View {
@@ -124,6 +137,9 @@ struct ChildrenCell: View {
                         Color.white.clipShape(Circle())
                     }
                     .padding(5)
+                    .onTapGesture {
+                        deleteAction?()
+                    }
                 
                 Spacer()
             }
@@ -134,17 +150,17 @@ struct ChildrenCell: View {
                 .frame(width: 50, height: 50, alignment: .center)
                 .padding(.top, -27.0)
             
-            Text(children.name ?? "name")
+            Text(children.name ?? "")
                 .font(Font.SoraSemiBold(size: 10))
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : ColorConstants.Red400)
                 .multilineTextAlignment(.center)
             
-            Text(children.academicYearEducationLevelName ?? "egyption education")
+            Text(children.academicYearEducationLevelName ?? "")
                 .font(Font.SoraSemiBold(size: 7))
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : ColorConstants.Red400)
                 .multilineTextAlignment(.center)
             
-            Text(children.code ?? "ss-1234")
+            Text(children.code ?? "")
                 .font(Font.SoraSemiBold(size: 10))
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : .studentBtnBg)
                 .multilineTextAlignment(.center)

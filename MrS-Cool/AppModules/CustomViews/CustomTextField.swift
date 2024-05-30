@@ -465,10 +465,14 @@ struct CustomDatePickerField: View {
     
     @State private var selectedDate: Date = Date()
     @Binding var selectedDateStr: String?
+    // Optional start and end dates
+    var startDate: Date? = nil
+    var endDate: Date? = nil
 
     @State private var isCalenderVisible = false
     var datePickerComponent:DatePickerComponents = .date
     var isvalid : Bool? = true
+    
 
     var body: some View {
         VStack(alignment:.leading,spacing:-15){
@@ -516,7 +520,8 @@ struct CustomDatePickerField: View {
             })
             
             if isCalenderVisible {
-                DatePicker("birthDate", selection: $selectedDate ,displayedComponents: datePickerComponent)
+//                DatePicker("birthDate", selection: $selectedDate ,displayedComponents: datePickerComponent)
+                DatePicker("birthDate", selection: $selectedDate, in: (startDate ?? Date.distantPast)...(endDate ?? Date.distantFuture), displayedComponents: datePickerComponent)
                     .padding(.horizontal)
                     .tint(ColorConstants.MainColor)
                     .labelsHidden()
@@ -571,8 +576,8 @@ extension Date{
     func formatDate(format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-//        dateFormatter.timeZone = .current
-        dateFormatter.timeZone = TimeZone(identifier: "GMT")
+        dateFormatter.timeZone = .current
+//        dateFormatter.timeZone = TimeZone(identifier: "GMT")
 
         return dateFormatter.string(from: self)
     }

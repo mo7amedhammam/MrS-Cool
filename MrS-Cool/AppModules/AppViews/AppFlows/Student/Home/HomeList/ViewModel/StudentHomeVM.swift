@@ -76,7 +76,11 @@ class StudentHomeVM: ObservableObject {
     @Published var StudentMostRatedTeachers : [StudentMostViewedTeachersM] = []
     //    [StudentMostViewedTeachersM.init(id: 0, teacherName: "teacher name", teacherImage: "image", teacherLessonId: 2, teacherSubjectId: 3, duration: 120, teacherReview: 8, price: 220, teacherRate: 3.5)]
     @Published var SelectedStudentMostRatedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
-    
+
+    @Published var StudentMostBookedTeachers : [StudentMostViewedTeachersM] = []
+    //    [StudentMostViewedTeachersM.init(id: 0, teacherName: "teacher name", teacherImage: "image", teacherLessonId: 2, teacherSubjectId: 3, duration: 120, teacherReview: 8, price: 220, teacherRate: 3.5)]
+    @Published var SelectedStudentMostBookedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
+
     init()  {
 
         getHomeData()
@@ -89,6 +93,10 @@ extension StudentHomeVM{
         var parameters:[String:Any] = [:]
         print("parameters",parameters) // id
         if Helper.shared.CheckIfLoggedIn() == true{
+            
+            if Helper.shared.getSelectedUserType() == .Parent{
+                parameters["id"] = Helper.shared.selectedchild?.id ?? 0
+            }
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true
             BaseNetwork.CallApi(target, BaseResponse<StudentSubjectsM>.self)
@@ -277,6 +285,42 @@ extension StudentHomeVM{
             })
             .store(in: &cancellables)
     }
+    func GetStudentMostBookedTeachers(){
+        var parameters:[String:Any] = [:]
+        if let educationLevelid = educationLevel?.id {
+            parameters["academicEducationLevelId"] = educationLevelid
+        }
+        print("parameters",parameters)
+        let target = StudentServices.GetMostBookedTeachers(parameters: parameters)
+        //        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedTeachersM]>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                //                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    //                    TeacherSubjects?.append(model)
+                        StudentMostBookedTeachers = receivedData.data ?? []
+                    
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                //                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
     
     func getHomeData(){
     DispatchQueue.global(qos: .background).async {[weak self] in
@@ -293,6 +337,8 @@ extension StudentHomeVM{
         
         GetStudentTeachers(mostType: .mostviewed)
         GetStudentTeachers(mostType: .topRated)
+        GetStudentMostBookedTeachers()
+
     }
 }
     
@@ -304,6 +350,8 @@ extension StudentHomeVM{
         SelectedStudentMostBookedSubject = StudentMostViewedSubjectsM()
         SelectedStudentMostViewedTeachers = StudentMostViewedTeachersM()
         SelectedStudentMostRatedTeachers = StudentMostViewedTeachersM()
+        SelectedStudentMostBookedTeachers = StudentMostViewedTeachersM()
+
     }
     func clearsearch(){
         educationType = nil

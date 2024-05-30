@@ -149,6 +149,7 @@ enum EndPoints: String {
     
     case MostViewedTeacher = "Teacher/MostViewedTeacher"
     case MostRatedTeacher = "Teacher/MostRatedTeacher"
+    case MostBookedTeacher = "SubjectOrLessonTeachers/GetTeachersMostBooked"
     case GetTeacherProfileView = "Teacher/TeacherProfileView"
     
     case GetHomeSubjectDetails = "SubjectSemesterYear/GetSubjectLessons"
@@ -194,7 +195,8 @@ enum ParentEndPoints:String{
     // MARK: -- parent --
     case GetMyChildren = "Parent/GetMyChildren"
     case CreateStudentByParent = "Student/CreateByParent"
-    
+    case DeleteStudentByParent = "Student/Delete"
+
     case GetParentProfile = "Parent/Profile"
     case UpdateParentProfile = "Parent/UpdateProfile"
 

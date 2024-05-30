@@ -10,7 +10,7 @@ import Foundation
 //import Foundation
 
 // MARK: - TeacherRateM -
-struct TeacherRateM: Codable {
+struct TeacherRateM: Codable,Hashable {
     var items: [RateItem]?
     var totalCount: Int?
     enum CodingKeys: String, CodingKey {

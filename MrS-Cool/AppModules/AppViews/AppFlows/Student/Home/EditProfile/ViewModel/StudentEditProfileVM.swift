@@ -237,6 +237,7 @@ extension StudentEditProfileVM{
         
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
             isFillingData = false
+            isDataUpdated = false
         })
 
     }

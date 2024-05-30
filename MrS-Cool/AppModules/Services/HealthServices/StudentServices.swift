@@ -13,6 +13,7 @@ enum StudentServices{
     case GetMostLessons(mostType:studentLessonMostCases,parameters : [String:Any])
     case GetMostSubjects(mostType:studentLessonMostCases,parameters : [String:Any])
     case GetMostTeachers(mostType:studentTeacherMostCases,parameters : [String:Any])
+    case GetMostBookedTeachers(parameters : [String:Any])
     case GetTeacherProfileView(parameters : [String:Any])
     
     case GetHomeSubjectDetails(parameters : [String:Any])
@@ -62,10 +63,12 @@ extension StudentServices:TargetType{
             switch mostType {
             case .mostviewed:
                 return EndPoints.MostViewedTeacher.rawValue
-
             case .topRated:
                 return EndPoints.MostRatedTeacher.rawValue
             }
+        case .GetMostBookedTeachers:
+            return EndPoints.MostBookedTeacher.rawValue
+
         case .GetHomeSubjectDetails:
             return EndPoints.GetHomeSubjectDetails.rawValue
         case .GetSubjectOrLessonTeachers:
@@ -116,10 +119,12 @@ extension StudentServices:TargetType{
             return .get
             
         case  .GetSubjectOrLessonTeachers,
+                .GetMostBookedTeachers,
                 .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,
                 .GetStudentCompletedLessons,
                 .UpdateStudentProfile:
             return .post
+            
         }
     }
     
@@ -141,6 +146,7 @@ extension StudentServices:TargetType{
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),
+                .GetMostBookedTeachers(parameters: let Parameters),
                 .GetCheckOutBookTeacherSession(parameters: let Parameters),
                 .CreateOutBookTeacherSession(parameters: let Parameters),
                 .GetStudentCompletedLessons(parameters: let Parameters),

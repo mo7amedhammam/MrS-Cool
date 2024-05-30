@@ -20,7 +20,7 @@ struct AnonymousHomeView: View {
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     @State var selectedDestination : AnonymousDestinations?
-
+    
     //    @State var searchText = ""
     @State var presentSideMenu = false
     
@@ -108,9 +108,9 @@ struct AnonymousHomeView: View {
                                             }
                                         }
                                         .padding()
-//                                    Text("Showing Results For".localized())
-//                                        .font(Font.SoraBold(size: 18))
-//                                        .foregroundColor(.mainBlue)
+                                    //                                    Text("Showing Results For".localized())
+                                    //                                        .font(Font.SoraBold(size: 18))
+                                    //                                        .foregroundColor(.mainBlue)
                                     
                                     SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
                                         ZStack{
@@ -124,7 +124,7 @@ struct AnonymousHomeView: View {
                                     
                                     Spacer()
                                 }
-//                                .padding([.top,.horizontal])
+                                //                                .padding([.top,.horizontal])
                                 //                        }
                                 if studenthomevm.StudentSubjects == []{
                                     ProgressView()
@@ -149,12 +149,12 @@ struct AnonymousHomeView: View {
                             .transition(.move(edge: isSearch ? .trailing : .leading))
                         }
                         
-                        HStack {
-                            Text("Most Viewed Lessons".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
+                        Text("Most Viewed Lessons".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
+                        
                         if studenthomevm.StudentMostViewedLessons == []{
                             ProgressView()
                                 .frame(width: gr.size.width/2.7, height: 240)
@@ -164,6 +164,7 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
                                         StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
+                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             isPush = true
                                             
@@ -176,12 +177,12 @@ struct AnonymousHomeView: View {
                                 .padding(.bottom,10)
                             }
                         }
-                        HStack {
-                            Text("Most Booked Lessons".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
+                        
+                        Text("Most Booked Lessons".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostBookedLessons == []{
                             ProgressView()
                                 .frame(width: gr.size.width/2.7, height: 240)
@@ -191,6 +192,7 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                         StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
+                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             isPush = true
                                             
@@ -204,12 +206,12 @@ struct AnonymousHomeView: View {
                                 .padding(.bottom,10)
                             }
                         }
-                        HStack {
-                            Text("Most Viewed Subjects".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
+                        
+                        Text("Most Viewed Subjects".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostViewedSubjects == []{
                             ProgressView()
@@ -221,6 +223,7 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
+                                            guard subject.teacherCount ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
                                             
@@ -234,12 +237,12 @@ struct AnonymousHomeView: View {
                                 .padding(.bottom,10)
                             }
                         }
-                        HStack {
-                            Text("Most Booked Subjects".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
+                        
+                        Text("Most Booked Subjects".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostBookedsubjects == []{
                             ProgressView()
@@ -251,9 +254,9 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
+                                            guard subject.teacherCount ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
-                                            
                                         }
                                         .frame(width: gr.size.width/2.5, height: 280)
                                     }
@@ -265,12 +268,11 @@ struct AnonymousHomeView: View {
                             }
                         }
                         
-                        HStack {
-                            Text("Most Viewed Teachers".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
+                        Text("Most Viewed Teachers".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostViewedTeachers == []{
                             ProgressView()
                                 .frame(width: gr.size.width/2.7, height: 180)
@@ -281,26 +283,53 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
-                                            destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
                                             isPush = true
                                             
                                         }
                                         .frame(width: gr.size.width/3.8, height: 180)
                                     }
                                     Spacer().frame(width:1)
-                                    
                                 }
                                 .frame(height: 180)
                                 .padding(.bottom,10)
                             }
                         }
                         
-                        HStack {
-                            Text("Top Rated Teachers".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
+                        Text("Most Booked Teachers".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
+                        
+                        if studenthomevm.StudentMostBookedTeachers == []{
+                            ProgressView()
+                                .frame(width: gr.size.width/2.7, height: 180)
+                        }else{
+                            ScrollView(.horizontal,showsIndicators:false){
+                                LazyHStack(spacing:10){
+                                    Spacer().frame(width:1)
+                                    
+                                    ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
+                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostBookedTeachers){
+                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            isPush = true
+                                        }
+                                        .frame(width: gr.size.width/3.8, height: 180)
+                                    }
+                                    Spacer().frame(width:1)
+                                }
+                                .frame(height: 180)
+                                .padding(.bottom,10)
+                            }
+                        }
+                        
+                        
+                        Text("Top Rated Teachers".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostRatedTeachers == []{
                             ProgressView()
                                 .frame(width: gr.size.width/2.7, height: 180)
@@ -329,7 +358,7 @@ struct AnonymousHomeView: View {
                     .onAppear {
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
-//                        studenthomevm.clearselections()
+                        //                        studenthomevm.clearselections()
                         studenthomevm.getHomeData()
                         studenthomevm.GetStudentSubjects()
                     }
@@ -345,31 +374,31 @@ struct AnonymousHomeView: View {
                     
                     .onChange(of: selectedDestination) {newval in
                         if newval == .login { // sign in
-//                            destination =                           AnyView(SignInView())
-//                                isPush = true
+                            //                            destination =                           AnyView(SignInView())
+                            //                                isPush = true
                             
                             Helper.shared.changeRoot(toView: SignInView())
-//                            let window = UIApplication
-//                                        .shared
-//                                        .connectedScenes
-//                                        .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-//                                        .first { $0.isKeyWindow }
-
-//                                    window?.rootViewController = UIHostingController(rootView: SignInView())
-//                                    window?.makeKeyAndVisible()
+                            //                            let window = UIApplication
+                            //                                        .shared
+                            //                                        .connectedScenes
+                            //                                        .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+                            //                                        .first { $0.isKeyWindow }
                             
-//                            if let window = window {
-//                                let signInView = SignInView()
-//                                let signInHostingController = UIHostingController(rootView: signInView)
-//                                let navigationController = UINavigationController(rootViewController: signInHostingController)
-//                                
-//                                // Disable swipe back gesture
-//                                navigationController.interactivePopGestureRecognizer?.isEnabled = false
-//                                
-//                                window.rootViewController = navigationController
-//                                window.makeKeyAndVisible()
-//                            }
-
+                            //                                    window?.rootViewController = UIHostingController(rootView: SignInView())
+                            //                                    window?.makeKeyAndVisible()
+                            
+                            //                            if let window = window {
+                            //                                let signInView = SignInView()
+                            //                                let signInHostingController = UIHostingController(rootView: signInView)
+                            //                                let navigationController = UINavigationController(rootViewController: signInHostingController)
+                            //                                
+                            //                                // Disable swipe back gesture
+                            //                                navigationController.interactivePopGestureRecognizer?.isEnabled = false
+                            //                                
+                            //                                window.rootViewController = navigationController
+                            //                                window.makeKeyAndVisible()
+                            //                            }
+                            
                         }
                     }
                 }
@@ -391,9 +420,9 @@ struct AnonymousHomeView: View {
     @ViewBuilder
     private func SideMenuView() -> some View {
         SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination)), direction: .leading)
-        .onDisappear(perform: {
-        selectedDestination = nil
-    })
+            .onDisappear(perform: {
+                selectedDestination = nil
+            })
     }
     
 }
@@ -405,99 +434,99 @@ struct AnonymousHomeView: View {
 
 
 struct AnonymousSideMenuContent: View {
-//    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
-
+    //    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
+    
     @Binding var presentSideMenu: Bool
     @Binding var selectedDestination: AnonymousDestinations?
-//    @Binding var isPush: Bool
-
+    //    @Binding var isPush: Bool
+    
     var body: some View {
         ScrollView{
             VStack(alignment: .trailing, spacing: 10) {
                 HStack(spacing:20){
-//                    ZStack(alignment: .topLeading){
-//                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
-//                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-//                            .aspectRatio(contentMode: .fill)
-//                            .frame(width: 60,height: 60)
-//                            .clipShape(Circle())
-//
-//                        
-//                        Image("Edit_fill")
-//                        //                        .resizable().aspectRatio(contentMode: .fit)
-//                        //                        .font(.InterMedium(size: 12))
-//                            .frame(width: 15,height: 15)
-//                            .background(.white)
-//                            .clipShape(Circle())
-//                            .offset(x:0,y:2)
-//                        
-//                    }
+                    //                    ZStack(alignment: .topLeading){
+                    //                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
+                    //                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                    //                            .aspectRatio(contentMode: .fill)
+                    //                            .frame(width: 60,height: 60)
+                    //                            .clipShape(Circle())
+                    //
+                    //                        
+                    //                        Image("Edit_fill")
+                    //                        //                        .resizable().aspectRatio(contentMode: .fit)
+                    //                        //                        .font(.InterMedium(size: 12))
+                    //                            .frame(width: 15,height: 15)
+                    //                            .background(.white)
+                    //                            .clipShape(Circle())
+                    //                            .offset(x:0,y:2)
+                    //                        
+                    //                    }
                     VStack(alignment:.leading) {
                         Text("Anonymous".localized())
                             .font(.SoraBold(size: 18))
                             .foregroundStyle(.whiteA700)
                         
-//                        Text("Edit your profile")
-//                            .font(.SoraRegular(size: 12))
-//                            .foregroundStyle(.whiteA700)
+                        //                        Text("Edit your profile")
+                        //                            .font(.SoraRegular(size: 12))
+                        //                            .foregroundStyle(.whiteA700)
                     }
                     
                     Spacer()
-                    }
+                }
                 .padding()
-//                .onTapGesture {
-//                    selectedDestination = .login
-//                    presentSideMenu =  false
-////                    isPush = true
-//
-//                }
-//                SideMenuSectionTitle(title: "Academic")
+                //                .onTapGesture {
+                //                    selectedDestination = .login
+                //                    presentSideMenu =  false
+                ////                    isPush = true
+                //
+                //                }
+                //                SideMenuSectionTitle(title: "Academic")
                 
-//                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
-//                    selectedDestination = .calendar // calendar
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
-
-//                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-//                    selectedDestination = .rates // rates
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
+                //                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
+                //                    selectedDestination = .calendar // calendar
+                //                    presentSideMenu =  false
+                //                    isPush = true
+                //                }
+                
+                //                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+                //                    selectedDestination = .rates // rates
+                //                    presentSideMenu =  false
+                //                    isPush = true
+                //                }
                 
                 SideMenuSectionTitle(title: "Settings")
-
-//                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-//                    selectedDestination = .changePassword // cahnage Password
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
-
-//                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
-//                    selectedDestination = .tickets // Tickets
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
-
+                
+                //                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                //                    selectedDestination = .changePassword // cahnage Password
+                //                    presentSideMenu =  false
+                //                    isPush = true
+                //                }
+                
+                //                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
+                //                    selectedDestination = .tickets // Tickets
+                //                    presentSideMenu =  false
+                //                    isPush = true
+                //                }
+                
                 SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
                     selectedDestination = .login // sign out
                     presentSideMenu =  false
-//                    isPush = true
+                    //                    isPush = true
                 }
                 
-//                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
-//                    selectedDestination = .deleteAccount // delete account
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
-
+                //                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
+                //                    selectedDestination = .deleteAccount // delete account
+                //                    presentSideMenu =  false
+                //                    isPush = true
+                //                }
+                
                 Spacer()
             }
         }
-            .frame(width: UIScreen.main.bounds.width - 80)
-            .padding(.top, 55)
-            .background{
-                Color.mainBlue
+        .frame(width: UIScreen.main.bounds.width - 80)
+        .padding(.top, 55)
+        .background{
+            Color.mainBlue
         }
     }
     

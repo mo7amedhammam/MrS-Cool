@@ -158,6 +158,9 @@ struct CustomAlertView: View {
             // faded background
             Color.black.opacity(0.75)
                 .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    presentAlert.toggle()
+                }
             
             VStack(spacing: 0) {
                 

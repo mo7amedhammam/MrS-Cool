@@ -39,7 +39,7 @@ struct ManageSubjectGroupView: View {
 
                                         CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName,isvalid:subjectgroupvm.isgroupNamevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.startDate,datePickerComponent:.date,isvalid:subjectgroupvm.isstartDatevalid)
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.startDate,startDate:Date(),datePickerComponent:.date,isvalid:subjectgroupvm.isstartDatevalid)
                                     }
                                     .padding([.top])
                                     
