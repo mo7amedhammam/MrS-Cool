@@ -75,6 +75,9 @@ struct LessonDetailsView: View {
                         VStack{
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
+                            Text(details.SubjectOrLessonDto?.subjectName ?? "")
+                                .font(.SoraSemiBold(size: 16))
+
                         }
                         .foregroundColor(.mainBlue)
                         

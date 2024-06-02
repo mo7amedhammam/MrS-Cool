@@ -28,7 +28,7 @@ struct BookingCheckoutM: Codable {
     var headerName, subjectSemesterName, academicYearName, teacherName: String?
     var lessonOrSubjectBrief, bookType, duration: String?
     var price, currentBalance: Float?
-    var startDate, endDate, fromTime, toTime: String?
+    var startDate, endDate, fromTime, toTime,image : String?
     var paymentAmount, taxAmount, totalPriceWithTax: Float?
     var bookSchedules: [BookSchedule]?
 }

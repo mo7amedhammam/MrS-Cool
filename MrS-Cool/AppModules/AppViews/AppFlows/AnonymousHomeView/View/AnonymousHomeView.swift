@@ -77,8 +77,9 @@ struct AnonymousHomeView: View {
                                 
                                 CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
-                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant(studenthomevm.term != nil || studenthomevm.academicYear != nil) , action: {
+                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant(studenthomevm.term == nil && studenthomevm.academicYear == nil) , action: {
                                     withAnimation{
+                                        studenthomevm.getHomeData()
                                         isSearch = true
                                     }
                                 })
@@ -114,12 +115,14 @@ struct AnonymousHomeView: View {
                                     
                                     SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
                                         ZStack{
-                                            if studenthomevm.term != nil && studenthomevm.academicYear != nil{
+//                                            if studenthomevm.term != nil && studenthomevm.academicYear != nil{
                                                 let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")"
+                                                
                                                 Text(searchselections)
                                                     .font(Font.SoraRegular(size: 10.0))
                                                     .foregroundColor(ColorConstants.Red400)
-                                            }}
+//                                            }
+                                        }
                                     ))
                                     
                                     Spacer()
@@ -253,7 +256,7 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     
                                     ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
-                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
+                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
                                             guard subject.teacherCount ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
@@ -351,7 +354,6 @@ struct AnonymousHomeView: View {
                                 .padding(.bottom,10)
                             }
                         }
-                        
                     }
                     .frame(height:gr.size.height)
                     
@@ -360,7 +362,7 @@ struct AnonymousHomeView: View {
                         lookupsvm.GetSemesters()
                         //                        studenthomevm.clearselections()
                         studenthomevm.getHomeData()
-                        studenthomevm.GetStudentSubjects()
+//                        studenthomevm.GetStudentSubjects()
                     }
                     .onChange(of: studenthomevm.educationType, perform: { value in
                         lookupsvm.SelectedEducationType = value

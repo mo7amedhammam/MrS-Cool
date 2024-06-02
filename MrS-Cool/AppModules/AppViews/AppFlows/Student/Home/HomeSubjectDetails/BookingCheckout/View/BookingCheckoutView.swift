@@ -50,7 +50,7 @@ struct BookingCheckoutView: View {
 //                                Image("img_younghappysmi")
 //                                    .resizable()
 //                            }
-                            let imageURL : URL? = URL(string: Constants.baseURL+(details.headerName ?? "").reverseSlaches())
+                            let imageURL : URL? = URL(string: Constants.baseURL+(details.image ?? "").reverseSlaches())
                             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 
                             .aspectRatio(contentMode: .fill)
@@ -68,7 +68,6 @@ struct BookingCheckoutView: View {
                                 }
                                 Text(details.academicYearName ?? "")
                                     .font(.SoraSemiBold(size: 16))
-                                
                             }
                             .foregroundColor(.mainBlue)
                             
@@ -173,18 +172,18 @@ struct BookingCheckoutView: View {
         .onDisappear {
             checkoutvm.cleanup()
         }
-//        .onChange(of: checkoutvm.isCheckoutSuccess, perform: { value in
-//            guard let value = value else{return}
-//            destination = AnyView(PaymentStatusView(paymentsuccess: value))
-//            isPush = true
-//        })
+        .onChange(of: checkoutvm.isCheckoutSuccess, perform: { value in
+            guard checkoutvm.CreatedBooking?.paymentURL == nil else{return}
+            destination = AnyView(PaymentStatusView(paymentsuccess: value))
+            isPush = true
+        })
 //        .sheet(isPresented: $checkoutvm.isCheckoutSuccess) {
 //            if let strurl = checkoutvm.CreatedBooking?.paymentURL{
 //                SafariView(url: URL(string: strurl)!)
 //            }
 //        }
         
-        .fullScreenCover(isPresented: $checkoutvm.isCheckoutSuccess,onDismiss: {
+        .fullScreenCover(isPresented: .constant(checkoutvm.isCheckoutSuccess && checkoutvm.CreatedBooking?.paymentURL != nil),onDismiss: {
             guard isPaymentSuccessful != nil, let isSuccess = isPaymentSuccessful else {return}
             destination = AnyView(PaymentStatusView(paymentsuccess: isSuccess))
             isPush = true

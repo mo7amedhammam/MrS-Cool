@@ -48,7 +48,7 @@ struct SubjectScheduleGroup: Codable,Hashable {
 
 // MARK: - GetSubjectOrLessonDto
 struct SubjectOrLessonDto: Codable {
-    var image, headerName, systemBrief: String?
+    var image, headerName, subjectName, systemBrief: String?
 }
 
 // MARK: - TeacherRateDto

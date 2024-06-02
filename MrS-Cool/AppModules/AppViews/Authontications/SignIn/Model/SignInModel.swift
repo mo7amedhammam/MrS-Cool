@@ -14,11 +14,13 @@ struct SignInModel: Codable{
     var address, pharmacyCode: String?
     var id: Int?
     var code, genderTitle, token: String?
+    var academicYearId : Int?
     
     enum CodingKeys: String, CodingKey {
         case name, mobile
         case genderID = "genderId"
         case districtID = "districtId"
         case address, pharmacyCode, id, code, genderTitle, token
+        case academicYearId
     }
 }

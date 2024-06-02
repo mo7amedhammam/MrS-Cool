@@ -59,7 +59,6 @@ struct StudentHomeView: View {
                         //                        }
                     }
                     
-                    
                     Text("Most Viewed Lessons".localized())
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.mainBlue)
@@ -269,6 +268,9 @@ struct StudentHomeView: View {
                 .frame(height:gr.size.height)
                 
                 .onAppear {
+                    if let id = Helper.shared.getUser()?.academicYearId{
+                        studenthomevm.academicLevelId = id
+                    }
                     studenthomevm.clearselections()
                     studenthomevm.GetStudentSubjects()
                     studenthomevm.getHomeData()

@@ -34,6 +34,9 @@ class StudentHomeVM: ObservableObject {
     @Published var term : DropDownOption?
     
     
+//    MARK: -  for student -
+    @Published var academicLevelId:Int?
+    
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -93,7 +96,6 @@ extension StudentHomeVM{
         var parameters:[String:Any] = [:]
         print("parameters",parameters) // id
         if Helper.shared.CheckIfLoggedIn() == true{
-            
             if Helper.shared.getSelectedUserType() == .Parent{
                 parameters["id"] = Helper.shared.selectedchild?.id ?? 0
             }
@@ -130,7 +132,7 @@ extension StudentHomeVM{
             // MARK: -- anonymous --
             parameters["maxResultCount"] = 25
             parameters["skipCount"] = 0
-            if let educationLevelid = educationLevel?.id {
+            if let educationLevelid = academicYear?.id {
                 parameters["academicEducationLevelId"] = educationLevelid
             }
             if let termid = term?.id{
@@ -171,7 +173,13 @@ extension StudentHomeVM{
     
     func GetStudentMostSubjects(mostType:studentLessonMostCases){
         var parameters:[String:Any] = [:]
+           if let academicLevelId = academicLevelId{
+                parameters["academicLevelId"] = academicLevelId
+           }else if let educationLevelid = academicYear?.id{
+               parameters["academicLevelId"] = educationLevelid
+           }
         print("parameters",parameters)
+
         let target = StudentServices.GetMostSubjects(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedSubjectsM]>.self)
@@ -210,7 +218,13 @@ extension StudentHomeVM{
     
     func GetStudentLessons(mostType:studentLessonMostCases){
         var parameters:[String:Any] = [:]
+           if let academicLevelId = academicLevelId{
+               parameters["academicleveid"] = academicLevelId
+           }else if let educationLevelid = academicYear?.id{
+               parameters["academicLevelId"] = educationLevelid
+           }
         print("parameters",parameters)
+        
         let target = StudentServices.GetMostLessons(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedLessonsM]>.self)
@@ -249,6 +263,11 @@ extension StudentHomeVM{
     
     func GetStudentTeachers(mostType:studentTeacherMostCases){
         var parameters:[String:Any] = [:]
+           if let academicLevelId = academicLevelId{
+                parameters["academicLevelId"] = academicLevelId
+           }else if let educationLevelid = academicYear?.id{
+               parameters["academicLevelId"] = educationLevelid
+           }
         print("parameters",parameters)
         let target = StudentServices.GetMostTeachers(mostType: mostType, parameters: parameters)
         //        isLoading = true
@@ -287,8 +306,10 @@ extension StudentHomeVM{
     }
     func GetStudentMostBookedTeachers(){
         var parameters:[String:Any] = [:]
-        if let educationLevelid = educationLevel?.id {
-            parameters["academicEducationLevelId"] = educationLevelid
+           if let academicLevelId = academicLevelId{
+                parameters["academicLevelId"] = academicLevelId
+            }else if let educationLevelid = academicYear?.id {
+            parameters["academicLevelId"] = educationLevelid
         }
         print("parameters",parameters)
         let target = StudentServices.GetMostBookedTeachers(parameters: parameters)
@@ -338,7 +359,6 @@ extension StudentHomeVM{
         GetStudentTeachers(mostType: .mostviewed)
         GetStudentTeachers(mostType: .topRated)
         GetStudentMostBookedTeachers()
-
     }
 }
     

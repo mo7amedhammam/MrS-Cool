@@ -201,7 +201,11 @@ extension StudentEditProfileVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
+//                    let student = receivedData.data
                     isDataUpdated = true
+                    var student =  Helper.shared.getUser()
+                    student?.academicYearId = receivedData.data?.academicYearEducationLevelID
+                    Helper.shared.saveUser(user: student)
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
