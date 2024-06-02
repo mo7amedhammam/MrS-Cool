@@ -44,6 +44,7 @@ class SubjectTeachersListVM: ObservableObject {
     }
     @Published var genderId : Int?
     @Published var teacherName : String = ""
+
     @Published var sortCase : teachersSortCases? = .MostBooked{
         didSet{
             switch sortCase {
@@ -86,7 +87,6 @@ class SubjectTeachersListVM: ObservableObject {
 extension SubjectTeachersListVM{
     
     func GetStudentSubjectTeachers(){
-        
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
             
         if let subjectId = subjectId{
@@ -95,13 +95,13 @@ extension SubjectTeachersListVM{
          if let lessonId = lessonId{
             parameters["lessonId"] = lessonId
         }
-        if rate > 0{
+        if rate > 0 {
             parameters["rate"] = rate
         }
-        if priceFrom.count > 0{
+        if priceFrom.count > 0 {
             parameters["priceFrom"] = Float(priceFrom)
         }
-        if priceTo.count > 0{
+        if priceTo.count > 0 {
             parameters["priceTo"] = Float(priceTo)
         }
         if let genderId = genderId{
@@ -110,7 +110,7 @@ extension SubjectTeachersListVM{
         if teacherName.count > 0 {
             parameters["teacherName"] = teacherName
         }
-        if let sortColumn = sortColumn{
+        if let sortColumn = sortColumn {
             parameters["sortColumn"] = sortColumn
         }
         
@@ -138,6 +138,8 @@ extension SubjectTeachersListVM{
                     }else{
                         TeachersModel?.items?.append(contentsOf: receivedData.data?.items ?? [])
                     }
+//                    isFiltering = false
+//                    isSorting = false
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -155,10 +157,9 @@ extension SubjectTeachersListVM{
         genderId = nil
         genderCase = nil
         teacherName = ""
-    
     }
     func clearSort(){
-        sortCase = nil
+        sortCase = .MostBooked
     }
     
     func cleanup() {

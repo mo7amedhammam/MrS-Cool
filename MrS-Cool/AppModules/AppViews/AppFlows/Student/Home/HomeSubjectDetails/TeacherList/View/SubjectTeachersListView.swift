@@ -23,6 +23,30 @@ struct SubjectTeachersListView: View {
     @State private var isPriceVisible = false
     @State private var isRateVisible = false
     @State private var isGenderVisible = false
+    
+    
+//    @State var isFiltering : Bool = false
+    @State var subjectId : Int?
+    @State var lessonId : Int?
+    @State var rate : Int = 0
+    @State var priceFrom : String = ""
+    @State var priceTo : String = ""
+    
+    @State var genderCase : teachersGenders?{
+        didSet{
+            switch genderCase {
+            case .Male:
+                genderId = 1
+            case .Female:
+                genderId = 2
+            case nil:
+                genderId = nil
+            }
+        }
+    }
+    @State var genderId : Int?
+    @State var teacherName : String = ""
+
     var body: some View {
         VStack {
             CustomTitleBarView(title:bookingcase == .subject ? "Subject Info":"Lesson Info")
@@ -49,7 +73,6 @@ struct SubjectTeachersListView: View {
                                 .font(.SoraBold(size: 18))
                             Text(subjectorLesson.subjectName ?? "")
                                 .font(.SoraSemiBold(size: 16))
-                            
                             
                         }
                         .foregroundColor(.mainBlue)
@@ -158,7 +181,6 @@ struct SubjectTeachersListView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        
         .onAppear(perform: {
             switch bookingcase {
             case .subject:
@@ -222,7 +244,7 @@ struct SubjectTeachersListView: View {
                                         .padding(.vertical)
                                         
                                         if isNameVisible{
-                                            CustomTextField(iconName:"",placeholder: "Teacher Name", text: $homesubjectteachersvm.teacherName)
+                                            CustomTextField(iconName:"",placeholder: "Teacher Name", text: $teacherName)
                                         }
                                     }
                                     
@@ -251,14 +273,14 @@ struct SubjectTeachersListView: View {
                                         .padding(.vertical)
                                         if isPriceVisible{
                                             HStack{
-                                                CustomTextField(iconName:"",placeholder: "Price From", text: $homesubjectteachersvm.priceFrom,keyboardType: .decimalPad)
-                                                    .onChange(of: homesubjectteachersvm.priceFrom) { newValue in
-                                                        homesubjectteachersvm.priceFrom = newValue.filter { $0.isEnglish }
+                                                CustomTextField(iconName:"",placeholder: "Price From", text: $priceFrom,keyboardType: .decimalPad)
+                                                    .onChange(of: priceFrom) { newValue in
+                                                        priceFrom = newValue.filter { $0.isEnglish }
                                                     }
                                                 
-                                                CustomTextField(iconName:"",placeholder: "Price To", text: $homesubjectteachersvm.priceTo,keyboardType: .decimalPad)
-                                                    .onChange(of: homesubjectteachersvm.priceTo) { newValue in
-                                                        homesubjectteachersvm.priceTo = newValue.filter { $0.isEnglish }
+                                                CustomTextField(iconName:"",placeholder: "Price To", text: $priceTo,keyboardType: .decimalPad)
+                                                    .onChange(of: priceTo) { newValue in
+                                                        priceTo = newValue.filter { $0.isEnglish }
                                                     }
                                             }
                                         }
@@ -292,9 +314,9 @@ struct SubjectTeachersListView: View {
                                         HStack(spacing:20){
                                             ForEach(0..<5){ num in
                                                 Button(action: {
-                                                    homesubjectteachersvm.rate = num + 1
+                                                    rate = num + 1
                                                 }, label: {
-                                                    Image(systemName: homesubjectteachersvm.rate > num ? "star.fill":"star")
+                                                    Image(systemName: rate > num ? "star.fill":"star")
                                                         .resizable()
                                                         .scaledToFit()
                                                         .frame(width: 35, height: 35, alignment: .center)
@@ -333,10 +355,10 @@ struct SubjectTeachersListView: View {
                                         if isGenderVisible{
                                             HStack{
                                                 Button(action: {
-                                                    homesubjectteachersvm.genderCase = .Male
+                                                    genderCase = .Male
                                                 }, label: {
                                                     HStack{
-                                                        Image(systemName:homesubjectteachersvm.genderCase == .Male ? "largecircle.fill.circle":"circle")
+                                                        Image(systemName:genderCase == .Male ? "largecircle.fill.circle":"circle")
                                                             .frame(width: 20, height: 20, alignment: .center)
                                                             .foregroundColor(ColorConstants.MainColor)
                                                         Text("Male".localized())
@@ -346,10 +368,10 @@ struct SubjectTeachersListView: View {
                                                     }
                                                 })
                                                 Button(action: {
-                                                    homesubjectteachersvm.genderCase = .Female
+                                                    genderCase = .Female
                                                 }, label: {
                                                     HStack{
-                                                        Image(systemName:homesubjectteachersvm.genderCase == .Female ? "largecircle.fill.circle":"circle")
+                                                        Image(systemName:genderCase == .Female ? "largecircle.fill.circle":"circle")
                                                             .frame(width: 20, height: 20, alignment: .center)
                                                             .foregroundColor(ColorConstants.MainColor)
                                                         Text("Female".localized())
@@ -368,6 +390,12 @@ struct SubjectTeachersListView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                                homesubjectteachersvm.rate = rate
+                                                homesubjectteachersvm.priceFrom = priceFrom
+                                            
+                                            homesubjectteachersvm.priceTo = priceTo
+                                                homesubjectteachersvm.genderId = genderId
+                                                homesubjectteachersvm.teacherName = teacherName
                                             homesubjectteachersvm.skipCount = 0
                                             homesubjectteachersvm .GetStudentSubjectTeachers()
                                             showFilter = false
@@ -488,7 +516,7 @@ struct SubjectTeachersListView: View {
                                         showSort = false
                                     })
                                     
-                                    CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                    CustomBorderedButton(Title:"Default",IsDisabled: .constant(false), action: {
                                         homesubjectteachersvm.skipCount = 0
                                         homesubjectteachersvm.clearSort()
                                         homesubjectteachersvm .GetStudentSubjectTeachers()

@@ -17,7 +17,11 @@ class CompletedLessonsVM: ObservableObject {
     
     @Published var selectedLessonid : Int?
 
-    @Published var filtersubject : DropDownOption?
+    @Published var filtersubject : DropDownOption?{
+        didSet{
+            filterlesson = nil
+        }
+    }
     @Published var filterlesson : DropDownOption?
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
