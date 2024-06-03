@@ -63,55 +63,69 @@ struct AddNewStudentView: View {
                             .font(Font.SoraBold(size: 18))
                             .foregroundStyle(ColorConstants.MainColor)
                         
-                        Text(addnewstudentvm.code)
-                            .font(Font.SoraBold(size: 18))
-                            .foregroundStyle(ColorConstants.MainColor)
-                            .padding(.top,2)
+//                        Text(addnewstudentvm.code)
+//                            .font(Font.SoraBold(size: 18))
+//                            .foregroundStyle(ColorConstants.MainColor)
+//                            .padding(.top,2)
 
                         VStack(alignment: .leading, spacing: 0){
-                            // -- Data Title --
                             
                             // -- inputs --
                             Group {
-                                CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $addnewstudentvm.name,textContentType:.name)
+                                CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $addnewstudentvm.name,textContentType:.name,isvalid: addnewstudentvm.isnamevalid)
                                 
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $addnewstudentvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad)
+                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $addnewstudentvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,isvalid: addnewstudentvm.isphonevalid)
+                                    .onChange(of: addnewstudentvm.phone) { newValue in
+                                        if newValue.count > 11 {
+                                            addnewstudentvm.phone = String(newValue.prefix(11))
+                                        }
+                                    }
                                 
-                                CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $addnewstudentvm.selectedGender,options:lookupsvm.GendersList)
+                                CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $addnewstudentvm.selectedGender,options:lookupsvm.GendersList,isvalid: addnewstudentvm.isselectedGendervalid)
                                 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$addnewstudentvm.birthDateStr)
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$addnewstudentvm.birthDateStr,endDate:Date(),isvalid: addnewstudentvm.isbirthDateStrvalid)
                                 
-                                CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $addnewstudentvm.educationType,options:lookupsvm.EducationTypesList)
+                                CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $addnewstudentvm.educationType,options:lookupsvm.EducationTypesList,isvalid: addnewstudentvm.iseducationTypevalid)
                                     .onChange(of: addnewstudentvm.educationType, perform: { val in
                                         lookupsvm.SelectedEducationType = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $addnewstudentvm.educationLevel,options:lookupsvm.EducationLevelsList)
+                                CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $addnewstudentvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid: addnewstudentvm.iseducationLevelvalid)
                                     .onChange(of: addnewstudentvm.educationLevel, perform: { val in
                                         lookupsvm.SelectedEducationLevel = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $addnewstudentvm.academicYear,options:lookupsvm.AcademicYearsList)
+                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $addnewstudentvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid: addnewstudentvm.isacademicYearvalid)
                                 
-                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $addnewstudentvm.email,textContentType:.emailAddress,keyboardType: .emailAddress)
+                                CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $addnewstudentvm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid: addnewstudentvm.isemailvalid)
                                 
                                 CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $addnewstudentvm.SchoolName,textContentType:.name)
 
-                                CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $addnewstudentvm.country,options:lookupsvm.CountriesList)
+                                CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $addnewstudentvm.country,options:lookupsvm.CountriesList,isvalid: addnewstudentvm.iscountryvalid)
                                     .onChange(of: addnewstudentvm.country, perform: { val in
                                         lookupsvm.SelectedCountry = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $addnewstudentvm.governorte,options:lookupsvm.GovernoratesList)
+                                CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $addnewstudentvm.governorte,options:lookupsvm.GovernoratesList,isvalid: addnewstudentvm.isgovernortevalid)
                                     .onChange(of: addnewstudentvm.governorte, perform: { val in
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $addnewstudentvm.city,options:lookupsvm.CitiesList)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $addnewstudentvm.city,options:lookupsvm.CitiesList,isvalid: addnewstudentvm.iscityvalid)
                                 
-                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $addnewstudentvm.Password)
+                                CustomTextField(fieldType:.Password,placeholder: "Password *", text: $addnewstudentvm.Password,isvalid: addnewstudentvm.isPasswordvalid)
+                                    .onChange(of: addnewstudentvm.Password) { newValue in
+                                            if newValue.containsNonEnglishOrNumbers() {
+                                                addnewstudentvm.Password = String(newValue.dropLast())
+                                            }
+                                        }
                                 
-                                CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $addnewstudentvm.confirmPassword)
+                                CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $addnewstudentvm.confirmPassword,isvalid: addnewstudentvm.isconfirmPasswordvalid)
+                                    .onChange(of: addnewstudentvm.Password) { newValue in
+                                            if newValue.containsNonEnglishOrNumbers() {
+                                                addnewstudentvm.confirmPassword = String(newValue.dropLast())
+                                            }
+                                        }
 
                             }
                             .padding([.top])
@@ -139,8 +153,8 @@ struct AddNewStudentView: View {
                 lookupsvm.GetEducationTypes()
                 lookupsvm.getCountriesArr()
         })
-//        .showHud(isShowing: $studentsignupvm.isLoading)
-//        .showAlert(hasAlert: $studentsignupvm.isError, alertType: studentsignupvm.error)
+        .showHud(isShowing: $addnewstudentvm.isLoading)
+        .showAlert(hasAlert: $addnewstudentvm.isError, alertType: addnewstudentvm.error)
 
         //MARK: -------- imagePicker From Camera and Library ------
         .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {

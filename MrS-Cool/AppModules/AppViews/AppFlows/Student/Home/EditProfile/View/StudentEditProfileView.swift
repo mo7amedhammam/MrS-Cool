@@ -80,7 +80,7 @@ struct StudentEditProfileView: View {
                                 
                                 CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $studentsignupvm.selectedGender,options:lookupsvm.GendersList)
                                 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$studentsignupvm.birthDateStr)
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$studentsignupvm.birthDateStr,endDate: Date())
                                 
                                 CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.EducationTypesList)
                                     .onChange(of: studentsignupvm.educationType, perform: { val in
@@ -135,20 +135,21 @@ struct StudentEditProfileView: View {
             hideKeyboard()
         })
         .onAppear(perform: {
+            studentsignupvm.GetStudentProfile()
             Task(priority: .background, operation: {
                 // if parent is editing student profile
-                studentsignupvm.GetStudentProfile()
-
                 studentsignupvm.image = nil
                 lookupsvm.getGendersArr()
                 lookupsvm.GetEducationTypes()
                 lookupsvm.getCountriesArr()
                 
-                lookupsvm.SelectedCountry = studentsignupvm.country
-                lookupsvm.SelectedGovernorate = studentsignupvm.governorte
-                lookupsvm.SelectedEducationType = studentsignupvm.educationType
-                lookupsvm.SelectedEducationLevel = studentsignupvm.educationLevel
+                DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+                    lookupsvm.SelectedCountry = studentsignupvm.country
+                    lookupsvm.SelectedGovernorate = studentsignupvm.governorte
+                    lookupsvm.SelectedEducationType = studentsignupvm.educationType
+                    lookupsvm.SelectedEducationLevel = studentsignupvm.educationLevel
 
+                })
                 
             })
         })

@@ -17,47 +17,125 @@ class AddNewStudentVM: ObservableObject {
     //Common data (note: same exact data for parent)
     @Published var image : UIImage?
     @Published var imageStr : String?
-    @Published var name = ""
-    @Published var code = ""
+    @Published var name = ""{
+        didSet{
+            if name.count >= 2{
+                isnamevalid = true
+            }
+        }
+    }
+    @Published var isnamevalid : Bool? = true
 
-    @Published var phone = ""
-    @Published var selectedGender : DropDownOption?
+//    @Published var code = ""
+
+    @Published var phone = ""{
+        didSet{
+            if phone.count == 11{
+                isphonevalid = true
+            }
+        }
+    }
+    @Published var isphonevalid : Bool? = true
+
+    @Published var selectedGender : DropDownOption?{
+        didSet{
+            isselectedGendervalid = selectedGender == nil ? false:true
+        }
+    }
+    @Published var isselectedGendervalid : Bool?
 
     //Student data
 //    @Published var birthDate : Date?
     // next 4  common with teacher subjects
-    @Published var birthDateStr : String?
+    @Published var birthDateStr : String?{
+        didSet{
+            isbirthDateStrvalid = birthDateStr == nil ? false:true
+        }
+    }
+    @Published var isbirthDateStrvalid : Bool?
     
     @Published var educationType : DropDownOption?{
         didSet{
-            educationLevel = nil
-            academicYear = nil
+                educationLevel = nil
+                iseducationTypevalid = educationType == nil ? false:true
         }
     }
+    @Published var iseducationTypevalid:Bool?
     @Published var educationLevel : DropDownOption?{
         didSet{
-            academicYear = nil
+                academicYear = nil
+                iseducationLevelvalid = educationLevel == nil ? false:true
         }
     }
-    @Published var academicYear : DropDownOption?
-    @Published var email = ""
+    @Published var iseducationLevelvalid:Bool?
+    
+    @Published var academicYear : DropDownOption?{
+        didSet{
+                isacademicYearvalid = academicYear == nil ? false:true
+        }
+    }
+    @Published var isacademicYearvalid:Bool?
+    
+    @Published var email = ""{
+        didSet{
+            let emailPredicate = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+            if !email.isEmpty{
+                if  emailPredicate.evaluate(with: email){
+                    isemailvalid = true
+                }else{
+                    isemailvalid = false
+                    }
+                }
+            }
+    }
+    @Published var isemailvalid : Bool?
+
     @Published var SchoolName = ""
 
     @Published var country : DropDownOption?{
         didSet{
             governorte = nil
-            city = nil
+            iscountryvalid = country == nil ? false:true
         }
     }
+    @Published var iscountryvalid : Bool?
     @Published var governorte : DropDownOption?{
         didSet{
             city = nil
+            isgovernortevalid = governorte == nil ? false:true
         }
     }
-    @Published var city : DropDownOption?
+    @Published var isgovernortevalid : Bool?
+    @Published var city : DropDownOption?{
+        didSet{
+            iscityvalid = city == nil ? false:true
+        }
+    }
+    @Published var iscityvalid : Bool?
     
-    @Published var Password = ""
-    @Published var confirmPassword = ""
+    @Published var Password = ""{
+        didSet{
+            if Password.count >= 6{
+                isPasswordvalid = true
+            }
+        }
+    }
+  
+    @Published var isPasswordvalid : Bool? = true
+    @Published var confirmPassword = ""{
+        didSet{
+            if !confirmPassword.isEmpty{
+                if  confirmPassword == Password {
+                    isconfirmPasswordvalid = true
+                }else{
+                    isconfirmPasswordvalid = false
+                }
+            }
+        }
+    }
+    @Published var isconfirmPasswordvalid : Bool? = true
+
+    @Published var isFormValid : Bool = false
 
 
 //    MARK: --- outpust ---
@@ -78,59 +156,9 @@ class AddNewStudentVM: ObservableObject {
 }
 
 extension AddNewStudentVM{
-
-//    private func fillTeacherData(model:StudentProfileM){
-//        name = model.name ?? ""
-//        imageStr =  model.image ?? ""
-//        code = model.code ?? ""
-//        phone = model.mobile ?? ""
-//        selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
-//        country = .init(id:model.countryID,Title: model.countryName)
-//        governorte = .init(id:model.governorateID,Title: model.governorateName)
-//        city = .init(id:model.cityID,Title: model.cityName)
-//        educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
-//        educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
-//        academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
-//        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
-//        email =  model.email ?? ""
-//        SchoolName = model.schoolName ?? ""
-//    }
-    
-//    func GetStudentProfile(){
-//        let target = StudentServices.GetStudentProfile
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<StudentProfileM>.self)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    isError =  true
-////                    self.error = error
-//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if let model = receivedData.data{
-////                    OtpM = model
-//                    fillTeacherData(model: model)
-//                }else{
-//                    isError =  true
-////                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
-//    }
     
     func AddNewStudent(){
+        guard checkValidfields() else {return}
         guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"Mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName,"PasswordHash": Password]
 
@@ -174,5 +202,37 @@ extension AddNewStudentVM{
 }
 
 
+extension AddNewStudentVM{
+        
+    private func checkValidfields()->Bool{
+        isnamevalid = name.count > 0
+        isphonevalid = phone.count > 0
+        isemailvalid = email.count > 0
+        isbirthDateStrvalid = birthDateStr != nil
+        iseducationTypevalid = educationType != nil
+        iseducationLevelvalid = educationLevel != nil
+        isacademicYearvalid = academicYear != nil
+        iscountryvalid = country != nil
+        isgovernortevalid = governorte != nil
+        iscityvalid = city != nil
+        isselectedGendervalid = selectedGender != nil
+        isPasswordvalid = Password.count > 0
+        isconfirmPasswordvalid = confirmPassword.count > 0
 
+        return isnamevalid ?? true &&
+        isphonevalid ?? true &&
+        isemailvalid ?? true &&
+        isbirthDateStrvalid ?? true &&
+        iseducationTypevalid ?? true &&
+        iseducationLevelvalid ?? true &&
+        isacademicYearvalid ?? true &&
+        iscountryvalid ?? true &&
+        isgovernortevalid ?? true &&
+        iscityvalid ?? true &&
+        isselectedGendervalid ?? true &&
+        isPasswordvalid ?? true &&
+        isconfirmPasswordvalid ?? true
+    }
+        
+}
 
