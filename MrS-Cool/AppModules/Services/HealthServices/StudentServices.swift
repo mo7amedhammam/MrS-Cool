@@ -107,8 +107,14 @@ extension StudentServices:TargetType{
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .GetStudentSubjects,
-                .GetMostLessons,
+        case .GetStudentSubjects:
+            if Helper.shared.CheckIfLoggedIn(){
+                return .get
+            }else {
+                return .post
+            }
+
+        case .GetMostLessons,
                 .GetMostSubjects,
                 .GetMostTeachers,
                 .GetHomeSubjectDetails,
@@ -132,9 +138,14 @@ extension StudentServices:TargetType{
         switch self {
 //        case :
 //            return .plainRequest
+        case .GetStudentSubjects(parameters: let Parameters):
+            if Helper.shared.CheckIfLoggedIn(){
+                return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
+            }else {
+                return .parameterRequest(Parameters: Parameters, Encoding: .default)
+            }
             
         case .GetStudentProfile(parameters: let Parameters),
-                .GetStudentSubjects(parameters: let Parameters),
                 .GetMostLessons(_,parameters: let Parameters),
                 .GetMostSubjects(_,parameters: let Parameters),
                 .GetMostTeachers(_,parameters: let Parameters),

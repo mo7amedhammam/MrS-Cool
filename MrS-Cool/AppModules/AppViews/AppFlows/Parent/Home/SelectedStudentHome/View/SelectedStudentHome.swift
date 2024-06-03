@@ -153,238 +153,266 @@ struct SelectedStudentHome: View {
             GeometryReader{gr in
 
             LazyVStack(spacing:0) {
+                
                 ScrollView(showsIndicators:false){
                     
-                        HStack {
-                            Text("Subjects".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        if studenthomevm.StudentSubjects == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 160)
-                        }else{
-                            LazyVGrid(columns: [.init(), .init(),.init()]) {
+                    VStack(alignment:.leading){
+                        Text("Subjects For".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                        
+                        Text(studenthomevm.StudentSubjectsM?.academicLevelName ?? "")
+                            .font(Font.SoraRegular(size: 13))
+                            .foregroundColor(ColorConstants.Red400)
+                        
+                    }.padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    if studenthomevm.StudentSubjects == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 160)
+                    }else{
+                        LazyVGrid(columns: [.init(), .init(),.init()]) {
+                            
+                            ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
+                                StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects
+                                ){
+                                    tabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
+                                    tabbarvm.ispush = true
+                                }
+                                //                                    .frame(width: gr.size.width/2.7, height: 160)
+                            }
+                        }
+                        //                            .frame(height: 160)
+                        .padding(.horizontal)
+                        .padding(.bottom,10)
+                        //                        }
+                    }
+                    
+                    
+                    Text("Most Viewed Lessons".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostViewedLessons == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 240)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
+                                    StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
+                                        guard lesson.availableTeacher ?? 0 > 0 else {return}
+                                        tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                        tabbarvm.ispush = true
+                                        
+                                    }
+                                    .frame(width: gr.size.width/2.5, height: 240)
+                                }
+                                Spacer().frame(width:1)
+                            }
+                            .frame(height: 240)
+                            .padding(.bottom,10)
+                        }
+                    }
+                    
+                    
+                    Text("Most Booked Lessons".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostBookedLessons == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 240)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
+                                    StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
+                                        guard lesson.availableTeacher ?? 0 > 0 else {return}
+                                        tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                        tabbarvm.ispush = true
+                                        
+                                    }
+                                    .frame(width: gr.size.width/2.5, height: 240)
+                                }
+                                Spacer().frame(width:1)
                                 
-                                ForEach(studenthomevm.StudentSubjects ?? [],id:\.self){subject in
-                                    StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
-                                        tabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
+                            }
+                            .frame(height: 240)
+                            .padding(.bottom,10)
+                        }
+                    }
+                    
+                    Text("Most Viewed Subjects".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostViewedSubjects == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 280)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                
+                                ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
+                                    StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
+                                        guard subject.teacherCount ?? 0 > 0 else {return}
+                                        tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
+                                        tabbarvm.ispush = true
+                                        
+                                    }
+                                    .frame(width: gr.size.width/2.5, height: 280)
+                                }
+                                Spacer().frame(width:1)
+                                
+                            }
+                            .frame(height: 280)
+                            .padding(.bottom,10)
+                        }
+                    }
+                    
+                    Text("Most Booked Subjects".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostBookedsubjects == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 280)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                
+                                ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
+                                    StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
+                                        guard subject.teacherCount ?? 0 > 0 else {return}
+                                        tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
+                                        tabbarvm.ispush = true
+                                        
+                                    }
+                                    .frame(width: gr.size.width/2.5, height: 280)
+                                }
+                                Spacer().frame(width:1)
+                                
+                            }
+                            .frame(height: 280)
+                            .padding(.bottom,10)
+                        }
+                    }
+                    
+                    Text("Most Viewed Teachers".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostViewedTeachers == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 180)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                
+                                ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
+                                    StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
+                                        tabbarvm.destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
                                         tabbarvm.ispush = true
                                     }
-                                    //                                    .frame(width: gr.size.width/2.7, height: 160)
+                                    .frame(width: gr.size.width/3.8, height: 180)
                                 }
+                                Spacer().frame(width:1)
                             }
-                            //                            .frame(height: 160)
-                            .padding(.horizontal)
+                            .frame(height: 180)
                             .padding(.bottom,10)
-                            //                        }
                         }
-                        
-
-    //                }
-    //                .frame(minHeight:20)
-                        
-          
-                        
-    //            }
-                        
-                        HStack {
-                            Text("Most Viewed Lessons".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        if studenthomevm.StudentMostViewedLessons == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 240)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
-                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-                                            tabbarvm.ispush = true
-                                            
-                                        }
-                                        .frame(width: gr.size.width/2.5, height: 240)
-                                    }
-                                    Spacer().frame(width:1)
-                                }
-                                .frame(height: 240)
-                                .padding(.bottom,10)
-                            }
-                        }
-                        HStack {
-                            Text("Most Booked Lessons".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        if studenthomevm.StudentMostBookedLessons == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 240)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
-                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
-                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-                                            tabbarvm.ispush = true
-                                            
-                                        }
-                                        .frame(width: gr.size.width/2.5, height: 240)
-                                    }
-                                    Spacer().frame(width:1)
-                                    
-                                }
-                                .frame(height: 240)
-                                .padding(.bottom,10)
-                            }
-                        }
-                        HStack {
-                            Text("Most Viewed Subjects".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        
-                        if studenthomevm.StudentMostViewedSubjects == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 280)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    
-                                    ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
-                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
-                                            tabbarvm.ispush = true
-                                            
-                                        }
-                                        .frame(width: gr.size.width/2.5, height: 280)
-                                    }
-                                    Spacer().frame(width:1)
-                                    
-                                }
-                                .frame(height: 280)
-                                .padding(.bottom,10)
-                            }
-                        }
-                        HStack {
-                            Text("Most Booked Subjects".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        
-                        if studenthomevm.StudentMostBookedsubjects == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 280)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    
-                                    ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
-                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
-                                            tabbarvm.ispush = true
-                                            
-                                        }
-                                        .frame(width: gr.size.width/2.5, height: 280)
-                                    }
-                                    Spacer().frame(width:1)
-                                    
-                                }
-                                .frame(height: 280)
-                                .padding(.bottom,10)
-                            }
-                        }
-                        
-                        HStack {
-                            Text("Most Viewed Teachers".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        if studenthomevm.StudentMostViewedTeachers == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 180)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    
-                                    ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
-                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
-                                            tabbarvm.destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            tabbarvm.ispush = true
-                                        }
-                                        .frame(width: gr.size.width/3.8, height: 180)
-                                    }
-                                    Spacer().frame(width:1)
-                                }
-                                .frame(height: 180)
-                                .padding(.bottom,10)
-                            }
-                        }
-                        
-                        HStack {
-                            Text("Top Rated Teachers".localized())
-                                .font(Font.SoraBold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            Spacer()
-                        }.padding([.top,.horizontal])
-                        if studenthomevm.StudentMostRatedTeachers == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 180)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
-                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
-                                            tabbarvm.destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            tabbarvm.ispush = true
-                                        }
-                                        .frame(width: gr.size.width/3.8, height: 180)
-                                    }
-                                    Spacer().frame(width:1)
-                                    
-                                }
-                                .frame(height: 180)
-                                .padding(.bottom,10)
-                            }
-                        }
-                        
                     }
-                    .frame(height:gr.size.height)
-
-                    .onAppear {
-                        studenthomevm.clearselections()
-                        studenthomevm.GetStudentSubjects()
-                        studenthomevm.getHomeData()
+                    
+                    Text("Most Booked Teachers".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostBookedTeachers == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 180)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                
+                                ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
+                                    StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostBookedTeachers){
+                                        tabbarvm.destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                                        tabbarvm.ispush = true
+                                    }
+                                    .frame(width: gr.size.width/3.8, height: 180)
+                                }
+                                Spacer().frame(width:1)
+                            }
+                            .frame(height: 180)
+                            .padding(.bottom,10)
+                        }
                     }
+                    
+                    Text("Top Rated Teachers".localized())
+                        .font(Font.SoraBold(size: 18))
+                        .foregroundColor(.mainBlue)
+                        .padding([.top,.horizontal])
+                        .frame(maxWidth:.infinity,alignment: .leading)
+                    
+                    if studenthomevm.StudentMostRatedTeachers == []{
+                        ProgressView()
+                            .frame(width: gr.size.width/2.7, height: 180)
+                    }else{
+                        ScrollView(.horizontal,showsIndicators:false){
+                            LazyHStack(spacing:10){
+                                Spacer().frame(width:1)
+                                ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
+                                    StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
+                                        tabbarvm.destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
+                                        tabbarvm.ispush = true
+                                    }
+                                    .frame(width: gr.size.width/3.8, height: 180)
+                                }
+                                Spacer().frame(width:1)
+                                
+                            }
+                            .frame(height: 180)
+                            .padding(.bottom,10)
+                        }
+                    }
+                }
+                .frame(height:gr.size.height)
+
                 }
             .frame(height:gr.size.height)
     //            Spacer()
-                
             }
             
             Spacer()
 //            CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
             
         }
-        //            .onAppear(perform: {
-        //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
-        //            })
-//        .overlay(content: {
-//            SideMenuView()
-//        })
+        .onAppear {
+            if let id = Helper.shared.selectedchild?.academicYearEducationLevelID{
+                studenthomevm.academicLevelId = id
+            }
+            studenthomevm.clearselections()
+            studenthomevm.getHomeData()
+        }
         .edgesIgnoringSafeArea(.bottom)
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -458,11 +486,6 @@ struct SelectedStudentHome: View {
 
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
-    
-//    @ViewBuilder
-//    private func SideMenuView() -> some View {
-//        SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
-//    }
 }
 
 #Preview{

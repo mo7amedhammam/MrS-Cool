@@ -53,40 +53,30 @@ class StudentHomeVM: ObservableObject {
     }
     
     @Published var StudentSubjects : [HomeSubject]? = []
-//    [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2"),StudentSubjectsM.init(id: 3, name: "arabic2", image: "tab2")]
     @Published var SelectedStudentSubjects : HomeSubject = HomeSubject()
     
     @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = []
-    //    [StudentMostViewedLessonsM.init(id: 0, lessonName: "grammer", subjectName: "arabic", lessonBrief: "brief 0", availableTeacher: 12, minPrice: 220, maxPrice: 550)]
     @Published var SelectedStudentMostViewedLesson : StudentMostViewedLessonsM = StudentMostViewedLessonsM()
     
     @Published var StudentMostBookedLessons : [StudentMostViewedLessonsM] =  []
-    //    [StudentMostViewedLessonsM.init(id: 0, lessonName: "grammer", subjectName: "arabic", lessonBrief: "brief 2", availableTeacher: 12, minPrice: 220, maxPrice: 550)]
     @Published var SelectedStudentMostBookedLesson : StudentMostViewedLessonsM = StudentMostViewedLessonsM()
     
     @Published var StudentMostViewedSubjects : [StudentMostViewedSubjectsM] =  []
-    //    [StudentMostViewedSubjectsM.init(id: 0, subjectName: "subjects name", image: "image", subjectBrief: "brief", lessonsCount: 3, teacherCount: 12) ]
     @Published var SelectedStudentMostViewedSubject : StudentMostViewedSubjectsM = StudentMostViewedSubjectsM()
     
     @Published var StudentMostBookedsubjects : [StudentMostViewedSubjectsM] = []
-    //    [StudentMostViewedSubjectsM.init(id: 0, subjectName: "subjects name", image: "image", subjectBrief: "brief", lessonsCount: 3, teacherCount: 12)]
     @Published var SelectedStudentMostBookedSubject : StudentMostViewedSubjectsM = StudentMostViewedSubjectsM()
     
     @Published var StudentMostViewedTeachers : [StudentMostViewedTeachersM] = []
-    //    [StudentMostViewedTeachersM.init(id: 0, teacherName: "teacher name", teacherImage: "image", teacherLessonId: 2, teacherSubjectId: 3, duration: 120, teacherReview: 5, price: 220, teacherRate: 3.5) ]
     @Published var SelectedStudentMostViewedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
     
     @Published var StudentMostRatedTeachers : [StudentMostViewedTeachersM] = []
-    //    [StudentMostViewedTeachersM.init(id: 0, teacherName: "teacher name", teacherImage: "image", teacherLessonId: 2, teacherSubjectId: 3, duration: 120, teacherReview: 8, price: 220, teacherRate: 3.5)]
     @Published var SelectedStudentMostRatedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
 
     @Published var StudentMostBookedTeachers : [StudentMostViewedTeachersM] = []
-    //    [StudentMostViewedTeachersM.init(id: 0, teacherName: "teacher name", teacherImage: "image", teacherLessonId: 2, teacherSubjectId: 3, duration: 120, teacherReview: 8, price: 220, teacherRate: 3.5)]
     @Published var SelectedStudentMostBookedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
 
     init()  {
-
-        getHomeData()
     }
 }
 
@@ -157,6 +147,8 @@ extension StudentHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
+                        let data = receivedData.data
+
                         //                    TeacherSubjects?.append(model)
                         StudentSubjects = receivedData.data?.getAllSubjects?.convertToStudentSubjects()
                     }else{
@@ -371,7 +363,6 @@ extension StudentHomeVM{
         SelectedStudentMostViewedTeachers = StudentMostViewedTeachersM()
         SelectedStudentMostRatedTeachers = StudentMostViewedTeachersM()
         SelectedStudentMostBookedTeachers = StudentMostViewedTeachersM()
-
     }
     func clearsearch(){
         educationType = nil

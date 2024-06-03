@@ -160,7 +160,8 @@ struct StudentTabBarView: View {
                 }else if newval == .signOut { // signout
 //                    studenttabbarvm.destination = AnyView(SignInView())
                     Helper.shared.changeRoot(toView: SignInView())
-                    Helper.shared.IsLoggedIn(value: false)
+//                    Helper.shared.IsLoggedIn(value: false)
+                    Helper.shared.logout()
                 }
             }
 //        }

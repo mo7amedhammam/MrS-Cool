@@ -23,16 +23,23 @@ struct TeacherModel: Codable {
     var id: Int?
     var token, email, name, mobile: String?
     var imagePath, role: String?
-    var roleID, profileStatusID: Int?
-    var academicYearId : Int?
+    var roleID: Int?
+    var firebaseDeviceToken: String?
+    
+    var profileStatusID: Int? // for teacher only
+    var academicYearId : Int? // for student only
 
     enum CodingKeys: String, CodingKey {
         case id, token, email, name, mobile, imagePath, role
         case roleID = "roleId"
+        case firebaseDeviceToken
+        
         case profileStatusID = "profileStatusId"
         case academicYearId
     }
 }
+
+
 // MARK: - CreatedTeacherSubjectM -
 struct CreatedTeacherSubjectM: Codable {
     var subjectSemesterYearId, minGroup, maxGroup: Int?

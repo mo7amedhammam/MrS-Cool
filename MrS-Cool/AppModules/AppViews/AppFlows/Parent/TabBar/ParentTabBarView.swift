@@ -171,8 +171,9 @@ struct ParentTabBarView: View {
             }else if newval == .signOut { // signout
 //                tabbarvm.destination =  AnyView(SignInView())
                 Helper.shared.changeRoot(toView: SignInView())
+//                Helper.shared.IsLoggedIn(value: false)
+                Helper.shared.logout()
 
-                Helper.shared.IsLoggedIn(value: false)
             }
         }
         //        }

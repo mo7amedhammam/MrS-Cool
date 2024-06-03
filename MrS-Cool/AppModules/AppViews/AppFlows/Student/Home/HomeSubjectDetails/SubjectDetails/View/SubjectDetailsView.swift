@@ -146,7 +146,7 @@ struct SubjectDetailsView: View {
                                         Group{
                                             Label(title: {
                                                 Group {
-                                                    Text("Start Date".localized())+Text(slot.startDate ?? "")
+                                                    Text("Start Date".localized())+Text(": ")+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                 }
                                                 .font(.SoraRegular(size: 10))
                                                 .foregroundColor(.mainBlue)
@@ -155,10 +155,11 @@ struct SubjectDetailsView: View {
                                                     .resizable()
                                                     .frame(width:15,height:15)
                                             })
-                                            
+                                            .frame(maxWidth:.infinity,alignment:.leading)
+
                                             Label(title: {
                                                 Group {
-                                                    Text("End Date".localized())+Text(slot.endDate ?? "")
+                                                    Text("End Date".localized())+Text(": ")+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                 }
                                                 .font(.SoraRegular(size: 10))
                                                 .foregroundColor(.mainBlue)
@@ -167,11 +168,12 @@ struct SubjectDetailsView: View {
                                                     .resizable()
                                                     .frame(width:15,height:15)
                                             })
-                                            
-                                            ForEach (slot.getSubjectScheduleGroups ?? [],id:\.self){ schedual in
+                                            .frame(maxWidth:.infinity,alignment:.leading)
+
+                                            ForEach(slot.getSubjectScheduleGroups ?? [],id:\.self){ schedual in
                                                 Label(title: {
                                                     Group {
-                                                        Text(schedual.dayName ?? "" )+Text(schedual.fromTime ?? "")
+                                                        Text(schedual.dayName ?? "" )+Text(": ")+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                     }
                                                     .font(.SoraRegular(size: 10))
                                                     .foregroundColor(.mainBlue)
@@ -180,6 +182,7 @@ struct SubjectDetailsView: View {
                                                         .resizable()
                                                         .frame(width:15,height:15)
                                                 })
+                                                .frame(maxWidth:.infinity,alignment:.leading)
                                                 .padding(.top,8)
                                             }
                                         }
@@ -222,8 +225,17 @@ struct SubjectDetailsView: View {
                                 .frame(width: gr.size.width-50)
                                     
                                     CustomButton(Title:"Book Now",IsDisabled:.constant(subjectdetailsvm.selectedSubjectId == nil) , action: {
-                                        destination = AnyView(BookingCheckoutView(selectedgroupid:selectedDataToBook(selectedId: subjectdetailsvm.selectedSubjectId ?? 0) , bookingcase: nil))
-                                        isPush = true
+                                        if Helper.shared.CheckIfLoggedIn(){
+                                            destination = AnyView(BookingCheckoutView(selectedgroupid:selectedDataToBook(selectedId: subjectdetailsvm.selectedSubjectId ?? 0) , bookingcase: nil))
+                                            isPush = true
+
+                                        }else{
+                                            subjectdetailsvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
+                                                Helper.shared.changeRoot(toView: SignInView())
+                                            })
+                                            subjectdetailsvm.isError = true
+                                        }
+                                            
                                     })
                                     .frame(height: 40)
                                     .padding(.top,10)

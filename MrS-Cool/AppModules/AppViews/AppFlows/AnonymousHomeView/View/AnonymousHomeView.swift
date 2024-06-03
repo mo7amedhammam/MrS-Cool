@@ -57,7 +57,6 @@ struct AnonymousHomeView: View {
             )
             
             GeometryReader{gr in
-                
                 LazyVStack(spacing:0) {
                     ScrollView(showsIndicators:false){
                         
@@ -90,7 +89,6 @@ struct AnonymousHomeView: View {
                             .borderRadius(Color.mainBlue, width: 1, cornerRadius: 8, corners: [.allCorners])
                             .padding(.horizontal)
                         }
-                        
                         if isSearch {
                             VStack{
                                 HStack {
@@ -106,6 +104,7 @@ struct AnonymousHomeView: View {
                                             withAnimation{
                                                 isSearch = false
                                                 studenthomevm.clearsearch()
+                                                studenthomevm.getHomeData()
                                             }
                                         }
                                         .padding()
@@ -360,7 +359,6 @@ struct AnonymousHomeView: View {
                     .onAppear {
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
-                        //                        studenthomevm.clearselections()
                         studenthomevm.getHomeData()
 //                        studenthomevm.GetStudentSubjects()
                     }
@@ -373,7 +371,6 @@ struct AnonymousHomeView: View {
                     .onChange(of: studenthomevm.academicYear, perform: { value in
                         lookupsvm.SelectedAcademicYear = value
                     })
-                    
                     .onChange(of: selectedDestination) {newval in
                         if newval == .login { // sign in
                             //                            destination =                           AnyView(SignInView())

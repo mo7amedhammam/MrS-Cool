@@ -205,7 +205,7 @@ struct LessonDetailsView: View {
                                                 Group{
                                                     Label(title: {
                                                         Group {
-                                                            Text("Date".localized())+Text(slot.date ?? "")
+                                                            Text("Date".localized())+Text(": ")+Text("\(slot.date ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMMM yyyy"))
                                                         }
                                                         .font(.SoraRegular(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -217,7 +217,7 @@ struct LessonDetailsView: View {
                                                     
                                                     Label(title: {
                                                         Group {
-                                                            Text("Start Time".localized())+Text(slot.timeFrom ?? "")
+                                                            Text("Start Time".localized())+Text(": ")+Text("\(slot.timeFrom ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
                                                         .font(.SoraRegular(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -228,7 +228,7 @@ struct LessonDetailsView: View {
                                                     })
                                                     Label(title: {
                                                         Group {
-                                                            Text("End Time".localized())+Text(slot.timeTo ?? "")
+                                                            Text("End Time".localized())+Text(": ")+Text("\(slot.timeTo ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
                                                         .font(.SoraRegular(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -238,6 +238,7 @@ struct LessonDetailsView: View {
                                                             .frame(width:15,height:15)
                                                     })
                                                 }
+                                                .frame(maxWidth:.infinity,alignment:.leading)
                                                 .padding(.top,8)
                                                 .padding(.horizontal)
                                                 
@@ -316,23 +317,28 @@ struct LessonDetailsView: View {
                                     
                                     Group{
                                         Text("Available Times on".localized())
-                                        + Text(" \(selectedDate ?? Date())")
+                                        + Text(" \(selectedDate ?? Date())".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMMM yyyy"))
                                     }
                                     .font(Font.SoraBold(size: 15))
                                     .foregroundColor(ColorConstants.MainColor)
-                                    
                                     
                                     ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
                                         .padding(.horizontal)
                                     
                                     HorizontalScrollWithTwoRows(items:  $lessondetailsvm.availableScheduals ,selectedsched:$lessondetailsvm.selectedsched)
-                                    
                                 }
                                 
                                 if (lessoncase == .Group && details.LessonGroupsDto != []) || (lessoncase == .Individual && lessondetailsvm.availableScheduals != [])  {
                                     CustomButton(Title:"Book Now",IsDisabled:.constant( lessondetailsvm.selectedLessonGroup == nil && lessondetailsvm.selectedsched == nil) , action: {
-                                        destination = AnyView(BookingCheckoutView(selectedgroupid: selectedDataToBook(selectedId: lessoncase == .Group ? lessondetailsvm.selectedLessonGroup:selectedlessonid, Date: lessondetailsvm.selectedsched?.date, DayName: lessondetailsvm.selectedsched?.dayName, FromTime: lessondetailsvm.selectedsched?.fromTime, ToTime: lessondetailsvm.selectedsched?.toTime), bookingcase: lessoncase))
-                                    isPush = true
+                                        if Helper.shared.CheckIfLoggedIn(){
+                                            destination = AnyView(BookingCheckoutView(selectedgroupid: selectedDataToBook(selectedId: lessoncase == .Group ? lessondetailsvm.selectedLessonGroup:selectedlessonid, Date: lessondetailsvm.selectedsched?.date, DayName: lessondetailsvm.selectedsched?.dayName, FromTime: lessondetailsvm.selectedsched?.fromTime, ToTime: lessondetailsvm.selectedsched?.toTime), bookingcase: lessoncase))
+                                        isPush = true                                  
+                                        }else{
+                                            lessondetailsvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
+                                                Helper.shared.changeRoot(toView: SignInView())
+                                            })
+                                            lessondetailsvm.isError = true
+                                        }
                                 })
                                 .frame(height: 40)
                                 .padding(.top,10)
@@ -427,7 +433,7 @@ struct HorizontalScrollWithTwoRows: View {
                                                 Text("Start Time".localized())
                                                 
                                                 Spacer()
-                                                Text(items[index].fromTime ?? "03:45 PM")
+                                                Text("\(items[index].fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                             
@@ -440,7 +446,7 @@ struct HorizontalScrollWithTwoRows: View {
                                                 Text("End Time".localized())
                                                 
                                                 Spacer()
-                                                Text(items[index].toTime ?? "03:45 PM")
+                                                Text("\(items[index].toTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                         }
@@ -490,7 +496,7 @@ struct HorizontalScrollWithTwoRows: View {
                                                 Text("Start Time".localized())
                                                 
                                                 Spacer()
-                                                Text(items[index].fromTime ?? "03:45 PM")
+                                                Text("\(items[index].fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                             
@@ -503,7 +509,7 @@ struct HorizontalScrollWithTwoRows: View {
                                                 Text("End Time".localized())
                                                 
                                                 Spacer()
-                                                Text(items[index].toTime ?? "03:45 PM")
+                                                Text("\(items[index].toTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                         }

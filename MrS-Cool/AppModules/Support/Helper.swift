@@ -45,7 +45,7 @@ class Helper: NSObject {
     //remove data then logout
     func logout() {
         IsLoggedIn(value: false)
-        userDef.removeObject(forKey:UserDataKey  )
+        userDef.removeObject(forKey:UserDataKey )
     }
     
     func onBoardOpened(opened:Bool) {

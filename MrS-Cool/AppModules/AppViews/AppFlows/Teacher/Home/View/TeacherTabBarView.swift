@@ -208,8 +208,9 @@ struct TeacherTabBarView: View {
 //                    tabbarvm.destination =
 //                   AnyView(SignInView())
                     Helper.shared.changeRoot(toView: SignInView())
-                    Helper.shared.IsLoggedIn(value: false)
-                    
+//                    Helper.shared.IsLoggedIn(value: false)
+                    Helper.shared.logout()
+
                 }
 //            }
         }

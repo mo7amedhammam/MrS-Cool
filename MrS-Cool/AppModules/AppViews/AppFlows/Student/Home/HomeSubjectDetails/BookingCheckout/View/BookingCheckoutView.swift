@@ -127,19 +127,18 @@ struct BookingCheckoutView: View {
                         }.padding(7)
                         
                         CustomButton(Title: "Confirm Payment", IsDisabled: .constant(false), action: {
-                            if Helper.shared.CheckIfLoggedIn(){
+//                            if Helper.shared.CheckIfLoggedIn(){
                                 checkoutvm.CreateBookCheckout(Id: selectedgroupid.selectedId ?? 0)
 //                                showWebView = true
 
-                            }else{
-                                checkoutvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
-//                                    destination = AnyView(SignInView())
-//                                    isPush = true
-                                    Helper.shared.changeRoot(toView: SignInView())
-                                })
-                                checkoutvm.isError = true
-
-                            }
+//                            }else{
+//                                checkoutvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
+////                                    destination = AnyView(SignInView())
+////                                    isPush = true
+//                                    Helper.shared.changeRoot(toView: SignInView())
+//                                })
+//                                checkoutvm.isError = true
+//                            }
                         })
                         .frame(height:40)
                         
@@ -587,7 +586,7 @@ import WebKit
 //struct WebView: UIViewRepresentable {
 //    let url: URL
 //    @Binding var isPaymentSuccessful: Bool?
-//    
+//
 //    func makeCoordinator() -> Coordinator {
 //        Coordinator(self)
 //    }
@@ -637,7 +636,7 @@ import WebKit
 //            }
 //            decisionHandler(.allow)
 //        }
-//        
+//
 //    }
 //}
 
