@@ -315,13 +315,15 @@ struct LessonDetailsView: View {
                                         .frame(width:40,height:40)
                                         .padding(.vertical,8)
                                     
-                                    Group{
-                                        Text("Available Times on".localized())
-                                        + Text(" \(selectedDate ?? Date())".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMMM yyyy"))
+                                    if (lessoncase == .Individual && lessondetailsvm.availableScheduals == []){
+                                        Group{
+                                        Text(" No Available Times on ".localized())
+                                        + Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy")
+                                        )
                                     }
-                                    .font(Font.SoraBold(size: 15))
-                                    .foregroundColor(ColorConstants.MainColor)
-                                    
+                                        .font(Font.SoraBold(size: 15))
+                                        .foregroundColor(ColorConstants.MainColor)
+                                }
                                     ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
                                         .padding(.horizontal)
                                     
@@ -388,7 +390,7 @@ struct LessonDetailsView: View {
             let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'")
 //            if newdate != Data(){
             lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
-//            }
+            lessondetailsvm.selectedsched = nil //clear individual selected sched
         }
                 .showHud(isShowing: $lessondetailsvm.isLoading)
                 .showAlert(hasAlert: $lessondetailsvm.isError, alertType: lessondetailsvm.error)

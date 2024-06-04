@@ -80,7 +80,7 @@ class ManageLessonMaterialVM: ObservableObject {
                 materialType = .init(id: editingMaterial?.materialTypeID,Title: editingMaterial?.materialTypeName)
                 materialName = editingMaterial?.name ?? ""
                 materialNameEn = editingMaterial?.nameEn ?? ""
-                materialUrl = editingMaterial?.materialURL ?? ""
+//                materialUrl = editingMaterial?.materialURL ?? ""
             }
         }
     }

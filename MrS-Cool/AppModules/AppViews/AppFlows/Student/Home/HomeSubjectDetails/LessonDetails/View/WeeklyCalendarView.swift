@@ -60,6 +60,9 @@ struct WeeklyCalendarRepresentableView: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
             return date >= Calendar.current.startOfDay(for: Date())
         }
+        func minimumDate(for calendar: FSCalendar) -> Date {
+            return calendar.today ?? Date()
+        }
         
     }
 }
