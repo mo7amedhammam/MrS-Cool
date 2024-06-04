@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SelectedStudentHome: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var tabbarvm : StudentTabBarVM
 
-    @StateObject var tabbarvm = StudentTabBarVM()
+//    @StateObject var tabbarvm = StudentTabBarVM()
+    
     @State private var selectedIndex = 2
 //    @State private var selectedDestination : Teacherdestinations?
     
@@ -36,33 +38,33 @@ struct SelectedStudentHome: View {
         //        NavigationView{
         VStack{
             
-            VStack{
-                HStack {
-                    //                VStack(alignment: .leading){
-                    Group{
-                        Text("Hi, ".localized())+Text(teacherProfilevm.name)
-                        
-                        //                            Text("Lets Start Learning! ".localized())
-                        //                                .font(Font.SoraRegular(size: 11))
-                        //                                .padding(.vertical,0.5)
-                    }
-                    .font(Font.SoraBold(size: 18))
-                    .foregroundColor(.whiteA700)
-                    //                }
-                    
-                    Spacer()
-//                    Button(action: {
-//                        presentSideMenu.toggle()
-//                    }, label: {
-//                        Image("sidemenue")
-//                            .padding(.vertical,15)
-//                            .padding(.horizontal,10)
-//                    })
-//                    .background(
-//                        CornersRadious(radius: 10, corners: [.topLeft,.topRight,.bottomLeft,.bottomRight])
-//                            .fill(ColorConstants.WhiteA700)
-//                    )
-                }
+//            VStack{
+//                HStack {
+//                    //                VStack(alignment: .leading){
+////                    Group{
+////                        Text("Hi, ".localized())+Text(teacherProfilevm.name)
+////                        
+////                        //                            Text("Lets Start Learning! ".localized())
+////                        //                                .font(Font.SoraRegular(size: 11))
+////                        //                                .padding(.vertical,0.5)
+////                    }
+////                    .font(Font.SoraBold(size: 18))
+////                    .foregroundColor(.whiteA700)
+//                    //                }
+//                    
+//                    Spacer()
+////                    Button(action: {
+////                        presentSideMenu.toggle()
+////                    }, label: {
+////                        Image("sidemenue")
+////                            .padding(.vertical,15)
+////                            .padding(.horizontal,10)
+////                    })
+////                    .background(
+////                        CornersRadious(radius: 10, corners: [.topLeft,.topRight,.bottomLeft,.bottomRight])
+////                            .fill(ColorConstants.WhiteA700)
+////                    )
+//                }
             
                 HStack{
                     let imageURL : URL? = URL(string: Constants.baseURL + (listchildrenvm.selectedChild?.image ?? "image").reverseSlaches())
@@ -85,7 +87,7 @@ struct SelectedStudentHome: View {
                             .padding(.horizontal,10)
                     }
                 }
-            }
+//            }
             .padding([.bottom,.horizontal])
             .background(
                 CornersRadious(radius: 10, corners: [.bottomLeft,.bottomRight])
@@ -489,5 +491,7 @@ struct SelectedStudentHome: View {
 }
 
 #Preview{
-    SelectedStudentHome().environmentObject(ListChildrenVM())
+    SelectedStudentHome()
+        .environmentObject(ListChildrenVM())
+        .environmentObject(StudentTabBarVM())
 }

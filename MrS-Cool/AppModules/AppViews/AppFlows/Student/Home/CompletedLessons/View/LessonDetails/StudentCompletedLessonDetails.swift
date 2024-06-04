@@ -145,11 +145,11 @@ struct StudentLessonDetailsCell: View {
                 .frame(width: 60,height: 60)
                 .clipShape(Circle())
             
-            Text(model.materialTypeName ?? "type name")
+            Text(model.materialTypeName ?? "")
                     .font(Font.SoraRegular(size:7))
                     .foregroundColor(.mainBlue)
 
-            Text(model.name ?? "name ")
+            Text(model.nameEn ?? "")
                     .font(Font.SoraSemiBold(size: 10))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)

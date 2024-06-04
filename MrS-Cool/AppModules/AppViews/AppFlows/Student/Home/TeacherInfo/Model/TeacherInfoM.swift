@@ -21,6 +21,7 @@ struct TeacherInfoM: Codable,Hashable {
 struct Subject: Codable,Hashable {
     var subjectImage, subjectEducationType, subjectAcademicYear, subjectName: String?
     var subjectLevel: String?
+    var subjectSemesterYearId: Int?
 }
 
 // MARK: - TeacherRatePercent -
@@ -31,7 +32,9 @@ struct TeacherRatePercent: Codable,Hashable {
 extension Array where Element == Subject {
     func convertToStudentSubjectsM() -> [HomeSubject] {
         return self.map { subject in
-            return HomeSubject(id: 0, name: subject.subjectName, image: subject.subjectImage,teacherSubject: teacherTitle(subjectAcademicYear: subject.subjectAcademicYear,subjectLevel: subject.subjectLevel))
+            return HomeSubject(id: subject.subjectSemesterYearId, name: subject.subjectName, image: subject.subjectImage,teacherSubject: teacherTitle(subjectAcademicYear: subject.subjectAcademicYear,subjectLevel: subject.subjectLevel))
         }
     }
 }
+
+

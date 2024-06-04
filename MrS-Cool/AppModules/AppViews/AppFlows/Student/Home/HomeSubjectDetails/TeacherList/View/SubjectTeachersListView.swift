@@ -182,6 +182,7 @@ struct SubjectTeachersListView: View {
             hideKeyboard()
         })
         .onAppear(perform: {
+            guard homesubjectteachersvm.skipCount == 0 else {return}
             switch bookingcase {
             case .subject:
                 homesubjectteachersvm.subjectId = selectedsubjectorlessonid

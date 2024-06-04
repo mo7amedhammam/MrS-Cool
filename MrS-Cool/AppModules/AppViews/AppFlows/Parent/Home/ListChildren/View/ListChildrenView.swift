@@ -12,104 +12,117 @@ struct ListChildrenView: View {
     @EnvironmentObject var listchildrenvm : ListChildrenVM
 //    @State private var selectedChild : ChildrenM = ChildrenM.init()
 
+    @State var isPush = false
+    @State var destination = AnyView(EmptyView())
+
     var body: some View {
-        VStack {
-            ScrollView {
-                LazyVGrid(columns: [.init(), .init(),.init()]) {
-                    ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
-                        ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild, deleteAction: {
-                            
-                            listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to delete this child account ?", buttonTitle: "Delete", secondButtonTitle: "Not Now",isVertical:false, mainBtnAction: {
-                                listchildrenvm.DeleteStudent(id: children.id ?? 0)
+        NavigationView{
+            VStack {
+                ScrollView {
+                    LazyVGrid(columns: [.init(), .init(),.init()]) {
+                        ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
+                            ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild, deleteAction: {
+                                
+                                listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to delete this child account ?", buttonTitle: "Delete", secondButtonTitle: "Not Now",isVertical:false, mainBtnAction: {
+                                    listchildrenvm.DeleteStudent(id: children.id ?? 0)
+                                }, secondBtnAction: {
+                                    //                                listchildrenvm.isError = false
+                                })
+                                listchildrenvm.isError = true
+                                
+                            }, detailsaction: {
+                                //                            print(id)
+                                listchildrenvm.selectedChild = children
+                                Helper.shared.selectedchild = children
+                                
+                                //                            tabbarvm.destination = AnyView(SelectedStudentHome().environmentObject(listchildrenvm)
+                                //                            )
+                                //                            tabbarvm.ispush = true
+                                destination = AnyView(
+                                    SelectedStudentHome().environmentObject(listchildrenvm)
+                                        .environmentObject(tabbarvm)
+                                )
+                                isPush = true
+                                
+                            })
+                        }
+                        
+                        Button(action: {
+                            listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
+                                tabbarvm.destination = AnyView(
+                                    AddNewStudentView()
+                                )
+                                tabbarvm.ispush = true
                             }, secondBtnAction: {
-//                                listchildrenvm.isError = false
+                                tabbarvm.destination = AnyView( AddExistingStudentPhone())
+                                tabbarvm.ispush = true
                             })
                             listchildrenvm.isError = true
-
-                        }, detailsaction: {
-                            //                            print(id)
-                            listchildrenvm.selectedChild = children
-                            Helper.shared.selectedchild = children
                             
-                            tabbarvm.destination = AnyView(
-                                SelectedStudentHome().environmentObject(listchildrenvm)
-                            )
-                            tabbarvm.ispush = true
-                        })
-                    }
-                    
-                    Button(action: {
-                        listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
-                            tabbarvm.destination = AnyView(
-                                AddNewStudentView()
-                            )
-                            tabbarvm.ispush = true
-                        }, secondBtnAction: {
-                            tabbarvm.destination = AnyView( AddExistingStudentPhone())
-                            tabbarvm.ispush = true
-                        })
-                        listchildrenvm.isError = true
-                        
-                    }, label: {
-                        VStack (spacing:0){
-                            HStack{
-                                Image(systemName: "plus")
+                        }, label: {
+                            VStack (spacing:0){
+                                HStack{
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(.mainBlue)
+                                        .frame(width: 12, height: 12, alignment: .center)
+                                        .padding(5)
+                                        .background(){
+                                            Color.white.clipShape(Circle())
+                                        }
+                                        .padding(5)
+                                    
+                                    Spacer()
+                                }
+                                Image("studenticon")
                                     .resizable()
-                                    .renderingMode(.template)
+                                    .frame(width: 75,
+                                           height: 75, alignment: .center)
+                                
+                                Text("Add New".localized())
+                                    .font(Font.SoraSemiBold(size: 8))
                                     .foregroundColor(.mainBlue)
-                                    .frame(width: 12, height: 12, alignment: .center)
-                                    .padding(5)
-                                    .background(){
-                                        Color.white.clipShape(Circle())
-                                    }
-                                    .padding(5)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.top,4)
+                                
+                                Text("Student".localized())
+                                    .font(Font.SoraSemiBold(size: 12))
+                                    .foregroundColor(.mainBlue)
+                                    .multilineTextAlignment(.center)
                                 
                                 Spacer()
                             }
-                            Image("studenticon")
-                                .resizable()
-                                .frame(width: 75,
-                                       height: 75, alignment: .center)
-                            
-                            Text("Add New".localized())
-                                .font(Font.SoraSemiBold(size: 8))
-                                .foregroundColor(.mainBlue)
-                                .multilineTextAlignment(.center)
-                                .padding(.top,4)
-                            
-                            Text("Student".localized())
-                                .font(Font.SoraSemiBold(size: 12))
-                                .foregroundColor(.mainBlue)
-                                .multilineTextAlignment(.center)
-                            
-                        Spacer()
-                        }
-                        .frame(height:150)
-                        .frame(minWidth: 0,maxWidth: 110)
-                        .background(
-                            CornersRadious(radius: 8, corners: .allCorners).fill(ColorConstants.Bluegray100).opacity(0.33))
-                    })
-                    
+                            .frame(height:150)
+                            .frame(minWidth: 0,maxWidth: 110)
+                            .background(
+                                CornersRadious(radius: 8, corners: .allCorners).fill(ColorConstants.Bluegray100).opacity(0.33))
+                        })
+                        
+                    }
                 }
+                Spacer()
+                NavigationLink(destination: destination, isActive: $isPush, label: {})
+
             }
-         Spacer()
-        }
-        .padding()
+            .padding()
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
-        })
-        .onAppear(perform: {
-            listchildrenvm.GetMyChildren()
-        })
-//        .onChange(of: listchildrenvm.isError, perform: { value in
-//            tabbarvm.error = listchildrenvm.error
-//            tabbarvm.isError = value
-//        })
-        .showHud(isShowing: $listchildrenvm.isLoading)
-        .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
+            })
+            .onAppear(perform: {
+                listchildrenvm.GetMyChildren()
+            })
+            //        .onChange(of: listchildrenvm.isError, perform: { value in
+            //            tabbarvm.error = listchildrenvm.error
+            //            tabbarvm.isError = value
+            //        })
+            .showHud(isShowing: $listchildrenvm.isLoading)
+            .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
 
-       
+        }
+
+
         
     }
 }

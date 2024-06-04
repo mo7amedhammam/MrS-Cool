@@ -130,9 +130,10 @@ struct EditParentProfileView: View {
                 lookupsvm.getGendersArr()
                 lookupsvm.getCountriesArr()
                 
+                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
                 lookupsvm.SelectedCountry = parentprofilevm.country
                 lookupsvm.SelectedGovernorate = parentprofilevm.governorte
-                
+                })
             })
         })
         .onChange(of: parentprofilevm.isDataUpdated, perform: { value in

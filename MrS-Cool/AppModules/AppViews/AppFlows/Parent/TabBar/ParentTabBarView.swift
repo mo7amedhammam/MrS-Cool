@@ -34,7 +34,7 @@ struct ParentTabBarView: View {
     @State var presentSideMenu = false
     var body: some View {
         //        NavigationView{
-        VStack() {
+        VStack(spacing:0) {
             HStack {
                 VStack(alignment: .leading){
                     Group{

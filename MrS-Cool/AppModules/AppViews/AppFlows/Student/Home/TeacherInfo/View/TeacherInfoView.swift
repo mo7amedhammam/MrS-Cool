@@ -12,8 +12,8 @@ struct TeacherInfoView: View {
     var teacherid : Int
     @StateObject var teacherinfovm = TeacherInfoVM()
 
-    //    @State var isPush = false
-    //    @State var destination = AnyView(EmptyView())
+        @State var isPush = false
+        @State var destination = AnyView(EmptyView())
     //    var bookingcase:BookingCases
     
  
@@ -115,10 +115,10 @@ struct TeacherInfoView: View {
                                     ForEach(Array(homesbject.enumerated()),id:\.element){index,subject in
 //                                        let teachersubject = teacherTitle(subjectAcademicYear: "studentSubjects[index].subjectAcademicYear" , subjectLevel: "studentSubjects[index].subjectLevel")
                                         
-                                        StudentHomeSubjectCell(subject:subject,selectedSubject:.constant(HomeSubject(id: -132, name: "", image: ""))
+                                        StudentHomeSubjectCell(subject:subject,selectedSubject:$teacherinfovm.SelectedStudentSubjects
                                         ){
-                                            //                                            destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
-                                            //                                            isPush = true
+                                            destination = AnyView(HomeSubjectDetailsView(selectedsubjectid:subject.id ?? 0))
+                                            isPush = true
                                         }
                                         //                                    .frame(width: gr.size.width/2.7, height: 160)
                                     }
@@ -155,18 +155,18 @@ struct TeacherInfoView: View {
             hideKeyboard()
         })
         .onAppear(perform: {
-            DispatchQueue.main.async{
+//            DispatchQueue.main.async{
                 teacherinfovm.GetTeacherInfo(TeacherId: teacherid)
-            }
+//            }
         })
         //        .onDisappear {
         //            lessondetailsvm.cleanup()
         //        }
         
-        //        .showHud(isShowing: $homesubjectdetailsvm.isLoading)
-        //        .showAlert(hasAlert: $homesubjectdetailsvm.isError, alertType: homesubjectdetailsvm.error)
+                .showHud(isShowing: $teacherinfovm.isLoading)
+                .showAlert(hasAlert: $teacherinfovm.isError, alertType: teacherinfovm.error)
         
-        //        NavigationLink(destination: destination, isActive: $isPush, label: {})
+                NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
     
 }

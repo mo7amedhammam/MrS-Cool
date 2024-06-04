@@ -89,6 +89,7 @@ struct HomeSubjectDetailsView: View {
                                 ForEach(details.getSubjectLessonsDetailsDtoList ?? [],id:\.self){unit in
                                     UnitListCell(unit: unit){lesson in
                                         print("lesson is ", lesson)
+                                        guard lesson.availableTeacherCount ?? 0 > 0 else{return}
                                         destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.lessonID ?? 0, bookingcase: .lesson))
                                         isPush = true
                                     }
