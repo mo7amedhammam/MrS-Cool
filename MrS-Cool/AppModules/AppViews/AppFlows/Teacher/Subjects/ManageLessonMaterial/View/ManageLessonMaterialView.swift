@@ -387,7 +387,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            managelessonmaterialvm.filtermaterialType = nil
+                                            managelessonmaterialvm.clearFilter()
                                             managelessonmaterialvm.GetLessonMaterial()
                                             showFilter = false
                                         })

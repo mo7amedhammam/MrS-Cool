@@ -159,11 +159,18 @@ struct StudentTabBarView: View {
                     
                 }else if newval == .signOut { // signout
 //                    studenttabbarvm.destination = AnyView(SignInView())
-                    Helper.shared.changeRoot(toView: SignInView())
-//                    Helper.shared.IsLoggedIn(value: false)
-                    Helper.shared.logout()
+//                    Helper.shared.changeRoot(toView: SignInView())
+//                    Helper.shared.logout()
+                    studenttabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                        Helper.shared.changeRoot(toView: AnonymousHomeView())
+                        Helper.shared.logout()
+                    })
+                    studenttabbarvm.isError.toggle()
+
                 }
             }
+            .showAlert(hasAlert: $studenttabbarvm.isError, alertType: studenttabbarvm.error)
+
 //        }
             NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
     }

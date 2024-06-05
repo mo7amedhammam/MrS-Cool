@@ -116,6 +116,7 @@ struct LessonDetailsView: View {
                                 
                                 HStack{
                                     Button(action: {
+                                        guard lessoncase != .Group else {return}
                                         lessoncase = .Group
                                         lessondetailsvm.selectedsched = nil //clear individual
                                     }, label: {
@@ -130,6 +131,7 @@ struct LessonDetailsView: View {
                                     })
                                     
                                     Button(action: {
+                                        guard lessoncase != .Individual else {return}
                                         lessoncase = .Individual
                                         lessondetailsvm.selectedLessonGroup = nil // clear group
                                         selectedDate = Date()

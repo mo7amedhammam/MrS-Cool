@@ -19,7 +19,8 @@ final class CustomCalendarExampleController: DayViewController {
         }
     }
     var onCancelEvent: ((EventM) -> Void)?
-
+    var onEventSelected: ((EventM) -> Void)?
+    
     var generatedEvents = [EventDescriptor]()
     var alreadyGeneratedSet = Set<Date>()
     
@@ -68,7 +69,6 @@ final class CustomCalendarExampleController: DayViewController {
     }
     
     // MARK: EventDataSource
-    
     //    override func eventsForDate(_ date: Date) -> [EventDescriptor] {
     //        // Your logic to fetch events for the given date
     //        // This is just a placeholder, replace it with your actual data fetching logic
@@ -114,20 +114,23 @@ final class CustomCalendarExampleController: DayViewController {
                 
                 event.dateInterval = DateInterval(start: eventDate.addingTimeInterval(TimeInterval(startTimeComponents.hour! * 3600 + startTimeComponents.minute! * 60)),
                                                   end: eventDate.addingTimeInterval(TimeInterval(endTimeComponents.hour! * 3600 + endTimeComponents.minute! * 60)))
-                
                 event.text = "\(eventM.groupName ?? "")"
-//                event.color = .green // Customize the color as needed
+                //                event.color = .green // Customize the color as needed
                 // Set color based on conditions
-                         if eventDate < Calendar.current.startOfDay(for: Date()) {
-                             // Event is before today
-                             event.color = .red
-                         } else if eventM.isCancel ?? false {
-                             // Event is canceled
-                             event.color = .red
-                         } else {
-                             // Default color for other events
-                             event.color = .green
-                         }
+                if eventDate < Calendar.current.startOfDay(for: Date()) {
+                    // Event is before today
+                    event.color = .red
+                } else if eventM.isCancel ?? false {
+                    // Event is canceled
+                    event.color = .red
+                } else {
+                    // Default color for other events
+                    event.color = .green
+                }
+                
+                // Store the EventM object in userInfo
+                event.userInfo = eventM
+                
             }
             return event
         }
@@ -135,45 +138,45 @@ final class CustomCalendarExampleController: DayViewController {
         return eventDescriptors
     }
     
-
     
-//    private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
-//        var workingDate = Calendar.current.date(byAdding: .hour, value: Int.random(in: 1...15), to: date)!
-//        var events = [Event]()
-//        for i in 0...4 {
-//            let event = Event()
-//            
-//            let duration = Int.random(in: 60 ... 160)
-//            event.dateInterval = DateInterval(start: workingDate, duration: TimeInterval(duration * 60))
-//            
-//            var info = data.randomElement() ?? []
-//            
-//            let timezone = dayView.calendar.timeZone
-//            print(timezone)
-//            
-//            info.append(dateIntervalFormatter.string(from: event.dateInterval.start, to: event.dateInterval.end))
-//            event.text = info.reduce("", {$0 + $1 + "\n"})
-//            event.color = colors.randomElement() ?? .red
-//            event.isAllDay = Bool.random()
-//            event.lineBreakMode = .byTruncatingTail
-//            
-//            events.append(event)
-//            
-//            let nextOffset = Int.random(in: 40 ... 250)
-//            workingDate = Calendar.current.date(byAdding: .minute, value: nextOffset, to: workingDate)!
-//            event.userInfo = String(i)
-//        }
-//        
-//        print("Events for \(date)")
-//        return events
-//    }
+    
+    //    private func generateEventsForDate(_ date: Date) -> [EventDescriptor] {
+    //        var workingDate = Calendar.current.date(byAdding: .hour, value: Int.random(in: 1...15), to: date)!
+    //        var events = [Event]()
+    //        for i in 0...4 {
+    //            let event = Event()
+    //
+    //            let duration = Int.random(in: 60 ... 160)
+    //            event.dateInterval = DateInterval(start: workingDate, duration: TimeInterval(duration * 60))
+    //
+    //            var info = data.randomElement() ?? []
+    //
+    //            let timezone = dayView.calendar.timeZone
+    //            print(timezone)
+    //
+    //            info.append(dateIntervalFormatter.string(from: event.dateInterval.start, to: event.dateInterval.end))
+    //            event.text = info.reduce("", {$0 + $1 + "\n"})
+    //            event.color = colors.randomElement() ?? .red
+    //            event.isAllDay = Bool.random()
+    //            event.lineBreakMode = .byTruncatingTail
+    //
+    //            events.append(event)
+    //
+    //            let nextOffset = Int.random(in: 40 ... 250)
+    //            workingDate = Calendar.current.date(byAdding: .minute, value: nextOffset, to: workingDate)!
+    //            event.userInfo = String(i)
+    //        }
+    //
+    //        print("Events for \(date)")
+    //        return events
+    //    }
     private func cancelEvent(_ event: Event) {
         // Implement the logic to cancel the event here
         // You may need to update your data model, set a flag, or perform any necessary actions
         // After canceling the event, you should update the events array and call reloadData()
-
-        if let index = generatedEvents.firstIndex(where: { $0 === event }) {
-//            generatedEvents.remove(at: index)
+        
+        if generatedEvents.firstIndex(where: { $0 === event }) != nil {
+            //            generatedEvents.remove(at: index)
             reloadData()
         }
     }
@@ -193,12 +196,27 @@ final class CustomCalendarExampleController: DayViewController {
         }
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
         
+        if let eventM = descriptor.userInfo as? EventM {
+            onEventSelected?(eventM)
+        }
+        
+        
+        
+    }
+    
+    override func dayViewDidLongPressEventView(_ eventView: EventView) {
+        guard let descriptor = eventView.descriptor as? Event else {
+            return
+        }
+        //        endEventEditing()
+        print("Event has been longPressed: \(descriptor) \(String(describing: descriptor.userInfo))")
+        //        beginEditing(event: descriptor, animated: true)
         if let eventM = events.first(where: { event in
-                  let dateString = event.date ?? ""
-                  if let eventDate = dateFormatter2.date(from: dateString) {
-                      return Calendar.current.isDate(eventDate, inSameDayAs: descriptor.dateInterval.start)
-                  }
-                  return false
+            let dateString = event.date ?? ""
+            if let eventDate = dateFormatter2.date(from: dateString) {
+                return Calendar.current.isDate(eventDate, inSameDayAs: descriptor.dateInterval.start)
+            }
+            return false
         }) {
             // Check if the event is in the past or is canceled
             let currentDate = Date()
@@ -226,16 +244,7 @@ final class CustomCalendarExampleController: DayViewController {
             // Present the action sheet
             present(alertController, animated: true, completion: nil)
         }
-    }
-    
-    override func dayViewDidLongPressEventView(_ eventView: EventView) {
-        guard let descriptor = eventView.descriptor as? Event else {
-            return
-        }
-//        endEventEditing()
-        print("Event has been longPressed: \(descriptor) \(String(describing: descriptor.userInfo))")
-//        beginEditing(event: descriptor, animated: true)
-        print(Date())
+        
     }
     
     override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
@@ -244,7 +253,7 @@ final class CustomCalendarExampleController: DayViewController {
     }
     
     override func dayViewDidBeginDragging(dayView: DayView) {
-//        endEventEditing()
+        //        endEventEditing()
         print("DayView did begin dragging")
     }
     
@@ -260,29 +269,29 @@ final class CustomCalendarExampleController: DayViewController {
     override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
         print("Did long press timeline at date \(date)")
         // Cancel editing current event and start creating a new one
-//        endEventEditing()
-//        let event = generateEventNearDate(date)
+        //        endEventEditing()
+        //        let event = generateEventNearDate(date)
         print("Creating a new event")
-//        create(event: event, animated: true)
-//        createdEvent = event
+        //        create(event: event, animated: true)
+        //        createdEvent = event
     }
     
-//    private func generateEventNearDate(_ date: Date) -> EventDescriptor {
-//        let duration = (60...220).randomElement()!
-//        let startDate = Calendar.current.date(byAdding: .minute, value: -Int(Double(duration) / 2), to: date)!
-//        let event = Event()
-//        
-//        event.dateInterval = DateInterval(start: startDate, duration: TimeInterval(duration * 60))
-//        
-//        var info = data.randomElement()!
-//        
-//        info.append(dateIntervalFormatter.string(from: event.dateInterval)!)
-//        event.text = info.reduce("", {$0 + $1 + "\n"})
-//        event.color = colors.randomElement()!
-//        event.editedEvent = event
-//        
-//        return event
-//    }
+    //    private func generateEventNearDate(_ date: Date) -> EventDescriptor {
+    //        let duration = (60...220).randomElement()!
+    //        let startDate = Calendar.current.date(byAdding: .minute, value: -Int(Double(duration) / 2), to: date)!
+    //        let event = Event()
+    //
+    //        event.dateInterval = DateInterval(start: startDate, duration: TimeInterval(duration * 60))
+    //
+    //        var info = data.randomElement()!
+    //
+    //        info.append(dateIntervalFormatter.string(from: event.dateInterval)!)
+    //        event.text = info.reduce("", {$0 + $1 + "\n"})
+    //        event.color = colors.randomElement()!
+    //        event.editedEvent = event
+    //
+    //        return event
+    //    }
     
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
         print("did finish editing \(event)")
@@ -305,47 +314,197 @@ final class CustomCalendarExampleController: DayViewController {
 }
 
 
+//struct CalendarKitWrapper: UIViewControllerRepresentable {
+//    typealias UIViewControllerType = CustomCalendarExampleController
+//
+//    let selectedDate: Binding<Date>
+//    var events: [EventM]
+//    var onCancelEvent: ((EventM) -> Void)?
+//
+//    init(selectedDate: Binding<Date>,events: [EventM],onCancelEvent: ((EventM) -> Void)?) {
+//        self.selectedDate = selectedDate
+//        self.onCancelEvent = onCancelEvent
+//        self.events = events
+//    }
+//
+//    func makeUIViewController(context: Context) -> CustomCalendarExampleController {
+//        let controller = CustomCalendarExampleController()
+//        controller.selectedDate = selectedDate.wrappedValue
+//        controller.events = events
+//        controller.onCancelEvent = onCancelEvent
+//
+//        return controller
+//    }
+//
+//    func updateUIViewController(_ uiViewController: CustomCalendarExampleController, context: Context) {
+//        // Update your view controller if needed
+//
+//    }
+//}
+import SwiftUI
+
 struct CalendarKitWrapper: UIViewControllerRepresentable {
     typealias UIViewControllerType = CustomCalendarExampleController
     
-    let selectedDate: Binding<Date>
-    var events: [EventM]
+    @Binding var selectedDate: Date
+    @Binding var events: [EventM]
+    @Binding var isShowingDetailSheet: Bool
+    @Binding var selectedEvent: EventM?
+    
     var onCancelEvent: ((EventM) -> Void)?
-
-    init(selectedDate: Binding<Date>,events: [EventM],onCancelEvent: ((EventM) -> Void)?) {
-        self.selectedDate = selectedDate
+    
+    init(selectedDate: Binding<Date>, events: Binding<[EventM]>, isShowingDetailSheet: Binding<Bool>, selectedEvent: Binding<EventM?>, onCancelEvent: ((EventM) -> Void)?) {
+        self._selectedDate = selectedDate
+        self._events = events
+        self._isShowingDetailSheet = isShowingDetailSheet
+        self._selectedEvent = selectedEvent
         self.onCancelEvent = onCancelEvent
-        self.events = events
     }
     
     func makeUIViewController(context: Context) -> CustomCalendarExampleController {
         let controller = CustomCalendarExampleController()
-        controller.selectedDate = selectedDate.wrappedValue
+        controller.selectedDate = selectedDate
         controller.events = events
         controller.onCancelEvent = onCancelEvent
-        
+        controller.onEventSelected = { eventM in
+            selectedEvent = eventM
+            isShowingDetailSheet = true
+        }
         return controller
     }
     
     func updateUIViewController(_ uiViewController: CustomCalendarExampleController, context: Context) {
         // Update your view controller if needed
-        
+        uiViewController.selectedDate = selectedDate
+        uiViewController.events = events
     }
 }
 
-struct ContentView3: View {
-    @Binding var selectedDate : Date
-    @Binding  var scope: FSCalendarScope
-    @Binding var events: [EventM]
-    var onCancelEvent: ((EventM) -> Void)?
 
+struct ContentView3: View {
+    //    @Binding var selectedDate : Date
+    //    @Binding  var scope: FSCalendarScope
+    //    @Binding var events: [EventM]
+    //    var onCancelEvent: ((EventM) -> Void)?
+    
+    @Binding var selectedDate: Date
+    @Binding var scope: FSCalendarScope
+    @Binding var events: [EventM]
+    @State private var isShowingDetailSheet = false
+    @State private var selectedEvent: EventM?
+    
+    var onCancelEvent: ((EventM) -> Void)?
+    
     var body: some View {
         VStack {
-            CalendarKitWrapper(selectedDate:$selectedDate, events: events,onCancelEvent:onCancelEvent )
+            //            CalendarKitWrapper(selectedDate:$selectedDate, events: events,onCancelEvent:onCancelEvent )
+            CalendarKitWrapper(
+                selectedDate: $selectedDate,
+                events: $events,
+                isShowingDetailSheet: $isShowingDetailSheet,
+                selectedEvent: $selectedEvent,
+                onCancelEvent: onCancelEvent
+            )
+            
+        }
+        .sheet(isPresented: $isShowingDetailSheet) {
+            if let selectedEvent = selectedEvent {
+                EventDetailsView(event: selectedEvent, onCancelEvent: { event in
+                    // Handle the event cancellation here
+                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+                        events[index].isCancel = true
+                    }
+                    isShowingDetailSheet = false
+                })
+            }
         }
     }
 }
 
 #Preview{
     ContentView3(selectedDate: .constant(Date()), scope: .constant(.week), events: .constant([]))
+}
+
+
+//MARK: -- event Details --
+struct EventDetailsView: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    let event: EventM
+    let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
+    // Function to check if the event is in the past
+       func isEventInPast() -> Bool {
+           guard let eventDateStr = event.date, let eventDate = dateFormatter2.date(from: eventDateStr) else {
+               return false
+           }
+           return eventDate < Date()
+       }
+       
+       // Date formatter for parsing the event date
+       fileprivate let dateFormatter2: DateFormatter = {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+           return formatter
+       }()
+    var body: some View {
+        NavigationView {
+        VStack(spacing: 20) {
+            Group{
+                Text(event.groupName ?? "No Group Name")
+                    .font(.title)
+                    .padding(.top)
+                
+                Text("Date: \(event.date ?? "No Date")")
+                    .font(.body)
+                
+                Text("From: \(event.timeFrom ?? "No Start Time")")
+                    .font(.body)
+                
+                Text("To: \(event.timeTo ?? "No End Time")")
+                    .font(.body)
+                
+                // Display event status
+                Text (event.isCancel == true ? "This event is canceled.".localized() : isEventInPast() ? "This event is in the past.".localized() : "This event is active.".localized())
+                    .foregroundColor (event.isCancel == true || isEventInPast() ?
+                        .red : .green
+                    )
+                    .font(.body)
+            }
+            .frame(maxWidth:.infinity,alignment: .leading)
+            
+            Spacer()
+            // Join Meeting button
+            if let meetingLink = event.teamMeetingLink, !meetingLink.isEmpty, event.isCancel != true, !isEventInPast() {
+                Button(action: {
+                    if let url = URL(string: meetingLink) {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    Text("Join Meeting".localized())
+                        .foregroundColor(.blue)
+                }
+            }
+            
+            // Cancel Event button
+            if event.isCancel != true, !isEventInPast() {
+                Button(action: {
+                    onCancelEvent?(event)
+                }) {
+                    Text("Cancel Event".localized())
+                        .foregroundColor(.red)
+                }
+            }
+            
+        }
+        .padding()
+        .navigationBarItems(trailing: Button("Close".localized()) {
+            presentationMode.wrappedValue.dismiss()
+        })
+    }
+    }
+}
+
+
+#Preview{
+    EventDetailsView(event: EventM(id: 1, groupName: "Math Class", date: "2024-05-29", timeFrom: "10:00", timeTo: "11:00", isCancel: false, cancelDate: nil, teamMeetingLink: "https://example.com/meeting"), onCancelEvent: { _ in })
 }

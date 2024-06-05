@@ -295,7 +295,10 @@ extension ManageLessonMaterialVM{
         
         isEditing = false
     }
-    
+    func clearFilter(){
+        filtermaterialType = nil
+        filtermaterialName.removeAll()
+    }
     private func checkValidfields()->Bool{
         ismaterialTypevalid = materialType != nil
         ismaterialNamevalid = !materialName.isEmpty
