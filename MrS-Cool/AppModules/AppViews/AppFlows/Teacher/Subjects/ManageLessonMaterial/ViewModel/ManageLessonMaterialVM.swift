@@ -43,6 +43,7 @@ class ManageLessonMaterialVM: ObservableObject {
         didSet{
 //            if !materialUrl.isEmpty{
                 ismaterialUrlvalid = materialUrl.isEmpty ? false:true
+            
 //            }
         }
     }
@@ -80,7 +81,9 @@ class ManageLessonMaterialVM: ObservableObject {
                 materialType = .init(id: editingMaterial?.materialTypeID,Title: editingMaterial?.materialTypeName)
                 materialName = editingMaterial?.name ?? ""
                 materialNameEn = editingMaterial?.nameEn ?? ""
-//                materialUrl = editingMaterial?.materialURL ?? ""
+                materialUrl = editingMaterial?.materialURL ?? ""
+                materialImg = nil
+                materialPdf = nil
             }
         }
     }

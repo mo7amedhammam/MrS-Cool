@@ -81,9 +81,13 @@ struct StudentCompletedLessonsView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        .onAppear(perform: {
-            completedlessonsvm.GetCompletedLessons()
+        .task {
             lookupsvm.GetBookedSubjestForList()
+        }
+        .onAppear(perform: {
+            completedlessonsvm.completedLessonsList?.items?.removeAll()
+            completedlessonsvm.skipCount = 0
+            completedlessonsvm.GetCompletedLessons()
         })
 //        .onDisappear {
 ////            completedlessonsvm.cleanup()
