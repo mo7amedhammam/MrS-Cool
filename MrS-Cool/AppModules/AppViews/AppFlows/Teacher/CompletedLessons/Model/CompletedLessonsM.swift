@@ -29,13 +29,13 @@ struct CompletedLessonItem: Codable,Hashable {
 struct CompletedLessonDetailsM: Codable {
     var subjectName: String?
     var teacherLessonID: Int?
-    var lessonName, groupName, subjectBrief, lessonBrief: String?
+    var lessonName, groupName, subjectBrief, lessonBrief,subjectSystemBrief,lessonSystemBrief: String?
     var teacherCompletedLessonStudentList: [TeacherCompletedLessonStudentList]?
 
     enum CodingKeys: String, CodingKey {
         case subjectName
         case teacherLessonID = "teacherLessonId"
-        case lessonName, groupName, subjectBrief, lessonBrief, teacherCompletedLessonStudentList
+        case lessonName, groupName, subjectBrief, lessonBrief,subjectSystemBrief,lessonSystemBrief, teacherCompletedLessonStudentList
     }
 }
 

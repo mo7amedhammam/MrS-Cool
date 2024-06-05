@@ -27,7 +27,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
     @State var previewurl : String = ""
     
     @State var showFilter : Bool = false
-    var currentLesson:TeacherUnitLesson?
+    @State var currentLesson:TeacherUnitLesson?
     var body: some View {
         ZStack {
             VStack {
@@ -52,7 +52,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 Text("Education Type".localized())
                                                     .font(Font.SoraSemiBold(size: 16))
                                                 
-                                                Text(currentLesson?.educationTypeName ?? "Egyption")
+                                                Text(currentLesson?.educationTypeName ?? "")
                                                     .font(Font.SoraRegular(size: 14))
                                                 
                                                 Spacer().frame(height:20)
@@ -60,7 +60,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 Text("Academic Year".localized())
                                                     .font(Font.SoraSemiBold(size: 16))
                                                 
-                                                Text(currentLesson?.academicYearName ?? "level 1")
+                                                Text(currentLesson?.academicYearName ?? "")
                                                     .font(Font.SoraRegular(size: 14))
                                                 
                                                 Spacer().frame(height:20)
@@ -68,7 +68,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 Text("Lesson".localized())
                                                     .font(Font.SoraSemiBold(size: 16))
                                                 
-                                                Text(currentLesson?.lessonName ?? "Lesson 1")
+                                                Text(currentLesson?.lessonName ?? "")
                                                     .font(Font.SoraRegular(size: 14))
                                             }
                                             Spacer()
@@ -76,7 +76,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 Text("Education Level".localized())
                                                     .font(Font.SoraSemiBold(size: 16))
                                                 
-                                                Text(currentLesson?.educationLevelName ?? "Primary")
+                                                Text(currentLesson?.educationLevelName ?? "")
                                                     .font(Font.SoraRegular(size: 14))
                                                 
                                                 Spacer().frame(height:20)
@@ -84,7 +84,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 Text("Subject".localized())
                                                     .font(Font.SoraSemiBold(size: 16))
                                                 
-                                                Text(currentLesson?.subjectSemesterYearName ?? "level 1")
+                                                Text(currentLesson?.subjectSemesterYearName ?? "")
                                                     .font(Font.SoraRegular(size: 14))
                                             }
                                         }
@@ -106,7 +106,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                             // -- Data Title --
                                                             SignUpHeaderTitle(Title:managelessonmaterialvm.isEditing ? "Update My Material" : "Add New Material")
                                                                 .id(1)
-
+                                                            
                                                             // -- inputs --
                                                             Group {
                                                                 CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.materialType,options:lookupsvm.materialTypesList,isvalid:managelessonmaterialvm.ismaterialTypevalid)
@@ -218,8 +218,8 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                 })
                                                         }
                                                     }
-                                                    if (managelessonmaterialvm.TeacherLessonMaterial ?? []).count > 0{
-                                                        List(managelessonmaterialvm.TeacherLessonMaterial ?? [] ,id:\.self){ material in
+                                                    if (managelessonmaterialvm.TeacherLessonMaterialList ?? []).count > 0{
+                                                        List(managelessonmaterialvm.TeacherLessonMaterialList ?? [] ,id:\.self){ material in
                                                             
                                                             ManageLessonMaterialCell(model: material,editBtnAction:{
                                                                 managelessonmaterialvm.isEditing = true
@@ -259,11 +259,6 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                             }
                                         }
                                     }
-                                    .onAppear(perform: {
-                                        managelessonmaterialvm.TeacherLessonId = currentLesson?.id ?? 0
-                                        lookupsvm.GetMaterialTypes()
-                                        managelessonmaterialvm.GetLessonMaterial()
-                                    })
                                     
                                     
                                     //MARK: -------- imagePicker From Camera and Library ------
@@ -309,17 +304,17 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                             switch result {
                                             case .success(let url):
                                                 managelessonmaterialvm.materialPdf = url
-
+                                                
                                             case .failure(let failure):
                                                 print("Importer error: \(failure)")
                                             }
                                         })
-//                                        .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
-//                                        // Optional: Handle actions on closing the preview sheet
-//                                    }, content: {
-//                                        
-//                                        Webview(url: URL(string:previewurl)!)
-//                                    })
+                                    //                                        .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
+                                    //                                        // Optional: Handle actions on closing the preview sheet
+                                    //                                    }, content: {
+                                    //
+                                    //                                        Webview(url: URL(string:previewurl)!)
+                                    //                                    })
                                 }
                                 
                             }
@@ -331,11 +326,22 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                         .frame(minHeight: gr.size.height)
                     }
                 }
-                
             }
+            
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
+            })
+            .onAppear(perform: {
+                managelessonmaterialvm.TeacherLessonId = currentLesson?.id ?? 0
+                lookupsvm.GetMaterialTypes()
+                managelessonmaterialvm.GetLessonMaterial()
+            })
+            .onChange(of: managelessonmaterialvm.TeacherLessonMaterialM?.teacherLessonMaterialBasicData , perform: { value in
+                guard currentLesson?.academicYearName == nil else{return}
+                if let lesson = value{
+                    currentLesson = TeacherUnitLesson(lessonName: lesson.lessonName, educationTypeName: lesson.educationTypeName, educationLevelName: lesson.educationLevelName, academicYearName: lesson.academicYearName, subjectSemesterYearName: lesson.subjectSemesterYearName)
+                }
             })
             
             .showHud(isShowing: $managelessonmaterialvm.isLoading)
@@ -372,7 +378,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                     CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.filtermaterialName)
                                 }
                                 .padding(.top,5)
-//                                Spacer()
+                                //                                Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
@@ -393,13 +399,13 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                             .padding(.horizontal,3)
                             .padding(.top)
                         }
-
+                        
                     }
                     .padding()
                     .frame(height:300)
-//                    .keyboardAdaptive()
+                    //                    .keyboardAdaptive()
                 }
-
+                
             }
         }
     }
@@ -419,16 +425,16 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
 import WebKit
 struct Webview: UIViewControllerRepresentable {
     let url: URL
-
+    
     func makeUIViewController(context: Context) -> WebviewController {
         let webviewController = WebviewController()
-
+        
         let request = URLRequest(url: self.url, cachePolicy: .returnCacheDataElseLoad)
         webviewController.webview.load(request)
-
+        
         return webviewController
     }
-
+    
     func updateUIViewController(_ webviewController: WebviewController, context: Context) {
         //
     }
@@ -437,18 +443,18 @@ struct Webview: UIViewControllerRepresentable {
 class WebviewController: UIViewController, WKNavigationDelegate {
     lazy var webview: WKWebView = WKWebView()
     lazy var progressbar: UIProgressView = UIProgressView()
-
+    
     deinit {
         self.webview.removeObserver(self, forKeyPath: "estimatedProgress")
         self.webview.scrollView.removeObserver(self, forKeyPath: "contentOffset")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.webview.navigationDelegate = self
         self.view.addSubview(self.webview)
-
+        
         self.webview.frame = self.view.frame
         self.webview.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints([
@@ -457,16 +463,16 @@ class WebviewController: UIViewController, WKNavigationDelegate {
             self.webview.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.webview.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
         ])
-
+        
         self.webview.addSubview(self.progressbar)
         self.setProgressBarPosition()
-
+        
         webview.scrollView.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)
-
+        
         self.progressbar.progress = 0.1
         webview.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
     }
-
+    
     func setProgressBarPosition() {
         self.progressbar.translatesAutoresizingMaskIntoConstraints = false
         self.webview.removeConstraints(self.webview.constraints)
@@ -476,7 +482,7 @@ class WebviewController: UIViewController, WKNavigationDelegate {
             self.progressbar.trailingAnchor.constraint(equalTo: self.webview.trailingAnchor),
         ])
     }
-
+    
     // MARK: - Web view progress
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         switch keyPath {
@@ -492,10 +498,10 @@ class WebviewController: UIViewController, WKNavigationDelegate {
                 self.progressbar.alpha = 1.0
                 progressbar.setProgress(Float(self.webview.estimatedProgress), animated: true)
             }
-
+            
         case "contentOffset":
             self.setProgressBarPosition()
-
+            
         default:
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }

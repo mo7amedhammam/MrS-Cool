@@ -95,7 +95,13 @@ class ManageLessonMaterialVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     //    @Published var isTeacherHasDocuments: Bool = false
-    @Published var TeacherLessonMaterial : [TeacherLessonMaterialDto]?
+    @Published var TeacherLessonMaterialM :GetLessonMaterialM?{
+        didSet{
+            TeacherLessonMaterialList = TeacherLessonMaterialM?.teacherLessonMaterialDtos 
+        }
+    }
+    
+    @Published var TeacherLessonMaterialList : [TeacherLessonMaterialDto]?
   
     
     init()  {
@@ -225,8 +231,8 @@ extension ManageLessonMaterialVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data?.teacherLessonMaterialDtos {
-                    TeacherLessonMaterial = model
+                if let model = receivedData.data {
+                    TeacherLessonMaterialM = model
                 }else{
                     isError =  true
                     error = .error( image:nil, message: receivedData.message ?? "",buttonTitle:"Done")
@@ -265,7 +271,7 @@ extension ManageLessonMaterialVM{
 //                if let model = receivedData.data?.teacherLessonMaterialDtos {
                     
                     //                    TeacherSubjects = model
-                                        TeacherLessonMaterial?.removeAll(where: {$0.id == id})
+                                        TeacherLessonMaterialList?.removeAll(where: {$0.id == id})
 //                    GetLessonMaterial()
                     isError = false
                 }else{

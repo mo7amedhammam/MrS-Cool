@@ -15,7 +15,7 @@ struct GetLessonMaterialM: Codable {
 }
 
 // MARK: - TeacherLessonMaterialBasicData -
-struct TeacherLessonMaterialBasicData: Codable {
+struct TeacherLessonMaterialBasicData: Codable, Hashable {
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String?
     var lessonName: String?
 }
