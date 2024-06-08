@@ -25,55 +25,73 @@ struct StudentCompletedLessonsView: View {
                 CustomTitleBarView(title: "Completed Lessons")
             }
             GeometryReader { gr in
-                ScrollView(.vertical,showsIndicators: false){
-                    VStack{ // (Title - Data - Submit Button)
-                        Group{
-                            HStack(){
-                                SignUpHeaderTitle(Title: "Manage My Completed Lessons")
-                                Spacer()
-                                Image("img_maskgroup62_clipped")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(ColorConstants.MainColor)
-                                    .frame(width: 25, height: 25, alignment: .center)
-                                    .onTapGesture(perform: {
-                                        showFilter = true
-                                    })
-                            }
-                            .padding(.top)
-                        }
-                        .padding(.horizontal)
-                        if let lessons = completedlessonsvm.completedLessonsList?.items{
-                        List(lessons, id:\.self) { lesson in
-                            StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
-                                completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
-                                studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
-                                studenthometabbarvm.ispush = true
-                            },chatBtnAction: {
-                                studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
-                                studenthometabbarvm.ispush = true
-                                
-                            })
-                            .listRowSpacing(0)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .onAppear {
-                                guard lesson == lessons.last else {return}
-                                
-                                if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, lessons.count < totalCount {
-                                    // Load the next page if there are more items to fetch
-                                    completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
-                                    completedlessonsvm.GetCompletedLessons()
+                if Helper.shared.getSelectedUserType() == .Parent && Helper.shared.selectedchild == nil{
+                    VStack{
+                        Text("You Have To Select Child First".localized())
+                            .frame(minHeight:gr.size.height)
+                            .frame(width: gr.size.width,alignment: .center)
+                            .font(.title2)
+                            .foregroundColor(ColorConstants.MainColor)
+                    }
+                }else {
+                    ScrollView(.vertical,showsIndicators: false){
+                        VStack{ // (Title - Data - Submit Button)
+                            Group{
+                                HStack(){
+                                    SignUpHeaderTitle(Title: "Manage My Completed Lessons")
+                                    Spacer()
+                                    Image("img_maskgroup62_clipped")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                        .frame(width: 25, height: 25, alignment: .center)
+                                        .onTapGesture(perform: {
+                                            showFilter = true
+                                        })
                                 }
+                                .padding(.top)
                             }
+                            .padding(.horizontal)
+                            if let lessons = completedlessonsvm.completedLessonsList?.items{
+                                List(lessons, id:\.self) { lesson in
+                                    StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
+                                        completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
+                                        studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
+                                        studenthometabbarvm.ispush = true
+                                    },chatBtnAction: {
+                                        studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
+                                        studenthometabbarvm.ispush = true
+                                        
+                                    })
+                                    .listRowSpacing(0)
+                                    .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.clear)
+                                    .onAppear {
+                                        guard lesson == lessons.last else {return}
+                                        
+                                        if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, lessons.count < totalCount {
+                                            // Load the next page if there are more items to fetch
+                                            completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
+                                            completedlessonsvm.GetCompletedLessons()
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal,-4)
+                                .listStyle(.plain)
+                                .frame(minHeight: gr.size.height/2)
+                            }
+                            Spacer()
                         }
-                        .padding(.horizontal,-4)
-                        .listStyle(.plain)
-                        .frame(minHeight: gr.size.height/2)
+                        .frame(minHeight: gr.size.height)
                     }
-                        Spacer()
+                    .task {
+                        lookupsvm.GetBookedSubjestForList()
                     }
-                    .frame(minHeight: gr.size.height)
+                    .onAppear(perform: {
+                        completedlessonsvm.completedLessonsList?.items?.removeAll()
+                        completedlessonsvm.skipCount = 0
+                        completedlessonsvm.GetCompletedLessons()
+                    })
                 }
             }
         }
@@ -81,14 +99,7 @@ struct StudentCompletedLessonsView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        .task {
-            lookupsvm.GetBookedSubjestForList()
-        }
-        .onAppear(perform: {
-            completedlessonsvm.completedLessonsList?.items?.removeAll()
-            completedlessonsvm.skipCount = 0
-            completedlessonsvm.GetCompletedLessons()
-        })
+       
 //        .onDisappear {
 ////            completedlessonsvm.cleanup()
 //        }

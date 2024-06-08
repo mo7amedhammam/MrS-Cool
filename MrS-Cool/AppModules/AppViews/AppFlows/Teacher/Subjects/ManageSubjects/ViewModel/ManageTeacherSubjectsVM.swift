@@ -98,7 +98,8 @@ class ManageTeacherSubjectsVM: ObservableObject {
     @Published var ismaxGroupvalid:Bool?
 
     @Published var subjectBrief : String = ""
-    
+    @Published var subjectBriefEn : String = ""
+
 //@Published var isSubjectBriefValid: Bool?
 
 //private func validateSubjectBrief() {
@@ -108,7 +109,6 @@ class ManageTeacherSubjectsVM: ObservableObject {
 // isSubjectBriefValid = predicate.evaluate(with: subjectBrief)
 //}
     
-    @Published var subjectBriefEn : String = ""
     
     @Published var filterEducationType : DropDownOption?{
         didSet{

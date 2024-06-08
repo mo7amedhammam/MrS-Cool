@@ -19,6 +19,45 @@ struct ManageTeacherSubjectsView: View {
     
     @State var showFilter : Bool = false
     var selectedSubject:TeacherSubjectM?
+    
+    @State var filterEducationType : DropDownOption?
+//    {
+//        didSet{
+//            filterEducationLevel = nil
+//        }
+//    }
+    @State var filterEducationLevel : DropDownOption?
+//    {
+//        didSet{
+//            filterAcademicYear = nil
+//        }
+//    }
+    @State var filterAcademicYear : DropDownOption?
+//    {
+//        didSet{
+//            filterSubject = nil
+//            filterSubjectStatus = nil
+//        }
+//    }
+    @State var filterSubject : DropDownOption?
+    @State var filterSubjectStatus : DropDownOption?
+    
+    fileprivate func PassFilterValues() {
+        manageteachersubjectsvm.filterEducationType = filterEducationType
+        manageteachersubjectsvm.filterEducationLevel = filterEducationLevel
+        manageteachersubjectsvm.filterAcademicYear = filterAcademicYear
+        manageteachersubjectsvm.filterSubject = filterSubject
+        manageteachersubjectsvm.filterSubjectStatus = filterSubjectStatus
+    }
+    
+    fileprivate func ClearFilterValues() {
+        filterEducationType = nil
+        filterEducationLevel = nil
+        filterAcademicYear = nil
+        filterSubject = nil
+        filterSubjectStatus = nil
+    }
+    
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage my Subjects")
@@ -271,39 +310,43 @@ struct ManageTeacherSubjectsView: View {
                         ScrollView{
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $manageteachersubjectsvm.filterEducationType,options:lookupsvm.EducationTypesList)
-                                    //                                                .onTapGesture(perform: {
-                                    //                                                    lookupsvm.GetEducationTypes()
-                                    //                                                })
-                                        .onChange(of: manageteachersubjectsvm.filterEducationType){val in
+                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $filterEducationType,options:lookupsvm.EducationTypesList)
+                                        .onChange(of: filterEducationType){val in
+                                            filterEducationLevel = nil
                                             lookupsvm.SelectedEducationType = val
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $manageteachersubjectsvm.filterEducationLevel,options:lookupsvm.EducationLevelsList)
-                                        .onChange(of:manageteachersubjectsvm.filterEducationLevel){val in
+                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $filterEducationLevel,options:lookupsvm.EducationLevelsList)
+                                        .onChange(of:filterEducationLevel){val in
+                                            filterAcademicYear = nil
                                             lookupsvm.SelectedEducationLevel = val
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $manageteachersubjectsvm.filterAcademicYear,options:lookupsvm.AcademicYearsList)
-                                        .onChange(of:manageteachersubjectsvm.filterAcademicYear){val in
+                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $filterAcademicYear,options:lookupsvm.AcademicYearsList)
+                                        .onChange(of:filterAcademicYear){val in
+                                            filterSubject = nil
+                                            filterSubjectStatus = nil
                                             lookupsvm.SelectedAcademicYear = val
                                         }
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $manageteachersubjectsvm.filterSubject,options:lookupsvm.SubjectsList)
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $manageteachersubjectsvm.filterSubjectStatus,options:lookupsvm.StatusList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filterSubject,options:lookupsvm.SubjectsList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $filterSubjectStatus,options:lookupsvm.StatusList)
                                 }
                                 .padding(.top,5)
                                 Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            PassFilterValues()
                                             manageteachersubjectsvm .GetTeacherSubjects()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            showFilter = false
+                                            guard filterEducationType != nil else{return}
+                                            ClearFilterValues()
                                             manageteachersubjectsvm.clearFilter()
                                             manageteachersubjectsvm .GetTeacherSubjects()
-                                            showFilter = false
                                         })
                                     } .frame(width:130,height:40)
                                         .padding(.vertical)

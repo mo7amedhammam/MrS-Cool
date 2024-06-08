@@ -97,6 +97,7 @@ struct OTPVerificationView: View {
                                 .multilineTextAlignment(.leading)
                             Button(action: {
 //                                otpvm.isOTPVerified.toggle()
+                                isVerified = false
                                 dismiss()
                             }, label:{
                                 Text("Modify Now".localized())

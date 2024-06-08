@@ -127,47 +127,59 @@ struct CalView1: View {
     
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Calendar") {
-                if scope == .week{
-                    DispatchQueue.main.async(execute: {
-                        date = nil
-                        withAnimation{
-                        scope = .month
-                        }
-                    })
-                }else{
-                    presentationMode.wrappedValue.dismiss()
+            if Helper.shared.getSelectedUserType() == .Parent && Helper.shared.selectedchild == nil{
+                VStack{
+                    Text("You Have To Select Child First".localized())
+                        .frame(minHeight:.infinity)
+                        .frame(width: .infinity,alignment: .center)
+                        .font(.title2)
+                        .foregroundColor(ColorConstants.MainColor)
                 }
-            }
-            
-            switch scope {
-            case .month:
-                CalendarModuleView(selectedDate: $date, scope: .month, events: events)
-            case .week:
-                ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events){event in
-                    DispatchQueue.main.async {
-                        calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+            }else{
+                
+                CustomTitleBarView(title: "Calendar") {
+                    if scope == .week{
+                        DispatchQueue.main.async(execute: {
+                            date = nil
+                            withAnimation{
+                                scope = .month
+                            }
+                        })
+                    }else{
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
-
-            @unknown default:
-                CalendarModuleView(selectedDate: $date, scope: .month,events: events)
+                
+                switch scope {
+                case .month:
+                    CalendarModuleView(selectedDate: $date, scope: .month, events: events)
+                case .week:
+                    ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events){event in
+                        DispatchQueue.main.async {
+                            calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+                        }
+                    }
+                    
+                @unknown default:
+                    CalendarModuleView(selectedDate: $date, scope: .month,events: events)
+                }
+                
+                    .onChange(of: calendarschedualsvm.CalendarScheduals ){
+                        newval in
+                        events = newval
+                    }
+                    .onChange(of: date, perform: { value in
+                        calendarschedualsvm.GetCalendarCheduals()
+                        if value != nil{
+                            withAnimation{
+                                    scope = .week
+                                }
+                            }
+                    })
             }
         }
         .localizeView()
         .hideNavigationBar()
-        .onChange(of: calendarschedualsvm.CalendarScheduals ){
-            newval in
-            events = newval
-        }
-        .onChange(of: date, perform: { value in
-            calendarschedualsvm.GetCalendarCheduals()
-            if value != nil{
-                withAnimation{
-                        scope = .week
-                    }
-                }
-        })
     }
     
     private func showNextDate() {

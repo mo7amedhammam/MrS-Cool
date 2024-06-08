@@ -20,64 +20,74 @@ struct ChatsListView: View {
     @State var selectedLessonId : Int = 0
     var hasNavBar : Bool? = true
 
-    var body: some View {
+    var body: some View {s
         VStack {
             if hasNavBar ?? true{
                 CustomTitleBarView(title: "Messages")
             }
             GeometryReader { gr in
-                VStack{ // (Title - Data - Submit Button)
-                    Group{
-                        HStack(){
-                            Image("img_message2")
-                                .resizable()
-                                .renderingMode(.template)
-                                .foregroundColor(ColorConstants.MainColor)
-                                .frame(width: 35, height: 35, alignment: .center)
-                            
-                            SignUpHeaderTitle(Title: "Messages")
-                            Spacer()
-                        }
-                        .padding(.top)
+                
+                if Helper.shared.getSelectedUserType() == .Parent && Helper.shared.selectedchild == nil{
+                    VStack{
+                        Text("You Have To Select Child First".localized())
+                            .frame(minHeight:gr.size.height)
+                            .frame(width: gr.size.width,alignment: .center)
+                            .font(.title2)
+                            .foregroundColor(ColorConstants.MainColor)
                     }
-                    .padding(.horizontal)
-                    
-                    if let array = searchResults{
-                        CustomSearchBar(searchText: $searchQuery)
-                            .padding([.top,.horizontal])
+                }else {
+                    VStack{ // (Title - Data - Submit Button)
+                        Group{
+                            HStack(){
+                                Image("img_message2")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                    .frame(width: 35, height: 35, alignment: .center)
+                                
+                                SignUpHeaderTitle(Title: "Messages")
+                                Spacer()
+                            }
+                            .padding(.top)
+                        }
+                        .padding(.horizontal)
                         
-                        List(Array(array.enumerated()), id:\.element.hashValue){ index,chat in
-                            Button(action: {
-                                if selectedChatId == nil{
-                                    selectedChatId = index
-                                }else{
-                                    selectedChatId = nil
-                                }
-                                chatlistvm.comment.removeAll()
-                            }, label: {
-                                ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectedLessonId: $selectedLessonId, selectLessonBtnAction: {
-                                    destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId ).environmentObject(chatlistvm))
-                                    isPush = true
-                                    if hasNavBar == false{
-                                        studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId).environmentObject(chatlistvm))
-                                        studenthometabbarvm.ispush = true
+                        if let array = searchResults{
+                            CustomSearchBar(searchText: $searchQuery)
+                                .padding([.top,.horizontal])
+                            
+                            List(Array(array.enumerated()), id:\.element.hashValue){ index,chat in
+                                Button(action: {
+                                    if selectedChatId == nil{
+                                        selectedChatId = index
+                                    }else{
+                                        selectedChatId = nil
                                     }
+                                    chatlistvm.comment.removeAll()
+                                }, label: {
+                                    ChatListCell(model: chat, isExpanded: .constant(selectedChatId == index), selectedLessonId: $selectedLessonId, selectLessonBtnAction: {
+                                        destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId ).environmentObject(chatlistvm))
+                                        isPush = true
+                                        if hasNavBar == false{
+                                            studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: selectedLessonId).environmentObject(chatlistvm))
+                                            studenthometabbarvm.ispush = true
+                                        }
+                                    })
                                 })
-                            })
-                            .listRowSpacing(0)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
+                                .listRowSpacing(0)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                            }
+                            .listStyle(.plain)
+                            //                        .searchable(text: $searchQuery, prompt: "Search".localized())
                         }
-                        .listStyle(.plain)
-                        //                        .searchable(text: $searchQuery, prompt: "Search".localized())
+                        Spacer()
                     }
-                    Spacer()
+                    .frame(minHeight:gr.size.height)
+                    .onAppear(perform: {
+                        chatlistvm.GetChatsList()
+                    })
                 }
-                .frame(minHeight:gr.size.height)
-                .onAppear(perform: {
-                    chatlistvm.GetChatsList()
-                })
-
             }
             
         }
