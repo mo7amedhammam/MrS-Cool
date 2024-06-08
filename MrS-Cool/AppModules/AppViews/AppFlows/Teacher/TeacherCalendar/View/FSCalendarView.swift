@@ -136,7 +136,7 @@ struct CalView1: View {
                         .foregroundColor(ColorConstants.MainColor)
                 }
             }else{
-                
+                VStack{
                 CustomTitleBarView(title: "Calendar") {
                     if scope == .week{
                         DispatchQueue.main.async(execute: {
@@ -163,7 +163,7 @@ struct CalView1: View {
                 @unknown default:
                     CalendarModuleView(selectedDate: $date, scope: .month,events: events)
                 }
-                
+            }
                     .onChange(of: calendarschedualsvm.CalendarScheduals ){
                         newval in
                         events = newval

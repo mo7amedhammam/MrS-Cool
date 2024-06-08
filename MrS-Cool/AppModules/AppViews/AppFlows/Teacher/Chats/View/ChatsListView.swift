@@ -20,7 +20,7 @@ struct ChatsListView: View {
     @State var selectedLessonId : Int = 0
     var hasNavBar : Bool? = true
 
-    var body: some View {s
+    var body: some View {
         VStack {
             if hasNavBar ?? true{
                 CustomTitleBarView(title: "Messages")
