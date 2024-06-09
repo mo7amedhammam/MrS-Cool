@@ -413,6 +413,7 @@ struct ContentView3: View {
                     // Handle the event cancellation here
                     if let index = events.firstIndex(where: { $0.id == event.id }) {
                         events[index].isCancel = true
+                        onCancelEvent?(selectedEvent)
                     }
                     isShowingDetailSheet = false
                 })
@@ -432,77 +433,101 @@ struct EventDetailsView: View {
 
     let event: EventM
     let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
+
     // Function to check if the event is in the past
-       func isEventInPast() -> Bool {
-           guard let eventDateStr = event.date, let eventDate = dateFormatter2.date(from: eventDateStr) else {
-               return false
-           }
-           return eventDate < Date()
-       }
-       
-       // Date formatter for parsing the event date
-       fileprivate let dateFormatter2: DateFormatter = {
-           let formatter = DateFormatter()
-           formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-           return formatter
-       }()
+    func isEventInPast() -> Bool {
+        guard let eventDateStr = event.date, let eventDate = dateFormatter.date(from: eventDateStr) else {
+            return false
+        }
+        return eventDate < Date()
+    }
+
+    // Function to check if the current time is between timeFrom and timeTo
+    func isCurrentTimeWithinEventTime() -> Bool {
+        guard let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
+            return false
+        }
+        
+        // Create full date strings with event date and times
+        guard let eventDateStr = event.date else {
+            return false
+        }
+        let fromDateTimeStr = "\(eventDateStr)T\(timeFromStr)"
+        let toDateTimeStr = "\(eventDateStr)T\(timeToStr)"
+        
+        // Parse the date strings into Date objects
+        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
+              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+            return false
+        }
+        
+        let currentTime = Date()
+        return currentTime >= fromDateTime && currentTime <= toDateTime
+    }
+
+    // Date formatter for parsing the event date and time
+    fileprivate let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return formatter
+    }()
+    
     var body: some View {
         NavigationView {
-        VStack(spacing: 20) {
-            Group{
-                Text(event.groupName ?? "No Group Name")
-                    .font(.title)
-                    .padding(.top)
-                
-                Text("Date: \(event.date ?? "No Date")")
-                    .font(.body)
-                
-                Text("From: \(event.timeFrom ?? "No Start Time")")
-                    .font(.body)
-                
-                Text("To: \(event.timeTo ?? "No End Time")")
-                    .font(.body)
-                
-                // Display event status
-                Text (event.isCancel == true ? "This event is canceled.".localized() : isEventInPast() ? "This event is in the past.".localized() : "This event is active.".localized())
-                    .foregroundColor (event.isCancel == true || isEventInPast() ?
-                        .red : .green
-                    )
-                    .font(.body)
-            }
-            .frame(maxWidth:.infinity,alignment: .leading)
-            
-            Spacer()
-            // Join Meeting button
-            if let meetingLink = event.teamMeetingLink, !meetingLink.isEmpty, event.isCancel != true, !isEventInPast() {
-                Button(action: {
-                    if let url = URL(string: meetingLink) {
-                        UIApplication.shared.open(url)
+            VStack(spacing: 20) {
+                Group {
+                    Text(event.groupName ?? "No Group Name")
+                        .font(.title)
+                        .padding(.top)
+
+                    Text("Date: \(event.date ?? "No Date")")
+                        .font(.body)
+
+                    Text("From: \(event.timeFrom ?? "No Start Time")")
+                        .font(.body)
+
+                    Text("To: \(event.timeTo ?? "No End Time")")
+                        .font(.body)
+
+                    // Display event status
+                    Text(event.isCancel == true ? "This event is canceled.".localized() : isEventInPast() ? "This event is in the past.".localized() : "This event is active.".localized())
+                        .foregroundColor(event.isCancel == true || isEventInPast() ? .red : .green)
+                        .font(.body)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                Spacer()
+
+                // Join Meeting button
+                if let meetingLink = event.teamMeetingLink, !meetingLink.isEmpty, event.isCancel != true, isCurrentTimeWithinEventTime() {
+                    Button(action: {
+                        if let url = URL(string: meetingLink) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        Text("Join Meeting".localized())
+                            .foregroundColor(.blue)
                     }
-                }) {
-                    Text("Join Meeting".localized())
-                        .foregroundColor(.blue)
+                }
+
+                // Cancel Event button
+                if event.isCancel != true, !isEventInPast() {
+                    Button(action: {
+                        onCancelEvent?(event)
+                    }) {
+                        Text("Cancel Event".localized())
+                            .foregroundColor(.red)
+                    }
                 }
             }
-            
-            // Cancel Event button
-            if event.isCancel != true, !isEventInPast() {
-                Button(action: {
-                    onCancelEvent?(event)
-                }) {
-                    Text("Cancel Event".localized())
-                        .foregroundColor(.red)
-                }
-            }
-            
+            .padding()
+            .navigationBarItems(trailing: Button("Close".localized()) {
+                presentationMode.wrappedValue.dismiss()
+            })
         }
-        .padding()
-        .navigationBarItems(trailing: Button("Close".localized()) {
-            presentationMode.wrappedValue.dismiss()
-        })
-    }
     }
 }
+
 
 
 #Preview{
