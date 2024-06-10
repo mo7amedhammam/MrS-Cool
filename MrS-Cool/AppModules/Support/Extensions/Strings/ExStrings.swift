@@ -117,6 +117,11 @@ extension String {
     //            return self
     //        }
     //    }
+    
+    func splitBy(separatedBy:String) -> [String] {
+        return self.components(separatedBy: separatedBy)
+    }
+
 }
 
 extension Character {

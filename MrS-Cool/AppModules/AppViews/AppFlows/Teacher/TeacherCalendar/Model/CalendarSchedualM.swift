@@ -13,12 +13,13 @@ struct EventM: Codable,Identifiable ,Equatable{
     var isCancel: Bool?
     var cancelDate: String?
     var teamMeetingLink: String?
-
+    var bookTeacherlessonsessionDetailId: Int?
     
     enum CodingKeys: String, CodingKey {
         case id = "teacherLessonSessionSchedualSlotId"
         case groupName, date, timeFrom, timeTo, isCancel, cancelDate
         case teamMeetingLink
+        case bookTeacherlessonsessionDetailId
     }
 }
 

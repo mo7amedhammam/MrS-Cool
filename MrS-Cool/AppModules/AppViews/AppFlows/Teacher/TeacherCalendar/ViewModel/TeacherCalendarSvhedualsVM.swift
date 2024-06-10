@@ -161,6 +161,45 @@ extension TeacherCalendarSvhedualsVM{
         }
     }
     
+    func StudentAttendanceCalendarSchedual(id:Int){
+            var parameters:[String:Any] = [:]
+//            if Helper.shared.getSelectedUserType() == .Parent {
+//                parameters["StudentId"] = Helper.shared.selectedchild?.id
+//            }
+            print("parameters",parameters)
+
+        parameters["BookteacherlessonsessiondetailId"] = id
+
+            let target = teacherServices.AttendanceStudentCalenderSchedual(parameters: parameters)
+            isLoading = true
+                BaseNetwork.CallApi(target, BaseResponse<[StudentEventM]>.self)
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: {[weak self] completion in
+                        guard let self = self else{return}
+                        isLoading = false
+                        switch completion {
+                        case .finished:
+                            break
+                        case .failure(let error):
+                            isError =  true
+                            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                        }
+                    },receiveValue: {[weak self] receivedData in
+                        guard let self = self else{return}
+                        print("receivedData",receivedData)
+                        if receivedData.success == true {
+                            //                    TeacherSubjects?.append(model)
+//                            CalendarScheduals = receivedData.data?.convertToEvent() ?? []
+                        }else{
+                            isError =  true
+                            //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                            error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                        }
+                        isLoading = false
+                    })
+                    .store(in: &cancellables)
+    }
+    
     func cleanup() {
         // Cancel any ongoing Combine subscriptions
         cancellables.forEach { cancellable in
@@ -179,7 +218,9 @@ extension Array where Element == StudentEventM {
                           timeFrom: studentEvent.timeFrom,
                           timeTo: studentEvent.timeTo,
                           isCancel: studentEvent.isCancel,
-                          cancelDate: studentEvent.cancelDate)
+                          cancelDate: studentEvent.cancelDate,
+                          teamMeetingLink: studentEvent.teamMeetingLink,
+                          bookTeacherlessonsessionDetailId: studentEvent.bookTeacherlessonsessionDetailId)
         }
     }
 }

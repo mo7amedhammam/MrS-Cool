@@ -42,7 +42,8 @@ enum teacherServices{
     
     case GetMyCalenderSchedual(parameters : [String:Any])
     case cancelMyCalenderSchedual(parameters : [String:Any])
-    
+    case AttendanceStudentCalenderSchedual(parameters : [String:Any])
+
     case GetAllComentsList(parameters : [String:Any])
     case GetAllComentsListById(parameters : [String:Any])
     case CreateComment(parameters : [String:Any])
@@ -122,6 +123,9 @@ extension teacherServices:TargetType{
                  return EndPoints.CancelStudentCalenderSchedual.rawValue
              }
             
+        case .AttendanceStudentCalenderSchedual: // this for student Only
+            return EndPoints.StudentAttendanceCalenderSchedual.rawValue
+            
         case .GetAllComentsList:
             if Helper.shared.getSelectedUserType() == .Teacher{
                 return EndPoints.GetAllStudentsChat.rawValue
@@ -162,8 +166,7 @@ extension teacherServices:TargetType{
                 .DeleteMyLessonScheduleGroup,
                 .DeleteMySubjectGroup,.GetMySubjectGroupDetails,
                 .GetMyCompletedLessonDetails,
-                .GetMyCalenderSchedual,
-                .cancelMyCalenderSchedual,
+                .GetMyCalenderSchedual,.cancelMyCalenderSchedual,.AttendanceStudentCalenderSchedual,
                 .GetAllComentsList,.GetAllComentsListById:
             return .get
         case .UpdateTeacherProfile,
@@ -196,6 +199,7 @@ extension teacherServices:TargetType{
                 .GetMyCompletedLessonDetails(parameters: let Parameters),
                 .GetMyCalenderSchedual(parameters:let Parameters),
                 .cancelMyCalenderSchedual(parameters: let Parameters),
+                .AttendanceStudentCalenderSchedual(parameters: let Parameters),
                 .GetAllComentsList(parameters: let Parameters),
                 .GetAllComentsListById(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)

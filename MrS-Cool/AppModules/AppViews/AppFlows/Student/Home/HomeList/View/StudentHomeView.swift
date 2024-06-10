@@ -140,7 +140,7 @@ struct StudentHomeView: View {
                                         studenthometabbarvm.ispush = true
                                         
                                     }
-                                    .frame(width: gr.size.width/2.5, height: 280)
+                                    .frame(width: gr.size.width/2.33, height: 280)
                                 }
                                 Spacer().frame(width:1)
                                 
@@ -171,7 +171,7 @@ struct StudentHomeView: View {
                                         studenthometabbarvm.ispush = true
                                         
                                     }
-                                    .frame(width: gr.size.width/2.5, height: 280)
+                                    .frame(width: gr.size.width/2.33, height: 280)
                                 }
                                 Spacer().frame(width:1)
                                 

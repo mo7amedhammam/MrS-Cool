@@ -172,6 +172,7 @@ enum EndPoints: String {
     // MARK: -- student Calendar Schedual --
     case GetStudentCalenderSchedual = "StudentCalenderSchedule/GetMyCalenderSchedual"
     case CancelStudentCalenderSchedual = "StudentCalenderSchedule/CancelBookLessonSession"
+    case StudentAttendanceCalenderSchedual = "StudentCalenderSchedule/StudentAttendance"
  
     // MARK: -- Chats --
     case GetStudentAllStudentsChat = "StudentLessonSessionComment/GetAllTeachersChatWithStudent"

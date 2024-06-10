@@ -42,26 +42,28 @@ struct StudentMostViewedSubjectCell: View {
                 .clipped()
 //                .padding(.top, 10)
                 
-                Text(subject.subjectName ?? "")
+                
+                Text(subject.subjectName?.splitBy(separatedBy: ",")[0] ?? "")
                     .font(Font.SoraSemiBold(size: 13))
                     .fontWeight(.semibold)
                     .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 :.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 19.0)
                 
-//                Text(subject.image ?? "")
-//                    .font(Font.SoraRegular(size: 13))
-//                    .fontWeight(.semibold)
-//                    .foregroundColor(ColorConstants.MainColor)
-//                    .multilineTextAlignment(.center)
-//                    .lineLimit(3)
-//                    .padding(.top, 5)
+                HStack {
+                    Text("\(subject.subjectName?.splitBy(separatedBy: ",")[1] ?? ""), \(subject.subjectName?.splitBy(separatedBy: ",")[2] ?? "")")
+                }
+                .font(Font.SoraRegular(size: 12))
+                .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 :.mainBlue)
+                .multilineTextAlignment(.center)
+                .padding(.top, 8)
+                
                 
                 Group{
                     if subject.id == selectedsubject.id {
                         ColorConstants.WhiteA700
                     }else{
-                        ColorConstants.Gray600
+                        ColorConstants.Gray300
                     }
                 }
                 .frame(height:1.1)
@@ -105,7 +107,7 @@ struct StudentMostViewedSubjectCell: View {
             }
             .padding(.bottom)
             .frame(minWidth: 0,maxWidth: .infinity)
-            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(subject.id == selectedsubject.id ? .mainBlue :ColorConstants.Bluegray100.opacity(0.5))
+            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(subject.id == selectedsubject.id ? .mainBlue :ColorConstants.WhiteA700)
 //                .border(ColorConstants.MainColor, width: 1).cornerRadius(10)
             )
         })
@@ -113,5 +115,5 @@ struct StudentMostViewedSubjectCell: View {
 }
 
 #Preview {
-    StudentMostViewedSubjectCell(selectedsubject: .constant(StudentMostViewedSubjectsM.init()))
+    StudentMostViewedSubjectCell(subject : StudentMostViewedSubjectsM(id:38, subjectName: "Chemistry,1st Term 2023,G10", image: "Images\\SubjectSemesterYear\\d0e0e858-31f9-4867-bad7-1d596f937ecf.png", subjectBrief: "chemistry\r\n", lessonsCount: 6, teacherCount: 6),selectedsubject: .constant(StudentMostViewedSubjectsM.init()))
 }

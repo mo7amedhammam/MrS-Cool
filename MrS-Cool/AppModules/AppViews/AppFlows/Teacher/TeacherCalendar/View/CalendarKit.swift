@@ -394,7 +394,8 @@ struct ContentView3: View {
     @State private var selectedEvent: EventM?
     
     var onCancelEvent: ((EventM) -> Void)?
-    
+    var onJoinEvent: ((EventM) -> Void)?
+
     var body: some View {
         VStack {
             //            CalendarKitWrapper(selectedDate:$selectedDate, events: events,onCancelEvent:onCancelEvent )
@@ -416,6 +417,8 @@ struct ContentView3: View {
                         onCancelEvent?(selectedEvent)
                     }
                     isShowingDetailSheet = false
+                },onJoinEvent: { event in
+                    onJoinEvent?(selectedEvent)
                 })
             }
         }
@@ -433,6 +436,7 @@ struct EventDetailsView: View {
 
     let event: EventM
     let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
+    let onJoinEvent: ((EventM) -> Void)? // Closure to handle event cancellation
 
     // Function to check if the event is in the past
     func isEventInPast() -> Bool {
@@ -503,6 +507,7 @@ struct EventDetailsView: View {
                     Button(action: {
                         if let url = URL(string: meetingLink) {
                             UIApplication.shared.open(url)
+                            onJoinEvent?(event)
                         }
                     }) {
                         Text("Join Meeting".localized())
@@ -531,5 +536,5 @@ struct EventDetailsView: View {
 
 
 #Preview{
-    EventDetailsView(event: EventM(id: 1, groupName: "Math Class", date: "2024-05-29", timeFrom: "10:00", timeTo: "11:00", isCancel: false, cancelDate: nil, teamMeetingLink: "https://example.com/meeting"), onCancelEvent: { _ in })
+    EventDetailsView(event: EventM(id: 1, groupName: "Math Class", date: "2024-05-29", timeFrom: "10:00", timeTo: "11:00", isCancel: false, cancelDate: nil, teamMeetingLink: "https://example.com/meeting"), onCancelEvent: { _ in }, onJoinEvent: { _ in })
 }

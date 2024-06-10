@@ -146,12 +146,16 @@ struct CalView: View {
                 }
             } else if viewMode == .week {
                 
-                ContentView3(selectedDate: $selectedDate, scope: .constant(.week), events: $events){event in
+                ContentView3(selectedDate: $selectedDate, scope: .constant(.week), events: $events,onCancelEvent: {event in
                     print("on cancel here")
                     guard let eventid = event.id else {return}
                     calendarschedualsvm.CancelCalendarCheduals(id: eventid)
+                },onJoinEvent:{event in
+                    print("on join here")
+                    guard let eventid = event.bookTeacherlessonsessionDetailId else {return}
+                    calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
                 }
-                
+                )
 //                WeekView(
 //                    calendar: calendar,
 //                    date: $selectedDate,
