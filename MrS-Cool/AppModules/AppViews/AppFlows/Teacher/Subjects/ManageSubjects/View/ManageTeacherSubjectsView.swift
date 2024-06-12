@@ -26,7 +26,7 @@ struct ManageTeacherSubjectsView: View {
     @State var filterSubject : DropDownOption?
     @State var filterSubjectStatus : DropDownOption?
     
-    fileprivate func PassFilterValues() {
+     func PassFilterValues() {
         manageteachersubjectsvm.filterEducationType = filterEducationType
         manageteachersubjectsvm.filterEducationLevel = filterEducationLevel
         manageteachersubjectsvm.filterAcademicYear = filterAcademicYear
@@ -34,8 +34,9 @@ struct ManageTeacherSubjectsView: View {
         manageteachersubjectsvm.filterSubjectStatus = filterSubjectStatus
     }
     
-    fileprivate func ClearFilterValues() {
+     func ClearFilterValues() {
         filterEducationType = nil
+         lookupsvm.FilterSelectedEducationType = nil
         filterEducationLevel = nil
         filterAcademicYear = nil
         filterSubject = nil
@@ -328,7 +329,6 @@ struct ManageTeacherSubjectsView: View {
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             showFilter = false
-                                            guard filterEducationType != nil || filterSubjectStatus != nil else{return}
                                             ClearFilterValues()
                                             manageteachersubjectsvm.clearFilter()
                                             manageteachersubjectsvm.GetTeacherSubjects()
