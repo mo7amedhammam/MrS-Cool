@@ -176,8 +176,10 @@ struct ParentTabBarView: View {
                 tabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
                     Helper.shared.changeRoot(toView: AnonymousHomeView())
                     Helper.shared.logout()
+                },secondBtnAction:{
+                    selectedDestination = nil
                 })
-                tabbarvm.isError.toggle()
+                tabbarvm.isError = true
 
             }
         }

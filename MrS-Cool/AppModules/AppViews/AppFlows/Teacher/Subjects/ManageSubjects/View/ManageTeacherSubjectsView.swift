@@ -21,24 +21,8 @@ struct ManageTeacherSubjectsView: View {
     var selectedSubject:TeacherSubjectM?
     
     @State var filterEducationType : DropDownOption?
-//    {
-//        didSet{
-//            filterEducationLevel = nil
-//        }
-//    }
     @State var filterEducationLevel : DropDownOption?
-//    {
-//        didSet{
-//            filterAcademicYear = nil
-//        }
-//    }
     @State var filterAcademicYear : DropDownOption?
-//    {
-//        didSet{
-//            filterSubject = nil
-//            filterSubjectStatus = nil
-//        }
-//    }
     @State var filterSubject : DropDownOption?
     @State var filterSubjectStatus : DropDownOption?
     
@@ -313,22 +297,23 @@ struct ManageTeacherSubjectsView: View {
                                     CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $filterEducationType,options:lookupsvm.EducationTypesList)
                                         .onChange(of: filterEducationType){val in
                                             filterEducationLevel = nil
-                                            lookupsvm.SelectedEducationType = val
+                                            lookupsvm.FilterSelectedEducationType = val
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $filterEducationLevel,options:lookupsvm.EducationLevelsList)
+                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $filterEducationLevel,options:lookupsvm.FilterEducationLevelsList)
                                         .onChange(of:filterEducationLevel){val in
                                             filterAcademicYear = nil
-                                            lookupsvm.SelectedEducationLevel = val
+                                            lookupsvm.FilterSelectedEducationLevel = val
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $filterAcademicYear,options:lookupsvm.AcademicYearsList)
+                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $filterAcademicYear,options:lookupsvm.FilterAcademicYearsList)
                                         .onChange(of:filterAcademicYear){val in
                                             filterSubject = nil
-                                            filterSubjectStatus = nil
-                                            lookupsvm.SelectedAcademicYear = val
+//                                            filterSubjectStatus = nil
+                                            lookupsvm.FilterSelectedAcademicYear = val
+                                            
                                         }
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filterSubject,options:lookupsvm.SubjectsList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filterSubject,options:lookupsvm.FilterSubjectsList)
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $filterSubjectStatus,options:lookupsvm.StatusList)
                                 }
                                 .padding(.top,5)
@@ -337,16 +322,16 @@ struct ManageTeacherSubjectsView: View {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
                                             PassFilterValues()
-                                            manageteachersubjectsvm .GetTeacherSubjects()
+                                            manageteachersubjectsvm.GetTeacherSubjects()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             showFilter = false
-                                            guard filterEducationType != nil else{return}
+                                            guard filterEducationType != nil || filterSubjectStatus != nil else{return}
                                             ClearFilterValues()
                                             manageteachersubjectsvm.clearFilter()
-                                            manageteachersubjectsvm .GetTeacherSubjects()
+                                            manageteachersubjectsvm.GetTeacherSubjects()
                                         })
                                     } .frame(width:130,height:40)
                                         .padding(.vertical)

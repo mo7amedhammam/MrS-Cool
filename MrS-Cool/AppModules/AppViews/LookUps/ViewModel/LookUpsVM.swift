@@ -11,6 +11,10 @@ import Foundation
 import UIKit
 import SwiftUI
 
+enum DropDownForCase{
+    case Adding, Filtering
+}
+
 class LookUpsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     @Published var GendersArray: [GendersM] = []{
@@ -97,10 +101,11 @@ class LookUpsVM: ObservableObject {
     @Published var EducationTypesList: [DropDownOption] = []
     @Published var SelectedEducationType: DropDownOption?{
         didSet{
-            GetEducationLevels()
+            GetEducationLevels(forcase: .Adding)
             SelectedEducationLevel = nil
         }
     }
+    
     
     @Published var EducationLevelsArray: [EducationLevellM] = []{
         didSet{
@@ -121,7 +126,7 @@ class LookUpsVM: ObservableObject {
                 EducationLevelsList.removeAll()
                 SelectedAcademicYear = nil
             }else{
-                GetAcademicYears()
+                GetAcademicYears(forcase: .Adding)
             }
         }
     }
@@ -145,7 +150,7 @@ class LookUpsVM: ObservableObject {
                 AcademicYearsList.removeAll()
                 SelectedSubject = nil
             }else{
-                GetSubjects()
+                GetSubjects(forcase: .Adding)
             }
         }
     }
@@ -188,6 +193,97 @@ class LookUpsVM: ObservableObject {
         didSet{
             if SelectedStatus == nil{
                 StatusList.removeAll()
+            }
+        }
+    }
+    
+//     ********* Filter ***********
+    @Published var FilterEducationTypesArray: [EducationTypeM] = []{
+        didSet{
+            if !FilterEducationTypesArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                FilterEducationTypesList = FilterEducationTypesArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                FilterEducationTypesList.removeAll()
+            }
+        }
+    }
+    @Published var FilterEducationTypesList: [DropDownOption] = []
+    @Published var FilterSelectedEducationType: DropDownOption?{
+        didSet{
+            GetEducationLevels(forcase: .Filtering)
+            FilterSelectedEducationLevel = nil
+        }
+    }
+    
+    @Published var FilterEducationLevelsArray: [EducationLevellM] = []{
+        didSet{
+            if !FilterEducationLevelsArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                FilterEducationLevelsList = FilterEducationLevelsArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                FilterEducationLevelsList.removeAll()
+            }
+        }
+    }
+    @Published var FilterEducationLevelsList: [DropDownOption] = []
+    @Published var FilterSelectedEducationLevel: DropDownOption?{
+        didSet{
+            if FilterSelectedEducationLevel == nil {
+                FilterEducationLevelsList.removeAll()
+                FilterSelectedAcademicYear = nil
+            }else{
+                GetAcademicYears(forcase: .Filtering)
+            }
+        }
+    }
+    
+    @Published var FilterAcademicYearsArray: [GendersM] = []{
+        didSet{
+            if !FilterAcademicYearsArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                FilterAcademicYearsList = FilterAcademicYearsArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                FilterAcademicYearsList.removeAll()
+            }
+        }
+    }
+    @Published var FilterAcademicYearsList: [DropDownOption] = []
+    @Published var FilterSelectedAcademicYear: DropDownOption?{
+        didSet{
+            if FilterSelectedAcademicYear == nil {
+                FilterAcademicYearsList.removeAll()
+                FilterSelectedSubject = nil
+            }else{
+                GetSubjects(forcase: .Filtering)
+            }
+        }
+    }
+    
+    @Published var FilterSubjectsArray: [SubjectsByAcademicLevelM] = []{
+        didSet{
+            if !FilterSubjectsArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                FilterSubjectsList = FilterSubjectsArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name,subject: gender)
+                }
+            }else{
+                FilterSubjectsList.removeAll()
+            }
+        }
+    }
+    @Published var FilterSubjectsList: [DropDownOption] = []
+    @Published var FilterSelectedSubject: DropDownOption?
+    {
+        didSet{
+            if FilterSelectedSubject == nil{
+                FilterSubjectsList.removeAll()
             }
         }
     }
@@ -375,6 +471,7 @@ extension LookUpsVM{
     }
     
     func getGovernoratesArr(){
+        GovernoratesArray.removeAll()
         guard let countryId = SelectedCountry?.id else {return}
         let parameters = ["countryId":countryId]
         
@@ -397,6 +494,7 @@ extension LookUpsVM{
     }
     
     func getCitiesArr(){
+        CitiesArray.removeAll()
         guard let GovernorateId = SelectedGovernorate?.id else {return}
         let parameters = ["GovernorateId":GovernorateId]
         
@@ -438,8 +536,8 @@ extension LookUpsVM {
             .store(in: &cancellables)
     }
     
-    func GetEducationLevels() {
-        guard let educationTypeId = SelectedEducationType?.id else {return}
+    func GetEducationLevels(forcase:DropDownForCase){
+        guard let educationTypeId = forcase == .Adding ? SelectedEducationType?.id : FilterSelectedEducationType?.id else {return}
         let parameters = ["educationTypeId":educationTypeId]
         
         let target = LookupsServices.GetEducationLevels(parameters: parameters)
@@ -454,13 +552,19 @@ extension LookUpsVM {
             }, receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                EducationLevelsArray = receivedData.data ?? []
+                switch forcase{
+                case .Adding:
+                    EducationLevelsArray = receivedData.data ?? []
+                case .Filtering:
+                    FilterEducationLevelsArray = receivedData.data ?? []
+
+                }
             })
             .store(in: &cancellables)
     }
     
-    func GetAcademicYears() {
-        guard let educationLevelId = SelectedEducationLevel?.id else {return}
+    func GetAcademicYears(forcase:DropDownForCase) {
+        guard let educationLevelId = forcase == .Adding ? SelectedEducationLevel?.id : FilterSelectedEducationLevel?.id else {return}
         let parameters = ["educationLevelId":educationLevelId]
         
         let target = LookupsServices.GetAcademicYears(parameters: parameters)
@@ -475,13 +579,20 @@ extension LookUpsVM {
             }, receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                AcademicYearsArray = receivedData.data ?? []
+                switch forcase {
+                case .Adding:
+                    AcademicYearsArray = receivedData.data ?? []
+
+                case .Filtering:
+                    FilterAcademicYearsArray = receivedData.data ?? []
+
+                }
             })
             .store(in: &cancellables)
     }
     
-    func GetSubjects() {
-        guard let academicYearId = SelectedAcademicYear?.id else {return}
+    func GetSubjects(forcase:DropDownForCase) {
+        guard let academicYearId = forcase == .Adding ? SelectedAcademicYear?.id : FilterSelectedAcademicYear?.id else {return}
         let parameters = ["academicEducationLevelId":academicYearId]
         
         let target = LookupsServices.GetAllSubjects(parameters: parameters)
@@ -496,7 +607,12 @@ extension LookUpsVM {
             }, receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                SubjectsArray = receivedData.data ?? []
+                switch forcase {
+                case .Adding:
+                    SubjectsArray = receivedData.data ?? []
+                case .Filtering:
+                    FilterSubjectsArray = receivedData.data ?? []
+                }
             })
             .store(in: &cancellables)
     }
@@ -737,3 +853,5 @@ struct SubjectsByAcademicLevelM: Codable,Hashable {
     var groupDurationFrom, groupDurationTo: Int?
     var individualCostFrom, individualCostTo, groupCostFrom, groupCostTo: Float?
 }
+
+

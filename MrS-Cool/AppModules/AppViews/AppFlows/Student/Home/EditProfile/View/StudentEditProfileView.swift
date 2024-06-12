@@ -148,9 +148,7 @@ struct StudentEditProfileView: View {
                     lookupsvm.SelectedGovernorate = studentsignupvm.governorte
                     lookupsvm.SelectedEducationType = studentsignupvm.educationType
                     lookupsvm.SelectedEducationLevel = studentsignupvm.educationLevel
-
                 })
-                
             })
         })
         .onChange(of: studentsignupvm.isDataUpdated, perform: { value in

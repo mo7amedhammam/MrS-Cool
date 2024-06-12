@@ -61,7 +61,8 @@ extension String {
         var newdate = ""
         let formatter = DateFormatter()
 //        formatter.locale = Locale(identifier: local ?? "ar")
-        formatter.timeZone = TimeZone(identifier: "GMT")
+//        formatter.timeZone = TimeZone(identifier: "GMT")
+        formatter.timeZone = .current
         formatter.dateFormat = FormatFrom
         if let date = formatter.date(from: self) {
             formatter.dateFormat = FormatTo

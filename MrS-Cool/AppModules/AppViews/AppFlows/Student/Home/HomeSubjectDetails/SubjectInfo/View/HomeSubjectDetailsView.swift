@@ -182,6 +182,7 @@ struct HomeSubjectDetailsView: View {
                                     }                                    .padding(.horizontal)
 
                                     CustomButton(Title:"View Details",IsDisabled:.constant(false) , action: {
+                                        guard details.availableTeacherCount ?? 0 > 0 else {return}
                                         destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: selectedsubjectid, bookingcase: .subject))
                                         isPush = true
                                         
