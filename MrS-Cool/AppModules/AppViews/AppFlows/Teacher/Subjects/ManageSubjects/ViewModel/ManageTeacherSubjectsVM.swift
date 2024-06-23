@@ -311,6 +311,8 @@ extension ManageTeacherSubjectsVM{
                 if let model = receivedData.data{
                     //                    TeacherSubjects = model
                     TeacherSubjects?.removeAll(where: {$0.id == model.id})
+                    isEditing = false
+                    clearTeachersSubject()
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")

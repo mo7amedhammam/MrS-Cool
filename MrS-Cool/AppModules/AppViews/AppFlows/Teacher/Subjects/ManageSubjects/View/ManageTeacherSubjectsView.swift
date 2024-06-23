@@ -200,8 +200,8 @@ struct ManageTeacherSubjectsView: View {
                                     manageteachersubjectsvm.isEditing = false
                                     
                                 }, deleteBtnAction:{
-                                    manageteachersubjectsvm.isEditing = false
-                                    manageteachersubjectsvm.clearTeachersSubject()
+//                                    manageteachersubjectsvm.isEditing = false
+//                                    manageteachersubjectsvm.clearTeachersSubject()
                                     manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                                     })
