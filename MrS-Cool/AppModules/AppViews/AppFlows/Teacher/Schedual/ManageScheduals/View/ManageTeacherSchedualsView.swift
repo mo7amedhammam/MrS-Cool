@@ -154,11 +154,13 @@ struct ManageTeacherSchedualsView: View {
                                     HStack {
                                         Group{
                                             CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                                manageteacherschedualsvm.isFiltering = true
                                                 manageteacherschedualsvm.GetTeacherScheduals()
                                                 showFilter = false
                                             })
                                             
                                             CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                                manageteacherschedualsvm.isFiltering = false
                                                 manageteacherschedualsvm.clearFilter()
                                                 manageteacherschedualsvm.GetTeacherScheduals()
                                                 showFilter = false

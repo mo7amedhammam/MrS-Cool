@@ -74,7 +74,6 @@ struct GroupForLessonView: View {
                                                     Spacer()
                                                     HStack {
                                                         Spacer()
-                                                        
                                                         Group{
                                                             Text("End Time Is ".localized())+Text("\(groupsforlessonvm.endTime ?? "")")
                                                         }     .font(Font.SoraBold(size: 9))
@@ -180,13 +179,13 @@ struct GroupForLessonView: View {
                             VStack{
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.filtersubject,options:lookupsvm.SubjectsForList).onChange(of:groupsforlessonvm.filtersubject) {newval in
-                                        if                                                     lookupsvm.SelectedSubjectForList != groupsforlessonvm.filtersubject
-                                        {
-                                            lookupsvm.SelectedSubjectForList = groupsforlessonvm.filtersubject
-                                        }
+//                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
+//                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
+//                                        }
+                                        lookupsvm.SelectedFilterSubjectForList = newval
                                     }
                                     
-                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.filterlesson,options:lookupsvm.LessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.filterlesson,options:lookupsvm.FilterLessonsForList)
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.filtergroupName)
                                     

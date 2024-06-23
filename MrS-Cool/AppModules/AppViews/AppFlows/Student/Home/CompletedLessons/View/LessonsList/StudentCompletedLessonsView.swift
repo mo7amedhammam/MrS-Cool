@@ -133,11 +133,11 @@ struct StudentCompletedLessonsView: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.BookedSubjectsForList)
                                         .onChange(of: completedlessonsvm.filtersubject){newval in
-                                            if                                                     lookupsvm.SelectedBookedSubjectForList != completedlessonsvm.filtersubject
-                                            {
-                                                completedlessonsvm.filterlesson = nil
-                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
-                                            }
+//                                            if  lookupsvm.SelectedBookedSubjectForList != completedlessonsvm.filtersubject                                            {
+//                                                completedlessonsvm.filterlesson = nil
+//                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
+//                                            }
+                                            lookupsvm.SelectedBookedSubjectForList = newval
                                         }
                                     
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.BookedLessonsForList)
@@ -151,15 +151,18 @@ struct StudentCompletedLessonsView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            completedlessonsvm.isFiltering = true
                                             completedlessonsvm.skipCount = 0
                                             completedlessonsvm.GetCompletedLessons()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            completedlessonsvm.isFiltering = false
                                             completedlessonsvm.skipCount = 0
                                             completedlessonsvm.clearFilter()
-                                            completedlessonsvm .GetCompletedLessons()
+                                            lookupsvm.BookedLessonsForList.removeAll()
+                                            completedlessonsvm.GetCompletedLessons()
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)

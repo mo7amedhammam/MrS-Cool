@@ -92,11 +92,11 @@ struct CompletedLessonsList: View {
         .task {
             lookupsvm.GetSubjestForList()
         }
-        .onAppear(perform: {
+        .onAppear{
             completedlessonsvm.completedLessonsList?.items?.removeAll()
             completedlessonsvm.skipCount = 0
             completedlessonsvm.GetCompletedLessons()
-        })
+        }
 
 //        .onDisappear {
 //            completedlessonsvm.cleanup()
@@ -149,12 +149,14 @@ struct CompletedLessonsList: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            completedlessonsvm.isFiltering = true
                                             completedlessonsvm.skipCount = 0
                                             completedlessonsvm.GetCompletedLessons()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            completedlessonsvm.isFiltering = false
                                             completedlessonsvm.skipCount = 0
                                             completedlessonsvm.clearFilter()
                                             completedlessonsvm .GetCompletedLessons()

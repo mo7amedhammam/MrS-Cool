@@ -54,7 +54,11 @@ class GroupForLessonVM: ObservableObject {
 
     @Published var endTime : String?
 
-    @Published var filtersubject : DropDownOption?
+    @Published var filtersubject : DropDownOption?{
+        didSet{
+            filterlesson = nil
+        }
+    }
     @Published var filterlesson : DropDownOption?
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
@@ -116,31 +120,21 @@ extension GroupForLessonVM{
     
     func GetTeacherGroups(){
         var parameters:[String:Any] = [:]
-        if let subjectid = subject?.id{
-            parameters["teacherSubjectAcademicSemesterYearId"] = subjectid
-        }else if let filtersubjectid = filtersubject?.id{
+        if let filtersubjectid = filtersubject?.id{
             parameters["teacherSubjectAcademicSemesterYearId"] = filtersubjectid
         }
-        if let lessonid = lesson?.id{
-            parameters["teacherLessonId"] = lessonid
-            
-        } else if let filterlessonid = filterlesson?.id{
+        if let filterlessonid = filterlesson?.id{
             parameters["teacherLessonId"] = filterlessonid
         }
-        if groupName.count > 0{
-            parameters["groupName"] = groupName
-        }else if filtergroupName.count > 0{
+        if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        
-        if let date = date?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
-            parameters["startDate"] = date
-        }else if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
             parameters["startDate"] = filterdate
         }
-        if let time = time{
-            parameters["toEndDate"] = time
-        }
+//        if let time = time{
+//            parameters["toEndDate"] = time
+//        }
         
         print("parameters",parameters)
         let target = teacherServices.GetMyLessonSchedualGroup(parameters: parameters)
@@ -244,6 +238,8 @@ extension GroupForLessonVM{
   func calculateendTime(){
         if time != nil && lesson != nil{
             endTime = time?.toDate(withFormat: "hh:mm aa")?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
+        }else{
+            endTime = nil
         }
     }
     

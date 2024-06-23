@@ -50,6 +50,7 @@ class ManageTeacherSchedualsVM: ObservableObject {
     @Published var filterDay : DropDownOption?
     @Published var filterStartDate : String?
     @Published var filterEndDate : String?
+    @Published var isFiltering : Bool = false
 
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -116,13 +117,13 @@ extension ManageTeacherSchedualsVM{
     func GetTeacherScheduals(){
 //        guard let dayId = day?.id,let startDate = startDate,let endDate = endDate else {return}
         var parameters:[String:Any] = [:]
-        if let filterDay = filterDay{
+        if let filterDay = filterDay,isFiltering{
             parameters["dayId"] = filterDay.id
         }
-        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
+        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),isFiltering{
             parameters["fromStartDate"] = filterStartDate
         }
-        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
+        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),isFiltering{
             parameters["toEndDate"] = filterEndDate
         }
         print("parameters",parameters)
@@ -145,6 +146,7 @@ extension ManageTeacherSchedualsVM{
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
                     TeacherScheduals = receivedData.data
+                    isFiltering = false
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

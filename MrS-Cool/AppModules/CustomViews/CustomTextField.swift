@@ -520,36 +520,112 @@ struct CustomDatePickerField: View {
             })
             
             if isCalenderVisible {
-//                DatePicker("birthDate", selection: $selectedDate ,displayedComponents: datePickerComponent)
+
                 DatePicker("birthDate", selection: $selectedDate, in: (startDate ?? Date.distantPast)...(endDate ?? Date.distantFuture), displayedComponents: datePickerComponent)
                     .padding(.horizontal)
                     .tint(ColorConstants.MainColor)
                     .labelsHidden()
                     .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
+//                    .onChange(of: selectedDate) {date in
+//                        print(date)
+//                        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+//                    }
+//                    .onAppear(perform: {
+//                        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now()+1, execute: {
+//                            if ((selectedDateStr?.isEmpty) != nil){
+//                                selectedDate = selectedDateStr?.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a") ?? Date()
+//            //                    print("selectedDateStr",selectedDateStr)
+//            //                    print("selectedDate",selectedDate)
+//                            }
+//                        })
+//                    })
+                
+                    .onChange(of: selectedDate) { date in
+                                            // Check if selectedDate is today's date
+                                            let calendar = Calendar.current
+                                            let isToday = calendar.isDate(date, inSameDayAs: Date())
+                                            
+                                            if isToday {
+                                                selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                                            } else {
+                                                // Handle other date selections
+                                                selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                                            }
+                                        }
+                                        .onAppear {
+                                            // Ensure selectedDateStr is initialized correctly on appear
+                                            if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
+                                                selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a") ?? Date()
+                                            }
+                                        }
+
             }
         }
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
-        .onChange(of: selectedDate) {date in
-            print(date)
-            selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-        }
-        .onAppear(perform: {
-            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now()+1, execute: {
-                if ((selectedDateStr?.isEmpty) != nil){
-                    selectedDate = selectedDateStr?.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a") ?? Date()
-//                    print("selectedDateStr",selectedDateStr)
-//                    print("selectedDate",selectedDate)
-                }
-            })
-        })
 
     }
 }
 
 #Preview {
-    CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""),datePickerComponent:.hourAndMinute)
+    CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""),datePickerComponent:.date)
 }
+
+import FSCalendar
+
+struct FSCalendarView: UIViewRepresentable {
+    @Binding var selectedDate: Date
+    var startDate: Date?
+    var endDate: Date?
+    
+    class Coordinator: NSObject, FSCalendarDelegate ,FSCalendarDataSource{
+        var parent: FSCalendarView
+        
+        init(parent: FSCalendarView) {
+            self.parent = parent
+        }
+        
+        func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+            parent.selectedDate = date
+        }
+        func minimumDate(for calendar: FSCalendar) -> Date {
+                 return parent.startDate ?? Date.distantPast
+             }
+
+             func maximumDate(for calendar: FSCalendar) -> Date {
+                 return parent.endDate ?? Date.distantFuture
+             }
+
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+    
+    func makeUIView(context: Context) -> FSCalendar {
+        let calendar = FSCalendar()
+        calendar.delegate = context.coordinator
+        calendar.dataSource = context.coordinator
+        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 20)
+        calendar.appearance.todayColor = UIColor.init(ColorConstants.MainColor).withAlphaComponent(0.6)
+//        calendar.appearance.titleTodayColor = UIColor.init(ColorConstants.MainColor).withAlphaComponent(0.4)
+
+        calendar.appearance.selectionColor = UIColor.init(ColorConstants.MainColor)
+        // Adjust the color as needed
+        
+        return calendar
+    }
+    
+    func updateUIView(_ uiView: FSCalendar, context: Context) {
+        // Optional: Customize FSCalendar appearance here
+//        uiView.dataSource = context.coordinator
+//        uiView.delegate = context.coordinator
+        uiView.select(selectedDate)
+        uiView.reloadData()
+    }
+}
+
+
 
 struct ConditionalDatePickerStyle: ViewModifier {
     var datePickerComponent: DatePickerComponents

@@ -33,7 +33,7 @@ struct ManageMyDocumentsView: View {
     @Binding var isFinish : Bool
     
     @State var showFilter : Bool = false
-    
+    @State var filterdocumentType : DropDownOption?
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage my documents")
@@ -298,19 +298,20 @@ struct ManageMyDocumentsView: View {
                       ScrollView{
                           VStack{
                               Group {
-                                  CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.filterdocumentType,options:lookupsvm.documentTypesList)
+                                  CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $filterdocumentType,options:lookupsvm.documentTypesList)
                               }.padding(.top,5)
                               
                                   Spacer()
                                   HStack {
                                       Group{
                                           CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                              teacherdocumentsvm.filterdocumentType = filterdocumentType
                                               teacherdocumentsvm.GetTeacherDocument()
                                               showFilter = false
                                           })
                                           
-                                          
                                           CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                              filterdocumentType = nil
                                               teacherdocumentsvm.filterdocumentType = nil
                                               teacherdocumentsvm.GetTeacherDocument()
                                               showFilter = false

@@ -364,7 +364,7 @@ class LookUpsVM: ObservableObject {
 //            if SelectedSubjectForList == nil{
 //                SubjectsForList.removeAll()
 //            }else{
-                GetLessonsForList()
+            GetLessonsForList(forcase: .Adding)
 //            }
         }
     }
@@ -381,6 +381,31 @@ class LookUpsVM: ObservableObject {
         }
     }
     @Published var LessonsForList: [DropDownOption] = []
+    //---------- Filter  -------
+    @Published var SelectedFilterSubjectForList: DropDownOption?{
+        didSet{
+//            if SelectedSubjectForList == nil{
+//                SubjectsForList.removeAll()
+//            }else{
+            GetLessonsForList(forcase: .Filtering)
+            //            }
+        }
+    }
+    @Published var LessonsFilterForListArray: [LessonForListM] = []{
+        didSet{
+            if !LessonsFilterForListArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                FilterLessonsForList = LessonsFilterForListArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.lessonName,subTitle: gender.groupDuration)
+                }
+            }else{
+                FilterLessonsForList.removeAll()
+            }
+        }
+    }
+    @Published var FilterLessonsForList: [DropDownOption] = []
+    
+    
 
     @Published var BookedSubjectsForListArray: [BookedStudentSubjectsM] = []{
         didSet{
@@ -397,11 +422,11 @@ class LookUpsVM: ObservableObject {
     @Published var BookedSubjectsForList: [DropDownOption] = []
     @Published var SelectedBookedSubjectForList: DropDownOption?{
         didSet{
-//            if SelectedSubjectForList == nil{
-//                SubjectsForList.removeAll()
-//            }else{
+            if SelectedBookedSubjectForList == nil{
+                BookedLessonsForList.removeAll()
+            }else{
                 GetBookedLessonsForList()
-//            }
+            }
         }
     }
     @Published var BookedLessonsForListArray: [BookedStudentLessonsM] = []{
@@ -733,8 +758,8 @@ extension LookUpsVM{
             })
             .store(in: &cancellables)
     }
-    func GetLessonsForList() {
-        guard let SelectedSubjectForListid = SelectedSubjectForList?.id else {LessonsForListArray.removeAll(); return}
+    func GetLessonsForList(forcase:DropDownForCase) {
+        guard let SelectedSubjectForListid = forcase == .Adding ? SelectedSubjectForList?.id : SelectedFilterSubjectForList?.id  else {LessonsForListArray.removeAll(); return}
         let parameters:[String:Any] = ["teacherSubjectAcademicSemesterYearId":SelectedSubjectForListid]
         let target = LookupsServices.GetLessonsForList(parameters: parameters)
         BaseNetwork.CallApi(target, BaseResponse<[LessonForListM]>.self)
@@ -748,7 +773,13 @@ extension LookUpsVM{
             }, receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                LessonsForListArray = receivedData.data ?? []
+                switch forcase {
+                case .Adding:
+                    LessonsForListArray = receivedData.data ?? []
+
+                case .Filtering:
+                    LessonsFilterForListArray = receivedData.data ?? []
+                }
             })
             .store(in: &cancellables)
     }

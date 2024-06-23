@@ -25,7 +25,8 @@ class CompletedLessonsVM: ObservableObject {
     @Published var filterlesson : DropDownOption?
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
-    
+    @Published var isFiltering : Bool = false
+
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -45,16 +46,16 @@ extension CompletedLessonsVM{
     func GetCompletedLessons(){
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
             
-        if let filtersubjectid = filtersubject?.id{
+        if let filtersubjectid = filtersubject?.id, isFiltering{
             parameters["teacherSubjectId"] = filtersubjectid
         }
-         if let filterlessonid = filterlesson?.id{
+         if let filterlessonid = filterlesson?.id, isFiltering{
             parameters["teacherLessonId"] = filterlessonid
         }
-        if filtergroupName.count > 0{
+        if filtergroupName.count > 0, isFiltering{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"), isFiltering{
             parameters["lessonDate"] = filterdate
         }
         
@@ -83,6 +84,8 @@ extension CompletedLessonsVM{
                     }else{
                         completedLessonsList?.items?.append(contentsOf: receivedData.data?.items ?? [])
                     }
+                    isFiltering = false
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
