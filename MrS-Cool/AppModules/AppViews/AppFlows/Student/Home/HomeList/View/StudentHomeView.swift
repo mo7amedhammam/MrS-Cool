@@ -39,8 +39,17 @@ struct StudentHomeView: View {
                     }.padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
                     if studenthomevm.StudentSubjects == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 160)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 160)
+                        Image(.emptySubjects)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available subjects yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         LazyVGrid(columns: [.init(), .init(),.init()]) {
                             
@@ -66,8 +75,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedLessons == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 240)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 240)
+                        Image(.emptyLessons)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most viewed lessons yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -96,8 +114,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedLessons == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 240)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 240)
+                        Image(.emptyLessons)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most booked lessons yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -126,8 +153,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedSubjects == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 280)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 280)
+                        Image(.emptySubjects)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most viewed subjects yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -157,8 +193,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedsubjects == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 280)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 280)
+                        Image(.emptySubjects)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most booked subjects yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -188,8 +233,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedTeachers == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 180)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 180)
+                        Image(.emptyTeachers)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most viewd teachers yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -216,8 +270,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedTeachers == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 180)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 180)
+                        Image(.emptyTeachers)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most booked teachers yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -244,8 +307,17 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostRatedTeachers == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 180)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 180)
+                        Image(.emptyTeachers)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available top rated teachers yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){

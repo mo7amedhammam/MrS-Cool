@@ -29,9 +29,18 @@ class StudentHomeVM: ObservableObject {
                 academicYear = nil
         }
     }
-    @Published var academicYear : DropDownOption?
-    
-    @Published var term : DropDownOption?
+    @Published var academicYear : DropDownOption?{
+        didSet{
+            isacademicYearvalid = academicYear != nil
+        }
+    }
+    @Published var isacademicYearvalid : Bool = true
+
+    @Published var term : DropDownOption?{
+        didSet{
+            isacademicYearvalid = term != nil && academicYear != nil
+        }
+    }
     
     
 //    MARK: -  for student -
@@ -367,6 +376,7 @@ extension StudentHomeVM{
     func clearsearch(){
         educationType = nil
         term = nil
+        isacademicYearvalid = true
     }
     
     func cleanup() {

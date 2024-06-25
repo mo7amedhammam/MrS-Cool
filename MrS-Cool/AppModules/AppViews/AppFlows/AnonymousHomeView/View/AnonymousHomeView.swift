@@ -72,11 +72,11 @@ struct AnonymousHomeView: View {
                                 
                                 CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studenthomevm.educationLevel,options:lookupsvm.EducationLevelsList)
                                 
-                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studenthomevm.academicYear,options:lookupsvm.AcademicYearsList)
+                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studenthomevm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:studenthomevm.isacademicYearvalid)
                                 
                                 CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
-                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant(studenthomevm.term == nil && studenthomevm.academicYear == nil) , action: {
+                                CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant((studenthomevm.academicYear == nil || !studenthomevm.isacademicYearvalid)) , action: {
                                     withAnimation{
                                         studenthomevm.getHomeData()
                                         isSearch = true
@@ -126,8 +126,8 @@ struct AnonymousHomeView: View {
                                     
                                     Spacer()
                                 }
-                                //                                .padding([.top,.horizontal])
-                                //                        }
+                                
+
                                 if studenthomevm.StudentSubjects == []{
                                     ProgressView()
                                         .frame(width: gr.size.width/2.7, height: 160)
@@ -151,34 +151,82 @@ struct AnonymousHomeView: View {
                             .transition(.move(edge: isSearch ? .trailing : .leading))
                         }
                         
-                        Text("Most Viewed Lessons".localized())
+                        
+                        Text("Most Booked Subjects".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
-                        if studenthomevm.StudentMostViewedLessons == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 240)
+                        if studenthomevm.StudentMostBookedsubjects == []{
+//                            ProgressView()                                .frame(width: gr.size.width/2.7, height: 280)
+
+                            Image(.emptySubjects)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available most booked subjects yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
+
                         }else{
                             ScrollView(.horizontal,showsIndicators:false){
                                 LazyHStack(spacing:10){
                                     Spacer().frame(width:1)
-                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
-                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
-                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                    
+                                    ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
+                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
+                                            guard subject.teacherCount ?? 0 > 0 else {return}
+                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
-                                            
                                         }
-                                        .frame(width: gr.size.width/2.5, height: 240)
+                                        .frame(width: gr.size.width/2.33, height: 280)
                                     }
                                     Spacer().frame(width:1)
+                                    
                                 }
-                                .frame(height: 240)
+                                .frame(height: 280)
                                 .padding(.bottom,10)
                             }
                         }
+                        
+                        Text("Most Booked Teachers".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
+                        
+                        if studenthomevm.StudentMostBookedTeachers == []{
+//                            ProgressView()
+//                                .frame(width: gr.size.width/2.7, height: 180)
+                            Image(.emptyTeachers)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available  most booked teachers yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
+                        }else{
+                            ScrollView(.horizontal,showsIndicators:false){
+                                LazyHStack(spacing:10){
+                                    Spacer().frame(width:1)
+                                    
+                                    ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
+                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostBookedTeachers){
+                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            isPush = true
+                                        }
+                                        .frame(width: gr.size.width/3.8, height: 180)
+                                    }
+                                    Spacer().frame(width:1)
+                                }
+                                .frame(height: 180)
+                                .padding(.bottom,10)
+                            }
+                        }
+                       
                         
                         Text("Most Booked Lessons".localized())
                             .font(Font.SoraBold(size: 18))
@@ -186,8 +234,16 @@ struct AnonymousHomeView: View {
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostBookedLessons == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 240)
+//                            ProgressView()
+//                                .frame(width: gr.size.width/2.7, height: 240)
+                            Image(.emptyLessons)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available  most booked lessons yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
                         }else{
                             ScrollView(.horizontal,showsIndicators:false){
                                 LazyHStack(spacing:10){
@@ -209,6 +265,42 @@ struct AnonymousHomeView: View {
                             }
                         }
                         
+                        Text("Top Rated Teachers".localized())
+                            .font(Font.SoraBold(size: 18))
+                            .foregroundColor(.mainBlue)
+                            .padding([.top,.horizontal])
+                            .frame(maxWidth:.infinity,alignment: .leading)
+                        if studenthomevm.StudentMostRatedTeachers == []{
+//                            ProgressView()
+//                                .frame(width: gr.size.width/2.7, height: 180)
+                            Image(.emptyTeachers)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available top rated teachers yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
+                        }else{
+                            ScrollView(.horizontal,showsIndicators:false){
+                                LazyHStack(spacing:10){
+                                    Spacer().frame(width:1)
+                                    ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
+                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
+                                            destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            isPush = true
+                                        }
+                                        .frame(width: gr.size.width/3.8, height: 180)
+                                    }
+                                    Spacer().frame(width:1)
+                                    
+                                }
+                                .frame(height: 180)
+                                .padding(.bottom,10)
+                            }
+                        }
+                        
+                        
                         Text("Most Viewed Subjects".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
@@ -216,8 +308,17 @@ struct AnonymousHomeView: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostViewedSubjects == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 280)
+//                            ProgressView()
+//                                .frame(width: gr.size.width/2.7, height: 280)
+                            Image(.emptySubjects)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available most viewed subjects yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
+
                         }else{
                             ScrollView(.horizontal,showsIndicators:false){
                                 LazyHStack(spacing:10){
@@ -240,32 +341,40 @@ struct AnonymousHomeView: View {
                             }
                         }
                         
-                        Text("Most Booked Subjects".localized())
+                        Text("Most Viewed Lessons".localized())
                             .font(Font.SoraBold(size: 18))
                             .foregroundColor(.mainBlue)
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
-                        if studenthomevm.StudentMostBookedsubjects == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 280)
+                        if studenthomevm.StudentMostViewedLessons == []{
+//                            ProgressView()
+//                                .frame(width: gr.size.width/2.7, height: 240)
+                            Image(.emptyLessons)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available most viewed lessons yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
+
                         }else{
                             ScrollView(.horizontal,showsIndicators:false){
                                 LazyHStack(spacing:10){
                                     Spacer().frame(width:1)
-                                    
-                                    ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
-                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
-                                            guard subject.teacherCount ?? 0 > 0 else {return}
-                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
+                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
+                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
+                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
+                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             isPush = true
+                                            
                                         }
-                                        .frame(width: gr.size.width/2.33, height: 280)
+                                        .frame(width: gr.size.width/2.5, height: 240)
                                     }
                                     Spacer().frame(width:1)
-                                    
                                 }
-                                .frame(height: 280)
+                                .frame(height: 240)
                                 .padding(.bottom,10)
                             }
                         }
@@ -276,8 +385,17 @@ struct AnonymousHomeView: View {
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostViewedTeachers == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 180)
+//                            ProgressView()
+//                                .frame(width: gr.size.width/2.7, height: 180)
+                            Image(.emptyTeachers)
+                                .frame(width: 100,height: 100)
+                                .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                            Text("No available most viewed teachers yet".localized())
+                                .font(Font.SoraRegular(size: 15))
+                                .foregroundColor(ColorConstants.Bluegray400)
+
                         }else{
                             ScrollView(.horizontal,showsIndicators:false){
                                 LazyHStack(spacing:10){
@@ -298,61 +416,10 @@ struct AnonymousHomeView: View {
                             }
                         }
                         
-                        Text("Most Booked Teachers".localized())
-                            .font(Font.SoraBold(size: 18))
-                            .foregroundColor(.mainBlue)
-                            .padding([.top,.horizontal])
-                            .frame(maxWidth:.infinity,alignment: .leading)
-                        
-                        if studenthomevm.StudentMostBookedTeachers == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 180)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    
-                                    ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
-                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostBookedTeachers){
-                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            isPush = true
-                                        }
-                                        .frame(width: gr.size.width/3.8, height: 180)
-                                    }
-                                    Spacer().frame(width:1)
-                                }
-                                .frame(height: 180)
-                                .padding(.bottom,10)
-                            }
-                        }
+            
                         
                         
-                        Text("Top Rated Teachers".localized())
-                            .font(Font.SoraBold(size: 18))
-                            .foregroundColor(.mainBlue)
-                            .padding([.top,.horizontal])
-                            .frame(maxWidth:.infinity,alignment: .leading)
-                        if studenthomevm.StudentMostRatedTeachers == []{
-                            ProgressView()
-                                .frame(width: gr.size.width/2.7, height: 180)
-                        }else{
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
-                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
-                                            destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            isPush = true
-                                        }
-                                        .frame(width: gr.size.width/3.8, height: 180)
-                                    }
-                                    Spacer().frame(width:1)
-                                    
-                                }
-                                .frame(height: 180)
-                                .padding(.bottom,10)
-                            }
-                        }
+
                     }
                     .frame(height:gr.size.height)
                     
