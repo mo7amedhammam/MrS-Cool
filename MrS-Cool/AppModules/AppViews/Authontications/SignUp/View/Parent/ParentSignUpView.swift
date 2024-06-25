@@ -34,11 +34,13 @@ struct ParentSignUpView: View {
                                         signupvm.phone = String(newValue.prefix(11))
                                     }
                                 }
-                            CustomTextField(iconName:"img_group172",placeholder: "Email *", text: $signupvm.email,textContentType:.emailAddress,keyboardType:.emailAddress,isvalid: signupvm.isemailvalid)
                             
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
                             
-                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr)
+                            CustomTextField(iconName:"img_group172",placeholder: "Email *", text: $signupvm.email,textContentType:.emailAddress,keyboardType:.emailAddress,isvalid: signupvm.isemailvalid)
+
+                            let twelveYearsAgo = Calendar.current.date(byAdding: .year, value: -12, to: Date()) ?? Date()
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr,endDate: twelveYearsAgo)
                             
                             CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.country,options:lookupsvm.CountriesList)
                                 .onChange(of: signupvm.country, perform: { value in

@@ -66,6 +66,10 @@ struct SignUpView: View {
         )
         .onChange(of: selecteduser.user, perform: { value in
             signupvm.clearSelections()
+            parentsignupvm.clearSelections()
+            lookupsvm.SelectedCountry = nil
+            lookupsvm.SelectedGovernorate = nil
+            lookupsvm.SelectedCity = nil
         })
         //        NavigationLink(destination: destination, isActive: $isPush, label: {})
 //        .showHud(isShowing: $signupvm.isLoading)

@@ -336,10 +336,13 @@ struct CheckOutFullSubjectInfo: View {
                     .font(Font.SoraBold(size: 12))
                 
                 Spacer()
-                Text("\(Int(details.duration ?? "")?.formattedTime() ?? "0")")
-//                    .ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
-                    .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+//                Text("\(Int(details.duration ?? "")?.formattedHrsMins() ?? "0")")
+                HStack(spacing:0){
+                    Text("\(Int(details.duration ?? "")?.hours ?? 0) ") + Text("hrs".localized()) + Text(", ".localized()) + Text("\(Int(details.duration ?? "")?.minutes ?? 0) ") + Text("mins".localized())
+                }
+                        .foregroundColor(.mainBlue)
+                        .font(Font.SoraRegular(size: 10))
+                
             }
             
             CustomDivider()

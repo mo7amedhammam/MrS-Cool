@@ -72,7 +72,7 @@ struct LessonDetailsView: View {
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())
                         
-                        VStack{
+                        VStack(alignment:.leading){
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.SoraBold(size: 18))
                             Text(details.SubjectOrLessonDto?.subjectName ?? "")
@@ -165,21 +165,22 @@ struct LessonDetailsView: View {
                                     if details.LessonGroupsDto != [] , let slot = details.LessonGroupsDto?[currentPage]{
                                         
                                         HStack {
-                                            Button(action: {
-                                                forwards = true
-                                                withAnimation {
-                                                    currentPage = min(currentPage + 1, (details.LessonGroupsDto?.count ?? 0) - 1)
+                                            if (details.LessonGroupsDto?.count ?? 0) > 1{
+                                                Button(action: {
+                                                    forwards = true
+                                                    withAnimation {
+                                                        currentPage = min(currentPage + 1, (details.LessonGroupsDto?.count ?? 0) - 1)
+                                                    }
+                                                }) {
+                                                    Image(currentPage >= 0 && currentPage < (details.LessonGroupsDto?.count ?? 0) - 1 ? "nextfill":"nextempty")
+                                                        .resizable()
+                                                        .frame(width:30,height:30)
                                                 }
-                                            }) {
-                                                Image(currentPage >= 0 && currentPage < (details.LessonGroupsDto?.count ?? 0) - 1 ? "nextfill":"nextempty")
-                                                    .resizable()
-                                                    .frame(width:30,height:30)
+                                                .padding()
+                                                .buttonStyle(.plain)
+                                                Spacer()
+
                                             }
-                                            .padding()
-                                            .buttonStyle(.plain)
-                                            
-                                            Spacer()
-                                            
                                             
                                             let isselected = lessondetailsvm.selectedLessonGroup == details.LessonGroupsDto?[currentPage].teacherLessonSessionID
                                             
@@ -249,6 +250,8 @@ struct LessonDetailsView: View {
                                             .background(content: {
                                                 ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
                                             })
+                                            .frame(width:170)
+
                                             .onTapGesture(perform: {
                                                 lessondetailsvm.selectedLessonGroup = slot.teacherLessonSessionID
                                             })
@@ -260,20 +263,23 @@ struct LessonDetailsView: View {
                                             )
                                             .id(UUID())
                                             
-                                            Spacer()
                                             
-                                            Button(action: {
-                                                forwards = false
-                                                withAnimation {
-                                                    currentPage = max(currentPage - 1, 0)
+                                            if (details.LessonGroupsDto?.count ?? 0) > 1{
+                                                Spacer()
+
+                                                Button(action: {
+                                                    forwards = false
+                                                    withAnimation {
+                                                        currentPage = max(currentPage - 1, 0)
+                                                    }
+                                                }) {
+                                                    Image((currentPage > 0 && currentPage <= (details.LessonGroupsDto?.count ?? 0) - 1) ? "prevfill":"prevempty")
+                                                        .resizable()
+                                                        .frame(width:30,height:30)
                                                 }
-                                            }) {
-                                                Image((currentPage > 0 && currentPage <= (details.LessonGroupsDto?.count ?? 0) - 1) ? "prevfill":"prevempty")
-                                                    .resizable()
-                                                    .frame(width:30,height:30)
+                                                .padding()
+                                                .buttonStyle(.plain)
                                             }
-                                            .padding()
-                                            .buttonStyle(.plain)
                                         }
                                         .padding(.vertical)
                                         .frame(width: gr.size.width-50)

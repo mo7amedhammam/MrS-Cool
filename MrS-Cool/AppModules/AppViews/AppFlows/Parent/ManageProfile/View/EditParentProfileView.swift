@@ -82,7 +82,9 @@ struct EditParentProfileView: View {
                                 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $parentprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid: parentprofilevm.isemailvalid)
                                 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$parentprofilevm.birthDateStr,endDate: Date())
+                                let twelveYearsAgo = Calendar.current.date(byAdding: .year, value: -12, to: Date()) ?? Date()
+
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$parentprofilevm.birthDateStr,endDate: twelveYearsAgo)
                                 
                                 CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $parentprofilevm.country,options:lookupsvm.CountriesList,isvalid: parentprofilevm.iscountryvalid)
                                     .onChange(of: parentprofilevm.country, perform: { val in
