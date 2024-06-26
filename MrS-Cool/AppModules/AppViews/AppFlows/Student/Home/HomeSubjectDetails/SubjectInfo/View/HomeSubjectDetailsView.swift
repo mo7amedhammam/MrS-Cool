@@ -125,7 +125,7 @@ struct HomeSubjectDetailsView: View {
                                     .padding(.horizontal)
                                     HStack(){
 //                                        Group {
-                                        Text("Standard listing submission, active for 30 dayss".localized())
+                                        Text("Standard listing submission, active for 30 days".localized())
 //                                                .font(Font.SoraSemiBold(size: 12))
 //                                            + Text("Available Teachers".localized())
 //                                        }

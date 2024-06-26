@@ -32,6 +32,7 @@ struct MrS_CoolApp: App {
                 //                })
 //            }
         }
+        
         .onChange(of: scenePhase) { newScenePhase in
             switch newScenePhase {
             case .active:

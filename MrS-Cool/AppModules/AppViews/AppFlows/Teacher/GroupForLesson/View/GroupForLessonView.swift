@@ -65,7 +65,7 @@ struct GroupForLessonView: View {
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.groupName,isvalid:groupsforlessonvm.isgroupNamevalid)
                                     
                                     
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,datePickerComponent:.date,isvalid:groupsforlessonvm.isdatevalid)
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,startDate:Date(),datePickerComponent:.date,isvalid:groupsforlessonvm.isdatevalid)
                                     
                                     CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.time,datePickerComponent:.hourAndMinute,isvalid:groupsforlessonvm.istimevalid)
                                         .overlay(content: {

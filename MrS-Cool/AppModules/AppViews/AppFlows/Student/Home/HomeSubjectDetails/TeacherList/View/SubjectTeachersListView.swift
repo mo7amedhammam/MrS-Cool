@@ -31,7 +31,8 @@ struct SubjectTeachersListView: View {
     @State var rate : Int = 0
     @State var priceFrom : String = ""
     @State var priceTo : String = ""
-    
+    @State private var showPriceHint: Bool = false
+
     @State var genderCase : teachersGenders?{
         didSet{
             switch genderCase {
@@ -47,6 +48,25 @@ struct SubjectTeachersListView: View {
     @State var genderId : Int?
     @State var teacherName : String = ""
 
+    @State var sortCase : teachersSortCases? = .MostBooked
+    
+    fileprivate func clearFilter() {
+        rate = 0
+        priceFrom = ""
+        priceTo = ""
+        genderId = nil
+        genderCase = nil
+        teacherName = ""
+        homesubjectteachersvm.clearFilter()
+    }
+    private func checkPrices() {
+           if let from = Double(priceFrom), let to = Double(priceTo) {
+               showPriceHint = to < from
+           } else {
+               showPriceHint = false
+           }
+       }
+    
     var body: some View {
         VStack {
             CustomTitleBarView(title:bookingcase == .subject ? "Subject Info":"Lesson Info")
@@ -277,12 +297,19 @@ struct SubjectTeachersListView: View {
                                                 CustomTextField(iconName:"",placeholder: "Price From", text: $priceFrom,keyboardType: .decimalPad)
                                                     .onChange(of: priceFrom) { newValue in
                                                         priceFrom = newValue.filter { $0.isEnglish }
+                                                        checkPrices()
                                                     }
                                                 
                                                 CustomTextField(iconName:"",placeholder: "Price To", text: $priceTo,keyboardType: .decimalPad)
                                                     .onChange(of: priceTo) { newValue in
                                                         priceTo = newValue.filter { $0.isEnglish }
+                                                        checkPrices()
                                                     }
+                                            }
+                                            if showPriceHint {
+                                                Text("The price to should be greater than or equal the price from".localized())
+                                                    .font(.SoraRegular(size: 12))
+                                                    .foregroundColor(ColorConstants.Red400)
                                             }
                                         }
                                     }
@@ -404,7 +431,7 @@ struct SubjectTeachersListView: View {
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             homesubjectteachersvm.skipCount = 0
-                                            homesubjectteachersvm.clearFilter()
+                                            clearFilter()
                                             homesubjectteachersvm .GetStudentSubjectTeachers()
                                             showFilter = false
                                             isNameVisible = false
@@ -452,12 +479,11 @@ struct SubjectTeachersListView: View {
                         //                        ScrollView{
                         VStack{
                             Group {
-                                
                                 Button(action: {
-                                    homesubjectteachersvm.sortCase = .MostBooked
+                                    sortCase = .MostBooked
                                 }, label: {
                                     HStack{
-                                        Image(systemName:homesubjectteachersvm.sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
+                                        Image(systemName:sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Most Booked ".localized())
@@ -468,10 +494,10 @@ struct SubjectTeachersListView: View {
                                 })
                                 
                                 Button(action: {
-                                    homesubjectteachersvm.sortCase = .TopRated
+                                    sortCase = .TopRated
                                 }, label: {
                                     HStack{
-                                        Image(systemName:homesubjectteachersvm.sortCase == .TopRated ? "largecircle.fill.circle":"circle")
+                                        Image(systemName:sortCase == .TopRated ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Top Rated".localized())
@@ -481,10 +507,10 @@ struct SubjectTeachersListView: View {
                                     }
                                 })
                                 Button(action: {
-                                    homesubjectteachersvm.sortCase = .PriceLowToHigh
+                                    sortCase = .PriceLowToHigh
                                 }, label: {
                                     HStack{
-                                        Image(systemName:homesubjectteachersvm.sortCase == .PriceLowToHigh ? "largecircle.fill.circle":"circle")
+                                        Image(systemName:sortCase == .PriceLowToHigh ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Price Low To High".localized())
@@ -494,10 +520,10 @@ struct SubjectTeachersListView: View {
                                     }
                                 })
                                 Button(action: {
-                                    homesubjectteachersvm.sortCase = .PriceHighToLow
+                                    sortCase = .PriceHighToLow
                                 }, label: {
                                     HStack{
-                                        Image(systemName:homesubjectteachersvm.sortCase == .PriceHighToLow ? "largecircle.fill.circle":"circle")
+                                        Image(systemName:sortCase == .PriceHighToLow ? "largecircle.fill.circle":"circle")
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Price High To Low".localized())
@@ -513,12 +539,14 @@ struct SubjectTeachersListView: View {
                                 Group{
                                     CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
                                         homesubjectteachersvm.skipCount = 0
+                                        homesubjectteachersvm.sortCase = sortCase
                                         homesubjectteachersvm .GetStudentSubjectTeachers()
                                         showSort = false
                                     })
                                     
                                     CustomBorderedButton(Title:"Default",IsDisabled: .constant(false), action: {
                                         homesubjectteachersvm.skipCount = 0
+                                        sortCase = .MostBooked
                                         homesubjectteachersvm.clearSort()
                                         homesubjectteachersvm .GetStudentSubjectTeachers()
                                         showSort = false

@@ -80,7 +80,7 @@ class SubjectTeachersListVM: ObservableObject {
 //    @Published var SelectedStudentLesson : UnitLessonDtoList = UnitLessonDtoList.init()
   
     init()  {
-
+        sortCase = .MostBooked
     }
 }
 
