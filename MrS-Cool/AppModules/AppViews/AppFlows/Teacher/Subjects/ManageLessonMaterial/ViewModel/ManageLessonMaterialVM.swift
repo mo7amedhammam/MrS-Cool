@@ -42,8 +42,8 @@ class ManageLessonMaterialVM: ObservableObject {
     @Published var materialUrl = ""{
         didSet{
 //            if !materialUrl.isEmpty{
-                ismaterialUrlvalid = materialUrl.isEmpty ? false:true
-            
+            ismaterialUrlvalid = materialUrl.isEmpty ? false : true
+            ismaterialUrlvalid = materialUrl.isValidURL() ? true:false
 //            }
         }
     }
@@ -303,7 +303,7 @@ extension ManageLessonMaterialVM{
         ismaterialTypevalid = materialType != nil
         ismaterialNamevalid = !materialName.isEmpty
         ismaterialNameEnvalid = !materialNameEn.isEmpty
-        ismaterialUrlvalid = !materialUrl.isEmpty
+        ismaterialUrlvalid = !materialUrl.isEmpty && materialUrl.isValidURL()
         isdocumentFilevalid = materialImg != nil || materialPdf != nil
 
         // Publisher for checking if the phone is 11 char

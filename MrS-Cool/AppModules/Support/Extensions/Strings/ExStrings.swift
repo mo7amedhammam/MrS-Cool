@@ -102,7 +102,7 @@ extension String {
 
 extension String {
     func containsNonEnglishOrNumbers() -> Bool {
-        let englishLettersAndNumbersCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        let englishLettersAndNumbersCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~")
         
         // Check if the string contains characters other than English letters and numbers
         return self.rangeOfCharacter(from: englishLettersAndNumbersCharacterSet.inverted) != nil
@@ -121,6 +121,23 @@ extension String {
     
     func splitBy(separatedBy:String) -> [String] {
         return self.components(separatedBy: separatedBy)
+    }
+
+     func isValidURL() -> Bool {
+        // Check if the string can be converted to a valid URL
+//        guard let url = URL(string: self), UIApplication.shared.canOpenURL(url) else {
+//            return false
+//        }
+//
+//        // Optionally, you can use a regular expression to further validate the URL format
+//        let regex = "^(http|https)://[^\\s/$.?#].[^\\s]*$"
+//        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+//        return predicate.evaluate(with: self)
+         
+         let urlRegEx = "(https://)(www\\.)?([-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{2,6}\\b)([-a-zA-Z0-9()@:%_+.~#?&/=]*)"
+              let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+              return urlTest.evaluate(with: self)
+
     }
 
 }

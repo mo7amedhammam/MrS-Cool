@@ -154,6 +154,15 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                 .padding(.top)
                                                                 .frame(minWidth:0,maxWidth:.infinity)
                                                             }else{
+                                                                if managelessonmaterialvm.materialUrl.count > 0 && !managelessonmaterialvm.materialUrl.isValidURL() {
+                                                                    Text("Invalid URL".localized())
+                                                                        .lineSpacing(4)
+                                                                        .frame(minWidth: 0,maxWidth: .infinity)
+                                                                        .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                                                        .foregroundColor(ColorConstants.Red400)
+                                                                        .multilineTextAlignment(.center)
+                                                                        .padding(.top)
+                                                                }
                                                                 
                                                                 if !(managelessonmaterialvm.isdocumentFilevalid ?? true){
                                                                     Text("File or image not selected".localized())
