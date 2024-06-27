@@ -120,8 +120,8 @@ extension TeacherCalendarSvhedualsVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-                        GetCalendarCheduals()
-                        //                    CalendarScheduals = receivedData.data ?? []
+//                        GetCalendarCheduals()
+                        CalendarScheduals = receivedData.data ?? []
                         
                     }else{
                         isError =  true

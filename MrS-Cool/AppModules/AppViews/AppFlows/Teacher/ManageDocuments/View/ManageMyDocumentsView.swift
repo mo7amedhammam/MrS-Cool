@@ -75,7 +75,7 @@ struct ManageMyDocumentsView: View {
                                                     .aspectRatio(contentMode: .fill)
                                             })
                                             
-                                            Text(teacherdocumentsvm.documentPdf?.lastPathComponent ?? "")
+                                            Text("Your file uploaded successfully".localized())
                                                 .font(Font.SoraRegular(size:12))
                                                 .foregroundColor(ColorConstants.Gray900)
                                                 .multilineTextAlignment(.center)

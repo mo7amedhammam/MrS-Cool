@@ -440,10 +440,22 @@ struct EventDetailsView: View {
 
     // Function to check if the event is in the past
     func isEventInPast() -> Bool {
-        guard let eventDateStr = event.date, let eventDate = dateFormatter.date(from: eventDateStr) else {
+        guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
             return false
         }
-        return eventDate < Date()
+
+        // Create full date strings with event date and times
+        let fromDateTimeStr = "\(eventDateStr)T\(timeFromStr)"
+        let toDateTimeStr = "\(eventDateStr)T\(timeToStr)"
+
+        // Parse the date strings into Date objects
+        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
+              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+            return false
+        }
+
+        let currentTime = Date()
+        return fromDateTime < currentTime && toDateTime < currentTime
     }
 
     // Function to check if the current time is between timeFrom and timeTo

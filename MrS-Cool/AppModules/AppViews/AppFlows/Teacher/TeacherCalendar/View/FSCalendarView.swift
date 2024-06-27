@@ -116,7 +116,7 @@ struct CalendarModuleView: UIViewRepresentable {
 struct CalView1: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var calendarschedualsvm = TeacherCalendarSvhedualsVM()
-   @State var events: [EventM] = []
+    @State var events: [EventM] = []
     @State var date : Date?
     @State var scope: FSCalendarScope = .month
     static let taskDateFormat: DateFormatter = {
@@ -154,11 +154,11 @@ struct CalView1: View {
                 case .month:
                     CalendarModuleView(selectedDate: $date, scope: .month, events: events)
                 case .week:
-                    ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events){event in
+                    ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events, onCancelEvent:{event in
                         DispatchQueue.main.async {
                             calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
                         }
-                    }
+                    })
                     
                 @unknown default:
                     CalendarModuleView(selectedDate: $date, scope: .month,events: events)

@@ -125,7 +125,7 @@ class AddNewStudentVM: ObservableObject {
     @Published var confirmPassword = ""{
         didSet{
             if !confirmPassword.isEmpty{
-                if  confirmPassword == Password {
+                if confirmPassword == Password {
                     isconfirmPasswordvalid = true
                 }else{
                     isconfirmPasswordvalid = false
@@ -217,7 +217,7 @@ extension AddNewStudentVM{
         iscityvalid = city != nil
         isselectedGendervalid = selectedGender != nil
         isPasswordvalid = Password.count > 0
-        isconfirmPasswordvalid = confirmPassword.count > 0
+        isconfirmPasswordvalid = confirmPassword.count > 0 && Password == confirmPassword
 
         return isnamevalid ?? true &&
         isphonevalid ?? true &&

@@ -206,6 +206,8 @@ extension StudentEditProfileVM{
                     var student =  Helper.shared.getUser()
                     student?.academicYearId = receivedData.data?.academicYearEducationLevelID
                     Helper.shared.saveUser(user: student)
+     
+                    Helper.shared.selectedchild = ChildrenM.init(id:  receivedData.data?.id ?? 0, code: receivedData.data?.code, image: receivedData.data?.image ?? "", academicYearEducationLevelName: receivedData.data?.academicYearName, academicYearEducationLevelID: receivedData.data?.academicYearEducationLevelID, name: receivedData.data?.name ?? "")
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")

@@ -140,6 +140,7 @@ struct OTPVerificationView: View {
 //        })
         
         .onChange(of: otpvm.isResetOTPVerified, perform: { value in
+            guard value == true else {return}
             dismiss()
             isVerified = true
         })

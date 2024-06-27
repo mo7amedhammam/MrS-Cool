@@ -96,7 +96,7 @@ struct MessagesListView: View {
                                                             .foregroundColor(.mainBlue)
                                                             .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
                                                         
-                                                        Text(comment.creationDate ?? "")
+                                                        Text("\(comment.creationDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM , yyyy HH:mm"))
                                                             .font(Font.SoraRegular(size:10))
                                                             .foregroundColor(.bluegray400)
                                                             .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))

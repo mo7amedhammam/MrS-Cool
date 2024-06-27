@@ -145,7 +145,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                                 .aspectRatio(contentMode: .fill)
                                                                         })
                                                                         
-                                                                        Text(managelessonmaterialvm.materialPdf?.lastPathComponent ?? "")
+                                                                        Text("Your file uploaded successfully".localized())
                                                                             .font(Font.SoraRegular(size:12))
                                                                             .foregroundColor(ColorConstants.Gray900)
                                                                             .multilineTextAlignment(.center)

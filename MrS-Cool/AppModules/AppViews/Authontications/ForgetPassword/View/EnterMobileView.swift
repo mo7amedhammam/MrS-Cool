@@ -84,7 +84,7 @@ struct EnterMobileView: View {
         .fullScreenCover(isPresented: $resetpasswordvm.isOtpReceived, onDismiss: {
             print("dismissed ")
             if isVerified {
-                destination = AnyView(ResetPasswordView(passwordresset: $passwordresset).environmentObject(resetpasswordvm))
+                destination = AnyView(ResetPasswordView(hideImage: false, passwordresset: $passwordresset).environmentObject(resetpasswordvm))
 //                    currentStep = .subjectsData
                     isPush = true
 //                dismiss()

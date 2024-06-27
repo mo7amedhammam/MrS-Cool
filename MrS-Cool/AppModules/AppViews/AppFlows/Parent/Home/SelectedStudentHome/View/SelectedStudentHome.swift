@@ -67,13 +67,13 @@ struct SelectedStudentHome: View {
 //                }
             
                 HStack{
-                    let imageURL : URL? = URL(string: Constants.baseURL + (listchildrenvm.selectedChild?.image ?? "image").reverseSlaches())
+                    let imageURL : URL? = URL(string: Constants.baseURL + (Helper.shared.selectedchild?.image ?? "image").reverseSlaches())
                          
                     KFImageLoader(url: imageURL, placeholder: Image("studenticon"))
                 //                .resizable()
                                 .frame(width: 50, height: 50, alignment: .center)
                     
-                    Text(listchildrenvm.selectedChild?.name ?? "")
+                    Text(Helper.shared.selectedchild?.name ?? "")
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.whiteA700)
                     
@@ -81,6 +81,7 @@ struct SelectedStudentHome: View {
                     
                     Button(action:{
                         dismiss()
+//                        listchildrenvm.selectedChild = nil
                     }){
                         Image("exiticon")
                             .padding(.vertical,15)
@@ -170,8 +171,17 @@ struct SelectedStudentHome: View {
                     }.padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
                     if studenthomevm.StudentSubjects == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 160)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 160)
+                        Image(.emptySubjects)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available subjects yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         LazyVGrid(columns: [.init(), .init(),.init()]) {
                             
@@ -190,7 +200,6 @@ struct SelectedStudentHome: View {
                         //                        }
                     }
                     
-                    
                     Text("Most Viewed Lessons".localized())
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.mainBlue)
@@ -198,8 +207,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedLessons == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 240)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 240)
+                        Image(.emptyLessons)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most viewed lessons yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -228,8 +246,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedLessons == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 240)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 240)
+                        Image(.emptyLessons)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most booked lessons yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -258,8 +285,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedSubjects == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 280)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 280)
+                        Image(.emptySubjects)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most viewed subjects yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -289,8 +325,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedsubjects == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 280)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 280)
+                        Image(.emptySubjects)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most booked subjects yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -320,8 +365,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedTeachers == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 180)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 180)
+                        Image(.emptyTeachers)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most viewd teachers yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -348,8 +402,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedTeachers == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 180)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 180)
+                        Image(.emptyTeachers)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available most booked teachers yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -376,8 +439,17 @@ struct SelectedStudentHome: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostRatedTeachers == []{
-                        ProgressView()
-                            .frame(width: gr.size.width/2.7, height: 180)
+//                        ProgressView()
+//                            .frame(width: gr.size.width/2.7, height: 180)
+                        Image(.emptyTeachers)
+                            .frame(width: 100,height: 100)
+                            .padding()
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+                        Text("No available top rated teachers yet".localized())
+                            .font(Font.SoraRegular(size: 15))
+                            .foregroundColor(ColorConstants.Bluegray400)
+
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
                             LazyHStack(spacing:10){
@@ -486,7 +558,7 @@ struct SelectedStudentHome: View {
         
 //                .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
 
-        NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
+//        NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
 }
 

@@ -270,10 +270,10 @@ struct ParentSideMenuContent: View {
                 isPush = true
             }
                 
-                if listchildrenvm.selectedChild != nil{
+                if Helper.shared.selectedchild != nil{
                         HStack(spacing:20){
                             ZStack(alignment: .topLeading){
-                                let imageURL : URL? = URL(string: Constants.baseURL+(listchildrenvm.selectedChild?.image ?? "").reverseSlaches())
+                                let imageURL : URL? = URL(string: Constants.baseURL+(Helper.shared.selectedchild?.image ?? "").reverseSlaches())
                                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 60,height: 60)
@@ -288,11 +288,11 @@ struct ParentSideMenuContent: View {
                                     .offset(x:0,y:2)
                             }
                             VStack(alignment:.leading) {
-                                Text(listchildrenvm.selectedChild?.name ?? "")
+                                Text(Helper.shared.selectedchild?.name ?? "")
                                     .font(.SoraBold(size: 14))
                                     .foregroundStyle(.whiteA700)
                                 
-                                Text("Edit your kid profile")
+                                Text("Edit your kid profile".localized())
                                     .font(.SoraRegular(size: 12))
                                     .foregroundStyle(.whiteA700)
                             }

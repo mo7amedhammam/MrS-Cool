@@ -35,7 +35,7 @@ struct ChatListCell: View {
                 .frame(width: 40,height: 40)
                 .clipShape(Circle())
                 
-                Text(model.studentName ?? "Student Name")
+                Text(model.studentName ?? "")
                     .font(Font.SoraSemiBold(size:15))
                     .foregroundColor(isExpanded ? .whiteA700:.mainBlue)
                 Spacer()

@@ -26,7 +26,7 @@ struct ManageSubjectCell: View {
                     )
                 
                 VStack{
-                    Text(model.subjectDisplayName ?? "English")
+                    Text(model.subjectSemesterYearName ?? "")
                         .font(Font.SoraSemiBold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }

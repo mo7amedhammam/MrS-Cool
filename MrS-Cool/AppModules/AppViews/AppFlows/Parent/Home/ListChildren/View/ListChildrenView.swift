@@ -111,12 +111,24 @@ struct ListChildrenView: View {
                 hideKeyboard()
             })
             .onAppear(perform: {
+//                listchildrenvm.selectedChild = nil
                 listchildrenvm.GetMyChildren()
             })
+            
             //        .onChange(of: listchildrenvm.isError, perform: { value in
             //            tabbarvm.error = listchildrenvm.error
             //            tabbarvm.isError = value
             //        })
+            .onChange(of: listchildrenvm.selectedChild, perform: { value in
+                guard value != nil else {return}
+                Helper.shared.selectedchild = value
+                destination = AnyView(
+                    SelectedStudentHome()
+                        .environmentObject(listchildrenvm)
+                        .environmentObject(tabbarvm)
+                )
+                isPush = true
+            })
             .showHud(isShowing: $listchildrenvm.isLoading)
             .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
 

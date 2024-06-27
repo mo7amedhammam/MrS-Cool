@@ -41,7 +41,7 @@ struct TeacherSubjectCell: View {
             }
             
             VStack (alignment:.leading,spacing: 10){
-                Text(model.academicYearName ?? "Grade 1")
+                Text(model.academicYearName ?? "")
                     .font(Font.SoraRegular(size: 12.0))
                     .fontWeight(.regular)
                     .foregroundColor(ColorConstants.Black900)
@@ -49,14 +49,14 @@ struct TeacherSubjectCell: View {
                     .multilineTextAlignment(.leading)
                 
                 HStack (spacing:45){
-                    Text(model.educationLevelName ?? "Primary")
+                    Text(model.educationLevelName ?? "")
                         .font(Font.SoraRegular(size: 12.0))
                         .fontWeight(.regular)
                         .foregroundColor(ColorConstants.Bluegray402)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                     
-                    Text(model.educationTypeName ?? "Egyption")
+                    Text(model.educationTypeName ?? "")
                         .font(Font.SoraRegular(size: 12.0))
                         .fontWeight(.regular)
                         .foregroundColor(ColorConstants.Bluegray402)
