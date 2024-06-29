@@ -455,117 +455,128 @@ struct CustomTextEditor: View {
 }
 
 struct CustomDatePickerField: View {
-    var fieldType : inputfields? = .Default
-    var iconName : String? = ""
-    var rightIconName : String?
-    var iconColor : Color?
-    
-    var placeholder : String
-    var placeholderColor : Color? = ColorConstants.Bluegray402
-    
-    @State private var selectedDate: Date = Date()
+    var fieldType: inputfields? = .Default
+    var iconName: String? = ""
+    var rightIconName: String?
+    var iconColor: Color?
+
+    var placeholder: String
+    var placeholderColor: Color? = ColorConstants.Bluegray402
+
+    @State private var selectedDate: Date? = nil
     @Binding var selectedDateStr: String?
-    // Optional start and end dates
     var startDate: Date? = nil
     var endDate: Date? = nil
 
     @State private var isCalenderVisible = false
-    var datePickerComponent:DatePickerComponents = .date
-    var isvalid : Bool? = true
-    
+    var datePickerComponent: DatePickerComponents = .date
+    var Disabled : Bool?
+    var isdimmed : Bool?
+    var isvalid: Bool? = true
 
     var body: some View {
-        VStack(alignment:.leading,spacing:-15){
+        VStack(alignment: .leading, spacing: -15) {
             Button(action: {
                 isCalenderVisible.toggle()
             }, label: {
-                HStack(spacing:0){
-                    if iconName != "" || iconName != nil{
+                HStack(spacing: 0) {
+                    if iconName != "" || iconName != nil {
                         Image(iconName ?? "img_group148")
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor)
                             .font(.system(size: 15))
-                            .padding(.horizontal,10)
+                            .padding(.horizontal, 10)
                     }
                     HStack() {
-                        ZStack (alignment:.leading){
+                        ZStack(alignment: .leading) {
                             Text(placeholder.localized())
                                 .font(Font.SoraRegular(size: 12))
-                                .foregroundColor(placeholderColor == .red ? .red:placeholderColor)
+                                .foregroundColor(placeholderColor == .red ? .red : placeholderColor)
                                 .offset(y: selectedDateStr == nil ? 0 : -20)
                                 .scaleEffect(selectedDateStr == nil ? 1.2 : 0.8, anchor: .leading)
 
-                            TextField("", text:.constant(selectedDateStr ?? "") )
+                            TextField("", text: .constant(selectedDateStr ?? ""))
                                 .multilineTextAlignment(.leading)
-                                .frame( minHeight: 57.0,alignment: .leading)
+                                .frame(minHeight: 57.0, alignment: .leading)
                                 .disabled(true)
                         }
-                        .frame( height: 57.0,alignment: .leading)
+                        .frame(height: 57.0, alignment: .leading)
                         .font(Font.SoraRegular(size: 14))
                         .foregroundColor(ColorConstants.Black900)
-                        
+
                         Spacer()
                     }
                     .frame(minWidth: 0, maxWidth: .infinity)
 
-                    if rightIconName?.count ?? 0 > 0 || rightIconName != nil{
+                    if rightIconName?.count ?? 0 > 0 || rightIconName != nil {
                         Image(rightIconName ?? "img_daterange")
                             .renderingMode(.template)
                             .frame(width: 30, height: 30, alignment: .center)
                             .foregroundColor(ColorConstants.MainColor)
                             .font(.system(size: 15))
-                            .padding(.horizontal,10)
+                            .padding(.horizontal, 10)
                     }
                 }
             })
-            
+
             if isCalenderVisible {
+                DatePicker(
+                    "birthDate",
+                    selection: Binding(
+                        get: { selectedDate ?? Date() },
+                        set: { newDate in
+                            selectedDate = newDate
+                            updateSelectedDateStr(with: newDate)
+                        }
+                    ),
+                    in: (startDate ?? Date.distantPast)...(endDate ?? Date.distantFuture),
+                    displayedComponents: datePickerComponent
+                )
+                .padding(.horizontal)
+                .tint(ColorConstants.MainColor)
+                .labelsHidden()
+                .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
+                .onAppear {
+//                    print("selectedDate",selectedDate)
+//                    print("selectedDateStr",selectedDateStr)
+//                    print("startDate",startDate)
+                    // Ensure selectedDateStr is initialized correctly on appear
+                    if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
+                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                    }else{
+                        selectedDate = startDate == nil ? Date():startDate
 
-                DatePicker("birthDate", selection: $selectedDate, in: (startDate ?? Date.distantPast)...(endDate ?? Date.distantFuture), displayedComponents: datePickerComponent)
-                    .padding(.horizontal)
-                    .tint(ColorConstants.MainColor)
-                    .labelsHidden()
-                    .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
-//                    .onChange(of: selectedDate) {date in
-//                        print(date)
-//                        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-//                    }
-//                    .onAppear(perform: {
-//                        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now()+1, execute: {
-//                            if ((selectedDateStr?.isEmpty) != nil){
-//                                selectedDate = selectedDateStr?.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a") ?? Date()
-//            //                    print("selectedDateStr",selectedDateStr)
-//            //                    print("selectedDate",selectedDate)
-//                            }
-//                        })
-//                    })
+                    }
+                    //                    else {
+                    if let startdate = startDate, selectedDateStr == nil {
+//                        selectedDate = startdate
+
+                        selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                    }else{
+                    
+                      if let startdate = startDate,let seldate = selectedDate, startdate > seldate{
+//                          selectedDate = startdate
+                        selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                      }else{
+                          
+                      }
                 
-                    .onChange(of: selectedDate) { date in
-                                            // Check if selectedDate is today's date
-                                            let calendar = Calendar.current
-                                            let isToday = calendar.isDate(date, inSameDayAs: Date())
-                                            
-                                            if isToday {
-                                                selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-                                            } else {
-                                                // Handle other date selections
-                                                selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-                                            }
-                                        }
-                                        .onAppear {
-                                            // Ensure selectedDateStr is initialized correctly on appear
-                                            if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
-                                                selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a") ?? Date()
-                                            }
-                                        }
-
+                    }
+                }
             }
         }
-        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066:ColorConstants.Red400,lineWidth: 1))
-        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(ColorConstants.WhiteA700))
+        .disabled(Disabled == true ? true:false)
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066 : ColorConstants.Red400, lineWidth: 1))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(Disabled == true ? ColorConstants.Bluegray30066.opacity(0.6) : ColorConstants.WhiteA700))
+    }
 
+    // Function to update the selected date string and print the date
+    private func updateSelectedDateStr(with date: Date) {
+        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+        print("Selected date: \(selectedDateStr ?? "")")
     }
 }
+
 
 #Preview {
     CustomDatePickerField(fieldType:.Default, iconName:"img_group148", placeholder: "Birthdate", selectedDateStr: .constant(""),datePickerComponent:.date)
