@@ -19,7 +19,7 @@ struct ChatsListView: View {
     @State var selectedChatId : Int?
     @State var selectedLessonId : Int = 0
     var hasNavBar : Bool? = true
-
+    @Binding var selectedChild:ChildrenM?
     var body: some View {
         VStack {
             if hasNavBar ?? true{
@@ -27,7 +27,7 @@ struct ChatsListView: View {
             }
             GeometryReader { gr in
                 
-                if Helper.shared.getSelectedUserType() == .Parent && Helper.shared.selectedchild == nil{
+                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
                     VStack{
                         Text("You Have To Select Child First".localized())
                             .frame(minHeight:gr.size.height)
@@ -119,7 +119,7 @@ struct ChatsListView: View {
 }
 
 #Preview {
-    ChatsListView()
+    ChatsListView( selectedChild: .constant(nil))
         .environmentObject(StudentTabBarVM())
 //        .environmentObject(ChatListVM())
     

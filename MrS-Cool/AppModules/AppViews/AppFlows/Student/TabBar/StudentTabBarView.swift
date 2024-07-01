@@ -103,7 +103,7 @@ struct StudentTabBarView: View {
 //                        .environmentObject(chatlistvm)
 ////                                .hideNavigationBar()
 //                    )
-                    ChatsListView(hasNavBar : false) // chats
+                    ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
                         .tag(3)
                         .environmentObject(studenttabbarvm)
 //                        .environmentObject(chatListvm)
@@ -114,7 +114,7 @@ struct StudentTabBarView: View {
                         )
                     
 //                    StudentHomeView()
-                    StudentCompletedLessonsView(hasNavBar : false) // completed lessons
+                    StudentCompletedLessonsView(hasNavBar : false, selectedChild: .constant(nil)) // completed lessons
                         .tag(4)
 //                        .environmentObject(LookUpsVM())
 //                        .environmentObject(completedlessonsvm)
@@ -150,7 +150,7 @@ struct StudentTabBarView: View {
                 if newval == .editProfile{ //edit Profile
                     studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
                 }else if newval == .calendar { //calendar
-                    studenttabbarvm.destination = AnyView(CalView1())
+                    studenttabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
 //                }else if newval == .rates { // rates
 //                    studenttabbarvm.destination = AnyView(Text("Rates"))
                 }else if newval == .changePassword { // change password

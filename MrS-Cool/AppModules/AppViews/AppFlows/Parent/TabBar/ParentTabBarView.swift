@@ -89,7 +89,6 @@ struct ParentTabBarView: View {
                     )
                 
                 ListChildrenView() // home
-                //                    Text("tab2")
                     .tag(2)
                     .environmentObject(tabbarvm)
                     .environmentObject(listchildrenvm)
@@ -100,23 +99,18 @@ struct ParentTabBarView: View {
                     )
                 
                 
-//                Text("tab 3")
-                ChatsListView(hasNavBar : false) // chats
+                ChatsListView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // chats
                     .tag(3)
                     .environmentObject(tabbarvm)
-                //                        .environmentObject(chatListvm)
                     .gesture(
                         DragGesture().onChanged { _ in
                             // Disable swipe gestures
                         }
                     )
                 
-//                Text("tab4")
                             
-                StudentCompletedLessonsView(hasNavBar : false) // completed lessons
+                StudentCompletedLessonsView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // completed lessons
                     .tag(4)
-                //                        .environmentObject(LookUpsVM())
-                //                        .environmentObject(completedlessonsvm)
                     .environmentObject(tabbarvm)
                     .gesture(
                         DragGesture().onChanged { _ in
@@ -160,7 +154,7 @@ struct ParentTabBarView: View {
 
                 
             }else if newval == .calendar { //calendar
-                tabbarvm.destination = AnyView(CalView1())
+                tabbarvm.destination = AnyView(CalView1(selectedChild: $listchildrenvm.selectedChild))
                 //                }else if newval == .rates { // rates
                 //                    studenttabbarvm.destination = AnyView(Text("Rates"))
                 

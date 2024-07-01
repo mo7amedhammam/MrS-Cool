@@ -81,7 +81,8 @@ struct SelectedStudentHome: View {
                     
                     Button(action:{
                         dismiss()
-//                        listchildrenvm.selectedChild = nil
+                        listchildrenvm.selectedChild = nil
+                        Helper.shared.selectedchild = nil
                     }){
                         Image("exiticon")
                             .padding(.vertical,15)

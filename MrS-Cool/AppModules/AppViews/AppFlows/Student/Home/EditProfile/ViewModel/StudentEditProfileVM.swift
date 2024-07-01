@@ -227,13 +227,23 @@ extension StudentEditProfileVM{
         selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
         if let countryID = model.countryID, let countryName = model.countryName{
             country = .init(id:countryID,Title: countryName)
+        }else{
+            country = nil
+            iscountryvalid = true
         }
         if let governorateID = model.governorateID, let governorateName = model.governorateName{
             governorte = .init(id: governorateID,Title: governorateName)
+        }else{
+            governorte = nil
+            isgovernortevalid = true
         }
         if let cityID = model.cityID, let cityName = model.cityName{
             city = .init(id: cityID,Title: cityName)
+        }else{
+            city = nil
+            iscityvalid = true
         }
+        
         educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
         educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
         academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)

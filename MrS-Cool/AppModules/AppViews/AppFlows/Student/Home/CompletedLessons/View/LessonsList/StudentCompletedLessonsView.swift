@@ -18,14 +18,14 @@ struct StudentCompletedLessonsView: View {
     var hasNavBar : Bool? = true
 //    @State var isPush = false
 //    @State var destination = AnyView(EmptyView())
-    
+    @Binding var selectedChild:ChildrenM?
     var body: some View {
         VStack {
             if hasNavBar ?? true{
                 CustomTitleBarView(title: "Completed Lessons")
             }
             GeometryReader { gr in
-                if Helper.shared.getSelectedUserType() == .Parent && Helper.shared.selectedchild == nil{
+                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
                     VStack{
                         Text("You Have To Select Child First".localized())
                             .frame(minHeight:gr.size.height)
@@ -185,7 +185,7 @@ struct StudentCompletedLessonsView: View {
 }
 
 #Preview {
-    StudentCompletedLessonsView()
+    StudentCompletedLessonsView( selectedChild: .constant(nil))
         .environmentObject(StudentTabBarVM())
 //        .environmentObject(LookUpsVM())
 //        .environmentObject(StudentCompletedLessonsVM())

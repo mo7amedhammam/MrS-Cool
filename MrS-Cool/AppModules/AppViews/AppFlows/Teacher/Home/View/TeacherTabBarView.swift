@@ -104,7 +104,7 @@ struct TeacherTabBarView: View {
 //                        .environmentObject(chatlistvm)
 ////                                .hideNavigationBar()
 //                    )
-                    ChatsListView(hasNavBar : false) // chats
+                    ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
                         .tag(3)
                         .environmentObject(tabbarvm)
 //                        .environmentObject(chatListvm)
@@ -185,15 +185,13 @@ struct TeacherTabBarView: View {
 //                                .hideNavigationBar()
                     )
                 }else if newval == .lessonGroups{
-                    
-                    tabbarvm.destination = AnyView(ManageSubjectGroupView() 
+                    tabbarvm.destination = AnyView(ManageSubjectGroupView()
 //                        .environmentObject(lookupsvm)
 //                        .environmentObject(subjectgroupvm)
 //                                .hideNavigationBar()
                     )
-                    
                 }else if newval == .calendar { //calendar
-                    tabbarvm.destination = AnyView(CalView1())
+                    tabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
 //                }else if newval == .rates { // rates
 //                    studenttabbarvm.destination = AnyView(Text("Rates"))
                     

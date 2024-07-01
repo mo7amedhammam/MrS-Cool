@@ -124,10 +124,10 @@ struct CalView1: View {
         formatter.dateFormat = "dd MMM yyyy"
         return formatter
     }()
-    
+    @Binding var selectedChild:ChildrenM?
     var body: some View {
         VStack {
-            if Helper.shared.getSelectedUserType() == .Parent && Helper.shared.selectedchild == nil{
+            if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
                 VStack{
                     Text("You Have To Select Child First".localized())
                         .frame(minHeight:.infinity)
@@ -221,5 +221,5 @@ struct CalView1: View {
 
 
 #Preview{
-    CalView1()
+    CalView1( selectedChild: .constant(nil))
 }
