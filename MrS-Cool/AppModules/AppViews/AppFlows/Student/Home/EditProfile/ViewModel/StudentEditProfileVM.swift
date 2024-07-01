@@ -255,7 +255,8 @@ extension StudentEditProfileVM{
             isFillingData = false
             isDataUpdated = false
         })
-
+        
+        Helper.shared.selectedchild = ChildrenM.init(id:  model.id , code: model.code, image: model.image ?? "", academicYearEducationLevelName: model.academicYearName, academicYearEducationLevelID: model.academicYearEducationLevelID, name: model.name ?? "")
     }
     
     private func checkValidfields()->Bool{
