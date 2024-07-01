@@ -137,7 +137,6 @@ struct SignInView: View {
 
             case .Teacher:
                 Helper.shared.setSelectedUserType(userType: .Teacher)
-//                destination = AnyView(TeacherHomeView())
             }
           })
         .showHud(isShowing: $teachersigninvm.isLoading)

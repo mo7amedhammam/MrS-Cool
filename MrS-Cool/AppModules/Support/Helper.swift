@@ -46,6 +46,7 @@ class Helper: NSObject {
     func logout() {
         IsLoggedIn(value: false)
         userDef.removeObject(forKey:UserDataKey )
+        setSelectedUserType(userType: .Student)
     }
     
     func onBoardOpened(opened:Bool) {

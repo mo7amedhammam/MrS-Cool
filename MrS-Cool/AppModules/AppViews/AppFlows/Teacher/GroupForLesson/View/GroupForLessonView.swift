@@ -20,6 +20,30 @@ struct GroupForLessonView: View {
     @State var showFilter : Bool = false
     //    var selectedSubject:TeacherSubjectM?
     
+    @State var filtersubject : DropDownOption?{
+        didSet{
+            filterlesson = nil
+        }
+    }
+    @State var filterlesson : DropDownOption?
+    @State var filtergroupName : String = ""
+    @State var filterdate : String?
+    func sendFilterValues(){
+        groupsforlessonvm.filtersubject = filtersubject
+        groupsforlessonvm.filterlesson = filterlesson
+        groupsforlessonvm.filtergroupName = filtergroupName
+        groupsforlessonvm.filterdate = filterdate
+    }
+    func clearFilterValues(){
+        filtersubject = nil
+        filterlesson = nil
+        filtergroupName = ""
+        filterdate = nil
+        groupsforlessonvm.filtersubject = nil
+        groupsforlessonvm.filterlesson = nil
+        groupsforlessonvm.filtergroupName = ""
+        groupsforlessonvm.filterdate = nil
+    }
     
     var body: some View {
         VStack {
@@ -178,30 +202,31 @@ struct GroupForLessonView: View {
                         ScrollView {
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.filtersubject,options:lookupsvm.SubjectsForList).onChange(of:groupsforlessonvm.filtersubject) {newval in
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
 //                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
 //                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
 //                                        }
                                         lookupsvm.SelectedFilterSubjectForList = newval
                                     }
                                     
-                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.filterlesson,options:lookupsvm.FilterLessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.filtergroupName)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.filterdate,datePickerComponent:.date)
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$filterdate,datePickerComponent:.date)
                                 }
                                 .padding(.top,5)
                                 
-                                //                                Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            sendFilterValues()
                                             groupsforlessonvm.GetTeacherGroups()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            clearFilterValues()
                                             groupsforlessonvm.clearFilter()
                                             groupsforlessonvm.GetTeacherGroups()
                                             showFilter = false

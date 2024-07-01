@@ -60,14 +60,14 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
 
     @Published var groupCost : String = ""{
         didSet{
-            isgroupCostvalid = (groupCost.isEmpty || Float(groupCost) == 0) ? false:true
+            isgroupCostvalid = (groupCost.isEmpty) ? false:true
         }
     }
     @Published var isgroupCostvalid:Bool?
     
     @Published var individualCost : String = ""{
         didSet{
-            isindividualCostvalid = (individualCost.isEmpty || Float(individualCost) == 0) ? false:true
+            isindividualCostvalid = (individualCost.isEmpty) ? false:true
         }
     }
     @Published var isindividualCostvalid:Bool?
@@ -394,8 +394,8 @@ extension ManageTeacherSubjectLessonsVM{
 //        }
         isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
         ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
-        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
-        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+        isgroupCostvalid = !groupCost.isEmpty 
+        isindividualCostvalid = !individualCost.isEmpty 
         isgroupTimevalid = !groupTime.isEmpty && Int(groupTime) != 0
         isindividualTimevalid = !individualTime.isEmpty && Int(individualTime) != 0
 

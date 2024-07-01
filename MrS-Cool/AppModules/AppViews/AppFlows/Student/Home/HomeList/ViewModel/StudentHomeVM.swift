@@ -222,7 +222,7 @@ extension StudentHomeVM{
            if let academicLevelId = academicLevelId{
                parameters["academicleveid"] = academicLevelId
            }else if let educationLevelid = academicYear?.id{
-               parameters["academicLevelId"] = educationLevelid
+               parameters["academicleveid"] = educationLevelid
            }
         print("parameters",parameters)
         

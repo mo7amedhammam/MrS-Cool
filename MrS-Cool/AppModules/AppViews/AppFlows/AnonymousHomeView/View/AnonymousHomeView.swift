@@ -415,11 +415,6 @@ struct AnonymousHomeView: View {
                                 .padding(.bottom,10)
                             }
                         }
-                        
-            
-                        
-                        
-
                     }
                     .frame(height:gr.size.height)
                     

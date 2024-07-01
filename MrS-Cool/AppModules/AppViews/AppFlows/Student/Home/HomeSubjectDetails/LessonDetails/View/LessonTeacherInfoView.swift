@@ -110,9 +110,33 @@ struct LessonTeacherInfoView : View {
                             }
                             .font(Font.SoraRegular(size: 10))
                             .foregroundColor(.mainBlue)
-                            Spacer()
+//                            Spacer()
+                            
+                            Image("minmaxstu")
+                                .renderingMode(.template)
+                                .foregroundColor(ColorConstants.MainColor)
+                                .frame(width: 12,height: 12, alignment: .center)
+                            Group {
+                                Text("Minimum :".localized())
+                                + Text("  \(teacher.minGroup ?? 0) ")
+                                    .font(Font.SoraSemiBold(size: 13))
+                            }
+                            .font(Font.SoraRegular(size: 10))
+                            .foregroundColor(.mainBlue)
+                            
+                            Image("minmaxstu")
+                                .renderingMode(.template)
+                                .foregroundColor(ColorConstants.MainColor)
+                                .frame(width: 12,height: 12, alignment: .center)
+                            Group {
+                                Text("Maximum :".localized())
+                                + Text("  \(teacher.maxGroup ?? 0) ")
+                                    .font(Font.SoraSemiBold(size: 13))
+                            }
+                            .font(Font.SoraRegular(size: 10))
+                            .foregroundColor(.mainBlue)
                         }
-                        .frame(minWidth: 0, maxWidth: .infinity)
+                        .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)
                         
                     }
                

@@ -191,14 +191,19 @@ struct ManageTeacherSubjectsView: View {
                                     manageteachersubjectsvm.selectSubjectForEdit(item: subject)
                                     scrollViewProxy.scrollTo(1)
                                 },editLessonsBtnAction: {
-                                    destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
-                                        .environmentObject(LookUpsVM())
-                                        .environmentObject(ManageTeacherSubjectLessonsVM())
-                                    )
-                                    isPush = true
-                                    manageteachersubjectsvm.clearTeachersSubject()
-                                    manageteachersubjectsvm.isEditing = false
-                                    
+                                    if subject.groupCost == 0 || subject.individualCost == 0 {
+                                        manageteachersubjectsvm.error = .error(title: "You Must Enter YOUR  Subject Price First To Can Access To This Page", message: "You Must Enter YOUR  Subject Price First To Can Access To This Page", buttonTitle: "Ok", mainBtnAction: {
+                                        })
+                                        manageteachersubjectsvm.isError.toggle()
+                                    }else{
+                                        destination = AnyView(ManageTeacherSubjectLessonsView(currentSubject:subject)
+                                            .environmentObject(LookUpsVM())
+                                            .environmentObject(ManageTeacherSubjectLessonsVM())
+                                        )
+                                        isPush = true
+                                        manageteachersubjectsvm.clearTeachersSubject()
+                                        manageteachersubjectsvm.isEditing = false
+                                    }
                                 }, deleteBtnAction:{
 //                                    manageteachersubjectsvm.isEditing = false
 //                                    manageteachersubjectsvm.clearTeachersSubject()

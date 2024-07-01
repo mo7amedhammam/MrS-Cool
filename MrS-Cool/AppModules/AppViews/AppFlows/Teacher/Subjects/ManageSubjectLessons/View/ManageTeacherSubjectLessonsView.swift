@@ -17,6 +17,8 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
     @State private var isEditing = false
     
     @State var showFilter : Bool = false
+    @State var lessonName = ""
+
     var currentSubject:TeacherSubjectM?
 
     @State var isPush = false
@@ -352,18 +354,20 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                             ScrollView{
                                 VStack{
                                     Group {
-                                        CustomTextField(iconName:"img_group_512380",placeholder: "Subject Lesson", text: $manageteachersubjectlessonsvm.lessonName )
+                                        CustomTextField(iconName:"img_group_512380",placeholder: "Subject Lesson", text: $lessonName )
                                     }.padding(.top,5)
                                     
                                     Spacer()
                                     HStack {
                                         Group{
                                             CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                                manageteachersubjectlessonsvm.lessonName = lessonName
                                                 manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
                                                 showFilter = false
                                             })
                                             
                                             CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                                lessonName = ""
                                                 manageteachersubjectlessonsvm.clearFilter()
                                                 manageteachersubjectlessonsvm .GetTeacherSubjectLessons()
                                                 showFilter = false

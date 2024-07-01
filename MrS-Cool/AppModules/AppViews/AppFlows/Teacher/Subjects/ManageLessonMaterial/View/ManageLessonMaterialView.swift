@@ -27,6 +27,9 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
     @State var previewurl : String = ""
     
     @State var showFilter : Bool = false
+    @State var filtermaterialType : DropDownOption?
+    @State var filtermaterialName : String = ""
+
     @State var currentLesson:TeacherUnitLesson?
     var body: some View {
         ZStack {
@@ -382,20 +385,24 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                         ScrollView{
                             VStack{
                                 Group{
-                                    CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $managelessonmaterialvm.filtermaterialType,options:lookupsvm.materialTypesList)
+                                    CustomDropDownField(iconName:"img_group_512390",placeholder: "Material Type", selectedOption: $filtermaterialType,options:lookupsvm.materialTypesList)
                                     
-                                    CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $managelessonmaterialvm.filtermaterialName)
+                                    CustomTextField(iconName:"img_group_512388",placeholder: "Material Title", text: $filtermaterialName)
                                 }
                                 .padding(.top,5)
                                 //                                Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            managelessonmaterialvm.filtermaterialType = filtermaterialType
+                                            managelessonmaterialvm.filtermaterialName = filtermaterialName
                                             managelessonmaterialvm.GetLessonMaterial()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            filtermaterialType = nil
+                                            filtermaterialName = ""
                                             managelessonmaterialvm.clearFilter()
                                             managelessonmaterialvm.GetLessonMaterial()
                                             showFilter = false
