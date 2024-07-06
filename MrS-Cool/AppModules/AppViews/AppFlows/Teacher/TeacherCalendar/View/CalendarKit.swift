@@ -19,6 +19,7 @@ final class CustomCalendarExampleController: DayViewController {
         }
     }
     var onCancelEvent: ((EventM) -> Void)?
+    var onJoinEvent: ((EventM) -> Void)?
     var onEventSelected: ((EventM) -> Void)?
     
     var generatedEvents = [EventDescriptor]()
@@ -99,40 +100,59 @@ final class CustomCalendarExampleController: DayViewController {
             }
             return false
         }
+
         // Convert EventM objects to EventDescriptor
-        let eventDescriptors = eventsForSelectedDate.map { eventM in
+        let eventDescriptors = eventsForSelectedDate.compactMap { eventM in
             let event = Event()
+            
             // Configure event properties based on your EventM model
-            // For example:
             if let dateString = eventM.date,
                let eventDate = dateFormatter2.date(from: dateString),
-               let timeFrom = timeFormatter2.date(from:eventM.timeFrom ?? ""),
-               let timeTo = timeFormatter2.date(from:eventM.timeTo ?? "") {
-                // Set the start and end times based on timeFrom and timeTo
+               let timeFromString = eventM.timeFrom,
+               let timeToString = eventM.timeTo,
+               let timeFrom = timeFormatter2.date(from: timeFromString),
+               let timeTo = timeFormatter2.date(from: timeToString) {
+                
+                // Safely unwrap startTimeComponents and endTimeComponents
                 let startTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: timeFrom)
                 let endTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: timeTo)
                 
-                event.dateInterval = DateInterval(start: eventDate.addingTimeInterval(TimeInterval(startTimeComponents.hour! * 3600 + startTimeComponents.minute! * 60)),
-                                                  end: eventDate.addingTimeInterval(TimeInterval(endTimeComponents.hour! * 3600 + endTimeComponents.minute! * 60)))
-                event.text = "\(eventM.groupName ?? "")"
-                //                event.color = .green // Customize the color as needed
-                // Set color based on conditions
-                if eventDate < Calendar.current.startOfDay(for: Date()) {
-                    // Event is before today
-                    event.color = .red
-                } else if eventM.isCancel ?? false {
-                    // Event is canceled
-                    event.color = .red
-                } else {
-                    // Default color for other events
-                    event.color = .green
+                if let startHour = startTimeComponents.hour,
+                   let startMinute = startTimeComponents.minute,
+                   let endHour = endTimeComponents.hour,
+                   let endMinute = endTimeComponents.minute {
+                    
+                    let startDate = eventDate.addingTimeInterval(TimeInterval(startHour * 3600 + startMinute * 60))
+                    var endDate = eventDate.addingTimeInterval(TimeInterval(endHour * 3600 + endMinute * 60))
+                    
+                    // Handle case where end time is before start time (e.g., crosses midnight)
+                    if endDate <= startDate {
+                        endDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate) ?? endDate
+                    }
+                    
+                    event.dateInterval = DateInterval(start: startDate, end: endDate)
+                    
+                    event.text = "\(eventM.groupName ?? "")"
+                    
+                    // Set color based on conditions
+                    if eventDate < Calendar.current.startOfDay(for: Date()) {
+                        // Event is before today
+                        event.color = .red
+                    } else if eventM.isCancel ?? false {
+                        // Event is canceled
+                        event.color = .red
+                    } else {
+                        // Default color for other events
+                        event.color = .green
+                    }
+                    
+                    // Store the EventM object in userInfo
+                    event.userInfo = eventM
+                    
+                    return event // Return the configured event
                 }
-                
-                // Store the EventM object in userInfo
-                event.userInfo = eventM
-                
             }
-            return event
+            return nil // Return nil if any of the required components are missing
         }
         
         return eventDescriptors
@@ -227,22 +247,22 @@ final class CustomCalendarExampleController: DayViewController {
                 }
             }
             
-            let alertController = UIAlertController(title: "Event Options", message: nil, preferredStyle: .actionSheet)
-            
-            // Add a Cancel option
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            // Add an option to cancel the event
-            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { [weak self] _ in
-                guard let self = self else {return}
-                // Handle the cancellation of the event here
-                //              self.cancelEvent(descriptor)
-                self.onCancelEvent?(eventM)
-                self.reloadData()
-            })
-            
-            // Present the action sheet
-            present(alertController, animated: true, completion: nil)
+//            let alertController = UIAlertController(title: "Event Options", message: nil, preferredStyle: .actionSheet)
+//            
+//            // Add a Cancel option
+//            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//            
+//            // Add an option to cancel the event
+//            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { [weak self] _ in
+//                guard let self = self else {return}
+//                // Handle the cancellation of the event here
+//                //              self.cancelEvent(descriptor)
+//                self.onCancelEvent?(eventM)
+//                self.reloadData()
+//            })
+//            
+//            // Present the action sheet
+//            present(alertController, animated: true, completion: nil)
         }
         
     }
@@ -352,13 +372,15 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
     @Binding var selectedEvent: EventM?
     
     var onCancelEvent: ((EventM) -> Void)?
-    
+//    var onJoinEvent: ((EventM) -> Void)?
+
     init(selectedDate: Binding<Date>, events: Binding<[EventM]>, isShowingDetailSheet: Binding<Bool>, selectedEvent: Binding<EventM?>, onCancelEvent: ((EventM) -> Void)?) {
         self._selectedDate = selectedDate
         self._events = events
         self._isShowingDetailSheet = isShowingDetailSheet
         self._selectedEvent = selectedEvent
         self.onCancelEvent = onCancelEvent
+//        self.onJoinEvent = onJoinEvent
     }
     
     func makeUIViewController(context: Context) -> CustomCalendarExampleController {
@@ -366,6 +388,7 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
         controller.selectedDate = selectedDate
         controller.events = events
         controller.onCancelEvent = onCancelEvent
+//        controller.onJoinEvent = onJoinEvent
         controller.onEventSelected = { eventM in
             selectedEvent = eventM
             isShowingDetailSheet = true
@@ -379,7 +402,6 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
         uiViewController.events = events
     }
 }
-
 
 struct ContentView3: View {
     //    @Binding var selectedDate : Date
@@ -418,11 +440,16 @@ struct ContentView3: View {
                     }
                     isShowingDetailSheet = false
                 },onJoinEvent: { event in
-                    onJoinEvent?(selectedEvent)
+                    print("Event joining closure executed")
+                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+                        onJoinEvent?(selectedEvent)
+                    }
                 })
             }
         }
     }
+    
+    
 }
 
 #Preview{
@@ -433,10 +460,11 @@ struct ContentView3: View {
 //MARK: -- event Details --
 struct EventDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
+    @State private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     let event: EventM
     let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
-    let onJoinEvent: ((EventM) -> Void)? // Closure to handle event cancellation
+    let onJoinEvent: ((EventM) -> Void)? // Closure to handle event join
 
     // Function to check if the event is in the past
     func isEventInPast() -> Bool {
@@ -445,8 +473,8 @@ struct EventDetailsView: View {
         }
 
         // Create full date strings with event date and times
-        let fromDateTimeStr = "\(eventDateStr)T\(timeFromStr)"
-        let toDateTimeStr = "\(eventDateStr)T\(timeToStr)"
+        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+        let toDateTimeStr = "\((eventDateStr.prefix(10)))T\(timeToStr)"
 
         // Parse the date strings into Date objects
         guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
@@ -455,30 +483,52 @@ struct EventDetailsView: View {
         }
 
         let currentTime = Date()
-        return fromDateTime < currentTime && toDateTime < currentTime
+        return toDateTime < currentTime
     }
 
     // Function to check if the current time is between timeFrom and timeTo
     func isCurrentTimeWithinEventTime() -> Bool {
-        guard let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
+        guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
             return false
         }
-        
+
         // Create full date strings with event date and times
-        guard let eventDateStr = event.date else {
-            return false
-        }
-        let fromDateTimeStr = "\(eventDateStr)T\(timeFromStr)"
-        let toDateTimeStr = "\(eventDateStr)T\(timeToStr)"
-        
+        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+
+//        print("From Date Time String: \(fromDateTimeStr)")
+//        print("To Date Time String: \(toDateTimeStr)")
+
         // Parse the date strings into Date objects
         guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
               let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+            print("Failed to parse fromDateTime")
             return false
         }
-        
+
         let currentTime = Date()
+//        print("Current Time: \(currentTime)")
+//        print("Event From Time: \(fromDateTime)")
+//        print("Event To Time: \(toDateTime)")
+
         return currentTime >= fromDateTime && currentTime <= toDateTime
+    }
+    // Function to check if the event is not started yet
+    func isEventNotStartedYet() -> Bool {
+        guard let eventDateStr = event.date, let timeFromStr = event.timeFrom else {
+            return false
+        }
+
+        // Create full date string with event date and timeFrom
+        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+
+        // Parse the date string into Date object
+        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
+            return false
+        }
+
+        let currentTime = Date()
+        return currentTime < fromDateTime
     }
 
     // Date formatter for parsing the event date and time
@@ -496,7 +546,7 @@ struct EventDetailsView: View {
                         .font(.title)
                         .padding(.top)
 
-                    Text("Date: \(event.date ?? "No Date")")
+                    Text("Date: \(event.date?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "yyyy-MM-dd") ?? "No Date")")
                         .font(.body)
 
                     Text("From: \(event.timeFrom ?? "No Start Time")")
@@ -515,12 +565,17 @@ struct EventDetailsView: View {
                 Spacer()
 
                 // Join Meeting button
-                if let meetingLink = event.teamMeetingLink, !meetingLink.isEmpty, event.isCancel != true, isCurrentTimeWithinEventTime() {
+                if let meetingLink = event.teamMeetingLink, !meetingLink.isEmpty, isCurrentTimeWithinEventTime() {
                     Button(action: {
-                        if let url = URL(string: meetingLink) {
-                            UIApplication.shared.open(url)
-                            onJoinEvent?(event)
-                        }
+//                        print("Joining event...")
+//                        onJoinEvent?(event)
+//                        print("onJoinEvent closure executed")
+//                        if let url = URL(string: meetingLink) {
+//                            UIApplication.shared.open(url)
+//                        }
+                        
+                        joinMeeting(event: event, meetingLink: meetingLink)
+
                     }) {
                         Text("Join Meeting".localized())
                             .foregroundColor(.blue)
@@ -528,7 +583,7 @@ struct EventDetailsView: View {
                 }
 
                 // Cancel Event button
-                if event.isCancel != true, !isEventInPast() {
+                if event.isCancel != true, isEventNotStartedYet() {
                     Button(action: {
                         onCancelEvent?(event)
                     }) {
@@ -543,7 +598,31 @@ struct EventDetailsView: View {
             })
         }
     }
+    
+    private func joinMeeting(event: EventM, meetingLink: String) {
+        backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            // Handle expiration here if needed
+            UIApplication.shared.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
+        })
+
+        print("Joining event...")
+        onJoinEvent?(event)
+        print("onJoinEvent closure executed")
+
+        if let url = URL(string: meetingLink) {
+            UIApplication.shared.open(url) { success in
+                print("URL opened: \(success)")
+                if success {
+                    // Perform any additional actions if needed
+                }
+                UIApplication.shared.endBackgroundTask(backgroundTask)
+                backgroundTask = .invalid
+            }
+        }
+    }
 }
+
 
 
 

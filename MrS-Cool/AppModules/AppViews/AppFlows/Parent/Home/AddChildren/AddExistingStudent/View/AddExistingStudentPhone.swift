@@ -78,8 +78,9 @@ struct AddExistingStudentPhone: View {
             if isVerified {
 ////                destination = AnyView(ResetPasswordView().environmentObject(verifystudentvm))
 ////                    isPush = true
-                dismiss()
-//                
+//                dismiss()
+                Helper.shared.changeRoot(toView: ParentTabBarView())
+
             }
         }, content: {
             OTPVerificationView(PhoneNumber:verifystudentvm.phone,CurrentOTP: verifystudentvm.OtpM?.otp ?? 0, verifycase: .addexistingstudent, secondsCount:verifystudentvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.childrenAccountAdded))

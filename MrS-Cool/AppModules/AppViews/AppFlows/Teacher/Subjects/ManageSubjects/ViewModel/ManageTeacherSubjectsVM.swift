@@ -13,19 +13,6 @@ class ManageTeacherSubjectsVM: ObservableObject {
     //    @Published var isUserChangagble = true // available unless teacher save personal data
     
     //    MARK: --- inputs ---
-    //Common data (note: same exact data for parent)
-    //    @Published var selecteduser = UserType()
-    //    @Published var name = ""
-    //    @Published var phone = ""
-    //    @Published var Password = ""
-    //    @Published var selectedGender : DropDownOption?
-    //    @Published var confirmPassword = ""
-    //    @Published var acceptTerms = false
-    
-    //Student data
-    //    @Published var birthDate : Date?
-    //    // next 4  common with teacher subjects
-    //    @Published var birthDateStr = ""
     
     @Published var isEditing = false
     @Published var educationType : DropDownOption?{
@@ -108,7 +95,6 @@ class ManageTeacherSubjectsVM: ObservableObject {
 // let predicate = NSPredicate(format:"SELF MATCHES %@", arabicRegex)
 // isSubjectBriefValid = predicate.evaluate(with: subjectBrief)
 //}
-    
     
     @Published var filterEducationType : DropDownOption?{
         didSet{

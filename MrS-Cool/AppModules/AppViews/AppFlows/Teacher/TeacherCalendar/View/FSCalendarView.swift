@@ -158,6 +158,9 @@ struct CalView1: View {
                         DispatchQueue.main.async {
                             calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
                         }
+                    },onJoinEvent: {event in
+                        guard let eventid = event.bookTeacherlessonsessionDetailId else {return}
+                        calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
                     })
                     
                 @unknown default:

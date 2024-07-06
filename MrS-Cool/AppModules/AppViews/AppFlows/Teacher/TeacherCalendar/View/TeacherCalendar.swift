@@ -147,15 +147,19 @@ struct CalView: View {
             } else if viewMode == .week {
                 
                 ContentView3(selectedDate: $selectedDate, scope: .constant(.week), events: $events,onCancelEvent: {event in
-                    print("on cancel here")
-                    guard let eventid = event.id else {return}
-                    calendarschedualsvm.CancelCalendarCheduals(id: eventid)
+//                    print("on cancel here")
+//                    guard let eventid = event.id else {return}
+//                    calendarschedualsvm.CancelCalendarCheduals(id: eventid)
                 },onJoinEvent:{event in
-                    print("on join here")
-                    guard let eventid = event.bookTeacherlessonsessionDetailId else {return}
-                    calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
+                    
+//                    print("Join Meeting button pressed in EventDetailsView. Executing code in CalView.")
+//                    guard Helper.shared.getSelectedUserType() == .Student,let eventid = event.bookTeacherlessonsessionDetailId else {return}
+//                    calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
+//                    self.onJoinEvent?(event)
                 }
                 )
+                .environmentObject(calendarschedualsvm)
+                
 //                WeekView(
 //                    calendar: calendar,
 //                    date: $selectedDate,
@@ -249,6 +253,8 @@ struct CalView: View {
             // Check if the selected date is in the same day as any of the events
             return eventsDates.contains { $0.isInSameDayAs(date) }
     }
+
+
 }
 
 // MARK: - Previews

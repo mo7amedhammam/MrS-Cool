@@ -104,9 +104,9 @@ struct LessonTeacherInfoView : View {
                             Group {
                                 Text("Duration :".localized())
                                 + Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
-                                    .font(Font.SoraSemiBold(size: 13))
+                                    .font(Font.SoraSemiBold(size: 11))
                                 + Text("hrs".localized())
-                                    .font(Font.SoraSemiBold(size: 13))
+                                    .font(Font.SoraSemiBold(size: 11))
                             }
                             .font(Font.SoraRegular(size: 10))
                             .foregroundColor(.mainBlue)
@@ -119,7 +119,7 @@ struct LessonTeacherInfoView : View {
                             Group {
                                 Text("Minimum :".localized())
                                 + Text("  \(teacher.minGroup ?? 0) ")
-                                    .font(Font.SoraSemiBold(size: 13))
+                                    .font(Font.SoraSemiBold(size: 11))
                             }
                             .font(Font.SoraRegular(size: 10))
                             .foregroundColor(.mainBlue)
@@ -131,7 +131,7 @@ struct LessonTeacherInfoView : View {
                             Group {
                                 Text("Maximum :".localized())
                                 + Text("  \(teacher.maxGroup ?? 0) ")
-                                    .font(Font.SoraSemiBold(size: 13))
+                                    .font(Font.SoraSemiBold(size: 11))
                             }
                             .font(Font.SoraRegular(size: 10))
                             .foregroundColor(.mainBlue)
