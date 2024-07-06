@@ -147,17 +147,36 @@ struct SignInView: View {
             .onDisappear{
                 teachersigninvm.cleanup()
             }
-            .onChange(of: teachersigninvm.isLogedin) { newval in                
+            .onChange(of: teachersigninvm.isLogedin) { newval in
                 switch selectedUser.user {
-            case .Student:
-                destination = AnyView(StudentTabBarView())
-                
-            case .Parent:
-                destination = AnyView(ParentTabBarView())
-                
-            case .Teacher:
-                destination = AnyView(TeacherTabBarView())
-            }
+                case .Student:
+                    destination = AnyView(StudentTabBarView())
+                    
+                case .Parent:
+                    destination = AnyView(ParentTabBarView())
+                    
+                case .Teacher:
+                    switch teachersigninvm.teachermodel?.profileStatusID {
+                    case 1:
+                        destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .subjectsData)
+//                            .environmentObject(LookUpsVM())
+//                            .environmentObject(SignUpViewModel())
+//                            .environmentObject(TeacherSubjectsVM())
+//                            .environmentObject(TeacherDocumentsVM())
+                        ) // subject info
+                        
+                    case 2:
+                    destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .documentsData)
+//                            .environmentObject(LookUpsVM())
+//                            .environmentObject(SignUpViewModel())
+////                            .environmentObject(TeacherSubjectsVM())f
+//                            .environmentObject(TeacherDocumentsVM())
+                        ) // document info
+                        
+                    default: // 3
+                        destination = AnyView(TeacherTabBarView())
+                    }
+                }
                 isPush = newval
             }
             .gesture(

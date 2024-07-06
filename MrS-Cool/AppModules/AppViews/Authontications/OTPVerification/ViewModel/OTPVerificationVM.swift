@@ -139,10 +139,13 @@ class OTPVerificationVM: ObservableObject {
                     switch verifycase {
                     case .creatinguser:
                         guard let model = receivedData.data else{return}
+                        isOTPVerified = true
                         Helper.shared.saveUser(user: model)
-                            isOTPVerified = true
-                        FirebaseNotificationsVM.shared.SendFirebaseToken()
-
+                        if Helper.shared.getSelectedUserType() != .Teacher{
+                            FirebaseNotificationsVM.shared.SendFirebaseToken()
+                        }else{ // teacher
+                            Helper.shared.IsLoggedIn(value: false)
+                        }
                     case .ressetingpassword:
                         isResetOTPVerified = true
                         

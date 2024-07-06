@@ -44,10 +44,13 @@ class SignInVM: ObservableObject {
     
     @Published var teachermodel: TeacherModel?{
         didSet{
-                if teachermodel != nil{
-                    isLogedin = true
-                    Helper.shared.saveUser(user: teachermodel)
+            if teachermodel != nil{
+                isLogedin = true
+                Helper.shared.saveUser(user: teachermodel)
+                if Helper.shared.getSelectedUserType() == .Teacher &&  teachermodel?.profileStatusID != 3{
+                    Helper.shared.IsLoggedIn(value: false)
                 }
+            }
         }
     }
     init()  {

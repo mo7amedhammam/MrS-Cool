@@ -241,7 +241,7 @@ struct TeacherDocumentDataView: View {
 //                destination = AnyView(SignInView())
 //                dismiss() // after signup back to login
                 Helper.shared.changeRoot(toView: TeacherTabBarView()) // after signup - go home
-
+                Helper.shared.IsLoggedIn(value: true)
             }, successStep: .constant(.accountCreated))
         })
     }

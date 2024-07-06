@@ -16,6 +16,7 @@ struct SignUpView: View {
     @StateObject var parentsignupvm = ParentSignupVM()
 
     @Binding var selecteduser : UserType
+    @State var currentStep:teacherSteps = .personalData
 
     var body: some View {
         VStack(spacing:0) {
@@ -31,7 +32,7 @@ struct SignUpView: View {
                             .environmentObject(parentsignupvm)
 
                     case .Teacher:
-                        TeacherSignUpView()
+                        TeacherSignUpView(currentStep: currentStep)
                             .environmentObject(signupvmsubject)
                             .environmentObject(signupvmdocument)
 
