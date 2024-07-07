@@ -78,8 +78,7 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-//                    StudentHomeView()
-                    Text("tab 1") // finance
+                    StudentFinanceView(selectedChild: .constant(nil)) // finance
                         .tag(1)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -96,13 +95,7 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-//                    StudentHomeView()
-//                    Text("tab 3")
-//                    destination = AnyView(ChatsListView()
-////                            .environmentObject(lookupsvm)
-//                        .environmentObject(chatlistvm)
-////                                .hideNavigationBar()
-//                    )
+
                     ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
                         .tag(3)
                         .environmentObject(studenttabbarvm)

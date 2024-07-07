@@ -79,8 +79,7 @@ struct ParentTabBarView: View {
                         }
                     )
                 
-                //                    StudentHomeView()
-                Text("tab 1") // finance
+                StudentFinanceView(selectedChild:$listchildrenvm.selectedChild) // finance
                     .tag(1)
                     .gesture(
                         DragGesture().onChanged { _ in
@@ -97,7 +96,6 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
-                
                 
                 ChatsListView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // chats
                     .tag(3)

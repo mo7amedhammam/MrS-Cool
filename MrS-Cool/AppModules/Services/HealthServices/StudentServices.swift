@@ -8,6 +8,10 @@
 import Foundation
 import Alamofire
 
+enum StudentFinanceCases{
+    case Subjects,Lessons
+}
+
 enum StudentServices{
     case GetStudentSubjects(parameters : [String:Any])
     case GetMostLessons(mostType:studentLessonMostCases,parameters : [String:Any])
@@ -30,6 +34,9 @@ enum StudentServices{
     
     case GetStudentProfile(parameters : [String:Any])
     case UpdateStudentProfile(parameters : [String:Any])
+
+    case GetStudentFinance(parameters : [String:Any])
+    case GetStudentFinanceSubjects(FinanceFor : StudentFinanceCases ,parameters : [String:Any])
 
 }
 
@@ -102,6 +109,16 @@ extension StudentServices:TargetType{
 
         case .GetTeacherProfileView:
             return EndPoints.GetTeacherProfileView.rawValue
+            
+        case .GetStudentFinance:
+            return EndPoints.GetStudentFinance.rawValue
+        case .GetStudentFinanceSubjects(FinanceFor: let FinanceFor, _):
+            switch FinanceFor{
+            case .Subjects:
+                return EndPoints.GetStudentPagedFinanceSubjects.rawValue
+            case .Lessons:
+                return EndPoints.GetStudentPagedFinanceLessons.rawValue
+            }
         }
     }
     
@@ -121,14 +138,16 @@ extension StudentServices:TargetType{
                 .GetSubjectGroupDetails,.GetLessonGroupDetails,.GetAvaliableScheduals,
                 .GetStudentCompletedLessonDetails,
                 .GetStudentProfile,
-                .GetTeacherProfileView:
+                .GetTeacherProfileView,
+                .GetStudentFinance:
             return .get
             
         case  .GetSubjectOrLessonTeachers,
                 .GetMostBookedTeachers,
                 .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,
                 .GetStudentCompletedLessons,
-                .UpdateStudentProfile:
+                .UpdateStudentProfile,
+                .GetStudentFinanceSubjects:
             return .post
             
         }
@@ -153,7 +172,8 @@ extension StudentServices:TargetType{
                 .GetSubjectGroupDetails(parameters: let Parameters),
                 .GetLessonGroupDetails(parameters: let Parameters),.GetAvaliableScheduals(parameters: let Parameters),
                 .GetStudentCompletedLessonDetails(parameters: let Parameters),
-                .GetTeacherProfileView(parameters: let Parameters):
+                .GetTeacherProfileView(parameters: let Parameters),
+                .GetStudentFinance(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetSubjectOrLessonTeachers(parameters: let Parameters),
@@ -161,7 +181,8 @@ extension StudentServices:TargetType{
                 .GetCheckOutBookTeacherSession(parameters: let Parameters),
                 .CreateOutBookTeacherSession(parameters: let Parameters),
                 .GetStudentCompletedLessons(parameters: let Parameters),
-                .UpdateStudentProfile(parameters: let Parameters):
+                .UpdateStudentProfile(parameters: let Parameters),
+                .GetStudentFinanceSubjects(_, parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

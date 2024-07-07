@@ -119,6 +119,7 @@ struct ListChildrenView: View {
             //            tabbarvm.error = listchildrenvm.error
             //            tabbarvm.isError = value
             //        })
+
             .onChange(of: listchildrenvm.selectedChild, perform: { value in
                 guard value != nil else {return}
                 Helper.shared.selectedchild = value
@@ -133,7 +134,6 @@ struct ListChildrenView: View {
             .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
 
         }
-        
     }
 }
 

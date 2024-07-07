@@ -189,6 +189,11 @@ enum EndPoints: String {
     case UpdateTeacherDeviceToken = "Teacher/UpdateTeacherDeviceToken"
     case UpdateStudentDeviceToken = "Student/UpdateStudentDeviceToken"
     case UpdateParentDeviceToken = "Parent/UpdateParentDeviceToken"
+    
+    
+    case GetStudentFinance = "student/FinanceView"
+    case GetStudentPagedFinanceLessons = "student/PagedFinanceLessons"
+    case GetStudentPagedFinanceSubjects = "student/PagedFinanceSubjects"
 
 }
 

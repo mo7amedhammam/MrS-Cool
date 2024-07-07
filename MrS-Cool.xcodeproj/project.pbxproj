@@ -172,6 +172,10 @@
 		C8F100C92B175FF000B39FB1 /* ManageSchedualCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F100C82B175FF000B39FB1 /* ManageSchedualCell.swift */; };
 		C8F443402B9F580B0018D9D9 /* TeacherTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F4433F2B9F580B0018D9D9 /* TeacherTabBarView.swift */; };
 		C8F5FF652B2F163D00086624 /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F5FF642B2F163D00086624 /* FSCalendarView.swift */; };
+		C8F649E92C3A7D40002C4A63 /* StudentFinanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649E82C3A7D40002C4A63 /* StudentFinanceView.swift */; };
+		C8F649EB2C3A7DF7002C4A63 /* StudentFinanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EA2C3A7DF7002C4A63 /* StudentFinanceVM.swift */; };
+		C8F649ED2C3A7E08002C4A63 /* StudentFinanceM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */; };
+		C8F649EF2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
@@ -362,6 +366,10 @@
 		C8F100C82B175FF000B39FB1 /* ManageSchedualCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSchedualCell.swift; sourceTree = "<group>"; };
 		C8F4433F2B9F580B0018D9D9 /* TeacherTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherTabBarView.swift; sourceTree = "<group>"; };
 		C8F5FF642B2F163D00086624 /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
+		C8F649E82C3A7D40002C4A63 /* StudentFinanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFinanceView.swift; sourceTree = "<group>"; };
+		C8F649EA2C3A7DF7002C4A63 /* StudentFinanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFinanceVM.swift; sourceTree = "<group>"; };
+		C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFinanceM.swift; sourceTree = "<group>"; };
+		C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedsubjectOrLessonCell.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -1322,6 +1330,41 @@
 			name = CustomProgressView;
 			sourceTree = "<group>";
 		};
+		C88079FC2C3A7CDF00F0E130 /* Finance */ = {
+			isa = PBXGroup;
+			children = (
+				C88079FF2C3A7CEE00F0E130 /* Model */,
+				C88079FE2C3A7CEB00F0E130 /* ViewModel */,
+				C88079FD2C3A7CE700F0E130 /* View */,
+			);
+			path = Finance;
+			sourceTree = "<group>";
+		};
+		C88079FD2C3A7CE700F0E130 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8F649E82C3A7D40002C4A63 /* StudentFinanceView.swift */,
+				C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C88079FE2C3A7CEB00F0E130 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8F649EA2C3A7DF7002C4A63 /* StudentFinanceVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C88079FF2C3A7CEE00F0E130 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C88305872AF0FEB50030B2A8 /* DocumentCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1905,6 +1948,7 @@
 		C8D3F3A82B42D2EE003CFE45 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C88079FC2C3A7CDF00F0E130 /* Finance */,
 				C823B1D32BB1A7B9007256D8 /* TeacherInfo */,
 				C8438EF22B947C5C00D9412D /* EditProfile */,
 				C815A01C2B84C11000416A2A /* CompletedLessons */,
@@ -2445,6 +2489,7 @@
 				C860ED8B2BB8528000CAE116 /* AddNewStudentVM.swift in Sources */,
 				C8BC6F562B6914DC00C6585E /* LessonDetailsM.swift in Sources */,
 				C8FCB6B32AEAA446009C838A /* TeacherSubjectsVM.swift in Sources */,
+				C8F649EF2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift in Sources */,
 				C82A96D02AE56F8400A63134 /* LookUpsVM.swift in Sources */,
 				C89907DF2BA7479400FC6D23 /* ParentSignupVM.swift in Sources */,
 				C8740EB72B4EAF5800AF0154 /* StudentHomeLessonCell.swift in Sources */,
@@ -2525,6 +2570,7 @@
 				C83837042B1B4AE800000DA3 /* GroupForLessonVM.swift in Sources */,
 				C82B048A2B9C81E000E56046 /* TeacherRatesView.swift in Sources */,
 				C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */,
+				C8F649E92C3A7D40002C4A63 /* StudentFinanceView.swift in Sources */,
 				C8357E822B611AE400911371 /* SubjectTeachersListM.swift in Sources */,
 				C85168A52BA5B60000B83E4A /* ParentTabBarView.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
@@ -2547,6 +2593,7 @@
 				C8BF20102B6BDA1E00779C04 /* WeeklyCalendarView.swift in Sources */,
 				C815A0252B84C19100416A2A /* StudentCompletedLessonsView.swift in Sources */,
 				C8438EF92B9484F400D9412D /* StudentEditProfileVM.swift in Sources */,
+				C8F649ED2C3A7E08002C4A63 /* StudentFinanceM.swift in Sources */,
 				C82EB8382BB7197100CCA504 /* AddExistingStudentVM.swift in Sources */,
 				C87051B22B6E5F4A00ABE01A /* BookingCheckoutView.swift in Sources */,
 				C8526ABE2B039F41001F8196 /* ManageTeacherSubjectsVM.swift in Sources */,
@@ -2578,6 +2625,7 @@
 				C823B1D82BB1A824007256D8 /* TeacherInfoView.swift in Sources */,
 				C897B3452B541B6E008BA13D /* StudentTabBarVM.swift in Sources */,
 				C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */,
+				C8F649EB2C3A7DF7002C4A63 /* StudentFinanceVM.swift in Sources */,
 				C8D3F3AA2B42D304003CFE45 /* StudentHomeView.swift in Sources */,
 				C897B3432B53FD22008BA13D /* StudentTopRatedTeachersCell.swift in Sources */,
 				C8F0E0232B163C7800B7A3C5 /* ManageTeacherSchedualsVM.swift in Sources */,
@@ -2746,7 +2794,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = 23H4SBD5QL;
 				ENABLE_PREVIEWS = YES;
@@ -2788,7 +2836,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = 23H4SBD5QL;
 				ENABLE_PREVIEWS = YES;
