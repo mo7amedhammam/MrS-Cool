@@ -16,7 +16,7 @@ struct ListChildrenView: View {
     @State var destination = AnyView(EmptyView())
 
     var body: some View {
-        NavigationView{
+        CustomNavigationView{
             VStack {
                 ScrollView {
                     LazyVGrid(columns: [.init(), .init(),.init()]) {
@@ -217,3 +217,4 @@ struct ChildrenCell: View {
         }
     }
 }
+

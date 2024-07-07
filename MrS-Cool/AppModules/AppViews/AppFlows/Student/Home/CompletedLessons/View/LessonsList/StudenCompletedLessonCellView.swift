@@ -11,6 +11,7 @@ struct StudenCompletedLessonCellView: View {
     var model = StudentCompletedLessonItemM()
     var reviewBtnAction : (()->())?
     var chatBtnAction : (()->())?
+    var rateBtnAction : (()->())?
 
     var body: some View {
 //        Button(action: {
@@ -18,7 +19,7 @@ struct StudenCompletedLessonCellView: View {
 //        }){
             VStack(alignment:.leading,spacing: 10){
                 
-                HStack(spacing: 20) {
+                HStack(spacing: 12) {
                     Image("img_group512382")
                         .scaleEffect(1.2, anchor: .center)
                         .background(
@@ -34,7 +35,20 @@ struct StudenCompletedLessonCellView: View {
                     
                     Rectangle().fill(model.attendance ?? true ? ColorConstants.LightGreen800:ColorConstants.Red400)
                         .frame(width: 10, height: 10, alignment: .center)
-
+                    
+                    Button(action: {
+                        guard model.isRated == false else {return}
+                        rateBtnAction?()
+                    }, label: {
+                        Image(systemName: model.isRated ?? false ? "star.fill" : "star")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(ColorConstants.MainColor)
+                            .frame(width: 18, height: 18,alignment: .leading)
+                            .aspectRatio(contentMode: .fit)
+                    })
+                    .buttonStyle(.plain)
+                    
                     Button(action: {
                         chatBtnAction?()
                     }, label: {

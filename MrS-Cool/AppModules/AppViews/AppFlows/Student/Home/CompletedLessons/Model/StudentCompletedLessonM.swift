@@ -17,7 +17,7 @@ struct StudentCompletedLessonM: Codable {
 struct StudentCompletedLessonItemM: Codable ,Hashable{
     var studentID,teacherLessonId: Int?
     var subject,teacherName,lessonname,groupName,date,startTime,endTime: String?
-    var attendance: Bool?
+    var attendance,isRated: Bool?
     var bookSessionDetailId: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -25,7 +25,7 @@ struct StudentCompletedLessonItemM: Codable ,Hashable{
         case teacherLessonId = "teacherLessonId"
         case lessonname = "lessonname"
         case subject,teacherName, groupName, date, startTime, endTime
-        case attendance,bookSessionDetailId
+        case attendance,bookSessionDetailId,isRated
     }
 }
 

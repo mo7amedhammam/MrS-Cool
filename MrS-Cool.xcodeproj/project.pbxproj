@@ -176,6 +176,7 @@
 		C8F649EB2C3A7DF7002C4A63 /* StudentFinanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EA2C3A7DF7002C4A63 /* StudentFinanceVM.swift */; };
 		C8F649ED2C3A7E08002C4A63 /* StudentFinanceM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */; };
 		C8F649EF2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */; };
+		C8F649F22C3AB7E1002C4A63 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649F12C3AB7E1002C4A63 /* NavigationController.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
@@ -370,6 +371,7 @@
 		C8F649EA2C3A7DF7002C4A63 /* StudentFinanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFinanceVM.swift; sourceTree = "<group>"; };
 		C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFinanceM.swift; sourceTree = "<group>"; };
 		C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedsubjectOrLessonCell.swift; sourceTree = "<group>"; };
+		C8F649F12C3AB7E1002C4A63 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -2144,6 +2146,14 @@
 			path = ManageSchedualCell;
 			sourceTree = "<group>";
 		};
+		C8F649F02C3AB7AF002C4A63 /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				C8F649F12C3AB7E1002C4A63 /* NavigationController.swift */,
+			);
+			path = NavigationController;
+			sourceTree = "<group>";
+		};
 		C8FB11832ADD91BA0051715F /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
@@ -2255,6 +2265,7 @@
 		C8FB119E2ADD99800051715F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C8F649F02C3AB7AF002C4A63 /* NavigationController */,
 				C82344692B455E20002D90A3 /* Views */,
 				C83242082B1F30AB008CFC4A /* dates */,
 				C8986C862AE97FF3003E9179 /* integers */,
@@ -2577,6 +2588,7 @@
 				C8438EF72B94816200D9412D /* StudentEditProfileView.swift in Sources */,
 				C8F0E0212B1638B400B7A3C5 /* ManageTeacherSchedualsView.swift in Sources */,
 				C815A0212B84C14A00416A2A /* StudentCompletedLessonM.swift in Sources */,
+				C8F649F22C3AB7E1002C4A63 /* NavigationController.swift in Sources */,
 				C8BC6F5A2B69150B00C6585E /* LessonDetailsView.swift in Sources */,
 				C8DDFB612B3B2B5800C785D4 /* ChatListCell.swift in Sources */,
 				C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */,

@@ -22,6 +22,10 @@ class StudentCompletedLessonsVM: ObservableObject {
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
     @Published var isFiltering : Bool = false
+
+    @Published var israting : Bool = false
+    @Published var rate : Int = 0
+    @Published var selectedLesson : StudentCompletedLessonItemM?
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -118,6 +122,44 @@ extension StudentCompletedLessonsVM{
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
                     completedLessonDetails = receivedData.data
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+    
+    func AddStudentRate(){
+        guard let teacherlessonid = selectedLesson?.teacherLessonId , let bookTeacherLessonSessionDetailId = selectedLesson?.bookSessionDetailId else {return}
+        var parameters:[String:Any] = ["teacherLessonId":teacherlessonid,"bookTeacherLessonSessionDetailId":bookTeacherLessonSessionDetailId,"rate":rate]
+        if Helper.shared.getSelectedUserType() == .Parent{
+            parameters["studentId"] = Helper.shared.selectedchild?.id
+        }
+        print("parameters",parameters)
+        let target = StudentServices.StudentAddRate(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonDetailsM>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    //                    TeacherSubjects?.append(model)
+//                    completedLessonDetails = receivedData.data
+                    GetCompletedLessons()
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

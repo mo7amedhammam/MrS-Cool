@@ -13,6 +13,7 @@ struct StudentCompletedLessonsView: View {
     @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
     
     @State var showFilter : Bool = false
+    @State var showRating : Bool = false
     //    var currentSubject:TeacherSubjectM?
     
     var hasNavBar : Bool? = true
@@ -62,7 +63,10 @@ struct StudentCompletedLessonsView: View {
                                         studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
                                         studenthometabbarvm.ispush = true
                                         
-                                    })
+                                    },rateBtnAction:{
+                                        completedlessonsvm.selectedLesson = lesson
+                                            showRating = true
+                                        })
                                     .listRowSpacing(0)
                                     .listRowSeparator(.hidden)
                                     .listRowBackground(Color.clear)
@@ -100,9 +104,10 @@ struct StudentCompletedLessonsView: View {
             hideKeyboard()
         })
        
-//        .onDisappear {
-////            completedlessonsvm.cleanup()
-//        }
+        .onDisappear {
+            showFilter = false
+            showRating = false
+        }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         
@@ -175,6 +180,71 @@ struct StudentCompletedLessonsView: View {
                     }
                     .padding()
                     .frame(height:430)
+                    .keyboardAdaptive()
+                }
+            }else if showRating{
+                // Blurred Background and Sheet
+                Color.mainBlue
+                    .opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showRating.toggle()
+                    }
+                    .blur(radius: 4) // Adjust the blur radius as needed
+                DynamicHeightSheet(isPresented: $showRating){
+                    VStack {
+                        ColorConstants.Bluegray100
+                            .frame(width:50,height:5)
+                            .cornerRadius(2.5)
+                            .padding(.top,2.5)
+                        HStack {
+                            Text("Rating".localized())
+                                .font(Font.SoraBold(size: 18))
+                                .foregroundColor(.mainBlue)
+                            //                                            Spacer()
+                        }
+//                        ScrollView{
+                            VStack{
+
+                                HStack(spacing:20){
+                                    ForEach(0..<5){ num in
+                                        Button(action: {
+                                            completedlessonsvm.rate = num+1
+                                        }, label: {
+                                            Image(systemName: completedlessonsvm.rate>num ? "star.fill":"star")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 45, height: 45, alignment: .center)
+                                                .foregroundColor(.yellow)
+                                        })
+                                    }
+                                }
+
+                                Spacer()
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Yes",IsDisabled: .constant(completedlessonsvm.rate == 0), action: {
+                                            completedlessonsvm.AddStudentRate()
+                                            showRating = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"No",IsDisabled: .constant(false), action: {
+                                            showRating = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding(.horizontal,3)
+                            .padding(.top)
+//                        }
+                    }
+                    .onDisappear(perform: {
+                        completedlessonsvm.rate = 0
+                    })
+                    .padding()
+                    .frame(height:220)
+                    .frame(maxWidth:.infinity)
                     .keyboardAdaptive()
                 }
             }

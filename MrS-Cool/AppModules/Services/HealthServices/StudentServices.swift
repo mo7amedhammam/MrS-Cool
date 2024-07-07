@@ -37,7 +37,8 @@ enum StudentServices{
 
     case GetStudentFinance(parameters : [String:Any])
     case GetStudentFinanceSubjects(FinanceFor : StudentFinanceCases ,parameters : [String:Any])
-
+    
+    case StudentAddRate(parameters : [String:Any])
 }
 
 extension StudentServices:TargetType{
@@ -57,12 +58,12 @@ extension StudentServices:TargetType{
             case .mostBooked:
                 return EndPoints.MostBookedLessons.rawValue
             }
-
+            
         case .GetMostSubjects(mostType: let mostType,_):
             switch mostType {
             case .mostviewed:
                 return EndPoints.MostViewedSubjects.rawValue
-
+                
             case .mostBooked:
                 return EndPoints.MostBookedSubjects.rawValue
             }
@@ -75,17 +76,17 @@ extension StudentServices:TargetType{
             }
         case .GetMostBookedTeachers:
             return EndPoints.MostBookedTeacher.rawValue
-
+            
         case .GetHomeSubjectDetails:
             return EndPoints.GetHomeSubjectDetails.rawValue
         case .GetSubjectOrLessonTeachers:
             return EndPoints.GetSubjectOrLessonTeachers.rawValue
-
+            
         case .GetSubjectGroupDetails:
             return EndPoints.GetTeacherSubjectGroupDetail.rawValue
         case .GetLessonGroupDetails:
             return EndPoints.GetTeacherLessonGroupDetail.rawValue
-
+            
         case .GetAvaliableScheduals:
             return EndPoints.GetTeacherAvaliableSchedual.rawValue
         case .GetCheckOutBookTeacherSession:
@@ -106,7 +107,7 @@ extension StudentServices:TargetType{
             }
         case .UpdateStudentProfile:
             return EndPoints.UpdateStudentProfile.rawValue
-
+            
         case .GetTeacherProfileView:
             return EndPoints.GetTeacherProfileView.rawValue
             
@@ -119,6 +120,10 @@ extension StudentServices:TargetType{
             case .Lessons:
                 return EndPoints.GetStudentPagedFinanceLessons.rawValue
             }
+            
+        case .StudentAddRate:
+            return EndPoints.StudentAddRate.rawValue
+
         }
     }
     
@@ -147,7 +152,8 @@ extension StudentServices:TargetType{
                 .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,
                 .GetStudentCompletedLessons,
                 .UpdateStudentProfile,
-                .GetStudentFinanceSubjects:
+                .GetStudentFinanceSubjects,
+                .StudentAddRate:
             return .post
             
         }
@@ -182,7 +188,8 @@ extension StudentServices:TargetType{
                 .CreateOutBookTeacherSession(parameters: let Parameters),
                 .GetStudentCompletedLessons(parameters: let Parameters),
                 .UpdateStudentProfile(parameters: let Parameters),
-                .GetStudentFinanceSubjects(_, parameters: let Parameters):
+                .GetStudentFinanceSubjects(_, parameters: let Parameters),
+                .StudentAddRate(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
         }
     }

@@ -183,17 +183,19 @@ enum EndPoints: String {
     case GetStudentProfile = "Student/Profile"
     case UpdateStudentProfile = "Student/UpdateProfile"
     case GetStudentProfileByParent = "Student/GetStudentProfile"
-
     
     //MARK: - firebase notifications -
     case UpdateTeacherDeviceToken = "Teacher/UpdateTeacherDeviceToken"
     case UpdateStudentDeviceToken = "Student/UpdateStudentDeviceToken"
     case UpdateParentDeviceToken = "Parent/UpdateParentDeviceToken"
     
-    
+    //MARK: - Student Finance -
     case GetStudentFinance = "student/FinanceView"
     case GetStudentPagedFinanceLessons = "student/PagedFinanceLessons"
     case GetStudentPagedFinanceSubjects = "student/PagedFinanceSubjects"
+    
+    //MARK: - Student Add Rate -
+    case StudentAddRate = "TeacherLesson/StudentAddRate"
 
 }
 
