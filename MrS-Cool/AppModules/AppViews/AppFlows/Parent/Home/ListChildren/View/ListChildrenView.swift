@@ -134,6 +134,9 @@ struct ListChildrenView: View {
             .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
 
         }
+        .edgesIgnoringSafeArea(.vertical)
+        .hideNavigationBar()
+        .localizeView()
     }
 }
 

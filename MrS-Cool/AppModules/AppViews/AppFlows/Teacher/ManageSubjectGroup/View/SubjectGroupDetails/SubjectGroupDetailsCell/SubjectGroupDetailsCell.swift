@@ -37,7 +37,7 @@ struct SubjectGroupDetailsCell: View {
                 HStack(){
                     VStack(alignment:.leading,spacing: 2.5){
                         Text("Start Time".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.timeFrom ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm", FormatTo: "hh:mm aa"))
@@ -47,7 +47,7 @@ struct SubjectGroupDetailsCell: View {
                     Spacer().frame(width:20)
                     VStack(alignment:.leading,spacing: 2.5){
                         Text("End Time".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.timeTo ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm", FormatTo: "hh:mm aa"))

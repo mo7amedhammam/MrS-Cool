@@ -142,6 +142,8 @@ struct StudentCompletedLessonsView: View {
 //                                                completedlessonsvm.filterlesson = nil
 //                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
 //                                            }
+
+                                            completedlessonsvm.filterlesson = nil
                                             lookupsvm.SelectedBookedSubjectForList = newval
                                         }
                                     

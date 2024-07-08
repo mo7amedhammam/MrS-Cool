@@ -61,14 +61,15 @@ struct StudentHomeLessonCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
                            Text("\(lesson.availableTeacher ?? 0)  ")
-                                .font(Font.SoraSemiBold(size: 7))
+                                .font(Font.SoraSemiBold(size: 9))
                             + Text("Available Teachers".localized())
                         }
-                        .font(Font.SoraRegular(size: 7))
+                        .font(Font.SoraRegular(size: 9))
                         
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
-                        Spacer()
+//                        Spacer()
                     }
+                    .frame(maxWidth:.infinity,alignment: .leading)
                     
                     HStack{
                         Image("img_group_black_900")
@@ -78,14 +79,15 @@ struct StudentHomeLessonCell: View {
                         Group {
                             Text("Min Price :".localized())
                            + Text("\(lesson.minPrice ?? 0,specifier: "%.2f")")
-                                .font(Font.SoraSemiBold(size: 7))
+                                .font(Font.SoraSemiBold(size: 9))
                             + Text("EGP".localized())
                         }
-                        .font(Font.SoraRegular(size: 7))
+                        .font(Font.SoraRegular(size: 9))
                         
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
-                        Spacer()
+//                        Spacer()
                     }
+                    .frame(maxWidth:.infinity,alignment: .leading)
                     
                     HStack{
                         Image("img_group_black_900")
@@ -95,14 +97,15 @@ struct StudentHomeLessonCell: View {
                         Group {
                             Text("Max Price :".localized())
                             + Text("  \(lesson.maxPrice ?? 250,specifier: "%.2f") ")
-                                .font(Font.SoraSemiBold(size: 7))
+                                .font(Font.SoraSemiBold(size: 9))
                             + Text("EGP".localized())
                         }
-                        .font(Font.SoraRegular(size: 7))
+                        .font(Font.SoraRegular(size: 9))
                         
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
-                        Spacer()
+//                        Spacer()
                     }
+                    .frame(maxWidth:.infinity,alignment: .leading)
                     
                 }.padding(.horizontal)
             

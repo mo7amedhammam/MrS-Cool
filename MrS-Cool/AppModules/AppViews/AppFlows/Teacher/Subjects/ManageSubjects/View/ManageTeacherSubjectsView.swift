@@ -26,7 +26,7 @@ struct ManageTeacherSubjectsView: View {
     @State var filterSubject : DropDownOption?
     @State var filterSubjectStatus : DropDownOption?
     
-     func PassFilterValues() {
+     func PassFilterValues(){
         manageteachersubjectsvm.filterEducationType = filterEducationType
         manageteachersubjectsvm.filterEducationLevel = filterEducationLevel
         manageteachersubjectsvm.filterAcademicYear = filterAcademicYear
@@ -34,7 +34,7 @@ struct ManageTeacherSubjectsView: View {
         manageteachersubjectsvm.filterSubjectStatus = filterSubjectStatus
     }
     
-     func ClearFilterValues() {
+     func ClearFilterValues(){
         filterEducationType = nil
          lookupsvm.FilterSelectedEducationType = nil
         filterEducationLevel = nil
@@ -43,7 +43,7 @@ struct ManageTeacherSubjectsView: View {
         filterSubjectStatus = nil
     }
     
-    var body: some View {
+    var body: some View{
         VStack {
             CustomTitleBarView(title: "Manage my Subjects")
             
@@ -169,19 +169,19 @@ struct ManageTeacherSubjectsView: View {
                                         .foregroundColor(.yellow)
                                     Text("In Review".localized())
                                         .foregroundColor(.mainBlue)
-                                        .font(Font.SoraRegular(size: 7))
+                                        .font(Font.SoraRegular(size: 10))
                                     
                                     Rectangle().frame(width: 14, height: 14)
                                         .foregroundColor(.green)
                                     Text("Approved".localized())
                                         .foregroundColor(.mainBlue)
-                                        .font(Font.SoraRegular(size: 7))
+                                        .font(Font.SoraRegular(size: 10))
                                     
                                     Rectangle().frame(width: 14, height: 14)
                                         .foregroundColor(.red)
                                     Text("Rejected".localized())
                                         .foregroundColor(.mainBlue)
-                                        .font(Font.SoraRegular(size: 7))
+                                        .font(Font.SoraRegular(size: 10))
                                 }
                             }
                             .padding(.horizontal)

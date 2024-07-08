@@ -70,7 +70,7 @@ struct HomeSubjectDetailsView: View {
                                     Text(" \(details.lessonsCount ?? 0) ") +
                                     Text("Lessons".localized())))
                                 .foregroundColor(.mainBlue)
-                                .font(.SoraRegular(size: 10))
+                                .font(.SoraRegular(size: 12))
                                 
                                 Spacer()
                                 //                            Image("img_maskgroup62_clipped")
@@ -306,10 +306,10 @@ struct UnitListCell: View {
                                     Group {
                                         Text("Min Price :".localized())
                                         + Text("  \(lesson.minPrice ?? 0,specifier: "%.1f") ")
-                                            .font(Font.SoraSemiBold(size: 7))
+                                            .font(Font.SoraSemiBold(size: 9))
                                         + Text("EGP".localized())
                                     }
-                                    .font(Font.SoraRegular(size: 7))
+                                    .font(Font.SoraRegular(size: 9))
                                     
                                     .foregroundColor(.mainBlue)
                                     Spacer()
@@ -323,10 +323,10 @@ struct UnitListCell: View {
                                     Group {
                                         Text("Max Price :".localized())
                                         + Text("  \(lesson.maxPrice ?? 0,specifier: "%.1f") ")
-                                            .font(Font.SoraSemiBold(size: 7))
+                                            .font(Font.SoraSemiBold(size: 9))
                                         + Text("EGP".localized())
                                     }
-                                    .font(Font.SoraRegular(size: 7))
+                                    .font(Font.SoraRegular(size: 9))
                                     
                                     .foregroundColor(.mainBlue)
                                     Spacer()

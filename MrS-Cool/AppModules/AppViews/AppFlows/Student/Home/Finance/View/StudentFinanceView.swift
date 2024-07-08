@@ -23,15 +23,13 @@ struct StudentFinanceView: View {
                         .foregroundColor(ColorConstants.MainColor)
                 }
             }else{
-                
-                VStack (alignment: .leading){
-                    
+                VStack (alignment: .leading,spacing:0){
                     SignUpHeaderTitle(Title: "Finance", subTitle: "Enter subtitle here")
                         .frame(maxWidth:.infinity,alignment:.leading)
                         .foregroundStyle(Color.mainBlue)
                         .padding(.bottom)
                     
-                    VStack(){
+                    VStack(spacing:0){
                         HStack(spacing: 10){
                             Image("moneyicon")
                                 .resizable()
@@ -43,9 +41,9 @@ struct StudentFinanceView: View {
                                 .foregroundColor(.mainBlue)
                             Spacer()
                         }
-                        .padding(10)
+                        .padding([.top,.leading],10)
                         
-                        VStack(alignment:.trailing){
+                        VStack(alignment:.trailing,spacing:0){
                             Group{
                                 Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ") + Text("LE".localized())
                             }
@@ -58,10 +56,10 @@ struct StudentFinanceView: View {
                             .font(Font.SoraRegular(size: 12))
                             .foregroundColor(.mainBlue)
                             .padding(.trailing,-20)
+                            .padding(.bottom,5)
                         }
-                        Spacer()
+//                        Spacer()
                     }
-                    .frame(height:188)
                     .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
                     
                     GeometryReader { gr in
@@ -119,7 +117,10 @@ struct StudentFinanceView: View {
                             }
                         }
                         .frame(minHeight: gr.size.height)
+                        .padding(.top)
                     }
+                    .padding(.top,-15)
+
                 }
                 .padding()
                 //            .background{

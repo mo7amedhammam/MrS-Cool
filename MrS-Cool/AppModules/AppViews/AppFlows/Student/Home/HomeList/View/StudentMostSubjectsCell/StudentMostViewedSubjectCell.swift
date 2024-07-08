@@ -77,14 +77,15 @@ struct StudentMostViewedSubjectCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
                             Text("\(subject.teacherCount ?? 0)  ")
-                                .font(Font.SoraSemiBold(size: 7))
+                                .font(Font.SoraSemiBold(size: 9))
                             + Text("Available Teachers".localized())
                         }
-                        .font(Font.SoraRegular(size: 7))
+                        .font(Font.SoraRegular(size: 9))
                         
                         .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
-                        Spacer()
+//                        Spacer()
                     }
+                    .frame(maxWidth:.infinity,alignment: .leading)
 //                    Spacer()
                     HStack{
                         Image("img_group_512390")
@@ -93,15 +94,15 @@ struct StudentMostViewedSubjectCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         Group {
                             Text("\(subject.lessonsCount ?? 0)  ")
-                                .font(Font.SoraSemiBold(size: 7))
+                                .font(Font.SoraSemiBold(size: 9))
                             + Text("Lessons".localized())
                         }
-                        .font(Font.SoraRegular(size: 7))
+                        .font(Font.SoraRegular(size: 9))
                         
                         .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
-                        Spacer()
+//                        Spacer()
                     }
-                    
+                    .frame(maxWidth:.infinity,alignment: .leading)
                 }.padding(.horizontal)
             
             }

@@ -72,15 +72,15 @@ struct ManageSubjectCell: View {
             
             HStack (alignment:.bottom){
                 VStack (alignment:.leading,spacing: 10){
-                    Text(model.academicYearName ?? "Grade 1")
+                    Text(model.academicYearName ?? "")
                         .font(Font.SoraRegular(size: 12.0))
                         .foregroundColor(.mainBlue)
                     
-                        Text(model.educationLevelName ?? "Primary")
+                        Text(model.educationLevelName ?? "")
                             .font(Font.SoraRegular(size: 12.0))
                             .foregroundColor(ColorConstants.Bluegray402)
                         
-                        Text(model.educationTypeName ?? "Egyption")
+                        Text(model.educationTypeName ?? "")
                             .font(Font.SoraRegular(size: 12.0))
                             .foregroundColor(ColorConstants.Bluegray402)
                 }
@@ -92,7 +92,7 @@ struct ManageSubjectCell: View {
     //                    Spacer()
                                 
                         Text("Group Info".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
@@ -106,17 +106,16 @@ struct ManageSubjectCell: View {
                         .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)
                             Text("Student".localized())
-                        .font(Font.SoraRegular(size: 8))
+                        .font(Font.SoraRegular(size: 9))
                     .foregroundColor(.mainBlue)
 
                         }
-
                     }
                     
                     VStack(alignment:.leading){
     //                    Spacer()
                         Text("Individual Info".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.individualCost  ?? 0,specifier:"%.2f") ")+Text("EGP".localized())

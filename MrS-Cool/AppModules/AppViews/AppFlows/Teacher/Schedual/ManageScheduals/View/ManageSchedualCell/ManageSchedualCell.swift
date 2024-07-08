@@ -42,7 +42,7 @@ struct ManageSchedualCell: View {
     //                    Spacer()
                                 
                         Text("Start Date".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
 
                         Text("\(model.fromStartDate ?? "10 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
@@ -51,7 +51,7 @@ struct ManageSchedualCell: View {
                         Spacer().frame(height:3)
                         
                         Text("Start Time".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
 
                         Text("\(model.fromTime ?? "03:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))
@@ -78,7 +78,7 @@ struct ManageSchedualCell: View {
                     //                }
                     VStack(alignment:.leading,spacing: 2.5){
                         Text("End Date".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.toEndDate ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
@@ -88,7 +88,7 @@ struct ManageSchedualCell: View {
                         Spacer().frame(height:3)
 
                         Text("End Time".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.toTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))

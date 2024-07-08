@@ -131,7 +131,7 @@ struct SignUpHeaderTitle: View {
                 subTitleView
             }else{
                 Text(subTitle?.localized() ?? "")
-                    .font(Font.SoraRegular(size: 10.0))
+                    .font(Font.SoraRegular(size: 12))
                     .fontWeight(.regular)
                     .foregroundColor(ColorConstants.Black900)
                     .multilineTextAlignment(.leading)

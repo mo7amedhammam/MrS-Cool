@@ -58,7 +58,7 @@ struct CompletedLessonDetails: View {
                                     .font(Font.SoraBold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.SoraRegular(size: 13))
                                 
                                 Text("Lesson".localized())
                                     .font(Font.SoraSemiBold(size: 16))
@@ -70,7 +70,7 @@ struct CompletedLessonDetails: View {
                                     .font(Font.SoraSemiBold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.SoraRegular(size: 13))
                                 
                             }
                             .foregroundColor(.mainBlue)

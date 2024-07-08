@@ -616,7 +616,7 @@ struct TeacherCellView : View {
                 }
                 
                 Text(teacher.teacherBrief ?? "")
-                    .font(.SoraRegular(size: 7))
+                    .font(.SoraRegular(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
                 //                    .frame(minHeight: 20)

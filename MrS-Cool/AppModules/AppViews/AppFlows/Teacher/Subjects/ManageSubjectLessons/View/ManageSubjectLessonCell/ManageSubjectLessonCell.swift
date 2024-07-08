@@ -81,7 +81,7 @@ struct ManageSubjectLessonCell: View {
 //                            .foregroundColor(ColorConstants.Bluegray402)
                         
                     Text((model.teacherBrief == nil && model.teacherBriefEn == nil ) ? "Lesson brief not added".localized():"Lesson brief added".localized())
-                            .font(Font.SoraRegular(size: 7))
+                            .font(Font.SoraRegular(size: 9))
                             .foregroundColor((model.teacherBrief == nil && model.teacherBriefEn == nil ) ? ColorConstants.Red400:ColorConstants.LightGreen800)
                 }
                 .padding(.leading,30)
@@ -92,7 +92,7 @@ struct ManageSubjectLessonCell: View {
     //                    Spacer()
                                 
                         Text("Group Info".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.groupDuration?.formattedTime() ?? "00:00")")
@@ -107,7 +107,7 @@ struct ManageSubjectLessonCell: View {
                                 .font(Font.SoraRegular(size: 12))
                                 .foregroundColor(.mainBlue)
                             Text("Student".localized())
-                                .font(Font.SoraRegular(size: 8))
+                                .font(Font.SoraRegular(size: 9))
                                 .foregroundColor(.mainBlue)
                             
                         }
@@ -117,7 +117,7 @@ struct ManageSubjectLessonCell: View {
                     VStack(alignment:.leading){
     //                    Spacer()
                         Text("Individual Info".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.individualDuration?.formattedTime() ?? "00:00")")

@@ -73,7 +73,7 @@ struct ManageSubjectGroupCell: View {
                     
                     VStack(alignment:.leading,spacing: 2.5){
                         Text("Start Date".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.startDate ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
@@ -83,7 +83,7 @@ struct ManageSubjectGroupCell: View {
                         Spacer().frame(height:3)
                         
                         Text("End Date".localized())
-                            .font(Font.SoraSemiBold(size: 6))
+                            .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.endDate ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
