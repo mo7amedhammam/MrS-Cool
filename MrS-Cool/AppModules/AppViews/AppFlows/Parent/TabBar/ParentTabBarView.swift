@@ -356,6 +356,10 @@ struct ParentSideMenuContent: View {
         .background{
             Color.mainBlue
         }
+        .onDisappear(perform: {
+            selectedDestination = nil
+        })
+
     }
     
 }

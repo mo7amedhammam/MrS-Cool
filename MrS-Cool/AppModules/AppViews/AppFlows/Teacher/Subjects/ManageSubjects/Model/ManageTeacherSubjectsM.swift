@@ -32,6 +32,8 @@ struct ManageTeacherSubjectsM: Codable {
     var subjectDisplayName: String?
     var educationTypeID, educationLevelID, academicYearID: Int?
     var statusIDName, brief, teacherBrief, teacherBriefEn: String?
+    var groupCostFrom,groupCostTo,individualCostFrom,individualCostTo : Float?
+
 
     enum CodingKeys: String, CodingKey {
         case groupCost, individualCost, minGroup, maxGroup
@@ -42,5 +44,7 @@ struct ManageTeacherSubjectsM: Codable {
         case academicYearID = "academicYearId"
         case statusIDName = "statusIdName"
         case brief, teacherBrief, teacherBriefEn
+        case groupCostFrom,groupCostTo,individualCostFrom,individualCostTo
+
     }
 }

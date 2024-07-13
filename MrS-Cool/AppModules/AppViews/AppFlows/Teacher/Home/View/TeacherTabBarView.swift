@@ -365,6 +365,10 @@ struct TeacherSideMenuContent: View {
             .background{
                 Color.mainBlue
         }
+            .onDisappear(perform: {
+                selectedDestination = nil
+            })
+
     }
     
 }

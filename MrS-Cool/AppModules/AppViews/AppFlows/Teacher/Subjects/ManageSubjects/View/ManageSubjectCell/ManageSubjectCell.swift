@@ -132,6 +132,7 @@ struct ManageSubjectCell: View {
                     lineWidth: 1))
         .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
             .fill(ColorConstants.WhiteA700))
+        .frame(height: 160)
     }
 }
 

@@ -60,7 +60,8 @@ class ManageTeacherSubjectsVM: ObservableObject {
         }
     }
     @Published var isgroupCostvalid:Bool?
-    @Published var recommendedgroupCost : String = ""
+//    @Published var recommendedgroupCostFrom : Float?
+//    @Published var recommendedgroupCostTo : Float?
 
     @Published var individualCost : String = ""{
         didSet{
@@ -68,8 +69,9 @@ class ManageTeacherSubjectsVM: ObservableObject {
         }
     }
     @Published var isindividualCostvalid:Bool?
-    @Published var recommendedindividualCost : String = ""
-    
+//    @Published var recommendedindividualCostFrom : Float?
+//    @Published var recommendedindividualCostTo : Float?
+
     @Published var minGroup : String = ""{
         didSet{
             isminGroupvalid = (minGroup.isEmpty || minGroup == "") ? false:true
@@ -346,7 +348,7 @@ extension ManageTeacherSubjectsVM{
         educationType = .init(id: item.educationTypeID,Title: item.educationTypeName)
         educationLevel = .init(id: item.educationLevelID,Title: item.educationLevelName)
         academicYear = .init(id: item.academicYearID,Title: item.academicYearName)
-        subject = .init(id: item.subjectSemesterYearID,Title: item.subjectSemesterYearName)
+        subject = .init(id: item.subjectSemesterYearID,Title: item.subjectSemesterYearName,subject: SubjectsByAcademicLevelM.init(individualCostFrom:item.individualCostFrom, individualCostTo:item.individualCostTo, groupCostFrom:item.groupCostFrom, groupCostTo: item.groupCostTo))
         if let min = item.minGroup{
             minGroup = String(min)
         }

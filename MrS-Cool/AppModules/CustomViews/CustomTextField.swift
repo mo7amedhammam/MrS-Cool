@@ -325,7 +325,12 @@ struct CustomDropDownField: View {
             }
         }
         .disabled(Disabled ?? false)
-
+        .onChange(of: isdimmed){newval in
+            if newval == true{
+                isMenuVisible = false
+            }
+        }
+        
         //        }
         //        .menuStyle(BorderlessButtonMenuStyle()) // Use BorderlessButtonMenuStyle for a clean appearance
         

@@ -242,17 +242,17 @@ struct ManageTeacherSubjectsView: View {
             .onChange(of: manageteachersubjectsvm.academicYear, perform: { value in
                 lookupsvm.SelectedAcademicYear = value
             })
-            .onChange(of: manageteachersubjectsvm.subject, perform: { value in
-                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
-                    print("lookupsvm.SubjectsList",lookupsvm.SubjectsList)
-                    if let subject = value,
-                       let matchingSubject = lookupsvm.SubjectsList.first(where: { $0.id == subject.id }) {
-                        // Perform your action with matchingSubject
-                        print("Matching subject: \(matchingSubject)")
-                        manageteachersubjectsvm.subject = matchingSubject
-                    }
-                })
-            })
+//            .onChange(of: manageteachersubjectsvm.subject, perform: { value in
+//                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: {
+//                    print("lookupsvm.SubjectsList",lookupsvm.SubjectsList)
+//                    if let subject = value,
+//                       let matchingSubject = lookupsvm.SubjectsList.first(where: { $0.id == subject.id }) {
+//                        // Perform your action with matchingSubject
+//                        print("Matching subject: \(matchingSubject)")
+//                        manageteachersubjectsvm.subject = matchingSubject
+//                    }
+//                })
+//            })
 //            .onChange(of: manageteachersubjectsvm.subject){ newValue in
 //                if let subject = newValue {
 //                    // Check if lookupsvm.SubjectsList contains the subject with the same ID
