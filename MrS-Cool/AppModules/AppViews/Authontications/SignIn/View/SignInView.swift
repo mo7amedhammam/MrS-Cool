@@ -143,18 +143,19 @@ struct SignInView: View {
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
         .navigationViewStyle(StackNavigationViewStyle()) // Disable swipe back gesture
 
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
             .onDisappear{
                 teachersigninvm.cleanup()
             }
             .onChange(of: teachersigninvm.isLogedin) { newval in
                 switch selectedUser.user {
                 case .Student:
-                    destination = AnyView(StudentTabBarView())
-                    
+//                    destination = AnyView(StudentTabBarView())
+                    Helper.shared.changeRoot(toView: StudentTabBarView())
+
                 case .Parent:
-                    destination = AnyView(ParentTabBarView())
-                    
+//                    destination = AnyView(ParentTabBarView())
+                        Helper.shared.changeRoot(toView: ParentTabBarView())
                 case .Teacher:
                     switch teachersigninvm.teachermodel?.profileStatusID {
                     case 1:
@@ -164,20 +165,24 @@ struct SignInView: View {
 //                            .environmentObject(TeacherSubjectsVM())
 //                            .environmentObject(TeacherDocumentsVM())
                         ) // subject info
-                        
+                        isPush = newval
+
                     case 2:
-                    destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .documentsData)
+                        destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .documentsData)
 //                            .environmentObject(LookUpsVM())
 //                            .environmentObject(SignUpViewModel())
 ////                            .environmentObject(TeacherSubjectsVM())f
 //                            .environmentObject(TeacherDocumentsVM())
                         ) // document info
-                        
+                        isPush = newval
+
                     default: // 3
-                        destination = AnyView(TeacherTabBarView())
+//                        destination = AnyView(TeacherTabBarView())
+                        Helper.shared.changeRoot(toView: TeacherTabBarView())
+
                     }
                 }
-                isPush = newval
+//                isPush = newval
             }
             .gesture(
                 DragGesture().onChanged { _ in

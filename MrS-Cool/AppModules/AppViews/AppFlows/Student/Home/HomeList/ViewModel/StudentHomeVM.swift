@@ -117,7 +117,7 @@ extension StudentHomeVM{
                     print("receivedData",receivedData)
                     if receivedData.success == true {
                         //                    TeacherSubjects?.append(model)
-                        StudentSubjectsM = receivedData.data
+                            StudentSubjectsM = receivedData.data
                     }else{
                         //                    isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

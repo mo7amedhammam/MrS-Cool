@@ -139,6 +139,15 @@ extension String {
               return urlTest.evaluate(with: self)
 
     }
+    /// Removes the last character if it is a comma
+    func removingTrailingComma() -> String {
+        let trimmedString = self.trimmingCharacters(in: .whitespaces)
+        if trimmedString.hasSuffix(",") {
+            return String(trimmedString.dropLast())
+        } else {
+            return trimmedString
+        }
+    }
 
 }
 

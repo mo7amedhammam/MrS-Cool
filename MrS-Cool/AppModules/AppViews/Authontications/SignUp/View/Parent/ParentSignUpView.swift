@@ -39,8 +39,8 @@ struct ParentSignUpView: View {
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Email *", text: $signupvm.email,textContentType:.emailAddress,keyboardType:.emailAddress,isvalid: signupvm.isemailvalid)
 
-                            let twelveYearsAgo = Calendar.current.date(byAdding: .year, value: -12, to: Date()) ?? Date()
-                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr,endDate: twelveYearsAgo)
+                            let endDate = Calendar.current.date(byAdding: .year, value: -18, to: Date()) ?? Date()
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr,endDate: endDate)
                             
                             CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.country,options:lookupsvm.CountriesList)
                                 .onChange(of: signupvm.country, perform: { value in

@@ -114,13 +114,12 @@ struct AnonymousHomeView: View {
                                     
                                     SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
                                         ZStack{
-//                                            if studenthomevm.term != nil && studenthomevm.academicYear != nil{
-                                                let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")"
+
+                                            let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")".removingTrailingComma()
                                                 
                                                 Text(searchselections)
                                                     .font(Font.SoraRegular(size: 10.0))
                                                     .foregroundColor(ColorConstants.Red400)
-//                                            }
                                         }
                                     ))
                                     
@@ -129,8 +128,17 @@ struct AnonymousHomeView: View {
                                 
 
                                 if studenthomevm.StudentSubjects == []{
-                                    ProgressView()
-                                        .frame(width: gr.size.width/2.7, height: 160)
+//                                    ProgressView()
+//                                        .frame(width: gr.size.width/2.7, height: 160)
+                                    Image(.emptySubjects)
+                                        .frame(width: 100,height: 100)
+                                        .padding()
+        //                                .resizable()
+        //                                .aspectRatio(contentMode: .fit)
+                                    Text("No available subjects yet".localized())
+                                        .font(Font.SoraRegular(size: 15))
+                                        .foregroundColor(ColorConstants.Bluegray400)
+
                                 }else{
                                     LazyVGrid(columns: [.init(), .init(),.init()]) {
                                         

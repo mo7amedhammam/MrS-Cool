@@ -107,6 +107,7 @@ struct StudentCompletedLessonsView: View {
         .onDisappear {
             showFilter = false
             showRating = false
+            completedlessonsvm.clearFilter()
         }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)

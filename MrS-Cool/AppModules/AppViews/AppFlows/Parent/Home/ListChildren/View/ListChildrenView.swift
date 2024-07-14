@@ -113,13 +113,16 @@ struct ListChildrenView: View {
             .onAppear(perform: {
 //                listchildrenvm.selectedChild = nil
                 listchildrenvm.GetMyChildren()
+                
+                guard Helper.shared.selectedchild != nil else {return}
+                listchildrenvm.selectedChild = Helper.shared.selectedchild
+                destination = AnyView(
+                    SelectedStudentHome()
+                        .environmentObject(listchildrenvm)
+                        .environmentObject(tabbarvm)
+                )
+                isPush = true
             })
-            
-            //        .onChange(of: listchildrenvm.isError, perform: { value in
-            //            tabbarvm.error = listchildrenvm.error
-            //            tabbarvm.isError = value
-            //        })
-
             .onChange(of: listchildrenvm.selectedChild, perform: { value in
                 guard value != nil else {return}
                 Helper.shared.selectedchild = value

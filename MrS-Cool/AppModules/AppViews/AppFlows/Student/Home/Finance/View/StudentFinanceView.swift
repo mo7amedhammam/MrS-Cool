@@ -123,10 +123,17 @@ struct StudentFinanceView: View {
 
                 }
                 .padding()
-                //            .background{
-                //                ColorConstants.ParentDisableBg
-                //                    .ignoresSafeArea()
-                //            }
+                .onAppear(perform: {
+                    guard selectedChild != nil else{return}
+                    financevm.subjectsSkipCount=0
+                    financevm.lessonsSkipCount=0
+                    financevm.PurchasedSubjects = nil
+                    financevm.PurchasedLessons = nil
+
+                    financevm.GetFinance()
+                    financevm.GetPurchasedFor(financese: .Lessons)
+                    financevm.GetPurchasedFor(financese: .Subjects)
+                })
                 
                 Spacer()
             }
@@ -135,15 +142,10 @@ struct StudentFinanceView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-        .onAppear(perform: {
-            financevm.GetFinance()
-            financevm.GetPurchasedFor(financese: .Lessons)
-            financevm.GetPurchasedFor(financese: .Subjects)
-        })
+
         .showHud(isShowing: $financevm.isLoading)
         .showAlert(hasAlert: $financevm.isError, alertType: financevm.error)
         
-//        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
 

@@ -59,12 +59,23 @@ struct SubjectTeachersListView: View {
         teacherName = ""
         homesubjectteachersvm.clearFilter()
     }
-    private func checkPrices() {
+    fileprivate func initFilter() {
+        rate = homesubjectteachersvm.rate
+        priceFrom = homesubjectteachersvm.priceFrom
+        priceTo = homesubjectteachersvm.priceTo
+        genderId = homesubjectteachersvm.genderId
+        genderCase = homesubjectteachersvm.genderCase
+        teacherName = homesubjectteachersvm.teacherName
+    }
+    private func checkPrices()->Bool {
            if let from = Double(priceFrom), let to = Double(priceTo) {
                showPriceHint = to < from
+               return to < from
            } else {
                showPriceHint = false
+               return false
            }
+        
        }
     
     var body: some View {
@@ -119,6 +130,7 @@ struct SubjectTeachersListView: View {
                             
                             HStack(){
                                 Button(action: {
+                                    sortCase = homesubjectteachersvm.sortCase
                                     showSort = true
                                 }, label: {
                                     HStack(spacing:0){
@@ -138,6 +150,7 @@ struct SubjectTeachersListView: View {
                                     .foregroundColor(ColorConstants.MainColor)
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
+                                        initFilter()
                                         showFilter = true
                                     })
                             }
@@ -295,18 +308,18 @@ struct SubjectTeachersListView: View {
                                         if isPriceVisible{
                                             HStack{
                                                 CustomTextField(iconName:"",placeholder: "Price From", text: $priceFrom,keyboardType: .decimalPad)
-                                                    .onChange(of: priceFrom) { newValue in
-                                                        priceFrom = newValue.filter { $0.isEnglish }
-                                                        checkPrices()
-                                                    }
+//                                                    .onChange(of: priceFrom) { newValue in
+//                                                        priceFrom = newValue.filter { $0.isEnglish }
+//                                                        checkPrices()
+//                                                    }
                                                 
                                                 CustomTextField(iconName:"",placeholder: "Price To", text: $priceTo,keyboardType: .decimalPad)
-                                                    .onChange(of: priceTo) { newValue in
-                                                        priceTo = newValue.filter { $0.isEnglish }
-                                                        checkPrices()
-                                                    }
+//                                                    .onChange(of: priceTo) { newValue in
+//                                                        priceTo = newValue.filter { $0.isEnglish }
+//                                                        checkPrices()
+//                                                    }
                                             }
-                                            if showPriceHint {
+                                            if showPriceHint{
                                                 Text("The price to should be greater than or equal the price from".localized())
                                                     .font(.SoraRegular(size: 12))
                                                     .foregroundColor(ColorConstants.Red400)
@@ -418,15 +431,16 @@ struct SubjectTeachersListView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            guard !checkPrices() else {return}
                                                 homesubjectteachersvm.rate = rate
                                                 homesubjectteachersvm.priceFrom = priceFrom
                                             
-                                            homesubjectteachersvm.priceTo = priceTo
+                                                homesubjectteachersvm.priceTo = priceTo
                                                 homesubjectteachersvm.genderId = genderId
                                                 homesubjectteachersvm.teacherName = teacherName
-                                            homesubjectteachersvm.skipCount = 0
-                                            homesubjectteachersvm .GetStudentSubjectTeachers()
-                                            showFilter = false
+                                                homesubjectteachersvm.skipCount = 0
+                                                homesubjectteachersvm .GetStudentSubjectTeachers()
+                                                showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {

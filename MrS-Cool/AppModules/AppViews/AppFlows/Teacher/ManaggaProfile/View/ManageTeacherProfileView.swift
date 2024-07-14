@@ -116,7 +116,10 @@ struct ManageTeacherProfileView: View {
                                 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $manageprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid:manageprofilevm.isemailvalid)
                                 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,isvalid:manageprofilevm.isbirthDateStrvalid)
+                                
+                                let endDate = Calendar.current.date(byAdding: .year, value: -18, to: Date()) ?? Date()
+
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,endDate: endDate,isvalid:manageprofilevm.isbirthDateStrvalid)
                                 
                                 CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $manageprofilevm.bio,charLimit: 1000)
                             }
