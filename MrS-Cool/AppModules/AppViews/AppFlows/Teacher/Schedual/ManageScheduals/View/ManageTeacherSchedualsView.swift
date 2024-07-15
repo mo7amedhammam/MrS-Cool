@@ -22,6 +22,23 @@ struct ManageTeacherSchedualsView: View {
     var selectedSubject:TeacherSubjectM?
     @ObservedObject private var keyboard = KeyboardResponder()
 
+   @State var isStartDateBeforeEndDate = true
+    private func handleStartEndDate(startDate: String?, endDate: String?) ->Bool {
+//           if isStartDate {
+               guard let startdate = startDate?.toDate(withFormat: "dd MMM yyyy"),
+                     let enddate = endDate?.toDate(withFormat: "dd MMM yyyy") else {
+                   return true
+               }
+               return startdate <= enddate
+//           } else {
+//               guard let ,
+//                     let startDate = viewModel.startDate?.toDate(withFormat: "dd MMM yyyy") else {
+//                   return
+//               }
+//               isStartDateBeforeEndDate = startDate <= newEndDate
+//           }
+       }
+//   }
     var body: some View {
             VStack {
                 CustomTitleBarView(title: "Manage my Schedules")
@@ -42,11 +59,23 @@ struct ManageTeacherSchedualsView: View {
                                         
                                         CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.startDate,startDate:Date(),endDate:manageteacherschedualsvm.endDate?.toDate(withFormat:"dd MMM yyyy hh:mm:ss") ?? nil,datePickerComponent:.date,isvalid:manageteacherschedualsvm.isstartDatevalid)
                                             .onChange(of: manageteacherschedualsvm.startDate){newval in
-                                            // check if start date is greater that end date and show hint
+                                                guard newval != nil && manageteacherschedualsvm.endDate != nil else {return}
+                                                isStartDateBeforeEndDate = handleStartEndDate(startDate:newval, endDate: manageteacherschedualsvm.endDate)
+
                                             }
-                                        
+                                        if !isStartDateBeforeEndDate{
+                                            Text("End date must be greater than start date".localized())
+                                                .foregroundColor(ColorConstants.Red400)
+                                                .font(Font.SoraRegular(size: 10))
+                                                .animation(.default)
+                                        }
 
                                         CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$manageteacherschedualsvm.endDate,startDate:manageteacherschedualsvm.startDate?.toDate(withFormat:"dd MMM yyyy") ?? Date(),endDate:manageteacherschedualsvm.endDate?.toDate(withFormat:"dd MMM yyyy hh:mm:ss") ?? nil ,datePickerComponent:.date,Disabled:manageteacherschedualsvm.startDate == nil,isvalid:manageteacherschedualsvm.isendDatevalid)
+                                            .onChange(of: manageteacherschedualsvm.endDate){newval in
+                                            guard newval != nil && manageteacherschedualsvm.startDate != nil else {return}
+                                                isStartDateBeforeEndDate = handleStartEndDate(startDate: manageteacherschedualsvm.startDate, endDate: newval)
+
+                                        }
                                         
                                         CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
                                         
@@ -58,6 +87,7 @@ struct ManageTeacherSchedualsView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
+                                            guard handleStartEndDate(startDate: manageteacherschedualsvm.startDate, endDate: manageteacherschedualsvm.endDate) else {return}
                                             manageteacherschedualsvm.CreateTeacherSchedual()
                                         })
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
