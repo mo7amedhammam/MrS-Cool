@@ -530,6 +530,7 @@ struct CustomDatePickerField: View {
                     selection: Binding(
                         get: { selectedDate ?? Date() },
                         set: { newDate in
+                            print("newDate",newDate)
                             selectedDate = newDate
                             updateSelectedDateStr(with: newDate)
                         }
@@ -545,6 +546,7 @@ struct CustomDatePickerField: View {
 //                    print("selectedDate",selectedDate)
 //                    print("selectedDateStr",selectedDateStr)
 //                    print("startDate",startDate)
+//                    print("endDate",endDate)
                     // Ensure selectedDateStr is initialized correctly on appear
                     if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
                         selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
@@ -557,16 +559,25 @@ struct CustomDatePickerField: View {
 //                        selectedDate = startdate
 
                         selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-                    }else{
+                    }
+                    else{
                     
                       if let startdate = startDate,let seldate = selectedDate, startdate > seldate{
-//                          selectedDate = startdate
+                          selectedDate = startdate
                         selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
                       }else{
                           
                       }
                 
                     }
+
+                }
+                .onDisappear{
+                    print("selectedDate",selectedDate)
+//                    print("selectedDateStr",selectedDateStr)
+                    print("startDate",startDate)
+                    print("endDate",endDate)
+
                 }
             }
         }

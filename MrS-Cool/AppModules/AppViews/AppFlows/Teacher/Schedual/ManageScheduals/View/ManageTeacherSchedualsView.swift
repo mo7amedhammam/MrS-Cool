@@ -40,10 +40,13 @@ struct ManageTeacherSchedualsView: View {
                                         CustomDropDownField(iconName:"img_vector",placeholder: "Day *", selectedOption: $manageteacherschedualsvm.day,options:lookupsvm.daysList,isvalid:manageteacherschedualsvm.isdayvalid)
                                         
                                         
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.startDate,startDate:Date(),endDate:manageteacherschedualsvm.endDate?.toDate(withFormat:"dd MMM yyyy") ?? nil,datePickerComponent:.date,isvalid:manageteacherschedualsvm.isstartDatevalid)
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$manageteacherschedualsvm.startDate,startDate:Date(),endDate:manageteacherschedualsvm.endDate?.toDate(withFormat:"dd MMM yyyy hh:mm:ss") ?? nil,datePickerComponent:.date,isvalid:manageteacherschedualsvm.isstartDatevalid)
+                                            .onChange(of: manageteacherschedualsvm.startDate){newval in
+                                            // check if start date is greater that end date and show hint
+                                            }
                                         
 
-                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$manageteacherschedualsvm.endDate,startDate:manageteacherschedualsvm.startDate?.toDate(withFormat:"dd MMM yyyy") ?? Date(),datePickerComponent:.date,Disabled:manageteacherschedualsvm.startDate == nil,isvalid:manageteacherschedualsvm.isendDatevalid)
+                                        CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$manageteacherschedualsvm.endDate,startDate:manageteacherschedualsvm.startDate?.toDate(withFormat:"dd MMM yyyy") ?? Date(),endDate:manageteacherschedualsvm.endDate?.toDate(withFormat:"dd MMM yyyy hh:mm:ss") ?? nil ,datePickerComponent:.date,Disabled:manageteacherschedualsvm.startDate == nil,isvalid:manageteacherschedualsvm.isendDatevalid)
                                         
                                         CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
                                         

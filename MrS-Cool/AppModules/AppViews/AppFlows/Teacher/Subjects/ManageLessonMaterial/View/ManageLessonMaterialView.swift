@@ -166,8 +166,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                         .multilineTextAlignment(.center)
                                                                         .padding(.top)
                                                                 }
-                                                                
-                                                                if !(managelessonmaterialvm.isdocumentFilevalid ?? true){
+                                                                if managelessonmaterialvm.materialImg != nil || managelessonmaterialvm.materialPdf != nil && !(managelessonmaterialvm.isdocumentFilevalid ?? true){
                                                                     Text("File or image not selected".localized())
                                                                         .lineSpacing(4)
                                                                         .frame(minWidth: 0,maxWidth: .infinity)
@@ -177,7 +176,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                         .padding(.top)
                                                                 }
                                                                 
-                                                                CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(managelessonmaterialvm.ismaterialUrlvalid ?? false)){
+                                                                CustomButton(imageName:"img_group_512394",Title: "Choose Files",IsDisabled: .constant(managelessonmaterialvm.materialUrl.count > 0)){
                                                                     hideKeyboard()
                                                                     isSheetPresented = true
                                                                 }

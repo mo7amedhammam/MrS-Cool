@@ -134,9 +134,19 @@ extension String {
 //        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
 //        return predicate.evaluate(with: self)
          
-         let urlRegEx = "(https://)(www\\.)?([-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{2,6}\\b)([-a-zA-Z0-9()@:%_+.~#?&/=]*)"
-              let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-              return urlTest.evaluate(with: self)
+//         let urlRegEx = "(https://)(www\\.)?([-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{2,6}\\b)([-a-zA-Z0-9()@:%_+.~#?&/=]*)"
+//         let urlRegEx = "(https://)(www\\.)?([-a-zA-Z0-9@:%._+~#=]{1,256}\\.[a-zA-Z0-9()]{2,6}\\b)([-a-zA-Z0-9()@:%_+.~#?&/=\\\\]*)(\\.pdf|\\.docx|\\.jpg|\\.png|\\.jpeg)$"
+//              let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+//              return urlTest.evaluate(with: self)
+         
+         let regexPattern = #"^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$"#
+
+         let urlRegex = try! NSRegularExpression(pattern: regexPattern, options: [])
+//         let urlString = "https://google.com" // Replace with your URL string
+
+         let range = NSRange(location: 0, length: self.utf16.count)
+         return urlRegex.firstMatch(in: self, options: [], range: range) != nil
+
 
     }
     /// Removes the last character if it is a comma
