@@ -8,6 +8,27 @@
 import Foundation
 import UIKit
 
+enum SupportedLocale: String {
+    case current
+    case english = "en_US"
+    case arabic = "ar_EG"
+//    case french = "fr_FR"
+//    case german = "de_DE"
+//    case spanish = "es_ES"
+    // Add more cases as needed
+
+    var locale: Locale {
+        switch self {
+        case .current:
+            return Locale.current
+
+         default:
+            return Locale(identifier: self.rawValue)
+
+        }
+    }
+}
+
 extension String {
     func removingSpaces() -> String {
         return self.replacingOccurrences(of: " ", with: "")
@@ -57,19 +78,45 @@ extension String {
         }
     }
     
-    func ChangeDateFormat( FormatFrom:String, FormatTo:String, local:String? = "en" ) -> String {
-        var newdate = ""
+//    func ChangeDateFormat( FormatFrom:String, FormatTo:String, local:Locale? = .current,timeZone:TimeZone? = .current) -> String {
+//        var newdate = ""
+//        let formatter = DateFormatter()
+////        formatter.locale = Locale(identifier: local ?? "en_US")
+////        formatter.timeZone = TimeZone(identifier: "GMT")
+//        formatter.locale = local ?? .current
+//        formatter.timeZone = timeZone ?? .current
+//        formatter.dateFormat = FormatFrom
+//        if let date = formatter.date(from: self) {
+//            formatter.dateFormat = FormatTo
+//            newdate = formatter.string(from: date)
+//        }
+//        return newdate
+//    }
+    
+    func ChangeDateFormat(FormatFrom: String, FormatTo: String, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english:.arabic,outputLocal: SupportedLocale? = .current, inputTimeZone: TimeZone? = .current, outputTimeZone: TimeZone? = .current) -> String {
         let formatter = DateFormatter()
-//        formatter.locale = Locale(identifier: local ?? "ar")
-//        formatter.timeZone = TimeZone(identifier: "GMT")
-        formatter.timeZone = .current
+        formatter.locale = inputLocal?.locale ?? .current
+        formatter.timeZone = inputTimeZone ?? .current
         formatter.dateFormat = FormatFrom
-        if let date = formatter.date(from: self) {
-            formatter.dateFormat = FormatTo
-            newdate = formatter.string(from: date)
+        
+//        print("Original String: \(self)")
+//        print("Formatter Locale: \(formatter.locale?.identifier ?? "nil")")
+//        print("Formatter TimeZone: \(formatter.timeZone?.identifier ?? "nil")")
+        
+        guard let date = formatter.date(from: self) else {
+            print("Failed to parse date")
+            return self
         }
-        return newdate
+        
+        formatter.locale = outputLocal?.locale ?? SupportedLocale.english.locale
+        formatter.timeZone = outputTimeZone ?? .current
+        formatter.dateFormat = FormatTo
+        let newDate = formatter.string(from: date)
+//        print("Formatted Date: \(newDate)")
+        return newDate
     }
+    
+    
     func toDate(withFormat format: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format

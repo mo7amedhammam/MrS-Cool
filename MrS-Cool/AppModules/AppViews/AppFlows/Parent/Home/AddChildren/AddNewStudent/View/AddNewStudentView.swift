@@ -74,7 +74,7 @@ struct AddNewStudentView: View {
                             Group {
                                 CustomTextField(iconName:"img_group51",placeholder: "Student Name *", text: $addnewstudentvm.name,textContentType:.name,isvalid: addnewstudentvm.isnamevalid)
                                 
-                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $addnewstudentvm.phone,textContentType:.telephoneNumber,keyboardType:.numberPad,isvalid: addnewstudentvm.isphonevalid)
+                                CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $addnewstudentvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad,isvalid: addnewstudentvm.isphonevalid)
                                     .onChange(of: addnewstudentvm.phone) { newValue in
                                         if newValue.count > 11 {
                                             addnewstudentvm.phone = String(newValue.prefix(11))

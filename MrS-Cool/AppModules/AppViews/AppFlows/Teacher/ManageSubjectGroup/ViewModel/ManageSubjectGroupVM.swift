@@ -84,10 +84,10 @@ extension ManageSubjectGroupVM{
             parameters["groupName"] = filtergroupName
         }
         
-        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
+        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
             parameters["startDate"] = filterstartdate
         }
-        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"){
+        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
             parameters["endDate"] = filterenddate
         }
         
@@ -129,7 +129,7 @@ extension ManageSubjectGroupVM{
         let parameters:[String:Any] = [ "teacherSubjectAcademicSemesterYearId":subjectid,
                                         "teacherSubjectAcademicSemesterYearName":subjectname,
                                         "groupName":groupName,
-                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
+                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
                                         "scheduleSlots":CreateSchedualSlotsArr]
         print("parameters",parameters)
         let target = teacherServices.ReviewMySubjectGroup(parameters: parameters)

@@ -572,13 +572,13 @@ struct CustomDatePickerField: View {
                     }
 
                 }
-                .onDisappear{
-                    print("selectedDate",selectedDate)
-//                    print("selectedDateStr",selectedDateStr)
-                    print("startDate",startDate)
-                    print("endDate",endDate)
-
-                }
+//                .onDisappear{
+//                    print("selectedDate",selectedDate)
+////                    print("selectedDateStr",selectedDateStr)
+//                    print("startDate",startDate)
+//                    print("endDate",endDate)
+//
+//                }
             }
         }
         .disabled(Disabled == true ? true:false)

@@ -124,7 +124,7 @@ struct StudentFinanceView: View {
                 }
                 .padding()
                 .onAppear(perform: {
-                    guard selectedChild != nil else{return}
+                    guard selectedChild != nil || Helper.shared.getSelectedUserType() == .Student else{return}
                     financevm.subjectsSkipCount=0
                     financevm.lessonsSkipCount=0
                     financevm.PurchasedSubjects = nil

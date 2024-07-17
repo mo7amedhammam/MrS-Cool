@@ -23,7 +23,10 @@ struct OTPVerificationView: View {
 
     var body: some View {
         VStack(spacing:0) {
-            CustomTitleBarView(title: "Phone Verification")
+            CustomTitleBarView(title: "Phone Verification"){
+                isVerified = false
+                dismiss()
+            }
             GeometryReader{gr in
                 ScrollView(.vertical){
                     VStack{

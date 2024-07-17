@@ -78,10 +78,10 @@ extension ManageTeacherSchedualsVM{
         guard checkValidfields() else {return}
         guard let dayId = day?.id,let startDate = startDate,let endDate = endDate,let startTime = startTime ,let endTime = endTime else {return}
         let parameters:[String:Any] = ["dayId":dayId,
-                                       "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
-                                       "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),
-                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm"),
-                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm")]
+                                       "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
+                                       "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
+                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
+                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT"))]
         
         print("parameters",parameters)
         let target = teacherServices.CreateMyNewSchedual(parameters: parameters)
@@ -120,10 +120,11 @@ extension ManageTeacherSchedualsVM{
         if let filterDay = filterDay,isFiltering{
             parameters["dayId"] = filterDay.id
         }
-        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),isFiltering{
+        
+        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),isFiltering{
             parameters["fromStartDate"] = filterStartDate
         }
-        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss"),isFiltering{
+        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),isFiltering{
             parameters["toEndDate"] = filterEndDate
         }
         print("parameters",parameters)

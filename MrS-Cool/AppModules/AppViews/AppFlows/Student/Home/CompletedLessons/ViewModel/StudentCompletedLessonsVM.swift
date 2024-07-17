@@ -55,7 +55,7 @@ extension StudentCompletedLessonsVM{
         if filtergroupName.count > 0, isFiltering{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS"), isFiltering{
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")), isFiltering{
             parameters["lessonDate"] = filterdate
         }
         if Helper.shared.getSelectedUserType() == .Parent {
