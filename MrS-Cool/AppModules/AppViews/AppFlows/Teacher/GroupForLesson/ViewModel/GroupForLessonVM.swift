@@ -208,10 +208,13 @@ extension GroupForLessonVM{
         groupName = ""
     }
     func clearFilter(){
+        guard filtersubject != nil || filterlesson != nil || filterdate != nil || filtergroupName != "" else {return}
         filtersubject = nil
         filterlesson = nil
         filterdate = nil
         filtergroupName = ""
+        GetTeacherGroups()
+        
     }
     //    func selectSubjectForEdit(item:TeacherSubjectM){
     //        isEditing = false

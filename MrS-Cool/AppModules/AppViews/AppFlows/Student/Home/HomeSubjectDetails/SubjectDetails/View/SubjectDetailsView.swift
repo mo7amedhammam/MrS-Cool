@@ -25,7 +25,7 @@ struct SubjectDetailsView: View {
     
     @State private var currentPage = 0
     @State private var forwards = false
-//    let images = ["tab0", "tab1", "tab2", "tab3"] // Replace with your image names
+    //    let images = ["tab0", "tab1", "tab2", "tab3"] // Replace with your image names
     
     var body: some View {
         VStack {
@@ -35,19 +35,19 @@ struct SubjectDetailsView: View {
                 
                 if let details = subjectdetailsvm.subjectDetails{
                     HStack {
-//                        AsyncImage(url: URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? "")  )){image in
-//                            image
-//                                .resizable()
-//                        }placeholder: {
-//                            Image("img_younghappysmi")
-//                                .resizable()
-//                        }
+                        //                        AsyncImage(url: URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? "")  )){image in
+                        //                            image
+                        //                                .resizable()
+                        //                        }placeholder: {
+                        //                            Image("img_younghappysmi")
+                        //                                .resizable()
+                        //                        }
                         let imageURL : URL? = URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60,height: 60)
-                        .clipShape(Circle())
+                        
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 60,height: 60)
+                            .clipShape(Circle())
                         
                         VStack{
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
@@ -102,78 +102,53 @@ struct SubjectDetailsView: View {
                                 })
                                 
                                 if details.SubjectGroups != [] , let slot = details.SubjectGroups?[currentPage]{
-
-                                HStack {
-                                    Button(action: {
-                                        forwards = true
-                                        withAnimation {
-                                            currentPage = min(currentPage + 1, (details.SubjectGroups?.count ?? 0) - 1)
-                                        }
-                                    }) {
-                                        Image(currentPage >= 0 && currentPage < (details.SubjectGroups?.count ?? 0) - 1 ? "nextfill":"nextempty")
-                                            .resizable()
-                                            .frame(width:30,height:30)
-                                    }
-                                    .padding()
-                                    .buttonStyle(.plain)
                                     
-                                    Spacer()
-                                    
-                                    let isselected = subjectdetailsvm.selectedSubjectId == details.SubjectGroups?[currentPage].teacherLessonSessionID
-                                    
-                                    VStack(alignment:.leading){
-                                        HStack {
-                                            ZStack{
-                                                Image("circleempty")
-                                                Image("img_line1")
-                                                    .renderingMode(.template)
-                                                    .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
+                                    HStack {
+                                        if details.SubjectGroups?.count ?? 0 > 1{
+                                            Button(action: {
+                                                forwards = true
+                                                withAnimation {
+                                                    currentPage = min(currentPage + 1, (details.SubjectGroups?.count ?? 0) - 1)
+                                                }
+                                            }) {
+                                                Image(currentPage >= 0 && currentPage < (details.SubjectGroups?.count ?? 0) - 1 ? "nextfill":"nextempty")
+                                                    .resizable()
+                                                    .frame(width:30,height:30)
                                             }
-                                            .offset(x:-40)
-                                            Text(slot.groupName ?? "")
-                                                .font(.SoraBold(size: 18))
-                                                .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
+                                            .padding()
+                                            .buttonStyle(.plain)
+                                            
+                                            Spacer()
                                         }
-                                        .frame(width:170,height: 45)
-                                        .padding(.horizontal)
-                                        .background(content: {
-                                            if isselected {
-                                                ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
-                                                    Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
-                                                    
+                                        
+                                        let isselected = subjectdetailsvm.selectedSubjectId == details.SubjectGroups?[currentPage].teacherLessonSessionID
+                                        
+                                        VStack(alignment:.leading){
+                                            HStack {
+                                                ZStack{
+                                                    Image("circleempty")
+                                                    Image("img_line1")
+                                                        .renderingMode(.template)
+                                                        .foregroundColor(isselected ? ColorConstants.MainColor:.clear)
                                                 }
-                                        })
-                                        Group{
-                                            Label(title: {
-                                                Group {
-                                                    Text("Start Date".localized())+Text(": ")+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
-                                                }
-                                                .font(.SoraRegular(size: 10))
-                                                .foregroundColor(.mainBlue)
-                                            }, icon: {
-                                                Image("calvector")
-                                                    .resizable()
-                                                    .frame(width:15,height:15)
+                                                .offset(x:-40)
+                                                Text(slot.groupName ?? "")
+                                                    .font(.SoraBold(size: 18))
+                                                    .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
+                                            }
+                                            .frame(width:170,height: 45)
+                                            .padding(.horizontal)
+                                            .background(content: {
+                                                if isselected {
+                                                    ColorConstants.MainColor.clipShape(CornersRadious(radius: 12, corners: [.topLeft,.topRight])) }else{
+                                                        Color.clear.borderRadius(ColorConstants.MainColor, width: 1.5, cornerRadius: 15, corners: [.topLeft, .topRight])
+                                                        
+                                                    }
                                             })
-                                            .frame(maxWidth:.infinity,alignment:.leading)
-
-                                            Label(title: {
-                                                Group {
-                                                    Text("End Date".localized())+Text(": ")+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
-                                                }
-                                                .font(.SoraRegular(size: 10))
-                                                .foregroundColor(.mainBlue)
-                                            }, icon: {
-                                                Image("calvector")
-                                                    .resizable()
-                                                    .frame(width:15,height:15)
-                                            })
-                                            .frame(maxWidth:.infinity,alignment:.leading)
-
-                                            ForEach(slot.getSubjectScheduleGroups ?? [],id:\.self){ schedual in
+                                            Group{
                                                 Label(title: {
                                                     Group {
-                                                        Text(schedual.dayName ?? "" )+Text(": ")+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                        Text("Start Date".localized())+Text(": ")+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
                                                     .font(.SoraRegular(size: 10))
                                                     .foregroundColor(.mainBlue)
@@ -183,59 +158,90 @@ struct SubjectDetailsView: View {
                                                         .frame(width:15,height:15)
                                                 })
                                                 .frame(maxWidth:.infinity,alignment:.leading)
-                                                .padding(.top,8)
+                                                
+                                                Label(title: {
+                                                    Group {
+                                                        Text("End Date".localized())+Text(": ")+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
+                                                    }
+                                                    .font(.SoraRegular(size: 10))
+                                                    .foregroundColor(.mainBlue)
+                                                }, icon: {
+                                                    Image("calvector")
+                                                        .resizable()
+                                                        .frame(width:15,height:15)
+                                                })
+                                                .frame(maxWidth:.infinity,alignment:.leading)
+                                                
+                                                ForEach(slot.getSubjectScheduleGroups ?? [],id:\.self){ schedual in
+                                                    Label(title: {
+                                                        Group {
+                                                            Text(schedual.dayName ?? "" )+Text(": ")+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                        }
+                                                        .font(.SoraRegular(size: 10))
+                                                        .foregroundColor(.mainBlue)
+                                                    }, icon: {
+                                                        Image("calvector")
+                                                            .resizable()
+                                                            .frame(width:15,height:15)
+                                                    })
+                                                    .frame(maxWidth:.infinity,alignment:.leading)
+                                                    .padding(.top,8)
+                                                }
                                             }
+                                            .padding(.top,8)
+                                            .padding(.horizontal)
+                                            
                                         }
-                                        .padding(.top,8)
-                                        .padding(.horizontal)
+                                        .padding(.bottom)
+                                        .background(content: {
+                                            ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
+                                        })
+                                        .frame(width:170)
+
+                                        .onTapGesture(perform: {
+                                            subjectdetailsvm.selectedSubjectId = details.SubjectGroups?[currentPage].teacherLessonSessionID
+                                        })
                                         
-                                    }
-                                    .padding(.bottom)
-                                    .background(content: {
-                                        ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
-                                    })
-                                    .onTapGesture(perform: {
-                                        subjectdetailsvm.selectedSubjectId = details.SubjectGroups?[currentPage].teacherLessonSessionID
-                                    })
-                                    
-                                    .transition(
-                                        .asymmetric(
-                                            insertion: .move(edge: forwards ? .trailing : .leading),
-                                            removal: .move(edge: forwards ? .leading : .trailing)
+                                        .transition(
+                                            .asymmetric(
+                                                insertion: .move(edge: forwards ? .trailing : .leading),
+                                                removal: .move(edge: forwards ? .leading : .trailing)
+                                            )
                                         )
-                                    )
-                                    .id(UUID())
-                                    
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        forwards = false
-                                        withAnimation {
-                                            currentPage = max(currentPage - 1, 0)
+                                        .id(UUID())
+                                        
+                                        if details.SubjectGroups?.count ?? 0 > 1{
+                                            Spacer()
+                                            
+                                            Button(action: {
+                                                forwards = false
+                                                withAnimation {
+                                                    currentPage = max(currentPage - 1, 0)
+                                                }
+                                            }) {
+                                                Image((currentPage > 0 && currentPage <= (details.SubjectGroups?.count ?? 0) - 1) ? "prevfill":"prevempty")
+                                                    .resizable()
+                                                    .frame(width:30,height:30)
+                                            }
+                                            .padding()
+                                            .buttonStyle(.plain)
                                         }
-                                    }) {
-                                        Image((currentPage > 0 && currentPage <= (details.SubjectGroups?.count ?? 0) - 1) ? "prevfill":"prevempty")
-                                            .resizable()
-                                            .frame(width:30,height:30)
                                     }
-                                    .padding()
-                                    .buttonStyle(.plain)
-                                }
-                                .padding(.vertical)
-                                .frame(width: gr.size.width-50)
+                                    .padding(.vertical)
+                                    .frame(width: gr.size.width-50)
                                     
                                     CustomButton(Title:"Book Now",IsDisabled:.constant(subjectdetailsvm.selectedSubjectId == nil) , action: {
                                         if Helper.shared.CheckIfLoggedIn(){
                                             destination = AnyView(BookingCheckoutView(selectedgroupid:selectedDataToBook(selectedId: subjectdetailsvm.selectedSubjectId ?? 0) , bookingcase: nil))
                                             isPush = true
-
+                                            
                                         }else{
                                             subjectdetailsvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
                                                 Helper.shared.changeRoot(toView: SignInView())
                                             })
                                             subjectdetailsvm.isError = true
                                         }
-                                            
+                                        
                                     })
                                     .frame(height: 40)
                                     .padding(.top,10)
@@ -283,8 +289,8 @@ struct SubjectDetailsView: View {
         .onDisappear {
             subjectdetailsvm.cleanup()
         }
-                .showHud(isShowing: $subjectdetailsvm.isLoading)
-                .showAlert(hasAlert: $subjectdetailsvm.isError, alertType: subjectdetailsvm.error)
+        .showHud(isShowing: $subjectdetailsvm.isLoading)
+        .showAlert(hasAlert: $subjectdetailsvm.isError, alertType: subjectdetailsvm.error)
         
         
         NavigationLink(destination: destination, isActive: $isPush, label: {})
@@ -301,19 +307,19 @@ struct SubjectTeacherInfoView : View {
     var teacher : TeacherSubjectDetailsM = TeacherSubjectDetailsM.init()
     var body: some View {
         VStack {
-//            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
-//                image
-//                    .resizable()
-//            }placeholder: {
-//                Image("img_younghappysmi")
-//                    .resizable()
-//            }
+            //            AsyncImage(url: URL(string: Constants.baseURL+(teacher.teacherImage ?? "")  )){image in
+            //                image
+            //                    .resizable()
+            //            }placeholder: {
+            //                Image("img_younghappysmi")
+            //                    .resizable()
+            //            }
             let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? "").reverseSlaches())
             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 115,height: 115)
-            .clipShape(Circle())
+            
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 115,height: 115)
+                .clipShape(Circle())
             
             VStack(alignment: .center, spacing:0){
                 //                VStack {

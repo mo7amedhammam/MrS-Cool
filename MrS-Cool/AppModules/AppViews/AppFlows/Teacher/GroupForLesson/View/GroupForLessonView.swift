@@ -33,16 +33,15 @@ struct GroupForLessonView: View {
         groupsforlessonvm.filterlesson = filterlesson
         groupsforlessonvm.filtergroupName = filtergroupName
         groupsforlessonvm.filterdate = filterdate
+        groupsforlessonvm.GetTeacherGroups()
     }
     func clearFilterValues(){
         filtersubject = nil
         filterlesson = nil
         filtergroupName = ""
         filterdate = nil
-        groupsforlessonvm.filtersubject = nil
-        groupsforlessonvm.filterlesson = nil
-        groupsforlessonvm.filtergroupName = ""
-        groupsforlessonvm.filterdate = nil
+        lookupsvm.FilterLessonsForList.removeAll()
+        groupsforlessonvm.clearFilter()
     }
     
     var body: some View {
@@ -61,7 +60,7 @@ struct GroupForLessonView: View {
                                 // -- inputs --
                                 Group {
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList,isvalid:groupsforlessonvm.issubjectvalid)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList,isvalid:groupsforlessonvm.issubjectvalid)
                                         .onChange(of: groupsforlessonvm.subject){newval in
                                             if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
                                                 lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
@@ -69,7 +68,7 @@ struct GroupForLessonView: View {
                                             }
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.LessonsForList,isvalid:groupsforlessonvm.islessonvalid)
+                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.LessonsForList,isvalid:groupsforlessonvm.islessonvalid)
                                         .overlay(content: {
                                             if  (groupsforlessonvm.lesson?.subTitle ?? 0) > 0  {
                                                 VStack(alignment: .trailing) {
@@ -202,14 +201,14 @@ struct GroupForLessonView: View {
                         ScrollView {
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
 //                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
 //                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
 //                                        }
                                         lookupsvm.SelectedFilterSubjectForList = newval
                                     }
                                     
-                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
@@ -221,14 +220,11 @@ struct GroupForLessonView: View {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
                                             sendFilterValues()
-                                            groupsforlessonvm.GetTeacherGroups()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             clearFilterValues()
-                                            groupsforlessonvm.clearFilter()
-                                            groupsforlessonvm.GetTeacherGroups()
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)

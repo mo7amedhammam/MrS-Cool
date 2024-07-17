@@ -155,11 +155,10 @@ extension StudentHomeVM{
                 },receiveValue: {[weak self] receivedData in
                     guard let self = self else{return}
                     print("receivedData",receivedData)
-                    if receivedData.success == true {
-                        let data = receivedData.data
+                    if receivedData.success == true,let data = receivedData.data {
 
                         //                    TeacherSubjects?.append(model)
-                        StudentSubjects = receivedData.data?.getAllSubjects?.convertToStudentSubjects()
+                        StudentSubjects = data.getAllSubjects?.convertToStudentSubjects()
                     }else{
                         //                    isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

@@ -127,7 +127,7 @@ struct AnonymousHomeView: View {
                                 }
                                 
 
-                                if studenthomevm.StudentSubjects == []{
+                                if studenthomevm.StudentSubjects == [] || studenthomevm.StudentSubjects?.isEmpty ?? true{
 //                                    ProgressView()
 //                                        .frame(width: gr.size.width/2.7, height: 160)
                                     Image(.emptySubjects)
@@ -432,6 +432,12 @@ struct AnonymousHomeView: View {
                         studenthomevm.getHomeData()
 //                        studenthomevm.GetStudentSubjects()
                     }
+                    .onDisappear{
+                        if !isSearch {
+                            studenthomevm.clearsearch()
+                        }
+                    }
+                    
                     .onChange(of: studenthomevm.educationType, perform: { value in
                         lookupsvm.SelectedEducationType = value
                     })
