@@ -13,7 +13,8 @@ enum HomeSubjectCase{
 
 struct StudentHomeView: View {
     @EnvironmentObject var studenthometabbarvm : StudentTabBarVM
-    
+    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
+
     @StateObject var studenthomevm = StudentHomeVM()
     
     @State var isSearch = false
@@ -340,6 +341,7 @@ struct StudentHomeView: View {
                 .frame(height:gr.size.height)
                 
                 .onAppear {
+                    studentsignupvm.GetStudentProfile()
                     if let id = Helper.shared.getUser()?.academicYearId{
                         studenthomevm.academicLevelId = id
                     }
@@ -347,6 +349,17 @@ struct StudentHomeView: View {
                     studenthomevm.GetStudentSubjects()
                     studenthomevm.getHomeData()
                 }
+                .onDisappear(perform: {
+                    studentsignupvm.GetStudentProfile()
+                })
+                .onChange(of: studentsignupvm.academicYear, perform: { value in
+                    DispatchQueue.main.async{
+                        var student =  Helper.shared.getUser()
+                        student?.academicYearId = value?.id
+                        Helper.shared.saveUser(user: student)
+                        studenthomevm.getHomeData()
+                    }
+                })
             }
             .frame(height:gr.size.height)
             //            Spacer()
@@ -365,5 +378,6 @@ struct StudentHomeView: View {
 #Preview{
     StudentHomeView()
         .environmentObject(StudentTabBarVM())
+        .environmentObject(StudentEditProfileVM())
 }
 

@@ -25,7 +25,7 @@ class CompletedLessonsVM: ObservableObject {
     @Published var filterlesson : DropDownOption?
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
-    @Published var isFiltering : Bool = false
+//    @Published var isFiltering : Bool = false
 
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
@@ -46,16 +46,16 @@ extension CompletedLessonsVM{
     func GetCompletedLessons(){
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
             
-        if let filtersubjectid = filtersubject?.id, isFiltering{
+        if let filtersubjectid = filtersubject?.id{
             parameters["teacherSubjectId"] = filtersubjectid
         }
-         if let filterlessonid = filterlesson?.id, isFiltering{
+         if let filterlessonid = filterlesson?.id{
             parameters["teacherLessonId"] = filterlessonid
         }
-        if filtergroupName.count > 0, isFiltering{
+        if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")), isFiltering{
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
             parameters["lessonDate"] = filterdate
         }
         
@@ -84,7 +84,6 @@ extension CompletedLessonsVM{
                     }else{
                         completedLessonsList?.items?.append(contentsOf: receivedData.data?.items ?? [])
                     }
-                    isFiltering = false
 
                 }else{
                     isError =  true

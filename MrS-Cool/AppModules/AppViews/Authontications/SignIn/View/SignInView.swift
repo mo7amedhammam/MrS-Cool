@@ -68,9 +68,7 @@ struct SignInView: View {
                                     .padding([.top])
                                     
                                     HStack {
-                                        CheckboxField(label: "Remember me",
-                                                      color: ColorConstants.Black900, textSize: 13,
-                                                      isMarked: $rememberMe)
+                                        CheckboxField(label: "Remember me",color: ColorConstants.Black900, textSize:13,isMarked: $rememberMe)
                                         Spacer()
                                         
                                         Button(action: {
@@ -149,6 +147,7 @@ struct SignInView: View {
                     teachersigninvm.cleanup()
                 }
                 .onChange(of: teachersigninvm.isLogedin) { newval in
+                    guard newval == true else{return}
                     switch selectedUser.user {
                     case .Student:
     //                    destination = AnyView(StudentTabBarView())

@@ -60,6 +60,7 @@ struct SignUpView: View {
                 .environmentObject(signupvm)
             }
         }
+        .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea()
             .onTapGesture {
                 hideKeyboard()

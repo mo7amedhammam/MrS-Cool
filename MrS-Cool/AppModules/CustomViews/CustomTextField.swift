@@ -472,7 +472,7 @@ struct CustomDatePickerField: View {
     @Binding var selectedDateStr: String?
     var startDate: Date? = nil
     var endDate: Date? = nil
-
+    var timeZone:TimeZone? = .init(identifier: "GMT")
     @State private var isCalenderVisible = false
     var datePickerComponent: DatePickerComponents = .date
     var Disabled : Bool?
@@ -544,12 +544,12 @@ struct CustomDatePickerField: View {
                 .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
                 .onAppear {
 //                    print("selectedDate",selectedDate)
-//                    print("selectedDateStr",selectedDateStr)
+                    print("selectedDateStr",selectedDateStr)
 //                    print("startDate",startDate)
 //                    print("endDate",endDate)
                     // Ensure selectedDateStr is initialized correctly on appear
                     if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
-                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",timeZone:timeZone)
                     }else{
                         selectedDate = startDate == nil ? Date():startDate
 

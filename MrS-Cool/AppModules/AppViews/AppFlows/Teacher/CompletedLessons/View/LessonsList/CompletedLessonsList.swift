@@ -20,7 +20,46 @@ struct CompletedLessonsList: View {
     var hasNavBar : Bool? = true
 //    @State var isPush = false
 //    @State var destination = AnyView(EmptyView())
-    
+    @State var filtersubject : DropDownOption?
+    @State var filterlesson : DropDownOption?
+    @State var filtergroupName : String = ""
+    @State var filterdate : String?
+
+    func applyFilter() {
+        completedlessonsvm.filtersubject = filtersubject
+        completedlessonsvm.filterlesson = filterlesson
+        completedlessonsvm.filtergroupName = filtergroupName
+        completedlessonsvm.filterdate = filterdate
+
+        completedlessonsvm.skipCount = 0
+        completedlessonsvm.GetCompletedLessons()
+    }
+    func clearFilter() {
+        filtersubject = nil
+        filterlesson = nil
+        filtergroupName = ""
+        filterdate = nil
+        
+        completedlessonsvm.skipCount = 0
+        completedlessonsvm.clearFilter()
+        lookupsvm.BookedLessonsForList.removeAll()
+        completedlessonsvm.GetCompletedLessons()
+    }
+    func validateFilterValues(){
+       if completedlessonsvm.filtersubject != filtersubject {
+           filtersubject = nil
+           lookupsvm.BookedLessonsForList.removeAll()
+        }
+        if completedlessonsvm.filterlesson != filterlesson{
+            filterlesson = nil
+        }
+        if completedlessonsvm.filtergroupName != filtergroupName{
+            filtergroupName = ""
+        }
+        if completedlessonsvm.filterdate != filterdate{
+            filterdate = nil
+        }
+    }
     var body: some View {
         VStack {
             if hasNavBar ?? true{
@@ -40,6 +79,7 @@ struct CompletedLessonsList: View {
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
                                         showFilter = true
+                                        validateFilterValues()
                                     })
                             }
                             .padding(.top)
@@ -93,9 +133,19 @@ struct CompletedLessonsList: View {
             lookupsvm.GetSubjestForList()
         }
         .onAppear{
+//            let dispatchGroup = DispatchGroup()
+//            dispatchGroup.enter()
+//            lookupsvm.GetSubjestForList()
             completedlessonsvm.completedLessonsList?.items?.removeAll()
             completedlessonsvm.skipCount = 0
             completedlessonsvm.GetCompletedLessons()
+//            dispatchGroup.leave()
+            
+//            dispatchGroup.notify(queue: .main) {
+//                // Update the UI when all tasks are complete
+//                isLoading = false
+//            }
+
         }
 
 //        .onDisappear {
@@ -129,37 +179,32 @@ struct CompletedLessonsList: View {
                         ScrollView{
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.SubjectsForList)
-                                        .onChange(of: completedlessonsvm.filtersubject){newval in
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList)
+                                        .onChange(of: filtersubject){newval in
 //                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
 //                                            {
-//                                                completedlessonsvm.filterlesson = nil
+                                                filterlesson = nil
                                                 lookupsvm.SelectedSubjectForList = newval
 //                                            }
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.LessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.LessonsForList)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$filterdate,datePickerComponent:.date)
                                 }.padding(.top,5)
                                 
                                 Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            completedlessonsvm.isFiltering = true
-                                            completedlessonsvm.skipCount = 0
-                                            completedlessonsvm.GetCompletedLessons()
+                                            applyFilter()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            completedlessonsvm.isFiltering = false
-                                            completedlessonsvm.skipCount = 0
-                                            completedlessonsvm.clearFilter()
-                                            completedlessonsvm .GetCompletedLessons()
+                                            clearFilter()
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)

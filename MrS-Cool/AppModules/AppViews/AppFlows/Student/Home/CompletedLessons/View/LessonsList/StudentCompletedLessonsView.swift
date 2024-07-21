@@ -17,9 +17,51 @@ struct StudentCompletedLessonsView: View {
     //    var currentSubject:TeacherSubjectM?
     
     var hasNavBar : Bool? = true
-//    @State var isPush = false
-//    @State var destination = AnyView(EmptyView())
+    //    @State var isPush = false
+    //    @State var destination = AnyView(EmptyView())
     @Binding var selectedChild:ChildrenM?
+    
+    @State var filtersubject : DropDownOption?
+    @State var filterlesson : DropDownOption?
+    @State var filtergroupName : String = ""
+    @State var filterdate : String?
+    
+    func applyFilter() {
+        completedlessonsvm.filtersubject = filtersubject
+        completedlessonsvm.filterlesson = filterlesson
+        completedlessonsvm.filtergroupName = filtergroupName
+        completedlessonsvm.filterdate = filterdate
+        
+        completedlessonsvm.skipCount = 0
+        completedlessonsvm.GetCompletedLessons()
+    }
+    func clearFilter() {
+        filtersubject = nil
+        filterlesson = nil
+        filtergroupName = ""
+        filterdate = nil
+        
+        completedlessonsvm.skipCount = 0
+        completedlessonsvm.clearFilter()
+        lookupsvm.BookedLessonsForList.removeAll()
+        completedlessonsvm.GetCompletedLessons()
+    }
+    func validateFilterValues(){
+        if completedlessonsvm.filtersubject != filtersubject {
+            filtersubject = nil
+            lookupsvm.BookedLessonsForList.removeAll()
+        }
+        if completedlessonsvm.filterlesson != filterlesson{
+            filterlesson = nil
+        }
+        if completedlessonsvm.filtergroupName != filtergroupName{
+            filtergroupName = ""
+        }
+        if completedlessonsvm.filterdate != filterdate{
+            filterdate = nil
+        }
+    }
+    
     var body: some View {
         VStack {
             if hasNavBar ?? true{
@@ -48,6 +90,7 @@ struct StudentCompletedLessonsView: View {
                                         .frame(width: 25, height: 25, alignment: .center)
                                         .onTapGesture(perform: {
                                             showFilter = true
+                                            validateFilterValues()
                                         })
                                 }
                                 .padding(.top)
@@ -65,8 +108,8 @@ struct StudentCompletedLessonsView: View {
                                         
                                     },rateBtnAction:{
                                         completedlessonsvm.selectedLesson = lesson
-                                            showRating = true
-                                        })
+                                        showRating = true
+                                    })
                                     .listRowSpacing(0)
                                     .listRowSeparator(.hidden)
                                     .listRowBackground(Color.clear)
@@ -88,14 +131,6 @@ struct StudentCompletedLessonsView: View {
                         }
                         .frame(minHeight: gr.size.height)
                     }
-                    .task {
-                        lookupsvm.GetBookedSubjestForList()
-                    }
-                    .onAppear(perform: {
-                        completedlessonsvm.completedLessonsList?.items?.removeAll()
-                        completedlessonsvm.skipCount = 0
-                        completedlessonsvm.GetCompletedLessons()
-                    })
                 }
             }
         }
@@ -103,7 +138,26 @@ struct StudentCompletedLessonsView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-       
+        .task {
+            lookupsvm.GetBookedSubjestForList()
+        }
+        .onAppear(perform: {
+            //                        let dispatchGroup = DispatchGroup()
+            //                        dispatchGroup.enter()
+            if Helper.shared.getSelectedUserType() == .Student || selectedChild != nil{
+                
+//                lookupsvm.GetBookedSubjestForList()
+                completedlessonsvm.completedLessonsList?.items?.removeAll()
+                completedlessonsvm.skipCount = 0
+                completedlessonsvm.GetCompletedLessons()
+                //                        dispatchGroup.leave()
+                
+                //            dispatchGroup.notify(queue: .main) {
+                //                // Update the UI when all tasks are complete
+                //                isLoading = false
+                //            }
+            }
+        })
         .onDisappear {
             showFilter = false
             showRating = false
@@ -137,40 +191,34 @@ struct StudentCompletedLessonsView: View {
                         ScrollView{
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $completedlessonsvm.filtersubject,options:lookupsvm.BookedSubjectsForList)
-                                        .onChange(of: completedlessonsvm.filtersubject){newval in
-//                                            if  lookupsvm.SelectedBookedSubjectForList != completedlessonsvm.filtersubject                                            {
-//                                                completedlessonsvm.filterlesson = nil
-//                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
-//                                            }
-
-                                            completedlessonsvm.filterlesson = nil
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.BookedSubjectsForList)
+                                        .onChange(of: filtersubject){newval in
+                                            //                                            if  lookupsvm.SelectedBookedSubjectForList != completedlessonsvm.filtersubject                                            {
+                                            //                                                completedlessonsvm.filterlesson = nil
+                                            //                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
+                                            //                                            }
+                                            
+                                            filterlesson = nil
                                             lookupsvm.SelectedBookedSubjectForList = newval
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $completedlessonsvm.filterlesson,options:lookupsvm.BookedLessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.BookedLessonsForList)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $completedlessonsvm.filtergroupName)
+                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$completedlessonsvm.filterdate,datePickerComponent:.date)
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$filterdate,datePickerComponent:.date)
                                 }.padding(.top,5)
                                 
                                 Spacer()
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            completedlessonsvm.isFiltering = true
-                                            completedlessonsvm.skipCount = 0
-                                            completedlessonsvm.GetCompletedLessons()
+                                            applyFilter()
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            completedlessonsvm.isFiltering = false
-                                            completedlessonsvm.skipCount = 0
-                                            completedlessonsvm.clearFilter()
-                                            lookupsvm.BookedLessonsForList.removeAll()
-                                            completedlessonsvm.GetCompletedLessons()
+                                            clearFilter()
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)
@@ -206,41 +254,41 @@ struct StudentCompletedLessonsView: View {
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
-//                        ScrollView{
-                            VStack{
-
-                                HStack(spacing:20){
-                                    ForEach(0..<5){ num in
-                                        Button(action: {
-                                            completedlessonsvm.rate = num+1
-                                        }, label: {
-                                            Image(systemName: completedlessonsvm.rate>num ? "star.fill":"star")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 45, height: 45, alignment: .center)
-                                                .foregroundColor(.yellow)
-                                        })
-                                    }
-                                }
-
-                                Spacer()
-                                HStack {
-                                    Group{
-                                        CustomButton(Title:"Yes",IsDisabled: .constant(completedlessonsvm.rate == 0), action: {
-                                            completedlessonsvm.AddStudentRate()
-                                            showRating = false
-                                        })
-                                        
-                                        CustomBorderedButton(Title:"No",IsDisabled: .constant(false), action: {
-                                            showRating = false
-                                        })
-                                    } .frame(width:130,height:40)
-                                        .padding(.vertical)
+                        //                        ScrollView{
+                        VStack{
+                            
+                            HStack(spacing:20){
+                                ForEach(0..<5){ num in
+                                    Button(action: {
+                                        completedlessonsvm.rate = num+1
+                                    }, label: {
+                                        Image(systemName: completedlessonsvm.rate>num ? "star.fill":"star")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 45, height: 45, alignment: .center)
+                                            .foregroundColor(.yellow)
+                                    })
                                 }
                             }
-                            .padding(.horizontal,3)
-                            .padding(.top)
-//                        }
+                            
+                            Spacer()
+                            HStack {
+                                Group{
+                                    CustomButton(Title:"Yes",IsDisabled: .constant(completedlessonsvm.rate == 0), action: {
+                                        completedlessonsvm.AddStudentRate()
+                                        showRating = false
+                                    })
+                                    
+                                    CustomBorderedButton(Title:"No",IsDisabled: .constant(false), action: {
+                                        showRating = false
+                                    })
+                                } .frame(width:130,height:40)
+                                    .padding(.vertical)
+                            }
+                        }
+                        .padding(.horizontal,3)
+                        .padding(.top)
+                        //                        }
                     }
                     .onDisappear(perform: {
                         completedlessonsvm.rate = 0
@@ -253,14 +301,14 @@ struct StudentCompletedLessonsView: View {
             }
         }
         
-//        NavigationLink(destination:studenthometabbarvm.destination, isActive: $studenthometabbarvm.ispush, label: {})
+        //        NavigationLink(destination:studenthometabbarvm.destination, isActive: $studenthometabbarvm.ispush, label: {})
     }
 }
 
 #Preview {
     StudentCompletedLessonsView( selectedChild: .constant(nil))
         .environmentObject(StudentTabBarVM())
-//        .environmentObject(LookUpsVM())
-//        .environmentObject(StudentCompletedLessonsVM())
+    //        .environmentObject(LookUpsVM())
+    //        .environmentObject(StudentCompletedLessonsVM())
     
 }

@@ -24,11 +24,16 @@ class Helper: NSObject {
     let UserTypeKey = "setSelectedUserTypeKey"
     
     func saveUser(user: TeacherModel?) {
+        print("LoginModel : ",user)
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
+//            userDef.removeObject(forKey: UserDataKey) // Clear old data
+
             userDef.set(encoded, forKey: UserDataKey)
             IsLoggedIn(value: true)
             userDef.synchronize()
+        } else {
+            print("Failed to encode user")
         }
     }
     
@@ -37,7 +42,10 @@ class Helper: NSObject {
             let decoder = JSONDecoder()
             if let user = try? decoder.decode(TeacherModel.self, from: data) {
                 return user
+            } else {
+                print("Failed to decode user")
             }
+
         }
         return nil
     }

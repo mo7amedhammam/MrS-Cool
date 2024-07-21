@@ -37,7 +37,7 @@ class SignInVM: ObservableObject {
     
     //    MARK: --- outpust ---
     @Published var isLogedin = false
-
+    
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
     @Published var error: Error?
@@ -54,9 +54,7 @@ class SignInVM: ObservableObject {
         }
     }
     init()  {
-        //        getGendersArr()
-        
-                monitorTextFields()
+        monitorTextFields()
     }
     func cleanup() {
         // Cancel any ongoing Combine subscriptions
@@ -95,9 +93,9 @@ extension SignInVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
-                        self.teachermodel = model
+                    self.teachermodel = model
                     FirebaseNotificationsVM.shared.SendFirebaseToken()
-
+                    
                 }else{
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
@@ -111,29 +109,29 @@ extension SignInVM{
 extension SignInVM{
     private func monitorTextFields() {
         // Combine publishers for form validation
-              Publishers.CombineLatest($phone, $Password)
-                  .map { [weak self] phone, password in
-                      // Perform the validation checks
-                      let isPhoneValid = !phone.isEmpty
-                      let isPasswordValid = !password.isEmpty
-                      
-                      // Return the overall form validity
-                      return isPhoneValid && isPasswordValid
-                  }
-                  .assign(to: &$isFormValid)
+        Publishers.CombineLatest($phone, $Password)
+            .map { [weak self] phone, password in
+                // Perform the validation checks
+                let isPhoneValid = !phone.isEmpty
+                let isPasswordValid = !password.isEmpty
+                
+                // Return the overall form validity
+                return isPhoneValid && isPasswordValid
+            }
+            .assign(to: &$isFormValid)
     }
     
     private func checkValidfields()->Bool{
-            isphonevalid = phone.count == 11
-            isPasswordvalid = Password.count >= 6
+        isphonevalid = phone.count == 11
+        isPasswordvalid = Password.count >= 6
         // Publisher for checking if the phone is 11 char
-//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
-//            $phone
-//                .map { phone in
-//                    return phone.count == 11
-//                }
-//                .eraseToAnyPublisher()
-//        }
+        //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+        //            $phone
+        //                .map { phone in
+        //                    return phone.count == 11
+        //                }
+        //                .eraseToAnyPublisher()
+        //        }
         return isphonevalid ?? true && isPasswordvalid ?? true
     }
 }

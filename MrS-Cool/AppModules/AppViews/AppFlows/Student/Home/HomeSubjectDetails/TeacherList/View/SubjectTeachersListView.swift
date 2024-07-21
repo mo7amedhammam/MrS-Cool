@@ -308,16 +308,16 @@ struct SubjectTeachersListView: View {
                                         if isPriceVisible{
                                             HStack{
                                                 CustomTextField(iconName:"",placeholder: "Price From", text: $priceFrom,keyboardType: .decimalPad)
-//                                                    .onChange(of: priceFrom) { newValue in
-//                                                        priceFrom = newValue.filter { $0.isEnglish }
+                                                    .onChange(of: priceFrom) { newValue in
+                                                        priceFrom = newValue.filter { $0.isEnglish }
 //                                                        checkPrices()
-//                                                    }
+                                                    }
                                                 
                                                 CustomTextField(iconName:"",placeholder: "Price To", text: $priceTo,keyboardType: .decimalPad)
-//                                                    .onChange(of: priceTo) { newValue in
-//                                                        priceTo = newValue.filter { $0.isEnglish }
+                                                    .onChange(of: priceTo) { newValue in
+                                                        priceTo = newValue.filter { $0.isEnglish }
 //                                                        checkPrices()
-//                                                    }
+                                                    }
                                             }
                                             if showPriceHint{
                                                 Text("The price to should be greater than or equal the price from".localized())

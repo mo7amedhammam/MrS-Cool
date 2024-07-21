@@ -45,7 +45,6 @@ struct StudentTabBarView: View {
                         }
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.whiteA700)
-                        
                     }
                     
                     Spacer()
@@ -89,6 +88,7 @@ struct StudentTabBarView: View {
                     StudentHomeView() // home
                         .tag(2)
                         .environmentObject(studenttabbarvm)
+                        .environmentObject(studentsignupvm)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
@@ -127,9 +127,9 @@ struct StudentTabBarView: View {
 
             }
             .onAppear{
-                Task(priority: .background, operation: {
+//                Task(priority: .background, operation: {
                     studentsignupvm.GetStudentProfile()
-                })
+//                })
             }
             .overlay(content: {
                 SideMenuView()
@@ -166,7 +166,14 @@ struct StudentTabBarView: View {
                 }
             }
             .showAlert(hasAlert: $studenttabbarvm.isError, alertType: studenttabbarvm.error)
-
+//            .onChange(of: studentsignupvm.academicYear, perform: { value in
+//                DispatchQueue.main.async{
+//                    var student =  Helper.shared.getUser()
+//                    student?.academicYearId = value?.id
+//                    Helper.shared.saveUser(user: student)
+//                }
+//
+//            })
 //        }
             NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
     }

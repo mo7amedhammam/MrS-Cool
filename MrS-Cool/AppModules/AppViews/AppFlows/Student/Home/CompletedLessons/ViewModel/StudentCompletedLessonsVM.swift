@@ -21,7 +21,7 @@ class StudentCompletedLessonsVM: ObservableObject {
     @Published var filterlesson : DropDownOption?
     @Published var filtergroupName : String = ""
     @Published var filterdate : String?
-    @Published var isFiltering : Bool = false
+//    @Published var isFiltering : Bool = false
 
     @Published var israting : Bool = false
     @Published var rate : Int = 0
@@ -46,16 +46,16 @@ extension StudentCompletedLessonsVM{
     func GetCompletedLessons(){
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
             
-        if let filtersubjectid = filtersubject?.id, isFiltering{
+        if let filtersubjectid = filtersubject?.id{
             parameters["subjectId"] = filtersubjectid
         }
-        if let filterlessonid = filterlesson?.id, isFiltering{
+        if let filterlessonid = filterlesson?.id{
            parameters["lessonId"] = filterlessonid
         }
-        if filtergroupName.count > 0, isFiltering{
+        if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")), isFiltering{
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
             parameters["lessonDate"] = filterdate
         }
         if Helper.shared.getSelectedUserType() == .Parent {
@@ -87,8 +87,7 @@ extension StudentCompletedLessonsVM{
                     }else{
                         completedLessonsList?.items?.append(contentsOf: receivedData.data?.items ?? [])
                     }
-                    isFiltering = false
-
+//                    isFiltering = false
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

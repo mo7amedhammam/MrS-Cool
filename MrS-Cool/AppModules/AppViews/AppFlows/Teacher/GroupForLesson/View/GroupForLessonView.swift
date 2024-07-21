@@ -20,11 +20,7 @@ struct GroupForLessonView: View {
     @State var showFilter : Bool = false
     //    var selectedSubject:TeacherSubjectM?
     
-    @State var filtersubject : DropDownOption?{
-        didSet{
-            filterlesson = nil
-        }
-    }
+    @State var filtersubject : DropDownOption?
     @State var filterlesson : DropDownOption?
     @State var filtergroupName : String = ""
     @State var filterdate : String?
@@ -42,6 +38,21 @@ struct GroupForLessonView: View {
         filterdate = nil
         lookupsvm.FilterLessonsForList.removeAll()
         groupsforlessonvm.clearFilter()
+    }
+    func validateFilterValues(){
+       if groupsforlessonvm.filtersubject != filtersubject {
+           filtersubject = nil
+           lookupsvm.FilterLessonsForList.removeAll()
+        }
+        if groupsforlessonvm.filterlesson != filterlesson{
+            filterlesson = nil
+        }
+        if groupsforlessonvm.filtergroupName != filtergroupName{
+            filtergroupName = ""
+        }
+        if groupsforlessonvm.filterdate != filterdate{
+            filterdate = nil
+        }
     }
     
     var body: some View {
@@ -64,7 +75,6 @@ struct GroupForLessonView: View {
                                         .onChange(of: groupsforlessonvm.subject){newval in
                                             if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
                                                 lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
-
                                             }
                                         }
                                     
@@ -133,6 +143,7 @@ struct GroupForLessonView: View {
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
                                         showFilter = true
+                                        validateFilterValues()
                                     })
                             }
                         }
@@ -205,6 +216,7 @@ struct GroupForLessonView: View {
 //                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
 //                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
 //                                        }
+                                        filterlesson = nil
                                         lookupsvm.SelectedFilterSubjectForList = newval
                                     }
                                     

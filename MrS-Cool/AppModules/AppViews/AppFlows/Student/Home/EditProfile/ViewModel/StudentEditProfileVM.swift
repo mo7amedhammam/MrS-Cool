@@ -157,7 +157,9 @@ extension StudentEditProfileVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
 //                    OtpM = model
-                    fillTeacherData(model: model)
+                    DispatchQueue.main.async { [self] in
+                        self.fillTeacherData(model: model)
+                    }
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
@@ -247,7 +249,7 @@ extension StudentEditProfileVM{
         educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
         educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
         academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
-        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
+        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy",outputLocal: .english,inputTimeZone: .init(identifier: "GMT"))
         email =  model.email ?? ""
         SchoolName = model.schoolName ?? ""
         
@@ -257,6 +259,17 @@ extension StudentEditProfileVM{
         })
         
         Helper.shared.selectedchild = ChildrenM.init(id:  model.id , code: model.code, image: model.image ?? "", academicYearEducationLevelName: model.academicYearName, academicYearEducationLevelID: model.academicYearEducationLevelID, name: model.name ?? "")
+        
+//        if var student = Helper.shared.getUser(),student.academicYearId != model.academicYearEducationLevelID {
+//            student.academicYearId = model.academicYearEducationLevelID
+//            Helper.shared.saveUser(user: student)
+//        }
+        DispatchQueue.main.async{
+            var student =  Helper.shared.getUser()
+            student?.academicYearId = model.academicYearEducationLevelID
+            Helper.shared.saveUser(user: student)
+        }
+        
     }
     
     private func checkValidfields()->Bool{
