@@ -135,11 +135,15 @@ final class CustomCalendarExampleController: DayViewController {
                     event.text = "\(eventM.groupName ?? "")"
                     
                     // Set color based on conditions
-                    if eventDate < Calendar.current.startOfDay(for: Date()) {
+                    let now = Date()
+                    if eventDate < Calendar.current.startOfDay(for: now) {
                         // Event is before today
                         event.color = .red
                     } else if eventM.isCancel ?? false {
                         // Event is canceled
+                        event.color = .red
+                    } else if endDate < now {
+                        // Event end time is in the past
                         event.color = .red
                     } else {
                         // Default color for other events
@@ -157,6 +161,7 @@ final class CustomCalendarExampleController: DayViewController {
         
         return eventDescriptors
     }
+
     
     
     
