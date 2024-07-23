@@ -48,7 +48,7 @@ struct TeacherSignUpView: View {
             
             Spacer()
             HStack {
-                CustomButton(Title:"Previous",IsDisabled: .constant(currentStep == .personalData), action: {
+                CustomButton(Title:"Previous",IsDisabled: .constant((currentStep == .personalData) || currentStep == .subjectsData && Helper.shared.getUser()?.profileStatusID == 1 ), action: {
                     //                    isPush = true
                     //                    destination = AnyView(OTPVerificationView().hideNavigationBar())
                     switch currentStep{

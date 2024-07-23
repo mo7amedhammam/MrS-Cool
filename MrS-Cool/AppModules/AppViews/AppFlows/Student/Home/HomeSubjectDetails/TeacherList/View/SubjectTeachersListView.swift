@@ -23,7 +23,7 @@ struct SubjectTeachersListView: View {
     @State private var isPriceVisible = false
     @State private var isRateVisible = false
     @State private var isGenderVisible = false
-    
+    @State private var ScrollToTop = false
     
 //    @State var isFiltering : Bool = false
     @State var subjectId : Int?
@@ -158,8 +158,10 @@ struct SubjectTeachersListView: View {
                             .padding(.horizontal)
                             
                             if let items = teachers.items{
-//                            ScrollView(.vertical,showsIndicators: false){
-//                                Spacer().frame(height:20)
+                                ScrollViewReader { proxy in
+                                    ColorConstants.Bluegray20099.frame(height:0.3)
+                                        .id(1) // Assign unique ID to scoll to top
+
                                 List(items,id:\.id){teacher in
                                     Button(action: {
                                         switch bookingcase {
@@ -183,12 +185,18 @@ struct SubjectTeachersListView: View {
                                     }
                                     .listRowSeparator(.hidden)
 //                                    .listRowSpacing(-15)
+                                    .onChange(of: ScrollToTop) { value in
+                                        if value == true {
+                                                withAnimation {
+                                                    proxy.scrollTo(1, anchor: .bottom)
+                                                }
+                                        }
+                                             }
                                 }
                                 .listStyle(.plain)
 //                                Spacer()
 //                                    .frame(height:50)
-//                            }
-//                            .frame(minHeight: gr.size.height)
+                            }
                         }
                         
                         }
@@ -432,27 +440,29 @@ struct SubjectTeachersListView: View {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
                                             guard !checkPrices() else {return}
-                                                homesubjectteachersvm.rate = rate
-                                                homesubjectteachersvm.priceFrom = priceFrom
                                             
-                                                homesubjectteachersvm.priceTo = priceTo
-                                                homesubjectteachersvm.genderId = genderId
-                                                homesubjectteachersvm.teacherName = teacherName
-                                                homesubjectteachersvm.skipCount = 0
-                                                homesubjectteachersvm .GetStudentSubjectTeachers()
-                                                showFilter = false
+                                            homesubjectteachersvm.rate = rate
+                                            homesubjectteachersvm.priceFrom = priceFrom
+                                            homesubjectteachersvm.priceTo = priceTo
+                                            homesubjectteachersvm.genderCase = genderCase
+                                            homesubjectteachersvm.teacherName = teacherName
+                                            
+                                            homesubjectteachersvm.skipCount = 0
+                                            homesubjectteachersvm.GetStudentSubjectTeachers()
+                                            ScrollToTop = true
+                                            showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             homesubjectteachersvm.skipCount = 0
                                             clearFilter()
-                                            homesubjectteachersvm .GetStudentSubjectTeachers()
-                                            showFilter = false
+                                            homesubjectteachersvm.GetStudentSubjectTeachers()
                                             isNameVisible = false
                                             isPriceVisible = false
                                             isRateVisible = false
                                             isGenderVisible = false
-
+                                            ScrollToTop = true
+                                            showFilter = false
                                         })
                                     } .frame(width:130,height:40)
                                         .padding(.vertical)

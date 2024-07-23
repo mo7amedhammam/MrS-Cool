@@ -100,7 +100,7 @@ struct GroupForLessonView: View {
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,startDate:Date(),datePickerComponent:.date,isvalid:groupsforlessonvm.isdatevalid)
                                     
-                                    CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.time,datePickerComponent:.hourAndMinute,isvalid:groupsforlessonvm.istimevalid)
+                                    CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$groupsforlessonvm.time,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid:groupsforlessonvm.istimevalid)
                                         .overlay(content: {
                                             if  (groupsforlessonvm.endTime) != nil {
                                                 VStack(alignment: .trailing) {

@@ -25,7 +25,7 @@ struct ParentTabBarView: View {
     
     @StateObject var parentProfilevm = ParentProfileVM()
     @StateObject var listchildrenvm = ListChildrenVM()
-
+    
     //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
     //    @StateObject var chatListvm = ChatListVM()
     //    @State var isPush = false
@@ -106,7 +106,7 @@ struct ParentTabBarView: View {
                         }
                     )
                 
-                            
+                
                 StudentCompletedLessonsView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // completed lessons
                     .tag(4)
                     .environmentObject(tabbarvm)
@@ -126,7 +126,7 @@ struct ParentTabBarView: View {
         }
         .onAppear{
             Task(priority: .background, operation: {
-            parentProfilevm.GetParentProfile()
+                parentProfilevm.GetParentProfile()
             })
         }
         //            .onAppear(perform: {
@@ -142,14 +142,14 @@ struct ParentTabBarView: View {
         })
         .onChange(of: selectedDestination) {newval in
             if newval == .editProfile{ //edit Profile
-//                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
-               
+                //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
+                
                 
                 tabbarvm.destination = AnyView(EditParentProfileView().environmentObject(parentProfilevm))
                 
             }else if newval == .editStudentProfile{
                 tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM()))
-
+                
                 
             }else if newval == .calendar { //calendar
                 tabbarvm.destination = AnyView(CalView1(selectedChild: $listchildrenvm.selectedChild))
@@ -161,24 +161,22 @@ struct ParentTabBarView: View {
             }else if newval == .tickets { // tickets
                 
             }else if newval == .signOut { // signout
-//                tabbarvm.destination =  AnyView(SignInView())
-//                Helper.shared.changeRoot(toView: SignInView())
-//                Helper.shared.logout()
                 
                 tabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                    Helper.shared.selectedchild = nil
                     Helper.shared.changeRoot(toView: AnonymousHomeView())
                     Helper.shared.logout()
                 },secondBtnAction:{
                     selectedDestination = nil
                 })
                 tabbarvm.isError = true
-
+                
             }
         }
         //        }
         
         .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
-
+        
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
     }
     
@@ -186,8 +184,8 @@ struct ParentTabBarView: View {
     private func SideMenuView() -> some View {
         SideView(isShowing: $presentSideMenu, content: AnyView(ParentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(parentProfilevm)                    .environmentObject(listchildrenvm)), direction: .leading)
             .onDisappear(perform: {
-            selectedDestination = nil
-        })
+                selectedDestination = nil
+            })
     }
 }
 
@@ -198,7 +196,7 @@ struct ParentTabBarView: View {
 struct ParentSideMenuContent: View {
     @EnvironmentObject var parentprofilevm : ParentProfileVM
     @EnvironmentObject var listchildrenvm : ListChildrenVM
-
+    
     @Binding var presentSideMenu: Bool
     @Binding var selectedDestination: Parentdestinations?
     @Binding var isPush: Bool
@@ -244,7 +242,7 @@ struct ParentSideMenuContent: View {
                 }
                 
                 SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
-
+                
                 SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
                     selectedDestination = .changePassword // cahnage Password for child
                     presentSideMenu =  false
@@ -253,63 +251,63 @@ struct ParentSideMenuContent: View {
                 SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
                     selectedDestination = .signOut // sign out
                     presentSideMenu =  false
-//                    isPush = true
+                    //                    isPush = true
                 }
-            
-            SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
-                selectedDestination = .deleteAccount // delete account
-                presentSideMenu =  false
-                isPush = true
-            }
+                
+                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
+                    selectedDestination = .deleteAccount // delete account
+                    presentSideMenu =  false
+                    isPush = true
+                }
                 
                 if Helper.shared.selectedchild != nil{
-                        HStack(spacing:20){
-                            ZStack(alignment: .topLeading){
-                                let imageURL : URL? = URL(string: Constants.baseURL+(Helper.shared.selectedchild?.image ?? "").reverseSlaches())
-                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 60,height: 60)
-                                    .clipShape(Circle())
-                                
-                                Image("Edit_fill")
-                                //                        .resizable().aspectRatio(contentMode: .fit)
-                                //                        .font(.InterMedium(size: 12))
-                                    .frame(width: 15,height: 15)
-                                    .background(.white)
-                                    .clipShape(Circle())
-                                    .offset(x:0,y:2)
-                            }
-                            VStack(alignment:.leading) {
-                                Text(Helper.shared.selectedchild?.name ?? "")
-                                    .font(.SoraBold(size: 14))
-                                    .foregroundStyle(.whiteA700)
-                                
-                                Text("Edit your kid profile".localized())
-                                    .font(.SoraRegular(size: 12))
-                                    .foregroundStyle(.whiteA700)
-                            }
+                    HStack(spacing:20){
+                        ZStack(alignment: .topLeading){
+                            let imageURL : URL? = URL(string: Constants.baseURL+(Helper.shared.selectedchild?.image ?? "").reverseSlaches())
+                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 60,height: 60)
+                                .clipShape(Circle())
                             
-                            Spacer()
+                            Image("Edit_fill")
+                            //                        .resizable().aspectRatio(contentMode: .fit)
+                            //                        .font(.InterMedium(size: 12))
+                                .frame(width: 15,height: 15)
+                                .background(.white)
+                                .clipShape(Circle())
+                                .offset(x:0,y:2)
                         }
-                        .padding(.leading,30)
-                        .padding()
-                        .onTapGesture {
-                            selectedDestination = .editStudentProfile // for child
-                            presentSideMenu =  false
-                            isPush = true
+                        VStack(alignment:.leading) {
+                            Text(Helper.shared.selectedchild?.name ?? "")
+                                .font(.SoraBold(size: 14))
+                                .foregroundStyle(.whiteA700)
+                            
+                            Text("Edit your kid profile".localized())
+                                .font(.SoraRegular(size: 12))
+                                .foregroundStyle(.whiteA700)
                         }
                         
-                        //                        SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-                        //                            selectedDestination = .changePassword // cahnage Password for child
-                        //                            presentSideMenu =  false
-                        //                            isPush = true
-                        //                        }
-                        //                        SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
-                        ////                            selectedDestination = .signOut // sign out for child
-                        //                            listchildrenvm.selectedChild = nil
-                        //                            presentSideMenu =  false
-                        ////                            isPush = true
-                        //                        }
+                        Spacer()
+                    }
+                    .padding(.leading,30)
+                    .padding()
+                    .onTapGesture {
+                        selectedDestination = .editStudentProfile // for child
+                        presentSideMenu =  false
+                        isPush = true
+                    }
+                    
+                    //                        SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    //                            selectedDestination = .changePassword // cahnage Password for child
+                    //                            presentSideMenu =  false
+                    //                            isPush = true
+                    //                        }
+                    //                        SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                    ////                            selectedDestination = .signOut // sign out for child
+                    //                            listchildrenvm.selectedChild = nil
+                    //                            presentSideMenu =  false
+                    ////                            isPush = true
+                    //                        }
                     
                     
                     
@@ -319,23 +317,22 @@ struct ParentSideMenuContent: View {
                         selectedDestination = .calendar // calendar
                         presentSideMenu =  false
                         isPush = true
-                    } 
+                    }
                     .padding(.leading,30)
-
                     
-//                    SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-//                        selectedDestination = .rates // rates
-//                        presentSideMenu =  false
-//                        isPush = true
-//                    }
+                    //                    SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+                    //                        selectedDestination = .rates // rates
+                    //                        presentSideMenu =  false
+                    //                        isPush = true
+                    //                    }
                     
                     SideMenuSectionTitle(title: "Settings")
                     
-//                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-//                        selectedDestination = .changePassword // cahnage Password
-//                        presentSideMenu =  false
-//                        isPush = true
-//                    }
+                    //                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    //                        selectedDestination = .changePassword // cahnage Password
+                    //                        presentSideMenu =  false
+                    //                        isPush = true
+                    //                    }
                     
                     SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
                         selectedDestination = .tickets // Tickets
@@ -343,11 +340,7 @@ struct ParentSideMenuContent: View {
                         isPush = true
                     }
                     .padding(.leading,30)
-
-                    
                 }
-
-                
                 Spacer()
             }
         }
@@ -359,7 +352,7 @@ struct ParentSideMenuContent: View {
         .onDisappear(perform: {
             selectedDestination = nil
         })
-
+        
     }
     
 }
