@@ -339,30 +339,28 @@ struct StudentHomeView: View {
                     }
                 }
                 .frame(height:gr.size.height)
-                
-                .onAppear {
-                    studentsignupvm.GetStudentProfile()
-                    if let id = Helper.shared.getUser()?.academicYearId{
-                        studenthomevm.academicLevelId = id
+                .onAppear{
+                    if Helper.shared.CheckIfLoggedIn(){
+                        studentsignupvm.GetStudentProfile()
                     }
                     studenthomevm.clearselections()
+                    guard (Helper.shared.CheckIfLoggedIn() && studenthomevm.academicYear != nil ) || !Helper.shared.CheckIfLoggedIn() else {return}
                     studenthomevm.GetStudentSubjects()
                     studenthomevm.getHomeData()
+                    
                 }
-                .onDisappear(perform: {
-                    studentsignupvm.GetStudentProfile()
-                })
                 .onChange(of: studentsignupvm.academicYear, perform: { value in
-                    DispatchQueue.main.async{
-                        var student =  Helper.shared.getUser()
-                        student?.academicYearId = value?.id
-                        Helper.shared.saveUser(user: student)
-                        studenthomevm.getHomeData()
+                    if Helper.shared.CheckIfLoggedIn(){
+                        if let id = value?.id{
+                            print("id",id)
+                            studenthomevm.academicLevelId = id
+                            studenthomevm.GetStudentSubjects()
+                            studenthomevm.getHomeData()
+                        }
                     }
                 })
             }
             .frame(height:gr.size.height)
-            //            Spacer()
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {

@@ -205,9 +205,9 @@ extension StudentEditProfileVM{
                 if receivedData.success == true{
 //                    let student = receivedData.data
                     isDataUpdated = true
-                    var student =  Helper.shared.getUser()
-                    student?.academicYearId = receivedData.data?.academicYearEducationLevelID
-                    Helper.shared.saveUser(user: student)
+//                    var student =  Helper.shared.getUser()
+//                    student?.academicYearId = receivedData.data?.academicYearEducationLevelID
+//                    Helper.shared.saveUser(user: student)
      
                     Helper.shared.selectedchild = ChildrenM.init(id:  receivedData.data?.id ?? 0, code: receivedData.data?.code, image: receivedData.data?.image ?? "", academicYearEducationLevelName: receivedData.data?.academicYearName, academicYearEducationLevelID: receivedData.data?.academicYearEducationLevelID, name: receivedData.data?.name ?? "")
                 }else{
@@ -264,11 +264,11 @@ extension StudentEditProfileVM{
 //            student.academicYearId = model.academicYearEducationLevelID
 //            Helper.shared.saveUser(user: student)
 //        }
-        DispatchQueue.main.async{
-            var student =  Helper.shared.getUser()
-            student?.academicYearId = model.academicYearEducationLevelID
-            Helper.shared.saveUser(user: student)
-        }
+//        DispatchQueue.main.async{
+//            var student =  Helper.shared.getUser()
+//            student?.academicYearId = model.academicYearEducationLevelID
+//            Helper.shared.saveUser(user: student)
+//        }
         
     }
     
