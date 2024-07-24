@@ -117,13 +117,28 @@ extension String {
     }
     
     
-    func toDate(withFormat format: String, timeZone: TimeZone? = .current) -> Date? {
+    func toDate(withFormat format: String, inputTimeZone: TimeZone? = .current, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english : .arabic, outputTimeZone: TimeZone? = .current, outputLocal: SupportedLocale? = .current) -> Date? {
         let dateFormatter = DateFormatter()
+        
+        // Set up the input formatter
         dateFormatter.dateFormat = format
-//        dateFormatter.timeZone = TimeZone(identifier: "GMT")
-        dateFormatter.timeZone = timeZone
-        return dateFormatter.date(from: self)
+        dateFormatter.locale = inputLocal?.locale ?? .current
+        dateFormatter.timeZone = inputTimeZone
+        
+        // Parse the date using the input formatter
+        if let date = dateFormatter.date(from: self) {
+            // Set up the output formatter
+            dateFormatter.locale = outputLocal?.locale ?? .current
+            dateFormatter.timeZone = outputTimeZone
+            
+            // Convert the date to the output time zone
+            let dateString = dateFormatter.string(from: date)
+            return dateFormatter.date(from: dateString)
+        }
+        
+        return nil
     }
+
     
     
     func toDate() -> Date? {

@@ -82,8 +82,8 @@ extension GroupForLessonVM{
         guard let lessonid = lesson?.id,let date = date,let starttime = time,let endtime = endTime else {return}
         
         let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
-                                "timeFrom":starttime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
-                                "timeTo":endtime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT"))]
+                                "timeFrom":starttime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current),
+                                "timeTo":endtime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current)]
         let parameters:[String:Any] = [ "groupName":groupName,
                                         "teacherLessonId":lessonid,
                                         "teacherLessonSessionScheduleSlotsDto":[Dto]]

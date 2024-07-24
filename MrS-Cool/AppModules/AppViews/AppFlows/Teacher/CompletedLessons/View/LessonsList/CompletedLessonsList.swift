@@ -46,10 +46,14 @@ struct CompletedLessonsList: View {
         completedlessonsvm.GetCompletedLessons()
     }
     func validateFilterValues(){
-       if completedlessonsvm.filtersubject != filtersubject {
+       if completedlessonsvm.filtersubject == nil {
            filtersubject = nil
            lookupsvm.BookedLessonsForList.removeAll()
-        }
+       }else {
+           filtersubject = completedlessonsvm.filtersubject
+           lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
+       }
+        
         if completedlessonsvm.filterlesson != filterlesson{
             filterlesson = nil
         }

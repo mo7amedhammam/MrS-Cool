@@ -24,7 +24,9 @@
 //MARK: -- error --
 "noConnection" = "انت غير متصل بالانترنت";
 "tokenExpired" = "يجب ان تسجل دخول مره اخرى";
-
+"Student" = "طالب";
+"Parent" = "ولى أمر";
+"Teacher" = "مدرس";
 
 " - \(" = " - \(";
 " /   " = " /   ";
@@ -59,7 +61,6 @@
 "Add New Schedule" = "Add New Schedule";
 "Add New Student Account" = "Add New Student Account";
 "Add New Subject Group" = "Add New Subject Group";
-"Already have an account ?" = "Already have an account ?";
 "Amount" = "Amount";
 "An authentication code has been sent to" = "An authentication code has been sent to";
 "Anonymous" = "Anonymous";
@@ -352,7 +353,6 @@
 "Subject_Id" = "Subject_Id";
 "Subjects" = "Subjects";
 "Subjects Information" = "Subjects Information";
-"Teacher" = "Teacher";
 "Teacher Account" = "Teacher Account";
 "Teacher Name" = "Teacher Name";
 "Teacher Status" = "Teacher Status";

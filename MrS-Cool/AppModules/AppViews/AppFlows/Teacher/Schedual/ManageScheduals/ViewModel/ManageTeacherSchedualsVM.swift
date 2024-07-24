@@ -80,8 +80,8 @@ extension ManageTeacherSchedualsVM{
         let parameters:[String:Any] = ["dayId":dayId,
                                        "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
                                        "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
-                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
-                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT"))]
+                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current),
+                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current)]
         
         print("parameters",parameters)
         let target = teacherServices.CreateMyNewSchedual(parameters: parameters)

@@ -473,12 +473,14 @@ struct CustomDatePickerField: View {
     var startDate: Date? = nil
     var endDate: Date? = nil
     var timeZone:TimeZone? = .init(identifier: "GMT")
+    var local:SupportedLocale? = .current
+
     @State private var isCalenderVisible = false
     var datePickerComponent: DatePickerComponents = .date
     var Disabled : Bool?
     var isdimmed : Bool?
     var isvalid: Bool? = true
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: -15) {
             Button(action: {
@@ -543,34 +545,35 @@ struct CustomDatePickerField: View {
                 .labelsHidden()
                 .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
                 .onAppear {
-//                    print("selectedDate",selectedDate)
+                    print("selectedDate",selectedDate)
                     print("selectedDateStr",selectedDateStr)
-//                    print("startDate",startDate)
-//                    print("endDate",endDate)
+                    print("startDate",startDate)
+                    print("endDate",endDate)
+                    
                     // Ensure selectedDateStr is initialized correctly on appear
                     if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
-                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",timeZone:timeZone)
+                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",inputTimeZone:timeZone,inputLocal:local)
                     }else{
-                        selectedDate = startDate == nil ? Date():startDate
 
+                        if startDate == nil {
+                            print("Date",Date())
+                            selectedDate = Date()
+                            selectedDateStr = Date().formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+                        }else{
+                            print("startDate",startDate)
+                            selectedDate = startDate
+                        }
                     }
-                    //                    else {
+                    
                     if let startdate = startDate, selectedDateStr == nil {
-//                        selectedDate = startdate
-
                         selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-                    }
-                    else{
+                    }else{
                     
                       if let startdate = startDate,let seldate = selectedDate, startdate > seldate{
                           selectedDate = startdate
                         selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-                      }else{
-                          
                       }
-                
                     }
-
                 }
 //                .onDisappear{
 //                    print("selectedDate",selectedDate)
@@ -588,7 +591,7 @@ struct CustomDatePickerField: View {
 
     // Function to update the selected date string and print the date
     private func updateSelectedDateStr(with date: Date) {
-        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",inputLocal: local)
         print("Selected date: \(selectedDateStr ?? "")")
     }
 }
@@ -676,12 +679,22 @@ extension View {
 
 
 extension Date{
-    func formatDate(format: String) -> String {
+    func formatDate(format: String, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english:.arabic, inputTimeZone: TimeZone = .current, outputLocal: SupportedLocale = .current, outputTimeZone: TimeZone = .current) -> String {
         let dateFormatter = DateFormatter()
+        
+        // Set up the input formatter
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = .current
-//        dateFormatter.timeZone = TimeZone(identifier: "GMT")
-
-        return dateFormatter.string(from: self)
+        dateFormatter.locale = inputLocal?.locale
+        dateFormatter.timeZone = inputTimeZone
+        
+        // Parse the date with the input locale and time zone
+        let dateString = dateFormatter.string(from: self)
+        
+        // Set up the output formatter
+        dateFormatter.locale = outputLocal.locale
+        dateFormatter.timeZone = outputTimeZone
+        
+        // Format the date with the output locale and time zone
+        return dateFormatter.string(from: dateFormatter.date(from: dateString) ?? self)
     }
 }
