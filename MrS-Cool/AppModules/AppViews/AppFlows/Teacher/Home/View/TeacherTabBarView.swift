@@ -12,7 +12,7 @@ enum Teacherdestinations{
 }
 struct TeacherTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
-    @State private var selectedIndex = 2
+//    @State private var selectedIndex = 2
     @State private var selectedDestination : Teacherdestinations?
 
     private let tabBarItems = [
@@ -68,7 +68,7 @@ struct TeacherTabBarView: View {
                         .edgesIgnoringSafeArea(.top)
                 )
                 
-                TabView(selection: $selectedIndex) {
+                TabView(selection: $tabbarvm.selectedIndex) {
 //                    StudentHomeView()
                     Text("tab 0") // dashboard
                         .tag(0)
@@ -132,7 +132,7 @@ struct TeacherTabBarView: View {
                 .padding(.bottom,-15)
                                 
                 Spacer()
-                CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
+                CustomTabBarView(selectedIndex: $tabbarvm.selectedIndex,tabBarItems:tabBarItems)
 
             }.disableSwipeBack()
             .onAppear{
@@ -179,7 +179,7 @@ struct TeacherTabBarView: View {
                     
                 }else if newval == .subjectgroup{
                     
-                    tabbarvm.destination = AnyView(GroupForLessonView() 
+                    tabbarvm.destination = AnyView(GroupForLessonView()
 //                        .environmentObject(lookupsvm)
 //                        .environmentObject(groupsforlessonvm)
 //                                .hideNavigationBar()
@@ -302,7 +302,7 @@ struct TeacherSideMenuContent: View {
                     selectedDestination = .scheduals // rates
                     presentSideMenu =  false
                     isPush = true
-                } 
+                }
                 
                 SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
                     selectedDestination = .subjectgroup // calendar

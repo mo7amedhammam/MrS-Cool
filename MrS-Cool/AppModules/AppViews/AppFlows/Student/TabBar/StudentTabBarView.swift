@@ -12,7 +12,7 @@ enum Studentdestinations{
 }
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
-    @State private var selectedIndex = 2
+//    @State private var selectedIndex = 2
     @State private var selectedDestination : Studentdestinations?
 
     private let tabBarItems = [
@@ -67,7 +67,7 @@ struct StudentTabBarView: View {
                         .edgesIgnoringSafeArea(.top)
                 )
                 
-                TabView(selection: $selectedIndex) {
+                TabView(selection: $studenttabbarvm.selectedIndex) {
 //                    StudentHomeView()
                     Text("tab 0") // dashboard
                         .tag(0)
@@ -123,7 +123,7 @@ struct StudentTabBarView: View {
                 .padding(.bottom,-15)
                                 
                 Spacer()
-                CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
+                CustomTabBarView(selectedIndex: $studenttabbarvm.selectedIndex,tabBarItems:tabBarItems)
 
             }
             .onAppear{

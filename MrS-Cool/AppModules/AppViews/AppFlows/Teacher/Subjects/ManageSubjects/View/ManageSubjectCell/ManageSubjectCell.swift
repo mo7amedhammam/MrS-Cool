@@ -91,7 +91,7 @@ struct ManageSubjectCell: View {
                     VStack(alignment:.leading){
     //                    Spacer()
                                 
-                        Text("Group Info".localized())
+                        Text("Group Price".localized())
                             .font(Font.SoraSemiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
@@ -101,28 +101,28 @@ struct ManageSubjectCell: View {
                     .foregroundColor(.mainBlue)
                         
                           
-                        HStack(alignment:.bottom,spacing: 4) {
-                            Text("\(model.minGroup ?? 5) - \(model.maxGroup ?? 50)")
-                        .font(Font.SoraRegular(size: 12))
-                    .foregroundColor(.mainBlue)
-                            Text("Student".localized())
-                        .font(Font.SoraRegular(size: 9))
-                    .foregroundColor(.mainBlue)
-
-                        }
+//                        HStack(alignment:.bottom,spacing: 4) {
+//                            Text("\(model.minGroup ?? 5) - \(model.maxGroup ?? 50)")
+//                        .font(Font.SoraRegular(size: 12))
+//                    .foregroundColor(.mainBlue)
+//                            Text("Student".localized())
+//                        .font(Font.SoraRegular(size: 9))
+//                    .foregroundColor(.mainBlue)
+//
+//                        }
                     }
                     
-                    VStack(alignment:.leading){
-    //                    Spacer()
-                        Text("Individual Info".localized())
-                            .font(Font.SoraSemiBold(size: 9))
-                            .foregroundColor(.grayBtnText)
-                        Group{
-                            Text("\(model.individualCost  ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
-                        }
-                    .font(Font.SoraRegular(size: 12))
-                    .foregroundColor(.mainBlue)
-                    }
+//                    VStack(alignment:.leading){
+//    //                    Spacer()
+//                        Text("Individual Info".localized())
+//                            .font(Font.SoraSemiBold(size: 9))
+//                            .foregroundColor(.grayBtnText)
+//                        Group{
+//                            Text("\(model.individualCost  ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+//                        }
+//                    .font(Font.SoraRegular(size: 12))
+//                    .foregroundColor(.mainBlue)
+//                    }
                 }
             }
         }

@@ -12,7 +12,7 @@ enum Parentdestinations{
 }
 struct ParentTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
-    @State private var selectedIndex = 2
+//    @State private var selectedIndex = 2
     @State private var selectedDestination : Parentdestinations?
     
     private let tabBarItems = [
@@ -69,7 +69,7 @@ struct ParentTabBarView: View {
                     .edgesIgnoringSafeArea(.top)
             )
             
-            TabView(selection: $selectedIndex) {
+            TabView(selection: $tabbarvm.selectedIndex) {
                 //                    StudentHomeView()
                 Text("tab 0") // dashboard
                     .tag(0)
@@ -121,7 +121,7 @@ struct ParentTabBarView: View {
             .padding(.bottom,-15)
             
             Spacer()
-            CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
+            CustomTabBarView(selectedIndex: $tabbarvm.selectedIndex,tabBarItems:tabBarItems)
             
         }
         .onAppear{

@@ -10,7 +10,6 @@ import SwiftUI
 struct ListChildrenView: View {
     @EnvironmentObject var tabbarvm : StudentTabBarVM
     @EnvironmentObject var listchildrenvm : ListChildrenVM
-//    @State private var selectedChild : ChildrenM = ChildrenM.init()
 
     @State var isPush = false
     @State var destination = AnyView(EmptyView())

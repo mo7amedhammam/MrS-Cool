@@ -95,28 +95,28 @@ struct ManageTeacherSubjectsView: View {
                                             }
                                         }
                                         
-                                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isminGroupvalid)
+//                                        CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.isminGroupvalid)
                                         
-                                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.ismaxGroupvalid)
+//                                        CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectsvm.ismaxGroupvalid)
                                         
-                                        ZStack(alignment:.bottomTrailing){
-                                            CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
-                                                .onChange(of: manageteachersubjectsvm.individualCost) { newValue in
-                                                    manageteachersubjectsvm.individualCost = newValue.filter { $0.isEnglish }
-                                                }
-                                            if let cost = manageteachersubjectsvm.subject?.subject{
-                                                HStack(spacing:5){
-                                                    Text("Recommended".localized())
-                                                    Text(String(cost.individualCostFrom ?? 0))
-                                                    Text("To".localized())
-                                                    Text(String(cost.individualCostTo ?? 0))
-                                                    Text("EGP".localized())
-                                                }
-                                                .font(Font.SoraRegular(size: 9))
-                                                .foregroundColor(ColorConstants.Bluegray402)
-                                                .padding(5)
-                                            }
-                                        }
+//                                        ZStack(alignment:.bottomTrailing){
+//                                            CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isindividualCostvalid)
+//                                                .onChange(of: manageteachersubjectsvm.individualCost) { newValue in
+//                                                    manageteachersubjectsvm.individualCost = newValue.filter { $0.isEnglish }
+//                                                }
+//                                            if let cost = manageteachersubjectsvm.subject?.subject{
+//                                                HStack(spacing:5){
+//                                                    Text("Recommended".localized())
+//                                                    Text(String(cost.individualCostFrom ?? 0))
+//                                                    Text("To".localized())
+//                                                    Text(String(cost.individualCostTo ?? 0))
+//                                                    Text("EGP".localized())
+//                                                }
+//                                                .font(Font.SoraRegular(size: 9))
+//                                                .foregroundColor(ColorConstants.Bluegray402)
+//                                                .padding(5)
+//                                            }
+//                                        }
                                         
                                         CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
                                             .onChange(of: manageteachersubjectsvm.subjectBriefEn) { newValue in
@@ -192,7 +192,9 @@ struct ManageTeacherSubjectsView: View {
                                     manageteachersubjectsvm.selectSubjectForEdit(item: subject)
                                     scrollViewProxy.scrollTo(1)
                                 },editLessonsBtnAction: {
-                                    if subject.groupCost == 0 || subject.individualCost == 0 {
+                                    if subject.groupCost == 0
+//                                        || subject.individualCost == 0
+                                    {
                                         manageteachersubjectsvm.error = .error(title: "You Must Enter YOUR  Subject Price First To Can Access To This Page", message: "You Must Enter YOUR  Subject Price First To Can Access To This Page", buttonTitle: "Ok", mainBtnAction: {
                                         })
                                         manageteachersubjectsvm.isError.toggle()

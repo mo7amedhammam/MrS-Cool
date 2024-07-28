@@ -141,27 +141,35 @@ struct StudentCompletedLessonsView: View {
         .task {
             lookupsvm.GetBookedSubjestForList()
         }
-        .onAppear(perform: {
-            //                        let dispatchGroup = DispatchGroup()
-            //                        dispatchGroup.enter()
-            if Helper.shared.getSelectedUserType() == .Student || selectedChild != nil{
-                
-//                lookupsvm.GetBookedSubjestForList()
+//        .onAppear(perform: {
+//            //                        let dispatchGroup = DispatchGroup()
+//            //                        dispatchGroup.enter()
+////            if Helper.shared.getSelectedUserType() == .Student || selectedChild != nil{
+////
+//////                lookupsvm.GetBookedSubjestForList()
+////                completedlessonsvm.completedLessonsList?.items?.removeAll()
+////                completedlessonsvm.skipCount = 0
+////                completedlessonsvm.GetCompletedLessons()
+//                //                        dispatchGroup.leave()
+//
+//                //            dispatchGroup.notify(queue: .main) {
+//                //                // Update the UI when all tasks are complete
+//                //                isLoading = false
+//                //            }
+////            }
+//        })
+        .onChange(of: studenthometabbarvm.selectedIndex){ value in
+            if value == 4 && (Helper.shared.getSelectedUserType() == .Student || selectedChild != nil){
+                completedlessonsvm.clearFilter()
                 completedlessonsvm.completedLessonsList?.items?.removeAll()
                 completedlessonsvm.skipCount = 0
                 completedlessonsvm.GetCompletedLessons()
-                //                        dispatchGroup.leave()
-                
-                //            dispatchGroup.notify(queue: .main) {
-                //                // Update the UI when all tasks are complete
-                //                isLoading = false
-                //            }
             }
-        })
+        }
         .onDisappear {
             showFilter = false
             showRating = false
-            completedlessonsvm.clearFilter()
+//            completedlessonsvm.clearFilter()
         }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)

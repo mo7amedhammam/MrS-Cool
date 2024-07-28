@@ -449,10 +449,11 @@ struct AnonymousHomeView: View {
                     })
                     .onChange(of: selectedDestination) {newval in
                         if newval == .login { // sign in
-                            //                            destination =                           AnyView(SignInView())
-                            //                                isPush = true
+                                                  
+                            destination =                           AnyView(SignInView(hideimage:false))
+                                                            isPush = true
                             
-                            Helper.shared.changeRoot(toView: SignInView())
+//                            Helper.shared.changeRoot(toView: SignInView(hideimage:false))
                             //                            let window = UIApplication
                             //                                        .shared
                             //                                        .connectedScenes
@@ -466,10 +467,10 @@ struct AnonymousHomeView: View {
                             //                                let signInView = SignInView()
                             //                                let signInHostingController = UIHostingController(rootView: signInView)
                             //                                let navigationController = UINavigationController(rootViewController: signInHostingController)
-                            //                                
+                            //
                             //                                // Disable swipe back gesture
                             //                                navigationController.interactivePopGestureRecognizer?.isEnabled = false
-                            //                                
+                            //
                             //                                window.rootViewController = navigationController
                             //                                window.makeKeyAndVisible()
                             //                            }
@@ -526,7 +527,7 @@ struct AnonymousSideMenuContent: View {
                     //                            .frame(width: 60,height: 60)
                     //                            .clipShape(Circle())
                     //
-                    //                        
+                    //
                     //                        Image("Edit_fill")
                     //                        //                        .resizable().aspectRatio(contentMode: .fit)
                     //                        //                        .font(.InterMedium(size: 12))
@@ -534,7 +535,7 @@ struct AnonymousSideMenuContent: View {
                     //                            .background(.white)
                     //                            .clipShape(Circle())
                     //                            .offset(x:0,y:2)
-                    //                        
+                    //
                     //                    }
                     VStack(alignment:.leading) {
                         Text("Anonymous".localized())

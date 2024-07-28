@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CompletedLessonsList: View {  
+struct CompletedLessonsList: View {
     //        @Environment(\.dismiss) var dismiss
     @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var lookupsvm = LookUpsVM()
@@ -96,7 +96,7 @@ struct CompletedLessonsList: View {
                             CompletedLessonCell(model: lesson,reviewBtnAction: {
                                 completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
 //                                if hasNavBar ?? true{
-//                                    
+//
 //                                    destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
 //                                    isPush = true
 //                                }else{
@@ -140,9 +140,9 @@ struct CompletedLessonsList: View {
 //            let dispatchGroup = DispatchGroup()
 //            dispatchGroup.enter()
 //            lookupsvm.GetSubjestForList()
-            completedlessonsvm.completedLessonsList?.items?.removeAll()
-            completedlessonsvm.skipCount = 0
-            completedlessonsvm.GetCompletedLessons()
+//            completedlessonsvm.completedLessonsList?.items?.removeAll()
+//            completedlessonsvm.skipCount = 0
+//            completedlessonsvm.GetCompletedLessons()
 //            dispatchGroup.leave()
             
 //            dispatchGroup.notify(queue: .main) {
@@ -151,10 +151,18 @@ struct CompletedLessonsList: View {
 //            }
 
         }
-
-//        .onDisappear {
+        .onChange(of: tabbarvm.selectedIndex){ value in
+            if value == 4{
+                completedlessonsvm.clearFilter()
+                completedlessonsvm.completedLessonsList?.items?.removeAll()
+                completedlessonsvm.skipCount = 0
+                completedlessonsvm.GetCompletedLessons()
+            }
+        }
+        .onDisappear {
+            showFilter = false
 //            completedlessonsvm.cleanup()
-//        }
+        }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)
         
@@ -237,7 +245,7 @@ struct CompletedLessonsList: View {
 
 #Preview {
     CompletedLessonsList()
-//        .environmentObject(LookUpsVM())
+        .environmentObject(StudentTabBarVM())
 //        .environmentObject(CompletedLessonsVM())
     
 }

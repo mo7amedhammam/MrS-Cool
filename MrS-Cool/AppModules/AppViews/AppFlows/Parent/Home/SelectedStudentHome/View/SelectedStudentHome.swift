@@ -13,20 +13,13 @@ struct SelectedStudentHome: View {
 
 //    @StateObject var tabbarvm = StudentTabBarVM()
     
-    @State private var selectedIndex = 2
+//    @State private var selectedIndex = 2
 //    @State private var selectedDestination : Teacherdestinations?
-    
-//    private let tabBarItems = [
-//        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
-//        TabBarItem(icon: "tab1", selectedicon: "tab1selected", title: ""),
-//        TabBarItem(icon: "tab2", selectedicon: "tab2selected", title: ""),
-//        TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
-//        TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
-//    ]
     
     @StateObject var teacherProfilevm = ManageTeacherProfileVM()
     @StateObject var studenthomevm = StudentHomeVM()
     @EnvironmentObject var listchildrenvm : ListChildrenVM
+    @StateObject var studentsignupvm = StudentEditProfileVM()
 
     //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
     //    @StateObject var chatListvm = ChatListVM()
@@ -43,7 +36,7 @@ struct SelectedStudentHome: View {
 //                    //                VStack(alignment: .leading){
 ////                    Group{
 ////                        Text("Hi, ".localized())+Text(teacherProfilevm.name)
-////                        
+////
 ////                        //                            Text("Lets Start Learning! ".localized())
 ////                        //                                .font(Font.SoraRegular(size: 11))
 ////                        //                                .padding(.vertical,0.5)
@@ -51,7 +44,7 @@ struct SelectedStudentHome: View {
 ////                    .font(Font.SoraBold(size: 18))
 ////                    .foregroundColor(.whiteA700)
 //                    //                }
-//                    
+//
 //                    Spacer()
 ////                    Button(action: {
 ////                        presentSideMenu.toggle()
@@ -106,7 +99,7 @@ struct SelectedStudentHome: View {
 //                            // Disable swipe gestures
 //                        }
 //                    )
-//                
+//
 //                //                    StudentHomeView()
 //                Text("tab 1") // finance
 //                    .tag(1)
@@ -115,7 +108,7 @@ struct SelectedStudentHome: View {
 //                            // Disable swipe gestures
 //                        }
 //                    )
-//                
+//
 //                ListChildrenView() // home
 //                //                    Text("tab2")
 //                    .tag(2)
@@ -126,7 +119,7 @@ struct SelectedStudentHome: View {
 //                            // Disable swipe gestures
 //                        }
 //                    )
-//                
+//
 //                Text("tab 3")
 //                //                    ChatsListView(hasNavBar : false) // chats
 //                    .tag(3)
@@ -137,7 +130,7 @@ struct SelectedStudentHome: View {
 //                            // Disable swipe gestures
 //                        }
 //                    )
-//                
+//
 //                Text("tab4")
 //                //                    CompletedLessonsList(hasNavBar : false) // completed lessons
 //                    .tag(4)
@@ -481,6 +474,18 @@ struct SelectedStudentHome: View {
 //            CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
             
         }
+        .edgesIgnoringSafeArea(.bottom)
+        .hideNavigationBar()
+        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+            hideKeyboard()
+        })
+        .onChange(of: tabbarvm.selectedIndex, perform: { value in
+            if value == 2 && Helper.shared.getSelectedUserType() == .Parent{
+                studentsignupvm.GetStudentProfile()
+            }
+
+        })
+        
         .onAppear {
             if let id = Helper.shared.selectedchild?.academicYearEducationLevelID{
                 studenthomevm.academicLevelId = id
@@ -488,15 +493,19 @@ struct SelectedStudentHome: View {
             studenthomevm.clearselections()
             studenthomevm.getHomeData()
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .hideNavigationBar()
-        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
-            hideKeyboard()
+        .onChange(of: studentsignupvm.academicYear, perform: { value in
+                if let id = value?.id{
+                    print("id",id)
+                    Helper.shared.selectedchild?.academicYearEducationLevelID = id
+                    studenthomevm.academicLevelId = id
+                    studenthomevm.getHomeData()
+                }
         })
+
 //        .onChange(of: selectedDestination) {newval in
 //            if newval == .editProfile{ //edit Profile
 //                tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
-//                
+//
 //            }else if newval == .documents{
 //                tabbarvm.destination = AnyView(ManageMyDocumentsView( isFinish: .constant(false))
 //                                               //                        .environmentObject(lookupsvm)
@@ -504,51 +513,51 @@ struct SelectedStudentHome: View {
 //                                               //                        .environmentObject(teacherdocumentsvm)
 //                                               //                                .hideNavigationBar()
 //                )
-//                
+//
 //            }else if newval == .subjects{
-//                
+//
 //                tabbarvm.destination = AnyView(ManageTeacherSubjectsView()
 //                                               //                        .environmentObject(lookupsvm)
 //                                               //                        .environmentObject(manageteachersubjectsvm)
 //                                               //                                .hideNavigationBar()
 //                )
-//                
-//                
+//
+//
 //            }else if newval == .scheduals{
-//                
+//
 //                tabbarvm.destination = AnyView(ManageTeacherSchedualsView()
 //                                               //                        .environmentObject(lookupsvm)
 //                                               //                        .environmentObject(manageteacherschedualsvm)
 //                                               //                            .hideNavigationBar()
 //                )
-//                
+//
 //            }else if newval == .subjectgroup{
-//                
+//
 //                tabbarvm.destination = AnyView(GroupForLessonView()
 //                                               //                        .environmentObject(lookupsvm)
 //                                               //                        .environmentObject(groupsforlessonvm)
 //                                               //                                .hideNavigationBar()
 //                )
 //            }else if newval == .lessonGroups{
-//                
+//
 //                tabbarvm.destination = AnyView(ManageSubjectGroupView()
 //                                               //                        .environmentObject(lookupsvm)
 //                                               //                        .environmentObject(subjectgroupvm)
 //                                               //                                .hideNavigationBar()
 //                )
-//                
+//
 //            }else if newval == .calendar { //calendar
 //                tabbarvm.destination = AnyView(CalView1())
 //                //                }else if newval == .rates { // rates
 //                //                    studenttabbarvm.destination = AnyView(Text("Rates"))
-//                
+//
 //            }else if newval == .rates { //calendar
 //                tabbarvm.destination = AnyView(TeacherRatesView())
-//                
+//
 //            }else if newval == .changePassword { // change password
 //                tabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
 //            }else if newval == .tickets { // tickets
-//                
+//
 //            }else if newval == .signOut { // signout
 //                tabbarvm.destination =
 //                AnyView(SignInView())

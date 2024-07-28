@@ -12,6 +12,7 @@ class StudentTabBarVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
+    @Published  var selectedIndex = 2
     @Published var ispush : Bool = false
     @Published var destination = AnyView(EmptyView())
     
@@ -27,7 +28,7 @@ class StudentTabBarVM: ObservableObject {
 
 //    @Published var StudentSubjects : [StudentSubjectsM]? = [StudentSubjectsM.init(id: 0, name: "arabic", image: "tab1"),StudentSubjectsM.init(id: 1, name: "arabic1", image: "tab2"),StudentSubjectsM.init(id: 2, name: "arabic2", image: "tab2")]
 //    @Published var SelectedStudentSubjects : StudentSubjectsM = StudentSubjectsM()
-//    
+//
 //    @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = [StudentMostViewedLessonsM.init(id: 0, lessonName: "grammer", subjectName: "arabic", lessonBrief: "brief 0", availableTeacher: 12, minPrice: 220, maxPrice: 550)]
 //    @Published var SelectedStudentMostViewedLesson : StudentMostViewedLessonsM = StudentMostViewedLessonsM()
 //
@@ -57,7 +58,7 @@ class StudentTabBarVM: ObservableObject {
 //
 //            GetStudentMostSubjects(mostType: .mostviewed)
 //            GetStudentMostSubjects(mostType: .mostBooked)
-//            
+//
 //            GetStudentTeachers(mostType: .mostviewed)
 //            GetStudentTeachers(mostType: .topRated)
 //        }

@@ -50,7 +50,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
             issubjectvalid = subject == nil ? false:true
         }
     }
-    @Published var issubjectvalid:Bool? 
+    @Published var issubjectvalid:Bool?
     
     // for update subject
     @Published var editId : Int = 0
@@ -65,7 +65,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
 
     @Published var individualCost : String = ""{
         didSet{
-            isindividualCostvalid = (individualCost.isEmpty || individualCost == "") ? false:true
+//            isindividualCostvalid = (individualCost.isEmpty || individualCost == "") ? false:true
         }
     }
     @Published var isindividualCostvalid:Bool?
@@ -74,14 +74,14 @@ class ManageTeacherSubjectsVM: ObservableObject {
 
     @Published var minGroup : String = ""{
         didSet{
-            isminGroupvalid = (minGroup.isEmpty || minGroup == "") ? false:true
+//            isminGroupvalid = (minGroup.isEmpty || minGroup == "") ? false:true
         }
     }
     @Published var isminGroupvalid:Bool?
     
     @Published var maxGroup : String = ""{
         didSet{
-            ismaxGroupvalid = (maxGroup.isEmpty || maxGroup == "") ? false:true
+//            ismaxGroupvalid = (maxGroup.isEmpty || maxGroup == "") ? false:true
         }
     }
     @Published var ismaxGroupvalid:Bool?
@@ -147,8 +147,12 @@ extension ManageTeacherSubjectsVM{
     func CreateTeacherSubject(){
         guard checkValidfields() else {return}
         
-        guard let subjectAcademicYearId = subject?.id, let groupCost = Float(groupCost), let individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)  else {return}
-        var parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
+        guard let subjectAcademicYearId = subject?.id, let groupCost = Float(groupCost)
+//                , let individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)
+        else {return}
+        var parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":0
+//                                       ,"minGroup":minGroup,"maxGroup":maxGroup
+        ]
         
         if !subjectBrief.isEmpty || subjectBrief.count > 0 {
             parameters[ "teacherBrief" ] = subjectBrief
@@ -190,8 +194,13 @@ extension ManageTeacherSubjectsVM{
     
     func UpdateTeacherSubject(){
         guard checkValidfields() else {return}
-        guard let subjectAcademicYearId = subject?.id,let groupCost = Float(groupCost),let  individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup) else {return}
-        var parameters:[String:Any] = ["id":editId,"subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":individualCost,"minGroup":minGroup,"maxGroup":maxGroup]
+        guard let subjectAcademicYearId = subject?.id,let groupCost = Float(groupCost)
+//                ,let  individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)
+        else {return}
+        var parameters:[String:Any] = ["id":editId,"subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost
+                                       ,"individualCost":0
+//                                       ,"minGroup":minGroup,"maxGroup":maxGroup
+        ]
         if !subjectBrief.isEmpty{
             parameters["teacherBrief"] = subjectBrief
         }
@@ -390,10 +399,10 @@ extension ManageTeacherSubjectsVM{
 //                }
 //                .eraseToAnyPublisher()
 //        }
-        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
-        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+//        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+//        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
         isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
-        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+//        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
         
         return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true && isminGroupvalid ?? true && ismaxGroupvalid ?? true && isgroupCostvalid ?? true && isindividualCostvalid ?? true
     }
