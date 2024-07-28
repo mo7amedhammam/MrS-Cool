@@ -422,7 +422,10 @@ struct ContentView3: View {
     
     var onCancelEvent: ((EventM) -> Void)?
     var onJoinEvent: ((EventM) -> Void)?
-
+    
+    @State var isError : Bool = false
+    @State var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+    
     var body: some View {
         VStack {
             //            CalendarKitWrapper(selectedDate:$selectedDate, events: events,onCancelEvent:onCancelEvent )
@@ -433,25 +436,75 @@ struct ContentView3: View {
                 selectedEvent: $selectedEvent,
                 onCancelEvent: onCancelEvent
             )
-            
         }
-        .sheet(isPresented: $isShowingDetailSheet) {
-            if let selectedEvent = selectedEvent {
-                EventDetailsView(event: selectedEvent, onCancelEvent: { event in
-                    // Handle the event cancellation here
-                    if let index = events.firstIndex(where: { $0.id == event.id }) {
-                        events[index].isCancel = true
-                        onCancelEvent?(selectedEvent)
+        .overlay{
+            if isShowingDetailSheet{
+                // Blurred Background and Sheet
+                Color.mainBlue
+                    .opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        isShowingDetailSheet.toggle()
                     }
-                    isShowingDetailSheet = false
-                },onJoinEvent: { event in
-                    print("Event joining closure executed")
-                    if let index = events.firstIndex(where: { $0.id == event.id }) {
-                        onJoinEvent?(selectedEvent)
+                    .blur(radius: 4) // Adjust the blur radius as needed
+                    if let selectedEvent = selectedEvent {
+                        DynamicHeightSheet(isPresented: $isShowingDetailSheet){
+                        EventDetailsView(event: selectedEvent, onCancelEvent: { event in
+                            // Handle the event cancellation here
+                            if let index = events.firstIndex(where: { $0.id == event.id }) {
+                                events[index].isCancel = true
+                                    
+        //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+        ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+        //                            onCancelEvent?(selectedEvent)
+        //                            isShowingDetailSheet = false
+        //
+        //                        })
+                                onCancelEvent?(selectedEvent)
+        //                        isError = true
+                            }
+                            isShowingDetailSheet = false
+                        },onJoinEvent: { event in
+                            print("Event joining closure executed")
+                            if let index = events.firstIndex(where: { $0.id == event.id }) {
+                                onJoinEvent?(selectedEvent)
+                            }
+                        })
                     }
-                })
+                    .padding()
+                    .frame(height:333)
+                    .keyboardAdaptive()
+                }
             }
         }
+        
+//        .sheet(isPresented: $isShowingDetailSheet) {
+//            if let selectedEvent = selectedEvent {
+//                EventDetailsView(event: selectedEvent, onCancelEvent: { event in
+//                    // Handle the event cancellation here
+//                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+//                        events[index].isCancel = true
+//                            
+////                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+//////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+////                            onCancelEvent?(selectedEvent)
+////                            isShowingDetailSheet = false
+////
+////                        })
+//                        onCancelEvent?(selectedEvent)
+////                        isError = true
+//                    }
+//                    isShowingDetailSheet = false
+//                },onJoinEvent: { event in
+//                    print("Event joining closure executed")
+//                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+//                        onJoinEvent?(selectedEvent)
+//                    }
+//                })
+//            }
+//        }
+        .showAlert(hasAlert: $isError, alertType: error)
+
     }
     
     
@@ -543,6 +596,9 @@ struct EventDetailsView: View {
         return formatter
     }()
     
+    @State var isError : Bool = false
+    @State var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -550,6 +606,7 @@ struct EventDetailsView: View {
                     Text(event.groupName ?? "No Group Name")
                         .font(.title)
                         .padding(.top)
+                        .frame(maxWidth: .infinity,alignment: .center)
 
                     Text("Date: \(event.date?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "yyyy-MM-dd") ?? "No Date")")
                         .font(.body)
@@ -590,7 +647,13 @@ struct EventDetailsView: View {
                 // Cancel Event button
                 if event.isCancel != true, isEventNotStartedYet() {
                     Button(action: {
-                        onCancelEvent?(event)
+                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+//                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+                            onCancelEvent?(event)
+//                            isShowingDetailSheet = false
+                        })
+                        isError = true
+//                        onCancelEvent?(event)
                     }) {
                         Text("Cancel Event".localized())
                             .foregroundColor(.red)
@@ -598,9 +661,11 @@ struct EventDetailsView: View {
                 }
             }
             .padding()
-            .navigationBarItems(trailing: Button("Close".localized()) {
-                presentationMode.wrappedValue.dismiss()
-            })
+//            .navigationBarItems(trailing: Button("Close".localized()) {
+//                presentationMode.wrappedValue.dismiss()
+//            })
+            .showAlert(hasAlert: $isError, alertType: error)
+
         }
     }
     
