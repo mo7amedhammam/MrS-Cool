@@ -14,7 +14,8 @@ enum teachersSortCases:String{
     case PriceHighToLow = "Price High To Low"
 }
 enum teachersGenders:String{
-    case Male, Female
+    case Male = "Male"
+    case Female = "Female"
 }
 
 class SubjectTeachersListVM: ObservableObject {

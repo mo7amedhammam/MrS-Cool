@@ -145,8 +145,8 @@
 "End Time Is " = "End Time Is ";
 "End date must be greater than start date" = "End date must be greater than start date";
 "Enter subtitle here" = "Enter subtitle here";
-"FeMale" = "FeMale";
-"Female" = "Female";
+"FeMale" = "أنثى";
+"Female" = "أنثى";
 "File or image not selected" = "File or image not selected";
 "Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB" = "Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB";
 "Filter" = "Filter";
@@ -164,7 +164,7 @@
 "Group Name" = "Group Name";
 "Group Price" = "Group Price";
 "Group Time" = "Group Time";
-"Hi, " = "Hi, ";
+"Hi, " = " اهلاً,";
 "Highest Price :" = "Highest Price :";
 "I didn't receive code." = "I didn't receive code.";
 "In Review" = "In Review";
@@ -190,9 +190,9 @@
 "Lessons Materials" = "Lessons Materials";
 "Lessons Schedule" = "Lessons Schedule";
 "Lets Start Learning! " = "Lets Start Learning! ";
-"Log Out" = "Log Out";
+"Log Out" = "خروج";
 "Lowest Price :" = "Lowest Price :";
-"Male" = "Male";
+"Male" = "ذكر";
 "Manage Documents" = "Manage Documents";
 "Manage Group For Lessons" = "Manage Group For Lessons";
 "Manage Groups For Lesson" = "Manage Groups For Lesson";
@@ -232,7 +232,7 @@
 "Message cannot be empty" = "Message cannot be empty";
 "Message sent" = "Message sent";
 "Messages" = "Messages";
-"Mobile Number *" = "Mobile Number *";
+"Mobile Number *" = "ررقم الموبايل *";
 "More Details" = "More Details";
 "Must be Enter one item at least" = "Must be Enter one item at least";
 "My Documents" = "My Documents";
@@ -328,11 +328,11 @@
 "Send message" = "Send message";
 "Sending" = "Sending";
 "Session Time" = "Session Time";
-"Sign In" = "Sign In";
+"Sign In" = "دخول";
 "Sign In Now" = "Sign In Now";
-"Sign Out" = "Sign Out";
+"Sign Out" = "خروج";
 "Sign Up" = "Sign Up";
-"Sign in" = "Sign in";
+"Sign in" = "دخول";
 "Sign in now" = "Sign in now";
 "Sign up" = "Sign up";
 "Sign up now" = "Sign up now";

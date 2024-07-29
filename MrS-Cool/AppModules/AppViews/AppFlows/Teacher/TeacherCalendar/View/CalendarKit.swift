@@ -100,7 +100,7 @@ final class CustomCalendarExampleController: DayViewController {
             }
             return false
         }
-
+        
         // Convert EventM objects to EventDescriptor
         let eventDescriptors = eventsForSelectedDate.compactMap { eventM in
             let event = Event()
@@ -161,7 +161,7 @@ final class CustomCalendarExampleController: DayViewController {
         
         return eventDescriptors
     }
-
+    
     
     
     
@@ -252,22 +252,22 @@ final class CustomCalendarExampleController: DayViewController {
                 }
             }
             
-//            let alertController = UIAlertController(title: "Event Options", message: nil, preferredStyle: .actionSheet)
-//            
-//            // Add a Cancel option
-//            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//            
-//            // Add an option to cancel the event
-//            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { [weak self] _ in
-//                guard let self = self else {return}
-//                // Handle the cancellation of the event here
-//                //              self.cancelEvent(descriptor)
-//                self.onCancelEvent?(eventM)
-//                self.reloadData()
-//            })
-//            
-//            // Present the action sheet
-//            present(alertController, animated: true, completion: nil)
+            //            let alertController = UIAlertController(title: "Event Options", message: nil, preferredStyle: .actionSheet)
+            //
+            //            // Add a Cancel option
+            //            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            //
+            //            // Add an option to cancel the event
+            //            alertController.addAction(UIAlertAction(title: "Cancel Event", style: .destructive) { [weak self] _ in
+            //                guard let self = self else {return}
+            //                // Handle the cancellation of the event here
+            //                //              self.cancelEvent(descriptor)
+            //                self.onCancelEvent?(eventM)
+            //                self.reloadData()
+            //            })
+            //
+            //            // Present the action sheet
+            //            present(alertController, animated: true, completion: nil)
         }
         
     }
@@ -377,15 +377,15 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
     @Binding var selectedEvent: EventM?
     
     var onCancelEvent: ((EventM) -> Void)?
-//    var onJoinEvent: ((EventM) -> Void)?
-
+    //    var onJoinEvent: ((EventM) -> Void)?
+    
     init(selectedDate: Binding<Date>, events: Binding<[EventM]>, isShowingDetailSheet: Binding<Bool>, selectedEvent: Binding<EventM?>, onCancelEvent: ((EventM) -> Void)?) {
         self._selectedDate = selectedDate
         self._events = events
         self._isShowingDetailSheet = isShowingDetailSheet
         self._selectedEvent = selectedEvent
         self.onCancelEvent = onCancelEvent
-//        self.onJoinEvent = onJoinEvent
+        //        self.onJoinEvent = onJoinEvent
     }
     
     func makeUIViewController(context: Context) -> CustomCalendarExampleController {
@@ -393,7 +393,7 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
         controller.selectedDate = selectedDate
         controller.events = events
         controller.onCancelEvent = onCancelEvent
-//        controller.onJoinEvent = onJoinEvent
+        //        controller.onJoinEvent = onJoinEvent
         controller.onEventSelected = { eventM in
             selectedEvent = eventM
             isShowingDetailSheet = true
@@ -447,29 +447,31 @@ struct ContentView3: View {
                         isShowingDetailSheet.toggle()
                     }
                     .blur(radius: 4) // Adjust the blur radius as needed
-                    if let selectedEvent = selectedEvent {
-                        DynamicHeightSheet(isPresented: $isShowingDetailSheet){
-                        EventDetailsView(event: selectedEvent, onCancelEvent: { event in
-                            // Handle the event cancellation here
-                            if let index = events.firstIndex(where: { $0.id == event.id }) {
-                                events[index].isCancel = true
+                DynamicHeightSheet(isPresented: $isShowingDetailSheet){
+                    VStack{
+                        if let selectedEvent = selectedEvent {
+                            EventDetailsView(event: selectedEvent, onCancelEvent: { event in
+                                // Handle the event cancellation here
+                                if let index = events.firstIndex(where: { $0.id == event.id }) {
+                                    events[index].isCancel = true
                                     
-        //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-        ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
-        //                            onCancelEvent?(selectedEvent)
-        //                            isShowingDetailSheet = false
-        //
-        //                        })
-                                onCancelEvent?(selectedEvent)
-        //                        isError = true
-                            }
-                            isShowingDetailSheet = false
-                        },onJoinEvent: { event in
-                            print("Event joining closure executed")
-                            if let index = events.firstIndex(where: { $0.id == event.id }) {
-                                onJoinEvent?(selectedEvent)
-                            }
-                        })
+                                    //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                    ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+                                    //                            onCancelEvent?(selectedEvent)
+                                    //                            isShowingDetailSheet = false
+                                    //
+                                    //                        })
+                                    onCancelEvent?(selectedEvent)
+                                    //                        isError = true
+                                }
+                                isShowingDetailSheet = false
+                            },onJoinEvent: { event in
+                                print("Event joining closure executed")
+                                if let index = events.firstIndex(where: { $0.id == event.id }) {
+                                    onJoinEvent?(selectedEvent)
+                                }
+                            })
+                        }
                     }
                     .padding()
                     .frame(height:333)
@@ -478,33 +480,33 @@ struct ContentView3: View {
             }
         }
         
-//        .sheet(isPresented: $isShowingDetailSheet) {
-//            if let selectedEvent = selectedEvent {
-//                EventDetailsView(event: selectedEvent, onCancelEvent: { event in
-//                    // Handle the event cancellation here
-//                    if let index = events.firstIndex(where: { $0.id == event.id }) {
-//                        events[index].isCancel = true
-//                            
-////                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-//////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
-////                            onCancelEvent?(selectedEvent)
-////                            isShowingDetailSheet = false
-////
-////                        })
-//                        onCancelEvent?(selectedEvent)
-////                        isError = true
-//                    }
-//                    isShowingDetailSheet = false
-//                },onJoinEvent: { event in
-//                    print("Event joining closure executed")
-//                    if let index = events.firstIndex(where: { $0.id == event.id }) {
-//                        onJoinEvent?(selectedEvent)
-//                    }
-//                })
-//            }
-//        }
+        //        .sheet(isPresented: $isShowingDetailSheet) {
+        //            if let selectedEvent = selectedEvent {
+        //                EventDetailsView(event: selectedEvent, onCancelEvent: { event in
+        //                    // Handle the event cancellation here
+        //                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+        //                        events[index].isCancel = true
+        //
+        ////                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+        //////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+        ////                            onCancelEvent?(selectedEvent)
+        ////                            isShowingDetailSheet = false
+        ////
+        ////                        })
+        //                        onCancelEvent?(selectedEvent)
+        ////                        isError = true
+        //                    }
+        //                    isShowingDetailSheet = false
+        //                },onJoinEvent: { event in
+        //                    print("Event joining closure executed")
+        //                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+        //                        onJoinEvent?(selectedEvent)
+        //                    }
+        //                })
+        //            }
+        //        }
         .showAlert(hasAlert: $isError, alertType: error)
-
+        
     }
     
     
@@ -519,56 +521,56 @@ struct ContentView3: View {
 struct EventDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-
+    
     let event: EventM
     let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
     let onJoinEvent: ((EventM) -> Void)? // Closure to handle event join
-
+    
     // Function to check if the event is in the past
     func isEventInPast() -> Bool {
         guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
             return false
         }
-
+        
         // Create full date strings with event date and times
         let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
         let toDateTimeStr = "\((eventDateStr.prefix(10)))T\(timeToStr)"
-
+        
         // Parse the date strings into Date objects
         guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
               let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
             return false
         }
-
+        
         let currentTime = Date()
         return toDateTime < currentTime
     }
-
+    
     // Function to check if the current time is between timeFrom and timeTo
     func isCurrentTimeWithinEventTime() -> Bool {
         guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
             return false
         }
-
+        
         // Create full date strings with event date and times
         let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
         let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-
-//        print("From Date Time String: \(fromDateTimeStr)")
-//        print("To Date Time String: \(toDateTimeStr)")
-
+        
+        //        print("From Date Time String: \(fromDateTimeStr)")
+        //        print("To Date Time String: \(toDateTimeStr)")
+        
         // Parse the date strings into Date objects
         guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
               let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
             print("Failed to parse fromDateTime")
             return false
         }
-
+        
         let currentTime = Date()
-//        print("Current Time: \(currentTime)")
-//        print("Event From Time: \(fromDateTime)")
-//        print("Event To Time: \(toDateTime)")
-
+        //        print("Current Time: \(currentTime)")
+        //        print("Event From Time: \(fromDateTime)")
+        //        print("Event To Time: \(toDateTime)")
+        
         return currentTime >= fromDateTime && currentTime <= toDateTime
     }
     // Function to check if the event is not started yet
@@ -576,19 +578,19 @@ struct EventDetailsView: View {
         guard let eventDateStr = event.date, let timeFromStr = event.timeFrom else {
             return false
         }
-
+        
         // Create full date string with event date and timeFrom
         let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-
+        
         // Parse the date string into Date object
         guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
             return false
         }
-
+        
         let currentTime = Date()
         return currentTime < fromDateTime
     }
-
+    
     // Date formatter for parsing the event date and time
     fileprivate let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -598,7 +600,7 @@ struct EventDetailsView: View {
     
     @State var isError : Bool = false
     @State var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -607,65 +609,119 @@ struct EventDetailsView: View {
                         .font(.title)
                         .padding(.top)
                         .frame(maxWidth: .infinity,alignment: .center)
+                    
+                    Group{
+                        Text("Date: ".localized()) + Text("\(event.date?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "yyyy-MM-dd") ?? "No Date")")
+                        //                            .font(.body)
+                        
+                        Text("From: ".localized()) + Text("\(event.timeFrom?.ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "HH:mm a") ?? "No Start Time")")
 
-                    Text("Date: \(event.date?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "yyyy-MM-dd") ?? "No Date")")
-                        .font(.body)
-
-                    Text("From: \(event.timeFrom ?? "No Start Time")")
-                        .font(.body)
-
-                    Text("To: \(event.timeTo ?? "No End Time")")
-                        .font(.body)
-
+                        //                            .font(.body)
+                        
+                        Text("To: ".localized()) + Text("\(event.timeTo?.ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "HH:mm a") ?? "No End Time")")
+                        //                            .font(.body)
+                        
+                    }
+                    .font(.body)
+                    
+                    
                     // Display event status
                     Text(event.isCancel == true ? "This event is canceled.".localized() : isEventInPast() ? "This event is in the past.".localized() : "This event is active.".localized())
                         .foregroundColor(event.isCancel == true || isEventInPast() ? .red : .green)
                         .font(.body)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-
+                
                 Spacer()
-
+                
                 // Join Meeting button
                 if let meetingLink = event.teamMeetingLink, !meetingLink.isEmpty, isCurrentTimeWithinEventTime() {
+                    
+                    //                    Button(action: {
+                    ////                        print("Joining event...")
+                    ////                        onJoinEvent?(event)
+                    ////                        print("onJoinEvent closure executed")
+                    ////                        if let url = URL(string: meetingLink) {
+                    ////                            UIApplication.shared.open(url)
+                    ////                        }
+                    //
+                    //                        joinMeeting(event: event, meetingLink: meetingLink)
+                    //                    }){
+                    //                        HStack {
+                    //                            Image("microsoftteams")
+                    //                                .resizable()
+                    //                                .frame(width: 30,height: 30)
+                    //                                .aspectRatio(contentMode: .fit)
+                    //                            Text("Join Meeting".localized())
+                    //                                .foregroundColor(.whiteA700)
+                    //                        }
+                    //                    }
+                    //                    .frame(height: 50)
+                    //                    .frame(maxWidth:.infinity)
+                    //                    .background{ColorConstants.MainColor}
+                    //                    .cornerRadius(8)
+                    
                     Button(action: {
-//                        print("Joining event...")
-//                        onJoinEvent?(event)
-//                        print("onJoinEvent closure executed")
-//                        if let url = URL(string: meetingLink) {
-//                            UIApplication.shared.open(url)
-//                        }
+                        ////                        print("Joining event...")
+                        ////                        onJoinEvent?(event)
+                        ////                        print("onJoinEvent closure executed")
+                        ////                        if let url = URL(string: meetingLink) {
+                        ////                            UIApplication.shared.open(url)
+                        ////                        }
                         
                         joinMeeting(event: event, meetingLink: meetingLink)
-
-                    }) {
-                        Text("Join Meeting".localized())
-                            .foregroundColor(.blue)
+                    }){
+                        HStack {
+                            Image("microsoftteams")
+                                .resizable()
+                                .frame(width: 30,height: 30)
+                                .aspectRatio(contentMode: .fit)
+                            Text("Join Meeting".localized())
+                                .foregroundColor(.mainBlue)
+                        }
                     }
-                }
-
+                    .frame(height: 50)
+                    .frame(maxWidth:.infinity)
+                    .overlay(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
+                        .stroke(ColorConstants.MainColor,lineWidth: 2))                }
+                
+                
                 // Cancel Event button
                 if event.isCancel != true, isEventNotStartedYet() {
-                    Button(action: {
+                    //                    Button(action: {
+                    //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                    ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+                    //                            onCancelEvent?(event)
+                    ////                            isShowingDetailSheet = false
+                    //                        })
+                    //                        isError = true
+                    ////                        onCancelEvent?(event)
+                    //                    }) {
+                    //                        Text("Cancel Event".localized())
+                    //                            .foregroundColor(.red)
+                    //                    }
+                    
+                    CustomButton(Title:"Cancel Event",bgColor: .red,IsDisabled: .constant(false), action: {
                         error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-//                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+                            //                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
                             onCancelEvent?(event)
-//                            isShowingDetailSheet = false
+                            //                            isShowingDetailSheet = false
                         })
                         isError = true
-//                        onCancelEvent?(event)
-                    }) {
-                        Text("Cancel Event".localized())
-                            .foregroundColor(.red)
-                    }
+                        //                        onCancelEvent?(event)
+                    })
+                    .frame(height: 50)
+                    .padding(.top,40)
+                    
+                    
                 }
             }
             .padding()
-//            .navigationBarItems(trailing: Button("Close".localized()) {
-//                presentationMode.wrappedValue.dismiss()
-//            })
+            //            .navigationBarItems(trailing: Button("Close".localized()) {
+            //                presentationMode.wrappedValue.dismiss()
+            //            })
             .showAlert(hasAlert: $isError, alertType: error)
-
+            
         }
     }
     
@@ -675,11 +731,11 @@ struct EventDetailsView: View {
             UIApplication.shared.endBackgroundTask(backgroundTask)
             backgroundTask = .invalid
         })
-
+        
         print("Joining event...")
         onJoinEvent?(event)
         print("onJoinEvent closure executed")
-
+        
         if let url = URL(string: meetingLink) {
             UIApplication.shared.open(url) { success in
                 print("URL opened: \(success)")

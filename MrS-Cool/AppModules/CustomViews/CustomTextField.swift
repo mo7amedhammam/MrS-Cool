@@ -260,10 +260,13 @@ struct CustomDropDownField: View {
                         .offset(y: selectedOption == nil ? 0 : -20)
                         .scaleEffect(selectedOption == nil ? 1.2 : 0.8, anchor: .leading)
                     
-                    TextField("", text:.constant( selectedOption?.Title ?? "") )
+                    var localizedTitle: String {
+                            NSLocalizedString(selectedOption?.Title ?? "", comment: "")
+                        }
+                    TextField("", text:.constant(localizedTitle))
                         .focused($focusedField)
                         .multilineTextAlignment(.leading)
-                        .frame( minHeight: 57.0,alignment: .leading)
+                        .frame(minHeight: 57.0,alignment: .leading)
                         .disabled(true)
                     
                 }
@@ -295,7 +298,7 @@ struct CustomDropDownField: View {
                                     }
                                 }) {
                                     HStack() {
-                                        Text(option.Title ?? "")
+                                        Text(option.Title?.localized() ?? "")
                                             .multilineTextAlignment(.leading)
                                         Spacer()
                                     }

@@ -59,6 +59,8 @@ struct OTPVerificationView: View {
                         
                         OTPTextField(numberOfFields: 6,finalOTP: $otpvm.EnteredOtp)
                             .padding(.vertical)
+                            .environment(\.layoutDirection,.leftToRight )
+
                         
                         HStack {
                             Text("I didn't receive code.".localized())

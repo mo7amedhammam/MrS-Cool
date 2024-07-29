@@ -118,12 +118,12 @@ struct ManageTeacherSubjectsView: View {
 //                                            }
 //                                        }
                                         
-                                        CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief En", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
+                                        CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief English", text: $manageteachersubjectsvm.subjectBriefEn,charLimit: 1000)
                                             .onChange(of: manageteachersubjectsvm.subjectBriefEn) { newValue in
                                                 manageteachersubjectsvm.subjectBriefEn = newValue.filter { $0.isEnglish }
                                             }
                                         
-                                        CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000).reversLocalizeView()
+                                        CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher Brief Arabic", text: $manageteachersubjectsvm.subjectBrief,charLimit: 1000).reversLocalizeView()
                                             .onChange(of: manageteachersubjectsvm.subjectBrief) { newValue in
                                                 manageteachersubjectsvm.subjectBrief = newValue.filter { $0.isArabic }
                                             }
