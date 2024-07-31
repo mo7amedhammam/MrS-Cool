@@ -29,7 +29,11 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
     @State var showFilter : Bool = false
     @State var filtermaterialType : DropDownOption?
     @State var filtermaterialName : String = ""
-
+    func clearFilter(){
+        filtermaterialType = nil
+        filtermaterialName = ""
+        managelessonmaterialvm.clearFilter()
+    }
     @State var currentLesson:TeacherUnitLesson?
     var body: some View {
         ZStack {
@@ -197,6 +201,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                         HStack {
                                                             Group{
                                                                 CustomButton(Title:managelessonmaterialvm.isEditing ? "Update" : "Save",IsDisabled: .constant(false), action: {
+                                                                    clearFilter()
                                                                     if managelessonmaterialvm.isEditing{
                                                                         managelessonmaterialvm.UpdateLessonMaterial(fileType: selectedFileType)
                                                                     }else{

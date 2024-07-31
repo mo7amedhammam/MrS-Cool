@@ -13,7 +13,9 @@ class SignInVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var selecteduser = UserType()
+    @Published var selectedUser : UserType
+//    @State var selectedUser : UserType = UserType.init()
+
     @Published var phone = "" {
         didSet{
             if phone.count == 11{
@@ -53,7 +55,8 @@ class SignInVM: ObservableObject {
             }
         }
     }
-    init()  {
+    init(selecteduser : UserType){
+        selectedUser = selecteduser
         monitorTextFields()
     }
     func cleanup() {

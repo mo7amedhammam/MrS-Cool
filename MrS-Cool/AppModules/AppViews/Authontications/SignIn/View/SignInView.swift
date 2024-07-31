@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SignInView: View {
-    @StateObject var teachersigninvm = SignInVM()
-    @State var selectedUser : UserType = UserType.init()
+    @StateObject var teachersigninvm = SignInVM(selecteduser: .init())
+//    @State var selectedUser : UserType = UserType.init()
     
     @State var rememberMe = false
     @State var isPush = false
@@ -19,8 +19,8 @@ struct SignInView: View {
             VStack(spacing:0) {
                 CustomTitleBarView(title: "sign_in",hideImage: hideimage)
                 VStack{
-                    UserTypesList(selectedUser: $selectedUser){
-                        switch selectedUser.user {
+                    UserTypesList(selectedUser: $teachersigninvm.selectedUser){
+                        switch teachersigninvm.selectedUser.user {
                         case .Student:
                             Helper.shared.setSelectedUserType(userType:.Student)
                             destination = AnyView(StudentTabBarView())
@@ -100,7 +100,7 @@ struct SignInView: View {
                                             .font(Font.SoraRegular(size: 12))
                                         
                                         Button(action: {
-                                            destination = AnyView(SignUpView(selecteduser:$selectedUser).hideNavigationBar())
+                                            destination = AnyView(SignUpView(selecteduser:$teachersigninvm.selectedUser).hideNavigationBar())
                                             isPush = true
                                         }, label: {
                                             Text("sign_up".localized())
@@ -125,17 +125,19 @@ struct SignInView: View {
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
             })
-            .onChange(of: selectedUser.user, perform: { val in
-                switch val {
-                case .Student:
-                    Helper.shared.setSelectedUserType(userType: .Student)
+            .onChange(of: teachersigninvm.selectedUser.user, perform: { val in
+                Helper.shared.setSelectedUserType(userType: val)
 
-                case .Parent:
-                    Helper.shared.setSelectedUserType(userType: .Parent)
-
-                case .Teacher:
-                    Helper.shared.setSelectedUserType(userType: .Teacher)
-                }
+//                switch val {
+//                case .Student:
+//                    Helper.shared.setSelectedUserType(userType: .Student)
+//
+//                case .Parent:
+//                    Helper.shared.setSelectedUserType(userType: .Parent)
+//
+//                case .Teacher:
+//                    Helper.shared.setSelectedUserType(userType: .Teacher)
+//                }
               })
             .showHud(isShowing: $teachersigninvm.isLoading)
             .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
@@ -148,7 +150,7 @@ struct SignInView: View {
                 }
                 .onChange(of: teachersigninvm.isLogedin) { newval in
                     guard newval == true else{return}
-                    switch selectedUser.user {
+                    switch teachersigninvm.selectedUser.user {
                     case .Student:
     //                    destination = AnyView(StudentTabBarView())
                         Helper.shared.changeRoot(toView: StudentTabBarView())
@@ -159,12 +161,12 @@ struct SignInView: View {
                     case .Teacher:
                         switch teachersigninvm.teachermodel?.profileStatusID {
                         case 1:
-                            destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .subjectsData)
+                            destination = AnyView(SignUpView(selecteduser: $teachersigninvm.selectedUser, currentStep: .subjectsData)
                             ) // subject info
                             isPush = newval
 
                         case 2:
-                            destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .documentsData)
+                            destination = AnyView(SignUpView(selecteduser: $teachersigninvm.selectedUser, currentStep: .documentsData)
                             ) // document info
                             isPush = newval
 

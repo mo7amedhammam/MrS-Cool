@@ -451,7 +451,9 @@ struct AnonymousHomeView: View {
                         if newval == .login { // sign in
                                                   
                             destination =                           AnyView(SignInView(hideimage:false))
-                                                            isPush = true
+                                                      
+                            Helper.shared.logout()
+                            isPush = true
                             
 //                            Helper.shared.changeRoot(toView: SignInView(hideimage:false))
                             //                            let window = UIApplication

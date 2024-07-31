@@ -91,6 +91,7 @@ class AddNewStudentVM: ObservableObject {
     @Published var isemailvalid : Bool?
 
     @Published var SchoolName = ""
+    @Published var isSchoolNamevalid : Bool?
 
     @Published var country : DropDownOption?{
         didSet{
@@ -206,7 +207,7 @@ extension AddNewStudentVM{
         
     private func checkValidfields()->Bool{
         isnamevalid = name.count > 0
-        isphonevalid = phone.count > 0
+        isphonevalid = phone.count == 11
         isemailvalid = email.count > 0
         isbirthDateStrvalid = birthDateStr != nil
         iseducationTypevalid = educationType != nil
@@ -216,7 +217,8 @@ extension AddNewStudentVM{
         isgovernortevalid = governorte != nil
         iscityvalid = city != nil
         isselectedGendervalid = selectedGender != nil
-        isPasswordvalid = Password.count > 0
+        isSchoolNamevalid = SchoolName.count > 0
+        isPasswordvalid = Password.count >= 6
         isconfirmPasswordvalid = confirmPassword.count > 0 && Password == confirmPassword
 
         return isnamevalid ?? true &&
@@ -230,6 +232,7 @@ extension AddNewStudentVM{
         isgovernortevalid ?? true &&
         iscityvalid ?? true &&
         isselectedGendervalid ?? true &&
+        isSchoolNamevalid ?? true &&
         isPasswordvalid ?? true &&
         isconfirmPasswordvalid ?? true
     }

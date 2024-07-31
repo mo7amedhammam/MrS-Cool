@@ -99,7 +99,7 @@ struct AddNewStudentView: View {
                                 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $addnewstudentvm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid: addnewstudentvm.isemailvalid)
                                 
-                                CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $addnewstudentvm.SchoolName,textContentType:.name)
+                                CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $addnewstudentvm.SchoolName,textContentType:.name,isvalid: addnewstudentvm.isSchoolNamevalid)
 
                                 CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $addnewstudentvm.country,options:lookupsvm.CountriesList,isvalid: addnewstudentvm.iscountryvalid)
                                     .onChange(of: addnewstudentvm.country, perform: { val in

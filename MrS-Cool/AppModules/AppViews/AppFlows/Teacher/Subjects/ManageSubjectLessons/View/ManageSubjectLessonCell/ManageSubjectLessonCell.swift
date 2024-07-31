@@ -102,15 +102,15 @@ struct ManageSubjectLessonCell: View {
                     .font(Font.SoraRegular(size: 12))
                     .foregroundColor(.mainBlue)
                         
-                        HStack(alignment:.bottom,spacing: 4) {
-                            Text("\(model.minGroup ?? 0) - \(model.maxGroup ?? 0)")
-                                .font(Font.SoraRegular(size: 12))
-                                .foregroundColor(.mainBlue)
-                            Text("Student".localized())
-                                .font(Font.SoraRegular(size: 9))
-                                .foregroundColor(.mainBlue)
-                            
-                        }
+//                        HStack(alignment:.bottom,spacing: 4) {
+//                            Text("\(model.minGroup ?? 0) - \(model.maxGroup ?? 0)")
+//                                .font(Font.SoraRegular(size: 12))
+//                                .foregroundColor(.mainBlue)
+//                            Text("Student".localized())
+//                                .font(Font.SoraRegular(size: 9))
+//                                .foregroundColor(.mainBlue)
+//                            
+//                        }
 
                     }
                     

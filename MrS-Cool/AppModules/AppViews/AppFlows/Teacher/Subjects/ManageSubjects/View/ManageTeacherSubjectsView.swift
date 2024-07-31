@@ -135,6 +135,7 @@ struct ManageTeacherSubjectsView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:manageteachersubjectsvm.isEditing ? "Update" : "Save" ,IsDisabled: .constant(false), action: {
+                                            ClearFilterValues()
                                             if manageteachersubjectsvm.isEditing{
                                                 manageteachersubjectsvm.UpdateTeacherSubject()
                                             }else{

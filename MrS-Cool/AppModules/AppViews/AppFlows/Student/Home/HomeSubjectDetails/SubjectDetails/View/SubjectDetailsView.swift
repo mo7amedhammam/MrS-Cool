@@ -406,21 +406,21 @@ struct SubjectTeacherInfoView : View {
                         }
                         .frame(minWidth: 0, maxWidth: .infinity)
                         
-                        HStack{
-                            Image("groupstudentsicon")
-                                .renderingMode(.template)
-                                .foregroundColor(ColorConstants.MainColor )
-                                .frame(width: 12,height: 12, alignment: .center)
-                            Group {
-                                Text("Minimum :".localized())
-                                + Text(" \(teacher.minGroup ?? 0) ")
-                                    .font(Font.SoraSemiBold(size: 13))
-                            }
-                            .font(Font.SoraRegular(size: 10))
-                            .foregroundColor(.mainBlue)
-                            Spacer()
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity)
+//                        HStack{
+//                            Image("groupstudentsicon")
+//                                .renderingMode(.template)
+//                                .foregroundColor(ColorConstants.MainColor )
+//                                .frame(width: 12,height: 12, alignment: .center)
+//                            Group {
+//                                Text("Minimum :".localized())
+//                                + Text(" \(teacher.minGroup ?? 0) ")
+//                                    .font(Font.SoraSemiBold(size: 13))
+//                            }
+//                            .font(Font.SoraRegular(size: 10))
+//                            .foregroundColor(.mainBlue)
+//                            Spacer()
+//                        }
+//                        .frame(minWidth: 0, maxWidth: .infinity)
                     }
                     
                     HStack{
@@ -442,21 +442,21 @@ struct SubjectTeacherInfoView : View {
                         }
                         .frame(minWidth: 0, maxWidth: .infinity)
                         
-                        HStack{
-                            Image("groupstudentsicon")
-                                .renderingMode(.template)
-                                .foregroundColor(ColorConstants.MainColor )
-                                .frame(width: 12,height: 12, alignment: .center)
-                            Group {
-                                Text("Maximum :".localized())
-                                + Text(" \(teacher.maxGroup ?? 0)")
-                                    .font(Font.SoraSemiBold(size: 13))
-                            }
-                            .font(Font.SoraRegular(size: 10))
-                            .foregroundColor(.mainBlue)
-                            Spacer()
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity)
+//                        HStack{
+//                            Image("groupstudentsicon")
+//                                .renderingMode(.template)
+//                                .foregroundColor(ColorConstants.MainColor )
+//                                .frame(width: 12,height: 12, alignment: .center)
+//                            Group {
+//                                Text("Maximum :".localized())
+//                                + Text(" \(teacher.maxGroup ?? 0)")
+//                                    .font(Font.SoraSemiBold(size: 13))
+//                            }
+//                            .font(Font.SoraRegular(size: 10))
+//                            .foregroundColor(.mainBlue)
+//                            Spacer()
+//                        }
+//                        .frame(minWidth: 0, maxWidth: .infinity)
                     }
                 }
                 .padding()

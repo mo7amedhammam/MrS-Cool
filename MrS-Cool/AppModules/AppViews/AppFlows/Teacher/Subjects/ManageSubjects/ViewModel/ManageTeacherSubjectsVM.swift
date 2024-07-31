@@ -56,7 +56,7 @@ class ManageTeacherSubjectsVM: ObservableObject {
     @Published var editId : Int = 0
     @Published var groupCost : String = ""{
         didSet{
-            isgroupCostvalid = (groupCost.isEmpty || groupCost == "") ? false:true
+            isgroupCostvalid = (Float(groupCost) == 0) ? false:true
         }
     }
     @Published var isgroupCostvalid:Bool?
@@ -401,7 +401,7 @@ extension ManageTeacherSubjectsVM{
 //        }
 //        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
 //        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
-        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+        isgroupCostvalid = !groupCost.isEmpty && Float(groupCost) != 0
 //        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
         
         return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true && isminGroupvalid ?? true && ismaxGroupvalid ?? true && isgroupCostvalid ?? true && isindividualCostvalid ?? true

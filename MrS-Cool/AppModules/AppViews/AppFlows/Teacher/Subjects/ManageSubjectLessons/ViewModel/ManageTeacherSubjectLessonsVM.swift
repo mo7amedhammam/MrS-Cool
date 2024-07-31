@@ -77,14 +77,14 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
 
     @Published var minGroup : String = ""{
         didSet{
-            isminGroupvalid = (minGroup.isEmpty || Int(minGroup) == 0) ? false:true
+//            isminGroupvalid = (minGroup.isEmpty || Int(minGroup) == 0) ? false:true
         }
     }
     @Published var isminGroupvalid:Bool?
     
     @Published var maxGroup : String = ""{
         didSet{
-            ismaxGroupvalid = (maxGroup.isEmpty || Int(maxGroup) == 0) ? false:true
+//            ismaxGroupvalid = (maxGroup.isEmpty || Int(maxGroup) == 0) ? false:true
         }
     }
     @Published var ismaxGroupvalid:Bool?
@@ -189,7 +189,9 @@ extension ManageTeacherSubjectLessonsVM{
     func UpdateTeacherSubjectLesson(){
         guard checkValidfields() else {return }
         guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = Int(groupTime),let individualTime = Int(individualTime),let mingroup = Int(minGroup),let maxgroup = Int(maxGroup)  else {return}
-        let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,"minGroup":mingroup,"maxGroup":maxgroup,"id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
+        let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,
+//                                       "minGroup":mingroup,"maxGroup":maxgroup,
+                                       "id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]
         
         print("parameters",parameters)
         let target = teacherServices.UpdateTeacherSubjectLessons(parameters: parameters)
@@ -392,14 +394,16 @@ extension ManageTeacherSubjectLessonsVM{
 //                }
 //                .eraseToAnyPublisher()
 //        }
-        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
-        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+//        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+//        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
         isgroupCostvalid = !groupCost.isEmpty 
         isindividualCostvalid = !individualCost.isEmpty 
         isgroupTimevalid = !groupTime.isEmpty && Int(groupTime) != 0
         isindividualTimevalid = !individualTime.isEmpty && Int(individualTime) != 0
 
-        return isgroupTimevalid ?? true && isindividualTimevalid ?? true && isminGroupvalid ?? true && ismaxGroupvalid ?? true && isgroupCostvalid ?? true && isindividualCostvalid ?? true
+        return isgroupTimevalid ?? true && isindividualTimevalid ?? true &&
+//        isminGroupvalid ?? true && ismaxGroupvalid ?? true &&
+        isgroupCostvalid ?? true && isindividualCostvalid ?? true
     }
 
 }

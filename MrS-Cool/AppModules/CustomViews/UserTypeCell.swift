@@ -30,15 +30,15 @@ struct UserTypeCell: View {
         Button(action: {
             selectedUser = user
             action?()
-            if selectedUser.user == .Student{
-                Helper.shared.setSelectedUserType(userType: .Student)
-                
-            }else if selectedUser.user == .Parent{
-                Helper.shared.setSelectedUserType(userType: .Parent)
-
-            }else {
-                Helper.shared.setSelectedUserType(userType: .Teacher)
-            }
+//            if selectedUser.user == .Student{
+//                Helper.shared.setSelectedUserType(userType: .Student)
+//                
+//            }else if selectedUser.user == .Parent{
+//                Helper.shared.setSelectedUserType(userType: .Parent)
+//
+//            }else {
+//                Helper.shared.setSelectedUserType(userType: .Teacher)
+//            }
         }, label: {
             VStack {
                 Image(user.imgName)

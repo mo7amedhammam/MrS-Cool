@@ -206,7 +206,9 @@ extension TeacherDocumentsVM{
         isdocumentFilevalid = true
 
     }
-
+    func clearFilter(){
+        filterdocumentType = nil
+    }
   
     
 

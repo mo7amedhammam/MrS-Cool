@@ -115,6 +115,8 @@ struct ManageMyDocumentsView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                                        filterdocumentType = nil
+                                        teacherdocumentsvm.clearFilter()
                                         teacherdocumentsvm.CreateTeacherDocument(fileType: selectedFileType)
                                     })
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {

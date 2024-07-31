@@ -229,9 +229,9 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     
                                     CustomTextField(iconName:"img_group_black_900",placeholder: "Group Time", text: $manageteachersubjectlessonsvm.groupTime,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.isgroupTimevalid)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.isminGroupvalid)
+//                                    CustomTextField(iconName:"img_group58",placeholder: "Minimum Number Of Group Students", text: $manageteachersubjectlessonsvm.minGroup ,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.isminGroupvalid)
                                     
-                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.ismaxGroupvalid)
+//                                    CustomTextField(iconName:"img_group58",placeholder: "Maximum Number Of Group Students", text: $manageteachersubjectlessonsvm.maxGroup,keyboardType:.asciiCapableNumberPad,isvalid:manageteachersubjectlessonsvm.ismaxGroupvalid)
                                     
                                     ZStack(alignment:.bottomTrailing){
                                         CustomTextField(iconName:"img_group_black_900",placeholder: "Individual Price", text: $manageteachersubjectlessonsvm.individualCost,keyboardType:.decimalPad,isvalid:manageteachersubjectlessonsvm.isindividualCostvalid)

@@ -159,10 +159,13 @@ struct SubjectTeachersListView: View {
                             
                             if let items = teachers.items{
                                 ScrollViewReader { proxy in
-                                    ColorConstants.Bluegray20099.frame(height:0.3)
-                                        .id(1) // Assign unique ID to scoll to top
-
                                 List(items,id:\.id){teacher in
+                                    ColorConstants.Bluegray20099.frame(maxHeight:0.3)
+                                        .id(1) // Assign unique ID to scoll to top
+//                                        .padding(.vertical,-20)
+                                        .listRowSeparator(.hidden)
+                                        .listRowSpacing(-15)
+
                                     Button(action: {
                                         switch bookingcase {
                                         case .subject:
@@ -184,7 +187,7 @@ struct SubjectTeachersListView: View {
                                         }
                                     }
                                     .listRowSeparator(.hidden)
-//                                    .listRowSpacing(-15)
+                                    .listRowSpacing(-15)
                                     .onChange(of: ScrollToTop) { value in
                                         if value == true {
                                                 withAnimation {
@@ -192,6 +195,7 @@ struct SubjectTeachersListView: View {
                                                 }
                                         }
                                              }
+                              
                                 }
                                 .listStyle(.plain)
 //                                Spacer()
