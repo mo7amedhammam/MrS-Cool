@@ -13,7 +13,7 @@ struct CalendarModuleView: UIViewRepresentable {
     }
 
     fileprivate lazy var dateFormatter2: DateFormatter = {
-         let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
          formatter.dateFormat = "yyyy-MM-dd"
          return formatter
      }()
@@ -120,7 +120,7 @@ struct CalView1: View {
     @State var date : Date?
     @State var scope: FSCalendarScope = .month
     static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "dd MMM yyyy"
         return formatter
     }()
@@ -216,7 +216,7 @@ struct CalView1: View {
         }
     }
       var dateFormatter2: DateFormatter = {
-         let formatter = DateFormatter()
+          let formatter = DateFormatter.cachedFormatter
          formatter.dateFormat = "yyyy-MM-dd"
          return formatter
      }()

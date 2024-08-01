@@ -9,9 +9,9 @@ import SwiftUI
 
 struct StudenCompletedLessonCellView: View {
     var model = StudentCompletedLessonItemM()
-    var reviewBtnAction : (()->())?
-    var chatBtnAction : (()->())?
-    var rateBtnAction : (()->())?
+    var reviewBtnAction : (()->Void)?
+    var chatBtnAction : (()->Void)?
+    var rateBtnAction : (()->Void)?
 
     var body: some View {
 //        Button(action: {
@@ -93,14 +93,14 @@ struct StudenCompletedLessonCellView: View {
                             .font(Font.SoraRegular(size: 12.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Black900)
-                            .minimumScaleFactor(0.5)
+//                            .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                         
                         Text(model.lessonname ?? "")
                             .font(Font.SoraRegular(size: 12.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Black900)
-                            .minimumScaleFactor(0.5)
+//                            .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                         
                     }
@@ -110,7 +110,7 @@ struct StudenCompletedLessonCellView: View {
                     VStack(alignment:.trailing){
                         VStack(alignment:.leading,spacing: 2.5){
                             Text("Date".localized())
-                                .font(Font.SoraSemiBold(size: 6))
+                                .font(Font.SoraSemiBold(size: 9))
                                 .foregroundColor(.grayBtnText)
                             
                             Text("\(model.date ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
@@ -120,7 +120,7 @@ struct StudenCompletedLessonCellView: View {
                             Spacer().frame(height:3)
                             
                             Text("Time".localized())
-                                .font(Font.SoraSemiBold(size: 6))
+                                .font(Font.SoraSemiBold(size: 9))
                                 .foregroundColor(.grayBtnText)
                             
                             Group{

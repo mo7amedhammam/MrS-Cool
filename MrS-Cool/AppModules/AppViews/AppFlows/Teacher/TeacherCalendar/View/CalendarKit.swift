@@ -38,14 +38,14 @@ final class CustomCalendarExampleController: DayViewController {
         return dateIntervalFormatter
     }()
     fileprivate lazy var dateFormatter2: DateFormatter = {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         //        calendar.timeZone = TimeZone(identifier: "UTC")!
         //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo")!
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         return formatter
     }()
     fileprivate lazy var timeFormatter2: DateFormatter = {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         //        calendar.timeZone = TimeZone(identifier: "UTC")!
         //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo")!
         formatter.dateFormat = "HH:mm:ss"
@@ -593,7 +593,7 @@ struct EventDetailsView: View {
     
     // Date formatter for parsing the event date and time
     fileprivate let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         return formatter
     }()

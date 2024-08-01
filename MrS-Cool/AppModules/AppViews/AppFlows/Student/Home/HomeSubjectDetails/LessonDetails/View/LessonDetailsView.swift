@@ -39,14 +39,14 @@ struct LessonDetailsView: View {
     init(selectedlessonid : Int) {
         self.selectedlessonid = selectedlessonid
         self.calendar = Calendar.current
-        self.dayFormatter = DateFormatter()
+        self.dayFormatter = DateFormatter.cachedFormatter
         self.dayFormatter.dateFormat = "dd"
-        self.weekDayFormatter = DateFormatter()
+        self.weekDayFormatter = DateFormatter.cachedFormatter
         self.weekDayFormatter.dateFormat = "EEE"
     }
     
     static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "EEEE dd, MMM yyyy"
         return formatter
     }()

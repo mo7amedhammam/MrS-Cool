@@ -86,7 +86,7 @@ struct WeeklyCalendarView: View {
     }
     
     static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "EEEE dd, MMM yyyy"
         return formatter
     }()

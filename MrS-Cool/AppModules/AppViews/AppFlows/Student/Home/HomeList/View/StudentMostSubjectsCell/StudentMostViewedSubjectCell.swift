@@ -18,7 +18,7 @@ import SwiftUI
 struct StudentMostViewedSubjectCell: View {
     var subject : StudentMostViewedSubjectsM = StudentMostViewedSubjectsM.init()
     @Binding var selectedsubject:StudentMostViewedSubjectsM
-    var action:(()->())?
+    var action:(()->Void)?
 
     var body: some View {
         Button(action: {
@@ -43,20 +43,28 @@ struct StudentMostViewedSubjectCell: View {
 //                .padding(.top, 10)
                 
                 
-                Text(subject.subjectName?.splitBy(separatedBy: ",")[0] ?? "")
-                    .font(Font.SoraSemiBold(size: 13))
-                    .fontWeight(.semibold)
-                    .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 :.mainBlue)
+                if let subjectName = subject.subjectName {
+//                    let subjectParts = subjectName.splitBy(separatedBy: ",")//caused memory leak
+                    let subjectParts = subjectName.split(separator: ",").map { String($0) }
+                    let firstPart = subjectParts.indices.contains(0) ? subjectParts[0] : ""
+                    let secondPart = subjectParts.indices.contains(1) ? subjectParts[1] : ""
+                    let thirdPart = subjectParts.indices.contains(2) ? subjectParts[2] : ""
+                    
+                    Text(firstPart)
+                        .font(Font.SoraSemiBold(size: 13))
+                        .fontWeight(.semibold)
+                        .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 19.0)
+                    
+                    HStack {
+                        Text("\(secondPart), \(thirdPart)")
+                    }
+                    .font(Font.SoraRegular(size: 12))
+                    .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
-                    .padding(.top, 19.0)
-                
-                HStack {
-                    Text("\(subject.subjectName?.splitBy(separatedBy: ",")[1] ?? ""), \(subject.subjectName?.splitBy(separatedBy: ",")[2] ?? "")")
+                    .padding(.top, 8)
                 }
-                .font(Font.SoraRegular(size: 12))
-                .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 :.mainBlue)
-                .multilineTextAlignment(.center)
-                .padding(.top, 8)
                 
                 
                 Group{

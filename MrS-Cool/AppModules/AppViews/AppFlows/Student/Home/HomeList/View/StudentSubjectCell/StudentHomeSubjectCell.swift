@@ -20,7 +20,7 @@ struct teacherTitle:Codable,Hashable {
 struct StudentHomeSubjectCell: View {
     var subject:HomeSubject = HomeSubject.init()
     @Binding var selectedSubject:HomeSubject
-    var action:(()->())?
+    var action:(()->Void)?
 //    var teacherInfoTitle: teacherTitle?
     var body: some View {
         Button(action: {

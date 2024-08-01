@@ -11,7 +11,7 @@ import SwiftUI
 struct StudentTopRatedTeachersCell: View {
     var teacher:StudentMostViewedTeachersM = StudentMostViewedTeachersM()
     @Binding var selectedteacher:StudentMostViewedTeachersM
-    var action:(()->())?
+    var action:(()->Void)?
 
     var body: some View {
         Button(action: {

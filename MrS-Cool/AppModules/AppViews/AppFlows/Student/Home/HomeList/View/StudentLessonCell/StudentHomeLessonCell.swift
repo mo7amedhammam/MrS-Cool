@@ -10,7 +10,7 @@ import SwiftUI
 struct StudentHomeLessonCell: View {
     var lesson : StudentMostViewedLessonsM = StudentMostViewedLessonsM.init()
     @Binding var selectedlesson:StudentMostViewedLessonsM
-    var action:(()->())?
+    var action:(()->Void)?
 
     var body: some View {
         Button(action: {

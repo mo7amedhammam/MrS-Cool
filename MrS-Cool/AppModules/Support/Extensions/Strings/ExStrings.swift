@@ -94,7 +94,9 @@ extension String {
 //    }
     
     func ChangeDateFormat(FormatFrom: String, FormatTo: String, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english:.arabic,outputLocal: SupportedLocale? = .current, inputTimeZone: TimeZone? = .current, outputTimeZone: TimeZone? = .current) -> String {
-        let formatter = DateFormatter()
+//        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
+
         formatter.locale = inputLocal?.locale ?? .current
         formatter.timeZone = inputTimeZone ?? .current
         formatter.dateFormat = FormatFrom
@@ -118,8 +120,9 @@ extension String {
     
     
     func toDate(withFormat format: String, inputTimeZone: TimeZone? = .current, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english : .arabic, outputTimeZone: TimeZone? = .current, outputLocal: SupportedLocale? = .current) -> Date? {
-        let dateFormatter = DateFormatter()
-        
+//        let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter.cachedFormatter
+
         // Set up the input formatter
         dateFormatter.dateFormat = format
         dateFormatter.locale = inputLocal?.locale ?? .current
@@ -142,7 +145,9 @@ extension String {
     
     
     func toDate() -> Date? {
-        let dateFormatter = DateFormatter()
+//        let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter.cachedFormatter
+
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         dateFormatter.timeZone = TimeZone(identifier: "GMT")
         return dateFormatter.date(from: self)
@@ -254,4 +259,11 @@ extension Character {
                 (123...126 ~= unicodeScalars.first?.value ?? 0))
     }
     
+}
+
+extension DateFormatter {
+    static let cachedFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        return formatter
+    }()
 }

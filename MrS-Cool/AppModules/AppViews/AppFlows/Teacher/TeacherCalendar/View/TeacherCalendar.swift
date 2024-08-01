@@ -49,13 +49,13 @@ struct CalView: View {
     )]
     init(calendar: Calendar) {
         self.calendar = calendar
-        self.monthFormatter = DateFormatter()
+        self.monthFormatter = DateFormatter.cachedFormatter
         self.monthFormatter.dateFormat = "MMMM yyyy"
-        self.dayFormatter = DateFormatter()
+        self.dayFormatter = DateFormatter.cachedFormatter
         self.dayFormatter.dateFormat = "dd"
-        self.weekDayFormatter = DateFormatter()
+        self.weekDayFormatter = DateFormatter.cachedFormatter
         self.weekDayFormatter.dateFormat = "EEE"
-        self.fullFormatter = DateFormatter()
+        self.fullFormatter = DateFormatter.cachedFormatter
         self.fullFormatter.dateFormat = "MMMM dd yyyy"
     }
 
