@@ -55,7 +55,7 @@ struct ManageSubjectGroupView: View {
                                                 .disabled(true)
                                             
                                             HStack {
-                                                CustomDatePickerField(iconName: "img_maskgroup7cl", rightIconName: nil, placeholder: "Start Time", selectedDateStr: .constant(slot.fromTime), datePickerComponent: .hourAndMinute)
+                                                CustomDatePickerField(iconName: "img_maskgroup7cl", rightIconName: nil, placeholder: "Start Time", selectedDateStr: .constant(slot.fromTime),timeZone:.current, datePickerComponent: .hourAndMinute)
                                                     .disabled(true)
                                                 
                                                 Button(action: {

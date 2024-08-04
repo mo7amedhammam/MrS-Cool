@@ -41,14 +41,24 @@ final class CustomCalendarExampleController: DayViewController {
         let formatter = DateFormatter.cachedFormatter
         //        calendar.timeZone = TimeZone(identifier: "UTC")!
         //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo")!
+//        formatter.locale = Locale(identifier: "en_US")
+//        formatter.locale = .current
+
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "GMT")
+        formatter.locale = Locale(identifier: "en")
         return formatter
     }()
     fileprivate lazy var timeFormatter2: DateFormatter = {
         let formatter = DateFormatter.cachedFormatter
         //        calendar.timeZone = TimeZone(identifier: "UTC")!
         //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo")!
+//        formatter.locale = .current
+
         formatter.dateFormat = "HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "GMT")
+        formatter.locale = Locale(identifier: "en_US_POSIX") // Use en_US_POSIX to ensure the correct interpretation of the time string
+
         return formatter
     }()
     
@@ -57,6 +67,9 @@ final class CustomCalendarExampleController: DayViewController {
         //      calendar.timeZone = TimeZone(identifier: "UTC")!
         dayView = DayView(calendar: calendar)
         dayView.move(to: selectedDate ?? Date())
+//        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+        dayView.calendar.locale = Locale(identifier: "en")
+
         view = dayView
     }
     
@@ -90,12 +103,89 @@ final class CustomCalendarExampleController: DayViewController {
     //        return []
     //    }
     
+//    override func eventsForDate(_ date: Date) -> [EventDescriptor] {
+//        // Filter events for the selected date
+//        let eventsForSelectedDate = events.filter { eventM in
+//            if let dateString = eventM.date,
+//               let eventDate = dateFormatter2.date(from: dateString) {
+//                
+//                return Calendar.current.isDate(eventDate, inSameDayAs: date)
+//            }
+//            return false
+//        }
+//        
+//        // Convert EventM objects to EventDescriptor
+//        let eventDescriptors = eventsForSelectedDate.compactMap { eventM in
+//            let event = Event()
+//            
+//            // Configure event properties based on your EventM model
+//            if let dateString = eventM.date,
+//               let eventDate = dateFormatter2.date(from: dateString),
+//               let timeFromString = eventM.timeFrom,
+//               let timeToString = eventM.timeTo,
+//               let timeFrom = timeFormatter2.date(from: timeFromString),
+//               let timeTo = timeFormatter2.date(from: timeToString) {
+//                print("timeFromString",timeFromString)
+//                print("timeFrom",timeFrom)
+//
+//                // Safely unwrap startTimeComponents and endTimeComponents
+//                let calendar = Calendar.current
+//                var startTimeComponents = calendar.dateComponents([.hour, .minute], from: timeFrom)
+//                var endTimeComponents = calendar.dateComponents([.hour, .minute], from: timeTo)
+//                
+////                startTimeComponents.timeZone = TimeZone(identifier: "UTC")
+////                endTimeComponents.timeZone = TimeZone(identifier: "UTC")
+//
+//                
+//                if let startHour = startTimeComponents.hour,
+//                   let startMinute = startTimeComponents.minute,
+//                   let endHour = endTimeComponents.hour,
+//                   let endMinute = endTimeComponents.minute {
+//                    
+//                    let startDate = eventDate.addingTimeInterval(TimeInterval(startHour * 3600 + startMinute * 60))
+//                    var endDate = eventDate.addingTimeInterval(TimeInterval(endHour * 3600 + endMinute * 60))
+//                    
+//                    // Handle case where end time is before start time (e.g., crosses midnight)
+//                    if endDate <= startDate {
+//                        endDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate) ?? endDate
+//                    }
+//                    
+//                    event.dateInterval = DateInterval(start: startDate, end: endDate)
+//                    
+//                    event.text = "\(eventM.groupName ?? "")"
+//                    
+//                    // Set color based on conditions
+//                    let now = Date()
+//                    if eventDate < Calendar.current.startOfDay(for: now) {
+//                        // Event is before today
+//                        event.color = .red
+//                    } else if eventM.isCancel ?? false {
+//                        // Event is canceled
+//                        event.color = .red
+//                    } else if endDate < now {
+//                        // Event end time is in the past
+//                        event.color = .red
+//                    } else {
+//                        // Default color for other events
+//                        event.color = .green
+//                    }
+//                    
+//                    // Store the EventM object in userInfo
+//                    event.userInfo = eventM
+//                    
+//                    return event // Return the configured event
+//                }
+//            }
+//            return nil // Return nil if any of the required components are missing
+//        }
+//        
+//        return eventDescriptors
+//    }
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         // Filter events for the selected date
         let eventsForSelectedDate = events.filter { eventM in
             if let dateString = eventM.date,
                let eventDate = dateFormatter2.date(from: dateString) {
-                
                 return Calendar.current.isDate(eventDate, inSameDayAs: date)
             }
             return false
@@ -109,51 +199,59 @@ final class CustomCalendarExampleController: DayViewController {
             if let dateString = eventM.date,
                let eventDate = dateFormatter2.date(from: dateString),
                let timeFromString = eventM.timeFrom,
-               let timeToString = eventM.timeTo,
-               let timeFrom = timeFormatter2.date(from: timeFromString),
-               let timeTo = timeFormatter2.date(from: timeToString) {
+               let timeToString = eventM.timeTo {
                 
-                // Safely unwrap startTimeComponents and endTimeComponents
-                let startTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: timeFrom)
-                let endTimeComponents = Calendar.current.dateComponents([.hour, .minute], from: timeTo)
+                // Extract hours and minutes from the time strings
+                let timeFromComponents = timeFromString.split(separator: ":").map { Int($0) ?? 0 }
+                let timeToComponents = timeToString.split(separator: ":").map { Int($0) ?? 0 }
                 
-                if let startHour = startTimeComponents.hour,
-                   let startMinute = startTimeComponents.minute,
-                   let endHour = endTimeComponents.hour,
-                   let endMinute = endTimeComponents.minute {
+                if timeFromComponents.count == 3, timeToComponents.count == 3 {
+                    let calendar = Calendar.current
+                    var startTimeComponents = DateComponents()
+                    startTimeComponents.hour = timeFromComponents[0]
+                    startTimeComponents.minute = timeFromComponents[1]
                     
-                    let startDate = eventDate.addingTimeInterval(TimeInterval(startHour * 3600 + startMinute * 60))
-                    var endDate = eventDate.addingTimeInterval(TimeInterval(endHour * 3600 + endMinute * 60))
+                    var endTimeComponents = DateComponents()
+                    endTimeComponents.hour = timeToComponents[0]
+                    endTimeComponents.minute = timeToComponents[1]
                     
-                    // Handle case where end time is before start time (e.g., crosses midnight)
-                    if endDate <= startDate {
-                        endDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate) ?? endDate
+                    if let startHour = startTimeComponents.hour,
+                       let startMinute = startTimeComponents.minute,
+                       let endHour = endTimeComponents.hour,
+                       let endMinute = endTimeComponents.minute {
+                        
+                        let startDate = calendar.date(bySettingHour: startHour, minute: startMinute, second: 0, of: eventDate)!
+                        var endDate = calendar.date(bySettingHour: endHour, minute: endMinute, second: 0, of: eventDate)!
+                        
+                        // Handle case where end time is before start time (e.g., crosses midnight)
+                        if endDate <= startDate {
+                            endDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate) ?? endDate
+                        }
+                        
+                        event.dateInterval = DateInterval(start: startDate, end: endDate)
+                        event.text = "\(eventM.groupName ?? "")"
+                        
+                        // Set color based on conditions
+                        let now = Date()
+                        if eventDate < calendar.startOfDay(for: now) {
+                            // Event is before today
+                            event.color = .red
+                        } else if eventM.isCancel ?? false {
+                            // Event is canceled
+                            event.color = .red
+                        } else if endDate < now {
+                            // Event end time is in the past
+                            event.color = .red
+                        } else {
+                            // Default color for other events
+                            event.color = .green
+                        }
+                        
+                        // Store the EventM object in userInfo
+                        event.userInfo = eventM
+                        
+                        return event // Return the configured event
                     }
-                    
-                    event.dateInterval = DateInterval(start: startDate, end: endDate)
-                    
-                    event.text = "\(eventM.groupName ?? "")"
-                    
-                    // Set color based on conditions
-                    let now = Date()
-                    if eventDate < Calendar.current.startOfDay(for: now) {
-                        // Event is before today
-                        event.color = .red
-                    } else if eventM.isCancel ?? false {
-                        // Event is canceled
-                        event.color = .red
-                    } else if endDate < now {
-                        // Event end time is in the past
-                        event.color = .red
-                    } else {
-                        // Default color for other events
-                        event.color = .green
-                    }
-                    
-                    // Store the EventM object in userInfo
-                    event.userInfo = eventM
-                    
-                    return event // Return the configured event
                 }
             }
             return nil // Return nil if any of the required components are missing
@@ -161,6 +259,7 @@ final class CustomCalendarExampleController: DayViewController {
         
         return eventDescriptors
     }
+
     
     
     

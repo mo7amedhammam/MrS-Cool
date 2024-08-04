@@ -15,7 +15,8 @@ struct CalendarModuleView: UIViewRepresentable {
     fileprivate lazy var dateFormatter2: DateFormatter = {
         let formatter = DateFormatter.cachedFormatter
          formatter.dateFormat = "yyyy-MM-dd"
-         return formatter
+        formatter.locale = Locale(identifier: "en_US")
+        return formatter
      }()
 
     func makeUIView(context: Context) -> FSCalendar {
@@ -119,11 +120,11 @@ struct CalView1: View {
     @State var events: [EventM] = []
     @State var date : Date?
     @State var scope: FSCalendarScope = .month
-    static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter.cachedFormatter
-        formatter.dateFormat = "dd MMM yyyy"
-        return formatter
-    }()
+//    static let taskDateFormat: DateFormatter = {
+//        let formatter = DateFormatter.cachedFormatter
+//        formatter.dateFormat = "dd MMM yyyy"
+//        return formatter
+//    }()
     @Binding var selectedChild:ChildrenM?
     var body: some View {
         VStack {
@@ -218,6 +219,7 @@ struct CalView1: View {
       var dateFormatter2: DateFormatter = {
           let formatter = DateFormatter.cachedFormatter
          formatter.dateFormat = "yyyy-MM-dd"
+          formatter.locale = Locale(identifier: "en_US")
          return formatter
      }()
 }
