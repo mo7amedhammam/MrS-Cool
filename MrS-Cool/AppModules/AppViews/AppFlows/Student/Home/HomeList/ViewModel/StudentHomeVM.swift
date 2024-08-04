@@ -63,6 +63,9 @@ class StudentHomeVM: ObservableObject {
     
     @Published var StudentSubjects : [HomeSubject]? = []
     @Published var SelectedStudentSubjects : HomeSubject = HomeSubject()
+    @Published var newStudentSubjects : [StudentMostViewedSubjectsM] =  []
+    @Published var newSSelectedStudentSubjects : StudentMostViewedSubjectsM = StudentMostViewedSubjectsM()
+
     
     @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = []
     @Published var SelectedStudentMostViewedLesson : StudentMostViewedLessonsM = StudentMostViewedLessonsM()
@@ -156,9 +159,13 @@ extension StudentHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true,let data = receivedData.data {
-
                         //                    TeacherSubjects?.append(model)
-                        StudentSubjects = data.getAllSubjects?.convertToStudentSubjects()
+//                        newStudentSubjects = data.getAllSubjects?.newconvertToStudentSubjects()
+                        
+                        guard let subjects = data.getAllSubjects else {return}
+//                        StudentSubjects = subjects.convertToStudentSubjects()
+
+                        newStudentSubjects = subjects.newconvertToStudentSubjects()
                     }else{
                         //                    isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -365,6 +372,7 @@ extension StudentHomeVM{
     
     func clearselections(){
         SelectedStudentSubjects = HomeSubject()
+        newSSelectedStudentSubjects = StudentMostViewedSubjectsM()
         SelectedStudentMostViewedLesson = StudentMostViewedLessonsM()
         SelectedStudentMostBookedLesson = StudentMostViewedLessonsM()
         SelectedStudentMostViewedSubject = StudentMostViewedSubjectsM()
@@ -396,6 +404,21 @@ extension Array where Element == GetAllSubject {
                 id: getAllSubject.id,
                 name: getAllSubject.name,
                 image: getAllSubject.image
+            )
+        }
+    }
+}
+
+extension Array where Element == GetAllSubject {
+    func newconvertToStudentSubjects() -> [StudentMostViewedSubjectsM] {
+        return self.map { getAllSubject in
+            return StudentMostViewedSubjectsM(
+                id: getAllSubject.id,
+                subjectName: getAllSubject.name,
+                image: getAllSubject.image
+//                ,
+//                lessonsCount:getAllSubject.lessonsCount,
+//                teacherCount:getAllSubject.availableTeacherCount
             )
         }
     }

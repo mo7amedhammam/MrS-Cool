@@ -184,11 +184,11 @@ struct CustomAlertView: View {
                     }
                 }
                 
-                if let imgStr = alertType.image(){
+//                if let imgStr = alertType.image(){
                     ZStack {
-                        Image(imgStr)
+                        Image(alertType.image() ?? "payment_failed")
                             .resizable()
-                            .renderingMode(alertType.imagerendermode() ?? .template)
+                            .renderingMode(alertType.image() == nil ? .original : alertType.imagerendermode() ?? .template)
                         //                                .foregroundColor(Color("Second_Color"))
                             .foregroundColor(ColorConstants.MainColor)
                         
@@ -196,7 +196,7 @@ struct CustomAlertView: View {
                             .frame(width: 50, height: 50, alignment: .center)
                     }
                     .padding(.top)
-                }
+//                }
                 
                 // alert message
                 Text(alertType.message().localized())
@@ -280,22 +280,22 @@ struct CustomAlertView: View {
 }
 
 #Preview {
-//        CustomAlert(presentAlert: .constant(true), alertType:.error(title: "", message: "error message",lefttext: "Done",righttext: "Cancel"), haveTwoButtons:false)
+    CustomAlertView(presentAlert: .constant(true),alertType: .error(title: "", image: nil, imgrendermode: .original, message: "MEssage", buttonTitle: "OK", isVertical: false))
     
 //        CustomAlert(presentAlert: .constant(true),alertType:.question(title: "Title", message: "Are you sure you want to delete this item ?",lefttext: "Save",righttext: "Clear"),haveTwoButtons: true)
     
 //    CustomAlertView(presentAlert: .constant(true),alertType:.success(title: "Title", message: "succeeded",buttonTitle: "Done",secondButtonTitle: "OK"))
 
 
-    CustomAlertView(presentAlert: .constant(true),alertType:.success (title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
+//    CustomAlertView(presentAlert: .constant(true),alertType:.success (title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
 //        tabbarvm.destination = AnyView( StudentSignUpView()
 //            .environmentObject(LookUpsVM())
 //            .environmentObject(StudentSignUpVM())
 //        )
 //        tabbarvm.ispush = true
-    }, secondBtnAction: {
-        
-    }))
+//    }, secondBtnAction: {
+//        
+//    }))
     
 }
 

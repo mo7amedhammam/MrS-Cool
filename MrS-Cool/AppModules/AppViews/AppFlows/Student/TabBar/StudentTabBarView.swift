@@ -213,19 +213,20 @@ struct CustomTabBarView: View {
                         }
                     )
                     .offset(y:index == tabBarItems.count / 2  ? -12 : 8 )
-                    if index == tabBarItems.count / 2 - 1 {
-                        Spacer()
-                    }
+//                    if index == tabBarItems.count / 2 - 1 {
+//                        Spacer()
+//                    }
                 }
             }
             .frame(height: middleTabHeight)
             .background(content: {
-                tabshape(midpoint: UIScreen.main.bounds.midX+4)
+                tabshape(midpoint: UIScreen.main.bounds.midX)
                     .fill(ColorConstants.WhiteA700)
                     .shadow(color: ColorConstants.Black900.opacity(0.2), radius: 10, x: 0, y: 0)
                     .edgesIgnoringSafeArea(.bottom)
                 
             })
+
             //            }
             //            .frame(height: middleTabHeight)
         }

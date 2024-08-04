@@ -36,8 +36,8 @@ struct StudentMostViewedSubjectCell: View {
 //                }
                 let imageURL : URL? = URL(string: Constants.baseURL+(subject.image ?? "").reverseSlaches())
                 KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                .aspectRatio(contentMode: .fill)
                 .frame(height: 126)
+                .aspectRatio(contentMode: .fill)
                 .clipShape(RoundedCorners(topLeft: 10, topRight: 10, bottomLeft: 0, bottomRight: 0))
                 .clipped()
 //                .padding(.top, 10)
