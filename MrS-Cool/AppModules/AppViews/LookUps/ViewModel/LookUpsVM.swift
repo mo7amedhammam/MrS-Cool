@@ -6,10 +6,10 @@
 //
 
 import Combine
-import CoreFoundation
-import Foundation
-import UIKit
-import SwiftUI
+//import CoreFoundation
+//import Foundation
+//import UIKit
+//import SwiftUI
 
 enum DropDownForCase{
     case Adding, Filtering
@@ -443,6 +443,45 @@ class LookUpsVM: ObservableObject {
     }
     @Published var BookedLessonsForList: [DropDownOption] = []
 
+    // ... new added subjects for teacher register>subjects ...
+    @Published var SubjectListByEducationLevelIdArray: [GendersM] = []{
+        didSet{
+            if !SubjectListByEducationLevelIdArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                SubjectListByEducationLevelIdList = SubjectListByEducationLevelIdArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                SubjectListByEducationLevelIdList.removeAll()
+            }
+        }
+    }
+    @Published var SubjectListByEducationLevelIdList: [DropDownOption] = []
+    
+    @Published var SelectedSubjectListByEducationLevelId: DropDownOption?{
+        didSet{
+            if SelectedSubjectListByEducationLevelId == nil{
+                SubjectListBySubjectIdAndEducationLevelIdList.removeAll()
+            }else{
+                GetSubjectBySubjectIdAndEducationLevelId()
+            }
+        }
+    }
+
+    @Published var SubjectListBySubjectIdAndEducationLevelIdArray: [GendersM] = []{
+        didSet{
+            if !SubjectListByEducationLevelIdArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                SubjectListBySubjectIdAndEducationLevelIdList = SubjectListBySubjectIdAndEducationLevelIdArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.name)
+                }
+            }else{
+                SubjectListBySubjectIdAndEducationLevelIdList.removeAll()
+            }
+        }
+    }
+    @Published var SubjectListBySubjectIdAndEducationLevelIdList: [DropDownOption] = []
+    
     
     @Published private var error: Error?
     
@@ -832,45 +871,6 @@ extension LookUpsVM{
 }
 
 
-//MARK: -- keyboard --
-final class KeyboardResponder: ObservableObject {
-    @Published var currentHeight: CGFloat = 0
-
-    var keyboardWillShowNotification = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
-    var keyboardWillHideNotification = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-
-    init() {
-        keyboardWillShowNotification.map { notification in
-            CGFloat((notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0)
-        }
-        .assign(to: \.currentHeight, on: self)
-        .store(in: &cancellableSet)
-
-        keyboardWillHideNotification.map { _ in
-            CGFloat(0)
-        }
-        .assign(to: \.currentHeight, on: self)
-        .store(in: &cancellableSet)
-    }
-
-    private var cancellableSet: Set<AnyCancellable> = []
-}
-
-struct KeyboardAdaptive: ViewModifier {
-    @ObservedObject private var keyboard = KeyboardResponder()
-
-    func body(content: Content) -> some View {
-        content
-            .padding(.bottom, keyboard.currentHeight)
-            .animation(.easeOut(duration: 0.16))
-    }
-}
-extension View {
-    func keyboardAdaptive() -> some View {
-        modifier(KeyboardAdaptive())
-    }
-}
-
 
 
 // MARK: - SubjectsByAcademicLevel
@@ -886,3 +886,51 @@ struct SubjectsByAcademicLevelM: Codable,Hashable {
 }
 
 
+
+extension LookUpsVM {
+    // ... new added apis for change in teacher subjects ...
+    func GetSubjectListByEducationLevelId() {
+        GovernoratesArray.removeAll()
+        guard let educationLevelId = SelectedEducationLevel?.id else {return}
+        let parameters = ["educationLevelId":educationLevelId]
+
+        let target = LookupsServices.GetAllForListByEducationLevelId(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                SubjectListByEducationLevelIdArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    
+    func GetSubjectBySubjectIdAndEducationLevelId() {
+        GovernoratesArray.removeAll()
+        guard let subjectId = SelectedSubjectListByEducationLevelId?.id ,let educationLevelId = SelectedEducationLevel?.id else {return}
+        let parameters = ["subjectId":subjectId,"educationLevelId":educationLevelId]
+
+        let target = LookupsServices.GetAllSubjectBySubjectIdAndEducationLevelId(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                SubjectListBySubjectIdAndEducationLevelIdArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+
+}

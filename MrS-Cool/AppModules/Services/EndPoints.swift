@@ -35,7 +35,10 @@ enum EndPoints: String {
     case GetDays = "Lookups/GetDay"
     case GetAcademicSemester = "AcademicSemester/Get"
     case GetStatus = "Lookups/GetStatus"
-    
+
+    // ... new Change for teacher register/ subjects ...
+    case GetAllForListByEducationLevelId = "Subject/GetAllForListByEducationLevelId"
+    case GetAllSubjectBySubjectIdAndEducationLevelId = "SubjectSemesterYear/GetAllSubjectBySubjectIdAndEducationLevelId"
     
     // MARK: -- Teacher Auth --
     //Teacher personal Date
@@ -209,3 +212,10 @@ enum ParentEndPoints:String{
     case UpdateParentProfile = "Parent/UpdateProfile"
 
 }
+
+
+extension EndPoints{
+    
+}
+
+

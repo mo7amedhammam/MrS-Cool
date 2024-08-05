@@ -54,9 +54,10 @@ struct AddNewStudentView: View {
                                     .background(.white)
                                     .clipShape(Circle())
                                     .offset(x:-7,y:20)
-                                .onTapGesture(perform: {
-                                    showImageSheet = true
-                                })
+//                                .onTapGesture(perform: {
+//                                    showImageSheet = true
+//                                })
+                                    .imagePicker(selectedImage: $addnewstudentvm.image)
 
                         }
                         Text(addnewstudentvm.name)
@@ -156,26 +157,26 @@ struct AddNewStudentView: View {
         .showHud(isShowing: $addnewstudentvm.isLoading)
         .showAlert(hasAlert: $addnewstudentvm.isError, alertType: addnewstudentvm.error)
 
-        //MARK: -------- imagePicker From Camera and Library ------
-        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
-            Button("photo_Library".localized()) {
-                self.imagesource = .photoLibrary
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Camera".localized()) {
-                self.imagesource = .camera
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Cancel".localized(), role: .cancel) { }
-        } message: {Text("Choose_Image_From".localized())}
-            .sheet(isPresented: $startPickingImage) {
-                if let sourceType = imagesource {
-                    // Pick an image from the photo library:
-                    ImagePicker(sourceType: sourceType , selectedImage: $addnewstudentvm.image)
-                }
-            }
+//        //MARK: -------- imagePicker From Camera and Library ------
+//        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
+//            Button("photo_Library".localized()) {
+//                self.imagesource = .photoLibrary
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Camera".localized()) {
+//                self.imagesource = .camera
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Cancel".localized(), role: .cancel) { }
+//        } message: {Text("Choose_Image_From".localized())}
+//            .sheet(isPresented: $startPickingImage) {
+//                if let sourceType = imagesource {
+//                    // Pick an image from the photo library:
+//                    ImagePicker(sourceType: sourceType , selectedImage: $addnewstudentvm.image)
+//                }
+//            }
             .fullScreenCover(isPresented: $addnewstudentvm.isDataUploaded, onDismiss: {
                 print("dismissed ")
                 if isVerified {

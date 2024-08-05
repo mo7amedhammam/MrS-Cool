@@ -82,6 +82,8 @@
 		C860ED892BB8525F00CAE116 /* AddNewStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C860ED882BB8525F00CAE116 /* AddNewStudentView.swift */; };
 		C860ED8B2BB8528000CAE116 /* AddNewStudentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C860ED8A2BB8528000CAE116 /* AddNewStudentVM.swift */; };
 		C863C72C2AF1334B004322F2 /* FilePreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C863C72B2AF1334B004322F2 /* FilePreviewer.swift */; };
+		C865641D2C60E77C00BE2E34 /* imagePickerViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865641C2C60E77C00BE2E34 /* imagePickerViewModifier.swift */; };
+		C86564202C6112C500BE2E34 /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865641F2C6112C500BE2E34 /* KeyboardAdaptive.swift */; };
 		C865D2B12B78BD0D007F116A /* PaymentStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865D2B02B78BD0D007F116A /* PaymentStatusView.swift */; };
 		C865D2B52B78DA0B007F116A /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865D2B42B78DA0B007F116A /* SideView.swift */; };
 		C86A96342B24776E00BF7D13 /* ManageSubjectGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86A96332B24776E00BF7D13 /* ManageSubjectGroupCell.swift */; };
@@ -276,6 +278,8 @@
 		C860ED882BB8525F00CAE116 /* AddNewStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStudentView.swift; sourceTree = "<group>"; };
 		C860ED8A2BB8528000CAE116 /* AddNewStudentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewStudentVM.swift; sourceTree = "<group>"; };
 		C863C72B2AF1334B004322F2 /* FilePreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewer.swift; sourceTree = "<group>"; };
+		C865641C2C60E77C00BE2E34 /* imagePickerViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePickerViewModifier.swift; sourceTree = "<group>"; };
+		C865641F2C6112C500BE2E34 /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		C865D2B02B78BD0D007F116A /* PaymentStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentStatusView.swift; sourceTree = "<group>"; };
 		C865D2B42B78DA0B007F116A /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		C86A96332B24776E00BF7D13 /* ManageSubjectGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectGroupCell.swift; sourceTree = "<group>"; };
@@ -1162,6 +1166,14 @@
 			name = FilePreviewer;
 			sourceTree = "<group>";
 		};
+		C865641E2C61128600BE2E34 /* keyBoardAdaptive */ = {
+			isa = PBXGroup;
+			children = (
+				C865641F2C6112C500BE2E34 /* KeyboardAdaptive.swift */,
+			);
+			name = keyBoardAdaptive;
+			sourceTree = "<group>";
+		};
 		C865D2B22B78D9D4007F116A /* StudentSideMenue */ = {
 			isa = PBXGroup;
 			children = (
@@ -1621,6 +1633,7 @@
 			isa = PBXGroup;
 			children = (
 				C89BAFA32AE2B83200FB5807 /* ViewModifiers.swift */,
+				C865641C2C60E77C00BE2E34 /* imagePickerViewModifier.swift */,
 			);
 			name = ViewModifiers;
 			sourceTree = "<group>";
@@ -2188,6 +2201,7 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				C865641E2C61128600BE2E34 /* keyBoardAdaptive */,
 				C863C72A2AF1332D004322F2 /* FilePreviewer */,
 				C883058A2AF10C770030B2A8 /* Pickers */,
 				C8986C762AE924DF003E9179 /* OTPTextField */,
@@ -2583,6 +2597,7 @@
 				C82A96CE2AE56EF000A63134 /* LookupsModels.swift in Sources */,
 				C8F649E92C3A7D40002C4A63 /* StudentFinanceView.swift in Sources */,
 				C8357E822B611AE400911371 /* SubjectTeachersListM.swift in Sources */,
+				C86564202C6112C500BE2E34 /* KeyboardAdaptive.swift in Sources */,
 				C85168A52BA5B60000B83E4A /* ParentTabBarView.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
 				C8438EF72B94816200D9412D /* StudentEditProfileView.swift in Sources */,
@@ -2599,6 +2614,7 @@
 				C877C8472B1207E0000F176A /* ManageLessonMaterialM.swift in Sources */,
 				C860ED892BB8525F00CAE116 /* AddNewStudentView.swift in Sources */,
 				C832420A2B1F30C3008CFC4A /* Exdates.swift in Sources */,
+				C865641D2C60E77C00BE2E34 /* imagePickerViewModifier.swift in Sources */,
 				C88447A12B32EF82002819ED /* eventKit.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
 				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,

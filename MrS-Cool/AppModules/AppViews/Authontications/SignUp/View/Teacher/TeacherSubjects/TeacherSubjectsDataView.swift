@@ -35,9 +35,14 @@ struct TeacherSubjectsDataView: View {
                             
                             CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $teachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid: teachersubjectsvm.iseducationLevelvalid)
                             
-                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $teachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid: teachersubjectsvm.isacademicYearvalid)
+//                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $teachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid: teachersubjectsvm.isacademicYearvalid)
+//                            
+//                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid: teachersubjectsvm.issubjectvalid)
+
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Subjects *", selectedOption: $teachersubjectsvm.academicYear ,options:lookupsvm.SubjectListByEducationLevelIdList,isvalid: teachersubjectsvm.isacademicYearvalid)
                             
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid: teachersubjectsvm.issubjectvalid)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectvalid)
+                            
                         }
                         .padding([.top])
                     }.padding(.top,20)
@@ -85,17 +90,31 @@ struct TeacherSubjectsDataView: View {
         }.onAppear(perform: {
             signupvm.isUserChangagble = false
             lookupsvm.GetEducationTypes()
-            teachersubjectsvm.GetTeacherSubjects()
+//            teachersubjectsvm.GetTeacherSubjects()
         })
         .onChange(of: teachersubjectsvm.educationType, perform: { value in
             lookupsvm.SelectedEducationType = value
         })
         .onChange(of: teachersubjectsvm.educationLevel, perform: { value in
             lookupsvm.SelectedEducationLevel = value
+            lookupsvm.GetSubjectListByEducationLevelId()
         })
+//        .onChange(of: teachersubjectsvm.academicYear, perform: { value in
+//            lookupsvm.SelectedAcademicYear = value
+//        })
+//        .onChange(of: teachersubjectsvm.subject, perform: { value in
+//            lookupsvm.SelectedEducationLevel = value
+//            lookupsvm.GetSubjectListByEducationLevelId()
+//        })
+
         .onChange(of: teachersubjectsvm.academicYear, perform: { value in
-            lookupsvm.SelectedAcademicYear = value
+//            lookupsvm.SelectedAcademicYear = value
+            lookupsvm.SelectedSubjectListByEducationLevelId = value
         })
+//        .onChange(of: teachersubjectsvm.subject, perform: { value in
+//            lookupsvm.SelectedEducationLevel = value
+//        })
+
         .onChange(of: teachersubjectsvm.isTeacherHasSubjects, perform: { value in
             signupvm.isTeacherHasSubjects = value
         })

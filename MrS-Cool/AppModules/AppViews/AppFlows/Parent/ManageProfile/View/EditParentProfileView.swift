@@ -54,9 +54,10 @@ struct EditParentProfileView: View {
                                     .background(.white)
                                     .clipShape(Circle())
                                     .offset(x:-7,y:20)
-                                .onTapGesture(perform: {
-                                    showImageSheet = true
-                                })
+                                    .imagePicker(selectedImage: $parentprofilevm.image)
+//                                .onTapGesture(perform: {
+//                                    showImageSheet = true
+//                                })
 
                         }
                         Text(parentprofilevm.name)
@@ -148,26 +149,26 @@ struct EditParentProfileView: View {
         .showHud(isShowing: $parentprofilevm.isLoading)
         .showAlert(hasAlert: $parentprofilevm.isError, alertType: parentprofilevm.error)
 
-        //MARK: -------- imagePicker From Camera and Library ------
-        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
-            Button("photo_Library".localized()) {
-                self.imagesource = .photoLibrary
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Camera".localized()) {
-                self.imagesource = .camera
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Cancel".localized(), role: .cancel) { }
-        } message: {Text("Choose_Image_From".localized())}
-            .sheet(isPresented: $startPickingImage) {
-                if let sourceType = imagesource {
-                    // Pick an image from the photo library:
-                    ImagePicker(sourceType: sourceType , selectedImage: $parentprofilevm.image)
-                }
-            }
+//        //MARK: -------- imagePicker From Camera and Library ------
+//        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
+//            Button("photo_Library".localized()) {
+//                self.imagesource = .photoLibrary
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Camera".localized()) {
+//                self.imagesource = .camera
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Cancel".localized(), role: .cancel) { }
+//        } message: {Text("Choose_Image_From".localized())}
+//            .sheet(isPresented: $startPickingImage) {
+//                if let sourceType = imagesource {
+//                    // Pick an image from the photo library:
+//                    ImagePicker(sourceType: sourceType , selectedImage: $parentprofilevm.image)
+//                }
+//            }
 //        NavigationLink(destination: destination, isActive: $isPush, label: {})
 
     }

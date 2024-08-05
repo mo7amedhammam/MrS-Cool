@@ -17,6 +17,11 @@ enum LookupsServices {
     case GetEducationLevels(parameters : [String:Any])
     case GetAcademicYears(parameters : [String:Any])
     case GetAllSubjects(parameters : [String:Any])
+    
+    // ... added new for change in design ...
+    case GetAllForListByEducationLevelId(parameters : [String:Any])
+    case GetAllSubjectBySubjectIdAndEducationLevelId(parameters : [String:Any])
+
     case GetDocumentTypes
     case GetMaterialTypes
     case GetDays
@@ -54,6 +59,12 @@ extension LookupsServices : TargetType {
         case .GetAllSubjects:
             return EndPoints.GetAllSubject.rawValue
             
+            //... added for change ...
+        case .GetAllForListByEducationLevelId:
+            return EndPoints.GetAllForListByEducationLevelId.rawValue
+        case .GetAllSubjectBySubjectIdAndEducationLevelId:
+            return EndPoints.GetAllSubjectBySubjectIdAndEducationLevelId.rawValue
+            
         case .GetDocumentTypes:
             return EndPoints.GetDocumentTypes.rawValue
         case .GetMaterialTypes:
@@ -81,13 +92,9 @@ extension LookupsServices : TargetType {
     var method: Alamofire.HTTPMethod {
         switch self {
         case .GetGenders,
-                .GetCountries,
-                .GetGovernorates,
-                .GetCities,
-                .GetEducationTypes,
-                .GetEducationLevels,
-                .GetAcademicYears,
-                .GetAllSubjects,
+                .GetCountries,.GetGovernorates,.GetCities,
+                .GetEducationTypes,.GetEducationLevels,.GetAcademicYears,.GetAllSubjects,
+                .GetAllForListByEducationLevelId,
                 .GetDocumentTypes,
                 .GetMaterialTypes,
                 .GetDays,
@@ -96,6 +103,9 @@ extension LookupsServices : TargetType {
                 .GetStatus,
                 .GetBookedStudentSubjects,.GetBookedStudentLessons:
             return .get
+            
+        case .GetAllSubjectBySubjectIdAndEducationLevelId:
+            return .post
         }
     }
     
@@ -117,9 +127,12 @@ extension LookupsServices : TargetType {
                 .GetAcademicYears(parameters: let parameters),
                 .GetAllSubjects(parameters: let parameters),
                 .GetLessonsForList(parameters: let parameters),
+                .GetAllForListByEducationLevelId(parameters: let parameters),
                 .GetBookedStudentSubjects(parameters: let parameters),
                 .GetBookedStudentLessons(parameters: let parameters):
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
+        case .GetAllSubjectBySubjectIdAndEducationLevelId(parameters: let parameters):
+            return .parameterRequest(Parameters: parameters, Encoding: .default)
         }
     }
     

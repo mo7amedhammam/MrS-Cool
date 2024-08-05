@@ -55,9 +55,10 @@ struct StudentEditProfileView: View {
                                     .background(.white)
                                     .clipShape(Circle())
                                     .offset(x:-7,y:20)
-                                .onTapGesture(perform: {
-                                    showImageSheet = true
-                                })
+//                                .onTapGesture(perform: {
+//                                    showImageSheet = true
+//                                })
+                                    .imagePicker(selectedImage: $studentsignupvm.image)
 
                         }
                         Text(studentsignupvm.name)
@@ -162,27 +163,26 @@ struct StudentEditProfileView: View {
         .showHud(isShowing: $studentsignupvm.isLoading)
         .showAlert(hasAlert: $studentsignupvm.isError, alertType: studentsignupvm.error)
 
-        //MARK: -------- imagePicker From Camera and Library ------
-        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
-            Button("photo_Library".localized()) {
-                self.imagesource = .photoLibrary
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Camera".localized()) {
-                self.imagesource = .camera
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Cancel".localized(), role: .cancel) { }
-        } message: {Text("Choose_Image_From".localized())}
-            .sheet(isPresented: $startPickingImage) {
-                if let sourceType = imagesource {
-                    // Pick an image from the photo library:
-                    ImagePicker(sourceType: sourceType , selectedImage: $studentsignupvm.image)
-                }
-            }
-//        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        //MARK: -------- imagePicker From Camera and Library ------
+//        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
+//            Button("photo_Library".localized()) {
+//                self.imagesource = .photoLibrary
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Camera".localized()) {
+//                self.imagesource = .camera
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Cancel".localized(), role: .cancel) { }
+//        } message: {Text("Choose_Image_From".localized())}
+//            .sheet(isPresented: $startPickingImage) {
+//                if let sourceType = imagesource {
+//                    // Pick an image from the photo library:
+//                    ImagePicker(sourceType: sourceType , selectedImage: $studentsignupvm.image)
+//                }
+//            }
 
     }
 }

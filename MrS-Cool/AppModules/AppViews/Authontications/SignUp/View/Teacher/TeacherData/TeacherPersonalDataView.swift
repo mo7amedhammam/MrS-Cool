@@ -15,6 +15,10 @@ struct TeacherPersonalDataView: View {
         
 //    @State var isPush = false
 //    @State var destination = EmptyView()
+//    @State private var showImageSheet = false
+//    @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
+//    @State private var startPickingImage = false
+
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -29,6 +33,42 @@ struct TeacherPersonalDataView: View {
                                 .foregroundColor(.black)
                         }
                         // -- inputs --
+                        HStack {
+                            ZStack(alignment: .topLeading){
+                                if let image = signupvm.image{
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 130,height: 130)
+                                        .clipShape(Circle())
+                                        
+
+                                }else{
+                                    let imageURL : URL? = URL(string: Constants.baseURL+(signupvm.imageStr ?? "").reverseSlaches())
+                                    KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 130,height: 130)
+                                    .clipShape(Circle())
+                                    .overlay{
+                                        if signupvm.isimagevalid ?? true == false {
+                                            Circle().stroke(.red,lineWidth: 2)
+                                        }
+                                    }
+                                }
+                                    Image("img_vector_black_900_14x14")
+                                        .frame(width: 30,height: 30)
+                                        .background(.white)
+                                        .clipShape(Circle())
+                                        .offset(x:-7,y:20)
+//                                    .onTapGesture(perform: {
+//                                        showImageSheet = true
+//                                    })
+                                    .imagePicker(selectedImage: $signupvm.image)
+
+                            }.padding(.vertical)
+                        }.frame(maxWidth:.infinity,alignment: .center)
+                        
                         Group {
                             CustomTextField(iconName:"img_group51",placeholder: "Teacher Name *", text: $signupvm.name,textContentType:.name)
                             
@@ -68,8 +108,7 @@ struct TeacherPersonalDataView: View {
                             CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio,charLimit: 1000)
                         }
                         .padding([.top])
-                        CheckboxField(label: "Accept the Terms and Privacy Policy", color: ColorConstants.Black900, textSize: 13,
-                                      isMarked: $signupvm.acceptTerms)
+                        CheckboxField(label: "Accept the Terms and Privacy Policy", color: ColorConstants.Black900, textSize: 13,isMarked: $signupvm.acceptTerms)
                         .padding(.top,15)
                     }.padding(.top,20)
                     Spacer()
@@ -102,3 +141,5 @@ struct TeacherPersonalDataView: View {
         .environmentObject(LookUpsVM())
         .environmentObject(SignUpViewModel())
 }
+
+

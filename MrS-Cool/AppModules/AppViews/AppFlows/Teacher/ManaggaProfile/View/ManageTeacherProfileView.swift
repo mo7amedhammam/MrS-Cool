@@ -13,9 +13,9 @@ struct ManageTeacherProfileView: View {
     @StateObject var lookupsvm = LookUpsVM()
     @EnvironmentObject var manageprofilevm : ManageTeacherProfileVM
     
-    @State private var showImageSheet = false
-    @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
-    @State private var startPickingImage = false
+//    @State private var showImageSheet = false
+//    @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
+//    @State private var startPickingImage = false
 
 //    @State private var isEditing = false
     var body: some View {
@@ -63,9 +63,10 @@ struct ManageTeacherProfileView: View {
                                     .background(.white)
                                     .clipShape(Circle())
                                     .offset(x:-7,y:20)
-                                .onTapGesture(perform: {
-                                    showImageSheet = true
-                                })
+//                                .onTapGesture(perform: {
+//                                    showImageSheet = true
+//                                })
+                                    .imagePicker(selectedImage: $manageprofilevm.image)
 
                         }
                         
@@ -201,25 +202,25 @@ struct ManageTeacherProfileView: View {
         .showAlert(hasAlert: $manageprofilevm.isError, alertType: manageprofilevm.error)
 
         //MARK: -------- imagePicker From Camera and Library ------
-        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
-            Button("photo_Library".localized()) {
-                self.imagesource = .photoLibrary
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Camera".localized()) {
-                self.imagesource = .camera
-                self.showImageSheet = false
-                self.startPickingImage = true
-            }
-            Button("Cancel".localized(), role: .cancel) { }
-        } message: {Text("Choose_Image_From".localized())}
-            .sheet(isPresented: $startPickingImage) {
-                if let sourceType = imagesource {
-                    // Pick an image from the photo library:
-                    ImagePicker(sourceType: sourceType , selectedImage: $manageprofilevm.image)
-                }
-            }
+//        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
+//            Button("photo_Library".localized()) {
+//                self.imagesource = .photoLibrary
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Camera".localized()) {
+//                self.imagesource = .camera
+//                self.showImageSheet = false
+//                self.startPickingImage = true
+//            }
+//            Button("Cancel".localized(), role: .cancel) { }
+//        } message: {Text("Choose_Image_From".localized())}
+//            .sheet(isPresented: $startPickingImage) {
+//                if let sourceType = imagesource {
+//                    // Pick an image from the photo library:
+//                    ImagePicker(sourceType: sourceType , selectedImage: $manageprofilevm.image)
+//                }
+//            }
          
     }
 }

@@ -173,41 +173,6 @@ struct AnonymousHomeView: View {
                                     }
                                 }
                                 
-                                
-//                                if studenthomevm.newStudentSubjects == []{
-//        //                            ProgressView()                                .frame(width: gr.size.width/2.7, height: 280)
-//
-//                                    Image(.emptySubjects)
-//                                        .frame(width: 100,height: 100)
-//                                        .padding()
-//        //                                .resizable()
-//        //                                .aspectRatio(contentMode: .fit)
-//                                    Text("No available most booked subjects yet".localized())
-//                                        .font(Font.SoraRegular(size: 15))
-//                                        .foregroundColor(ColorConstants.Bluegray400)
-//
-//                                }else{
-//                                    ScrollView(.horizontal,showsIndicators:false){
-//                                        LazyHStack(spacing:10){
-//                                            Spacer().frame(width:1)
-//                                            
-//                                            ForEach(studenthomevm.newStudentSubjects ,id:\.self){subject in
-//                                                StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.newSSelectedStudentSubjects){
-//                                                                                                    destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
-//                                                                                                    isPush = true
-//                                                                                                }
-//                                                .frame(width: gr.size.width/2.33, height: 280)
-//                                            }
-//                                            Spacer().frame(width:1)
-//                                            
-//                                        }
-//                                        .frame(height: 280)
-//                                        .padding(.bottom,10)
-//                                    }
-//                                }
-                                
-                                
-                                
                             }
                             .transition(.move(edge: isSearch ? .trailing : .leading))
                         }

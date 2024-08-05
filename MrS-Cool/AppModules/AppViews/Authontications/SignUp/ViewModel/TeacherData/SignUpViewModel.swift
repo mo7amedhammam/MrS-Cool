@@ -7,7 +7,7 @@
 
 import Combine
 import Foundation
-
+import UIKit
 //struct CustomState{
 //    var isLoading:Bool?
 //    var isError:Bool?
@@ -20,6 +20,17 @@ class SignUpViewModel: ObservableObject {
 //    MARK: --- inputs ---
     //Common data (note: same exact data for parent)
 //    @Published var selecteduser = UserType()
+    @Published var image : UIImage?{
+        didSet{
+            if image != nil {
+                isimagevalid = true
+            }
+        }
+    }
+    @Published var isimagevalid : Bool? = true
+    
+    @Published var imageStr : String?
+
     @Published var name = ""
     @Published var phone = ""{
         didSet{
@@ -101,8 +112,8 @@ extension SignUpViewModel{
     func RegisterTeacherData(){
         guard checkValidfields() else{return}
 
-        guard let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
-        var parameters:[String:Any] = ["Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher]
+        guard let teacherImage = image,let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
+        var parameters:[String:Any] = ["TeacherImage":teacherImage,"Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher]
         parameters["TeacherBio"] = bio
 //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
@@ -139,6 +150,7 @@ extension SignUpViewModel{
     }
     
     func clearSelections(){
+        image = nil
         name = ""
         phone = ""
         selectedGender = nil
@@ -295,9 +307,10 @@ extension SignUpViewModel{
     }
     
     private func checkValidfields()->Bool{
-            isphonevalid = phone.count == 11
-            isPasswordvalid = Password.count >= 5
-            isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
-        return isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true
+        isimagevalid = image?.size.width ?? 0 > 0
+        isphonevalid = phone.count == 11
+        isPasswordvalid = Password.count >= 5
+        isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
+        return isimagevalid ?? true && isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true
     }
 }
