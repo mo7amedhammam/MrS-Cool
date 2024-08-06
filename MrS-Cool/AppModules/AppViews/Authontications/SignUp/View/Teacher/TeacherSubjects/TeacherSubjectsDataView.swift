@@ -41,7 +41,12 @@ struct TeacherSubjectsDataView: View {
 
                             CustomDropDownField(iconName:"img_group148",placeholder: "Subjects *", selectedOption: $teachersubjectsvm.academicYear ,options:lookupsvm.SubjectListByEducationLevelIdList,isvalid: teachersubjectsvm.isacademicYearvalid)
                             
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectvalid)
+                            MultiSelectDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOptions: $teachersubjectsvm.subjectsArr,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectsArrvalid)
+                            
+
+//                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectvalid)
+                            
+                            
                             
                         }
                         .padding([.top])

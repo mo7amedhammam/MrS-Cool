@@ -33,19 +33,28 @@ class TeacherSubjectsVM: ObservableObject {
 
     @Published var academicYear : DropDownOption?{
         didSet{
-                subject = nil
+//                subject = nil
+            subjectsArr.removeAll()
             isacademicYearvalid = academicYear == nil ? false:true
         }
     }
     @Published var isacademicYearvalid:Bool?
 
-    @Published var subject : DropDownOption?{
+//    @Published var subject : DropDownOption?{
+//        didSet{
+//            issubjectvalid = subject == nil ? false:true
+//        }
+//    }
+//    @Published var issubjectvalid:Bool?
+
+    @Published var subjectsArr : [DropDownOption] = []{
         didSet{
-            issubjectvalid = subject == nil ? false:true
+            issubjectsArrvalid = subjectsArr.isEmpty ? false:true
         }
     }
-    @Published var issubjectvalid:Bool?
-
+    @Published var issubjectsArrvalid:Bool?
+    
+    
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -69,13 +78,14 @@ extension TeacherSubjectsVM{
     
     func CreateTeacherSubject(){
         guard checkValidfields() else {return}
-        guard let subjectAcademicYearId = subject?.id else {return}
-        let parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId]
+//        guard let subjectAcademicYearId = subject?.id else {return}
+        let subjectAcademicYearIds: [Int] = subjectsArr.map { $0.id ?? 0 }
+        let parameters:[String:Any] = ["subjectSemesterYearIds":subjectAcademicYearIds]
         
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<[CreatedTeacherSubjectM]>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
@@ -177,12 +187,14 @@ extension TeacherSubjectsVM{
         educationType = nil
         educationLevel = nil
         academicYear = nil
-        subject = nil
+//        subject = nil
+        subjectsArr.removeAll()
         
         iseducationTypevalid = true
         iseducationLevelvalid = true
         isacademicYearvalid =  true
-        issubjectvalid = true
+//        issubjectvalid = true
+        issubjectsArrvalid = true
 
     }
 
@@ -190,7 +202,8 @@ extension TeacherSubjectsVM{
         iseducationTypevalid = educationType != nil
         iseducationLevelvalid = educationLevel != nil
         isacademicYearvalid = academicYear != nil
-        issubjectvalid = subject != nil
+//        issubjectvalid = subject != nil
+        issubjectsArrvalid = !subjectsArr.isEmpty
 
         // Publisher for checking if the phone is 11 char
 //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
@@ -200,7 +213,7 @@ extension TeacherSubjectsVM{
 //                }
 //                .eraseToAnyPublisher()
 //        }
-        return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true
+        return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectsArrvalid ?? true
     }
 }
 

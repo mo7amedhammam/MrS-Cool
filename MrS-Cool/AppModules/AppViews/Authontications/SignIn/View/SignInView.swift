@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignInView: View {
     @StateObject var teachersigninvm = SignInVM(selecteduser: .init())
-//    @State var selectedUser : UserType = UserType.init()
+    @State var selectedUser : UserType = UserType.init()
     
     @State var rememberMe = false
     @State var isPush = false
@@ -19,8 +19,8 @@ struct SignInView: View {
             VStack(spacing:0) {
                 CustomTitleBarView(title: "sign_in",hideImage: hideimage)
                 VStack{
-                    UserTypesList(selectedUser: $teachersigninvm.selectedUser){
-                        switch teachersigninvm.selectedUser.user {
+                    UserTypesList(selectedUser: $selectedUser){
+                        switch selectedUser.user {
                         case .Student:
                             Helper.shared.setSelectedUserType(userType:.Student)
                             destination = AnyView(StudentTabBarView())
@@ -100,7 +100,7 @@ struct SignInView: View {
                                             .font(Font.SoraRegular(size: 12))
                                         
                                         Button(action: {
-                                            destination = AnyView(SignUpView(selecteduser:$teachersigninvm.selectedUser).hideNavigationBar())
+                                            destination = AnyView(SignUpView(selecteduser:$selectedUser).hideNavigationBar())
                                             isPush = true
                                         }, label: {
                                             Text("sign_up".localized())
@@ -125,7 +125,7 @@ struct SignInView: View {
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
             })
-            .onChange(of: teachersigninvm.selectedUser.user, perform: { val in
+            .onChange(of: selectedUser.user, perform: { val in
                 Helper.shared.setSelectedUserType(userType: val)
 
 //                switch val {
@@ -150,7 +150,7 @@ struct SignInView: View {
                 }
                 .onChange(of: teachersigninvm.isLogedin) { newval in
                     guard newval == true else{return}
-                    switch teachersigninvm.selectedUser.user {
+                    switch selectedUser.user {
                     case .Student:
     //                    destination = AnyView(StudentTabBarView())
                         Helper.shared.changeRoot(toView: StudentTabBarView())
@@ -161,12 +161,12 @@ struct SignInView: View {
                     case .Teacher:
                         switch teachersigninvm.teachermodel?.profileStatusID {
                         case 1:
-                            destination = AnyView(SignUpView(selecteduser: $teachersigninvm.selectedUser, currentStep: .subjectsData)
+                            destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .subjectsData)
                             ) // subject info
                             isPush = newval
 
                         case 2:
-                            destination = AnyView(SignUpView(selecteduser: $teachersigninvm.selectedUser, currentStep: .documentsData)
+                            destination = AnyView(SignUpView(selecteduser: $selectedUser, currentStep: .documentsData)
                             ) // document info
                             isPush = newval
 

@@ -372,6 +372,166 @@ struct CustomDropDownField: View {
 }
 
 
+struct MultiSelectDropDownField: View {
+    var fieldType: inputfields? = .Default
+    var iconName: String? = ""
+    var rightIconName: String?
+    var iconColor: Color?
+
+    var placeholder: String
+    var placeholderColor: Color? = ColorConstants.Bluegray402
+
+    @Binding var selectedOptions: [DropDownOption]
+    var options: [DropDownOption]
+    @State private var isMenuVisible = false
+
+    var textContentType: UITextContentType? = .name
+    var keyboardType: UIKeyboardType? = .default
+    var Disabled: Bool?
+    var isdimmed: Bool?
+    var isvalid: Bool? = true
+
+    @State private var isSecured: Bool = true
+    @FocusState private var focusedField: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: -15) {
+            HStack(spacing: 0) {
+                if iconName != "" || iconName != nil {
+                    Image(fieldType == .Password ? "img_group_512364" : iconName ?? "")
+                        .renderingMode(.template)
+                        .foregroundColor(ColorConstants.MainColor)
+                        .font(.system(size: 15))
+                        .padding(.horizontal, 10)
+                }
+                ZStack(alignment: .leading) {
+                    Text(placeholder.localized())
+                        .font(Font.SoraRegular(size: 12))
+                        .foregroundColor(placeholderColor == .red ? .red : placeholderColor)
+                        .offset(y: selectedOptions.isEmpty ? 0 : -20)
+                        .scaleEffect(selectedOptions.isEmpty ? 1.2 : 0.8, anchor: .leading)
+                    
+                    var localizedTitles: String {
+                        selectedOptions.map { $0.Title ?? "" }.joined(separator: ", ")
+                    }
+
+                    TextField("", text: .constant(localizedTitles))
+                        .focused($focusedField)
+                        .multilineTextAlignment(.leading)
+                        .frame(minHeight: 57.0, alignment: .leading)
+                        .disabled(true)
+                }
+                .animation(.easeInOut(duration: 0.2), value: isSecured)
+                .frame(height: 57.0, alignment: .leading)
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .font(Font.SoraRegular(size: 14))
+                .foregroundColor(ColorConstants.Black900)
+
+                Image(rightIconName ?? "\(isMenuVisible ? "img_arrowup" : "img_arrowdown")")
+                    .frame(width: 30, height: 30, alignment: .center)
+                    .foregroundColor(iconColor == .clear ? .clear : iconColor)
+                    .font(.system(size: 15))
+                    .padding(.horizontal, 10)
+            }
+
+            if isMenuVisible && !options.isEmpty {
+                GeometryReader { gr in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            
+                            Button(action: {
+                                if selectedOptions.count == options.count {
+                                    selectedOptions.removeAll()
+                                } else {
+                                    selectedOptions = options
+                                }
+                                print("selected options", selectedOptions)
+                            }) {
+                                HStack {
+                                    Text(selectedOptions.count == options.count ? "Deselect All" : "Select All")
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                    if selectedOptions.count == options.count {
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.blue)
+                                    }
+                                }
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .frame(minHeight: 35, alignment: .leading)
+                                .font(Font.SoraRegular(size: 14))
+                                .foregroundColor(ColorConstants.Black900)
+                                .padding(.horizontal)
+                                .padding(.bottom, 5)
+                            }
+                            
+                            
+                            
+                            ForEach(options, id: \.self) { option in
+                                Button(action: {
+                                    if selectedOptions.contains(option) {
+                                        selectedOptions.removeAll { $0 == option }
+                                    } else {
+                                        selectedOptions.append(option)
+                                    }
+                                    print("selected options", selectedOptions)
+                                }) {
+                                    HStack {
+                                        Text(option.Title?.localized() ?? "")
+                                            .multilineTextAlignment(.leading)
+                                        Spacer()
+                                        if selectedOptions.contains(option) {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.blue)
+                                        }
+                                    }
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .frame(minHeight: 35, alignment: .leading)
+                                    .font(Font.SoraRegular(size: 14))
+                                    .foregroundColor(ColorConstants.Black900)
+                                    .padding(.horizontal)
+                                    .padding(.bottom, 5)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                        .frame(width: gr.size.width)
+                    }
+                }
+            }
+        }
+        .frame(height: withAnimation { isMenuVisible ? (options.count * 35 > 200 ? 200 : CGFloat(options.count) * 35) + 57 : 57 })
+        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066 : ColorConstants.Red400, lineWidth: 1))
+        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(isdimmed ?? false ? ColorConstants.Bluegray30066.opacity(0.5) : ColorConstants.WhiteA700))
+        .onTapGesture {
+            withAnimation {
+                isMenuVisible.toggle()
+            }
+        }
+        .disabled(Disabled ?? false)
+        .onChange(of: isdimmed) { newval in
+            if newval == true {
+                isMenuVisible = false
+            }
+        }
+    }
+}
+
+#Preview {
+    MultiSelectDropDownField(
+        fieldType: .Default,
+        iconName: "img_group172",
+        placeholder: "Select Options",
+        selectedOptions: .constant([]),
+        options: [
+            DropDownOption(id: 1, Title: "Option 1", subject: nil),
+            DropDownOption(id: 2, Title: "Option 2", subject: nil),
+            DropDownOption(id: 3, Title: "Option 3", subject: nil)
+        ]
+    )
+}
+
+
+
 
 struct CustomTextEditor: View {
     var iconName : String? = ""

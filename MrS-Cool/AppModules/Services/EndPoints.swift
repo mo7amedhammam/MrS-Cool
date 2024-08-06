@@ -46,7 +46,8 @@ enum EndPoints: String {
     case LoginTeacher = "Teacher/Login"///post
     
     //Teacher Subjects
-    case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear/Create"///Post
+//    case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear/Create"///Post
+    case RegisterTeacherSubjects = "TeacherSubjectAcademicSemesterYear/CreateForRegister" /// new changed api
     case GetTeacherSubjects = "TeacherSubjectAcademicSemesterYear/GetTeacherSubjectAcademicSemesterYearList"///post
     case DeleteTeacherSubject = "TeacherSubjectAcademicSemesterYear/Delete"///get
     
@@ -213,9 +214,5 @@ enum ParentEndPoints:String{
 
 }
 
-
-extension EndPoints{
-    
-}
 
 
