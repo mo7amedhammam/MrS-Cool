@@ -60,7 +60,11 @@ class TeacherDocumentsVM: ObservableObject {
 //        }
 //    }
     @Published var isError : Bool = false
-    @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+    @Published var error: AlertType? = nil
+//    = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+
+    @Published var isshowingConfirmation : Bool = false
+    @Published var confirmation: AlertType? = nil
 
     @Published var isTeacherHasDocuments: Bool = false
     @Published var TeacherDocuments : [TeacherDocumentM]?{
@@ -160,6 +164,7 @@ extension TeacherDocumentsVM{
     }
 
     func DeleteTeacherDocument(id:Int?){
+        error = nil
         guard let id = id else {return}
         let parameters:[String:Any] = ["id":id]
         
@@ -167,7 +172,7 @@ extension TeacherDocumentsVM{
         let target = Authintications.TeacherDeleteDocuments(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherDocumentM>.self)
-            .receive(on: DispatchQueue.main)
+//            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -189,8 +194,8 @@ extension TeacherDocumentsVM{
                     GetTeacherDocument()
                     isError = false
                 }else{
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                    isError =  true
+                        self.error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                        self.isError =  true
 //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false

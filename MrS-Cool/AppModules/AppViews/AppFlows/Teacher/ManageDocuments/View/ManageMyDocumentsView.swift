@@ -165,10 +165,13 @@ struct ManageMyDocumentsView: View {
                         List(teacherdocumentsvm.TeacherDocuments ?? [] ,id:\.self){ document in
                             TeacherDocumentCell(model: document, deleteBtnAction: {
     //                            confirmDelete.toggle()
-                                teacherdocumentsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                teacherdocumentsvm.confirmation = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                    
                                     teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+
                                 })
-                                teacherdocumentsvm.isError.toggle()
+                                teacherdocumentsvm.isshowingConfirmation = true
+
                             }){
                                 print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
                                     previewurl = Constants.baseURL + (document.documentPath ?? "")
@@ -199,7 +202,7 @@ struct ManageMyDocumentsView: View {
 //            })
 
     //        .showHud(isShowing: $teacherdocumentsvm.isLoading)
-    //        .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: .error( message: "\(teacherdocumentsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
+//            .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: .error( message: "\(teacherdocumentsvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
             
             //MARK: -------- imagePicker From Camera and Library ------
             .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
@@ -274,6 +277,8 @@ struct ManageMyDocumentsView: View {
         
       .showHud(isShowing: $teacherdocumentsvm.isLoading)
       .showAlert(hasAlert: $teacherdocumentsvm.isError, alertType: teacherdocumentsvm.error)
+      .showAlert(hasAlert: $teacherdocumentsvm.isshowingConfirmation, alertType: teacherdocumentsvm.confirmation)
+
       .overlay{
           if showFilter{
               // Blurred Background and Sheet

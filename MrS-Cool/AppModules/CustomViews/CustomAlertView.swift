@@ -327,7 +327,7 @@ struct showAlertModifier: ViewModifier {
 }
 
 extension View {
-    public func showAlert(hasAlert: Binding<Bool>, alertType: AlertType, leftAction: (() -> ())? = nil, rightAction: (() -> ())? = nil) -> some View {
-        modifier(showAlertModifier(hasError: hasAlert, alertType: alertType, leftAction: leftAction, rightAction: rightAction))
+    public func showAlert(hasAlert: Binding<Bool>, alertType: AlertType?, leftAction: (() -> ())? = nil, rightAction: (() -> ())? = nil) -> some View {
+        modifier(showAlertModifier(hasError: hasAlert, alertType: alertType ?? .error( message: "", buttonTitle: ""), leftAction: leftAction, rightAction: rightAction))
     }
 }
