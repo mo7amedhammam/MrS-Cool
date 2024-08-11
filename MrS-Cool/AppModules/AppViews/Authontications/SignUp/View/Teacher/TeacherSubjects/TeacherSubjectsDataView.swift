@@ -66,7 +66,7 @@ struct TeacherSubjectsDataView: View {
                     }.padding(.vertical)
                     
                     HStack {
-                        Text("* Note: Must be enter one item at least")
+                        Text("* Note: Must be enter one item at least".localized())
                             .font(Font.SoraRegular(size: 14))
                             .multilineTextAlignment(.leading)
                             .foregroundColor(ColorConstants.Black900)
@@ -95,7 +95,7 @@ struct TeacherSubjectsDataView: View {
         }.onAppear(perform: {
             signupvm.isUserChangagble = false
             lookupsvm.GetEducationTypes()
-//            teachersubjectsvm.GetTeacherSubjects()
+            teachersubjectsvm.GetTeacherSubjects()
         })
         .onChange(of: teachersubjectsvm.educationType, perform: { value in
             lookupsvm.SelectedEducationType = value

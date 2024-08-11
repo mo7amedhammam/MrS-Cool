@@ -123,12 +123,13 @@ struct TeacherDocumentM: Codable,Hashable {
     var title: String?
     var order, id, teacherID: Int?
     var documentPath, documentTypeName, creationDate: String?
-
+    var profileStatus : Int?
     enum CodingKeys: String, CodingKey {
         case documentTypeID = "documentTypeId"
         case title, order, id
         case teacherID = "teacherId"
         case documentPath, documentTypeName, creationDate
+        case profileStatus
     }
 }
 

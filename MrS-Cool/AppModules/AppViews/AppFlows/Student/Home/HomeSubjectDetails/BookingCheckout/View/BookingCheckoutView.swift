@@ -514,13 +514,13 @@ struct CheckOutLessonInfo: View {
                     .font(Font.SoraBold(size: 12))
             }
             HStack(spacing: 10){
-                Image("moneyicon")
+                Image("taxIcon")
                     .resizable()
                     .renderingMode(.template)
                     .foregroundColor(ColorConstants.MainColor )
                     .frame(width: 18,height: 18, alignment: .center)
                 
-                Text("Tax Amoun".localized())
+                Text("Tax".localized())
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraBold(size: 12))
                 
@@ -537,7 +537,7 @@ struct CheckOutLessonInfo: View {
                     .foregroundColor(ColorConstants.MainColor )
                     .frame(width: 18,height: 18, alignment: .center)
                 
-                Text("Total Price With Taxs".localized())
+                Text("Total Price With Tax".localized())
                     .foregroundColor(.mainBlue)
                     .font(Font.SoraBold(size: 12))
                 

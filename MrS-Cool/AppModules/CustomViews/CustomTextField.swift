@@ -448,7 +448,7 @@ struct MultiSelectDropDownField: View {
                                 print("selected options", selectedOptions)
                             }) {
                                 HStack {
-                                    Text(selectedOptions.count == options.count ? "Deselect All" : "Select All")
+                                    Text(selectedOptions.count == options.count ? "Deselect All".localized() : "Select All".localized())
                                         .multilineTextAlignment(.leading)
                                     Spacer()
                                     if selectedOptions.count == options.count {
@@ -463,9 +463,7 @@ struct MultiSelectDropDownField: View {
                                 .padding(.horizontal)
                                 .padding(.bottom, 5)
                             }
-                            
-                            
-                            
+                                                        
                             ForEach(options, id: \.self) { option in
                                 Button(action: {
                                     if selectedOptions.contains(option) {
@@ -499,7 +497,7 @@ struct MultiSelectDropDownField: View {
                 }
             }
         }
-        .frame(height: withAnimation { isMenuVisible ? (options.count * 35 > 200 ? 200 : CGFloat(options.count) * 35) + 57 : 57 })
+        .frame(height: withAnimation { isMenuVisible ? ((options.count + 1) * 35 > 235 ? 235 : CGFloat(options.count > 0 ? options.count + 1 : options.count) * 35) + 57 : 57 })
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066 : ColorConstants.Red400, lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(isdimmed ?? false ? ColorConstants.Bluegray30066.opacity(0.5) : ColorConstants.WhiteA700))
         .onTapGesture {
@@ -523,9 +521,9 @@ struct MultiSelectDropDownField: View {
         placeholder: "Select Options",
         selectedOptions: .constant([]),
         options: [
-            DropDownOption(id: 1, Title: "Option 1", subject: nil),
-            DropDownOption(id: 2, Title: "Option 2", subject: nil),
-            DropDownOption(id: 3, Title: "Option 3", subject: nil)
+            DropDownOption(id: 1, Title: "Option 1", subject: nil)
+//             , DropDownOption(id: 2, Title: "Option 2", subject: nil)
+//            ,DropDownOption(id: 3, Title: "Option 3", subject: nil)
         ]
     )
 }

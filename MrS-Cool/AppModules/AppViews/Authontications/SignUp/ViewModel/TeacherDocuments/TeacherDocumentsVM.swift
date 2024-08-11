@@ -11,6 +11,7 @@ import SwiftUI
 
 class TeacherDocumentsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
+    
     @Published var documentType : DropDownOption?{
         didSet{
             isdocumentTypevalid = documentType == nil ? false : true
@@ -25,12 +26,12 @@ class TeacherDocumentsVM: ObservableObject {
     }
     @Published var isdocumentTitlevalid :Bool? = true
 
-    @Published var documentOrder = ""{
-        didSet{
-            isdocumentOrdervalid = documentOrder.isEmpty ? false : true
-        }
-    }
-    @Published var isdocumentOrdervalid :Bool? = true
+//    @Published var documentOrder = ""{
+//        didSet{
+//            isdocumentOrdervalid = documentOrder.isEmpty ? false : true
+//        }
+//    }
+//    @Published var isdocumentOrdervalid :Bool? = true
 
     @Published var documentImg : UIImage? = nil{
         didSet{
@@ -44,6 +45,8 @@ class TeacherDocumentsVM: ObservableObject {
         }
     }
     @Published var isdocumentFilevalid :Bool? = true
+
+    @Published var documentsNote :String?
 
 //    @Published var isFormValid : Bool = true
 
@@ -77,7 +80,7 @@ extension TeacherDocumentsVM{
         guard checkValidfields() else {return}
         guard let DocumentTypeId = documentType?.id else {return}
         
-        var parameters:[String:Any] = ["DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":Int(documentOrder) ?? 0]
+        var parameters:[String:Any] = ["DocumentTypeId":DocumentTypeId,"Title":documentTitle,"Order":(TeacherDocuments?.count ?? 0) + 1]
         switch fileType {
         case .image:
             parameters["Document"] = documentImg
@@ -143,6 +146,7 @@ extension TeacherDocumentsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
+                    documentsNote =  model.first?.profileStatus != 3 ? receivedData.message:nil
                     TeacherDocuments = model
                 }else{
                     isError =  true
@@ -171,21 +175,22 @@ extension TeacherDocumentsVM{
                 case .finished:
                     break
                 case .failure(let error):
-                    isError =  true
 //                    self.error = error
                     self.error = .error(image:nil,  message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
+
                 }
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true{
 //                    TeacherSubjects = model
-                    TeacherDocuments?.removeAll(where: {$0.id == model.id})
+//                    TeacherDocuments?.removeAll(where: {$0.id == receivedData.data?.id})
+                    GetTeacherDocument()
                     isError = false
                 }else{
-                    isError =  true
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-
+                    isError =  true
 //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                 }
                 isLoading = false
@@ -196,13 +201,13 @@ extension TeacherDocumentsVM{
     func clearTeachersDocument(){
         documentType = nil
         documentTitle = ""
-        documentOrder = ""
+//        documentOrder = ""
         documentImg = nil
         documentPdf = nil
         
         isdocumentTypevalid = true
         isdocumentTitlevalid = true
-        isdocumentOrdervalid =  true
+//        isdocumentOrdervalid =  true
         isdocumentFilevalid = true
 
     }
@@ -239,7 +244,7 @@ extension TeacherDocumentsVM{
     private func checkValidfields()->Bool{
         isdocumentTypevalid = documentType != nil
         isdocumentTitlevalid = !documentTitle.isEmpty
-        isdocumentOrdervalid = !documentOrder.isEmpty
+//        isdocumentOrdervalid = !documentOrder.isEmpty
         isdocumentFilevalid = documentImg != nil || documentPdf != nil
 
         // Publisher for checking if the phone is 11 char
@@ -250,7 +255,7 @@ extension TeacherDocumentsVM{
 //                }
 //                .eraseToAnyPublisher()
 //        }
-        return isdocumentTypevalid ?? true && isdocumentTitlevalid ?? true && isdocumentOrdervalid ?? true && isdocumentFilevalid ?? true
+        return isdocumentTypevalid ?? true && isdocumentTitlevalid ?? true && isdocumentFilevalid ?? true
     }
 }
 

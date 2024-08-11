@@ -149,7 +149,7 @@ struct StudentLessonDetailsCell: View {
                     .font(Font.SoraRegular(size:7))
                     .foregroundColor(.mainBlue)
 
-            Text(model.nameEn ?? "")
+            Text(model.name ?? "")
                     .font(Font.SoraSemiBold(size: 10))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)

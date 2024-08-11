@@ -61,7 +61,7 @@ struct TeacherDocumentDataView: View {
                                 
                                 CustomTextField(iconName:"img_group_512388",placeholder: "Documents Title *", text: $teacherdocumentsvm.documentTitle,isvalid:teacherdocumentsvm.isdocumentTitlevalid)
                                 
-                                CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad,isvalid:teacherdocumentsvm.isdocumentOrdervalid)
+//                                CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad,isvalid:teacherdocumentsvm.isdocumentOrdervalid)
                             }
                             .padding([.top])
                             
@@ -129,7 +129,8 @@ struct TeacherDocumentDataView: View {
                             .frame(width:120,height: 40)
                         }.padding(.vertical)
                         HStack {
-                            Text("* Note: Must be enter one item at least".localized())
+//                            Text("* Note: Must be enter one item at least".localized())
+                            Text(teacherdocumentsvm.documentsNote ?? "")
                                 .font(Font.SoraRegular(size: 14))
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(ColorConstants.Black900)

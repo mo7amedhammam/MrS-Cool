@@ -57,7 +57,7 @@ struct ManageMyDocumentsView: View {
                                     
                                     CustomTextField(iconName:"img_group_512388",placeholder: "Documents Title *", text: $teacherdocumentsvm.documentTitle,isvalid:teacherdocumentsvm.isdocumentTitlevalid)
                                     
-                                    CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad,isvalid:teacherdocumentsvm.isdocumentOrdervalid)
+//                                    CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad,isvalid:teacherdocumentsvm.isdocumentOrdervalid)
                                 }
                                 .padding([.top])
                                 
