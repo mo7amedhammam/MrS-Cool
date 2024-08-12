@@ -125,7 +125,6 @@ extension LookupsServices : TargetType {
                 .GetCities(parameters: let parameters),
                 .GetEducationLevels(parameters: let parameters),
                 .GetAcademicYears(parameters: let parameters),
-                .GetAllSubjects(parameters: let parameters),
                 .GetLessonsForList(parameters: let parameters),
                 .GetAllForListByEducationLevelId(parameters: let parameters),
                 .GetBookedStudentSubjects(parameters: let parameters),
@@ -133,6 +132,8 @@ extension LookupsServices : TargetType {
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
         case .GetAllSubjectBySubjectIdAndEducationLevelId(parameters: let parameters):
             return .parameterRequest(Parameters: parameters, Encoding: .default)
+        case .GetAllSubjects(parameters: let parameters):
+            return .parameterdGetRequest(Parameters: parameters, Encoding: .default)
         }
     }
     

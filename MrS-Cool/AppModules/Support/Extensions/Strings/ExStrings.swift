@@ -197,7 +197,7 @@ extension String {
 //        }
 //
 //        // Optionally, you can use a regular expression to further validate the URL format
-//        let regex = "^(http|https)://[^\\s/$.?#].[^\\s]*$"
+//        let regexPattern = "^(http|https)://[^\\s/$.?#].[^\\s]*$"
 //        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
 //        return predicate.evaluate(with: self)
          
@@ -206,7 +206,7 @@ extension String {
 //              let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
 //              return urlTest.evaluate(with: self)
          
-         let regexPattern = #"^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$"#
+         let regexPattern = #"^(http|https)://(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$"#
 
          let urlRegex = try! NSRegularExpression(pattern: regexPattern, options: [])
 //         let urlString = "https://google.com" // Replace with your URL string

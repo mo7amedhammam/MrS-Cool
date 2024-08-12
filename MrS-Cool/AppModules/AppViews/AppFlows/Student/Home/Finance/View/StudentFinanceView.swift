@@ -72,7 +72,7 @@ struct StudentFinanceView: View {
                             if let lessons = financevm.PurchasedLessons?.items{
                                 List(lessons, id:\.self) { lesson in
                                     PurchasedsubjectOrLessonCell(model: lesson)
-                                        .listRowSpacing(0)
+                                        .padding(.vertical,-7.5)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
                                         .onAppear {
@@ -85,7 +85,7 @@ struct StudentFinanceView: View {
                                             }
                                         }
                                 }
-                                .padding(.horizontal,-15)
+                                .padding(.horizontal,-20)
                                 .listStyle(.plain)
                                 .frame(minHeight: gr.size.height)
                             }
@@ -98,7 +98,8 @@ struct StudentFinanceView: View {
                             if let Subjects = financevm.PurchasedSubjects?.items{
                                 List(Subjects, id:\.self) { Subject in
                                     PurchasedsubjectOrLessonCell(model: Subject)
-                                        .listRowSpacing(0)
+//                                        .listRowSpacing(-10)
+                                        .padding(.vertical,-7.5)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
                                         .onAppear {
@@ -111,7 +112,7 @@ struct StudentFinanceView: View {
                                             }
                                         }
                                 }
-                                .padding(.horizontal,-15)
+                                .padding(.horizontal,-20)
                                 .listStyle(.plain)
                                 .frame(minHeight: gr.size.height)
                             }

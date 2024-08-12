@@ -21,6 +21,13 @@ struct StudentEditProfileView: View {
     @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
     @State private var startPickingImage = false
 
+//    @State var academicYear : DropDownOption?{
+//        didSet{
+//            isacademicYearvalid = academicYear == nil ? false:true
+//        }
+//    }
+//    @State var isacademicYearvalid : Bool?
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Edit Profile")
@@ -97,7 +104,7 @@ struct StudentEditProfileView: View {
                                         lookupsvm.SelectedEducationLevel = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:studentsignupvm.isacademicYearvalid)
+                                CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.dummyAcademicYear,options:lookupsvm.AcademicYearsList,isvalid:studentsignupvm.isdummyacademicYearvalid)
                                 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $studentsignupvm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid:studentsignupvm.isemailvalid)
                                 
@@ -123,6 +130,7 @@ struct StudentEditProfileView: View {
                         Spacer()
                         
                         CustomButton(Title:"Update Profile",IsDisabled: .constant(false), action: {
+//                            studentsignupvm.academicYear = academicYear
                             studentsignupvm.UpdateStudentProfile()
                         })
                         .frame(height: 50)
@@ -154,6 +162,9 @@ struct StudentEditProfileView: View {
                 })
             })
         })
+//        .onChange(of: studentsignupvm.academicYear, perform: { value in
+//            academicYear = value
+//        })
         .onChange(of: studentsignupvm.isDataUpdated, perform: { value in
             if value == true{
                 dismiss()

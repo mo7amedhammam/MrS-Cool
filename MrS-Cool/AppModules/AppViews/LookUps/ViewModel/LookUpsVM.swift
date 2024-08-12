@@ -656,8 +656,9 @@ extension LookUpsVM {
     }
     
     func GetSubjects(forcase:DropDownForCase) {
-        guard let academicYearId = forcase == .Adding ? SelectedAcademicYear?.id : FilterSelectedAcademicYear?.id else {return}
-        let parameters = ["academicEducationLevelId":academicYearId]
+        guard let academicYearId = forcase == .Adding ? SelectedAcademicYear?.id : FilterSelectedAcademicYear?.id, let GetAll = forcase == .Adding ? false:true else {return}
+        
+        let parameters : [String : Any] = ["academicEducationLevelId":academicYearId,"GetAll":GetAll]
         
         let target = LookupsServices.GetAllSubjects(parameters: parameters)
         BaseNetwork.CallApi(target, BaseResponse<[SubjectsByAcademicLevelM]>.self)

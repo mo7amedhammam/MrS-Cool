@@ -12,6 +12,15 @@ struct PurchasedsubjectOrLessonCell: View {
 
     var body: some View {
             VStack(alignment:.leading,spacing: 10){
+                let subjectOrLessonName = model.subjectOrLessonName ?? ""
+                let name = subjectOrLessonName.split(separator: ",").map{ String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+
+                let Part1 = name.indices.contains(1) ? name[1] : ""
+                let Part2 = name.indices.contains(2) ? name[2] : ""
+                let Part3 = name.indices.contains(3) ? name[3] : ""
+                let Part4 = name.indices.contains(4) ? name[4] : ""
+                let Part5 = name.indices.contains(5) ? name[5] : ""
+
                 HStack(spacing: 20) {
                     Image("img_group512382")
                         .scaleEffect(1.2, anchor: .center)
@@ -20,17 +29,25 @@ struct PurchasedsubjectOrLessonCell: View {
                                 .frame(width: 30 ,height: 30)
                         )
                     
-                    Text(model.subjectOrLessonName ?? "")
-                        .font(Font.SoraSemiBold(size:13.0))
+                    Text("\(Part4), ")                        .font(Font.SoraSemiBold(size:13.0)) + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
                         .foregroundColor(.mainBlue)
 
                     Spacer()
 
                 }
                 HStack(alignment:.firstTextBaseline){
-                    Text(model.subjectOrLessonName ?? "")
-                        .font(Font.SoraSemiBold(size:13.0))
-                        .foregroundColor(.mainBlue)
+                    
+                    
+                    VStack (alignment: .leading,spacing: 10){
+                        Text(Part3)
+                            .foregroundColor(.mainBlue)
+                        Text(Part2)
+                        Text(Part1)
+
+                    }
+                    .font(Font.SoraRegular(size:12))
+                    .foregroundColor(.grayBtnText)
+                    .multilineTextAlignment(.leading)
                     
                     Spacer()
 
@@ -75,7 +92,9 @@ struct PurchasedsubjectOrLessonCell: View {
                 .padding(.leading,30)
             }
             .frame(height:110)
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical,8)
+
             .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
                 .stroke(ColorConstants.Bluegray100,
                         lineWidth: 1))

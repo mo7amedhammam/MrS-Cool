@@ -53,6 +53,13 @@ class StudentEditProfileVM: ObservableObject {
     }
     @Published var iseducationLevelvalid : Bool?
 
+    @Published var dummyAcademicYear : DropDownOption?{
+        didSet{
+            isdummyacademicYearvalid = dummyAcademicYear == nil ? false:true
+        }
+    }
+    @Published var isdummyacademicYearvalid : Bool?
+
     @Published var academicYear : DropDownOption?{
         didSet{
             isacademicYearvalid = academicYear == nil ? false:true
@@ -172,6 +179,7 @@ extension StudentEditProfileVM{
     }
     
     func UpdateStudentProfile(){
+        academicYear = dummyAcademicYear
         guard checkValidfields() else {return}
         guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName]
@@ -248,6 +256,7 @@ extension StudentEditProfileVM{
         
         educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
         educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
+        dummyAcademicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
         academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
         birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy",outputLocal: .english,inputTimeZone: .init(identifier: "GMT"))
         email =  model.email ?? ""
