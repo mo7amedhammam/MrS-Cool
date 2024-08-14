@@ -35,15 +35,21 @@ struct CompletedLessonsList: View {
         completedlessonsvm.GetCompletedLessons()
     }
     func clearFilter() {
-        filtersubject = nil
-        filterlesson = nil
-        filtergroupName = ""
-        filterdate = nil
-        
-        completedlessonsvm.skipCount = 0
-        completedlessonsvm.clearFilter()
-        lookupsvm.BookedLessonsForList.removeAll()
-        completedlessonsvm.GetCompletedLessons()
+       if filtersubject != nil ||
+        filterlesson != nil ||
+        filtergroupName != "" ||
+            filterdate != nil{
+           
+           filtersubject = nil
+           filterlesson = nil
+           filtergroupName = ""
+          filterdate = nil
+           
+           completedlessonsvm.skipCount = 0
+           completedlessonsvm.clearFilter()
+           lookupsvm.BookedLessonsForList.removeAll()
+           completedlessonsvm.GetCompletedLessons()
+       }
     }
     func validateFilterValues(){
        if completedlessonsvm.filtersubject == nil {

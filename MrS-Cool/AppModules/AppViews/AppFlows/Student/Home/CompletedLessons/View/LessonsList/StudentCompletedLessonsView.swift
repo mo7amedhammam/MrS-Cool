@@ -36,15 +36,21 @@ struct StudentCompletedLessonsView: View {
         completedlessonsvm.GetCompletedLessons()
     }
     func clearFilter() {
-        filtersubject = nil
-        filterlesson = nil
-        filtergroupName = ""
-        filterdate = nil
-        
-        completedlessonsvm.skipCount = 0
-        completedlessonsvm.clearFilter()
-        lookupsvm.BookedLessonsForList.removeAll()
-        completedlessonsvm.GetCompletedLessons()
+        if filtersubject != nil ||
+        filterlesson != nil ||
+        filtergroupName != "" ||
+            filterdate != nil {
+            
+            filtersubject = nil
+            filterlesson = nil
+            filtergroupName = ""
+           filterdate = nil
+            
+            completedlessonsvm.skipCount = 0
+            completedlessonsvm.clearFilter()
+            lookupsvm.BookedLessonsForList.removeAll()
+            completedlessonsvm.GetCompletedLessons()
+        }
     }
     func validateFilterValues(){
         if completedlessonsvm.filtersubject != filtersubject {
@@ -201,11 +207,6 @@ struct StudentCompletedLessonsView: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.BookedSubjectsForList)
                                         .onChange(of: filtersubject){newval in
-                                            //                                            if  lookupsvm.SelectedBookedSubjectForList != completedlessonsvm.filtersubject                                            {
-                                            //                                                completedlessonsvm.filterlesson = nil
-                                            //                                                lookupsvm.SelectedBookedSubjectForList = completedlessonsvm.filtersubject
-                                            //                                            }
-                                            
                                             filterlesson = nil
                                             lookupsvm.SelectedBookedSubjectForList = newval
                                         }

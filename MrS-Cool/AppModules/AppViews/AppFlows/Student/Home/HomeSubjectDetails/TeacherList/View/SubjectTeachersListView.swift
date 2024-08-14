@@ -51,13 +51,21 @@ struct SubjectTeachersListView: View {
     @State var sortCase : teachersSortCases? = .MostBooked
     
     fileprivate func clearFilter() {
-        rate = 0
-        priceFrom = ""
-        priceTo = ""
-        genderId = nil
-        genderCase = nil
-        teacherName = ""
-        homesubjectteachersvm.clearFilter()
+        if
+        rate != 0 ||
+        priceFrom != "" ||
+        priceTo != "" ||
+        genderId != nil ||
+        genderCase != nil ||
+            teacherName != "" {
+            rate = 0
+            priceFrom = ""
+            priceTo = ""
+            genderId = nil
+            genderCase = nil
+                teacherName = ""
+            homesubjectteachersvm.clearFilter()
+        }
     }
     fileprivate func initFilter() {
         rate = homesubjectteachersvm.rate
