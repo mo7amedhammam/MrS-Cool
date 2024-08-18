@@ -107,7 +107,6 @@
 		C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C930D2AE85F04007AB167 /* CustomProgressView.swift */; };
 		C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */; };
 		C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C883058B2AF10C980030B2A8 /* imagepicker.swift */; };
-		C88447A12B32EF82002819ED /* eventKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88447A02B32EF82002819ED /* eventKit.swift */; };
 		C88447A32B3315C5002819ED /* CalendarKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88447A22B3315C5002819ED /* CalendarKit.swift */; };
 		C8882E852B20673E0050FF57 /* ManageSubjectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */; };
 		C88B1C5B2B8F4C8800681D38 /* StudentCompletedLessonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88B1C5A2B8F4C8800681D38 /* StudentCompletedLessonDetails.swift */; };
@@ -303,7 +302,6 @@
 		C87C930D2AE85F04007AB167 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentCell.swift; sourceTree = "<group>"; };
 		C883058B2AF10C980030B2A8 /* imagepicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagepicker.swift; sourceTree = "<group>"; };
-		C88447A02B32EF82002819ED /* eventKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eventKit.swift; sourceTree = "<group>"; };
 		C88447A22B3315C5002819ED /* CalendarKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarKit.swift; sourceTree = "<group>"; };
 		C8882E842B20673E0050FF57 /* ManageSubjectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectGroupView.swift; sourceTree = "<group>"; };
 		C88B1C5A2B8F4C8800681D38 /* StudentCompletedLessonDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCompletedLessonDetails.swift; sourceTree = "<group>"; };
@@ -2092,7 +2090,6 @@
 				C8E390E02B2DDF480091C7CD /* TeacherCalendar.swift */,
 				C8F5FF642B2F163D00086624 /* FSCalendarView.swift */,
 				C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */,
-				C88447A02B32EF82002819ED /* eventKit.swift */,
 				C88447A22B3315C5002819ED /* CalendarKit.swift */,
 			);
 			path = View;
@@ -2615,7 +2612,6 @@
 				C860ED892BB8525F00CAE116 /* AddNewStudentView.swift in Sources */,
 				C832420A2B1F30C3008CFC4A /* Exdates.swift in Sources */,
 				C865641D2C60E77C00BE2E34 /* imagePickerViewModifier.swift in Sources */,
-				C88447A12B32EF82002819ED /* eventKit.swift in Sources */,
 				C8FB11C82ADD9EB70051715F /* SignInView.swift in Sources */,
 				C8FB11BA2ADD99800051715F /* Language.swift in Sources */,
 				C8BF20102B6BDA1E00779C04 /* WeeklyCalendarView.swift in Sources */,

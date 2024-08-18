@@ -345,7 +345,15 @@ struct LessonDetailsView: View {
                                         isPush = true                                  
                                         }else{
                                             lessondetailsvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
-                                                Helper.shared.changeRoot(toView: SignInView())
+//                                                Helper.shared.logout()
+//                                                Helper.shared.changeRoot(toView: SignInView(hideimage:false))
+
+                                                destination =                           AnyView(SignInView(hideimage:false))
+                                                                          
+                                                Helper.shared.logout()
+                                                isPush = true
+
+                                                
                                             })
                                             lessondetailsvm.isError = true
                                         }

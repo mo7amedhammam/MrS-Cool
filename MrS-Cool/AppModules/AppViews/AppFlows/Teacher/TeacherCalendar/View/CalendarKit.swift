@@ -12,12 +12,13 @@ import FSCalendar
 
 final class CustomCalendarExampleController: DayViewController {
     var selectedDate: Date?
-    var events: [EventM] = [] {
-        didSet {
-            // Update events and reload data
-            reloadData()
-        }
-    }
+    var events: [EventM] = [] 
+//    {
+//        didSet {
+//            // Update events and reload data
+//            reloadData()
+//        }
+//    }
     var onCancelEvent: ((EventM) -> Void)?
     var onJoinEvent: ((EventM) -> Void)?
     var onEventSelected: ((EventM) -> Void)?
@@ -39,10 +40,6 @@ final class CustomCalendarExampleController: DayViewController {
     }()
     fileprivate lazy var dateFormatter2: DateFormatter = {
         let formatter = DateFormatter.cachedFormatter
-        //        calendar.timeZone = TimeZone(identifier: "UTC")!
-        //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo")!
-//        formatter.locale = Locale(identifier: "en_US")
-//        formatter.locale = .current
 
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         formatter.timeZone = TimeZone(identifier: "GMT")
@@ -51,9 +48,6 @@ final class CustomCalendarExampleController: DayViewController {
     }()
     fileprivate lazy var timeFormatter2: DateFormatter = {
         let formatter = DateFormatter.cachedFormatter
-        //        calendar.timeZone = TimeZone(identifier: "UTC")!
-        //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo")!
-//        formatter.locale = .current
 
         formatter.dateFormat = "HH:mm:ss"
         formatter.timeZone = TimeZone(identifier: "GMT")
@@ -64,11 +58,14 @@ final class CustomCalendarExampleController: DayViewController {
     
     override func loadView() {
         //    calendar.timeZone = TimeZone(identifier: "Africa/Cairo")!
-        //      calendar.timeZone = TimeZone(identifier: "UTC")!
+//              calendar.timeZone = TimeZone(identifier: "UTC")!
+                dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+
         dayView = DayView(calendar: calendar)
         dayView.move(to: selectedDate ?? Date())
+        
 //        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
-        dayView.calendar.locale = Locale(identifier: "en")
+//        dayView.calendar.locale = Locale(identifier: "en")
 
         view = dayView
     }
@@ -181,6 +178,7 @@ final class CustomCalendarExampleController: DayViewController {
 //        
 //        return eventDescriptors
 //    }
+    
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         // Filter events for the selected date
         let eventsForSelectedDate = events.filter { eventM in
@@ -249,7 +247,9 @@ final class CustomCalendarExampleController: DayViewController {
                         
                         // Store the EventM object in userInfo
                         event.userInfo = eventM
-                        
+                        print("------*-*--*-\n",eventM)
+                        print("------*-*--*-\n",event)
+
                         return event // Return the configured event
                     }
                 }
@@ -321,6 +321,7 @@ final class CustomCalendarExampleController: DayViewController {
         print("Event has been selected: \(descriptor) \(String(describing: descriptor.userInfo))")
         
         if let eventM = descriptor.userInfo as? EventM {
+            print(" ---- eventM -----\n",eventM)
             onEventSelected?(eventM)
         }
         
@@ -372,12 +373,16 @@ final class CustomCalendarExampleController: DayViewController {
     }
     
     override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
+//        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
         endEventEditing()
+
         print("Did Tap at date: \(date)")
     }
     
     override func dayViewDidBeginDragging(dayView: DayView) {
         //        endEventEditing()
+//        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+
         print("DayView did begin dragging")
     }
     
@@ -386,11 +391,15 @@ final class CustomCalendarExampleController: DayViewController {
     }
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
+//        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+//        dayView.calendar.locale = Locale(identifier: "en")
         selectedDate = date
         print("DayView = \(dayView) did move to: \(date)")
     }
     
     override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
+//        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+        
         print("Did long press timeline at date \(date)")
         // Cancel editing current event and start creating a new one
         //        endEventEditing()
@@ -418,6 +427,10 @@ final class CustomCalendarExampleController: DayViewController {
     //    }
     
     override func dayView(dayView: DayView, didUpdate event: EventDescriptor) {
+//        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+        dayView.calendar.timeZone = TimeZone(identifier: "GMT")!
+        dayView.calendar.locale = Locale(identifier: "en")
+
         print("did finish editing \(event)")
         print("new startDate: \(event.dateInterval.start) new endDate: \(event.dateInterval.end)")
         
@@ -436,36 +449,6 @@ final class CustomCalendarExampleController: DayViewController {
     }
     
 }
-
-
-//struct CalendarKitWrapper: UIViewControllerRepresentable {
-//    typealias UIViewControllerType = CustomCalendarExampleController
-//
-//    let selectedDate: Binding<Date>
-//    var events: [EventM]
-//    var onCancelEvent: ((EventM) -> Void)?
-//
-//    init(selectedDate: Binding<Date>,events: [EventM],onCancelEvent: ((EventM) -> Void)?) {
-//        self.selectedDate = selectedDate
-//        self.onCancelEvent = onCancelEvent
-//        self.events = events
-//    }
-//
-//    func makeUIViewController(context: Context) -> CustomCalendarExampleController {
-//        let controller = CustomCalendarExampleController()
-//        controller.selectedDate = selectedDate.wrappedValue
-//        controller.events = events
-//        controller.onCancelEvent = onCancelEvent
-//
-//        return controller
-//    }
-//
-//    func updateUIViewController(_ uiViewController: CustomCalendarExampleController, context: Context) {
-//        // Update your view controller if needed
-//
-//    }
-//}
-import SwiftUI
 
 struct CalendarKitWrapper: UIViewControllerRepresentable {
     typealias UIViewControllerType = CustomCalendarExampleController
@@ -496,6 +479,8 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
         controller.onEventSelected = { eventM in
             selectedEvent = eventM
             isShowingDetailSheet = true
+            print(" ---- eventM -----\n",eventM)
+
         }
         return controller
     }
@@ -543,7 +528,9 @@ struct ContentView3: View {
                     .opacity(0.3)
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
-                        isShowingDetailSheet.toggle()
+                        withAnimation{
+                            isShowingDetailSheet = false
+                        }
                     }
                     .blur(radius: 4) // Adjust the blur radius as needed
                 DynamicHeightSheet(isPresented: $isShowingDetailSheet){
@@ -553,13 +540,6 @@ struct ContentView3: View {
                                 // Handle the event cancellation here
                                 if let index = events.firstIndex(where: { $0.id == event.id }) {
                                     events[index].isCancel = true
-                                    
-                                    //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                                    ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
-                                    //                            onCancelEvent?(selectedEvent)
-                                    //                            isShowingDetailSheet = false
-                                    //
-                                    //                        })
                                     onCancelEvent?(selectedEvent)
                                     //                        isError = true
                                 }
@@ -573,41 +553,39 @@ struct ContentView3: View {
                         }
                     }
                     .padding()
-                    .frame(height:333)
-                    .keyboardAdaptive()
+                    .frame(height:360)
+//                    .keyboardAdaptive()
                 }
             }
         }
-        
-        //        .sheet(isPresented: $isShowingDetailSheet) {
-        //            if let selectedEvent = selectedEvent {
-        //                EventDetailsView(event: selectedEvent, onCancelEvent: { event in
-        //                    // Handle the event cancellation here
-        //                    if let index = events.firstIndex(where: { $0.id == event.id }) {
-        //                        events[index].isCancel = true
-        //
-        ////                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-        //////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
-        ////                            onCancelEvent?(selectedEvent)
-        ////                            isShowingDetailSheet = false
-        ////
-        ////                        })
-        //                        onCancelEvent?(selectedEvent)
-        ////                        isError = true
-        //                    }
-        //                    isShowingDetailSheet = false
-        //                },onJoinEvent: { event in
-        //                    print("Event joining closure executed")
-        //                    if let index = events.firstIndex(where: { $0.id == event.id }) {
-        //                        onJoinEvent?(selectedEvent)
-        //                    }
-        //                })
-        //            }
-        //        }
+//                .sheet(isPresented: $isShowingDetailSheet) {
+//                    if let selectedEvent = selectedEvent {
+//                        EventDetailsView(event: selectedEvent, onCancelEvent: { event in
+//                            // Handle the event cancellation here
+//                            if let index = events.firstIndex(where: { $0.id == event.id }) {
+//                                events[index].isCancel = true
+//        
+//        //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+//        ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
+//        //                            onCancelEvent?(selectedEvent)
+//        //                            isShowingDetailSheet = false
+//        //
+//        //                        })
+//                                onCancelEvent?(selectedEvent)
+//        //                        isError = true
+//                            }
+//                            isShowingDetailSheet = false
+//                        },onJoinEvent: { event in
+//                            print("Event joining closure executed")
+//                            if let index = events.firstIndex(where: { $0.id == event.id }) {
+//                                onJoinEvent?(selectedEvent)
+//                            }
+//                        })
+//                    }
+//                }
         .showAlert(hasAlert: $isError, alertType: error)
         
     }
-    
     
 }
 
@@ -625,53 +603,126 @@ struct EventDetailsView: View {
     let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
     let onJoinEvent: ((EventM) -> Void)? // Closure to handle event join
     
+    
+    // Date formatter for parsing the event date and time
+//    fileprivate let dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter.cachedFormatter
+//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+////        formatter.dateFormat = "HH:mm:ss"
+//        formatter.timeZone = TimeZone(identifier: "GMT")
+//        formatter.locale = Locale(identifier: "en")
+//        return formatter
+//    }()
+    fileprivate let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "GMT")
+        formatter.locale = Locale(identifier: "en")
+
+//        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
+//        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
+    
     // Function to check if the event is in the past
+//    func isEventInPast() -> Bool {
+//        guard let eventDateStr = event.date, let timeToStr = event.timeTo else {
+//            return false
+//        }
+//        print("eventDateStr: \(eventDateStr)")
+//        print("timeToStr: \(timeToStr)")
+//
+//        
+//        // Create full date strings with event date and times
+////        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+//        let toDateTimeStr = "\((eventDateStr.prefix(10)))T\(timeToStr)"
+//        print("toDateTimestr: \(toDateTimeStr)")
+//
+//        // Parse the date strings into Date objects
+//        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+//            return false
+//        }
+//        print("toDateTime: \(toDateTime)")
+//
+//        let currentTime = Date()
+//        return toDateTime < currentTime
+//    }
     func isEventInPast() -> Bool {
-        guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
+        guard let eventDateStr = event.date, let timeToStr = event.timeTo else {
             return false
         }
+
+        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+        print("toDateTimestr: \(toDateTimeStr)")
         
-        // Create full date strings with event date and times
-        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-        let toDateTimeStr = "\((eventDateStr.prefix(10)))T\(timeToStr)"
-        
-        // Parse the date strings into Date objects
-        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
-              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+            print("Failed to parse toDateTime: \(toDateTimeStr)")
             return false
         }
+        print("toDateTime: \(toDateTime)")
         
         let currentTime = Date()
         return toDateTime < currentTime
     }
-    
-    // Function to check if the current time is between timeFrom and timeTo
+
     func isCurrentTimeWithinEventTime() -> Bool {
         guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
+            print("One of the required date/time components is nil.")
             return false
         }
-        
-        // Create full date strings with event date and times
+
         let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
         let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
         
-        //        print("From Date Time String: \(fromDateTimeStr)")
-        //        print("To Date Time String: \(toDateTimeStr)")
+        print("From Date Time String: \(fromDateTimeStr)")
+        print("To Date Time String: \(toDateTimeStr)")
         
-        // Parse the date strings into Date objects
         guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
               let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-            print("Failed to parse fromDateTime")
+            print("Failed to parse fromDateTime or toDateTime.")
             return false
         }
         
         let currentTime = Date()
-        //        print("Current Time: \(currentTime)")
-        //        print("Event From Time: \(fromDateTime)")
-        //        print("Event To Time: \(toDateTime)")
+        print("Current Time: \(currentTime)")
+        print("Event From Time: \(fromDateTime)")
+        print("Event To Time: \(toDateTime)")
         
         return currentTime >= fromDateTime && currentTime <= toDateTime
     }
+    
+    // Function to check if the current time is between timeFrom and timeTo
+//    func isCurrentTimeWithinEventTime() -> Bool {
+//        guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
+//            print("One of the required date/time components is nil.")
+//
+//            return false
+//        }
+//        
+//        // Create full date strings with event date and times
+//        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+//        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+//        
+//        
+//        // Debugging output
+//        print("From Date Time String: \(fromDateTimeStr)")
+//        print("To Date Time String: \(toDateTimeStr)")
+//        
+//        // Parse the date strings into Date objects
+//        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
+//              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+//            print("Failed to parse fromDateTime or toDateTime. Check format.")
+//            return false
+//        }
+//        
+//        let currentTime = Date()
+//                print("Current Time: \(currentTime)")
+//                print("Event From Time: \(fromDateTime)")
+//                print("Event To Time: \(toDateTime)")
+//        
+//        return currentTime >= fromDateTime && currentTime <= toDateTime
+//    }
     // Function to check if the event is not started yet
     func isEventNotStartedYet() -> Bool {
         guard let eventDateStr = event.date, let timeFromStr = event.timeFrom else {
@@ -689,13 +740,6 @@ struct EventDetailsView: View {
         let currentTime = Date()
         return currentTime < fromDateTime
     }
-    
-    // Date formatter for parsing the event date and time
-    fileprivate let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter.cachedFormatter
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return formatter
-    }()
     
     @State var isError : Bool = false
     @State var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
@@ -759,7 +803,7 @@ struct EventDetailsView: View {
                     //                    .frame(maxWidth:.infinity)
                     //                    .background{ColorConstants.MainColor}
                     //                    .cornerRadius(8)
-                    
+                    Spacer()
                     Button(action: {
                         ////                        print("Joining event...")
                         ////                        onJoinEvent?(event)
@@ -800,6 +844,7 @@ struct EventDetailsView: View {
                     //                            .foregroundColor(.red)
                     //                    }
                     
+                    Spacer()
                     CustomButton(Title:"Cancel Event",bgColor: .red,IsDisabled: .constant(false), action: {
                         error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                             //                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
@@ -810,7 +855,7 @@ struct EventDetailsView: View {
                         //                        onCancelEvent?(event)
                     })
                     .frame(height: 50)
-                    .padding(.top,40)
+//                    .padding(.top,30)
                     
                     
                 }

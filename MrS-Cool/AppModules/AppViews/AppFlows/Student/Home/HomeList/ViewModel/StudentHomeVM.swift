@@ -417,8 +417,8 @@ extension Array where Element == GetAllSubject {
                 subjectName: getAllSubject.name,
                 image: getAllSubject.image
 //                ,
-//                lessonsCount:getAllSubject.lessonsCount,
-//                teacherCount:getAllSubject.availableTeacherCount
+                ,lessonsCount:getAllSubject.lessonsCount
+                ,teacherCount:getAllSubject.availableTeacherCount
             )
         }
     }

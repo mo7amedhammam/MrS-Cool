@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+enum SubjectCase{
+    case creating,updating
+}
+
 class ManageTeacherSubjectsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     //    @Published var isUserChangagble = true // available unless teacher save personal data
@@ -162,7 +166,7 @@ extension ManageTeacherSubjectsVM{
         }
 
         print("parameters",parameters)
-        let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
+        let target = Authintications.TeacherAddSubjectFromUpdate(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<CreatedTeacherSubjectM>.self)
             .sink(receiveCompletion: {[weak self] completion in

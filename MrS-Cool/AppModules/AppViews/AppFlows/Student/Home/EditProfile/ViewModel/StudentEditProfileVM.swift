@@ -48,6 +48,7 @@ class StudentEditProfileVM: ObservableObject {
     @Published var educationLevel : DropDownOption?{
         didSet{
             academicYear = nil
+            dummyAcademicYear = nil
             iseducationLevelvalid = educationLevel == nil ? false:true
         }
     }
@@ -179,8 +180,8 @@ extension StudentEditProfileVM{
     }
     
     func UpdateStudentProfile(){
-        academicYear = dummyAcademicYear
         guard checkValidfields() else {return}
+        academicYear = dummyAcademicYear
         guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName]
 

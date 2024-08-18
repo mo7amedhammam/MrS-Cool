@@ -14,6 +14,7 @@ enum Authintications {
 
     case TeacherGetSubjects(parameters : [String:Any])
     case TeacherRegisterSubjects(parameters : [String:Any])
+    case TeacherAddSubjectFromUpdate(parameters : [String:Any])
     case TeacherDeleteSubjects(parameters : [String:Any])
 
     case TeacherRegisterDocuments(parameters : [String:Any])
@@ -46,7 +47,11 @@ extension Authintications : TargetType {
             }
             
         case .TeacherRegisterSubjects:
-            return EndPoints.RegisterTeacherSubjects.rawValue
+                return EndPoints.RegisterTeacherSubjects.rawValue
+
+        case .TeacherAddSubjectFromUpdate:
+                return EndPoints.UpdateTeacherSubjects.rawValue
+
         case .TeacherGetSubjects:
             return EndPoints.GetTeacherSubjects.rawValue
         case .TeacherDeleteSubjects:
@@ -153,6 +158,7 @@ extension Authintications : TargetType {
         case .Register,
                 .VerifyOtpUser,
                 .TeacherRegisterSubjects,
+                .TeacherAddSubjectFromUpdate,
                 .TeacherGetSubjects,
                 .TeacherRegisterDocuments,
                 .TeacherGetDocuments,
@@ -173,7 +179,8 @@ extension Authintications : TargetType {
     var parameter: parameterType {
         switch self {
         case .Register(_,let parameters),
-                .TeacherRegisterSubjects( let parameters),
+                .TeacherRegisterSubjects(let parameters),
+                .TeacherAddSubjectFromUpdate(let parameters),
                 .TeacherGetSubjects( let parameters),
                 .TeacherRegisterDocuments( let parameters),
                 .TeacherGetDocuments( let parameters),
