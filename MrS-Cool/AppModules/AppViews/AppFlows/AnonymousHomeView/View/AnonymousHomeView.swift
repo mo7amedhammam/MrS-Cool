@@ -617,6 +617,14 @@ struct AnonymousSideMenuContent: View {
                 //                }
                 
                 Spacer()
+                
+                VStack(alignment: .center){
+                Text("App Version: \(Helper.shared.getAppVersion())")
+                Text("Build Number: \(Helper.shared.getBuildNumber())")
+                       }
+                .font(.SoraBold(size: 18))
+                .foregroundStyle(.whiteA700)
+
             }
         }
         .frame(width: UIScreen.main.bounds.width - 80)

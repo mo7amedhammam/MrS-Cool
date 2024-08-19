@@ -706,10 +706,10 @@ struct CustomDatePickerField: View {
                 .labelsHidden()
                 .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
                 .onAppear {
-                    print("selectedDate",selectedDate)
-                    print("selectedDateStr",selectedDateStr)
-                    print("startDate",startDate)
-                    print("endDate",endDate)
+//                    print("selectedDate",selectedDate)
+//                    print("selectedDateStr",selectedDateStr)
+//                    print("startDate",startDate)
+//                    print("endDate",endDate)
                     
                     // Ensure selectedDateStr is initialized correctly on appear
                     if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {

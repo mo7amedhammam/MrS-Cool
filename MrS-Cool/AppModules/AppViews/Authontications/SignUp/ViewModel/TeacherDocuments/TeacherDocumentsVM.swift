@@ -110,7 +110,7 @@ extension TeacherDocumentsVM{
             },receiveValue: {[weak self] receivedData in
                 guard let self = self else{return}
                 print("receivedData",receivedData)
-                if let model = receivedData.data{
+                if receivedData.success == true {
                     GetTeacherDocument()
 //                    TeacherDocuments?.append(model)
 //                    GetTeacherDocument()

@@ -395,7 +395,7 @@ struct LessonDetailsView: View {
             if lessoncase == .Group {
                 lessondetailsvm.GetLessonDetails(lessonId: selectedlessonid)
             }else{
-                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'")
+                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",outputLocal: .english)
                 lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
             }
         })
@@ -403,7 +403,7 @@ struct LessonDetailsView: View {
             lessondetailsvm.cleanup()
         }
         .onChange(of: selectedDate){newdate in
-            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'")
+            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",outputLocal: .english)
 //            if newdate != Data(){
             lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
             lessondetailsvm.selectedsched = nil //clear individual selected sched

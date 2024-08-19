@@ -34,6 +34,11 @@ struct ManageMyDocumentsView: View {
     
     @State var showFilter : Bool = false
     @State var filterdocumentType : DropDownOption?
+    fileprivate func clearDocumentsFilter() {
+        filterdocumentType = nil
+        teacherdocumentsvm.filterdocumentType = nil
+    }
+    
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage my documents")
@@ -115,8 +120,8 @@ struct ManageMyDocumentsView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
-                                        filterdocumentType = nil
-                                        teacherdocumentsvm.clearFilter()
+                                        clearDocumentsFilter()
+//                                        teacherdocumentsvm.clearFilter()
                                         teacherdocumentsvm.CreateTeacherDocument(fileType: selectedFileType)
                                     })
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
@@ -318,8 +323,7 @@ struct ManageMyDocumentsView: View {
                                           })
                                           
                                           CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                              filterdocumentType = nil
-                                              teacherdocumentsvm.filterdocumentType = nil
+                                              clearDocumentsFilter()
                                               teacherdocumentsvm.GetTeacherDocument()
                                               showFilter = false
                                           })

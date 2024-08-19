@@ -10,6 +10,14 @@ import SwiftUI
 struct StudentFinanceView: View {
     @StateObject var financevm = StudentFinanceVM()
     @Binding var selectedChild : ChildrenM?
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter.cachedFormatter
+        formatter.dateFormat = "dd MMM yyyy"
+        formatter.timeZone = TimeZone.current
+
+//        formatter.locale = Local(identifier: "en")
+        return formatter
+     }()
     var body: some View {
         VStack {
 //            CustomTitleBarView(title: "Completed Lessons")
@@ -51,12 +59,18 @@ struct StudentFinanceView: View {
                             .foregroundColor(ColorConstants.MainColor)
                             
                             Group{
-                                Text("Till ".localized())+Text("\(Date().formatDate(format: "dd MMM YYYY"))")
+                                let formattedToday = dateFormatter.string(from: Date())
+                                Text("Till ".localized())+Text(formattedToday)
                             }
                             .font(Font.SoraRegular(size: 12))
                             .foregroundColor(.mainBlue)
                             .padding(.trailing,-20)
                             .padding(.bottom,5)
+//                            .onAppear(perform: {
+//                                print(Date())
+//                               
+//                                print(formattedDate)
+//                            })
                         }
 //                        Spacer()
                     }

@@ -161,6 +161,22 @@ class Helper: NSObject {
     }
 }
 
+extension Helper{
+    func getAppVersion() -> String {
+         if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+             return appVersion
+         }
+         return "Unknown"
+     }
+
+     func getBuildNumber() -> String {
+         if let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+             return buildNumber
+         }
+         return "Unknown"
+     }
+}
+
 //MARK: -- view helper --
 func getRelativeHeight(_ size: CGFloat) -> CGFloat {
     return (size * (CGFloat(UIScreen.main.bounds.height) / 812.0)) * 0.97
@@ -198,3 +214,4 @@ extension View {
     }
 }
 #endif
+

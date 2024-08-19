@@ -85,7 +85,7 @@ struct EditParentProfileView: View {
                                 
                                 let endDate = Calendar.current.date(byAdding: .year, value: -18, to: Date()) ?? Date()
 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$parentprofilevm.birthDateStr,endDate: endDate)
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$parentprofilevm.birthDateStr,endDate: endDate,local: .english)
                                 
                                 CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $parentprofilevm.country,options:lookupsvm.CountriesList,isvalid: parentprofilevm.iscountryvalid)
                                     .onChange(of: parentprofilevm.country, perform: { val in

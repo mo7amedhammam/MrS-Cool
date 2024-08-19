@@ -36,11 +36,12 @@ struct ManageTeacherSubjectsView: View {
     
      func ClearFilterValues(){
         filterEducationType = nil
-         lookupsvm.FilterSelectedEducationType = nil
+        lookupsvm.FilterSelectedEducationType = nil
         filterEducationLevel = nil
         filterAcademicYear = nil
         filterSubject = nil
         filterSubjectStatus = nil
+         manageteachersubjectsvm.clearFilter()
     }
     
     var body: some View{
@@ -136,6 +137,7 @@ struct ManageTeacherSubjectsView: View {
                                     Group{
                                         CustomButton(Title:manageteachersubjectsvm.isEditing ? "Update" : "Save" ,IsDisabled: .constant(false), action: {
                                             ClearFilterValues()
+                                            
                                             if manageteachersubjectsvm.isEditing{
                                                 manageteachersubjectsvm.UpdateTeacherSubject()
                                             }else{
