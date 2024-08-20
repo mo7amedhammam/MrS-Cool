@@ -38,7 +38,7 @@ struct PurchasedsubjectOrLessonCell: View {
 
                     case .Lessons:
                         Text("\(Part1)").font(Font.SoraSemiBold(size:13.0))
-//                            .lineLimit(0)
+                            .lineLimit(2)
 //                        + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
 //                            .foregroundColor(.mainBlue)
 

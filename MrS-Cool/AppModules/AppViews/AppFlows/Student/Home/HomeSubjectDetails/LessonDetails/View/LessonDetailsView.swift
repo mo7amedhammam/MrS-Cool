@@ -86,12 +86,25 @@ struct LessonDetailsView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
-                        .font(.SoraRegular(size: 10))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal,30)
-                        .frame(minHeight: 20)
+//                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
+//                        .font(.SoraRegular(size: 10))
+//                        .foregroundColor(.mainBlue)
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.horizontal,30)
+//                        .frame(minHeight: 20)
+                    
+                    scrollableBriedText(text:details.SubjectOrLessonDto?.systemBrief ?? "")
+
+//                    ScrollView(.vertical){
+//                                Text(details.SubjectOrLessonDto?.systemBrief ?? "")
+//                                .font(.SoraRegular(size: 10))
+//                                .foregroundColor(.mainBlue)
+//                                .lineSpacing(10)
+//                                .multilineTextAlignment(.leading)
+//                                .padding(.horizontal,30)
+//                        }
+//                    .frame(minHeight:20,idealHeight:50,maxHeight: 80)
+
                     
                     GeometryReader { gr in
                         VStack(alignment:.leading){ // Title - Data - Submit Button)

@@ -53,12 +53,25 @@ struct HomeSubjectDetailsView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(details.systemBrief ?? "")
-                        .font(.SoraRegular(size: 10))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal,30)
-                        .frame(minHeight: 20)
+//                    Text(details.systemBrief ?? "")
+//                        .font(.SoraRegular(size: 10))
+//                        .foregroundColor(.mainBlue)
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.horizontal,30)
+//                        .frame(minHeight: 20)
+                    
+                    scrollableBriedText(text:details.systemBrief ?? "")
+
+//                    ScrollView(.vertical){
+//                                Text(details.systemBrief ?? "")
+//                                .font(.SoraRegular(size: 10))
+//                                .foregroundColor(.mainBlue)
+//                                .lineSpacing(10)
+//                                .multilineTextAlignment(.leading)
+//                                .padding(.horizontal,30)
+//                        }
+//                    .frame(minHeight:20,idealHeight:50,maxHeight: 80)
+
                     
                     GeometryReader { gr in
                         VStack{ // (Title - Data - Submit Button)

@@ -60,13 +60,15 @@ struct SubjectDetailsView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
-                        .font(.SoraRegular(size: 10))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal,30)
-                        .frame(minHeight: 20)
+//                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
+//                        .font(.SoraRegular(size: 10))
+//                        .foregroundColor(.mainBlue)
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.horizontal,30)
+//                        .frame(minHeight: 20)
                     
+                    scrollableBriedText(text:details.SubjectOrLessonDto?.systemBrief ?? "")
+
                     GeometryReader { gr in
                         VStack(alignment:.leading){ // Title - Data - Submit Button)
                             
@@ -479,3 +481,57 @@ struct SubjectTeacherInfoView : View {
 }
 
 
+
+//struct scrollableBriedText: View {
+//    var text : String
+//    var body: some View {
+//        ScrollView(.vertical){
+//            Text(text)
+//                .font(.SoraRegular(size: 10))
+//                .foregroundColor(.mainBlue)
+//                .lineSpacing(10)
+//                .multilineTextAlignment(.leading)
+//                .padding(.horizontal,30)
+//        }
+//        .frame(minHeight:20,idealHeight:50,maxHeight: 80)
+//    }
+//}
+
+struct scrollableBriedText: View {
+    var text: String
+
+    var body: some View {
+        ScrollView(.vertical) {
+            Text(text)
+                .font(.SoraRegular(size: 10))
+                .foregroundColor(.mainBlue)
+                .lineSpacing(10)
+                .multilineTextAlignment(.leading)
+                .padding(.horizontal, 30)
+                .background(GeometryReader { geometry in
+                    Color.clear.preference(key: ViewHeightKey.self, value: geometry.size.height)
+                })
+        }
+        .frame(minHeight: 20, maxHeight: min(calculateTextHeight(), 80))
+    }
+
+    private func calculateTextHeight() -> CGFloat {
+        // Estimate the height based on the text length
+        let textHeight = (text as NSString).boundingRect(
+            with: CGSize(width: UIScreen.main.bounds.width - 60, height: .infinity),
+            options: .usesLineFragmentOrigin,
+            attributes: [.font: UIFont.systemFont(ofSize: 10)],
+            context: nil
+        ).height
+
+        return textHeight + 20 // Add some padding to the estimated height
+    }
+}
+
+struct ViewHeightKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue: CGFloat = 50
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}

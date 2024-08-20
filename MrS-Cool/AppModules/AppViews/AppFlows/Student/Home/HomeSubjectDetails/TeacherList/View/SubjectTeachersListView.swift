@@ -91,7 +91,7 @@ struct SubjectTeachersListView: View {
             CustomTitleBarView(title:bookingcase == .subject ? "Subject Info":"Lesson Info")
             
             VStack (alignment: .leading){
-                
+
                 if let subjectorLesson = homesubjectteachersvm.SubjectOrLessonDto{
                     HStack {
                         //                        AsyncImage(url: URL(string: Constants.baseURL+(teachers.items?.first?.getSubjectOrLessonDto?.image ?? "")  )){image in
@@ -121,12 +121,25 @@ struct SubjectTeachersListView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(subjectorLesson.systemBrief ?? "")
-                        .font(.SoraRegular(size: 10))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal,30)
-                        .frame(minHeight: 20)
+//                    Text(subjectorLesson.systemBrief ?? "")
+//                        .font(.SoraRegular(size: 10))
+//                        .foregroundColor(.mainBlue)
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.horizontal,30)
+//                        .frame(minHeight: 20)
+                    scrollableBriedText(text:subjectorLesson.systemBrief ?? "")
+
+//                    ScrollView(.vertical){
+//                                Text(subjectorLesson.systemBrief ?? "")
+//                                .font(.SoraRegular(size: 10))
+//                                .foregroundColor(.mainBlue)
+//                                .lineSpacing(10)
+//                                .multilineTextAlignment(.leading)
+//                                .padding(.horizontal,30)
+//                        }
+//                    .frame(minHeight:20,idealHeight:50,maxHeight: 80)
+                    
+                    
                 }
                     
                 if let teachers = homesubjectteachersvm.TeachersModel{
@@ -168,12 +181,14 @@ struct SubjectTeachersListView: View {
                             if let items = teachers.items{
                                 ScrollViewReader { proxy in
                                 List(items,id:\.id){teacher in
-                                    ColorConstants.Bluegray20099.frame(maxHeight:0.3)
-                                        .id(1) // Assign unique ID to scoll to top
-//                                        .padding(.vertical,-20)
-                                        .listRowSeparator(.hidden)
-                                        .listRowSpacing(-15)
-
+//                                    if teacher == items.first{
+//                                        ColorConstants.Bluegray20099.frame(maxHeight:0.3)
+//                                            .id(1) // Assign unique ID to scoll to top
+//                                        //                                        .padding(.vertical,-20)
+//                                            .listRowSeparator(.hidden)
+//                                        //                                        .listRowSpacing(-15)
+//                                            .padding(.vertical,-15)
+//                                    }
                                     Button(action: {
                                         switch bookingcase {
                                         case .subject:
@@ -186,6 +201,7 @@ struct SubjectTeachersListView: View {
                                     }, label: {
                                         TeacherCellView(teacher: teacher)
                                     })
+                                    .tag(teacher.id)
                                     .onAppear {
                                         guard teacher == items.last else {return}
                                         if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, items.count < totalCount {
@@ -195,13 +211,16 @@ struct SubjectTeachersListView: View {
                                         }
                                     }
                                     .listRowSeparator(.hidden)
-                                    .listRowSpacing(-15)
+//                                    .listRowSpacing(-15)
+                                    .padding(.vertical,-10)
                                     .onChange(of: ScrollToTop) { value in
                                         if value == true {
+                                            
                                                 withAnimation {
-                                                    proxy.scrollTo(1, anchor: .bottom)
+                                                    proxy.scrollTo(items.first?.id , anchor: .bottom)
                                                 }
                                         }
+                                        ScrollToTop = false
                                              }
                               
                                 }
@@ -700,3 +719,30 @@ struct TeacherCellView : View {
 }
 
 
+//struct ScrollableTextView: View {
+//    let text: String
+//    
+//    var body: some View {
+//        ScrollView {
+//            Text(text)
+//                .font(.body)
+//                .padding()
+//                .lineSpacing(5) // Adds space between lines
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .background(Color(UIColor.systemBackground))
+//                .cornerRadius(12)
+//                .shadow(radius: 5)
+//        }
+////        .navigationTitle("Scrollable Text View")
+//        .padding()
+//    }
+//}
+//#Preview{
+//        ScrollableTextView(text: """
+//        This is a sample text. You can replace this with any text of your choice.
+//        It will be displayed in a scrollable view if the content exceeds the available space.
+//        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+//        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//        """)
+//
+//}
