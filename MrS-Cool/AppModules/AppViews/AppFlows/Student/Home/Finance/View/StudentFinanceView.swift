@@ -85,7 +85,7 @@ struct StudentFinanceView: View {
                             
                             if let lessons = financevm.PurchasedLessons?.items{
                                 List(lessons, id:\.self) { lesson in
-                                    PurchasedsubjectOrLessonCell(model: lesson)
+                                    PurchasedsubjectOrLessonCell(financese: .Lessons, model: lesson)
                                         .padding(.vertical,-7.5)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
@@ -99,7 +99,7 @@ struct StudentFinanceView: View {
                                             }
                                         }
                                 }
-                                .padding(.horizontal,-20)
+                                .padding(.horizontal,-15)
                                 .listStyle(.plain)
                                 .frame(minHeight: gr.size.height)
                             }
@@ -111,7 +111,7 @@ struct StudentFinanceView: View {
                             
                             if let Subjects = financevm.PurchasedSubjects?.items{
                                 List(Subjects, id:\.self) { Subject in
-                                    PurchasedsubjectOrLessonCell(model: Subject)
+                                    PurchasedsubjectOrLessonCell(financese: .Subjects,model: Subject)
 //                                        .listRowSpacing(-10)
                                         .padding(.vertical,-7.5)
                                         .listRowSeparator(.hidden)
@@ -126,7 +126,7 @@ struct StudentFinanceView: View {
                                             }
                                         }
                                 }
-                                .padding(.horizontal,-20)
+                                .padding(.horizontal,-15)
                                 .listStyle(.plain)
                                 .frame(minHeight: gr.size.height)
                             }

@@ -114,12 +114,14 @@ extension StudentFinanceVM{
                     case .Subjects:
                         if subjectsSkipCount == 0{
                             PurchasedSubjects = receivedData.data
+//                            print("PurchasedSubjects---------\n",PurchasedSubjects)
                         }else{
                             PurchasedSubjects?.items?.append(contentsOf: receivedData.data?.items ?? [])
                         }
                     case .Lessons:
                         if lessonsSkipCount == 0{
                             PurchasedLessons = receivedData.data
+//                            print("PurchasedLessons---------\n",PurchasedLessons)
                         }else{
                             PurchasedLessons?.items?.append(contentsOf: receivedData.data?.items ?? [])
                         }

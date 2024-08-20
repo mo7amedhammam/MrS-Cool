@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PurchasedsubjectOrLessonCell: View {
+    var financese:StudentFinanceCases = .Lessons
     var model = FinanceItem()
 
     var body: some View {
@@ -15,11 +16,12 @@ struct PurchasedsubjectOrLessonCell: View {
                 let subjectOrLessonName = model.subjectOrLessonName ?? ""
                 let name = subjectOrLessonName.split(separator: ",").map{ String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
 
-                let Part1 = name.indices.contains(1) ? name[1] : ""
-                let Part2 = name.indices.contains(2) ? name[2] : ""
-                let Part3 = name.indices.contains(3) ? name[3] : ""
-                let Part4 = name.indices.contains(4) ? name[4] : ""
-                let Part5 = name.indices.contains(5) ? name[5] : ""
+                let Part1 = name.indices.contains(0) ? name[0] : ""
+                let Part2 = name.indices.contains(1) ? name[1] : ""
+                let Part3 = name.indices.contains(2) ? name[2] : ""
+                let Part4 = name.indices.contains(3) ? name[3] : ""
+                let Part5 = name.indices.contains(4) ? name[4] : ""
+                let Part6 = name.indices.contains(5) ? name[5] : ""
 
                 HStack(spacing: 20) {
                     Image("img_group512382")
@@ -29,20 +31,41 @@ struct PurchasedsubjectOrLessonCell: View {
                                 .frame(width: 30 ,height: 30)
                         )
                     
-                    Text("\(Part4), ")                        .font(Font.SoraSemiBold(size:13.0)) + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
-                        .foregroundColor(.mainBlue)
+                    switch financese {
+                    case .Subjects:
+                        Text("\(Part4), ").font(Font.SoraSemiBold(size:13.0)) + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
+                            .foregroundColor(.mainBlue)
+
+                    case .Lessons:
+                        Text("\(Part1)").font(Font.SoraSemiBold(size:13.0))
+//                            .lineLimit(0)
+//                        + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
+//                            .foregroundColor(.mainBlue)
+
+                    }
 
                     Spacer()
 
                 }
                 HStack(alignment:.firstTextBaseline){
-                    
-                    
-                    VStack (alignment: .leading,spacing: 10){
-                        Text(Part3)
-                            .foregroundColor(.mainBlue)
-                        Text(Part2)
-                        Text(Part1)
+                    VStack (alignment: .leading,spacing:financese == .Lessons ? 5 : 10){
+                        switch financese {
+                        case .Subjects:
+                            Text(Part3)
+                                .foregroundColor(.mainBlue)
+                            Text(Part2)
+                            Text(Part1)
+
+                        case .Lessons:
+                             Text("\(Part5), ").font(Font.SoraRegular(size:13.0))
+                                .foregroundColor(.mainBlue) + Text(Part6)
+                                .foregroundColor(.mainBlue)
+                            Text(Part4)
+                            Text(Part3)
+                            Text(Part2)
+
+                        }
+                        
 
                     }
                     .font(Font.SoraRegular(size:12))
@@ -91,7 +114,7 @@ struct PurchasedsubjectOrLessonCell: View {
                 .frame(maxWidth:.infinity,alignment: .center)
                 .padding(.leading,30)
             }
-            .frame(height:110)
+//            .frame(height:110)
             .padding(.horizontal)
             .padding(.vertical,8)
 
