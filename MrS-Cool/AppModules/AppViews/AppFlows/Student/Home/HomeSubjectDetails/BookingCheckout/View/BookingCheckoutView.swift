@@ -50,12 +50,22 @@ struct BookingCheckoutView: View {
 //                                Image("img_younghappysmi")
 //                                    .resizable()
 //                            }
-                            let imageURL : URL? = URL(string: Constants.baseURL+(details.image ?? "").reverseSlaches())
-                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                            if let imgurl = details.image{
+                            let imageURL : URL? = URL(string: Constants.baseURL+imgurl.reverseSlaches())
+                            KFImageLoader(url: imageURL, placeholder: Image("homelessonoicon"))
 
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())
+                        }else{
+                            Image("homelessonoicon")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50,height: 50)
+                                .padding(15)
+                                .background{Color.white.clipShape(Circle())}
+
+                        }
                             
                             VStack(alignment:.leading){
                                 if let headerName = details.headerName{

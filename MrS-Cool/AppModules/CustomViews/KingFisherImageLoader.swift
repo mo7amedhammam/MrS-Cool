@@ -29,3 +29,4 @@ struct KFImageLoader: View {
             .cornerRadius(8)
     }
 }
+

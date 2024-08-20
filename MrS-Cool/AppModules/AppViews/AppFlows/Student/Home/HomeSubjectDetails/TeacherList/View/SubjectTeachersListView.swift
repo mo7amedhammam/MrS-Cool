@@ -101,12 +101,21 @@ struct SubjectTeachersListView: View {
                         //                            Image("img_younghappysmi")
                         //                                .resizable()
                         //                        }
-                        let imageURL : URL? = URL(string: Constants.baseURL+((subjectorLesson.image)?.reverseSlaches() ?? ""))
-                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                            .aspectRatio(contentMode: .fill)
+                        if let imgurl = subjectorLesson.image{
+                        let imageURL : URL? = URL(string: Constants.baseURL+imgurl.reverseSlaches())
+                        KFImageLoader(url: imageURL, placeholder: Image("homelessonoicon"))
+                            .aspectRatio(contentMode: .fit)
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())
-                        
+                    }else{
+                        Image("homelessonoicon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50,height: 50)
+                            .padding(15)
+                            .background{Color.white.clipShape(Circle())}
+
+                    }
                         VStack(alignment:.leading){
                             Text(subjectorLesson.headerName ?? "" )
                                 .font(.SoraBold(size: 18))
