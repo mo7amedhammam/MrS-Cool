@@ -56,6 +56,8 @@ class TeacherSubjectsVM: ObservableObject {
     
     
 //    MARK: --- outpust ---
+    @Published var showConfirmDelete : Bool = false
+
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
 //    @Published var error: Error?
@@ -102,8 +104,13 @@ extension TeacherSubjectsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
 //                    TeacherSubjects?.append(model)
-                    GetTeacherSubjects()
-                    clearTeachersSubject()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetTeacherSubjects()
+                        clearTeachersSubject()
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -170,7 +177,12 @@ extension TeacherSubjectsVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
 //                    TeacherSubjects = model
-                    TeacherSubjects?.removeAll(where: {$0.id == model.id})
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherSubjects?.removeAll(where: {$0.id == model.id})
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

@@ -96,9 +96,15 @@ struct SignUpView: View {
         
         .showAlert(hasAlert: $studentsignupvm.isError, alertType: studentsignupvm.error)
         .showAlert(hasAlert: $parentsignupvm.isError, alertType: parentsignupvm.error)
+        
         .showAlert(hasAlert: $signupvm.isError, alertType: signupvm.error)
+        
         .showAlert(hasAlert: $signupvmsubject.isError, alertType: signupvmsubject.error)
+        .showAlert(hasAlert: $signupvmsubject.showConfirmDelete, alertType: signupvmsubject.error)
+        
         .showAlert(hasAlert: $signupvmdocument.isError, alertType: signupvmdocument.error)
+        .showAlert(hasAlert: $signupvmdocument.showConfirmDelete, alertType: signupvmdocument.error)
+
     }
     private func handleSwipe(translation: CGFloat) {
         print("handling swipe! horizontal translation was \(translation)")

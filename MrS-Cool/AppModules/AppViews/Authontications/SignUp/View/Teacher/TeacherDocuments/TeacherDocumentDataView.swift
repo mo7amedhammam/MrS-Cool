@@ -146,7 +146,7 @@ struct TeacherDocumentDataView: View {
                             teacherdocumentsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                 teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
                             })
-                            teacherdocumentsvm.isError.toggle()
+                            teacherdocumentsvm.showConfirmDelete.toggle()
                         }){
                             print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
                                 previewurl = Constants.baseURL + (document.documentPath ?? "")

@@ -89,8 +89,11 @@ extension ListChildrenVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
 //                    Children = receivedData.data
-                    GetMyChildren()
-//                    isError = false
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetMyChildren()
+                    })
+                    isError =  true
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

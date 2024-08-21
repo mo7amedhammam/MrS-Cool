@@ -86,7 +86,7 @@ struct TeacherSubjectsDataView: View {
                             teachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                 teachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                             })
-                            teachersubjectsvm.isError.toggle()
+                            teachersubjectsvm.showConfirmDelete.toggle()
                         }
                         .listRowSpacing(0)
                         .listRowSeparator(.hidden)

@@ -156,11 +156,18 @@ extension StudentCompletedLessonsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    DispatchQueue.main.async {
-                        if let index = self.completedLessonsList?.items?.firstIndex(where: { $0.teacherLessonId == teacherlessonid && $0.bookSessionDetailId == bookTeacherLessonSessionDetailId }) {
-                        self.completedLessonsList?.items?[index].isRated = true
-                    }
-                    }
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        
+                        DispatchQueue.main.async {
+                            if let index = self.completedLessonsList?.items?.firstIndex(where: { $0.teacherLessonId == teacherlessonid && $0.bookSessionDetailId == bookTeacherLessonSessionDetailId }) {
+                            self.completedLessonsList?.items?[index].isRated = true
+                        }
+                        }
+                    })
+                    isError =  true
+
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

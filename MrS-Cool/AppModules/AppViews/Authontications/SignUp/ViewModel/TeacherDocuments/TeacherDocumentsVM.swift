@@ -59,6 +59,8 @@ class TeacherDocumentsVM: ObservableObject {
 //            Shared.shared.state.isLoading.wrappedValue = .constant(isLoading)
 //        }
 //    }
+    @Published var showConfirmDelete : Bool = false
+
     @Published var isError : Bool = false
     @Published var error: AlertType? = nil
 //    = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
