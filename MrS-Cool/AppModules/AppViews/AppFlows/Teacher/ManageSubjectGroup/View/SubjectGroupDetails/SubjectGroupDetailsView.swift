@@ -23,6 +23,8 @@ struct SubjectGroupDetailsView: View {
     @State var showFilter : Bool = false
     var previewOption:PreviewOptions? = .newGroup
 
+    @State var showConfirmSave : Bool = false
+
 //    @State var isPush = false
 //    @State var destination = AnyView(EmptyView())
 
@@ -156,7 +158,7 @@ struct SubjectGroupDetailsView: View {
                                 subjectgroupvm.error = .question(title: "", image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
                                     subjectgroupvm.CreateTeacherGroup()
                                 })
-                                subjectgroupvm.isError = true
+                                showConfirmSave = true
                             })
                             CustomBorderedButton(Title:"Back",IsDisabled: .constant(false), action: {
                                 //                                    subjectgroupvm.clearTeacherGroup()
@@ -187,7 +189,8 @@ struct SubjectGroupDetailsView: View {
 //            }
             .showHud(isShowing: $subjectgroupvm.isLoading)
             .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
-        
+            .showAlert(hasAlert: $showConfirmSave, alertType: subjectgroupvm.error)
+
 //        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }

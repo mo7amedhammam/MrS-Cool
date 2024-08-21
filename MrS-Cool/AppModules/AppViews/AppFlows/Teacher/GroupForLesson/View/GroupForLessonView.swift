@@ -19,6 +19,7 @@ struct GroupForLessonView: View {
     
     @State var showFilter : Bool = false
     //    var selectedSubject:TeacherSubjectM?
+    @State var showConfirmDelete = false
     
     @State var filtersubject : DropDownOption?
     @State var filterlesson : DropDownOption?
@@ -153,9 +154,8 @@ struct GroupForLessonView: View {
                             GroupForLessonCell(model: schedual, deleteBtnAction: {
                                 groupsforlessonvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     groupsforlessonvm.DeleteTeacherGroup(id: schedual.id)
-                                    
                                 })
-                                groupsforlessonvm.isError = true
+                                showConfirmDelete = true
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
@@ -184,7 +184,8 @@ struct GroupForLessonView: View {
         }
         .showHud(isShowing: $groupsforlessonvm.isLoading)
         .showAlert(hasAlert: $groupsforlessonvm.isError, alertType: groupsforlessonvm.error)
-        
+        .showAlert(hasAlert: $showConfirmDelete, alertType: groupsforlessonvm.error)
+
         .overlay{
             if showFilter{
                 // Blurred Background and Sheet

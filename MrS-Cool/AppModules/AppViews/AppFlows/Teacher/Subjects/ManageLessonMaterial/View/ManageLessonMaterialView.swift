@@ -35,6 +35,9 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
         managelessonmaterialvm.clearFilter()
     }
     @State var currentLesson:TeacherUnitLesson?
+    
+    @State private var showConfirmdelete = false
+
     var body: some View {
         ZStack {
             VStack {
@@ -246,7 +249,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                     managelessonmaterialvm.DeleteLessonMaterial(id: material.id)
                                                                     managelessonmaterialvm.clearTeachersMaterial()
                                                                 })
-                                                                managelessonmaterialvm.isError.toggle()
+                                                                showConfirmdelete.toggle()
                                                                 
                                                             }, previewBtnAction: {
                                                                 previewurl = (material.materialURL ?? "")
@@ -362,7 +365,8 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
             
             .showHud(isShowing: $managelessonmaterialvm.isLoading)
             .showAlert(hasAlert: $managelessonmaterialvm.isError, alertType: managelessonmaterialvm.error)
-            
+            .showAlert(hasAlert: $showConfirmdelete, alertType: managelessonmaterialvm.error)
+
             if showFilter{
                 // Blurred Background and Sheet
                 Color.mainBlue

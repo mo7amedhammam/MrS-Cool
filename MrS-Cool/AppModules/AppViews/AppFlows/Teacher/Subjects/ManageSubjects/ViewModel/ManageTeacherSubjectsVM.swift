@@ -184,8 +184,13 @@ extension ManageTeacherSubjectsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                    GetTeacherSubjects()
-                    clearTeachersSubject()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetTeacherSubjects()
+                        clearTeachersSubject()
+                    })
+                    isError =  true
+
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
@@ -231,8 +236,13 @@ extension ManageTeacherSubjectsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                    GetTeacherSubjects()
-                    clearTeachersSubject()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetTeacherSubjects()
+                        clearTeachersSubject()
+                    })
+                    isError =  true
+
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
@@ -311,9 +321,14 @@ extension ManageTeacherSubjectsVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
                     //                    TeacherSubjects = model
-                    TeacherSubjects?.removeAll(where: {$0.id == model.id})
-                    isEditing = false
-                    clearTeachersSubject()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherSubjects?.removeAll(where: {$0.id == model.id})
+                        isEditing = false
+                        clearTeachersSubject()
+                    })
+                    isError =  true
+
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")

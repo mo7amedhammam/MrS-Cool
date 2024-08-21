@@ -20,6 +20,8 @@ struct ManageTeacherSubjectsView: View {
     @State var showFilter : Bool = false
     var selectedSubject:TeacherSubjectM?
     
+    @State var showConfirmDelete = false
+    
     @State var filterEducationType : DropDownOption?
     @State var filterEducationLevel : DropDownOption?
     @State var filterAcademicYear : DropDownOption?
@@ -216,7 +218,7 @@ struct ManageTeacherSubjectsView: View {
                                     manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                                     })
-                                    manageteachersubjectsvm.isError.toggle()
+                                    showConfirmDelete.toggle()
                                 })
                                 .listRowSpacing(0)
                                 .listRowSeparator(.hidden)
@@ -279,6 +281,8 @@ struct ManageTeacherSubjectsView: View {
         }
         .showHud(isShowing: $manageteachersubjectsvm.isLoading)
         .showAlert(hasAlert: $manageteachersubjectsvm.isError, alertType: manageteachersubjectsvm.error)
+        .showAlert(hasAlert: $showConfirmDelete, alertType: manageteachersubjectsvm.error)
+
         .overlay{
             if showFilter{
                 // Blurred Background and Sheet

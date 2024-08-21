@@ -199,7 +199,12 @@ struct ManageTeacherProfileView: View {
             hideKeyboard()
         })
         .showHud(isShowing: $manageprofilevm.isLoading)
-        .showAlert(hasAlert: $manageprofilevm.isError, alertType: manageprofilevm.error)
+        .showAlert(hasAlert: $manageprofilevm.isError, alertType: manageprofilevm.error,rightAction: {
+       
+            if manageprofilevm.isDataUploaded{
+                dismiss()
+            }
+        })
 
         //MARK: -------- imagePicker From Camera and Library ------
 //        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {

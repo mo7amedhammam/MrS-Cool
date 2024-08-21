@@ -192,8 +192,8 @@ struct CustomAlertView: View {
                         //                                .foregroundColor(Color("Second_Color"))
                             .foregroundColor(ColorConstants.MainColor)
                         
-                            .aspectRatio( contentMode: .fit)
-                            .frame(width: 50, height: 50, alignment: .center)
+                            .aspectRatio( contentMode: .fill)
+                            .frame(width: 70, height: 70, alignment: .center)
                     }
                     .padding(.top)
 //                }
@@ -280,11 +280,11 @@ struct CustomAlertView: View {
 }
 
 #Preview {
-    CustomAlertView(presentAlert: .constant(true),alertType: .error(title: "", image: nil, imgrendermode: .original, message: "MEssage", buttonTitle: "OK", isVertical: false))
+//    CustomAlertView(presentAlert: .constant(true),alertType: .error(title: "", image: nil, imgrendermode: .original, message: "MEssage", buttonTitle: "OK", isVertical: false))
     
 //        CustomAlert(presentAlert: .constant(true),alertType:.question(title: "Title", message: "Are you sure you want to delete this item ?",lefttext: "Save",righttext: "Clear"),haveTwoButtons: true)
     
-//    CustomAlertView(presentAlert: .constant(true),alertType:.success(title: "Title", message: "succeeded",buttonTitle: "Done",secondButtonTitle: "OK"))
+    CustomAlertView(presentAlert: .constant(true),alertType:.success(title: "Title", imgrendermode:.original, message: "succeeded",buttonTitle: "Done",secondButtonTitle: "OK"))
 
 
 //    CustomAlertView(presentAlert: .constant(true),alertType:.success (title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {

@@ -102,8 +102,13 @@ extension ManageTeacherSchedualsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true{
 //                    TeacherScheduals?.append(model)
-                    clearTeacherSchedual()
-                    GetTeacherScheduals()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        clearTeacherSchedual()
+                        GetTeacherScheduals()
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -181,7 +186,12 @@ extension ManageTeacherSchedualsVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
                     //                    TeacherSubjects = model
-                    TeacherScheduals?.removeAll(where: {$0.id == model.id})
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherScheduals?.removeAll(where: {$0.id == model.id})
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

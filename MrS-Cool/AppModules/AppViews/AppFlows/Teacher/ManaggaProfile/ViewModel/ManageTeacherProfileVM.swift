@@ -158,7 +158,11 @@ extension ManageTeacherProfileVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    isDataUploaded = true
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        isDataUploaded = true
+                    })
+                    isError =  true
 //                    OtpM = model
                 }else{
                     isError =  true

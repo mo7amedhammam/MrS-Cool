@@ -183,10 +183,15 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    TeacherSubjectGroupCreated = true
-                    clearTeacherGroup()
-                    clearFilter()
-                    GetTeacherSubjectGroups()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherSubjectGroupCreated = true
+                        clearTeacherGroup()
+                        clearFilter()
+                        GetTeacherSubjectGroups()
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -253,7 +258,12 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    TeacherSubjectGroups?.removeAll(where: {$0.id == id})
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherSubjectGroups?.removeAll(where: {$0.id == id})
+                    })
+                    isError =  true
+
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")

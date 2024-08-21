@@ -147,8 +147,13 @@ extension ManageLessonMaterialVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    GetLessonMaterial()
-                    clearTeachersMaterial()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetLessonMaterial()
+                        clearTeachersMaterial()
+                    })
+                    isError =  true
+
                 }else{
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                     //                   error =  NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -191,9 +196,14 @@ extension ManageLessonMaterialVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    GetLessonMaterial()
-                    clearTeachersMaterial()
-                    isEditing = false
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetLessonMaterial()
+                        clearTeachersMaterial()
+                        isEditing = false
+                    })
+                    isError =  true
+
                 }else{
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                     //                   error =  NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -268,12 +278,17 @@ extension ManageLessonMaterialVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherLessonMaterialList?.removeAll(where: {$0.id == id})
+                        //                    GetLessonMaterial()
+//                        isError = false
+                    })
+                    isError =  true
+
 //                if let model = receivedData.data?.teacherLessonMaterialDtos {
                     
                     //                    TeacherSubjects = model
-                                        TeacherLessonMaterialList?.removeAll(where: {$0.id == id})
-//                    GetLessonMaterial()
-                    isError = false
                 }else{
                     isError =  true
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")

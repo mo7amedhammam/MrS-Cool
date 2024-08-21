@@ -161,8 +161,15 @@ extension ParentProfileVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
 //                    OtpM = model
-                    GetParentProfile()
-                    isDataUpdated = true
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        isDataUpdated = true
+                        GetParentProfile()
+                    })
+                    isError =  true
+
+//                    GetParentProfile()
+//                    isDataUpdated = true
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")

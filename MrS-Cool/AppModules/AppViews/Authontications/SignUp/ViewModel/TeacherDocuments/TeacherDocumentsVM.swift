@@ -111,10 +111,15 @@ extension TeacherDocumentsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    GetTeacherDocument()
-//                    TeacherDocuments?.append(model)
-//                    GetTeacherDocument()
-                    clearTeachersDocument()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetTeacherDocument()
+                        clearTeachersDocument()
+                    })
+                    isError =  true
+                    //                    TeacherDocuments?.append(model)
+                    //                    GetTeacherDocument()
+
                 }else{
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
 //                   error =  NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -191,8 +196,12 @@ extension TeacherDocumentsVM{
                 if receivedData.success == true{
 //                    TeacherSubjects = model
 //                    TeacherDocuments?.removeAll(where: {$0.id == receivedData.data?.id})
-                    GetTeacherDocument()
-                    isError = false
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        GetTeacherDocument()
+                    })
+                    isError =  true
+
                 }else{
                         self.error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                         self.isError =  true

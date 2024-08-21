@@ -213,7 +213,11 @@ extension StudentEditProfileVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true{
 //                    let student = receivedData.data
-                    isDataUpdated = true
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        isDataUpdated = true
+                    })
+                    isError = true
 //                    var student =  Helper.shared.getUser()
 //                    student?.academicYearId = receivedData.data?.academicYearEducationLevelID
 //                    Helper.shared.saveUser(user: student)

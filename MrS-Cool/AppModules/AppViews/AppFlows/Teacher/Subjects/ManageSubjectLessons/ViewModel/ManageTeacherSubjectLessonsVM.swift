@@ -212,8 +212,13 @@ extension ManageTeacherSubjectLessonsVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                    showEdit = false
-                    GetTeacherSubjectLessons()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        showEdit = false
+                        GetTeacherSubjectLessons()
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -287,9 +292,14 @@ extension ManageTeacherSubjectLessonsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    showBrief = false
-//                    UpdateLessonBriefField(receivedData)
-                    GetTeacherSubjectLessons()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        showBrief = false
+    //                    UpdateLessonBriefField(receivedData)
+                        GetTeacherSubjectLessons()
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

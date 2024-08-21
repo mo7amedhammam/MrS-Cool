@@ -105,9 +105,14 @@ extension GroupForLessonVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    clearTeacherGroup()
-                    clearFilter()
-                    GetTeacherGroups()
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        clearTeacherGroup()
+                        clearFilter()
+                        GetTeacherGroups()
+                    })
+                    isError =  true
+
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -188,7 +193,12 @@ extension GroupForLessonVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    TeacherGroups?.removeAll(where: {$0.id == id})
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+                        TeacherGroups?.removeAll(where: {$0.id == id})
+                    })
+                    isError =  true
+
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")

@@ -39,6 +39,8 @@ struct ManageTeacherSchedualsView: View {
 //           }
        }
 //   }
+    @State var showConfirmDelete : Bool = false
+
     var body: some View {
             VStack {
                 CustomTitleBarView(title: "Manage my Schedules")
@@ -118,7 +120,7 @@ struct ManageTeacherSchedualsView: View {
                                     manageteacherschedualsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         manageteacherschedualsvm.DeleteTeacherSchedual(id: schedual.id)
                                     })
-                                    manageteacherschedualsvm.isError.toggle()
+                                    showConfirmDelete.toggle()
                                 })
                                 .listRowSpacing(0)
                                 .listRowSeparator(.hidden)
@@ -147,7 +149,8 @@ struct ManageTeacherSchedualsView: View {
             }
             .showHud(isShowing: $manageteacherschedualsvm.isLoading)
             .showAlert(hasAlert: $manageteacherschedualsvm.isError, alertType: manageteacherschedualsvm.error)
-            
+            .showAlert(hasAlert: $showConfirmDelete, alertType: manageteacherschedualsvm.error)
+
             .overlay{
                 if showFilter{
                     // Blurred Background and Sheet

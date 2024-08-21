@@ -20,6 +20,8 @@ struct ManageSubjectGroupView: View {
     
     @State var showFilter : Bool = false
     //    var selectedSubject:TeacherSubjectM?
+    @State var showConfirmDelete = false
+
     var body: some View {
             VStack {
                 CustomTitleBarView(title: "Manage Groups For Subject")
@@ -55,7 +57,7 @@ struct ManageSubjectGroupView: View {
                                                 .disabled(true)
                                             
                                             HStack {
-                                                CustomDatePickerField(iconName: "img_maskgroup7cl", rightIconName: nil, placeholder: "Start Time", selectedDateStr: .constant(slot.fromTime),timeZone:.current, datePickerComponent: .hourAndMinute)
+                                                CustomDatePickerField(iconName: "img_maskgroup7cl", rightIconName: nil, placeholder: "Start Time", selectedDateStr: .constant(slot.fromTime), datePickerComponent: .hourAndMinute)
                                                     .disabled(true)
                                                 
                                                 Button(action: {
@@ -83,7 +85,7 @@ struct ManageSubjectGroupView: View {
                                             CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.day,options:lookupsvm.daysList)
                                             
                                             HStack {
-                                                CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,datePickerComponent:.hourAndMinute)
+                                                CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,timeZone:.current,datePickerComponent:.hourAndMinute)
                                             }
                                             
                                             HStack{
@@ -151,7 +153,7 @@ struct ManageSubjectGroupView: View {
                                     subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         subjectgroupvm.DeleteTeacherGroup(id: group.id)
                                     })
-                                    subjectgroupvm.isError = true
+                                    showConfirmDelete = true
                                 })
                                 .listRowSpacing(0)
                                 .listRowSeparator(.hidden)
@@ -179,9 +181,11 @@ struct ManageSubjectGroupView: View {
             .onDisappear {
                 subjectgroupvm.cleanup()
             }
-                    .showHud(isShowing: $subjectgroupvm.isLoading)
+                   
+            .showHud(isShowing: $subjectgroupvm.isLoading)
             .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
-            
+            .showAlert(hasAlert: $showConfirmDelete, alertType: subjectgroupvm.error)
+
             .overlay{
                 if showFilter{
                     // Blurred Background and Sheet
