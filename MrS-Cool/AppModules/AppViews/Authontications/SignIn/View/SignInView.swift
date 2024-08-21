@@ -20,17 +20,19 @@ struct SignInView: View {
                 CustomTitleBarView(title: "sign_in",hideImage: hideimage)
                 VStack{
                     UserTypesList(selectedUser: $selectedUser){
+                        Helper.shared.setSelectedUserType(userType:selectedUser.user)
+
                         switch selectedUser.user {
                         case .Student:
-                            Helper.shared.setSelectedUserType(userType:.Student)
+//                            Helper.shared.setSelectedUserType(userType:.Student)
                             destination = AnyView(StudentTabBarView())
                             
                         case .Parent:
-                            Helper.shared.setSelectedUserType(userType:.Parent)
+//                            Helper.shared.setSelectedUserType(userType:.Parent)
                             destination = AnyView(ParentTabBarView())
                             
                         case .Teacher:
-                            Helper.shared.setSelectedUserType(userType:.Teacher)
+//                            Helper.shared.setSelectedUserType(userType:.Teacher)
                             destination = AnyView(TeacherTabBarView())
                         }
                     }

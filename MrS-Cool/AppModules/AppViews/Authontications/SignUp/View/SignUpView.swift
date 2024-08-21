@@ -22,7 +22,23 @@ struct SignUpView: View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_up",hideImage: false)
             VStack{
-                UserTypesList(selectedUser: $selecteduser)
+                UserTypesList(selectedUser: $selecteduser){
+                    Helper.shared.setSelectedUserType(userType:selecteduser.user)
+
+//                    switch selecteduser.user {
+//                    case .Student:
+//                        Helper.shared.setSelectedUserType(userType:.Student)
+////                        destination = AnyView(StudentTabBarView())
+//                        
+//                    case .Parent:
+//                        Helper.shared.setSelectedUserType(userType:.Parent)
+////                        destination = AnyView(ParentTabBarView())
+//                        
+//                    case .Teacher:
+//                        Helper.shared.setSelectedUserType(userType:.Teacher)
+////                        destination = AnyView(TeacherTabBarView())
+//                    }
+                }
                     .padding(.horizontal)
                     .disabled(!signupvm.isUserChangagble)
                 VStack{

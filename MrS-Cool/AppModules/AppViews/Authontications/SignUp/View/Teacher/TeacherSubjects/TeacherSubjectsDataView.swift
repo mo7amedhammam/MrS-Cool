@@ -15,6 +15,11 @@ struct TeacherSubjectsDataView: View {
     
 //    @State var isPush = false
 //    @State var destination = EmptyView()
+    func clearlookups(){
+       lookupsvm.SelectedEducationType = nil
+       lookupsvm.SelectedEducationLevel = nil
+       lookupsvm.SelectedSubjectListByEducationLevelId = nil
+   }
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -95,6 +100,7 @@ struct TeacherSubjectsDataView: View {
         }.onAppear(perform: {
             signupvm.isUserChangagble = false
             lookupsvm.GetEducationTypes()
+            teachersubjectsvm.clearTeachersSubject()
             teachersubjectsvm.GetTeacherSubjects()
         })
         .onChange(of: teachersubjectsvm.educationType, perform: { value in
@@ -115,6 +121,9 @@ struct TeacherSubjectsDataView: View {
         .onChange(of: teachersubjectsvm.academicYear, perform: { value in
 //            lookupsvm.SelectedAcademicYear = value
             lookupsvm.SelectedSubjectListByEducationLevelId = value
+            if value == nil {
+                lookupsvm.SubjectListByEducationLevelIdList.removeAll()
+            }
         })
 //        .onChange(of: teachersubjectsvm.subject, perform: { value in
 //            lookupsvm.SelectedEducationLevel = value
