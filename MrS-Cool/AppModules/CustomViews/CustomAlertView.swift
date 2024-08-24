@@ -11,13 +11,13 @@ import SwiftUI
 /// Alert type
 public enum AlertType {
     
-    case success(title: String? = nil,image: String? = "iconSuccess",imgrendermode:Image.TemplateRenderingMode? = nil, message: String = "",buttonTitle:String = "Done",secondButtonTitle:String? = nil,isVertical:Bool? = false,mainBtnAction:(()->())? = nil,secondBtnAction:(()->())? = nil )
+    case success(title: String? = nil,image: String? = "iconSuccess",imgrendermode:Image.TemplateRenderingMode? = nil, message: String = "",buttonTitle:String = "Done",secondButtonTitle:String? = nil,isVertical:Bool? = false,mainBtnAction:(()->())? = nil,secondBtnAction:(()->())? = nil,dismissWithMainAction:Bool? = true )
     case error(title: String? = nil,image:String? = "img_subtract" ,imgrendermode:Image.TemplateRenderingMode? = nil, message: String = "",buttonTitle:String,secondButtonTitle:String? = nil,isVertical:Bool? = false,mainBtnAction:(()->()?)? = nil,secondBtnAction:(()->()?)? = nil)
     case question(title: String? = nil,image:String? = "img_group",imgrendermode:Image.TemplateRenderingMode? = nil, message: String = "",buttonTitle:String,secondButtonTitle:String? = nil,isVertical:Bool? = false,mainBtnAction:(()->()?)? = nil,secondBtnAction:(()->()?)? = nil)
     
     func title() -> String? {
         switch self {
-        case .success(title: let title,_ ,_,_, _,_, _, _, _):
+        case .success(title: let title,_ ,_,_, _,_, _, _, _,_):
             return title
         case .error(title: let title,_ ,_, _,_,_, _, _, _):
             return title
@@ -27,7 +27,7 @@ public enum AlertType {
     }
     func image() -> String?{
         switch self {
-        case .success(_, image:let image,_,_,_,_,_, _, _):
+        case .success(_, image:let image,_,_,_,_,_, _, _,_):
             return image
         case .error(_, image:let image, _,_, _,_, _, _, _):
             return image
@@ -38,7 +38,7 @@ public enum AlertType {
     
     func imagerendermode() -> Image.TemplateRenderingMode?{
         switch self {
-        case .success(_, _,let imagebgcolor,_,_,_,_, _, _):
+        case .success(_, _,let imagebgcolor,_,_,_,_, _, _,_):
             return imagebgcolor
         case .error(_, _, let imagebgcolor,_, _, _, _,_, _):
             return imagebgcolor
@@ -49,7 +49,7 @@ public enum AlertType {
 
     func message() -> String {
         switch self {
-        case .success(_,_ ,_,message: let message,_,_ ,_, _, _):
+        case .success(_,_ ,_,message: let message,_,_ ,_, _, _,_):
             return message
         case .error(_,_ ,_,message: let message,_,_ ,_, _, _):
             return message
@@ -62,7 +62,7 @@ public enum AlertType {
     /// Left button action text for the alert view
     var MainButtonTitle: String {
         switch self {
-        case .success(_,_,_,_,buttonTitle:let text,_,_, _, _):
+        case .success(_,_,_,_,buttonTitle:let text,_,_, _, _,_):
             return text
         case .error(_, _,_,_,buttonTitle:let text,_,_, _, _):
             return text
@@ -75,7 +75,7 @@ public enum AlertType {
     /// Left button action text for the alert view
     var icVertical: Bool? {
         switch self {
-        case .success(_,_, _,_,_,_,let icVertical,_, _):
+        case .success(_,_, _,_,_,_,let icVertical,_, _,_):
             return icVertical
         case .error(_,_, _,_,_,_,let icVertical,_, _):
             return icVertical
@@ -87,7 +87,7 @@ public enum AlertType {
     
     var MainButtonAction: (()->()?)? {
         switch self {
-        case .success(_,_,_,_,_,_,_,let action,_):
+        case .success(_,_,_,_,_,_,_,let action,_,_):
             return action
         case .error(_, _,_,_,_,_,_,let action,_):
             return action
@@ -98,7 +98,7 @@ public enum AlertType {
     /// Right button action text for the alert view
     var SecondButtonTitle: String? {
         switch self {
-        case .success(_, _,_,_, _, secondButtonTitle:let text,_,_,_):
+        case .success(_, _,_,_, _, secondButtonTitle:let text,_,_,_,_):
             return text
         case .error(_, _,_,_, _, secondButtonTitle:let text,_,_,_):
             return text
@@ -108,7 +108,7 @@ public enum AlertType {
     }
     var SecondButtonAction: (()->()?)? {
         switch self {
-        case .success(_,_,_,_,_,_,_,_,let action):
+        case .success(_,_,_,_,_,_,_,_,let action,_):
             return action
         case .error(_,_,_,_,_,_,_,_,let action):
             return action
@@ -116,7 +116,16 @@ public enum AlertType {
             return action
         }
     }
-    
+    var dismissWithMainAction: Bool? {
+        switch self {
+        case .success(_,_,_,_,_,_,_,_,_,let dismissWithMainAction):
+            return dismissWithMainAction
+        case .error(_,_,_,_,_,_,_,_,_):
+            return false
+        case .question(_,_,_,_,_,_,_,_,_):
+            return false
+        }
+    }
 //    func height(isShowVerticalButtons: Bool = false) -> CGFloat {
 //        switch self {
 //        case .success:
@@ -159,6 +168,9 @@ struct CustomAlertView: View {
             Color.black.opacity(0.75)
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
+                    if alertType.dismissWithMainAction == true{
+                        alertType.MainButtonAction?()
+                    }
                     presentAlert=false
                 }
             
