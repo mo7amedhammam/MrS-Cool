@@ -88,23 +88,40 @@ struct StudentHomeView: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
-                                Spacer().frame(width:1)
-                                ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
-                                    StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-                                        guard lesson.availableTeacher ?? 0 > 0 else {return}
-                                        studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-                                        studenthometabbarvm.ispush = true
-                                        
+//                        ScrollViewReader {proxy in
+                            ScrollView(.horizontal,showsIndicators:false){
+                                LazyHStack(spacing:10){
+                                    Spacer().frame(width:1)
+                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
+                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
+                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
+                                            studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                            studenthometabbarvm.ispush = true
+                                        }
+                                        .frame(width: gr.size.width/2.5, height: 240)
+                                        .id(lesson)
                                     }
-                                    .frame(width: gr.size.width/2.5, height: 240)
+                                    
+                                    Spacer().frame(width:1)
                                 }
-                                Spacer().frame(width:1)
-                            }
-                            .frame(height: 240)
-                            .padding(.bottom,10)
-                        }
+                                                  
+//                                .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft:.leftToRight) // Keep the content inside LTR
+                                
+                                
+//                                .onAppear(perform: {
+//                                    guard Helper.shared.getLanguage() == "ar" else {return}
+//                                    proxy.scrollTo(studenthomevm.StudentMostViewedLessons.last,anchor: .leading)
+//                                })
+                                .frame(height: 240)
+                                .padding(.bottom,10)
+    //                            .flipsForRightToLeftLayoutDirection(true) // Flip the scroll view direction for RTL
+    //                            .environment(\.layoutDirection, Helper.shared.getLanguage() == "ar" ? .rightToLeft:.leftToRight) // Keep the content inside LTR
+
+
+//                            }
+                        }                                .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft:.leftToRight) // Keep the content inside LTR
+
+
                     }
                     
                     
@@ -128,7 +145,7 @@ struct StudentHomeView: View {
 
                     }else{
                         ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                           HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
@@ -140,11 +157,14 @@ struct StudentHomeView: View {
                                     .frame(width: gr.size.width/2.5, height: 240)
                                 }
                                 Spacer().frame(width:1)
-                                
+
                             }
+                           .localizeView()
                             .frame(height: 240)
                             .padding(.bottom,10)
                         }
+                                    
+
                     }
                     
                     Text("Most Viewed Subjects".localized())
@@ -340,14 +360,24 @@ struct StudentHomeView: View {
                 }
                 .frame(height:gr.size.height)
                 .onAppear{
+                    let DispatchGroup = DispatchGroup()
+                    DispatchGroup.enter()
+
                     if Helper.shared.CheckIfLoggedIn(){
                         studentsignupvm.GetStudentProfile()
                     }
                     studenthomevm.clearselections()
                     guard (Helper.shared.CheckIfLoggedIn() && studenthomevm.academicYear != nil ) || !Helper.shared.CheckIfLoggedIn() else {return}
+                    DispatchGroup.leave()
+
+                    DispatchGroup.enter()
                     studenthomevm.GetStudentSubjects()
+                    DispatchGroup.leave()
+
+                    DispatchGroup.enter()
                     studenthomevm.getHomeData()
-                    
+                    DispatchGroup.leave()
+
                 }
                 .onChange(of: studentsignupvm.academicYear, perform: { value in
                     if Helper.shared.CheckIfLoggedIn(){
@@ -377,5 +407,7 @@ struct StudentHomeView: View {
     StudentHomeView()
         .environmentObject(StudentTabBarVM())
         .environmentObject(StudentEditProfileVM())
+        .environment(\.layoutDirection, .rightToLeft) // For RTL preview
+
 }
 

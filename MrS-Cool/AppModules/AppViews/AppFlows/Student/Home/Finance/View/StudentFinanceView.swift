@@ -95,7 +95,8 @@ struct StudentFinanceView: View {
                                             if let totalCount = financevm.PurchasedLessons?.totalCount, lessons.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 financevm.lessonsSkipCount += financevm.maxResultCount
-                                                financevm.GetPurchasedFor(financese: .Lessons)
+//                                                financevm.GetPurchasedFor(financese: .Lessons)
+                                                financevm.GetPurchasedLessons()
                                             }
                                         }
                                 }
@@ -122,7 +123,9 @@ struct StudentFinanceView: View {
                                             if let totalCount = financevm.PurchasedSubjects?.totalCount, Subjects.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 financevm.subjectsSkipCount += financevm.maxResultCount
-                                                financevm.GetPurchasedFor(financese: .Subjects)
+//                                                financevm.GetPurchasedFor(financese: .Subjects)
+                                                financevm.GetPurchasedSubjects()
+
                                             }
                                         }
                                 }
@@ -138,17 +141,60 @@ struct StudentFinanceView: View {
 
                 }
                 .padding()
-                .onAppear(perform: {
+//                .onAppear(perform: {
+//                    guard selectedChild != nil || Helper.shared.getSelectedUserType() == .Student else{return}
+//                    let DispatchGroup = DispatchGroup()
+//                    DispatchGroup.enter()
+//                    financevm.subjectsSkipCount=0
+//                    financevm.lessonsSkipCount=0
+//                    financevm.PurchasedSubjects = nil
+//                    financevm.PurchasedLessons = nil
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.enter()
+//                    financevm.GetFinance()
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.enter()
+//                    financevm.GetPurchasedFor(financese: .Lessons)
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.enter()
+//                    financevm.GetPurchasedFor(financese: .Subjects)
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.notify(queue: .main, execute: {
+//                        print("DispatchGroup ended")
+//                    })
+//                })
+                .task {
                     guard selectedChild != nil || Helper.shared.getSelectedUserType() == .Student else{return}
+                    let DispatchGroup = DispatchGroup()
+                    DispatchGroup.enter()
                     financevm.subjectsSkipCount=0
                     financevm.lessonsSkipCount=0
                     financevm.PurchasedSubjects = nil
                     financevm.PurchasedLessons = nil
+                    DispatchGroup.leave()
 
+                    DispatchGroup.enter()
                     financevm.GetFinance()
-                    financevm.GetPurchasedFor(financese: .Lessons)
-                    financevm.GetPurchasedFor(financese: .Subjects)
-                })
+                    DispatchGroup.leave()
+
+                    DispatchGroup.enter()
+//                    financevm.GetPurchasedFor(financese: .Lessons)
+                    financevm.GetPurchasedLessons()
+                    DispatchGroup.leave()
+
+                    DispatchGroup.enter()
+//                    financevm.GetPurchasedFor(financese: .Subjects)
+                    financevm.GetPurchasedSubjects()
+                    DispatchGroup.leave()
+
+                    DispatchGroup.notify(queue: .main, execute: {
+                        print("DispatchGroup ended")
+                    })
+                }
                 
                 Spacer()
             }

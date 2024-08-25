@@ -35,6 +35,9 @@ class StudentFinanceVM: ObservableObject {
     @Published var PurchasedSubjects : FinanceSubjectsAndLessonsM?
 
     init()  {
+//        GetFinance()
+//        GetPurchasedSubjects()
+//        GetPurchasedLessons()
     }
 }
 
@@ -78,20 +81,78 @@ extension StudentFinanceVM{
             .store(in: &cancellables)
     }
     
-    func GetPurchasedFor(financese:StudentFinanceCases){
+//    func GetPurchasedFor(financese:StudentFinanceCases){
+//        var parameters:[String:Any] = ["maxResultCount":maxResultCount]
+//        if Helper.shared.getSelectedUserType() == .Parent {
+//            parameters["studentId"] = Helper.shared.selectedchild?.id
+//        }
+//        switch financese {
+//        case .Subjects:
+//            parameters["skipCount"] = subjectsSkipCount
+//        case .Lessons:
+//            parameters["skipCount"] = lessonsSkipCount
+//        }
+//        
+//        print("parameters",parameters)
+//        let target = StudentServices.GetStudentFinanceSubjects(FinanceFor: financese, parameters: parameters)
+//        isLoading = true
+//        BaseNetwork.CallApi(target, BaseResponse<FinanceSubjectsAndLessonsM>.self)
+////            .receive(on: DispatchQueue.main)
+//            .sink(receiveCompletion: {[weak self] completion in
+//                guard let self = self else{return}
+//                isLoading = false
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    isError =  true
+//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                }
+//            },receiveValue: {[weak self] receivedData in
+//                guard let self = self else{return}
+//                print("receivedData",receivedData)
+//                if receivedData.success == true {
+//                    //                    TeacherSubjects?.append(model)
+//                    switch financese {
+//                    case .Subjects:
+//                        if subjectsSkipCount == 0{
+//                            PurchasedSubjects = receivedData.data
+////                            print("PurchasedSubjects---------\n",PurchasedSubjects)
+//                        }else{
+//                            PurchasedSubjects?.items?.append(contentsOf: receivedData.data?.items ?? [])
+//                        }
+//                    case .Lessons:
+//                        if lessonsSkipCount == 0{
+//                            PurchasedLessons = receivedData.data
+////                            print("PurchasedLessons---------\n",PurchasedLessons)
+//                        }else{
+//                            PurchasedLessons?.items?.append(contentsOf: receivedData.data?.items ?? [])
+//                        }
+//                    }
+//                }else{
+//                    isError =  true
+//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                }
+//                isLoading = false
+//            })
+//            .store(in: &cancellables)
+//    }
+    
+    func GetPurchasedLessons(){
         var parameters:[String:Any] = ["maxResultCount":maxResultCount]
         if Helper.shared.getSelectedUserType() == .Parent {
             parameters["studentId"] = Helper.shared.selectedchild?.id
         }
-        switch financese {
-        case .Subjects:
-            parameters["skipCount"] = subjectsSkipCount
-        case .Lessons:
+//        switch financese {
+//        case .Subjects:
+//            parameters["skipCount"] = subjectsSkipCount
+//        case .Lessons:
             parameters["skipCount"] = lessonsSkipCount
-        }
+//        }
         
         print("parameters",parameters)
-        let target = StudentServices.GetStudentFinanceSubjects(FinanceFor: financese, parameters: parameters)
+        let target = StudentServices.GetStudentFinanceSubjects(FinanceFor: .Lessons, parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<FinanceSubjectsAndLessonsM>.self)
 //            .receive(on: DispatchQueue.main)
@@ -110,22 +171,70 @@ extension StudentFinanceVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                    switch financese {
-                    case .Subjects:
-                        if subjectsSkipCount == 0{
-                            PurchasedSubjects = receivedData.data
-//                            print("PurchasedSubjects---------\n",PurchasedSubjects)
-                        }else{
-                            PurchasedSubjects?.items?.append(contentsOf: receivedData.data?.items ?? [])
-                        }
-                    case .Lessons:
+//                    switch financese {
+//                    case .Subjects:
+//                        if subjectsSkipCount == 0{
+//                            PurchasedSubjects = receivedData.data
+////                            print("PurchasedSubjects---------\n",PurchasedSubjects)
+//                        }else{
+//                            PurchasedSubjects?.items?.append(contentsOf: receivedData.data?.items ?? [])
+//                        }
+//                    case .Lessons:
                         if lessonsSkipCount == 0{
                             PurchasedLessons = receivedData.data
 //                            print("PurchasedLessons---------\n",PurchasedLessons)
                         }else{
                             PurchasedLessons?.items?.append(contentsOf: receivedData.data?.items ?? [])
                         }
-                    }
+//                    }
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+    func GetPurchasedSubjects(){
+        var parameters:[String:Any] = ["maxResultCount":maxResultCount]
+        if Helper.shared.getSelectedUserType() == .Parent {
+            parameters["studentId"] = Helper.shared.selectedchild?.id
+        }
+//        switch financese {
+//        case .Subjects:
+            parameters["skipCount"] = subjectsSkipCount
+//        case .Lessons:
+//            parameters["skipCount"] = lessonsSkipCount
+//        }
+        
+        print("parameters",parameters)
+        let target = StudentServices.GetStudentFinanceSubjects(FinanceFor: .Subjects, parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<FinanceSubjectsAndLessonsM>.self)
+//            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    //                    TeacherSubjects?.append(model)
+                        if subjectsSkipCount == 0{
+                            PurchasedSubjects = receivedData.data
+//                            print("PurchasedSubjects---------\n",PurchasedSubjects)
+                        }else{
+                            PurchasedSubjects?.items?.append(contentsOf: receivedData.data?.items ?? [])
+                        }
+               
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

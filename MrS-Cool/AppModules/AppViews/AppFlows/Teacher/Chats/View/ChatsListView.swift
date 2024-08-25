@@ -84,9 +84,13 @@ struct ChatsListView: View {
                         Spacer()
                     }
                     .frame(minHeight:gr.size.height)
-                    .onAppear(perform: {
+//                    .onAppear(perform: {
+//                        chatlistvm.GetChatsList()
+//                    })
+                    .task {
                         chatlistvm.GetChatsList()
-                    })
+                    }
+                    
                 }
             }
             

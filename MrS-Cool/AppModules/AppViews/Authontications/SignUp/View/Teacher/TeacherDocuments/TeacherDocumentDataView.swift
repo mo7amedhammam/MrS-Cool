@@ -164,6 +164,7 @@ struct TeacherDocumentDataView: View {
             }
         }
         .onAppear(perform: {
+            signupvm.isUserChangagble = false
             lookupsvm.GetDocumentTypes()
             teacherdocumentsvm.GetTeacherDocument()
         })
