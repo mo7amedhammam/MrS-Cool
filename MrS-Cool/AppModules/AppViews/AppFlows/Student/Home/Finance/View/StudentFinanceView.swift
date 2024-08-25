@@ -86,7 +86,7 @@ struct StudentFinanceView: View {
                             if let lessons = financevm.PurchasedLessons?.items{
                                 List(lessons, id:\.self) { lesson in
                                     PurchasedsubjectOrLessonCell(financese: .Lessons, model: lesson)
-                                        .padding(.vertical,-7.5)
+                                        .padding(.vertical,0)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
                                         .onAppear {
@@ -113,7 +113,7 @@ struct StudentFinanceView: View {
                                 List(Subjects, id:\.self) { Subject in
                                     PurchasedsubjectOrLessonCell(financese: .Subjects,model: Subject)
 //                                        .listRowSpacing(-10)
-                                        .padding(.vertical,-7.5)
+                                        .padding(.vertical,0)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
                                         .onAppear {

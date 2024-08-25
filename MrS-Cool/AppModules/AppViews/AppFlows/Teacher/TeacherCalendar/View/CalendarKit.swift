@@ -889,11 +889,13 @@ struct ContentView3: View {
                                 }
                             })
                         }
+                        Spacer()
                     }
                     .padding()
-                    .frame(height:360)
+                    .frame(height:330)
 //                    .keyboardAdaptive()
                 }
+                
             }
         }
 //                .sheet(isPresented: $isShowingDetailSheet) {
@@ -1092,7 +1094,7 @@ struct EventDetailsView: View {
     @State var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack(spacing: 20) {
                 Group {
                     Text(event.groupName ?? "No Group Name")
@@ -1122,7 +1124,7 @@ struct EventDetailsView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Spacer()
+//                Spacer()
                 
                 // Join Meeting button
                 if let meetingLink = event.teamMeetingLink , isCurrentTimeWithinEventTime() {
@@ -1173,9 +1175,8 @@ struct EventDetailsView: View {
                     .frame(height: 50)
                     .frame(maxWidth:.infinity)
                     .overlay(RoundedCorners(topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8)
-                        .stroke(ColorConstants.MainColor,lineWidth: 2))                }
-                
-                
+                        .stroke(ColorConstants.MainColor,lineWidth: 2))               
+                }
                 // Cancel Event button
                 else if event.isCancel != true && isEventNotStartedYet() {
                     //                    Button(action: {
@@ -1211,7 +1212,7 @@ struct EventDetailsView: View {
             //            })
             .showAlert(hasAlert: $isError, alertType: error)
             
-        }
+//        }
     }
     
     private func joinMeeting(event: EventM, meetingLink: String) {
