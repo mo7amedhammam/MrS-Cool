@@ -213,8 +213,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
@@ -252,8 +252,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                     StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
@@ -291,8 +291,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
@@ -331,8 +331,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
@@ -371,8 +371,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
@@ -408,8 +408,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
@@ -445,8 +445,8 @@ struct SelectedStudentHome: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
                                     StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){

@@ -105,6 +105,7 @@
 		C87A49162B4AC9C500C82945 /* StudentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A49152B4AC9C500C82945 /* StudentServices.swift */; };
 		C87A49182B4ACA6D00C82945 /* StudentHomeM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A49172B4ACA6D00C82945 /* StudentHomeM.swift */; };
 		C87C930E2AE85F04007AB167 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87C930D2AE85F04007AB167 /* CustomProgressView.swift */; };
+		C87DD1972C7CA43F00D4C7D6 /* ScrollViewRTL.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87DD1962C7CA43F00D4C7D6 /* ScrollViewRTL.swift */; };
 		C88305892AF0FEDA0030B2A8 /* TeacherDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */; };
 		C883058C2AF10C980030B2A8 /* imagepicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C883058B2AF10C980030B2A8 /* imagepicker.swift */; };
 		C88447A32B3315C5002819ED /* CalendarKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88447A22B3315C5002819ED /* CalendarKit.swift */; };
@@ -300,6 +301,7 @@
 		C87A49152B4AC9C500C82945 /* StudentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentServices.swift; sourceTree = "<group>"; };
 		C87A49172B4ACA6D00C82945 /* StudentHomeM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentHomeM.swift; sourceTree = "<group>"; };
 		C87C930D2AE85F04007AB167 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		C87DD1962C7CA43F00D4C7D6 /* ScrollViewRTL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewRTL.swift; sourceTree = "<group>"; };
 		C88305882AF0FEDA0030B2A8 /* TeacherDocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentCell.swift; sourceTree = "<group>"; };
 		C883058B2AF10C980030B2A8 /* imagepicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagepicker.swift; sourceTree = "<group>"; };
 		C88447A22B3315C5002819ED /* CalendarKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarKit.swift; sourceTree = "<group>"; };
@@ -1342,6 +1344,14 @@
 			name = CustomProgressView;
 			sourceTree = "<group>";
 		};
+		C87DD1982C7CA45600D4C7D6 /* ScrollViewRTL */ = {
+			isa = PBXGroup;
+			children = (
+				C87DD1962C7CA43F00D4C7D6 /* ScrollViewRTL.swift */,
+			);
+			name = ScrollViewRTL;
+			sourceTree = "<group>";
+		};
 		C88079FC2C3A7CDF00F0E130 /* Finance */ = {
 			isa = PBXGroup;
 			children = (
@@ -2212,6 +2222,7 @@
 				C899E3EE2ADED3AA00593369 /* Styles */,
 				C899E3EB2ADED32200593369 /* Buttons */,
 				C899E3E52ADE8EB200593369 /* TitleBar */,
+				C87DD1982C7CA45600D4C7D6 /* ScrollViewRTL */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -2584,6 +2595,7 @@
 				C8986C782AE924FB003E9179 /* OTPTextField.swift in Sources */,
 				C8D7C0742B063D01009D5533 /* ChangePasswordView.swift in Sources */,
 				C89BAFA42AE2B83200FB5807 /* ViewModifiers.swift in Sources */,
+				C87DD1972C7CA43F00D4C7D6 /* ScrollViewRTL.swift in Sources */,
 				C88C52DE2AE02548003DE051 /* ExStrings.swift in Sources */,
 				C82B048E2B9C820000E56046 /* TeacherRatesM.swift in Sources */,
 				C86CABCC2B65207900BF8E21 /* SubjectDetailsVM.swift in Sources */,

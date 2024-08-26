@@ -454,7 +454,7 @@ struct HorizontalScrollWithTwoRows: View {
     @Binding var selectedsched : TeacherAvaliableSchedualDto?
     
     var body: some View {
-        ScrollView(.horizontal) {
+        ScrollViewRTL(type: .hList){
             if let items = items{
                 if items.count < 3 {
                     HStack(spacing: 10) {

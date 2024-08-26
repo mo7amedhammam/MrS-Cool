@@ -21,7 +21,8 @@ struct StudentHomeView: View {
     //    @State var destination = AnyView(EmptyView())
     
     //    @State var searchText = ""
-    
+//    @Environment(\.layoutDirection) var layoutDirection
+
     var body: some View {
         GeometryReader{gr in
             
@@ -76,52 +77,35 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostViewedLessons == []{
-//                        ProgressView()
-//                            .frame(width: gr.size.width/2.7, height: 240)
                         Image(.emptyLessons)
                             .frame(width: 100,height: 100)
                             .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+
                         Text("No available most viewed lessons yet".localized())
                             .font(Font.SoraRegular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
 //                        ScrollViewReader {proxy in
-                            ScrollView(.horizontal,showsIndicators:false){
-                                LazyHStack(spacing:10){
-                                    Spacer().frame(width:1)
-                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
-                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
-                                            studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-                                            studenthometabbarvm.ispush = true
+                        ScrollViewRTL(type: .hList){
+//                                ScrollViewReader { proxy in
+                                    HStack(spacing:10){
+                                        Spacer().frame(width:1)
+                                        ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
+                                            StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
+                                                guard lesson.availableTeacher ?? 0 > 0 else {return}
+                                                studenthometabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                                studenthometabbarvm.ispush = true
+                                            }
+                                            .frame(width: gr.size.width/2.5, height: 240)
                                         }
-                                        .frame(width: gr.size.width/2.5, height: 240)
-                                        .id(lesson)
-                                    }
-                                    
-                                    Spacer().frame(width:1)
+                                        Spacer().frame(width:1)
+//                                    }
                                 }
-                                                  
-//                                .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft:.leftToRight) // Keep the content inside LTR
-                                
-                                
-//                                .onAppear(perform: {
-//                                    guard Helper.shared.getLanguage() == "ar" else {return}
-//                                    proxy.scrollTo(studenthomevm.StudentMostViewedLessons.last,anchor: .leading)
-//                                })
                                 .frame(height: 240)
                                 .padding(.bottom,10)
-    //                            .flipsForRightToLeftLayoutDirection(true) // Flip the scroll view direction for RTL
-    //                            .environment(\.layoutDirection, Helper.shared.getLanguage() == "ar" ? .rightToLeft:.leftToRight) // Keep the content inside LTR
-
-
 //                            }
-                        }                                .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft:.leftToRight) // Keep the content inside LTR
-
-
+                        }
                     }
                     
                     
@@ -132,19 +116,15 @@ struct StudentHomeView: View {
                         .frame(maxWidth:.infinity,alignment: .leading)
                     
                     if studenthomevm.StudentMostBookedLessons == []{
-//                        ProgressView()
-//                            .frame(width: gr.size.width/2.7, height: 240)
                         Image(.emptyLessons)
                             .frame(width: 100,height: 100)
                             .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
                         Text("No available most booked lessons yet".localized())
                             .font(Font.SoraRegular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
+                        ScrollViewRTL(type: .hList){
                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
@@ -159,7 +139,7 @@ struct StudentHomeView: View {
                                 Spacer().frame(width:1)
 
                             }
-                           .localizeView()
+//                           .localizeView()
                             .frame(height: 240)
                             .padding(.bottom,10)
                         }
@@ -186,8 +166,8 @@ struct StudentHomeView: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
@@ -226,8 +206,8 @@ struct StudentHomeView: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
@@ -266,8 +246,8 @@ struct StudentHomeView: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
@@ -303,8 +283,8 @@ struct StudentHomeView: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
                                 ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
@@ -340,8 +320,8 @@ struct StudentHomeView: View {
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollView(.horizontal,showsIndicators:false){
-                            LazyHStack(spacing:10){
+                        ScrollViewRTL(type: .hList){
+                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
                                     StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
