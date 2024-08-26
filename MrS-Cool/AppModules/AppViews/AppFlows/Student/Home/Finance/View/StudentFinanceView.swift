@@ -66,11 +66,7 @@ struct StudentFinanceView: View {
                             .foregroundColor(.mainBlue)
                             .padding(.trailing,-20)
                             .padding(.bottom,5)
-//                            .onAppear(perform: {
-//                                print(Date())
-//                               
-//                                print(formattedDate)
-//                            })
+
                         }
 //                        Spacer()
                     }

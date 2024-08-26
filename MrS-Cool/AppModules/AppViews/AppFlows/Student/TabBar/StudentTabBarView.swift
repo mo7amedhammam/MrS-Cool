@@ -12,7 +12,6 @@ enum Studentdestinations{
 }
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
-//    @State private var selectedIndex = 2
     @State private var selectedDestination : Studentdestinations?
 
     private let tabBarItems = [
@@ -24,11 +23,6 @@ struct StudentTabBarView: View {
     ]
     
     @StateObject var studentsignupvm = StudentEditProfileVM()
-
-//    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
-//    @StateObject var chatListvm = ChatListVM()
-//    @State var isPush = false
-//    @State var destination = AnyView(EmptyView())
     
     @State var presentSideMenu = false
     var body: some View {
@@ -38,10 +32,6 @@ struct StudentTabBarView: View {
                     VStack(alignment: .leading){
                         Group{
                             Text("Hi, ".localized())+Text(studentsignupvm.name)
-                            
-//                            Text("Lets Start Learning! ".localized())
-//                                .font(Font.SoraRegular(size: 11))
-//                                .padding(.vertical,0.5)
                         }
                         .font(Font.SoraBold(size: 18))
                         .foregroundColor(.whiteA700)
@@ -67,58 +57,81 @@ struct StudentTabBarView: View {
                         .edgesIgnoringSafeArea(.top)
                 )
                 
+//                Group{
+//                    switch studenttabbarvm.selectedIndex{
+//                        //                case 0:
+//                        //                    Text("tab 0") // dashboard
+//                        
+//                    case 1:
+//                        StudentFinanceView(selectedChild: .constant(nil)) // finance
+//                        
+//                    case 2:
+//                        StudentHomeView() // home
+//                            .environmentObject(studenttabbarvm)
+//                            .environmentObject(studentsignupvm)
+//                    case 3:
+//                        ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
+//                            .environmentObject(studenttabbarvm)
+//                        
+//                    case 4:
+//                        StudentCompletedLessonsView(hasNavBar : false, selectedChild: .constant(nil)) // completed lessons
+//                            .environmentObject(studenttabbarvm)
+//                        
+//                    default: // case 0
+//                        Text("tab 0") // dashboard
+//                        
+//                    }
+//                }
+//                .padding(.top,-8)
+//                .padding(.bottom,-15)
+
                 TabView(selection: $studenttabbarvm.selectedIndex) {
-//                    StudentHomeView()
                     Text("tab 0") // dashboard
                         .tag(0)
-                        .gesture(
-                            DragGesture().onChanged { _ in
-                                // Disable swipe gestures
-                            }
-                        )
+//                        .gesture(
+//                            DragGesture().onChanged { _ in
+//                                // Disable swipe gestures
+//                            }
+//                        )
                     
                     StudentFinanceView(selectedChild: .constant(nil)) // finance
                         .tag(1)
-                        .gesture(
-                            DragGesture().onChanged { _ in
-                                // Disable swipe gestures
-                            }
-                        )
+//                        .gesture(
+//                            DragGesture().onChanged { _ in
+//                                // Disable swipe gestures
+//                            }
+//                        )
                     
                     StudentHomeView() // home
                         .tag(2)
                         .environmentObject(studenttabbarvm)
                         .environmentObject(studentsignupvm)
-                        .gesture(
-                            DragGesture().onChanged { _ in
-                                // Disable swipe gestures
-                            }
-                        )
+//                        .gesture(
+//                            DragGesture().onChanged { _ in
+//                                // Disable swipe gestures
+//                            }
+//                        )
                     
-
                     ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
                         .tag(3)
                         .environmentObject(studenttabbarvm)
-//                        .environmentObject(chatListvm)
-                        .gesture(
-                            DragGesture().onChanged { _ in
-                                // Disable swipe gestures
-                            }
-                        )
+//                        .gesture(
+//                            DragGesture().onChanged { _ in
+//                                // Disable swipe gestures
+//                            }
+//                        )
                     
 //                    StudentHomeView()
                     StudentCompletedLessonsView(hasNavBar : false, selectedChild: .constant(nil)) // completed lessons
                         .tag(4)
-//                        .environmentObject(LookUpsVM())
-//                        .environmentObject(completedlessonsvm)
                         .environmentObject(studenttabbarvm)
-                        .gesture(
-                            DragGesture().onChanged { _ in
-                                // Disable swipe gestures
-                            }
-                        )
+//                        .gesture(
+//                            DragGesture().onChanged { _ in
+//                                // Disable swipe gestures
+//                            }
+//                        )
                 }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 .padding(.top,-8)
                 .padding(.bottom,-15)
                                 
@@ -126,10 +139,13 @@ struct StudentTabBarView: View {
                 CustomTabBarView(selectedIndex: $studenttabbarvm.selectedIndex,tabBarItems:tabBarItems)
 
             }
-            .onAppear{
-//                Task(priority: .background, operation: {
-                    studentsignupvm.GetStudentProfile()
-//                })
+//            .onAppear{
+////                Task(priority: .background, operation: {
+//                    studentsignupvm.GetStudentProfile()
+////                })
+//            }
+            .task{
+                studentsignupvm.GetStudentProfile()
             }
             .overlay(content: {
                 SideMenuView()
