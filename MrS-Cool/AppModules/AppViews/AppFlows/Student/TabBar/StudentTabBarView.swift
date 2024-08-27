@@ -88,48 +88,47 @@ struct StudentTabBarView: View {
                 TabView(selection: $studenttabbarvm.selectedIndex) {
                     Text("tab 0") // dashboard
                         .tag(0)
-//                        .gesture(
-//                            DragGesture().onChanged { _ in
-//                                // Disable swipe gestures
-//                            }
-//                        )
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
                     
                     StudentFinanceView(selectedChild: .constant(nil)) // finance
                         .tag(1)
-//                        .gesture(
-//                            DragGesture().onChanged { _ in
-//                                // Disable swipe gestures
-//                            }
-//                        )
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
                     
                     StudentHomeView() // home
                         .tag(2)
                         .environmentObject(studenttabbarvm)
                         .environmentObject(studentsignupvm)
-//                        .gesture(
-//                            DragGesture().onChanged { _ in
-//                                // Disable swipe gestures
-//                            }
-//                        )
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
                     
                     ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
                         .tag(3)
                         .environmentObject(studenttabbarvm)
-//                        .gesture(
-//                            DragGesture().onChanged { _ in
-//                                // Disable swipe gestures
-//                            }
-//                        )
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
                     
-//                    StudentHomeView()
                     StudentCompletedLessonsView(hasNavBar : false, selectedChild: .constant(nil)) // completed lessons
                         .tag(4)
                         .environmentObject(studenttabbarvm)
-//                        .gesture(
-//                            DragGesture().onChanged { _ in
-//                                // Disable swipe gestures
-//                            }
-//                        )
+                        .gesture(
+                            DragGesture().onChanged { _ in
+                                // Disable swipe gestures
+                            }
+                        )
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .padding(.top,-8)

@@ -39,6 +39,12 @@ class StudentCompletedLessonsVM: ObservableObject {
 
     init()  {
     }
+    func cleanup(){
+        cancellables.forEach{ cancellable in
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
+    }
 }
 
 extension StudentCompletedLessonsVM{

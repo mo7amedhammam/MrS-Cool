@@ -165,22 +165,26 @@ struct StudentCompletedLessonsView: View {
 ////            }
 //        })
         .onChange(of: studenthometabbarvm.selectedIndex){ value in
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
             if value == 4 && (Helper.shared.getSelectedUserType() == .Student || selectedChild != nil){
-//                let dispatchGroup = DispatchGroup()
-//                dispatchGroup.enter()
 
                 completedlessonsvm.skipCount = 0
                 completedlessonsvm.completedLessonsList?.items?.removeAll()
                 completedlessonsvm.clearFilter()
                 completedlessonsvm.GetCompletedLessons()
-//                dispatchGroup.leave()
-
             }
+            dispatchGroup.leave()
+
+            dispatchGroup.notify(queue: .main, execute: {
+                print("DispatchGroup ended")
+            })
         }
         .onDisappear {
             showFilter = false
             showRating = false
 //            completedlessonsvm.clearFilter()
+            completedlessonsvm.cleanup()
         }
         .showHud(isShowing: $completedlessonsvm.isLoading)
         .showAlert(hasAlert: $completedlessonsvm.isError, alertType: completedlessonsvm.error)

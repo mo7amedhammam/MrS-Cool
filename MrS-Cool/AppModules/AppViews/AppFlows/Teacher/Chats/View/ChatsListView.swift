@@ -90,7 +90,9 @@ struct ChatsListView: View {
                     .task {
                         chatlistvm.GetChatsList()
                     }
-                    
+                    .onDisappear(perform: {
+                        chatlistvm.cleanup()
+                    })
                 }
             }
             
@@ -99,11 +101,7 @@ struct ChatsListView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-//        .onDisappear {
-////            chatlistvm.isLoading = false
-//
-////            chatlistvm.cleanup()
-//        }
+
         .showHud(isShowing: $chatlistvm.isLoading)
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
         if hasNavBar == true{

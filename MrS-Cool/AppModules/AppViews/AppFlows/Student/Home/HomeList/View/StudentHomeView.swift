@@ -357,9 +357,16 @@ struct StudentHomeView: View {
                     DispatchGroup.enter()
                     studenthomevm.getHomeData()
                     DispatchGroup.leave()
+                    
+                    DispatchGroup.notify(queue: .main, execute: {
+                        print("DispatchGroup ended")
+                    })
 
                 }
                 .onChange(of: studentsignupvm.academicYear, perform: { value in
+                    let DispatchGroup = DispatchGroup()
+                    DispatchGroup.enter()
+
                     if Helper.shared.CheckIfLoggedIn(){
                         if let id = value?.id{
                             print("id",id)
@@ -368,6 +375,14 @@ struct StudentHomeView: View {
                             studenthomevm.getHomeData()
                         }
                     }
+                    DispatchGroup.leave()
+                    DispatchGroup.notify(queue: .main, execute: {
+                        print("DispatchGroup ended")
+                    })
+
+                })
+                .onDisappear(perform: {
+                    studenthomevm.cleanup()
                 })
             }
             .frame(height:gr.size.height)

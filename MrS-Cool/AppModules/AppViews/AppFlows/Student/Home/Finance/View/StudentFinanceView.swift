@@ -91,8 +91,8 @@ struct StudentFinanceView: View {
                                             if let totalCount = financevm.PurchasedLessons?.totalCount, lessons.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 financevm.lessonsSkipCount += financevm.maxResultCount
-//                                                financevm.GetPurchasedFor(financese: .Lessons)
-                                                financevm.GetPurchasedLessons()
+                                                financevm.GetPurchasedFor(financese: .Lessons)
+//                                                financevm.GetPurchasedLessons()
                                             }
                                         }
                                 }
@@ -119,8 +119,8 @@ struct StudentFinanceView: View {
                                             if let totalCount = financevm.PurchasedSubjects?.totalCount, Subjects.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 financevm.subjectsSkipCount += financevm.maxResultCount
-//                                                financevm.GetPurchasedFor(financese: .Subjects)
-                                                financevm.GetPurchasedSubjects()
+                                                financevm.GetPurchasedFor(financese: .Subjects)
+//                                                financevm.GetPurchasedSubjects()
 
                                             }
                                         }
@@ -178,20 +178,22 @@ struct StudentFinanceView: View {
                     DispatchGroup.leave()
 
                     DispatchGroup.enter()
-//                    financevm.GetPurchasedFor(financese: .Lessons)
-                    financevm.GetPurchasedLessons()
+                    financevm.GetPurchasedFor(financese: .Lessons)
+//                    financevm.GetPurchasedLessons()
                     DispatchGroup.leave()
 
                     DispatchGroup.enter()
-//                    financevm.GetPurchasedFor(financese: .Subjects)
-                    financevm.GetPurchasedSubjects()
+                    financevm.GetPurchasedFor(financese: .Subjects)
+//                    financevm.GetPurchasedSubjects()
                     DispatchGroup.leave()
 
                     DispatchGroup.notify(queue: .main, execute: {
                         print("DispatchGroup ended")
                     })
                 }
-                
+                .onDisappear(perform: {
+                    financevm.cleanup()
+                })
                 Spacer()
             }
         }

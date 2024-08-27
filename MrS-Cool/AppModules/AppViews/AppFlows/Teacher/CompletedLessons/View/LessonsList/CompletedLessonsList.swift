@@ -142,21 +142,21 @@ struct CompletedLessonsList: View {
         .task {
             lookupsvm.GetSubjestForList()
         }
-        .onAppear{
-//            let dispatchGroup = DispatchGroup()
-//            dispatchGroup.enter()
-//            lookupsvm.GetSubjestForList()
-//            completedlessonsvm.completedLessonsList?.items?.removeAll()
-//            completedlessonsvm.skipCount = 0
-//            completedlessonsvm.GetCompletedLessons()
-//            dispatchGroup.leave()
-            
-//            dispatchGroup.notify(queue: .main) {
-//                // Update the UI when all tasks are complete
-//                isLoading = false
-//            }
-
-        }
+//        .onAppear{
+////            let dispatchGroup = DispatchGroup()
+////            dispatchGroup.enter()
+////            lookupsvm.GetSubjestForList()
+////            completedlessonsvm.completedLessonsList?.items?.removeAll()
+////            completedlessonsvm.skipCount = 0
+////            completedlessonsvm.GetCompletedLessons()
+////            dispatchGroup.leave()
+//            
+////            dispatchGroup.notify(queue: .main) {
+////                // Update the UI when all tasks are complete
+////                isLoading = false
+////            }
+//
+//        }
         .onChange(of: tabbarvm.selectedIndex){ value in
             if value == 4{
                 completedlessonsvm.clearFilter()
