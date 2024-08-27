@@ -52,15 +52,17 @@ struct StudentFinanceView: View {
                         .padding([.top,.leading],10)
                         
                         VStack(alignment:.trailing,spacing:0){
-                            Group{
-                                Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ") + Text("LE".localized())
+                            HStack(spacing:0){
+                                Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ")
+                                Text("LE".localized())
                             }
                             .font(Font.SoraBold(size: 48))
                             .foregroundColor(ColorConstants.MainColor)
                             
-                            Group{
+                            HStack(spacing:0){
                                 let formattedToday = dateFormatter.string(from: Date())
-                                Text("Till ".localized())+Text(formattedToday)
+                                Text("Till ".localized())
+                                Text(formattedToday)
                             }
                             .font(Font.SoraRegular(size: 12))
                             .foregroundColor(.mainBlue)

@@ -43,11 +43,18 @@ struct StudentHomeSubjectCell: View {
                 .clipShape(Circle())
                 .padding(.top, 10)
                 
-                            Text(subject.name ?? "")
+                let subjectName = subject.name ?? ""
+                let name = subjectName.split(separator: ",").map{ String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+
+                let Part1 = name.indices.contains(0) ? name[0] : ""
+//                let Part2 = name.indices.contains(1) ? name[1] : ""
+
+                
+                            Text(Part1)
                             .font(Font.SoraSemiBold(size: 13))
                             .foregroundColor(subject.id == selectedSubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                             .multilineTextAlignment(.center)
-                            .frame(height:70)
+                            .frame(height:60)
                 
                 if let teachertitle = subject.teacherSubject {
                     Group{

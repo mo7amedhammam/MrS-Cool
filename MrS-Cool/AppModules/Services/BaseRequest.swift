@@ -30,7 +30,7 @@ final class BaseNetwork{
     static let shared = BaseNetwork()
     
     // MARK: --- (Combine) CAll API with Future ---
-    // more modern and aligned with Swift's async/await concurrency model
+//    // more modern and aligned with Swift's async/await concurrency model
     static func CallApi<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) -> AnyPublisher<M, NetworkError> {
         return Future<M, NetworkError>{ promise in
             guard Helper.shared.isConnectedToNetwork() else {
@@ -39,10 +39,10 @@ final class BaseNetwork{
             
             let parameters = buildparameter(paramaters: target.parameter)
             let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-            print(target.requestURL)
-            print(target.method)
-            print(parameters)
-            print(headers ?? [:])
+//            print(target.requestURL)
+//            print(target.method)
+//            print(parameters)
+//            print(headers ?? [:])
             AF.request(target.requestURL,method: target.method ,parameters:parameters.0,encoding:parameters.1,headers:headers)
                 .responseDecodable(of: M.self, decoder: JSONDecoder()){ response in
                     //                          print(response)
@@ -65,44 +65,41 @@ final class BaseNetwork{
     
     
     // combine -> return anypublisher
-    //    static func callApi<T: TargetType, M: Codable>(
-    //           _ target: T,
-    //           _ modelType: M.Type
-    //       ) -> AnyPublisher<M, Error> {
-    //           guard Helper.isConnectedToNetwork() else {
-    //               return Fail(error: NetworkError.noConnection)
-    //                   .eraseToAnyPublisher()
-    //           }
-    //
-    //           let parameters = buildparameter(paramaters: target.parameter)
-    //           let headers = HTTPHeaders(target.headers ?? [:])
-    //
-    //           let (requestURL, method, parametersDict, encoding) = (target.requestURL, target.method, parameters.0, parameters.1)
-    //           print("url",requestURL)
-    //           print("parameters",parametersDict)
-    //           print("headers",headers )
-    //
-    //           return AF.request(requestURL, method: method, parameters: parametersDict, encoding: encoding, headers: headers)
-    //               .publishDecodable(type: M.self, decoder: JSONDecoder())
-    //               .tryMap { response in
-    //                   if let model = response.value {
-    //                       return model
-    //                   } else {
-    //                       if let error = response.error {
-    //                           let responsecode = response.response?.statusCode ?? 0
-    //                           if responsecode == 401 {
-    //                               throw NetworkError.unauthorized(code: responsecode, error: NetworkError.expiredTokenMsg.localizedDescription)
-    //                           } else {
-    //                               throw NetworkError.unknown(code: responsecode, error: error.localizedDescription)
-    //                           }
-    //                       } else {
-    //                           throw NetworkError.unknown(code: 0, error: "No response data")
-    //                       }
-    //                   }
-    //               }
-    //               .receive(on: DispatchQueue.main) // Receive on the main thread if you want to update UI
-    //               .eraseToAnyPublisher()
-    //       }
+//        static func callApi<T: TargetType, M: Codable>(_ target: T, _ modelType: M.Type) -> AnyPublisher<M, Error> {
+//            guard Helper.shared.isConnectedToNetwork() else {
+//                   return Fail(error: NetworkError.noConnection)
+//                       .eraseToAnyPublisher()
+//               }
+//    
+//               let parameters = buildparameter(paramaters: target.parameter)
+//               let headers = HTTPHeaders(target.headers ?? [:])
+//    
+//               let (requestURL, method, parametersDict, encoding) = (target.requestURL, target.method, parameters.0, parameters.1)
+//               print("url",requestURL)
+//               print("parameters",parametersDict)
+//               print("headers",headers )
+//    
+//               return AF.request(requestURL, method: method, parameters: parametersDict, encoding: encoding, headers: headers)
+//                   .publishDecodable(type: M.self, decoder: JSONDecoder())
+//                   .tryMap { response in
+//                       if let model = response.value {
+//                           return model
+//                       } else {
+//                           if let error = response.error {
+//                               let responsecode = response.response?.statusCode ?? 0
+//                               if responsecode == 401 {
+//                                   throw NetworkError.unauthorized(code: responsecode, error: NetworkError.expiredTokenMsg.localizedDescription)
+//                               } else {
+//                                   throw NetworkError.unknown(code: responsecode, error: error.localizedDescription)
+//                               }
+//                           } else {
+//                               throw NetworkError.unknown(code: 0, error: "No response data")
+//                           }
+//                       }
+//                   }
+//                   .receive(on: DispatchQueue.main) // Receive on the main thread if you want to update UI
+//                   .eraseToAnyPublisher()
+//           }
     
     // async throw using withCheckedThrowingContinuation
     //    static func asyncCallApi<T: TargetType, M: Codable>(
