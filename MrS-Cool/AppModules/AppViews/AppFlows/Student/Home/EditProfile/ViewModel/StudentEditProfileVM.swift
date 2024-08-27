@@ -263,7 +263,7 @@ extension StudentEditProfileVM{
         educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
         dummyAcademicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
         academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
-        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy",outputLocal: .english,inputTimeZone: .init(identifier: "GMT"))
+        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
         email =  model.email ?? ""
         SchoolName = model.schoolName ?? ""
         
