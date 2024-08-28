@@ -20,7 +20,8 @@ class TeacherCalendarSvhedualsVM: ObservableObject {
     //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
-    @Published var CalendarScheduals : [EventM] = []
+    @Published var CalendarScheduals : [EventM]?
+//    @Published var StudentCalendarScheduals : [StudentEventM]?
 
     init()  {
         GetCalendarCheduals()
@@ -80,9 +81,13 @@ extension TeacherCalendarSvhedualsVM{
                 },receiveValue: {[weak self] receivedData in
                     guard let self = self else{return}
                     print("receivedData",receivedData)
-                    if receivedData.success == true {
+                    if receivedData.success == true,let model = receivedData.data {
                         //                    TeacherSubjects?.append(model)
-                        CalendarScheduals = receivedData.data?.convertToEvent() ?? []
+                        CalendarScheduals = model.convertToEvent()
+//                        DispatchQueue.main.async(execute: {
+//                        StudentCalendarScheduals = model
+//                        })
+
                     }else{
                         isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -121,7 +126,7 @@ extension TeacherCalendarSvhedualsVM{
                     print("receivedData",receivedData)
                     if receivedData.success == true {
 //                        GetCalendarCheduals()
-                        CalendarScheduals = receivedData.data ?? []
+                        CalendarScheduals = receivedData.data 
                         
                     }else{
                         isError =  true
