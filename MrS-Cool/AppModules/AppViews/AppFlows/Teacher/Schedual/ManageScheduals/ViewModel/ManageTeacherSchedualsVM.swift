@@ -106,6 +106,7 @@ extension ManageTeacherSchedualsVM{
                         guard let self = self else {return}
                         clearTeacherSchedual()
                         GetTeacherScheduals()
+                        clearFilter()
                     })
                     isError =  true
 
@@ -189,6 +190,8 @@ extension ManageTeacherSchedualsVM{
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
                         guard let self = self else {return}
                         TeacherScheduals?.removeAll(where: {$0.id == model.id})
+                        GetTeacherScheduals()
+                        clearFilter()
                     })
                     isError =  true
 

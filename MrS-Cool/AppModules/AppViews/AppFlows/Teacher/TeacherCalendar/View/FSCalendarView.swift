@@ -364,7 +364,6 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
         view.addSubview(calendar)
         
         prepareEvents()
-
     }
     
     func prepareEvents() {
@@ -389,9 +388,6 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
             calendar.reloadData() // Safely reload calendar data
         }
     }
-
-
-
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let dateFormatter = DateFormatter()
@@ -405,9 +401,9 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dateString = dateFormatter.string(from: date)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let dateString = dateFormatter.string(from: date)
         
 //        if let eventsOnDate = events[dateString] {
             // Do something with the events on the selected date

@@ -887,7 +887,7 @@ struct ContentView3: View {
                                 if let index = events.firstIndex(where: { $0.id == event.id }) {
                                     onJoinEvent?(selectedEvent)
                                 }
-                            })
+                            },isError: $isError,error: $error)
                         }
                         Spacer()
                     }
@@ -924,9 +924,7 @@ struct ContentView3: View {
 //                    }
 //                }
         .showAlert(hasAlert: $isError, alertType: error)
-        
     }
-    
 }
 
 #Preview{
@@ -1090,8 +1088,8 @@ struct EventDetailsView: View {
         return currentTime < fromDateTime
     }
     
-    @State var isError : Bool = false
-    @State var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+    @Binding var isError : Bool
+    @Binding var error: AlertType
     
     var body: some View {
 //        NavigationView {
@@ -1210,10 +1208,33 @@ struct EventDetailsView: View {
             //            .navigationBarItems(trailing: Button("Close".localized()) {
             //                presentationMode.wrappedValue.dismiss()
             //            })
-            .showAlert(hasAlert: $isError, alertType: error)
+//            .showAlert(hasAlert: $isError, alertType: error)
             
 //        }
     }
+    
+//    private func joinMeeting(event: EventM, meetingLink: String) {
+//        backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+//            // Handle expiration here if needed
+//            UIApplication.shared.endBackgroundTask(backgroundTask)
+//            backgroundTask = .invalid
+//        })
+//        
+//        print("Joining event...")
+//        onJoinEvent?(event)
+//        print("onJoinEvent closure executed")
+//        
+//        if let url = URL(string: meetingLink) {
+//            UIApplication.shared.open(url) { success in
+//                print("URL opened: \(success)")
+//                if success {
+//                    // Perform any additional actions if needed
+//                }
+//                UIApplication.shared.endBackgroundTask(backgroundTask)
+//                backgroundTask = .invalid
+//            }
+//        }
+//    }
     
     private func joinMeeting(event: EventM, meetingLink: String) {
         backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
@@ -1226,6 +1247,30 @@ struct EventDetailsView: View {
         onJoinEvent?(event)
         print("onJoinEvent closure executed")
         
+        if let teamsURL = URL(string: "msteams://") {
+            // Try to open Teams app first
+            if UIApplication.shared.canOpenURL(teamsURL) {
+                UIApplication.shared.open(teamsURL, options: [:]) { success in
+                    if success {
+                        print("Teams app opened successfully.")
+                    } else {
+                        // If Teams app failed to open, fall back to the provided meeting link
+                        self.openMeetingLink(meetingLink)
+                    }
+                    UIApplication.shared.endBackgroundTask(backgroundTask)
+                    backgroundTask = .invalid
+                }
+            } else {
+                // If Teams app is not available, open the meeting link directly
+                self.openMeetingLink(meetingLink)
+            }
+        } else {
+            // If URL creation fails, open the meeting link directly
+            self.openMeetingLink(meetingLink)
+        }
+    }
+
+    private func openMeetingLink(_ meetingLink: String) {
         if let url = URL(string: meetingLink) {
             UIApplication.shared.open(url) { success in
                 print("URL opened: \(success)")
@@ -1235,13 +1280,18 @@ struct EventDetailsView: View {
                 UIApplication.shared.endBackgroundTask(backgroundTask)
                 backgroundTask = .invalid
             }
+        } else {
+            print("Invalid URL: \(meetingLink)")
+            UIApplication.shared.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
         }
     }
+
 }
 
 
 
 
 #Preview{
-    EventDetailsView(event: EventM(id: 1, groupName: "Math Class", date: "2024-05-29", timeFrom: "10:00", timeTo: "11:00", isCancel: false, cancelDate: nil, teamMeetingLink: "https://example.com/meeting"), onCancelEvent: { _ in }, onJoinEvent: { _ in })
+    EventDetailsView(event: EventM(id: 1, groupName: "Math Class", date: "2024-05-29", timeFrom: "10:00", timeTo: "11:00", isCancel: false, cancelDate: nil, teamMeetingLink: "https://example.com/meeting"), onCancelEvent: { _ in }, onJoinEvent: { _ in },isError: .constant(false),error: .constant(.error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")))
 }

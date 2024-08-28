@@ -90,7 +90,13 @@ class AddNewStudentVM: ObservableObject {
     }
     @Published var isemailvalid : Bool?
 
-    @Published var SchoolName = ""
+    @Published var SchoolName = ""{
+        didSet{
+            if name.count >= 2{
+                isSchoolNamevalid = true
+            }
+        }
+    }
     @Published var isSchoolNamevalid : Bool?
 
     @Published var country : DropDownOption?{

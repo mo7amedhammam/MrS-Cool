@@ -206,7 +206,7 @@ final class BaseNetwork{
                     for (key, value) in parameters.0 {
                         // -- image --
                         if let tempImg = value as? UIImage {
-                            if let data = tempImg.jpegData(compressionQuality: 0.9), (tempImg.size.width) > 0 {
+                            if let data = tempImg.jpegData(compressionQuality: 0.5), (tempImg.size.width) > 0 {
                                 multipartFormData.append(data, withName: key, fileName: "file.jpeg", mimeType: "image/jpeg")
                             }
                         }
