@@ -162,6 +162,7 @@ extension ManageSubjectGroupVM{
     }
     
     func CreateTeacherGroup(){
+        TeacherSubjectGroupCreated = false
         guard let TeacherSubjectGroupsDetailsParameters = TeacherSubjectGroupsDetails?.toDictionary() else {return}
         let parameters:[String:Any] = TeacherSubjectGroupsDetailsParameters
         print("parameters",parameters)
@@ -185,9 +186,9 @@ extension ManageSubjectGroupVM{
                 if receivedData.success == true {
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
                         guard let self = self else {return}
-                        TeacherSubjectGroupCreated = true
                         clearTeacherGroup()
                         clearFilter()
+                        TeacherSubjectGroupCreated = true
                         GetTeacherSubjectGroups()
                     })
                     isError =  true
