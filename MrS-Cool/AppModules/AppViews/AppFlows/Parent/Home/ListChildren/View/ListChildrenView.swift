@@ -173,7 +173,7 @@ struct ChildrenCell: View {
             }
 //            Image("studenticon")
             let imageURL : URL? = URL(string: Constants.baseURL + (children.image ?? "image").reverseSlaches())
-            KFImageLoader(url: imageURL, placeholder: Image("studenticon"))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
 //                .resizable()
                 .frame(width: 50, height: 50, alignment: .center)
                 .padding(.top, -27.0)

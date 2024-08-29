@@ -25,6 +25,7 @@ struct StudentCompletedLessonsView: View {
     @State var filterlesson : DropDownOption?
     @State var filtergroupName : String = ""
     @State var filterdate : String?
+    @State private var ScrollToTop = false
     
     func applyFilter() {
         completedlessonsvm.filtersubject = filtersubject
@@ -37,14 +38,14 @@ struct StudentCompletedLessonsView: View {
     }
     func clearFilter() {
         if filtersubject != nil ||
-        filterlesson != nil ||
-        filtergroupName != "" ||
+            filterlesson != nil ||
+            filtergroupName != "" ||
             filterdate != nil {
             
             filtersubject = nil
             filterlesson = nil
             filtergroupName = ""
-           filterdate = nil
+            filterdate = nil
             
             completedlessonsvm.skipCount = 0
             completedlessonsvm.clearFilter()
@@ -103,35 +104,46 @@ struct StudentCompletedLessonsView: View {
                             }
                             .padding(.horizontal)
                             if let lessons = completedlessonsvm.completedLessonsList?.items{
-                                List(lessons, id:\.self) { lesson in
-                                    StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
-                                        completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
-                                        studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
-                                        studenthometabbarvm.ispush = true
-                                    },chatBtnAction: {
-                                        studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
-                                        studenthometabbarvm.ispush = true
-                                        
-                                    },rateBtnAction:{
-                                        completedlessonsvm.selectedLesson = lesson
-                                        showRating = true
-                                    })
-                                    .listRowSpacing(0)
-                                    .listRowSeparator(.hidden)
-                                    .listRowBackground(Color.clear)
-                                    .onAppear {
-                                        guard lesson == lessons.last else {return}
-                                        
-                                        if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, lessons.count < totalCount {
-                                            // Load the next page if there are more items to fetch
-                                            completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
-                                            completedlessonsvm.GetCompletedLessons()
+                                ScrollViewReader{proxy in
+                                    List(lessons, id:\.self) { lesson in
+                                        StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
+                                            completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
+                                            studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
+                                            studenthometabbarvm.ispush = true
+                                        },chatBtnAction: {
+                                            studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
+                                            studenthometabbarvm.ispush = true
+                                            
+                                        },rateBtnAction:{
+                                            completedlessonsvm.selectedLesson = lesson
+                                            showRating = true
+                                        })
+                                        .listRowSpacing(0)
+                                        .listRowSeparator(.hidden)
+                                        .listRowBackground(Color.clear)
+                                        .onAppear {
+                                            guard lesson == lessons.last else {return}
+                                            
+                                            if let totalCount = completedlessonsvm.completedLessonsList?.totalCount, lessons.count < totalCount {
+                                                // Load the next page if there are more items to fetch
+                                                completedlessonsvm.skipCount += completedlessonsvm.maxResultCount
+                                                completedlessonsvm.GetCompletedLessons()
+                                            }
+                                        }
+                                        .id(lesson)
+                                        .onChange(of: ScrollToTop) { value in
+                                            if value == true {
+                                                withAnimation {
+                                                    proxy.scrollTo(lessons.first , anchor: .bottom)
+                                                }
+                                            }
+                                            ScrollToTop = false
                                         }
                                     }
+                                    .padding(.horizontal,-4)
+                                    .listStyle(.plain)
+                                    .frame(minHeight: gr.size.height/2)
                                 }
-                                .padding(.horizontal,-4)
-                                .listStyle(.plain)
-                                .frame(minHeight: gr.size.height/2)
                             }
                             Spacer()
                         }
@@ -147,35 +159,35 @@ struct StudentCompletedLessonsView: View {
         .task {
             lookupsvm.GetBookedSubjestForList()
         }
-//        .onAppear(perform: {
-//            //                        let dispatchGroup = DispatchGroup()
-//            //                        dispatchGroup.enter()
-////            if Helper.shared.getSelectedUserType() == .Student || selectedChild != nil{
-////
-//////                lookupsvm.GetBookedSubjestForList()
-////                completedlessonsvm.completedLessonsList?.items?.removeAll()
-////                completedlessonsvm.skipCount = 0
-////                completedlessonsvm.GetCompletedLessons()
-//                //                        dispatchGroup.leave()
-//
-//                //            dispatchGroup.notify(queue: .main) {
-//                //                // Update the UI when all tasks are complete
-//                //                isLoading = false
-//                //            }
-////            }
-//        })
+        //        .onAppear(perform: {
+        //            //                        let dispatchGroup = DispatchGroup()
+        //            //                        dispatchGroup.enter()
+        ////            if Helper.shared.getSelectedUserType() == .Student || selectedChild != nil{
+        ////
+        //////                lookupsvm.GetBookedSubjestForList()
+        ////                completedlessonsvm.completedLessonsList?.items?.removeAll()
+        ////                completedlessonsvm.skipCount = 0
+        ////                completedlessonsvm.GetCompletedLessons()
+        //                //                        dispatchGroup.leave()
+        //
+        //                //            dispatchGroup.notify(queue: .main) {
+        //                //                // Update the UI when all tasks are complete
+        //                //                isLoading = false
+        //                //            }
+        ////            }
+        //        })
         .onChange(of: studenthometabbarvm.selectedIndex){ value in
             let dispatchGroup = DispatchGroup()
             dispatchGroup.enter()
             if value == 4 && (Helper.shared.getSelectedUserType() == .Student || selectedChild != nil){
-
+                
                 completedlessonsvm.skipCount = 0
                 completedlessonsvm.completedLessonsList?.items?.removeAll()
                 completedlessonsvm.clearFilter()
                 completedlessonsvm.GetCompletedLessons()
             }
             dispatchGroup.leave()
-
+            
             dispatchGroup.notify(queue: .main, execute: {
                 print("DispatchGroup ended")
             })
@@ -183,7 +195,7 @@ struct StudentCompletedLessonsView: View {
         .onDisappear {
             showFilter = false
             showRating = false
-//            completedlessonsvm.clearFilter()
+            //            completedlessonsvm.clearFilter()
             completedlessonsvm.cleanup()
         }
         .showHud(isShowing: $completedlessonsvm.isLoading)
@@ -232,11 +244,13 @@ struct StudentCompletedLessonsView: View {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
                                             applyFilter()
+                                            ScrollToTop = true
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             clearFilter()
+                                            ScrollToTop = true
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)

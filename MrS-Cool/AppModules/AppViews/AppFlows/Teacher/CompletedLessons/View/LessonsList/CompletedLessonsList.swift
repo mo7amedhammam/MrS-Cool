@@ -24,6 +24,7 @@ struct CompletedLessonsList: View {
     @State var filterlesson : DropDownOption?
     @State var filtergroupName : String = ""
     @State var filterdate : String?
+    @State private var ScrollToTop = false
 
     func applyFilter() {
         completedlessonsvm.filtersubject = filtersubject
@@ -97,19 +98,19 @@ struct CompletedLessonsList: View {
                         .padding(.horizontal)
                         
                         let lessons = completedlessonsvm.completedLessonsList?.items ?? []
-                        List(lessons, id:\.self) { lesson in
-                            
+                        ScrollViewReader{proxy in
+                        List(lessons, id:\.self){ lesson in
                             CompletedLessonCell(model: lesson,reviewBtnAction: {
                                 completedlessonsvm.selectedLessonid = lesson.teacherLessonSessionSchedualSlotID
-//                                if hasNavBar ?? true{
-//
-//                                    destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
-//                                    isPush = true
-//                                }else{
-                                    tabbarvm.destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
-                                    tabbarvm.ispush = true
-
-//                                }
+                                //                                if hasNavBar ?? true{
+                                //
+                                //                                    destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
+                                //                                    isPush = true
+                                //                                }else{
+                                tabbarvm.destination = AnyView(CompletedLessonDetails().environmentObject(completedlessonsvm))
+                                tabbarvm.ispush = true
+                                
+                                //                                }
                             })
                             .listRowSpacing(0)
                             .listRowSeparator(.hidden)
@@ -123,11 +124,20 @@ struct CompletedLessonsList: View {
                                     completedlessonsvm.GetCompletedLessons()
                                 }
                             }
+                            .id(lesson)
+                            .onChange(of: ScrollToTop) { value in
+                                if value == true {
+                                    withAnimation {
+                                        proxy.scrollTo(lessons.first , anchor: .bottom)
+                                    }
+                                }
+                                ScrollToTop = false
+                            }
                         }
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
                         .frame(minHeight: gr.size.height/2)
-                        
+                    }
                         Spacer()
                     }
                     .frame(minHeight: gr.size.height)
@@ -218,11 +228,13 @@ struct CompletedLessonsList: View {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
                                             applyFilter()
+                                            ScrollToTop = true
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                             clearFilter()
+                                            ScrollToTop = true
                                             showFilter = false
                                         })
                                     } .frame(width:130,height:40)

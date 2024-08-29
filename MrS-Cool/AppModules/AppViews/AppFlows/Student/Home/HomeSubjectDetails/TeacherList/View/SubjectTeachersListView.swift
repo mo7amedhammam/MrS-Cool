@@ -224,7 +224,6 @@ struct SubjectTeachersListView: View {
                                     .padding(.vertical,-10)
                                     .onChange(of: ScrollToTop) { value in
                                         if value == true {
-                                            
                                                 withAnimation {
                                                     proxy.scrollTo(items.first?.id , anchor: .bottom)
                                                 }
@@ -605,6 +604,7 @@ struct SubjectTeachersListView: View {
                                         homesubjectteachersvm.skipCount = 0
                                         homesubjectteachersvm.sortCase = sortCase
                                         homesubjectteachersvm .GetStudentSubjectTeachers()
+                                        ScrollToTop = true
                                         showSort = false
                                     })
                                     
@@ -613,6 +613,7 @@ struct SubjectTeachersListView: View {
                                         sortCase = .MostBooked
                                         homesubjectteachersvm.clearSort()
                                         homesubjectteachersvm .GetStudentSubjectTeachers()
+                                        ScrollToTop = true
                                         showSort = false
                                     })
                                 } .frame(width:130,height:40)
