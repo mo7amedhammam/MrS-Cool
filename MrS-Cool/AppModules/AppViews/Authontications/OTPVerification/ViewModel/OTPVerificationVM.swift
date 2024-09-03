@@ -162,6 +162,8 @@ class OTPVerificationVM: ObservableObject {
                     isError =  true
                     error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
                 }
+                EnteredOtp = nil
+
                 isLoading = false
             }).store(in: &cancellables)
     }
