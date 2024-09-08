@@ -12,7 +12,7 @@ enum Parentdestinations{
 }
 struct ParentTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
-//    @State private var selectedIndex = 2
+    //    @State private var selectedIndex = 2
     @State private var selectedDestination : Parentdestinations?
     
     private let tabBarItems = [
@@ -71,13 +71,17 @@ struct ParentTabBarView: View {
             
             TabView(selection: $tabbarvm.selectedIndex) {
                 //                    StudentHomeView()
-                Text("tab 0") // dashboard
+                Text("") // dashboard
                     .tag(0)
                     .gesture(
                         DragGesture().onChanged { _ in
                             // Disable swipe gestures
                         }
                     )
+                    .onAppear(perform: {
+                        presentSideMenu = true
+                    })
+                
                 
                 StudentFinanceView(selectedChild:$listchildrenvm.selectedChild) // finance
                     .tag(1)
@@ -178,6 +182,13 @@ struct ParentTabBarView: View {
         .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
         
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
+        
+            .onChange(of: presentSideMenu, perform: { value in
+                if value == false && tabbarvm.selectedIndex == 0{
+                    tabbarvm.selectedIndex = 2
+                }
+            })
+        
     }
     
     @ViewBuilder

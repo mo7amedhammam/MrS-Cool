@@ -9,6 +9,7 @@ import SwiftUI
 
 enum AnonymousDestinations{
     case login
+    case signup
 }
 
 struct AnonymousHomeView: View {
@@ -469,7 +470,6 @@ struct AnonymousHomeView: View {
                         if newval == .login { // sign in
                                                   
                             destination =                           AnyView(SignInView(hideimage:false))
-                                                      
                             Helper.shared.logout()
                             isPush = true
                             
@@ -495,7 +495,14 @@ struct AnonymousHomeView: View {
                             //                                window.makeKeyAndVisible()
                             //                            }
                             
+                        }else if newval == .signup{
+//                          let selecteduser = UserType(id: 0, imgName: "student-vector",user: .Student,tintColor: .studentTint)
+//                            destination = AnyView(SignUpView( selecteduser: .constant(selecteduser)))
+                            destination =                           AnyView(SignInView(hideimage:false,skipToSignUp:true))
+                            Helper.shared.logout()
+                            isPush = true
                         }
+                        
                     }
                 }
                 .frame(height:gr.size.height)
@@ -561,60 +568,22 @@ struct AnonymousSideMenuContent: View {
                         Text("Anonymous".localized())
                             .font(.SoraBold(size: 18))
                             .foregroundStyle(.whiteA700)
-                        
-                        //                        Text("Edit your profile")
-                        //                            .font(.SoraRegular(size: 12))
-                        //                            .foregroundStyle(.whiteA700)
                     }
                     
                     Spacer()
                 }
                 .padding()
-                //                .onTapGesture {
-                //                    selectedDestination = .login
-                //                    presentSideMenu =  false
-                ////                    isPush = true
-                //
-                //                }
-                //                SideMenuSectionTitle(title: "Academic")
-                
-                //                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
-                //                    selectedDestination = .calendar // calendar
-                //                    presentSideMenu =  false
-                //                    isPush = true
-                //                }
-                
-                //                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-                //                    selectedDestination = .rates // rates
-                //                    presentSideMenu =  false
-                //                    isPush = true
-                //                }
-                
+
                 SideMenuSectionTitle(title: "Settings")
-                
-                //                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-                //                    selectedDestination = .changePassword // cahnage Password
-                //                    presentSideMenu =  false
-                //                    isPush = true
-                //                }
-                
-                //                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
-                //                    selectedDestination = .tickets // Tickets
-                //                    presentSideMenu =  false
-                //                    isPush = true
-                //                }
                 
                 SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
                     selectedDestination = .login // sign out
                     presentSideMenu =  false
-                    //                    isPush = true
                 }
-                
-                //                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
-                //                    selectedDestination = .deleteAccount // delete account
-                //                    presentSideMenu =  false
-                //                    isPush = true
-                //                }
+                SideMenuButton(image: "MenuSt_signout", title: "Sign Up"){
+                    selectedDestination = .signup // sign up
+                    presentSideMenu =  false
+                }
                 
                 Spacer()
                 

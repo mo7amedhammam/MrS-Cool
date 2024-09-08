@@ -70,16 +70,19 @@ struct TeacherTabBarView: View {
                 
                 TabView(selection: $tabbarvm.selectedIndex) {
 //                    StudentHomeView()
-                    Text("tab 0") // dashboard
+                    Text("") // dashboard
                         .tag(0)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
                             }
                         )
+                        .onAppear(perform: {
+                            presentSideMenu = true
+                        })
                     
 //                    StudentHomeView()
-                    Text("tab 1") // finance
+                    Text("Teacher Finance") // finance
                         .tag(1)
                         .gesture(
                             DragGesture().onChanged { _ in
@@ -88,7 +91,8 @@ struct TeacherTabBarView: View {
                         )
                     
 //                    StudentHomeView() // home
-                    Text("tab2")
+//                    Text("teacher finance")
+                    AnonymousHomeView()
                         .tag(2)
                         .environmentObject(tabbarvm)
                         .gesture(
@@ -214,14 +218,18 @@ struct TeacherTabBarView: View {
                         selectedDestination = nil
                     })
                     tabbarvm.isError = true
-
-
                 }
 //            }
         }
             .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
 
             NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
+            .onChange(of: presentSideMenu, perform: { value in
+                if value == false && tabbarvm.selectedIndex == 0{
+                    tabbarvm.selectedIndex = 2
+                }
+            })
+
     }
     
     @ViewBuilder

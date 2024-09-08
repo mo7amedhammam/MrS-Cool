@@ -86,13 +86,16 @@ struct StudentTabBarView: View {
 //                .padding(.bottom,-15)
 
                 TabView(selection: $studenttabbarvm.selectedIndex) {
-                    Text("tab 0") // dashboard
-                        .tag(0)
+                   Text("")
+                    .tag(0)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
                             }
                         )
+                        .onAppear(perform: {
+                            presentSideMenu = true
+                        })
                     
                     StudentFinanceView(selectedChild: .constant(nil)) // finance
                         .tag(1)
@@ -191,6 +194,11 @@ struct StudentTabBarView: View {
 //            })
 //        }
             NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
+            .onChange(of: presentSideMenu, perform: { value in
+                if value == false && studenttabbarvm.selectedIndex == 0{
+                    studenttabbarvm.selectedIndex = 2
+                }
+            })
     }
     
     @ViewBuilder

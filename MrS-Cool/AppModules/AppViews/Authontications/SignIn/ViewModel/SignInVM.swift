@@ -15,6 +15,7 @@ class SignInVM: ObservableObject {
     //    MARK: --- inputs ---
     @Published var selectedUser : UserType
 //    @State var selectedUser : UserType = UserType.init()
+    @Published var skipToSignUp = false
 
     @Published var phone = "" {
         didSet{
