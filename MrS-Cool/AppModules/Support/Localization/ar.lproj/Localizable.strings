@@ -63,7 +63,7 @@
 "Add New Subject Group" = "Add New Subject Group";
 "Amount" = "Amount";
 "An authentication code has been sent to" = "An authentication code has been sent to";
-"Anonymous" = "Anonymous";
+"Anonymous" = "مجهول";
 "Apply Filter" = "Apply Filter";
 "Apply Sort" = "Apply Sort";
 "Approved" = "Approved";
@@ -416,3 +416,6 @@
 "seconds" = "seconds";
 "week" = "week";
 "weeks" = "weeks";
+
+"English" = "Engilsh";
+"Version:" = "نسخة";

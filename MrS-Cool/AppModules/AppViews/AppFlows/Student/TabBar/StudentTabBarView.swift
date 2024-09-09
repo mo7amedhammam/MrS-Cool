@@ -12,6 +12,7 @@ enum Studentdestinations{
 }
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
+    @StateObject var localizeHelper = LocalizeHelper.shared
     @State private var selectedDestination : Studentdestinations?
 
     private let tabBarItems = [
@@ -149,6 +150,11 @@ struct StudentTabBarView: View {
             .task{
                 studentsignupvm.GetStudentProfile()
             }
+            .onChange(of: localizeHelper.currentLanguage, perform: {_ in
+                Task(priority: .background, operation: {
+                    studentsignupvm.GetStudentProfile()
+                })
+            })
             .overlay(content: {
                 SideMenuView()
             })
@@ -166,7 +172,7 @@ struct StudentTabBarView: View {
 //                    studenttabbarvm.destination = AnyView(Text("Rates"))
                 }else if newval == .changePassword { // change password
                     studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
-                }else if newval == .tickets { // tickets
+//                }else if newval == .tickets { // tickets
                     
                 }else if newval == .signOut { // signout
 //                    studenttabbarvm.destination = AnyView(SignInView())
@@ -327,97 +333,110 @@ struct StudentSideMenuContent: View {
     @Binding var isPush: Bool
 
     var body: some View {
-        ScrollView{
-            VStack(alignment: .trailing, spacing: 10) {
-                HStack(spacing:20){
-                    ZStack(alignment: .topLeading){
-                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? "").reverseSlaches())
-                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 60,height: 60)
-                            .clipShape(Circle())
+        VStack {
+            ScrollView{
+                VStack(alignment: .trailing, spacing: 10) {
+                    HStack(spacing:20){
+                        ZStack(alignment: .topLeading){
+                            let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? "").reverseSlaches())
+                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 60,height: 60)
+                                .clipShape(Circle())
 
+                            
+                            Image("Edit_fill")
+                            //                        .resizable().aspectRatio(contentMode: .fit)
+                            //                        .font(.InterMedium(size: 12))
+                                .frame(width: 15,height: 15)
+                                .background(.white)
+                                .clipShape(Circle())
+                                .offset(x:0,y:2)
+                            
+                        }
+                        VStack(alignment:.leading) {
+                            Text(studentsignupvm.name)
+                                .font(.SoraBold(size: 18))
+                                .foregroundStyle(.whiteA700)
+                            
+                            Text("Edit your profile")
+                                .font(.SoraRegular(size: 12))
+                                .foregroundStyle(.whiteA700)
+                        }
                         
-                        Image("Edit_fill")
-                        //                        .resizable().aspectRatio(contentMode: .fit)
-                        //                        .font(.InterMedium(size: 12))
-                            .frame(width: 15,height: 15)
-                            .background(.white)
-                            .clipShape(Circle())
-                            .offset(x:0,y:2)
-                        
+                        Spacer()
+                        }
+                    .padding()
+                    .onTapGesture {
+                        selectedDestination = .editProfile
+                        presentSideMenu =  false
+                        isPush = true
+
                     }
-                    VStack(alignment:.leading) {
-                        Text(studentsignupvm.name)
-                            .font(.SoraBold(size: 18))
-                            .foregroundStyle(.whiteA700)
-                        
-                        Text("Edit your profile")
-                            .font(.SoraRegular(size: 12))
-                            .foregroundStyle(.whiteA700)
+                    SideMenuSectionTitle(title: "Academic")
+                    
+                    SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
+                        selectedDestination = .calendar // calendar
+                        presentSideMenu =  false
+                        isPush = true
+                    }
+
+    //                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+    //                    selectedDestination = .rates // rates
+    //                    presentSideMenu =  false
+    //                    isPush = true
+    //                }
+                    
+                    SideMenuSectionTitle(title: "Settings")
+
+                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                        selectedDestination = .changePassword // cahnage Password
+                        presentSideMenu =  false
+                        isPush = true
+                    }
+
+//                    SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
+//                        selectedDestination = .tickets // Tickets
+//                        presentSideMenu =  false
+//                        isPush = true
+//                    }
+                    ChangeLanguage()
+
+                    SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                        selectedDestination = .signOut // sign out
+                        presentSideMenu =  false
+    //                    isPush = true
                     }
                     
-                    Spacer()
+                    SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
+                        selectedDestination = .deleteAccount // delete account
+                        presentSideMenu =  false
+                        isPush = true
                     }
-                .padding()
-                .onTapGesture {
-                    selectedDestination = .editProfile
-                    presentSideMenu =  false
-                    isPush = true
 
+                    Spacer()
                 }
-                SideMenuSectionTitle(title: "Academic")
-                
-                SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
-                    selectedDestination = .calendar // calendar
-                    presentSideMenu =  false
-                    isPush = true
-                }
-
-//                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-//                    selectedDestination = .rates // rates
-//                    presentSideMenu =  false
-//                    isPush = true
-//                }
-                
-                SideMenuSectionTitle(title: "Settings")
-
-                SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
-                    selectedDestination = .changePassword // cahnage Password
-                    presentSideMenu =  false
-                    isPush = true
-                }
-
-                SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
-                    selectedDestination = .tickets // Tickets
-                    presentSideMenu =  false
-                    isPush = true
-                }
-
-                SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
-                    selectedDestination = .signOut // sign out
-                    presentSideMenu =  false
-//                    isPush = true
-                }
-                
-                SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
-                    selectedDestination = .deleteAccount // delete account
-                    presentSideMenu =  false
-                    isPush = true
-                }
-
-                Spacer()
             }
+            VStack(alignment:.center){
+                Spacer()
+                HStack {
+                    Text("Version:".localized())
+                    Text("\(Helper.shared.getAppVersion())")
+                }
+                //            Text("Build Number: \(Helper.shared.getBuildNumber())")
+            }
+            .font(.SoraSemiBold(size: 12))
+            .foregroundStyle(.whiteA700)
+            .padding(.bottom)
         }
         .frame(width: UIScreen.main.bounds.width - 80)
-            .padding(.top, 55)
-            .background{
-                Color.mainBlue
+        .padding(.top, 55)
+        .background{
+            Color.mainBlue
         }
-            .onDisappear(perform: {
-                selectedDestination = nil
-            })
-
+        .onDisappear(perform: {
+            selectedDestination = nil
+        })
     }
     
 }

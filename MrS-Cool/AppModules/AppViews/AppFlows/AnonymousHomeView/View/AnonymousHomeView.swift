@@ -24,7 +24,8 @@ struct AnonymousHomeView: View {
     
     //    @State var searchText = ""
     @State var presentSideMenu = false
-    
+    @StateObject var localizeHelper = LocalizeHelper.shared
+
     var body: some View {
         VStack {
             HStack {
@@ -456,6 +457,11 @@ struct AnonymousHomeView: View {
                             studenthomevm.clearsearch()
                         }
                     }
+                    .onChange(of: localizeHelper.currentLanguage, perform: {_ in
+                        lookupsvm.GetEducationTypes()
+                        lookupsvm.GetSemesters()
+                        studenthomevm.getHomeData()
+                    })
                     
                     .onChange(of: studenthomevm.educationType, perform: { value in
                         lookupsvm.SelectedEducationType = value
@@ -473,31 +479,7 @@ struct AnonymousHomeView: View {
                             Helper.shared.logout()
                             isPush = true
                             
-//                            Helper.shared.changeRoot(toView: SignInView(hideimage:false))
-                            //                            let window = UIApplication
-                            //                                        .shared
-                            //                                        .connectedScenes
-                            //                                        .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-                            //                                        .first { $0.isKeyWindow }
-                            
-                            //                                    window?.rootViewController = UIHostingController(rootView: SignInView())
-                            //                                    window?.makeKeyAndVisible()
-                            
-                            //                            if let window = window {
-                            //                                let signInView = SignInView()
-                            //                                let signInHostingController = UIHostingController(rootView: signInView)
-                            //                                let navigationController = UINavigationController(rootViewController: signInHostingController)
-                            //
-                            //                                // Disable swipe back gesture
-                            //                                navigationController.interactivePopGestureRecognizer?.isEnabled = false
-                            //
-                            //                                window.rootViewController = navigationController
-                            //                                window.makeKeyAndVisible()
-                            //                            }
-                            
                         }else if newval == .signup{
-//                          let selecteduser = UserType(id: 0, imgName: "student-vector",user: .Student,tintColor: .studentTint)
-//                            destination = AnyView(SignUpView( selecteduser: .constant(selecteduser)))
                             destination =                           AnyView(SignInView(hideimage:false,skipToSignUp:true))
                             Helper.shared.logout()
                             isPush = true
@@ -532,69 +514,55 @@ struct AnonymousHomeView: View {
 
 #Preview{
     AnonymousHomeView()
-    //        .environmentObject(StudentTabBarVM())
 }
 
 
 struct AnonymousSideMenuContent: View {
-    //    @EnvironmentObject var studentsignupvm : StudentEditProfileVM
-    
     @Binding var presentSideMenu: Bool
     @Binding var selectedDestination: AnonymousDestinations?
-    //    @Binding var isPush: Bool
     
     var body: some View {
-        ScrollView{
-            VStack(alignment: .trailing, spacing: 10) {
-                HStack(spacing:20){
-                    //                    ZStack(alignment: .topLeading){
-                    //                        let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? ""))
-                    //                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                    //                            .aspectRatio(contentMode: .fill)
-                    //                            .frame(width: 60,height: 60)
-                    //                            .clipShape(Circle())
-                    //
-                    //
-                    //                        Image("Edit_fill")
-                    //                        //                        .resizable().aspectRatio(contentMode: .fit)
-                    //                        //                        .font(.InterMedium(size: 12))
-                    //                            .frame(width: 15,height: 15)
-                    //                            .background(.white)
-                    //                            .clipShape(Circle())
-                    //                            .offset(x:0,y:2)
-                    //
-                    //                    }
-                    VStack(alignment:.leading) {
-                        Text("Anonymous".localized())
-                            .font(.SoraBold(size: 18))
-                            .foregroundStyle(.whiteA700)
+        VStack {
+            ScrollView{
+                VStack(alignment: .trailing, spacing: 10) {
+                    HStack(spacing:20){
+                        VStack(alignment:.leading) {
+                            Text("Anonymous".localized())
+                                .font(.SoraBold(size: 18))
+                                .foregroundStyle(.whiteA700)
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding()
+
+                    SideMenuSectionTitle(title: "Settings")
+                    
+                    SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
+                        selectedDestination = .login // sign out
+                        presentSideMenu =  false
+                    }
+                    SideMenuButton(image: "MenuSt_signout", title: "Sign Up"){
+                        selectedDestination = .signup // sign up
+                        presentSideMenu =  false
                     }
                     
-                    Spacer()
+                    ChangeLanguage()
+                    
                 }
-                .padding()
-
-                SideMenuSectionTitle(title: "Settings")
-                
-                SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
-                    selectedDestination = .login // sign out
-                    presentSideMenu =  false
-                }
-                SideMenuButton(image: "MenuSt_signout", title: "Sign Up"){
-                    selectedDestination = .signup // sign up
-                    presentSideMenu =  false
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .center){
-                Text("App Version: \(Helper.shared.getAppVersion())")
-                Text("Build Number: \(Helper.shared.getBuildNumber())")
-                       }
-                .font(.SoraBold(size: 18))
-                .foregroundStyle(.whiteA700)
-
             }
+
+            VStack(alignment:.center){
+                Spacer()
+                HStack {
+                    Text("Version:".localized())
+                    Text("\(Helper.shared.getAppVersion())")
+                }
+//            Text("Build Number: \(Helper.shared.getBuildNumber())")
+                   }
+            .font(.SoraSemiBold(size: 12))
+            .foregroundStyle(.whiteA700)
+            .padding(.bottom)
         }
         .frame(width: UIScreen.main.bounds.width - 80)
         .padding(.top, 55)
@@ -603,8 +571,33 @@ struct AnonymousSideMenuContent: View {
         }
         .onDisappear(perform: {
             selectedDestination = nil
-        })
-
+    })
     }
-    
+}
+
+#Preview{
+    SideView(isShowing: .constant(true), content: AnyView(AnonymousSideMenuContent(presentSideMenu: .constant(true), selectedDestination: .constant(nil))), direction: .leading)
+}
+
+struct ChangeLanguage: View {
+    @StateObject var localizeHelper = LocalizeHelper.shared
+
+    var body: some View {
+        Button(action: {
+            LocalizeHelper.shared.setLanguage(language: localizeHelper.currentLanguage == "en" ? .arabic:.english_us)
+
+        }, label: {
+            HStack{
+                Image(localizeHelper.currentLanguage == "en" ? .egyflag : .usaflag)
+                    .renderingMode(.original)
+                    .resizable()
+                    .frame(width: 25,height: 20)
+                Text("English".localized())
+                    .font(.SoraSemiBold(size: 13))
+                    .foregroundStyle(ColorConstants.WhiteA700)
+                Spacer()
+            }
+            .padding()
+        })
+    }
 }
