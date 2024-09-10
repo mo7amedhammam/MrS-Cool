@@ -142,6 +142,7 @@ struct StudentTabBarView: View {
                 CustomTabBarView(selectedIndex: $studenttabbarvm.selectedIndex,tabBarItems:tabBarItems)
 
             }
+            .localizeView()
 //            .onAppear{
 ////                Task(priority: .background, operation: {
 //                    studentsignupvm.GetStudentProfile()
@@ -418,7 +419,7 @@ struct StudentSideMenuContent: View {
                 }
             }
             VStack(alignment:.center){
-                Spacer()
+//                Spacer()
                 HStack {
                     Text("Version:".localized())
                     Text("\(Helper.shared.getAppVersion())")

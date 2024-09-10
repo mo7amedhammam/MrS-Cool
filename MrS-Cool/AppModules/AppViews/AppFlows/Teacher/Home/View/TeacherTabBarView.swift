@@ -82,7 +82,7 @@ struct TeacherTabBarView: View {
                         }
                     )
 
-                AnonymousHomeView()
+                AnonymousHomeView(hasWelcomeTopBar:false)
                     .tag(2)
                     .environmentObject(tabbarvm)
                     .gesture(
@@ -361,7 +361,7 @@ struct TeacherSideMenuContent: View {
                 }
             }
             VStack(alignment:.center){
-                Spacer()
+//                Spacer()
                 HStack {
                     Text("Version:".localized())
                     Text("\(Helper.shared.getAppVersion())")

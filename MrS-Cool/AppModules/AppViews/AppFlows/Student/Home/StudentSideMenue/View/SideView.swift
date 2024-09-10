@@ -34,7 +34,7 @@ struct SideView: View {
                     )
             }
         }
-        
+        .localizeView()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
         .animation(.easeInOut, value: isShowing)

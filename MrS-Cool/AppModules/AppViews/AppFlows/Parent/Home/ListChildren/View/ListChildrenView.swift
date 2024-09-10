@@ -97,8 +97,8 @@ struct ListChildrenView: View {
                             .background(
                                 CornersRadious(radius: 8, corners: .allCorners).fill(ColorConstants.Bluegray100).opacity(0.33))
                         })
-                        
                     }
+                    .padding(.top,2)
                 }
                 Spacer()
                 NavigationLink(destination: destination, isActive: $isPush, label: {})

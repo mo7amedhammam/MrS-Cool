@@ -25,9 +25,11 @@ struct AnonymousHomeView: View {
     //    @State var searchText = ""
     @State var presentSideMenu = false
     @StateObject var localizeHelper = LocalizeHelper.shared
+    var hasWelcomeTopBar : Bool? = true
 
     var body: some View {
         VStack {
+           if hasWelcomeTopBar == true{
             HStack {
                 VStack(alignment: .leading){
                     Group{
@@ -57,7 +59,7 @@ struct AnonymousHomeView: View {
                     .fill(.mainBlue)
                     .edgesIgnoringSafeArea(.top)
             )
-            
+        }
             GeometryReader{gr in
                 LazyVStack(spacing:0) {
                     ScrollView(showsIndicators:false){
@@ -90,6 +92,8 @@ struct AnonymousHomeView: View {
                             .padding()
                             .borderRadius(Color.mainBlue, width: 1, cornerRadius: 8, corners: [.allCorners])
                             .padding(.horizontal)
+                            .padding(.top,hasWelcomeTopBar ?? true ? 2 : 5)
+
                         }
                         if isSearch {
                             VStack{
@@ -177,6 +181,7 @@ struct AnonymousHomeView: View {
                                 
                             }
                             .transition(.move(edge: isSearch ? .trailing : .leading))
+
                         }
                         
                         
@@ -444,8 +449,9 @@ struct AnonymousHomeView: View {
                             }
                         }
                     }
+                    .padding(.top,5)
+
                     .frame(height:gr.size.height)
-                    
                     .onAppear {
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
@@ -489,7 +495,6 @@ struct AnonymousHomeView: View {
                 }
                 .frame(height:gr.size.height)
                 //            Spacer()
-                
             }
             .hideNavigationBar()
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -553,7 +558,7 @@ struct AnonymousSideMenuContent: View {
             }
 
             VStack(alignment:.center){
-                Spacer()
+//                Spacer()
                 HStack {
                     Text("Version:".localized())
                     Text("\(Helper.shared.getAppVersion())")

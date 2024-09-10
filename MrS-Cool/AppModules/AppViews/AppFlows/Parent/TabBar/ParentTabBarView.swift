@@ -58,7 +58,7 @@ struct ParentTabBarView: View {
                     .edgesIgnoringSafeArea(.top)
             )
             
-            TabView(selection: $tabbarvm.selectedIndex) {
+            TabView(selection: $tabbarvm.selectedIndex){
                 //                    StudentHomeView()
                 Text("") // dashboard
                     .tag(0)
@@ -346,7 +346,7 @@ struct ParentSideMenuContent: View {
                 }
             }
             VStack(alignment:.center){
-                Spacer()
+//                Spacer()
                 HStack {
                     Text("Version:".localized())
                     Text("\(Helper.shared.getAppVersion())")
