@@ -16,18 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBack" translatesAutoresizingMaskIntoConstraints="NO" id="Sc3-nW-K0u">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashback1" translatesAutoresizingMaskIntoConstraints="NO" id="Sc3-nW-K0u">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Yqk-JW-Oax">
-                                <rect key="frame" x="69.666666666666686" y="215.66666666666663" width="254" height="221"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashicon1" translatesAutoresizingMaskIntoConstraints="NO" id="Yqk-JW-Oax">
+                                <rect key="frame" x="0.0" y="67.666666666666686" width="393" height="467.00000000000006"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Yqk-JW-Oax" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="FQs-Dc-bgf"/>
                             <constraint firstAttribute="bottom" secondItem="Sc3-nW-K0u" secondAttribute="bottom" id="FTi-GY-W4v"/>
-                            <constraint firstItem="Yqk-JW-Oax" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-100" id="KWB-kw-IEs"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="Yqk-JW-Oax" secondAttribute="trailing" id="KDV-qn-cwV"/>
+                            <constraint firstItem="Yqk-JW-Oax" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-125" id="KWB-kw-IEs"/>
                             <constraint firstItem="Sc3-nW-K0u" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Mdd-xY-eMF"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="Sc3-nW-K0u" secondAttribute="trailing" id="YqF-CT-bAZ"/>
                             <constraint firstItem="Yqk-JW-Oax" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hqC-a9-VE3"/>
@@ -41,7 +43,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashBack" width="1500" height="3396"/>
-        <image name="splashIcon" width="254" height="221"/>
+        <image name="splashback1" width="375" height="849"/>
+        <image name="splashicon1" width="375" height="467"/>
     </resources>
 </document>

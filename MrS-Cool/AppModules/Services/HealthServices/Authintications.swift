@@ -30,6 +30,7 @@ enum Authintications {
     case ChangePassword(user:UserTypeEnum,parameters : [String:Any])
 
     case SendFirebaseToken(parameters : [String:Any])
+    case DeleteAccount(parameters : [String:Any])
 
 }
 
@@ -150,6 +151,8 @@ extension Authintications : TargetType {
             case .none:
                 return ""
             }
+        case .DeleteAccount:
+            return EndPoints.DeleteAccount.rawValue
         }
     }
     
@@ -171,7 +174,8 @@ extension Authintications : TargetType {
             return .post
             
         case .TeacherDeleteSubjects,
-                .TeacherDeleteDocuments:
+                .TeacherDeleteDocuments,
+                .DeleteAccount:
             return .get
         }
     }
@@ -197,7 +201,8 @@ extension Authintications : TargetType {
 //                .SendFirebaseToken(parameters: let parameters):
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
             
-        case .SendFirebaseToken(parameters: let parameters):
+        case .SendFirebaseToken(parameters: let parameters),
+                .DeleteAccount(parameters: let parameters):
             return .parameterdGetRequest(Parameters: parameters, Encoding: .default)
             
         }

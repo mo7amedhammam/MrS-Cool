@@ -197,9 +197,17 @@ enum EndPoints: String {
     case GetStudentFinance = "student/FinanceView"
     case GetStudentPagedFinanceLessons = "student/PagedFinanceLessons"
     case GetStudentPagedFinanceSubjects = "student/PagedFinanceSubjects"
+
+    //MARK: - Student Finance -
+    case GetTeacherFinance = "Teacher/TeacherFinance"
+    case GetTeacherdPurchasedFinanceLessons = "Teacher/TeacherPagedPurchasedLessons"
+    case GetTeacherPurchasedFinanceSubjects = "Teacher/TeacherPurchasedSubjects"
     
     //MARK: - Student Add Rate -
     case StudentAddRate = "TeacherLesson/StudentAddRate"
+
+    //MARK: - Delete Account -
+    case DeleteAccount = "Settings/DeleteAccount"
 
 }
 

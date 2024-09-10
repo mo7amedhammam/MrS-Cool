@@ -47,9 +47,11 @@ enum teacherServices{
     case GetAllComentsList(parameters : [String:Any])
     case GetAllComentsListById(parameters : [String:Any])
     case CreateComment(parameters : [String:Any])
-    
-    case GetTeacherRates(parameters : [String:Any])
+        
+    case GetTeacherFinance(parameters : [String:Any])
+    case GetTeacherFinanceSubjects(FinanceFor : StudentFinanceCases ,parameters : [String:Any])
 
+    case GetTeacherRates(parameters : [String:Any])
 }
 
 extension teacherServices:TargetType{
@@ -151,6 +153,16 @@ extension teacherServices:TargetType{
 
              }
 
+        case .GetTeacherFinance:
+            return EndPoints.GetTeacherFinance.rawValue
+        case .GetTeacherFinanceSubjects(FinanceFor: let FinanceFor, _):
+            switch FinanceFor{
+            case .Subjects:
+                return EndPoints.GetTeacherPurchasedFinanceSubjects.rawValue
+            case .Lessons:
+                return EndPoints.GetTeacherdPurchasedFinanceLessons.rawValue
+            }
+
         case .GetTeacherRates:
             return EndPoints.GetTeacherRates.rawValue
 
@@ -167,7 +179,8 @@ extension teacherServices:TargetType{
                 .DeleteMySubjectGroup,.GetMySubjectGroupDetails,
                 .GetMyCompletedLessonDetails,
                 .GetMyCalenderSchedual,.cancelMyCalenderSchedual,.AttendanceStudentCalenderSchedual,
-                .GetAllComentsList,.GetAllComentsListById:
+                .GetAllComentsList,.GetAllComentsListById,
+                .GetTeacherFinance:
             return .get
         case .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
@@ -180,6 +193,7 @@ extension teacherServices:TargetType{
                 .GetMySubjectGroup,.ReviewMySubjectGroup,.CreateMySubjectGroup,
                 .GetMyCompletedLessons,
                 .CreateComment,
+                .GetTeacherFinanceSubjects,
                 .GetTeacherRates:
             return .post
         }
@@ -201,7 +215,8 @@ extension teacherServices:TargetType{
                 .cancelMyCalenderSchedual(parameters: let Parameters),
                 .AttendanceStudentCalenderSchedual(parameters: let Parameters),
                 .GetAllComentsList(parameters: let Parameters),
-                .GetAllComentsListById(parameters: let Parameters):
+                .GetAllComentsListById(parameters: let Parameters),
+                .GetTeacherFinance(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),
@@ -221,6 +236,7 @@ extension teacherServices:TargetType{
                 .CreateMySubjectGroup(parameters: let Parameters),
                 .GetMyCompletedLessons(parameters: let Parameters),
                 .CreateComment(parameters: let Parameters),
+                .GetTeacherFinanceSubjects(_, parameters: let Parameters),
                 .GetTeacherRates(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
             

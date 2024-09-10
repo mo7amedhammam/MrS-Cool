@@ -1,63 +1,25 @@
 //
-//  AnonymousHomeView.swift
+//  TeacherHomeAsAnonymous.swift
 //  MrS-Cool
 //
-//  Created by wecancity on 01/01/2024.
+//  Created by wecancity on 10/09/2024.
 //
-
 import SwiftUI
 
-enum AnonymousDestinations{
-    case login
-    case signup
-}
+//enum AnonymousDestinations{
+//    case login
+//    case signup
+//}
 
-struct AnonymousHomeView: View {
-//    @EnvironmentObject var tabbarvm : StudentTabBarVM
+struct TeacherHomeAsAnonymous: View {
+    @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
     
     @State var isSearch = false
-    @State var isPush = false
-    @State var destination = AnyView(EmptyView())
-    @State var selectedDestination : AnonymousDestinations?
-    
-    //    @State var searchText = ""
-    @State var presentSideMenu = false
     @StateObject var localizeHelper = LocalizeHelper.shared
-
     var body: some View {
         VStack {
-            HStack {
-                VStack(alignment: .leading){
-                    Group{
-                        Text("Welcome to Mr Scool".localized())
-                    }
-                    .font(Font.SoraBold(size: 18))
-                    .foregroundColor(.whiteA700)
-                    
-                }
-                
-                Spacer()
-                Button(action: {
-                    presentSideMenu.toggle()
-                }, label: {
-                    Image("sidemenue")
-                        .padding(.vertical,15)
-                        .padding(.horizontal,10)
-                })
-                .background(
-                    CornersRadious(radius: 10, corners: [.topLeft,.topRight,.bottomLeft,.bottomRight])
-                        .fill(ColorConstants.WhiteA700)
-                )
-            }
-            .padding([.bottom,.horizontal])
-            .background(
-                CornersRadious(radius: 10, corners: [.bottomLeft,.bottomRight])
-                    .fill(.mainBlue)
-                    .edgesIgnoringSafeArea(.top)
-            )
-        
             GeometryReader{gr in
                 LazyVStack(spacing:0) {
                     ScrollView(showsIndicators:false){
@@ -143,24 +105,17 @@ struct AnonymousHomeView: View {
                                         .foregroundColor(ColorConstants.Bluegray400)
 
                                 }else{
-//                                    LazyVGrid(columns: [.init(), .init(),.init()]) {                                    
+//                                    LazyVGrid(columns: [.init(), .init(),.init()]) {
                                     ScrollViewRTL(type: .hList){
                                         HStack(spacing:10){
                                             Spacer().frame(width:1)
                                             
                                             
                                             ForEach(studenthomevm.newStudentSubjects,id:\.self){subject in
-                                                //                                            StudentHomeSubjectCell(subject:subject,selectedSubject:$studenthomevm.SelectedStudentSubjects){
-                                                //                                                destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
-                                                //                                                isPush = true
-                                                //                                            }
-                                                
-                                                //                                        .frame(width: gr.size.width/2.7, height: 160)
-                                                //                                        }
                                                 
                                                 StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.newSSelectedStudentSubjects){
-                                                    destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
-                                                    isPush = true
+                                                    tabbarvm.destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
+                                                    tabbarvm.ispush = true
                                                 }
                                                 
                                                 .frame(width: gr.size.width/2.7, height: 160)
@@ -208,8 +163,8 @@ struct AnonymousHomeView: View {
                                     ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
                                             guard subject.teacherCount ?? 0 > 0 else {return}
-                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
-                                            isPush = true
+                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
+                                            tabbarvm.ispush = true
                                         }
                                         .frame(width: gr.size.width/2.33, height: 280)
                                     }
@@ -245,8 +200,8 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostBookedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostBookedTeachers){
-                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            isPush = true
+                                            tabbarvm.destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            tabbarvm.ispush = true
                                         }
                                         .frame(width: gr.size.width/3.8, height: 180)
                                     }
@@ -281,9 +236,9 @@ struct AnonymousHomeView: View {
                                     ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
                                         StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
                                             guard lesson.availableTeacher ?? 0 > 0 else {return}
-                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-                                            isPush = true
-                                            
+                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                            tabbarvm.ispush = true
+
                                         }
                                         .frame(width: gr.size.width/2.5, height: 240)
                                     }
@@ -317,8 +272,8 @@ struct AnonymousHomeView: View {
                                     Spacer().frame(width:1)
                                     ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
-                                            destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            isPush = true
+                                            tabbarvm.destination = AnyView(    TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            tabbarvm.ispush = true
                                         }
                                         .frame(width: gr.size.width/3.8, height: 180)
                                     }
@@ -357,9 +312,9 @@ struct AnonymousHomeView: View {
                                     ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
                                             guard subject.teacherCount ?? 0 > 0 else {return}
-                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
-                                            isPush = true
-                                            
+                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
+                                            tabbarvm.ispush = true
+
                                         }
                                         .frame(width: gr.size.width/2.33, height: 280)
                                     }
@@ -396,9 +351,9 @@ struct AnonymousHomeView: View {
                                     ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
                                         StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
                                             guard lesson.availableTeacher ?? 0 > 0 else {return}
-                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-                                            isPush = true
-                                            
+                                            tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                                            tabbarvm.ispush = true
+
                                         }
                                         .frame(width: gr.size.width/2.5, height: 240)
                                     }
@@ -433,9 +388,9 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
-                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
-                                            isPush = true
-                                            
+                                            tabbarvm.destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                                            tabbarvm.ispush = true
+
                                         }
                                         .frame(width: gr.size.width/3.8, height: 180)
                                     }
@@ -475,20 +430,20 @@ struct AnonymousHomeView: View {
                     .onChange(of: studenthomevm.academicYear, perform: { value in
                         lookupsvm.SelectedAcademicYear = value
                     })
-                    .onChange(of: selectedDestination) {newval in
-                        if newval == .login { // sign in
-                                                  
-                            destination =                           AnyView(SignInView(hideimage:false))
-                            Helper.shared.logout()
-                            isPush = true
-                            
-                        }else if newval == .signup{
-                            destination =                           AnyView(SignInView(hideimage:false,skipToSignUp:true))
-                            Helper.shared.logout()
-                            isPush = true
-                        }
-                        
-                    }
+//                    .onChange(of: selectedDestination) {newval in
+//                        if newval == .login { // sign in
+//                                                  
+//                            destination =                           AnyView(SignInView(hideimage:false))
+//                            Helper.shared.logout()
+//                            tabbarvm.ispush = true
+//
+//                        }else if newval == .signup{
+//                            destination =                           AnyView(SignInView(hideimage:false,skipToSignUp:true))
+//                            Helper.shared.logout()
+//                            tabbarvm.ispush = true
+//                        }
+//                        
+//                    }
                 }
                 .frame(height:gr.size.height)
                 //            Spacer()
@@ -498,109 +453,23 @@ struct AnonymousHomeView: View {
                 hideKeyboard()
             })
         }
-        .overlay(content: {
-            SideMenuView()
-        })
-        NavigationLink(destination: destination, isActive: $isPush, label: {})
+//        .overlay(content: {
+//            SideMenuView()
+//        })
+//        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
     
-    @ViewBuilder
-    private func SideMenuView() -> some View {
-        SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination)), direction: .leading)
-            .onDisappear(perform: {
-                selectedDestination = nil
-            })
-    }
+//    @ViewBuilder
+//    private func SideMenuView() -> some View {
+//        SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $tabbarvm.selectedDestination)), direction: .leading)
+//            .onDisappear(perform: {
+//                tabbarvm.selectedDestination = nil
+//            })
+//    }
     
 }
 
 #Preview{
     AnonymousHomeView()
-//        .environmentObject(StudentTabBarVM())
-}
-
-
-struct AnonymousSideMenuContent: View {
-    @Binding var presentSideMenu: Bool
-    @Binding var selectedDestination: AnonymousDestinations?
-    
-    var body: some View {
-        VStack {
-            ScrollView{
-                VStack(alignment: .trailing, spacing: 10) {
-                    HStack(spacing:20){
-                        VStack(alignment:.leading) {
-                            Text("Anonymous".localized())
-                                .font(.SoraBold(size: 18))
-                                .foregroundStyle(.whiteA700)
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding()
-
-                    SideMenuSectionTitle(title: "Settings")
-                    
-                    SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
-                        selectedDestination = .login // sign out
-                        presentSideMenu =  false
-                    }
-                    SideMenuButton(image: "MenuSt_signout", title: "Sign Up"){
-                        selectedDestination = .signup // sign up
-                        presentSideMenu =  false
-                    }
-                    
-                    ChangeLanguage()
-                    
-                }
-            }
-
-            VStack(alignment:.center){
-//                Spacer()
-                HStack {
-                    Text("Version:".localized())
-                    Text("\(Helper.shared.getAppVersion())")
-                }
-//            Text("Build Number: \(Helper.shared.getBuildNumber())")
-                   }
-            .font(.SoraSemiBold(size: 12))
-            .foregroundStyle(.whiteA700)
-            .padding(.bottom)
-        }
-        .frame(width: UIScreen.main.bounds.width - 80)
-        .padding(.top, 55)
-        .background{
-            Color.mainBlue
-        }
-        .onDisappear(perform: {
-            selectedDestination = nil
-    })
-    }
-}
-
-#Preview{
-    SideView(isShowing: .constant(true), content: AnyView(AnonymousSideMenuContent(presentSideMenu: .constant(true), selectedDestination: .constant(nil))), direction: .leading)
-}
-
-struct ChangeLanguage: View {
-    @StateObject var localizeHelper = LocalizeHelper.shared
-
-    var body: some View {
-        Button(action: {
-            LocalizeHelper.shared.setLanguage(language: localizeHelper.currentLanguage == "en" ? .arabic:.english_us)
-
-        }, label: {
-            HStack{
-                Image(localizeHelper.currentLanguage == "en" ? .egyflag : .usaflag)
-                    .renderingMode(.original)
-                    .resizable()
-                    .frame(width: 25,height: 20)
-                Text("English".localized())
-                    .font(.SoraSemiBold(size: 13))
-                    .foregroundStyle(ColorConstants.WhiteA700)
-                Spacer()
-            }
-            .padding()
-        })
-    }
+        .environmentObject(StudentTabBarVM())
 }

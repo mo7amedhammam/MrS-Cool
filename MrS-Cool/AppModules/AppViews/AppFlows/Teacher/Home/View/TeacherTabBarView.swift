@@ -61,7 +61,6 @@ struct TeacherTabBarView: View {
             )
             
             TabView(selection: $tabbarvm.selectedIndex) {
-                //                    StudentHomeView()
                 Text("") // dashboard
                     .tag(0)
                     .gesture(
@@ -73,7 +72,6 @@ struct TeacherTabBarView: View {
                         presentSideMenu = true
                     })
                 
-                //                    StudentHomeView()
                 Text("Teacher Finance") // finance
                     .tag(1)
                     .gesture(
@@ -82,7 +80,7 @@ struct TeacherTabBarView: View {
                         }
                     )
 
-                AnonymousHomeView(hasWelcomeTopBar:false)
+                TeacherHomeAsAnonymous()
                     .tag(2)
                     .environmentObject(tabbarvm)
                     .gesture(
@@ -94,19 +92,14 @@ struct TeacherTabBarView: View {
                 ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
                     .tag(3)
                     .environmentObject(tabbarvm)
-                //                        .environmentObject(chatListvm)
                     .gesture(
                         DragGesture().onChanged { _ in
                             // Disable swipe gestures
                         }
                     )
                 
-                //                    StudentHomeView()
                 CompletedLessonsList(hasNavBar : false)
-                //                    StudentCompletedLessonsView(hasNavBar : false) // completed lessons
                     .tag(4)
-                //                        .environmentObject(LookUpsVM())
-                //                        .environmentObject(completedlessonsvm)
                     .environmentObject(tabbarvm)
                     .gesture(
                         DragGesture().onChanged { _ in
