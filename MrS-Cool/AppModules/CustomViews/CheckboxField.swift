@@ -14,7 +14,8 @@ struct CheckboxField: View {
     var color: Color = .blue
     var textSize: CGFloat = 14
     @Binding var isMarked: Bool
-
+    var isunderlined: Bool = false
+    var onTabText:( () -> Void? )?
     var body: some View {
         Button(action: {
             self.isMarked.toggle()
@@ -27,6 +28,10 @@ struct CheckboxField: View {
                     .frame(width: self.size, height: self.size)
                 Text(label.localized())
                     .font(Font.system(size: self.textSize))
+                    .underline(isunderlined)
+                    .onTapGesture(perform: {
+                        onTabText?()
+                    })
                 Spacer()
             }.foregroundColor(self.color)
         })

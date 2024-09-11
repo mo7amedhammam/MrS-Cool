@@ -9,16 +9,11 @@ import SwiftUI
 
 
 struct TeacherPersonalDataView: View {
-//    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     @EnvironmentObject var signupvm : SignUpViewModel
-        
-//    @State var isPush = false
-//    @State var destination = EmptyView()
-//    @State private var showImageSheet = false
-//    @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
-//    @State private var startPickingImage = false
-
+    
+    @State private var showTermsSheet = false
+    
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -41,31 +36,31 @@ struct TeacherPersonalDataView: View {
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 130,height: 130)
                                         .clipShape(Circle())
-                                        
-
+                                    
+                                    
                                 }else{
                                     let imageURL : URL? = URL(string: Constants.baseURL+(signupvm.imageStr ?? "").reverseSlaches())
                                     KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 130,height: 130)
-                                    .clipShape(Circle())
-                                    .overlay{
-                                        if signupvm.isimagevalid ?? true == false {
-                                            Circle().stroke(.red,lineWidth: 2)
-                                        }
-                                    }
-                                }
-                                    Image("img_vector_black_900_14x14")
-                                        .frame(width: 30,height: 30)
-                                        .background(.white)
+                                    
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 130,height: 130)
                                         .clipShape(Circle())
-                                        .offset(x:-7,y:20)
-//                                    .onTapGesture(perform: {
-//                                        showImageSheet = true
-//                                    })
+                                        .overlay{
+                                            if signupvm.isimagevalid ?? true == false {
+                                                Circle().stroke(.red,lineWidth: 2)
+                                            }
+                                        }
+                                }
+                                Image("img_vector_black_900_14x14")
+                                    .frame(width: 30,height: 30)
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .offset(x:-7,y:20)
+                                //                                    .onTapGesture(perform: {
+                                //                                        showImageSheet = true
+                                //                                    })
                                     .imagePicker(selectedImage: $signupvm.image)
-
+                                
                             }.padding(.vertical)
                         }.frame(maxWidth:.infinity,alignment: .center)
                         
@@ -79,36 +74,38 @@ struct TeacherPersonalDataView: View {
                                     }
                                 }
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
-
+                            
                             CustomTextField(iconName:"img_vector_black_900_20x20",placeholder: "Are You Teacher ? *", text: .constant(""),Disabled: true)
-                                    .overlay{
-                                        RadioCheck(isSelected: $signupvm.isTeacher)
-                                    }
+                                .overlay{
+                                    RadioCheck(isSelected: $signupvm.isTeacher)
+                                }
                             
                             CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $signupvm.country,options:lookupsvm.CountriesList)
-                       
+                            
                             CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $signupvm.governorte,options:lookupsvm.GovernoratesList)
-                         
+                            
                             CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password,isvalid: signupvm.isPasswordvalid)
                                 .onChange(of: signupvm.Password) { newValue in
-                                        if newValue.containsNonEnglishOrNumbers() {
-                                            signupvm.Password = String(newValue.dropLast())
-                                        }
+                                    if newValue.containsNonEnglishOrNumbers() {
+                                        signupvm.Password = String(newValue.dropLast())
                                     }
+                                }
                             
                             CustomTextField(fieldType:.Password,placeholder: "Confirm Password *", text: $signupvm.confirmPassword,isvalid: signupvm.isconfirmPasswordvalid)
                                 .onChange(of: signupvm.confirmPassword) { newValue in
-                                        if newValue.containsNonEnglishOrNumbers() {
-                                            signupvm.confirmPassword = String(newValue.dropLast())
-                                        }
+                                    if newValue.containsNonEnglishOrNumbers() {
+                                        signupvm.confirmPassword = String(newValue.dropLast())
                                     }
+                                }
                             
                             CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $signupvm.bio,charLimit: 1000)
                         }
                         .padding([.top])
-                        CheckboxField(label: "Accept the Terms and Privacy Policy", color: ColorConstants.Black900, textSize: 13,isMarked: $signupvm.acceptTerms)
+                        CheckboxField(label: "Accept the Terms and Privacy Policy", color: ColorConstants.Black900, textSize: 13,isMarked: $signupvm.acceptTerms,isunderlined: true,onTabText: {
+                            showTermsSheet = true
+                        })
                         .padding(.top,15)
                     }.padding(.top,20)
                     Spacer()
@@ -118,8 +115,8 @@ struct TeacherPersonalDataView: View {
             }
         }
         .onAppear(perform: {
-                lookupsvm.getGendersArr()
-                lookupsvm.getCountriesArr()
+            lookupsvm.getGendersArr()
+            lookupsvm.getCountriesArr()
         })
         .onChange(of: signupvm.country, perform: { value in
             lookupsvm.SelectedCountry = value
@@ -133,6 +130,11 @@ struct TeacherPersonalDataView: View {
             signupvm.city = nil
             lookupsvm.getCitiesArr()
         })
+        .sheet(isPresented: $showTermsSheet) {
+            if let url = URL(string: Constants.TermsAndConditionsURL) {
+                WebView(url: url)
+            }
+        }
     }
 }
 

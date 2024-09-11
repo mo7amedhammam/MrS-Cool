@@ -32,32 +32,6 @@ struct SelectedStudentHome: View {
         VStack{
             
 //            VStack{
-//                HStack {
-//                    //                VStack(alignment: .leading){
-////                    Group{
-////                        Text("Hi, ".localized())+Text(teacherProfilevm.name)
-////
-////                        //                            Text("Lets Start Learning! ".localized())
-////                        //                                .font(Font.SoraRegular(size: 11))
-////                        //                                .padding(.vertical,0.5)
-////                    }
-////                    .font(Font.SoraBold(size: 18))
-////                    .foregroundColor(.whiteA700)
-//                    //                }
-//
-//                    Spacer()
-////                    Button(action: {
-////                        presentSideMenu.toggle()
-////                    }, label: {
-////                        Image("sidemenue")
-////                            .padding(.vertical,15)
-////                            .padding(.horizontal,10)
-////                    })
-////                    .background(
-////                        CornersRadious(radius: 10, corners: [.topLeft,.topRight,.bottomLeft,.bottomRight])
-////                            .fill(ColorConstants.WhiteA700)
-////                    )
-//                }
             
                 HStack{
                     let imageURL : URL? = URL(string: Constants.baseURL + (Helper.shared.selectedchild?.image ?? "image").reverseSlaches())
@@ -89,64 +63,7 @@ struct SelectedStudentHome: View {
                     .fill(ColorConstants.MainColor)
                     .edgesIgnoringSafeArea(.top)
             )
-            
-//            TabView(selection: $selectedIndex) {
-//                //                    StudentHomeView()
-//                Text("tab 0") // dashboard
-//                    .tag(0)
-//                    .gesture(
-//                        DragGesture().onChanged { _ in
-//                            // Disable swipe gestures
-//                        }
-//                    )
-//
-//                //                    StudentHomeView()
-//                Text("tab 1") // finance
-//                    .tag(1)
-//                    .gesture(
-//                        DragGesture().onChanged { _ in
-//                            // Disable swipe gestures
-//                        }
-//                    )
-//
-//                ListChildrenView() // home
-//                //                    Text("tab2")
-//                    .tag(2)
-//                    .environmentObject(tabbarvm)
-//                    .environmentObject(listchildrenvm)
-//                    .gesture(
-//                        DragGesture().onChanged { _ in
-//                            // Disable swipe gestures
-//                        }
-//                    )
-//
-//                Text("tab 3")
-//                //                    ChatsListView(hasNavBar : false) // chats
-//                    .tag(3)
-//                    .environmentObject(tabbarvm)
-//                //                        .environmentObject(chatListvm)
-//                    .gesture(
-//                        DragGesture().onChanged { _ in
-//                            // Disable swipe gestures
-//                        }
-//                    )
-//
-//                Text("tab4")
-//                //                    CompletedLessonsList(hasNavBar : false) // completed lessons
-//                    .tag(4)
-//                //                        .environmentObject(LookUpsVM())
-//                //                        .environmentObject(completedlessonsvm)
-//                    .environmentObject(tabbarvm)
-//                    .gesture(
-//                        DragGesture().onChanged { _ in
-//                            // Disable swipe gestures
-//                        }
-//                    )
-//            }
-//            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-//            .padding(.top,-8)
-//            .padding(.bottom,-15)
-            
+                        
             GeometryReader{gr in
 
             LazyVStack(spacing:0) {

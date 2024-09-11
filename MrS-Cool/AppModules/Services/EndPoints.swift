@@ -15,9 +15,9 @@ struct Constants {
     static var apiURL:String {return "\(baseURL)api/\(LocalizeHelper.shared.currentLanguage)/"}
 //    static var imagesURL:String {return "http://mrscoolapi.azurewebsites.net/"}
 
-//var TermsAndConditionsURL =  "https://camelgate.app/terms.html"
+    static var TermsAndConditionsURL:String {return "https://mrscoolapi.azurewebsites.net/Files/TermsAndConditions\(LocalizeHelper.shared.currentLanguage.uppercased()).pdf"}
 
-    static var WhatsAppNum = "+201011138900"
+//    static var WhatsAppNum = "+201011138900"
 }
 
 enum EndPoints: String {

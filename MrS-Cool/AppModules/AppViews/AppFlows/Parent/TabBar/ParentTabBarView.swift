@@ -115,16 +115,23 @@ struct ParentTabBarView: View {
             CustomTabBarView(selectedIndex: $tabbarvm.selectedIndex,tabBarItems:tabBarItems)
             
         }
-        .onAppear{
-            Task(priority: .background, operation: {
-                parentProfilevm.GetParentProfile()
-            })
+        .task {
+            parentProfilevm.GetParentProfile()
         }
-        .onChange(of: localizeHelper.currentLanguage, perform: {_ in
-            Task(priority: .background, operation: {
-                parentProfilevm.GetParentProfile()
-            })
+        .task(id: localizeHelper.currentLanguage, {
+            parentProfilevm.GetParentProfile()
+            listchildrenvm.GetMyChildren()
         })
+//        .onAppear{
+//            Task(priority: .background, operation: {
+//                parentProfilevm.GetParentProfile()
+//            })
+//        }
+//        .onChange(of: localizeHelper.currentLanguage, perform: {_ in
+//            Task(priority: .background, operation: {
+//                parentProfilevm.GetParentProfile()
+//            })
+//        })
 
         .overlay(content: {
             SideMenuView()
@@ -333,7 +340,7 @@ struct ParentSideMenuContent: View {
                         //                        isPush = true
                         //                    }
                         
-                        SideMenuSectionTitle(title: "Settings")
+//                        SideMenuSectionTitle(title: "Settings")
                         
                         //                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
                         //                        selectedDestination = .changePassword // cahnage Password

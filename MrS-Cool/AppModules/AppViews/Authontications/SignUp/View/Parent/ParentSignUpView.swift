@@ -15,7 +15,7 @@ struct ParentSignUpView: View {
     //    @State var isPush = false
     //    @State var destination = AnyView(ParentTabBarView())
     @State private var isVerified = false
-    
+    @State private var showTermsSheet = false
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -38,7 +38,7 @@ struct ParentSignUpView: View {
                             CustomDropDownField(iconName:"img_toilet1",placeholder: "Gender *", selectedOption: $signupvm.selectedGender,options:lookupsvm.GendersList)
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Email *", text: $signupvm.email,textContentType:.emailAddress,keyboardType:.emailAddress,isvalid: signupvm.isemailvalid)
-
+                            
                             let endDate = Calendar.current.date(byAdding: .year, value: -18, to: Date()) ?? Date()
                             CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$signupvm.birthDateStr,endDate: endDate)
                             
@@ -74,7 +74,9 @@ struct ParentSignUpView: View {
                         .padding([.top])
                         CheckboxField(label: "Accept the Terms and Privacy Policy",
                                       color: ColorConstants.Black900, textSize: 13,
-                                      isMarked: $signupvm.acceptTerms)
+                                      isMarked: $signupvm.acceptTerms,isunderlined: true,onTabText: {
+                            showTermsSheet = true
+                        })
                         .padding(.top,15)
                     }
                     
@@ -103,9 +105,9 @@ struct ParentSignUpView: View {
                     //                    destination = AnyView(StudentHomeView())
                     //                    currentStep = .subjectsData
                     //                    isPush = true
-//                    dismiss() // after signup back to login
+                    //                    dismiss() // after signup back to login
                     Helper.shared.changeRoot(toView: ParentTabBarView())// after signup go home
-
+                    
                 }
             }, content: {
                 OTPVerificationView(PhoneNumber:signupvm.phone,CurrentOTP: signupvm.OtpM?.otp ?? 0, verifycase: .creatinguser, secondsCount:signupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
@@ -115,7 +117,11 @@ struct ParentSignUpView: View {
                 lookupsvm.getGendersArr()
                 lookupsvm.getCountriesArr()
             })
-            
+            .sheet(isPresented: $showTermsSheet) {
+                if let url = URL(string: Constants.TermsAndConditionsURL) {
+                    WebView(url: url)
+                }
+            }
             
             //            NavigationLink(destination: destination, isActive: $signupvm.isDataUploaded, label: {})
         }

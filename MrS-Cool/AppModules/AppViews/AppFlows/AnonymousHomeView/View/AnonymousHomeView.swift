@@ -447,24 +447,28 @@ struct AnonymousHomeView: View {
                         }
                     }
                     .padding(.top,5)
-
                     .frame(height:gr.size.height)
-                    .onAppear {
+                    .task{
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
                         studenthomevm.getHomeData()
 //                        studenthomevm.GetStudentSubjects()
+                    }
+                    .task(id:localizeHelper.currentLanguage){
+                        lookupsvm.GetEducationTypes()
+                        lookupsvm.GetSemesters()
+                        studenthomevm.getHomeData()
                     }
                     .onDisappear{
                         if !isSearch {
                             studenthomevm.clearsearch()
                         }
                     }
-                    .onChange(of: localizeHelper.currentLanguage, perform: {_ in
-                        lookupsvm.GetEducationTypes()
-                        lookupsvm.GetSemesters()
-                        studenthomevm.getHomeData()
-                    })
+//                    .onChange(of: localizeHelper.currentLanguage, perform: {_ in
+//                        lookupsvm.GetEducationTypes()
+//                        lookupsvm.GetSemesters()
+//                        studenthomevm.getHomeData()
+//                    })
                     
                     .onChange(of: studenthomevm.educationType, perform: { value in
                         lookupsvm.SelectedEducationType = value
