@@ -159,13 +159,21 @@ struct ParentTabBarView: View {
                 },secondBtnAction:{
                     selectedDestination = nil
                 })
-                tabbarvm.isError = true
+                tabbarvm.showSignOutConfirm = true
                 
+            }else if newval == .deleteAccount{
+                tabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                    tabbarvm.deleteAccount()
+                },secondBtnAction:{
+                    selectedDestination = nil
+                })
+                tabbarvm.showDeleteConfirm = true
             }
         }
-        
         .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
-        
+        .showAlert(hasAlert: $tabbarvm.showSignOutConfirm, alertType: tabbarvm.error)
+        .showAlert(hasAlert: $tabbarvm.showDeleteConfirm, alertType: tabbarvm.error)
+
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
         
             .onChange(of: presentSideMenu, perform: { value in
@@ -257,7 +265,6 @@ struct ParentSideMenuContent: View {
                     SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
                         selectedDestination = .deleteAccount // delete account
                         presentSideMenu =  false
-                        isPush = true
                     }
                     
                     if Helper.shared.selectedchild != nil{

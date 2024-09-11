@@ -116,16 +116,23 @@ struct TeacherTabBarView: View {
             
         }
         .disableSwipeBack()
-            .onAppear{
-                Task(priority: .background, operation: {
-                    teacherProfilevm.GetTeacherProfile()
-                })
-            }
-            .onChange(of: localizeHelper.currentLanguage, perform: {_ in
-                Task(priority: .background, operation: {
-                    teacherProfilevm.GetTeacherProfile()
-                })
-            })
+        .task(priority: .background, {
+            teacherProfilevm.GetTeacherProfile()
+
+        })
+        .task(id: localizeHelper.currentLanguage, {
+            teacherProfilevm.GetTeacherProfile()
+        })
+//            .onAppear{
+//                Task(priority: .background, operation: {
+//                    teacherProfilevm.GetTeacherProfile()
+//                })
+//            }
+//            .onChange(of: localizeHelper.currentLanguage, perform: {_ in
+//                Task(priority: .background, operation: {
+//                    teacherProfilevm.GetTeacherProfile()
+//                })
+//            })
             .overlay(content: {
                 SideMenuView()
             })
@@ -140,46 +147,27 @@ struct TeacherTabBarView: View {
                     
                 }else if newval == .documents{
                     tabbarvm.destination = AnyView(ManageMyDocumentsView( isFinish: .constant(false))
-                                                   //                        .environmentObject(lookupsvm)
-                                                   //                        .environmentObject(signupvm)
-                                                   //                        .environmentObject(teacherdocumentsvm)
-                                                   //                                .hideNavigationBar()
                     )
                     
                 }else if newval == .subjects{
-                    
                     tabbarvm.destination = AnyView(ManageTeacherSubjectsView()
-                                                   //                        .environmentObject(lookupsvm)
-                                                   //                        .environmentObject(manageteachersubjectsvm)
-                                                   //                                .hideNavigationBar()
                     )
                     
-                    
                 }else if newval == .scheduals{
-                    
                     tabbarvm.destination = AnyView(ManageTeacherSchedualsView()
-                                                   //                        .environmentObject(lookupsvm)
-                                                   //                        .environmentObject(manageteacherschedualsvm)
-                                                   //                            .hideNavigationBar()
                     )
                     
                 }else if newval == .subjectgroup{
-                    
                     tabbarvm.destination = AnyView(GroupForLessonView()
-                                                   //                        .environmentObject(lookupsvm)
-                                                   //                        .environmentObject(groupsforlessonvm)
-                                                   //                                .hideNavigationBar()
                     )
+                    
                 }else if newval == .lessonGroups{
                     tabbarvm.destination = AnyView(ManageSubjectGroupView()
-                                                   //                        .environmentObject(lookupsvm)
-                                                   //                        .environmentObject(subjectgroupvm)
-                                                   //                                .hideNavigationBar()
                     )
+                    
                 }else if newval == .calendar { //calendar
-                    tabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
-                    //                }else if newval == .rates { // rates
-                    //                    studenttabbarvm.destination = AnyView(Text("Rates"))
+                    tabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil))
+                    )
                     
                 }else if newval == .rates { //calendar
                     tabbarvm.destination = AnyView(TeacherRatesView())
@@ -199,12 +187,21 @@ struct TeacherTabBarView: View {
                     },secondBtnAction:{
                         selectedDestination = nil
                     })
-                    tabbarvm.isError = true
+                    tabbarvm.showSignOutConfirm = true
+                    
+                }else if newval == .deleteAccount{
+                    tabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                        tabbarvm.deleteAccount()
+                    },secondBtnAction:{
+                        selectedDestination = nil
+                    })
+                    tabbarvm.showDeleteConfirm = true
                 }
-                //            }
             }
             .showAlert(hasAlert: $tabbarvm.isError, alertType: tabbarvm.error)
-        
+            .showAlert(hasAlert: $tabbarvm.showSignOutConfirm, alertType: tabbarvm.error)
+            .showAlert(hasAlert: $tabbarvm.showDeleteConfirm, alertType: tabbarvm.error)
+
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
             .onChange(of: presentSideMenu, perform: { value in
                 if value == false && tabbarvm.selectedIndex == 0{
@@ -347,7 +344,7 @@ struct TeacherSideMenuContent: View {
                     SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
                         selectedDestination = .deleteAccount // delete account
                         presentSideMenu =  false
-                        isPush = true
+//                        isPush = true
                     }
                     
                     Spacer()

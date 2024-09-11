@@ -140,7 +140,6 @@ struct StudentTabBarView: View {
                                 
                 Spacer()
                 CustomTabBarView(selectedIndex: $studenttabbarvm.selectedIndex,tabBarItems:tabBarItems)
-
             }
             .localizeView()
 //            .onAppear{
@@ -151,11 +150,14 @@ struct StudentTabBarView: View {
             .task{
                 studentsignupvm.GetStudentProfile()
             }
-            .onChange(of: localizeHelper.currentLanguage, perform: {_ in
-                Task(priority: .background, operation: {
-                    studentsignupvm.GetStudentProfile()
-                })
+            .task(id: localizeHelper.currentLanguage, {
+                studentsignupvm.GetStudentProfile()
             })
+//            .onChange(of: localizeHelper.currentLanguage, perform: {_ in
+//                Task(priority: .background, operation: {
+//                    studentsignupvm.GetStudentProfile()
+//                })
+//            })
             .overlay(content: {
                 SideMenuView()
             })
@@ -169,16 +171,10 @@ struct StudentTabBarView: View {
                     studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
                 }else if newval == .calendar { //calendar
                     studenttabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
-//                }else if newval == .rates { // rates
-//                    studenttabbarvm.destination = AnyView(Text("Rates"))
                 }else if newval == .changePassword { // change password
                     studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
-//                }else if newval == .tickets { // tickets
                     
                 }else if newval == .signOut { // signout
-//                    studenttabbarvm.destination = AnyView(SignInView())
-//                    Helper.shared.changeRoot(toView: SignInView())
-//                    Helper.shared.logout()
                     studenttabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
                         Helper.shared.changeRoot(toView: AnonymousHomeView())
                         Helper.shared.logout()
@@ -186,21 +182,22 @@ struct StudentTabBarView: View {
                     },secondBtnAction:{
                         selectedDestination = nil
                     })
-                    studenttabbarvm.isError = true
-
+                    studenttabbarvm.showSignOutConfirm = true
+                    
+                }else if newval == .deleteAccount{
+                    studenttabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                        studenttabbarvm.deleteAccount()
+                    },secondBtnAction:{
+                        selectedDestination = nil
+                    })
+                    studenttabbarvm.showDeleteConfirm = true
                 }
             }
             .showAlert(hasAlert: $studenttabbarvm.isError, alertType: studenttabbarvm.error)
-//            .onChange(of: studentsignupvm.academicYear, perform: { value in
-//                DispatchQueue.main.async{
-//                    var student =  Helper.shared.getUser()
-//                    student?.academicYearId = value?.id
-//                    Helper.shared.saveUser(user: student)
-//                }
-//
-//            })
-//        }
-            NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
+            .showAlert(hasAlert: $studenttabbarvm.showSignOutConfirm, alertType: studenttabbarvm.error)
+            .showAlert(hasAlert: $studenttabbarvm.showDeleteConfirm, alertType: studenttabbarvm.error)
+
+        NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
             .onChange(of: presentSideMenu, perform: { value in
                 if value == false && studenttabbarvm.selectedIndex == 0{
                     studenttabbarvm.selectedIndex = 2
@@ -412,7 +409,6 @@ struct StudentSideMenuContent: View {
                     SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
                         selectedDestination = .deleteAccount // delete account
                         presentSideMenu =  false
-                        isPush = true
                     }
 
                     Spacer()
