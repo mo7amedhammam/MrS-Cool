@@ -18,7 +18,6 @@ struct MrS_CoolApp: App {
 //            NavigationView{
                 ContentView()
                     .preferredColorScheme(.light) // Set to force light mode
-                
                     .task {
                         if notificationManager.hasPermission == false{
                             await notificationManager.request()

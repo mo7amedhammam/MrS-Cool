@@ -115,6 +115,7 @@ struct ParentTabBarView: View {
             CustomTabBarView(selectedIndex: $tabbarvm.selectedIndex,tabBarItems:tabBarItems)
             
         }
+        .localizeView()
         .task {
             parentProfilevm.GetParentProfile()
         }

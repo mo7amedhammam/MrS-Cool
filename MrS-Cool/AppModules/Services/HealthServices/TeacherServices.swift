@@ -48,7 +48,7 @@ enum teacherServices{
     case GetAllComentsListById(parameters : [String:Any])
     case CreateComment(parameters : [String:Any])
         
-    case GetTeacherFinance(parameters : [String:Any])
+    case GetTeacherFinance
     case GetTeacherFinanceSubjects(FinanceFor : StudentFinanceCases ,parameters : [String:Any])
 
     case GetTeacherRates(parameters : [String:Any])
@@ -201,7 +201,8 @@ extension teacherServices:TargetType{
     
     var parameter: parameterType {
         switch self {
-        case .GetTeacherProfile:
+        case .GetTeacherProfile,
+                .GetTeacherFinance:
             return .plainRequest
             
         case .GetSubjectLessonsBrief(parameters: let Parameters),
@@ -215,8 +216,7 @@ extension teacherServices:TargetType{
                 .cancelMyCalenderSchedual(parameters: let Parameters),
                 .AttendanceStudentCalenderSchedual(parameters: let Parameters),
                 .GetAllComentsList(parameters: let Parameters),
-                .GetAllComentsListById(parameters: let Parameters),
-                .GetTeacherFinance(parameters: let Parameters):
+                .GetAllComentsListById(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .UpdateTeacherProfile(parameters: let Parameters),

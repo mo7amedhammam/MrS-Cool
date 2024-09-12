@@ -76,6 +76,7 @@ struct SignUpView: View {
                 .environmentObject(signupvm)
             }
         }
+        .localizeView()
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea()
             .onTapGesture {

@@ -72,7 +72,7 @@ struct TeacherTabBarView: View {
                         presentSideMenu = true
                     })
                 
-                Text("Teacher Finance") // finance
+                TeacherFinanceView() // finance
                     .tag(1)
                     .gesture(
                         DragGesture().onChanged { _ in
@@ -115,6 +115,7 @@ struct TeacherTabBarView: View {
             CustomTabBarView(selectedIndex: $tabbarvm.selectedIndex,tabBarItems:tabBarItems)
             
         }
+        .localizeView()
         .disableSwipeBack()
         .task(priority: .background, {
             teacherProfilevm.GetTeacherProfile()

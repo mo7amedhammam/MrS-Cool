@@ -21,7 +21,7 @@ struct TeacherHomeAsAnonymous: View {
     var body: some View {
         VStack {
             GeometryReader{gr in
-                LazyVStack(spacing:0) {
+                VStack(spacing:0){
                     ScrollView(showsIndicators:false){
                         
                         if !isSearch{
@@ -110,7 +110,6 @@ struct TeacherHomeAsAnonymous: View {
                                         HStack(spacing:10){
                                             Spacer().frame(width:1)
                                             
-                                            
                                             ForEach(studenthomevm.newStudentSubjects,id:\.self){subject in
                                                 
                                                 StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.newSSelectedStudentSubjects){
@@ -126,9 +125,8 @@ struct TeacherHomeAsAnonymous: View {
                                         }
                                         .frame(height: 280)
                                         .padding(.bottom,10)
-
                                         
-                                    }
+                                    }.localizeView()
                                 }
                                 
                             }
@@ -385,12 +383,10 @@ struct TeacherHomeAsAnonymous: View {
                             ScrollViewRTL(type: .hList){
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
-                                    
                                     ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
                                         StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
                                             tabbarvm.destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
                                             tabbarvm.ispush = true
-
                                         }
                                         .frame(width: gr.size.width/3.8, height: 180)
                                     }
@@ -430,20 +426,6 @@ struct TeacherHomeAsAnonymous: View {
                     .onChange(of: studenthomevm.academicYear, perform: { value in
                         lookupsvm.SelectedAcademicYear = value
                     })
-//                    .onChange(of: selectedDestination) {newval in
-//                        if newval == .login { // sign in
-//                                                  
-//                            destination =                           AnyView(SignInView(hideimage:false))
-//                            Helper.shared.logout()
-//                            tabbarvm.ispush = true
-//
-//                        }else if newval == .signup{
-//                            destination =                           AnyView(SignInView(hideimage:false,skipToSignUp:true))
-//                            Helper.shared.logout()
-//                            tabbarvm.ispush = true
-//                        }
-//                        
-//                    }
                 }
                 .frame(height:gr.size.height)
                 //            Spacer()
@@ -453,19 +435,7 @@ struct TeacherHomeAsAnonymous: View {
                 hideKeyboard()
             })
         }
-//        .overlay(content: {
-//            SideMenuView()
-//        })
-//        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
-    
-//    @ViewBuilder
-//    private func SideMenuView() -> some View {
-//        SideView(isShowing: $presentSideMenu, content: AnyView(AnonymousSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $tabbarvm.selectedDestination)), direction: .leading)
-//            .onDisappear(perform: {
-//                tabbarvm.selectedDestination = nil
-//            })
-//    }
     
 }
 

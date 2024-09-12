@@ -502,6 +502,7 @@ struct AnonymousHomeView: View {
                 hideKeyboard()
             })
         }
+        .localizeView()
         .overlay(content: {
             SideMenuView()
         })

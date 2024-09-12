@@ -180,6 +180,9 @@
 		C8F649ED2C3A7E08002C4A63 /* StudentFinanceM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */; };
 		C8F649EF2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */; };
 		C8F649F22C3AB7E1002C4A63 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F649F12C3AB7E1002C4A63 /* NavigationController.swift */; };
+		C8F938D52C92F4D400C4A0B4 /* TeacherFinanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */; };
+		C8F938D72C93069400C4A0B4 /* TeacherFinanceM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F938D62C93069400C4A0B4 /* TeacherFinanceM.swift */; };
+		C8F938D92C930DCC00C4A0B4 /* TeacherFinanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F938D82C930DCC00C4A0B4 /* TeacherFinanceVM.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
@@ -378,6 +381,9 @@
 		C8F649EC2C3A7E08002C4A63 /* StudentFinanceM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentFinanceM.swift; sourceTree = "<group>"; };
 		C8F649EE2C3A936E002C4A63 /* PurchasedsubjectOrLessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasedsubjectOrLessonCell.swift; sourceTree = "<group>"; };
 		C8F649F12C3AB7E1002C4A63 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceView.swift; sourceTree = "<group>"; };
+		C8F938D62C93069400C4A0B4 /* TeacherFinanceM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceM.swift; sourceTree = "<group>"; };
+		C8F938D82C930DCC00C4A0B4 /* TeacherFinanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceVM.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -1786,6 +1792,7 @@
 				C8E390DE2B2DDE670091C7CD /* TeacherCalendar */,
 				C8DDFB552B3AF7CF00C785D4 /* Chats */,
 				C82B04852B9C818D00E56046 /* RatesAndReviews */,
+				C8F938D02C92F46100C4A0B4 /* TeacherFinance */,
 			);
 			path = Teacher;
 			sourceTree = "<group>";
@@ -2191,6 +2198,40 @@
 				C8F649F12C3AB7E1002C4A63 /* NavigationController.swift */,
 			);
 			path = NavigationController;
+			sourceTree = "<group>";
+		};
+		C8F938D02C92F46100C4A0B4 /* TeacherFinance */ = {
+			isa = PBXGroup;
+			children = (
+				C8F938D32C92F49200C4A0B4 /* Model */,
+				C8F938D22C92F48E00C4A0B4 /* ViewModel */,
+				C8F938D12C92F47E00C4A0B4 /* View */,
+			);
+			path = TeacherFinance;
+			sourceTree = "<group>";
+		};
+		C8F938D12C92F47E00C4A0B4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8F938D22C92F48E00C4A0B4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8F938D82C930DCC00C4A0B4 /* TeacherFinanceVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8F938D32C92F49200C4A0B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8F938D62C93069400C4A0B4 /* TeacherFinanceM.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C8FB11832ADD91BA0051715F /* AppMain */ = {
@@ -2657,6 +2698,7 @@
 				C8357E7E2B61169100911371 /* SubjectTeachersListView.swift in Sources */,
 				C865D2B12B78BD0D007F116A /* PaymentStatusView.swift in Sources */,
 				C823B1DC2BB1B294007256D8 /* TeacherInfoVM.swift in Sources */,
+				C8F938D92C930DCC00C4A0B4 /* TeacherFinanceVM.swift in Sources */,
 				C8D83C702BAC882100801710 /* AnonymousHomeView.swift in Sources */,
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
@@ -2674,6 +2716,7 @@
 				C899E3ED2ADED34200593369 /* CustomButton.swift in Sources */,
 				C823446E2B45AC3B002D90A3 /* StudentTabBarView.swift in Sources */,
 				C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */,
+				C8F938D52C92F4D400C4A0B4 /* TeacherFinanceView.swift in Sources */,
 				C8DDFB5C2B3B1B5F00C785D4 /* ChatListM.swift in Sources */,
 				C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */,
 				C86CABCA2B65206800BF8E21 /* SubjectDetailsView.swift in Sources */,
@@ -2681,6 +2724,7 @@
 				C823B1D82BB1A824007256D8 /* TeacherInfoView.swift in Sources */,
 				C897B3452B541B6E008BA13D /* StudentTabBarVM.swift in Sources */,
 				C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */,
+				C8F938D72C93069400C4A0B4 /* TeacherFinanceM.swift in Sources */,
 				C8F649EB2C3A7DF7002C4A63 /* StudentFinanceVM.swift in Sources */,
 				C8D3F3AA2B42D304003CFE45 /* StudentHomeView.swift in Sources */,
 				C897B3432B53FD22008BA13D /* StudentTopRatedTeachersCell.swift in Sources */,

@@ -125,6 +125,7 @@ struct SignInView: View {
             }
             .padding(.horizontal)
         }
+        .localizeView()
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
