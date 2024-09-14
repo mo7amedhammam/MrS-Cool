@@ -115,8 +115,7 @@ struct TeacherFinanceView: View {
                             
                             if let lessons = financevm.PurchasedLessons?.items{
                                 List(lessons, id:\.self) { lesson in
-                                    Text(lesson.profit ?? 0,format:.number)
-//                                    PurchasedsubjectOrLessonCell(financese: .Lessons, model: lesson)
+                                    TeacherFinanceCellView(financese: .Lessons, model: lesson)
                                         .padding(.vertical,0)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
@@ -143,8 +142,7 @@ struct TeacherFinanceView: View {
                             
                             if let Subjects = financevm.PurchasedSubjects?.items{
                                 List(Subjects, id:\.self) { Subject in
-//                                    PurchasedsubjectOrLessonCell(financese: .Subjects,model: Subject)
-                                    Text(Subject.profit ?? 0,format:.number)
+                                    TeacherFinanceCellView(financese: .Subjects,model: Subject)
                                         .padding(.vertical,0)
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)

@@ -202,6 +202,7 @@
 		C8FB11D22ADDAD070051715F /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11D12ADDAD070051715F /* ColorConstants.swift */; };
 		C8FB11D42ADDADD10051715F /* FontsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11D32ADDADD10051715F /* FontsExtension.swift */; };
 		C8FCB6B32AEAA446009C838A /* TeacherSubjectsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FCB6B22AEAA446009C838A /* TeacherSubjectsVM.swift */; };
+		C8FD483D2C959C220019FA31 /* TeacherFinanceCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FD483C2C959C220019FA31 /* TeacherFinanceCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -406,6 +407,7 @@
 		C8FB11D12ADDAD070051715F /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		C8FB11D32ADDADD10051715F /* FontsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsExtension.swift; sourceTree = "<group>"; };
 		C8FCB6B22AEAA446009C838A /* TeacherSubjectsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSubjectsVM.swift; sourceTree = "<group>"; };
+		C8FD483C2C959C220019FA31 /* TeacherFinanceCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2214,6 +2216,7 @@
 			isa = PBXGroup;
 			children = (
 				C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */,
+				C8FD483C2C959C220019FA31 /* TeacherFinanceCellView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2568,6 +2571,7 @@
 			files = (
 				C829B6972AE171C500CA1935 /* ChangeLanguageView.swift in Sources */,
 				C81403FA2B29A1F400BD2591 /* CompletedLessonsM.swift in Sources */,
+				C8FD483D2C959C220019FA31 /* TeacherFinanceCellView.swift in Sources */,
 				C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */,
 				C82689322B25CE9C004529AA /* SubjectGroupDetailsView.swift in Sources */,
 				C88447A32B3315C5002819ED /* CalendarKit.swift in Sources */,
