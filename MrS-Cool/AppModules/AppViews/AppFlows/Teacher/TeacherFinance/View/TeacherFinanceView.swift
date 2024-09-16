@@ -16,6 +16,82 @@ struct TeacherFinanceView: View {
 //        formatter.locale = Local(identifier: "en")
         return formatter
      }()
+    
+    
+    @State var showSubjectsFilter : Bool = false
+    @State var showLessonsFilter : Bool = false
+
+    @State var filtersubjectsdatefrom : String?
+    @State var filtersubjectsdateto : String?
+
+    @State var filterlessonsdatefrom : String?
+    @State var filterlessonsdateto : String?
+
+    func sendSubjectsFilterValues(){
+        financevm.filtersubjectsdatefrom = filtersubjectsdatefrom
+        financevm.filtersubjectsdateto = filtersubjectsdateto
+        financevm.subjectsSkipCount = 0
+        financevm.GetPurchasedFor(financese: .Subjects)
+    }
+    func clearSubjectsFilterValues(){
+        filtersubjectsdatefrom = nil
+        filtersubjectsdateto = nil
+        financevm.filtersubjectsdatefrom = nil
+        financevm.filtersubjectsdateto = nil
+        financevm.PurchasedSubjects?.items?.removeAll()
+        financevm.subjectsSkipCount = 0
+        financevm.GetPurchasedFor(financese: .Subjects)
+        //        financevm.clearFilter()
+
+    }
+//    func validateSubjectsFilterValues(){
+//       if groupsforlessonvm.filtersubject != filtersubject {
+//           filtersubject = nil
+//           lookupsvm.FilterLessonsForList.removeAll()
+//        }
+//        if groupsforlessonvm.filterlesson != filterlesson{
+//            filterlesson = nil
+//        }
+//        if groupsforlessonvm.filtergroupName != filtergroupName{
+//            filtergroupName = ""
+//        }
+//        if groupsforlessonvm.filterdate != filterdate{
+//            filterdate = nil
+//        }
+//    }
+
+    func sendLessonsFilterValues(){
+        financevm.filterlessonsdatefrom = filterlessonsdatefrom
+        financevm.filterlessonsdateto = filterlessonsdateto
+        financevm.lessonsSkipCount = 0
+        financevm.GetPurchasedFor(financese: .Lessons)
+    }
+
+    func clearLessonsFilterValues(){
+        filterlessonsdatefrom = nil
+        filterlessonsdateto = nil
+        financevm.filterlessonsdatefrom = nil
+        financevm.filterlessonsdateto = nil
+        financevm.PurchasedLessons?.items?.removeAll()
+        financevm.lessonsSkipCount = 0
+        financevm.GetPurchasedFor(financese: .Lessons)
+    }
+//    func validateLessonsFilterValues(){
+//       if groupsforlessonvm.filtersubject != filtersubject {
+//           filtersubject = nil
+//           lookupsvm.FilterLessonsForList.removeAll()
+//        }
+//        if groupsforlessonvm.filterlesson != filterlesson{
+//            filterlesson = nil
+//        }
+//        if groupsforlessonvm.filtergroupName != filtergroupName{
+//            filtergroupName = ""
+//        }
+//        if groupsforlessonvm.filterdate != filterdate{
+//            filterdate = nil
+//        }
+//    }
+    
     var body: some View {
         VStack {
                 VStack (alignment: .leading,spacing:0){
@@ -108,10 +184,27 @@ struct TeacherFinanceView: View {
                     
                     GeometryReader { gr in
                         ScrollView(.vertical,showsIndicators: false){
-                            SignUpHeaderTitle(Title: "Purchased Lessons", subTitle: "Enter subtitle here")
-                                .frame(maxWidth:.infinity,alignment:.leading)
-                                .foregroundStyle(Color.mainBlue)
-                                .padding(.vertical)
+//                            SignUpHeaderTitle(Title: "Purchased Lessons", subTitle: "Enter subtitle here")
+//                                .frame(maxWidth:.infinity,alignment:.leading)
+//                                .foregroundStyle(Color.mainBlue)
+//                                .padding(.vertical)
+                            
+                            HStack(){
+                                SignUpHeaderTitle(Title: "Purchased Lessons", subTitle: "Enter subtitle here")
+                                    .frame(maxWidth:.infinity,alignment:.leading)
+                                    .foregroundStyle(Color.mainBlue)
+                                    .padding(.vertical)
+                                Spacer()
+                                Image("img_maskgroup62_clipped")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                    .frame(width: 25, height: 25, alignment: .center)
+                                    .onTapGesture(perform: {
+                                        showLessonsFilter = true
+//                                        validateFilterValues()
+                                    })
+                            }
                             
                             if let lessons = financevm.PurchasedLessons?.items{
                                 List(lessons, id:\.self) { lesson in
@@ -132,13 +225,31 @@ struct TeacherFinanceView: View {
                                 }
                                 .padding(.horizontal,-15)
                                 .listStyle(.plain)
-                                .frame(minHeight: gr.size.height)
+                                .frame(minHeight: lessons.count*60 > 500 ? 400 : CGFloat(lessons.count)*60)
+//                                .frame(minHeight: gr.size.height)
                             }
                             
-                            SignUpHeaderTitle(Title: "Purchased Subjects", subTitle: "Enter subtitle here")
-                                .frame(maxWidth:.infinity,alignment:.leading)
-                                .foregroundStyle(Color.mainBlue)
-                                .padding(.vertical)
+//                            SignUpHeaderTitle(Title: "Purchased Subjects", subTitle: "Enter subtitle here")
+//                                .frame(maxWidth:.infinity,alignment:.leading)
+//                                .foregroundStyle(Color.mainBlue)
+//                                .padding(.vertical)
+                            
+                            HStack(){
+                                SignUpHeaderTitle(Title: "Purchased Subjects", subTitle: "Enter subtitle here")
+                                    .frame(maxWidth:.infinity,alignment:.leading)
+                                    .foregroundStyle(Color.mainBlue)
+                                    .padding(.vertical)
+                                Spacer()
+                                Image("img_maskgroup62_clipped")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                    .frame(width: 25, height: 25, alignment: .center)
+                                    .onTapGesture(perform: {
+                                        showSubjectsFilter = true
+//                                        validateFilterValues()
+                                    })
+                            }
                             
                             if let Subjects = financevm.PurchasedSubjects?.items{
                                 List(Subjects, id:\.self) { Subject in
@@ -160,7 +271,9 @@ struct TeacherFinanceView: View {
                                 }
                                 .padding(.horizontal,-15)
                                 .listStyle(.plain)
-                                .frame(minHeight: gr.size.height)
+//                                .frame(minHeight: gr.size.height)
+                                .frame(minHeight: Subjects.count*60 > 500 ? 400 : CGFloat(Subjects.count)*60)
+
                             }
                         }
                         .frame(minHeight: gr.size.height)
@@ -200,10 +313,10 @@ struct TeacherFinanceView: View {
                 .task {
                     let DispatchGroup = DispatchGroup()
                     DispatchGroup.enter()
-                    financevm.subjectsSkipCount=0
-                    financevm.lessonsSkipCount=0
-                    financevm.PurchasedSubjects = nil
-                    financevm.PurchasedLessons = nil
+//                    financevm.subjectsSkipCount = 0
+//                    financevm.lessonsSkipCount = 0
+//                    financevm.PurchasedSubjects = nil
+//                    financevm.PurchasedLessons = nil
                     DispatchGroup.leave()
 
                     DispatchGroup.enter()
@@ -211,12 +324,14 @@ struct TeacherFinanceView: View {
                     DispatchGroup.leave()
 
                     DispatchGroup.enter()
-                    financevm.GetPurchasedFor(financese: .Lessons)
+                    clearLessonsFilterValues()
+//                    financevm.GetPurchasedFor(financese: .Lessons)
 //                    financevm.GetPurchasedLessons()
                     DispatchGroup.leave()
 
                     DispatchGroup.enter()
-                    financevm.GetPurchasedFor(financese: .Subjects)
+                    clearSubjectsFilterValues()
+//                    financevm.GetPurchasedFor(financese: .Subjects)
 //                    financevm.GetPurchasedSubjects()
                     DispatchGroup.leave()
 
@@ -236,7 +351,136 @@ struct TeacherFinanceView: View {
         })
         .showHud(isShowing: $financevm.isLoading)
         .showAlert(hasAlert: $financevm.isError, alertType: financevm.error)
-        
+        .overlay{
+            if showLessonsFilter{
+                // Blurred Background and Sheet
+                Color.mainBlue
+                    .opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showLessonsFilter.toggle()
+                    }
+                    .blur(radius: 4) // Adjust the blur radius as needed
+                DynamicHeightSheet(isPresented: $showLessonsFilter){
+                    
+                    VStack {
+                        ColorConstants.Bluegray100
+                            .frame(width:50,height:5)
+                            .cornerRadius(2.5)
+                            .padding(.top,2.5)
+                        HStack {
+                            Text("Filter".localized())
+                                .font(Font.SoraBold(size: 18))
+                                .foregroundColor(.mainBlue)
+                            //                                            Spacer()
+                        }
+                        //                        .padding(.vertical)
+                        ScrollView {
+                            VStack{
+                                Group {
+//                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
+//                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
+//                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
+//                                        }
+//                                        filterlesson = nil
+//                                        lookupsvm.SelectedFilterSubjectForList = newval
+//                                    }
+                                    
+//                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
+                                    
+//                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
+                                    
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date From", selectedDateStr:$filterlessonsdatefrom,datePickerComponent:.date)
+                                    
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date To", selectedDateStr:$filterlessonsdateto,datePickerComponent:.date)
+
+                                }
+                                .padding(.top,5)
+                                
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            sendLessonsFilterValues()
+                                            showLessonsFilter = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            clearLessonsFilterValues()
+                                            showLessonsFilter = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding(.horizontal,3)
+                            .padding(.top)
+                        }
+                        //                                    .presentationDetents([.fraction(0.50),.medium])
+                    }
+                    .padding()
+                    .frame(height:315)
+                    .keyboardAdaptive()
+                }
+            }else if showSubjectsFilter{
+                // Blurred Background and Sheet
+                Color.mainBlue
+                    .opacity(0.3)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showSubjectsFilter.toggle()
+                    }
+                    .blur(radius: 4) // Adjust the blur radius as needed
+                DynamicHeightSheet(isPresented: $showSubjectsFilter){
+                    
+                    VStack {
+                        ColorConstants.Bluegray100
+                            .frame(width:50,height:5)
+                            .cornerRadius(2.5)
+                            .padding(.top,2.5)
+                        HStack {
+                            Text("Filter".localized())
+                                .font(Font.SoraBold(size: 18))
+                                .foregroundColor(.mainBlue)
+                            //                                            Spacer()
+                        }
+                        //                        .padding(.vertical)
+                        ScrollView {
+                            VStack{
+                                Group {
+
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date From", selectedDateStr:$filtersubjectsdatefrom,datePickerComponent:.date)
+                                    
+                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date To", selectedDateStr:$filtersubjectsdateto,datePickerComponent:.date)
+
+                                }
+                                .padding(.top,5)
+                                
+                                HStack {
+                                    Group{
+                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                            sendSubjectsFilterValues()
+                                            showSubjectsFilter = false
+                                        })
+                                        
+                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                            clearSubjectsFilterValues()
+                                            showSubjectsFilter = false
+                                        })
+                                    } .frame(width:130,height:40)
+                                        .padding(.vertical)
+                                }
+                            }
+                            .padding(.horizontal,3)
+                            .padding(.top)
+                        }
+                        //                                    .presentationDetents([.fraction(0.50),.medium])
+                    }
+                    .padding()
+                    .frame(height:315)
+                    .keyboardAdaptive()
+                }
+            }
+        }
     }
 }
 

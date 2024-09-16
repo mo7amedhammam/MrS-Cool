@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 class TeacherFinanceVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -23,6 +24,12 @@ class TeacherFinanceVM: ObservableObject {
 //    @Published var filterdate : String?
 //    @Published var isFiltering : Bool = false
     
+    @Published var filtersubjectsdatefrom : String?
+    @Published var filtersubjectsdateto : String?
+
+    @Published var filterlessonsdatefrom : String?
+    @Published var filterlessonsdateto : String?
+
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -48,9 +55,9 @@ class TeacherFinanceVM: ObservableObject {
 extension TeacherFinanceVM{
     
     func GetFinance(){
-        var parameters:[String:Any] = [:]
-        
-        print("parameters",parameters)
+//        var parameters:[String:Any] = [:]
+//        
+//        print("parameters",parameters)
         let target = teacherServices.GetTeacherFinance
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherFinanceM>.self)
@@ -83,18 +90,31 @@ extension TeacherFinanceVM{
     
     func GetPurchasedFor(financese:StudentFinanceCases){
         var parameters:[String:Any] = ["maxResultCount":maxResultCount]
-        if Helper.shared.getSelectedUserType() == .Parent {
-            parameters["studentId"] = Helper.shared.selectedchild?.id
-        }
+//        if Helper.shared.getSelectedUserType() == .Parent {
+//            parameters["studentId"] = Helper.shared.selectedchild?.id
+//        }
         switch financese {
         case .Subjects:
             parameters["skipCount"] = subjectsSkipCount
+            if let filtersubjectdatefrom = filtersubjectsdatefrom?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+                parameters["dateFrom"] = filtersubjectdatefrom
+            }
+            if let filtersubjectsdateto = filtersubjectsdateto?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+                parameters["dateTo"] = filtersubjectsdateto
+            }
+            
         case .Lessons:
             parameters["skipCount"] = lessonsSkipCount
+            if let filterlessonstdatefrom = filterlessonsdatefrom?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+                parameters["dateFrom"] = filterlessonstdatefrom
+            }
+            if let filterlessonstdateto = filterlessonsdateto?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+                parameters["dateTo"] = filterlessonstdateto
+            }
         }
         
         print("parameters",parameters)
-        let target = StudentServices.GetStudentFinanceSubjects(FinanceFor: financese, parameters: parameters)
+        let target = teacherServices.GetTeacherFinanceSubjects(FinanceFor: financese, parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<TeacherFinanceSubjectsAndLessonsM>.self)
 //            .receive(on: DispatchQueue.main)
