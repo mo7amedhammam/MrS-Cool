@@ -35,7 +35,7 @@ struct CustomButton: View {
                 }
                 if Title.count > 0 {
                     Text(Title.localized())
-                        .font(Font.SoraSemiBold(size:14))
+                        .font(Font.semiBold(size:14))
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.center)
                 }
@@ -87,7 +87,7 @@ struct CustomBorderedButton: View {
                         .clipped()
                 }
                 Text(Title.localized())
-                    .font(Font.SoraSemiBold(size: 14))
+                    .font(Font.semiBold(size: 14))
                     .fontWeight(.semibold)
 //                    .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.center)

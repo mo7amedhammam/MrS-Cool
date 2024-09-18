@@ -27,7 +27,7 @@ struct TeacherFinanceCellView: View {
             Image(.dollarIcon)
             
             Text(model.profit ?? 0,format: .number)
-                .font(Font.SoraBold(size:13.0))
+                .font(Font.bold(size:13.0))
                 .foregroundColor(.mainBlue)
                 .frame(minWidth: 40,alignment: .leading)
             
@@ -37,13 +37,13 @@ struct TeacherFinanceCellView: View {
             switch financese {
             case .Subjects:
                 Text(subjectOrLessonName)
-                    .font(Font.SoraSemiBold(size:12))
+                    .font(Font.semiBold(size:12))
                     .lineLimit(2)
                 //                        HStack(spacing:0){
-                //                            Text("\(Part4)").font(Font.SoraSemiBold(size:13.0))
-                //                            Text(", ").font(Font.SoraSemiBold(size:13.0))
+                //                            Text("\(Part4)").font(Font.semiBold(size:13.0))
+                //                            Text(", ").font(Font.semiBold(size:13.0))
                 //
-                //                            Text("\(Part5)").font(Font.SoraRegular(size:13.0))
+                //                            Text("\(Part5)").font(Font.regular(size:13.0))
                 //                        }
                     .foregroundColor(.mainBlue)
                 
@@ -51,15 +51,15 @@ struct TeacherFinanceCellView: View {
                 
                 
                 Text(subjectOrLessonName)
-                    .font(Font.SoraSemiBold(size:12))
+                    .font(Font.semiBold(size:12))
                     .foregroundColor(.mainBlue)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                 
                 
-                //                        Text("\(Part1)").font(Font.SoraSemiBold(size:13.0))
+                //                        Text("\(Part1)").font(Font.semiBold(size:13.0))
                 //                            .lineLimit(2)
-                //                        + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
+                //                        + Text("\(Part5)").font(Font.regular(size:13.0))
                 //                            .foregroundColor(.mainBlue)
                 
                 
@@ -73,7 +73,7 @@ struct TeacherFinanceCellView: View {
                     Text(")".localized())
                 }
                 .foregroundColor(.mainBlue)
-                .font(Font.SoraRegular(size:13.0))
+                .font(Font.regular(size:13.0))
 
         }
 
@@ -86,7 +86,7 @@ struct TeacherFinanceCellView: View {
 //                            Text(Part1)
 //
 //                        case .Lessons:
-//                             Text("\(Part5), ").font(Font.SoraRegular(size:13.0))
+//                             Text("\(Part5), ").font(Font.regular(size:13.0))
 //                                .foregroundColor(.mainBlue) + Text(Part6)
 //                                .foregroundColor(.mainBlue)
 //                            Text(Part4)
@@ -95,7 +95,7 @@ struct TeacherFinanceCellView: View {
 //
 //                        }
 //                    }
-//                    .font(Font.SoraRegular(size:12))
+//                    .font(Font.regular(size:12))
 //                    .foregroundColor(.grayBtnText)
 //                    .multilineTextAlignment(.leading)
                 }

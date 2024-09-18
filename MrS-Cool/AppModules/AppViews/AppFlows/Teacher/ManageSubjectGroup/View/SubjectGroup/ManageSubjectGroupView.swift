@@ -205,7 +205,7 @@ struct ManageSubjectGroupView: View {
                                 .padding(.top,2.5)
                             HStack {
                                 Text("Filter".localized())
-                                    .font(Font.SoraBold(size: 18))
+                                    .font(Font.bold(size: 18))
                                     .foregroundColor(.mainBlue)
                                 //                                            Spacer()
                             }

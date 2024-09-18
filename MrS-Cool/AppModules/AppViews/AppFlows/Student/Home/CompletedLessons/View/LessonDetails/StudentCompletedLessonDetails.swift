@@ -34,7 +34,7 @@ struct StudentCompletedLessonDetails: View {
 //                            }, label: {
 //                                HStack{
 //                                    Text("Manage Lesson Materials".localized())
-//                                        .font(Font.SoraRegular(size: 11))
+//                                        .font(Font.regular(size: 11))
 //                                    Image("img_group_white_a700")
 //                                        .resizable()
 //                                        .frame(width: 10, height: 10, alignment: .center)
@@ -48,28 +48,28 @@ struct StudentCompletedLessonDetails: View {
                             
                             Group{
                                 Text("Subject".localized())
-                                    .font(Font.SoraBold(size: 16))
+                                    .font(Font.bold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.subjectName ?? "")
-                                    .font(Font.SoraBold(size: 18))
+                                    .font(Font.bold(size: 18))
                                 
                                 Text("Subject Brief".localized())
-                                    .font(Font.SoraBold(size: 16))
+                                    .font(Font.bold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                 
                                 Text("Lesson".localized())
-                                    .font(Font.SoraSemiBold(size: 16))
+                                    .font(Font.semiBold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "")
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                 
                                 Text("Lesson Brief".localized())
-                                    .font(Font.SoraSemiBold(size: 16))
+                                    .font(Font.semiBold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                 
                             }
                             .foregroundColor(.mainBlue)
@@ -146,11 +146,11 @@ struct StudentLessonDetailsCell: View {
                 .clipShape(Circle())
             
             Text(model.materialTypeName ?? "")
-                    .font(Font.SoraRegular(size:7))
+                    .font(Font.regular(size:7))
                     .foregroundColor(.mainBlue)
 
             Text(model.name ?? "")
-                    .font(Font.SoraSemiBold(size: 10))
+                    .font(Font.semiBold(size: 10))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
             
@@ -158,7 +158,7 @@ struct StudentLessonDetailsCell: View {
                     DownloadBtnAction?()
                 }, label: {
                     Text("Download Files".localized())
-                            .font(Font.SoraRegular(size:7))
+                            .font(Font.regular(size:7))
                             .foregroundStyle(.whiteA700)
                 })
                 .frame(width:80,height:20)

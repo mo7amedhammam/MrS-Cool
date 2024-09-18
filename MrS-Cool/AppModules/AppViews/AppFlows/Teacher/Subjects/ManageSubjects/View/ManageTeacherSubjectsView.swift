@@ -61,7 +61,7 @@ struct ManageTeacherSubjectsView: View {
                                         SignUpHeaderTitle(Title:manageteachersubjectsvm.isEditing ? "Update Your Subject" : "Request New Subject")
                                         //                                Spacer()
                                         //                                Text("(2 / 3)")
-                                        //                                    .font(.SoraRegular(size: 14))
+                                        //                                    .font(.regular(size: 14))
                                         //                                    .foregroundColor(.black)
                                     }
                                     // -- inputs --
@@ -92,7 +92,7 @@ struct ManageTeacherSubjectsView: View {
                                                     Text(String(cost.groupCostTo ?? 0))
                                                     Text("EGP".localized())
                                                 }
-                                                .font(Font.SoraRegular(size: 9))
+                                                .font(Font.semiBold(size: 9))
                                                 .foregroundColor(ColorConstants.Bluegray402)
                                                 .padding(5)
                                             }
@@ -115,7 +115,7 @@ struct ManageTeacherSubjectsView: View {
 //                                                    Text(String(cost.individualCostTo ?? 0))
 //                                                    Text("EGP".localized())
 //                                                }
-//                                                .font(Font.SoraRegular(size: 9))
+//                                                .font(Font.regular(size: 9))
 //                                                .foregroundColor(ColorConstants.Bluegray402)
 //                                                .padding(5)
 //                                            }
@@ -174,19 +174,19 @@ struct ManageTeacherSubjectsView: View {
                                         .foregroundColor(.yellow)
                                     Text("In Review".localized())
                                         .foregroundColor(.mainBlue)
-                                        .font(Font.SoraRegular(size: 10))
+                                        .font(Font.regular(size: 10))
                                     
                                     Rectangle().frame(width: 14, height: 14)
                                         .foregroundColor(.green)
                                     Text("Approved".localized())
                                         .foregroundColor(.mainBlue)
-                                        .font(Font.SoraRegular(size: 10))
+                                        .font(Font.regular(size: 10))
                                     
                                     Rectangle().frame(width: 14, height: 14)
                                         .foregroundColor(.red)
                                     Text("Rejected".localized())
                                         .foregroundColor(.mainBlue)
-                                        .font(Font.SoraRegular(size: 10))
+                                        .font(Font.regular(size: 10))
                                 }
                             }
                             .padding(.horizontal)
@@ -302,7 +302,7 @@ struct ManageTeacherSubjectsView: View {
                             .padding(.top,2.5)
                         HStack {
                             Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }

@@ -24,7 +24,7 @@ struct TeacherPersonalDataView: View {
                             SignUpHeaderTitle()
                             Spacer()
                             Text("(1 / 3)".localized())
-                                .font(.SoraRegular(size: 14))
+                                .font(.regular(size: 14))
                                 .foregroundColor(.black)
                         }
                         // -- inputs --

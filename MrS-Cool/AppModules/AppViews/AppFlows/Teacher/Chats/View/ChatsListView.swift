@@ -137,7 +137,7 @@ var body: some View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
             TextField(placeHolder?.localized() ?? "Search".localized(), text: $searchText)
-                .font(Font.SoraRegular(size:13))
+                .font(Font.regular(size:13))
                 .foregroundColor(.mainBlue)
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
@@ -161,7 +161,7 @@ var body: some View {
                 hideKeyboard()
             }) {
                 Text("Cancel".localized())
-                    .font(Font.SoraRegular(size:13))
+                    .font(Font.regular(size:13))
                     .foregroundColor(.blue) // Customize the color as needed
             }
         }

@@ -36,7 +36,7 @@ struct hideNavigationBarModifier: ViewModifier {
 // --- View Extension to apply the modifier ---
 extension View {
     public func hideNavigationBar() -> some View {
-        modifier(hideNavigationBarModifier())
+        modifier(hideNavigationBarModifier()).localizeView()
     }
 }
 

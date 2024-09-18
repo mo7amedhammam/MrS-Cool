@@ -49,70 +49,70 @@ struct SubjectGroupDetailsView: View {
                                         HStack(alignment:.top){
                                             VStack(alignment:.leading){
                                                 Text("Subject".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 //
                                                 Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 //
                                                 Spacer().frame(height:30)
                                                 //
                                                 Text("Start Date".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 //
                                                 Spacer().frame(height:30)
                                                 //
                                                 Text("Num Of Lessons".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 Group{
                                                     Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ")
                                                     + Text("Lesson".localized())
                                                 }
-                                                .font(Font.SoraRegular(size: 14))
+                                                .font(Font.regular(size: 14))
                                             }
                                             Spacer()
                                             
                                             VStack(alignment:.leading){
                                                 Text("Group Name".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                                 Spacer().frame(height:30)
                                                 
                                                 Text("End Date".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                             }
                                         }
                                         
                                         //                                    HStack{
                                         ////                                        VStack(alignment:.leading){
                                         ////                                            Text("Academic Year".localized())
-                                        ////                                                .font(Font.SoraSemiBold(size: 16))
+                                        ////                                                .font(Font.semiBold(size: 16))
                                         ////
                                         ////                                            Text(currentSubject?.academicYearName ?? "level 1")
-                                        ////                                                .font(Font.SoraRegular(size: 14))
+                                        ////                                                .font(Font.regular(size: 14))
                                         ////                                        }
                                         //                                        VStack(alignment:.leading){
                                         ////                                            Text("Subject".localized())
-                                        ////                                                .font(Font.SoraSemiBold(size: 16))
+                                        ////                                                .font(Font.semiBold(size: 16))
                                         ////
                                         ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                        ////                                                .font(Font.SoraRegular(size: 14))
+                                        ////                                                .font(Font.regular(size: 14))
                                         //
                                         //                                        }
                                         //                                    }
                                         //
                                         //                                    Text("Status".localized())
-                                        //                                        .font(Font.SoraSemiBold(size: 16))
+                                        //                                        .font(Font.semiBold(size: 16))
                                         //
                                         //                                    Text(currentSubject?.statusIDName ?? "Aproved")
-                                        //                                        .font(Font.SoraRegular(size: 14))
+                                        //                                        .font(Font.regular(size: 14))
                                         //                                        .padding(.bottom)
                                     }
                                     .foregroundColor(.mainBlue)

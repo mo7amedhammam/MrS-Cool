@@ -29,7 +29,7 @@ struct AddExistingStudentPhone: View {
                                 Group {
                                     Text("Add Existing Student Account".localized())
                                         .foregroundColor(Color.mainBlue)
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
 
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $verifystudentvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
                                         .onChange(of: verifystudentvm.phone) { newValue in
@@ -40,7 +40,7 @@ struct AddExistingStudentPhone: View {
 
                                     Text("We will send  you otp to your mobile number\nto reset a new password".localized())
                                         .foregroundColor(Color.mainBlue)
-                                        .font(.SoraRegular(size: 13))
+                                        .font(.regular(size: 13))
                                         .frame(maxWidth:.infinity,alignment:.center)
                                         .multilineTextAlignment(.center)
                                 }

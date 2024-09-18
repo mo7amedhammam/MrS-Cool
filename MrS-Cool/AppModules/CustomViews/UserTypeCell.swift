@@ -53,7 +53,7 @@ struct UserTypeCell: View {
                     .clipShape(.circle)
                     .padding(.top, 27.0)
                 Text(user.user.rawValue.localized())
-                    .font(Font.SoraSemiBold(size: 12))
+                    .font(Font.semiBold(size: 12))
                     .fontWeight(.semibold)
                     .foregroundColor(user.id == selectedUser.id ? ColorConstants.WhiteA700 :ColorConstants.Gray600)
                     .multilineTextAlignment(.center)

@@ -35,8 +35,8 @@ struct StudentTopRatedTeachersCell: View {
                 .padding(.top, 10)
 
                 Text(teacher.teacherName ?? "")
-                    .font(Font.SoraSemiBold(size: 13))
-                    .fontWeight(.semibold)
+                    .font(Font.bold(size: 13))
+//                    .fontWeight(.semibold)
                     .foregroundColor(teacher.id == selectedteacher.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
                     .frame(height:40)
@@ -46,7 +46,7 @@ struct StudentTopRatedTeachersCell: View {
                     if let ratescount = teacher.teacherReview, ratescount > 0{
                         Text(" \(ratescount)")
                         .foregroundColor(teacher.id == selectedteacher.id ? ColorConstants.WhiteA700 : .mainBlue)
-                        .font(Font.SoraRegular(size: 12))
+                        .font(Font.regular(size: 12))
                     }
                 }
             }

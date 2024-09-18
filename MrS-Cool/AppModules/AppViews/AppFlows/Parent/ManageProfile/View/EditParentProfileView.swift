@@ -61,11 +61,11 @@ struct EditParentProfileView: View {
 
                         }
                         Text(parentprofilevm.name)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundStyle(ColorConstants.MainColor)
                         
                         Text(parentprofilevm.code)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundStyle(ColorConstants.MainColor)
                             .padding(.top,2)
 

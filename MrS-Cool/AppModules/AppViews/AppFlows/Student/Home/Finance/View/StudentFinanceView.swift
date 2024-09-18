@@ -45,7 +45,7 @@ struct StudentFinanceView: View {
                                 .foregroundColor(.mainBlue )
                                 .frame(width: 20,height: 20, alignment: .center)
                             Text("Current Balance".localized())
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
                             Spacer()
                         }
@@ -56,7 +56,7 @@ struct StudentFinanceView: View {
                                 Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ")
                                 Text("LE".localized())
                             }
-                            .font(Font.SoraBold(size: 48))
+                            .font(Font.bold(size: 48))
                             .foregroundColor(ColorConstants.MainColor)
                             
                             HStack(spacing:0){
@@ -64,7 +64,7 @@ struct StudentFinanceView: View {
                                 Text("Till ".localized())
                                 Text(formattedToday)
                             }
-                            .font(Font.SoraRegular(size: 12))
+                            .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)
                             .padding(.trailing,-20)
                             .padding(.bottom,5)

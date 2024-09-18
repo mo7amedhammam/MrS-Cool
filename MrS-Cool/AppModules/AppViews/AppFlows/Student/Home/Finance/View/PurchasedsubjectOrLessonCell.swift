@@ -34,17 +34,17 @@ struct PurchasedsubjectOrLessonCell: View {
                     switch financese {
                     case .Subjects:
                         HStack(spacing:0){
-                            Text("\(Part4)").font(Font.SoraSemiBold(size:13.0))
-                            Text(", ").font(Font.SoraSemiBold(size:13.0))
+                            Text("\(Part4)").font(Font.semiBold(size:13.0))
+                            Text(", ").font(Font.semiBold(size:13.0))
 
-                            Text("\(Part5)").font(Font.SoraRegular(size:13.0))
+                            Text("\(Part5)").font(Font.regular(size:13.0))
                         }
                         .foregroundColor(.mainBlue)
 
                     case .Lessons:
-                        Text("\(Part1)").font(Font.SoraSemiBold(size:13.0))
+                        Text("\(Part1)").font(Font.semiBold(size:13.0))
                             .lineLimit(2)
-//                        + Text("\(Part5)").font(Font.SoraRegular(size:13.0))
+//                        + Text("\(Part5)").font(Font.regular(size:13.0))
 //                            .foregroundColor(.mainBlue)
 
                     }
@@ -62,7 +62,7 @@ struct PurchasedsubjectOrLessonCell: View {
                             Text(Part1)
 
                         case .Lessons:
-                             Text("\(Part5), ").font(Font.SoraRegular(size:13.0))
+                             Text("\(Part5), ").font(Font.regular(size:13.0))
                                 .foregroundColor(.mainBlue) + Text(Part6)
                                 .foregroundColor(.mainBlue)
                             Text(Part4)
@@ -73,7 +73,7 @@ struct PurchasedsubjectOrLessonCell: View {
                         
 
                     }
-                    .font(Font.SoraRegular(size:12))
+                    .font(Font.regular(size:12))
                     .foregroundColor(.grayBtnText)
                     .multilineTextAlignment(.leading)
                     
@@ -81,11 +81,11 @@ struct PurchasedsubjectOrLessonCell: View {
 
                     VStack (alignment:.leading,spacing: 2.5){
                         Text("Teacher".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
 
                         Text(model.teacherName ?? "")
-                            .font(Font.SoraRegular(size: 12.0))
+                            .font(Font.regular(size: 12.0))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                     }
@@ -95,21 +95,21 @@ struct PurchasedsubjectOrLessonCell: View {
                     VStack(alignment:.trailing){
                         VStack(alignment:.leading,spacing: 2.5){
                             Text("Date".localized())
-                                .font(Font.SoraSemiBold(size: 9))
+                                .font(Font.semiBold(size: 9))
                                 .foregroundColor(.grayBtnText)
                             
                             Text("\(model.date ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
                             
                             Spacer().frame(height:3)
                             
                             Text("Amount".localized())
-                                .font(Font.SoraSemiBold(size: 9))
+                                .font(Font.semiBold(size: 9))
                                 .foregroundColor(.grayBtnText)
                             
                                 Text("\(model.amount ?? 0,specifier:"%.2f")")
-                            .font(Font.SoraRegular(size: 12))
+                            .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
 //                            Spacer()
                         }

@@ -123,14 +123,14 @@ struct haveAccountView: View {
         HStack(spacing:5){
             Text("Already have an account ?".localized())
                 .foregroundColor(ColorConstants.Gray900)
-                .font(Font.SoraRegular(size: 12))
+                .font(Font.regular(size: 12))
             Button(action: {
                 action?()
             }, label: {
                 Text("sign_in".localized())
             })
             .foregroundColor(ColorConstants.Red400)
-            .font(Font.SoraRegular(size: 13))
+            .font(Font.regular(size: 13))
         }
         .frame(minWidth:0,maxWidth:.infinity)
         .multilineTextAlignment(.center)
@@ -146,7 +146,7 @@ struct SignUpHeaderTitle: View {
     var body: some View {
         VStack (alignment: .leading,spacing: 5){
             Text(Title?.localized() ?? "")
-                .font(Font.SoraBold(size:18))
+                .font(Font.bold(size:18))
                 .fontWeight(.bold)
 //                .foregroundColor(ColorConstants.Black900)
                 .multilineTextAlignment(.leading)
@@ -155,7 +155,7 @@ struct SignUpHeaderTitle: View {
                 subTitleView
             }else{
                 Text(subTitle?.localized() ?? "")
-                    .font(Font.SoraRegular(size: 12))
+                    .font(Font.regular(size: 12))
                     .fontWeight(.regular)
                     .foregroundColor(ColorConstants.Black900)
                     .multilineTextAlignment(.leading)

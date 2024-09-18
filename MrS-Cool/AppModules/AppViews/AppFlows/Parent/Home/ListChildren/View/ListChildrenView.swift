@@ -80,13 +80,13 @@ struct ListChildrenView: View {
                                            height: 75, alignment: .center)
                                 
                                 Text("Add New".localized())
-                                    .font(Font.SoraSemiBold(size: 8))
+                                    .font(Font.semiBold(size: 8))
                                     .foregroundColor(.mainBlue)
                                     .multilineTextAlignment(.center)
                                     .padding(.top,4)
                                 
                                 Text("Student".localized())
-                                    .font(Font.SoraSemiBold(size: 12))
+                                    .font(Font.semiBold(size: 12))
                                     .foregroundColor(.mainBlue)
                                     .multilineTextAlignment(.center)
                                 
@@ -179,17 +179,17 @@ struct ChildrenCell: View {
                 .padding(.top, -27.0)
             
             Text(children.name ?? "")
-                .font(Font.SoraSemiBold(size: 10))
+                .font(Font.semiBold(size: 10))
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : ColorConstants.Red400)
                 .multilineTextAlignment(.center)
             
             Text(children.academicYearEducationLevelName ?? "")
-                .font(Font.SoraSemiBold(size: 7))
+                .font(Font.semiBold(size: 7))
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : ColorConstants.Red400)
                 .multilineTextAlignment(.center)
             
             Text(children.code ?? "")
-                .font(Font.SoraSemiBold(size: 10))
+                .font(Font.semiBold(size: 10))
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : .studentBtnBg)
                 .multilineTextAlignment(.center)
                 .padding(.vertical,2)
@@ -199,7 +199,7 @@ struct ChildrenCell: View {
                     self.detailsaction?()
             },label: {
                 Text("Details".localized())
-                    .font(Font.SoraSemiBold(size:9))
+                    .font(Font.semiBold(size:9))
                     .foregroundStyle(selectedChild == children ? ColorConstants.Red400 : .whiteA700)
             })
             .frame(width:90,height:20)

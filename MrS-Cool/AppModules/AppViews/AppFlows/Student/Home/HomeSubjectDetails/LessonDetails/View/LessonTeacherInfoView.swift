@@ -25,16 +25,17 @@ struct LessonTeacherInfoView : View {
             .frame(width: 115,height: 115)
             .clipShape(Circle())
             
-            VStack(alignment: .center, spacing:0){
+            VStack(alignment: .center, spacing:2){
                 //                VStack {
                 Text(teacher.teacherName ?? "")
-                    .font(.SoraBold(size: 20))
+                    .font(.bold(size: 20))
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.SoraRegular(size: 9))
+                    .font(.semiBold(size: 10))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
+                    .lineSpacing(2)
                     .padding(.horizontal,30)
                     .frame(minHeight:40)
                     .padding(8)
@@ -44,17 +45,17 @@ struct LessonTeacherInfoView : View {
                         StarsView(rating: rate )
                         Text("\(rate ,specifier: "%.1f")")
                             .foregroundColor(ColorConstants.Black900)
-                            .font(.SoraSemiBold(size: 13))
+                            .font(.semiBold(size: 13))
                     }
                 }
                 
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
-                Group{
+                HStack (spacing:2){
                     Text("\(teacher.teacherReview ?? 0) ")
-                    + Text("Reviews".localized())
+                     Text("Reviews".localized())
                 }
                 .foregroundColor(ColorConstants.Black900)
-                .font(.SoraRegular(size: 12))
+                .font(.semiBold(size: 12))
                 //                }
                 
                 HStack(spacing: 0){
@@ -63,11 +64,11 @@ struct LessonTeacherInfoView : View {
                         .renderingMode(.template)
                         .foregroundColor(ColorConstants.MainColor )
                         .frame(width: 20,height: 20, alignment: .center)
-                    Group {
+                    HStack (spacing:2){
                         Text("  \(teacher.price ?? 0,specifier: "%.2f") ")
-                        + Text("EGP".localized())
+                        Text("EGP".localized())
                     }
-                    .font(Font.SoraBold(size: 18))
+                    .font(Font.bold(size: 18))
                     .foregroundColor(ColorConstants.MainColor)
                 }.padding(7)
                 
@@ -75,13 +76,13 @@ struct LessonTeacherInfoView : View {
                 
                 VStack(alignment:.leading){
                     Text("Lesson Breif:".localized())
-                        .font(Font.SoraSemiBold(size: 13))
+                        .font(Font.semiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
                     if let teacherbrief = teacher.teacherBrief{
                         
                         Text(teacherbrief)
-                            .font(.SoraRegular(size: 9))
+                            .font(.regular(size: 10))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -89,7 +90,7 @@ struct LessonTeacherInfoView : View {
                     }else{
                         
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.SoraRegular(size: 9))
+                            .font(.regular(size: 10))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -101,14 +102,14 @@ struct LessonTeacherInfoView : View {
                                 .renderingMode(.template)
                                 .foregroundColor(ColorConstants.MainColor)
                                 .frame(width: 12,height: 12, alignment: .center)
-                            Group {
+                            HStack (spacing:2){
                                 Text("Duration :".localized())
-                                + Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
-                                    .font(Font.SoraSemiBold(size: 11))
-                                + Text("hrs".localized())
-                                    .font(Font.SoraSemiBold(size: 11))
+                                 Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
+                                    .font(Font.bold(size: 11))
+                                 Text("hrs".localized())
+                                    .font(Font.bold(size: 11))
                             }
-                            .font(Font.SoraRegular(size: 10))
+                            .font(Font.regular(size: 10))
                             .foregroundColor(.mainBlue)
 //                            Spacer()
                             
@@ -119,9 +120,9 @@ struct LessonTeacherInfoView : View {
 //                            Group {
 //                                Text("Minimum :".localized())
 //                                + Text("  \(teacher.minGroup ?? 0) ")
-//                                    .font(Font.SoraSemiBold(size: 11))
+//                                    .font(Font.semiBold(size: 11))
 //                            }
-//                            .font(Font.SoraRegular(size: 10))
+//                            .font(Font.regular(size: 10))
 //                            .foregroundColor(.mainBlue)
 //                            
 //                            Image("minmaxstu")
@@ -131,9 +132,9 @@ struct LessonTeacherInfoView : View {
 //                            Group {
 //                                Text("Maximum :".localized())
 //                                + Text("  \(teacher.maxGroup ?? 0) ")
-//                                    .font(Font.SoraSemiBold(size: 11))
+//                                    .font(Font.semiBold(size: 11))
 //                            }
-//                            .font(Font.SoraRegular(size: 10))
+//                            .font(Font.regular(size: 10))
 //                            .foregroundColor(.mainBlue)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity,alignment: .leading)

@@ -40,7 +40,7 @@ struct CustomTitleBarView: View {
                 
                 Spacer()
                 Text(title.localized())
-                    .font(Font.SoraBold(size:18.0))
+                    .font(Font.bold(size:18.0))
                     .fontWeight(.bold)
                     .foregroundColor(ColorConstants.Gray900)
 //                    .minimumScaleFactor(0.5)

@@ -29,15 +29,15 @@ struct StudentHomeLessonCell: View {
                     .padding(.top, 10)
                 
                 Text(lesson.lessonName ?? "")
-                    .font(Font.SoraSemiBold(size: 13))
-                    .fontWeight(.semibold)
+                    .font(Font.bold(size: 13))
+//                    .fontWeight(.semibold)
                     .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 :.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 19.0)
                 
                 Text(lesson.subjectName ?? "")
-                    .font(Font.SoraRegular(size: 13))
-                    .fontWeight(.semibold)
+                    .font(Font.semiBold(size: 13))
+                    .fontWeight(.medium)
                     .foregroundColor(ColorConstants.MainColor)
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
@@ -59,12 +59,12 @@ struct StudentHomeLessonCell: View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                            Text("\(lesson.availableTeacher ?? 0)  ")
-                                .font(Font.SoraSemiBold(size: 9))
-                            + Text("Available Teachers".localized())
+                                .font(Font.bold(size: 9))
+                             Text("Available Teachers".localized())
                         }
-                        .font(Font.SoraRegular(size: 9))
+                        .font(Font.semiBold(size: 9))
                         
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
 //                        Spacer()
@@ -76,13 +76,13 @@ struct StudentHomeLessonCell: View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                             Text("Min Price :".localized())
-                           + Text("\(lesson.minPrice ?? 0,specifier: "%.2f")")
-                                .font(Font.SoraSemiBold(size: 9))
-                            + Text("EGP".localized())
+                            Text("\(lesson.minPrice ?? 0,specifier: "%.2f")")
+                                .font(Font.bold(size: 9))
+                             Text("EGP".localized())
                         }
-                        .font(Font.SoraRegular(size: 9))
+                        .font(Font.semiBold(size: 9))
                         
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
 //                        Spacer()
@@ -94,13 +94,13 @@ struct StudentHomeLessonCell: View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                             Text("Max Price :".localized())
-                            + Text("  \(lesson.maxPrice ?? 250,specifier: "%.2f") ")
-                                .font(Font.SoraSemiBold(size: 9))
-                            + Text("EGP".localized())
+                             Text("  \(lesson.maxPrice ?? 250,specifier: "%.2f") ")
+                                .font(Font.bold(size: 9))
+                             Text("EGP".localized())
                         }
-                        .font(Font.SoraRegular(size: 9))
+                        .font(Font.semiBold(size: 9))
                         
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 : .mainBlue)
 //                        Spacer()

@@ -40,15 +40,15 @@ struct TeacherRatesView: View {
                             
                             Group{
                                 Text("\(ratesvm.Rate?.teacherRate ?? 0,specifier: "%.1f")")
-                                    .font(.SoraBold(size: 30))
+                                    .font(.bold(size: 30))
                                 + Text( " of 5 ".localized())
-                                    .font(.SoraBold(size: 30))
+                                    .font(.bold(size: 30))
                                 
                                 + Text(" /   ")
                                 + Text("\(ratesvm.RatesM?.totalCount ?? Int(0))  ")
-                                    .font(.SoraBold(size: 16))
+                                    .font(.bold(size: 16))
                                 + Text("Rate".localized())
-                                    .font(.SoraRegular(size: 13))
+                                    .font(.regular(size: 13))
                             }
                             .foregroundStyle(Color.mainBlue)
                         }
@@ -120,15 +120,15 @@ struct RateCellView: View {
                     StarsView(rating: rate.teacherLessonRate ?? 0)
 //                }
                 Text(rate.creationDate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", FormatTo:"dd  MMM  yyyy") ?? "2024-03-11T10:53:14.468Z")
-                    .font(.SoraRegular(size: 14))
+                    .font(.regular(size: 14))
                     .foregroundStyle(ColorConstants.Bluegray40099)
             }
             Text(rate.teacherLessonName ?? "")
-                .font(.SoraSemiBold(size: 13))
+                .font(.semiBold(size: 13))
                 .foregroundStyle(Color.mainBlue)
             
             Text(rate.teacherLessonComment ?? "")
-                .font(.SoraRegular(size: 14))
+                .font(.regular(size: 14))
                 .foregroundStyle(Color.mainBlue)
                 .padding(.vertical,6)
             

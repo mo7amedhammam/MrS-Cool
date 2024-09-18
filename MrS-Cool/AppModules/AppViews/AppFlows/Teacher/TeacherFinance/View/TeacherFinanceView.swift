@@ -110,7 +110,7 @@ struct TeacherFinanceView: View {
                                     .foregroundColor(.mainBlue )
                                     .frame(width: 20,height: 20, alignment: .center)
                                 Text("Current Balance".localized())
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                     .foregroundColor(.mainBlue)
                                 Spacer()
                             }
@@ -121,7 +121,7 @@ struct TeacherFinanceView: View {
                                     Text("\(financevm.Finance?.totalDue ?? 0,specifier:"%.2f") ")
                                     Text("LE".localized())
                                 }
-                                .font(Font.SoraBold(size: 24))
+                                .font(Font.bold(size: 24))
                                 .foregroundColor(ColorConstants.MainColor)
                             }
                         }
@@ -135,7 +135,7 @@ struct TeacherFinanceView: View {
                                     .foregroundColor(.mainBlue )
                                     .frame(width: 20,height: 20, alignment: .center)
                                 Text("Next Payment".localized())
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                     .foregroundColor(.mainBlue)
                                 Spacer()
                             }
@@ -146,7 +146,7 @@ struct TeacherFinanceView: View {
                                     Text("\(financevm.Finance?.nextCycleDue ?? 0,specifier:"%.2f") ")
                                     Text("LE".localized())
                                 }
-                                .font(Font.SoraBold(size: 24))
+                                .font(Font.bold(size: 24))
                                 .foregroundColor(ColorConstants.LightGreen800)
                             }
                         }
@@ -162,7 +162,7 @@ struct TeacherFinanceView: View {
                                     .foregroundColor(.mainBlue )
                                     .frame(width: 20,height: 20, alignment: .center)
                                 Text("You Earned".localized())
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                     .foregroundColor(.mainBlue)
                                 Spacer()
                             }
@@ -173,7 +173,7 @@ struct TeacherFinanceView: View {
                                     Text("\(financevm.Finance?.totalIncome ?? 0,specifier:"%.2f") ")
                                     Text("LE".localized())
                                 }
-                                .font(Font.SoraBold(size: 48))
+                                .font(Font.bold(size: 48))
                                 .foregroundColor(ColorConstants.MainColor)
                             }
                         }
@@ -225,7 +225,7 @@ struct TeacherFinanceView: View {
                                 }
                                 .padding(.horizontal,-15)
                                 .listStyle(.plain)
-                                .frame(minHeight: lessons.count*60 > 500 ? 400 : CGFloat(lessons.count)*60)
+                                .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count)*80)
 //                                .frame(minHeight: gr.size.height)
                             }
                             
@@ -272,7 +272,7 @@ struct TeacherFinanceView: View {
                                 .padding(.horizontal,-15)
                                 .listStyle(.plain)
 //                                .frame(minHeight: gr.size.height)
-                                .frame(minHeight: Subjects.count*60 > 500 ? 400 : CGFloat(Subjects.count)*60)
+                                .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count)*80)
 
                             }
                         }
@@ -370,7 +370,7 @@ struct TeacherFinanceView: View {
                             .padding(.top,2.5)
                         HStack {
                             Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
@@ -439,7 +439,7 @@ struct TeacherFinanceView: View {
                             .padding(.top,2.5)
                         HStack {
                             Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }

@@ -35,27 +35,27 @@ struct ManageSchedualCell: View {
                 
                 VStack(alignment: .leading){
                     Text(model.dayName ?? "day name")
-                        .font(Font.SoraSemiBold(size:13.0))
+                        .font(Font.semiBold(size:13.0))
                         .foregroundColor(.mainBlue)
                     
                     VStack(alignment:.leading,spacing: 2.5){
     //                    Spacer()
                                 
                         Text("Start Date".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
 
                         Text("\(model.fromStartDate ?? "10 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                            .font(Font.SoraRegular(size: 12))
+                            .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)
                         Spacer().frame(height:3)
                         
                         Text("Start Time".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
 
                         Text("\(model.fromTime ?? "03:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))
-                            .font(Font.SoraRegular(size: 12))
+                            .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)
                     }
                     .padding(.top,8)
@@ -78,21 +78,21 @@ struct ManageSchedualCell: View {
                     //                }
                     VStack(alignment:.leading,spacing: 2.5){
                         Text("End Date".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.toEndDate ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                            .font(Font.SoraRegular(size: 12))
+                            .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)
                         
                         Spacer().frame(height:3)
 
                         Text("End Time".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.toTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))
-                            .font(Font.SoraRegular(size: 12))
+                            .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)
                         
                     }
@@ -109,19 +109,19 @@ struct ManageSchedualCell: View {
 ////    //                    Spacer()
 ////                                
 ////                        Text("Start Date".localized())
-////                            .font(Font.SoraSemiBold(size: 6))
+////                            .font(Font.semiBold(size: 6))
 ////                            .foregroundColor(.grayBtnText)
 ////
 ////                        Text("\(model.fromStartDate ?? "") ")
-////                            .font(Font.SoraRegular(size: 12))
+////                            .font(Font.regular(size: 12))
 ////                            .foregroundColor(.mainBlue)
 ////
 ////                        Text("Start Time".localized())
-////                            .font(Font.SoraSemiBold(size: 6))
+////                            .font(Font.semiBold(size: 6))
 ////                            .foregroundColor(.grayBtnText)
 ////
 ////                        Text("\(model.fromTime ?? "") ")
-////                            .font(Font.SoraRegular(size: 12))
+////                            .font(Font.regular(size: 12))
 ////                            .foregroundColor(.mainBlue)
 ////
 ////
@@ -130,19 +130,19 @@ struct ManageSchedualCell: View {
 ////                    Spacer()
 ////                    VStack(alignment:.leading){
 ////                        Text("End Date".localized())
-////                            .font(Font.SoraSemiBold(size: 6))
+////                            .font(Font.semiBold(size: 6))
 ////                            .foregroundColor(.grayBtnText)
 ////
 ////                        Text("\(model.toEndDate ?? "") ")
-////                            .font(Font.SoraRegular(size: 12))
+////                            .font(Font.regular(size: 12))
 ////                            .foregroundColor(.mainBlue)
 ////
 ////                        Text("End Time".localized())
-////                            .font(Font.SoraSemiBold(size: 6))
+////                            .font(Font.semiBold(size: 6))
 ////                            .foregroundColor(.grayBtnText)
 ////
 ////                        Text("\(model.toTime ?? "") ")
-////                            .font(Font.SoraRegular(size: 12))
+////                            .font(Font.regular(size: 12))
 ////                            .foregroundColor(.mainBlue)
 ////
 ////                    }

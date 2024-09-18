@@ -116,11 +116,11 @@ struct SubjectTeachersListView: View {
                             .background{Color.white.clipShape(Circle())}
 
                     }
-                        VStack(alignment:.leading){
+                        VStack(alignment:.leading,spacing: 2){
                             Text(subjectorLesson.headerName ?? "" )
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                             Text(subjectorLesson.subjectName ?? "")
-                                .font(.SoraSemiBold(size: 16))
+                                .font(.semiBold(size: 16))
                             
                         }
                         .foregroundColor(.mainBlue)
@@ -131,7 +131,7 @@ struct SubjectTeachersListView: View {
                     .padding(.horizontal,30)
                     
 //                    Text(subjectorLesson.systemBrief ?? "")
-//                        .font(.SoraRegular(size: 10))
+//                        .font(.regular(size: 10))
 //                        .foregroundColor(.mainBlue)
 //                        .multilineTextAlignment(.leading)
 //                        .padding(.horizontal,30)
@@ -140,7 +140,7 @@ struct SubjectTeachersListView: View {
 
 //                    ScrollView(.vertical){
 //                                Text(subjectorLesson.systemBrief ?? "")
-//                                .font(.SoraRegular(size: 10))
+//                                .font(.regular(size: 10))
 //                                .foregroundColor(.mainBlue)
 //                                .lineSpacing(10)
 //                                .multilineTextAlignment(.leading)
@@ -168,7 +168,7 @@ struct SubjectTeachersListView: View {
                                         Image("sorticondown")
                                         
                                         Text(homesubjectteachersvm.sortCase?.rawValue.localized() ?? "Sort".localized())
-                                            .font(.SoraSemiBold(size: 13))
+                                            .font(.semiBold(size: 13))
                                             .padding(.leading,6)
                                     }
                                 })
@@ -257,6 +257,7 @@ struct SubjectTeachersListView: View {
             
             Spacer()
         }
+        .localizeView()
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
@@ -292,7 +293,7 @@ struct SubjectTeachersListView: View {
                             .padding(.top,2.5)
                         HStack {
                             Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
@@ -310,7 +311,7 @@ struct SubjectTeachersListView: View {
                                                     .foregroundColor(ColorConstants.MainColor)
                                                 
                                                 Text("Teacher Name".localized())
-                                                    .font(.SoraBold(size: 13))
+                                                    .font(.bold(size: 13))
                                                     .foregroundColor(.mainBlue)
                                                     .multilineTextAlignment(.leading)
                                                 Spacer()
@@ -339,7 +340,7 @@ struct SubjectTeachersListView: View {
                                                     .foregroundColor(ColorConstants.MainColor)
                                                 
                                                 Text("Price".localized())
-                                                    .font(.SoraBold(size: 13))
+                                                    .font(.bold(size: 13))
                                                     .foregroundColor(.mainBlue)
                                                     .multilineTextAlignment(.leading)
                                                 Spacer()
@@ -368,7 +369,7 @@ struct SubjectTeachersListView: View {
                                             }
                                             if showPriceHint{
                                                 Text("The price to should be greater than or equal the price from".localized())
-                                                    .font(.SoraRegular(size: 12))
+                                                    .font(.regular(size: 12))
                                                     .foregroundColor(ColorConstants.Red400)
                                             }
                                         }
@@ -384,7 +385,7 @@ struct SubjectTeachersListView: View {
                                                     .foregroundColor(ColorConstants.MainColor)
                                                 
                                                 Text("Rating".localized())
-                                                    .font(.SoraBold(size: 13))
+                                                    .font(.bold(size: 13))
                                                     .foregroundColor(.mainBlue)
                                                     .multilineTextAlignment(.leading)
                                                 Spacer()
@@ -426,7 +427,7 @@ struct SubjectTeachersListView: View {
                                                 .foregroundColor(ColorConstants.MainColor)
 
                                             Text("Gender".localized())
-                                                .font(.SoraBold(size: 13))
+                                                .font(.bold(size: 13))
                                                 .foregroundColor(.mainBlue)
                                                 .multilineTextAlignment(.leading)
                                             Spacer()
@@ -450,7 +451,7 @@ struct SubjectTeachersListView: View {
                                                             .frame(width: 20, height: 20, alignment: .center)
                                                             .foregroundColor(ColorConstants.MainColor)
                                                         Text("Male".localized())
-                                                            .font(Font.SoraSemiBold(size: 13))
+                                                            .font(Font.semiBold(size: 13))
                                                             .foregroundColor(.mainBlue)
                                                         Spacer()
                                                     }
@@ -463,7 +464,7 @@ struct SubjectTeachersListView: View {
                                                             .frame(width: 20, height: 20, alignment: .center)
                                                             .foregroundColor(ColorConstants.MainColor)
                                                         Text("Female".localized())
-                                                            .font(Font.SoraSemiBold(size: 13))
+                                                            .font(Font.semiBold(size: 13))
                                                             .foregroundColor(.mainBlue)
                                                         Spacer()
                                                     }
@@ -535,7 +536,7 @@ struct SubjectTeachersListView: View {
                             .padding(.top,2.5)
                         HStack {
                             Text("Sort".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }
@@ -550,7 +551,7 @@ struct SubjectTeachersListView: View {
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Most Booked ".localized())
-                                            .font(Font.SoraSemiBold(size: 13))
+                                            .font(Font.semiBold(size: 13))
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
@@ -564,7 +565,7 @@ struct SubjectTeachersListView: View {
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Top Rated".localized())
-                                            .font(Font.SoraSemiBold(size: 13))
+                                            .font(Font.semiBold(size: 13))
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
@@ -577,7 +578,7 @@ struct SubjectTeachersListView: View {
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Price Low To High".localized())
-                                            .font(Font.SoraSemiBold(size: 13))
+                                            .font(Font.semiBold(size: 13))
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
@@ -590,7 +591,7 @@ struct SubjectTeachersListView: View {
                                             .frame(width: 20, height: 20, alignment: .center)
                                             .foregroundColor(ColorConstants.MainColor)
                                         Text("Price High To Low".localized())
-                                            .font(Font.SoraSemiBold(size: 13))
+                                            .font(Font.semiBold(size: 13))
                                             .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
@@ -667,7 +668,7 @@ struct TeacherCellView : View {
             VStack(alignment: .leading, spacing:0){
                 HStack {
                     Text(teacher.teacherName ?? "")
-                        .font(.SoraSemiBold(size: 13))
+                        .font(.bold(size: 13))
                     Spacer()
                     HStack{
                         StarsView(rating: teacher.teacherRate ?? 0.0)
@@ -675,13 +676,13 @@ struct TeacherCellView : View {
                         if let ratescount = teacher.teacherReview, ratescount > 0{
                             Text(" \(ratescount)")
                                 .foregroundColor(ColorConstants.Bluegray30066)
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                         }
                     }
                 }
                 
                 Text(teacher.teacherBrief ?? "")
-                    .font(.SoraRegular(size: 9))
+                    .font(.semiBold(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
                 //                    .frame(minHeight: 20)
@@ -693,14 +694,14 @@ struct TeacherCellView : View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                             Text("Duration :".localized())
-                            + Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
-                                .font(Font.SoraSemiBold(size: 13))
-                            + Text("hrs".localized())
-                                .font(Font.SoraSemiBold(size: 13))
+                             Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
+                                .font(Font.bold(size: 12))
+                             Text("hrs".localized())
+                                .font(Font.bold(size: 12))
                         }
-                        .font(Font.SoraRegular(size: 10))
+                        .font(Font.regular(size: 10))
                         .foregroundColor(.mainBlue)
                     }
                     Spacer()
@@ -709,11 +710,11 @@ struct TeacherCellView : View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                             Text("  \(teacher.price ?? 0,specifier:"%.2f") ")
-                            + Text("EGP".localized())
+                             Text("EGP".localized())
                         }
-                        .font(Font.SoraSemiBold(size: 13))
+                        .font(Font.semiBold(size: 13))
                         .foregroundColor(ColorConstants.MainColor)
                     }
                 }

@@ -213,7 +213,7 @@ struct CustomAlertView: View {
                 // alert message
                 Text(alertType.message().localized())
                 //                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                    .font(Font.SoraRegular(size: 16))
+                    .font(Font.regular(size: 16))
                     .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)

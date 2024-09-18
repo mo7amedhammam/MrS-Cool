@@ -88,7 +88,7 @@ struct GroupForLessonView: View {
                                                         Spacer()
                                                         Group{
                                                             Text("This Lesson Takes".localized())+Text(" \(groupsforlessonvm.lesson?.subTitle ?? 0) ")+Text("mins".localized())
-                                                        }        .font(Font.SoraBold(size: 9))
+                                                        }        .font(Font.bold(size: 9))
                                                             .foregroundColor(ColorConstants.LightGreen800)
                                                     }
                                                 }
@@ -110,7 +110,7 @@ struct GroupForLessonView: View {
                                                         Spacer()
                                                         Group{
                                                             Text("End Time Is ".localized())+Text("\(groupsforlessonvm.endTime ?? "")")
-                                                        }     .font(Font.SoraBold(size: 9))
+                                                        }     .font(Font.bold(size: 9))
                                                             .foregroundColor(ColorConstants.LightGreen800)
                                                     }
                                                 }
@@ -205,7 +205,7 @@ struct GroupForLessonView: View {
                             .padding(.top,2.5)
                         HStack {
                             Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }

@@ -20,11 +20,11 @@ struct RadioCheck: View {
                         Image(systemName:isSelected == true ? "largecircle.fill.circle" : "circle")
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(.black)
-                            .font(Font.SoraBold(size: 13))
+                            .font(Font.bold(size: 13))
                         
                         Text("Yes".localized())
                             .foregroundColor(isSelected == true ? .black:.black.opacity(0.6))
-                            .font(Font.SoraRegular(size: 14))
+                            .font(Font.regular(size: 14))
                     }
                     .padding(.horizontal)
                     .frame(height: 57)
@@ -37,11 +37,11 @@ struct RadioCheck: View {
                         Image(systemName:isSelected == false ? "largecircle.fill.circle" : "circle")
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(.black)
-                            .font(Font.SoraBold(size: 13))
+                            .font(Font.bold(size: 13))
                         
                         Text("No".localized())
                             .foregroundColor(isSelected == false ? .black:.black.opacity(0.6))
-                            .font(Font.SoraRegular(size: 14))
+                            .font(Font.regular(size: 14))
                     }
                     .padding(.horizontal)
                     .frame(height: 57)

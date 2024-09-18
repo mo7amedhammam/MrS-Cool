@@ -26,7 +26,7 @@ struct ManageSubjectLessonCell: View {
                 
                 VStack{
                     Text(model.subjectSemesterYearName ?? "")
-                        .font(Font.SoraSemiBold(size:13.0))
+                        .font(Font.bold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }
                 
@@ -73,15 +73,15 @@ struct ManageSubjectLessonCell: View {
             HStack (alignment:.bottom){
                 VStack (alignment:.leading){
                     Text(model.lessonName ?? "")
-                        .font(Font.SoraRegular(size: 13))
+                        .font(Font.semiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
 //                        Text(model.educationLevelName ?? "Primary")
-//                            .font(Font.SoraRegular(size: 12.0))
+//                            .font(Font.regular(size: 12.0))
 //                            .foregroundColor(ColorConstants.Bluegray402)
                         
                     Text((model.teacherBrief == nil && model.teacherBriefEn == nil ) ? "Lesson brief not added".localized():"Lesson brief added".localized())
-                            .font(Font.SoraRegular(size: 9))
+                            .font(Font.regular(size: 9))
                             .foregroundColor((model.teacherBrief == nil && model.teacherBriefEn == nil ) ? ColorConstants.Red400:ColorConstants.LightGreen800)
                 }
                 .padding(.leading,30)
@@ -92,22 +92,22 @@ struct ManageSubjectLessonCell: View {
     //                    Spacer()
                                 
                         Text("Group Info".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.bold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.groupDuration?.formattedTime() ?? "00:00")")
-
+                                .font(Font.bold(size: 13))
                             Text(String(format: "%.2f",(model.groupCost ?? 0)))+Text("EGP".localized())
                         }
-                    .font(Font.SoraRegular(size: 12))
+                    .font(Font.semiBold(size: 12))
                     .foregroundColor(.mainBlue)
                         
 //                        HStack(alignment:.bottom,spacing: 4) {
 //                            Text("\(model.minGroup ?? 0) - \(model.maxGroup ?? 0)")
-//                                .font(Font.SoraRegular(size: 12))
+//                                .font(Font.regular(size: 12))
 //                                .foregroundColor(.mainBlue)
 //                            Text("Student".localized())
-//                                .font(Font.SoraRegular(size: 9))
+//                                .font(Font.regular(size: 9))
 //                                .foregroundColor(.mainBlue)
 //                            
 //                        }
@@ -117,14 +117,15 @@ struct ManageSubjectLessonCell: View {
                     VStack(alignment:.leading){
     //                    Spacer()
                         Text("Individual Info".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.bold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.individualDuration?.formattedTime() ?? "00:00")")
+                                .font(Font.bold(size: 13))
 
                             Text(String(format: "%.2f",(model.individualCost  ?? 0)))+Text("EGP".localized())
                         }
-                    .font(Font.SoraRegular(size: 12))
+                    .font(Font.semiBold(size: 12))
                     .foregroundColor(.mainBlue)
                     }
                 }

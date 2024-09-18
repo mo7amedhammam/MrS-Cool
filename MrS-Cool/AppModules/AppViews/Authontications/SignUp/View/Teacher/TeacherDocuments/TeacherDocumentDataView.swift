@@ -51,7 +51,7 @@ struct TeacherDocumentDataView: View {
                                 SignUpHeaderTitle(Title: "Document Information")
                                 Spacer()
                                 Text("(3 / 3)".localized())
-                                    .font(.SoraRegular(size: 14))
+                                    .font(.regular(size: 14))
                                     .foregroundColor(.black)
                             }
                             
@@ -80,7 +80,7 @@ struct TeacherDocumentDataView: View {
                                         })
                                         
                                         Text("Your file uploaded successfully".localized())
-                                            .font(Font.SoraRegular(size:12))
+                                            .font(Font.regular(size:12))
                                             .foregroundColor(ColorConstants.Gray900)
                                             .multilineTextAlignment(.center)
                                     }
@@ -93,7 +93,7 @@ struct TeacherDocumentDataView: View {
                                     Text("File or image not selected".localized())
                                         .lineSpacing(4)
                                         .frame(minWidth: 0,maxWidth: .infinity)
-                                        .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                        .font(Font.regular(size: getRelativeHeight(12.0)))
                                         .foregroundColor(ColorConstants.Red400)
                                         .multilineTextAlignment(.center)
                                         .padding(.top)
@@ -110,7 +110,7 @@ struct TeacherDocumentDataView: View {
                                 Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
                                     .lineSpacing(4)
                                     .frame(minWidth: 0,maxWidth: .infinity)
-                                    .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                    .font(Font.regular(size: getRelativeHeight(12.0)))
                                     .foregroundColor(ColorConstants.Gray901)
                                     .multilineTextAlignment(.center)
                                     .padding(.top)
@@ -131,7 +131,7 @@ struct TeacherDocumentDataView: View {
                         HStack {
 //                            Text("* Note: Must be enter one item at least".localized())
                             Text(teacherdocumentsvm.documentsNote ?? "")
-                                .font(Font.SoraRegular(size: 14))
+                                .font(Font.regular(size: 14))
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(ColorConstants.Black900)
                             

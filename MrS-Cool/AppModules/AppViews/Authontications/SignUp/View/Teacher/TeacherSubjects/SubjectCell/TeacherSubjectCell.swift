@@ -23,7 +23,7 @@ struct TeacherSubjectCell: View {
                 
                 VStack{
                     Text(model.subjectSemesterYearName ?? "English")
-                        .font(Font.SoraSemiBold(size:13.0))
+                        .font(Font.semiBold(size:13.0))
                         .foregroundColor(ColorConstants.Black900)
                         .fontWeight(.semibold)
                 }
@@ -42,7 +42,7 @@ struct TeacherSubjectCell: View {
             
             VStack (alignment:.leading,spacing: 10){
                 Text(model.academicYearName ?? "")
-                    .font(Font.SoraRegular(size: 12.0))
+                    .font(Font.regular(size: 12.0))
                     .fontWeight(.regular)
                     .foregroundColor(ColorConstants.Black900)
                     .minimumScaleFactor(0.5)
@@ -50,14 +50,14 @@ struct TeacherSubjectCell: View {
                 
                 HStack (spacing:45){
                     Text(model.educationLevelName ?? "")
-                        .font(Font.SoraRegular(size: 12.0))
+                        .font(Font.regular(size: 12.0))
                         .fontWeight(.regular)
                         .foregroundColor(ColorConstants.Bluegray402)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                     
                     Text(model.educationTypeName ?? "")
-                        .font(Font.SoraRegular(size: 12.0))
+                        .font(Font.regular(size: 12.0))
                         .fontWeight(.regular)
                         .foregroundColor(ColorConstants.Bluegray402)
                         .minimumScaleFactor(0.5)

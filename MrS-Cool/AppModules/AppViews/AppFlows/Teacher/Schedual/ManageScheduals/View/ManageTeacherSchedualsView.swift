@@ -68,7 +68,7 @@ struct ManageTeacherSchedualsView: View {
                                         if !isStartDateBeforeEndDate{
                                             Text("End date must be greater than start date".localized())
                                                 .foregroundColor(ColorConstants.Red400)
-                                                .font(Font.SoraRegular(size: 10))
+                                                .font(Font.regular(size: 10))
                                                 .animation(.default)
                                         }
 
@@ -170,7 +170,7 @@ struct ManageTeacherSchedualsView: View {
                                 .padding(.top,2.5)
                             HStack {
                                 Text("Filter".localized())
-                                    .font(Font.SoraBold(size: 18))
+                                    .font(Font.bold(size: 18))
                                     .foregroundColor(.mainBlue)
                                 //                                            Spacer()
                             }

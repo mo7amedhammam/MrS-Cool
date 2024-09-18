@@ -52,7 +52,7 @@ struct HomeSubjectDetailsView: View {
                         }
                         VStack{
                             Text(details.name ?? "")
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                         }
                         .foregroundColor(.mainBlue)
                         
@@ -62,7 +62,7 @@ struct HomeSubjectDetailsView: View {
                     .padding(.horizontal,30)
                     
 //                    Text(details.systemBrief ?? "")
-//                        .font(.SoraRegular(size: 10))
+//                        .font(.regular(size: 10))
 //                        .foregroundColor(.mainBlue)
 //                        .multilineTextAlignment(.leading)
 //                        .padding(.horizontal,30)
@@ -72,7 +72,7 @@ struct HomeSubjectDetailsView: View {
 
 //                    ScrollView(.vertical){
 //                                Text(details.systemBrief ?? "")
-//                                .font(.SoraRegular(size: 10))
+//                                .font(.regular(size: 10))
 //                                .foregroundColor(.mainBlue)
 //                                .lineSpacing(10)
 //                                .multilineTextAlignment(.leading)
@@ -91,7 +91,7 @@ struct HomeSubjectDetailsView: View {
                                     Text(" \(details.lessonsCount ?? 0) ") +
                                     Text("Lessons".localized())))
                                 .foregroundColor(.mainBlue)
-                                .font(.SoraRegular(size: 12))
+                                .font(Font.semiBold(size: 12))
                                 
                                 Spacer()
                                 //                            Image("img_maskgroup62_clipped")
@@ -123,7 +123,7 @@ struct HomeSubjectDetailsView: View {
                                 VStack(spacing:15){
                                     HStack {
                                         Text("Booking Full Subject".localized())
-                                            .font(.SoraBold(size: 18))
+                                            .font(.bold(size: 18))
                                             .foregroundColor(ColorConstants.WhiteA700)
                                             .multilineTextAlignment(.leading)
                                         Spacer()
@@ -134,12 +134,12 @@ struct HomeSubjectDetailsView: View {
                                     })
                                     
                                     HStack(){
-                                        Group {
+                                        HStack (spacing:2){
                                             Text("\(details.availableTeacherCount ?? 0)  ")
-                                                .font(Font.SoraSemiBold(size: 12))
-                                            + Text("Available Teachers".localized())
+                                                .font(Font.bold(size: 12))
+                                            Text("Available Teachers".localized())
                                         }
-                                        .font(Font.SoraRegular(size: 12))
+                                        .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
                                         Spacer()
                                     }
@@ -147,10 +147,10 @@ struct HomeSubjectDetailsView: View {
                                     HStack(){
 //                                        Group {
                                         Text("Standard listing submission, active for 30 days".localized())
-//                                                .font(Font.SoraSemiBold(size: 12))
+//                                                .font(Font.semiBold(size: 12))
 //                                            + Text("Available Teachers".localized())
 //                                        }
-                                        .font(Font.SoraRegular(size: 12))
+                                        .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
                                         Spacer()
                                     }                                    .padding(.horizontal)
@@ -160,12 +160,12 @@ struct HomeSubjectDetailsView: View {
                                             .renderingMode(.template)
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 14,height: 14, alignment: .center)
-                                        Group {
+                                        HStack (spacing:2){
                                              Text("  \(details.lessonsCount ?? 0) ")
-                                                .font(Font.SoraSemiBold(size: 12))
-                                            + Text("Lessons".localized())
+                                                .font(Font.bold(size: 12))
+                                             Text("Lessons".localized())
                                         }
-                                        .font(Font.SoraRegular(size: 12))
+                                        .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
                                         Spacer()
                                     }                                    .padding(.horizontal)
@@ -175,13 +175,15 @@ struct HomeSubjectDetailsView: View {
                                             .renderingMode(.template)
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 14,height: 14, alignment: .center)
-                                        Group {
+                                        HStack (spacing:2){
                                             Text("Highest Price :".localized())
-                                            + Text("  \(details.maxPrice ?? 0,specifier: "%.1f") ")
-                                                .font(Font.SoraSemiBold(size: 12))
-                                            + Text("EGP".localized())
+                                             Text("  \(details.maxPrice ?? 0,specifier: "%.1f") ")
+                                                .font(Font.bold(size: 12))
+                                             Text("EGP".localized())
+                                                .font(Font.bold(size: 12))
+
                                         }
-                                        .font(Font.SoraRegular(size: 12))
+                                        .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
                                         Spacer()
                                     }                                    .padding(.horizontal)
@@ -191,13 +193,15 @@ struct HomeSubjectDetailsView: View {
                                             .renderingMode(.template)
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 14,height: 14, alignment: .center)
-                                        Group {
+                                        HStack (spacing:2){
                                             Text("Lowest Price :".localized())
-                                            + Text("  \(details.minPrice ?? 0,specifier: "%.1f") ")
-                                                .font(Font.SoraSemiBold(size: 12))
-                                            + Text("EGP".localized())
+                                             Text("  \(details.minPrice ?? 0,specifier: "%.1f") ")
+                                                .font(Font.bold(size: 12))
+                                             Text("EGP".localized())
+                                                .font(Font.bold(size: 12))
+
                                         }
-                                        .font(Font.SoraRegular(size: 12))
+                                        .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
                                         Spacer()
                                     }                                    .padding(.horizontal)
@@ -240,6 +244,7 @@ struct HomeSubjectDetailsView: View {
             
             Spacer()
         }
+        .localizeView()
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
@@ -283,7 +288,7 @@ struct UnitListCell: View {
                         }
                     
                     Text(unit.unitName ?? "")
-                        .font(.SoraSemiBold(size: 13))
+                        .font(.bold(size: 13))
                         .foregroundColor(.mainBlue)
                     Spacer()
                     Image(isLessonsVisible ? "img_arrowup":"img_arrowdown")
@@ -315,7 +320,7 @@ struct UnitListCell: View {
                             
                             VStack(alignment: .leading,spacing:10){
                                 Text("\(lesson.lessonName ?? "")")
-                                    .font(.SoraSemiBold(size: 13))
+                                    .font(.bold(size: 13))
                                     .foregroundColor(.mainBlue)
                                 
                                 
@@ -324,13 +329,14 @@ struct UnitListCell: View {
                                         .renderingMode(.template)
                                         .foregroundColor(ColorConstants.MainColor )
                                         .frame(width: 12,height: 12, alignment: .center)
-                                    Group {
+                                    HStack (spacing:2){
                                         Text("Min Price :".localized())
-                                        + Text("  \(lesson.minPrice ?? 0,specifier: "%.1f") ")
-                                            .font(Font.SoraSemiBold(size: 9))
-                                        + Text("EGP".localized())
+                                         Text("  \(lesson.minPrice ?? 0,specifier: "%.1f") ")
+                                            .font(Font.bold(size: 12))
+                                         Text("EGP".localized())
+                                            .font(Font.bold(size: 12))
                                     }
-                                    .font(Font.SoraRegular(size: 9))
+                                    .font(Font.semiBold(size: 12))
                                     
                                     .foregroundColor(.mainBlue)
                                     Spacer()
@@ -341,13 +347,14 @@ struct UnitListCell: View {
                                         .renderingMode(.template)
                                         .foregroundColor(ColorConstants.MainColor )
                                         .frame(width: 12,height: 12, alignment: .center)
-                                    Group {
+                                    HStack (spacing:2){
                                         Text("Max Price :".localized())
-                                        + Text("  \(lesson.maxPrice ?? 0,specifier: "%.1f") ")
-                                            .font(Font.SoraSemiBold(size: 9))
-                                        + Text("EGP".localized())
+                                         Text("  \(lesson.maxPrice ?? 0,specifier: "%.1f") ")
+                                            .font(Font.bold(size: 12))
+                                         Text("EGP".localized())
+                                            .font(Font.bold(size: 12))
                                     }
-                                    .font(Font.SoraRegular(size: 9))
+                                    .font(Font.semiBold(size: 12))
                                     
                                     .foregroundColor(.mainBlue)
                                     Spacer()
@@ -357,12 +364,12 @@ struct UnitListCell: View {
                                             .renderingMode(.template)
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 12,height: 12, alignment: .center)
-                                        Group {
+                                        HStack (spacing:2){
                                             Text("\(lesson.availableTeacherCount ?? 0)  ")
-                                                .font(Font.SoraSemiBold(size: 7))
-                                            + Text(" Teachers".localized())
+                                                .font(Font.bold(size: 12))
+                                             Text(" Teachers".localized())
                                         }
-                                        .font(Font.SoraRegular(size: 7))
+                                        .font(Font.semiBold(size: 12))
                                         
                                         .foregroundColor(.mainBlue)
 //                                        Spacer()

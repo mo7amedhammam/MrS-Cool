@@ -34,7 +34,7 @@ struct TeacherInfoView: View {
                         
                         VStack(alignment:.leading){
                             Text(teacher.teacherName ?? "")
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                             
                                 if let rate = teacher.teacherRate{
                                     StarsView(rating:rate)
@@ -45,7 +45,7 @@ struct TeacherInfoView: View {
                                 + Text("Reviews".localized())
                             }
                             .foregroundColor(Color.mainBlue)
-                            .font(.SoraRegular(size: 12))
+                            .font(.semiBold(size: 12))
                             
                         }
                         .foregroundColor(.mainBlue)
@@ -56,7 +56,7 @@ struct TeacherInfoView: View {
                     .padding(.horizontal,30)
                     
                     Text(teacher.teacherBIO ?? "")
-                        .font(.SoraRegular(size: 10))
+                        .font(.regular(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal,30)
@@ -76,7 +76,7 @@ struct TeacherInfoView: View {
                                         VStack{
                                             Text("\(rate ,specifier: "%.1f")")
                                                 .foregroundColor(Color.mainBlue)
-                                                .font(.SoraBold(size: 18))
+                                                .font(.bold(size: 18))
                                             StarsView(rating: rate)
                                         }
                                         .frame(width:110)
@@ -93,7 +93,7 @@ struct TeacherInfoView: View {
                                                     
                                                     Text("\(percent.ratePercents ?? 0,specifier: "%.1f") %")
                                                         .foregroundColor(Color.mainBlue)
-                                                        .font(.SoraRegular(size: 10))
+                                                        .font(.regular(size: 10))
                                                 }
                                             }
                                         }
@@ -150,6 +150,7 @@ struct TeacherInfoView: View {
             }
             Spacer()
         }
+        .localizeView()
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()

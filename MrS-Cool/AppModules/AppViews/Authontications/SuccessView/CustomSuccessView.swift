@@ -34,12 +34,12 @@ struct CustomSuccessView: View {
                         VStack(spacing:15){
                             
                             Text(subtitle.localized())
-                                .font(Font.SoraBold(size: 18.0))
+                                .font(Font.bold(size: 18.0))
                                 .fontWeight(.bold)
                                 .foregroundColor(.mainBlue)
                                 .multilineTextAlignment(.leading)
                             Text(describtion.localized())
-                                .font(Font.SoraRegular(size: 14))
+                                .font(Font.regular(size: 14))
                                 .fontWeight(.regular)
                                 .foregroundColor(ColorConstants.Bluegray402)
                                 .multilineTextAlignment(.center)

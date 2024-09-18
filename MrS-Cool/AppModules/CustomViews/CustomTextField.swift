@@ -42,7 +42,7 @@ struct CustomTextField: View {
             }
             ZStack (alignment:.leading){
                 Text(placeholder.localized())
-                    .font(Font.SoraRegular(size: 12))
+                    .font(Font.regular(size: 12))
                     .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
                     .offset(y: text.isEmpty ? 0 : -20)
                     .scaleEffect(text.isEmpty ? 1.2 : 0.8, anchor: .leading)
@@ -71,7 +71,7 @@ struct CustomTextField: View {
                 .frame( height: 57.0,
                         alignment: .leading)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .font(Font.SoraRegular(size: 14))
+                .font(Font.regular(size: 14))
                 .disabled(Disabled ?? false)
                 .foregroundColor(ColorConstants.Black900)
                 .autocapitalization(.none)
@@ -148,7 +148,7 @@ struct CustomTextField: View {
 ////            }, label: {
 //            ZStack (alignment:.leading){
 //                Text(placeholder.localized())
-//                    .font(Font.SoraRegular(size: 12))
+//                    .font(Font.regular(size: 12))
 //                    .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
 //                    .offset(y: text.isEmpty ? 0 : -20)
 //                    .scaleEffect(text.isEmpty ? 1 : 0.8, anchor: .leading)
@@ -168,7 +168,7 @@ struct CustomTextField: View {
 //                .frame( height: 57.0,
 //                        alignment: .leading)
 //                .frame(minWidth: 0, maxWidth: .infinity)
-//                .font(Font.SoraRegular(size: 14))
+//                .font(Font.regular(size: 14))
 //                .disabled(Disabled ?? false)
 //                .foregroundColor(ColorConstants.Black900)
 //                .autocapitalization(.none)
@@ -255,7 +255,7 @@ struct CustomDropDownField: View {
                 }
                 ZStack (alignment:.leading){
                     Text(placeholder.localized())
-                        .font(Font.SoraRegular(size: 12))
+                        .font(Font.regular(size: 12))
                         .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
                         .offset(y: selectedOption == nil ? 0 : -20)
                         .scaleEffect(selectedOption == nil ? 1.2 : 0.8, anchor: .leading)
@@ -273,7 +273,7 @@ struct CustomDropDownField: View {
                 .animation(.easeInOut(duration: 0.2), value: isSecured)
                 .frame( height: 57.0,alignment: .leading)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .font(Font.SoraRegular(size: 14))
+                .font(Font.regular(size: 14))
                 .foregroundColor(ColorConstants.Black900)
                 
                 Image(rightIconName ?? "\(isMenuVisible ? "img_arrowup":"img_arrowdown")")
@@ -304,7 +304,7 @@ struct CustomDropDownField: View {
                                     }
                                     .frame(minWidth:0,maxWidth:.infinity)
                                     .frame( minHeight: 35,alignment: .leading)
-                                    .font(Font.SoraRegular(size: 14))
+                                    .font(Font.regular(size: 14))
                                     .foregroundColor(ColorConstants.Black900)
                                     .padding(.horizontal)
                                     .padding(.bottom,5)
@@ -406,7 +406,7 @@ struct MultiSelectDropDownField: View {
                 }
                 ZStack(alignment: .leading) {
                     Text(placeholder.localized())
-                        .font(Font.SoraRegular(size: 12))
+                        .font(Font.regular(size: 12))
                         .foregroundColor(placeholderColor == .red ? .red : placeholderColor)
                         .offset(y: selectedOptions.isEmpty ? 0 : -20)
                         .scaleEffect(selectedOptions.isEmpty ? 1.2 : 0.8, anchor: .leading)
@@ -424,7 +424,7 @@ struct MultiSelectDropDownField: View {
                 .animation(.easeInOut(duration: 0.2), value: isSecured)
                 .frame(height: 57.0, alignment: .leading)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .font(Font.SoraRegular(size: 14))
+                .font(Font.regular(size: 14))
                 .foregroundColor(ColorConstants.Black900)
 
                 Image(rightIconName ?? "\(isMenuVisible ? "img_arrowup" : "img_arrowdown")")
@@ -458,7 +458,7 @@ struct MultiSelectDropDownField: View {
                                 }
                                 .frame(minWidth: 0, maxWidth: .infinity)
                                 .frame(minHeight: 35, alignment: .leading)
-                                .font(Font.SoraRegular(size: 14))
+                                .font(Font.regular(size: 14))
                                 .foregroundColor(ColorConstants.Black900)
                                 .padding(.horizontal)
                                 .padding(.bottom, 5)
@@ -484,7 +484,7 @@ struct MultiSelectDropDownField: View {
                                     }
                                     .frame(minWidth: 0, maxWidth: .infinity)
                                     .frame(minHeight: 35, alignment: .leading)
-                                    .font(Font.SoraRegular(size: 14))
+                                    .font(Font.regular(size: 14))
                                     .foregroundColor(ColorConstants.Black900)
                                     .padding(.horizontal)
                                     .padding(.bottom, 5)
@@ -558,19 +558,19 @@ struct CustomTextEditor: View {
                         
                         HStack{
                             Text(placeholder.localized())
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                                 .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
                                 .scaleEffect(1.2, anchor: .leading)
                             
                             Spacer()
                             Text("\(text.count) / \(charLimit)")
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                                 .foregroundColor(placeholderColor == .red ?  .red:placeholderColor)
                             
                         }
                         .frame(height: 57.0,alignment: .leading)
                         .frame(minWidth: 0, maxWidth: .infinity)
-                        .font(Font.SoraRegular(size: 14))
+                        .font(Font.regular(size: 14))
                         .foregroundColor(ColorConstants.Black900)
                         
                     }
@@ -579,14 +579,14 @@ struct CustomTextEditor: View {
                         if text.isEmpty {
                             Text("\(insidePlaceholder ?? "")".localized())
                                 .disabled(true)
-                                .font(.SoraRegular(size: 12))
+                                .font(.regular(size: 12))
                                 .foregroundColor(.gray)
                                 .padding(.top,8)
                         }
                         
                         TextEditor(text: $text)
                             .focused($focusedField)
-                            .font(.SoraRegular(size: 14))
+                            .font(.regular(size: 14))
                             .opacity(text.isEmpty ? 0.25 : 1)
                             .foregroundColor(ColorConstants.Black900)
                             .onChange(of: text) { newText in
@@ -658,7 +658,7 @@ struct CustomDatePickerField: View {
                     HStack() {
                         ZStack(alignment: .leading) {
                             Text(placeholder.localized())
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                                 .foregroundColor(placeholderColor == .red ? .red : placeholderColor)
                                 .offset(y: selectedDateStr == nil ? 0 : -20)
                                 .scaleEffect(selectedDateStr == nil ? 1.2 : 0.8, anchor: .leading)
@@ -669,7 +669,7 @@ struct CustomDatePickerField: View {
                                 .disabled(true)
                         }
                         .frame(height: 57.0, alignment: .leading)
-                        .font(Font.SoraRegular(size: 14))
+                        .font(Font.regular(size: 14))
                         .foregroundColor(ColorConstants.Black900)
 
                         Spacer()

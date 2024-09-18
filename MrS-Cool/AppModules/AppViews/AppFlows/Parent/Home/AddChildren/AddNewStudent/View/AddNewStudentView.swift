@@ -61,11 +61,11 @@ struct AddNewStudentView: View {
 
                         }
                         Text(addnewstudentvm.name)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundStyle(ColorConstants.MainColor)
                         
 //                        Text(addnewstudentvm.code)
-//                            .font(Font.SoraBold(size: 18))
+//                            .font(Font.bold(size: 18))
 //                            .foregroundStyle(ColorConstants.MainColor)
 //                            .padding(.top,2)
 

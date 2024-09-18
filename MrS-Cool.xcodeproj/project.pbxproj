@@ -145,6 +145,24 @@
 		C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */; };
 		C8B72C222B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C212B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift */; };
 		C8B72C242B32314E00E36C33 /* CalendarSchedualM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C232B32314E00E36C33 /* CalendarSchedualM.swift */; };
+		C8B877F42C9B08A700C18A57 /* ArbFONTS-LamaSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E22C9B08A600C18A57 /* ArbFONTS-LamaSans-Black.ttf */; };
+		C8B877F52C9B08A700C18A57 /* LamaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E32C9B08A600C18A57 /* LamaSans-Bold.ttf */; };
+		C8B877F62C9B08A700C18A57 /* LamaSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E42C9B08A600C18A57 /* LamaSans-ExtraLight.ttf */; };
+		C8B877F72C9B08A700C18A57 /* LamaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E52C9B08A600C18A57 /* LamaSans-Regular.ttf */; };
+		C8B877F82C9B08A700C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E62C9B08A600C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf */; };
+		C8B877F92C9B08A700C18A57 /* LamaSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E72C9B08A600C18A57 /* LamaSans-ThinItalic.ttf */; };
+		C8B877FA2C9B08A700C18A57 /* ArbFONTS-LamaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E82C9B08A600C18A57 /* ArbFONTS-LamaSans-SemiBoldItalic.ttf */; };
+		C8B877FB2C9B08A700C18A57 /* ArbFONTS-LamaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877E92C9B08A600C18A57 /* ArbFONTS-LamaSans-SemiBold.ttf */; };
+		C8B877FC2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877EA2C9B08A600C18A57 /* ArbFONTS-LamaSans-ExtraBold.ttf */; };
+		C8B877FD2C9B08A700C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877EB2C9B08A600C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf */; };
+		C8B877FE2C9B08A700C18A57 /* ArbFONTS-LamaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877EC2C9B08A600C18A57 /* ArbFONTS-LamaSans-Medium.ttf */; };
+		C8B877FF2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877ED2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf */; };
+		C8B878002C9B08A700C18A57 /* LamaSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877EE2C9B08A700C18A57 /* LamaSans-RegularItalic.ttf */; };
+		C8B878012C9B08A700C18A57 /* LamaSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877EF2C9B08A700C18A57 /* LamaSans-Thin.ttf */; };
+		C8B878022C9B08A700C18A57 /* ArbFONTS-LamaSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877F02C9B08A700C18A57 /* ArbFONTS-LamaSans-Light.ttf */; };
+		C8B878032C9B08A700C18A57 /* LamaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877F12C9B08A700C18A57 /* LamaSans-BoldItalic.ttf */; };
+		C8B878042C9B08A700C18A57 /* ArbFONTS-LamaSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877F22C9B08A700C18A57 /* ArbFONTS-LamaSans-MediumItalic.ttf */; };
+		C8B878052C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8B877F32C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBoldItalic.ttf */; };
 		C8B89DE22AFA546100219AEC /* ManageMyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */; };
 		C8BC6F562B6914DC00C6585E /* LessonDetailsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6F552B6914DC00C6585E /* LessonDetailsM.swift */; };
 		C8BC6F582B6914F000C6585E /* LessonDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC6F572B6914F000C6585E /* LessonDetailsVM.swift */; };
@@ -188,11 +206,6 @@
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
 		C8FB11AC2ADD99800051715F /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118F2ADD99800051715F /* RequestBuilder.swift */; };
 		C8FB11B02ADD99800051715F /* Authintications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11942ADD99800051715F /* Authintications.swift */; };
-		C8FB11B22ADD99800051715F /* InterMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB11992ADD99800051715F /* InterMedium.ttf */; };
-		C8FB11B32ADD99800051715F /* SoraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119A2ADD99800051715F /* SoraBold.ttf */; };
-		C8FB11B42ADD99800051715F /* SoraSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */; };
-		C8FB11B52ADD99800051715F /* RobotoRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119C2ADD99800051715F /* RobotoRegular.ttf */; };
-		C8FB11B62ADD99800051715F /* SoraRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8FB119D2ADD99800051715F /* SoraRegular.ttf */; };
 		C8FB11BA2ADD99800051715F /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11A72ADD99800051715F /* Language.swift */; };
 		C8FB11BB2ADD99800051715F /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB11A82ADD99800051715F /* LocalizationService.swift */; };
 		C8FB11BE2ADD9C3B0051715F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8FB11C02ADD9C3B0051715F /* Localizable.strings */; };
@@ -347,6 +360,24 @@
 		C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		C8B72C212B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCalendarSvhedualsVM.swift; sourceTree = "<group>"; };
 		C8B72C232B32314E00E36C33 /* CalendarSchedualM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSchedualM.swift; sourceTree = "<group>"; };
+		C8B877E22C9B08A600C18A57 /* ArbFONTS-LamaSans-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-Black.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-Black.ttf"; sourceTree = "<group>"; };
+		C8B877E32C9B08A600C18A57 /* LamaSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-Bold.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-Bold.ttf"; sourceTree = "<group>"; };
+		C8B877E42C9B08A600C18A57 /* LamaSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-ExtraLight.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C8B877E52C9B08A600C18A57 /* LamaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-Regular.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-Regular.ttf"; sourceTree = "<group>"; };
+		C8B877E62C9B08A600C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-BlackItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-BlackItalic.ttf"; sourceTree = "<group>"; };
+		C8B877E72C9B08A600C18A57 /* LamaSans-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-ThinItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-ThinItalic.ttf"; sourceTree = "<group>"; };
+		C8B877E82C9B08A600C18A57 /* ArbFONTS-LamaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-SemiBoldItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C8B877E92C9B08A600C18A57 /* ArbFONTS-LamaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-SemiBold.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		C8B877EA2C9B08A600C18A57 /* ArbFONTS-LamaSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-ExtraBold.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C8B877EB2C9B08A600C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-LightItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		C8B877EC2C9B08A600C18A57 /* ArbFONTS-LamaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-Medium.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-Medium.ttf"; sourceTree = "<group>"; };
+		C8B877ED2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-ExtraLightItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		C8B877EE2C9B08A700C18A57 /* LamaSans-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-RegularItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-RegularItalic.ttf"; sourceTree = "<group>"; };
+		C8B877EF2C9B08A700C18A57 /* LamaSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-Thin.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-Thin.ttf"; sourceTree = "<group>"; };
+		C8B877F02C9B08A700C18A57 /* ArbFONTS-LamaSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-Light.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-Light.ttf"; sourceTree = "<group>"; };
+		C8B877F12C9B08A700C18A57 /* LamaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LamaSans-BoldItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/LamaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		C8B877F22C9B08A700C18A57 /* ArbFONTS-LamaSans-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-MediumItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C8B877F32C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ArbFONTS-LamaSans-ExtraBoldItalic.ttf"; path = "../../../../../../../../Downloads/Lama Sans Font/ArbFONTS-LamaSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		C8B89DE12AFA546100219AEC /* ManageMyDocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMyDocumentsView.swift; sourceTree = "<group>"; };
 		C8BC6F552B6914DC00C6585E /* LessonDetailsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsM.swift; sourceTree = "<group>"; };
 		C8BC6F572B6914F000C6585E /* LessonDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailsVM.swift; sourceTree = "<group>"; };
@@ -390,11 +421,6 @@
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		C8FB118F2ADD99800051715F /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		C8FB11942ADD99800051715F /* Authintications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authintications.swift; sourceTree = "<group>"; };
-		C8FB11992ADD99800051715F /* InterMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = InterMedium.ttf; sourceTree = "<group>"; };
-		C8FB119A2ADD99800051715F /* SoraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoraBold.ttf; sourceTree = "<group>"; };
-		C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoraSemiBold.ttf; sourceTree = "<group>"; };
-		C8FB119C2ADD99800051715F /* RobotoRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RobotoRegular.ttf; sourceTree = "<group>"; };
-		C8FB119D2ADD99800051715F /* SoraRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SoraRegular.ttf; sourceTree = "<group>"; };
 		C8FB11A72ADD99800051715F /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		C8FB11A82ADD99800051715F /* LocalizationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationService.swift; sourceTree = "<group>"; };
 		C8FB11BF2ADD9C3B0051715F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2337,11 +2363,24 @@
 		C8FB11982ADD99800051715F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C8FB11992ADD99800051715F /* InterMedium.ttf */,
-				C8FB119A2ADD99800051715F /* SoraBold.ttf */,
-				C8FB119B2ADD99800051715F /* SoraSemiBold.ttf */,
-				C8FB119C2ADD99800051715F /* RobotoRegular.ttf */,
-				C8FB119D2ADD99800051715F /* SoraRegular.ttf */,
+				C8B877E22C9B08A600C18A57 /* ArbFONTS-LamaSans-Black.ttf */,
+				C8B877E62C9B08A600C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf */,
+				C8B877EA2C9B08A600C18A57 /* ArbFONTS-LamaSans-ExtraBold.ttf */,
+				C8B877F32C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBoldItalic.ttf */,
+				C8B877ED2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf */,
+				C8B877F02C9B08A700C18A57 /* ArbFONTS-LamaSans-Light.ttf */,
+				C8B877EB2C9B08A600C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf */,
+				C8B877EC2C9B08A600C18A57 /* ArbFONTS-LamaSans-Medium.ttf */,
+				C8B877F22C9B08A700C18A57 /* ArbFONTS-LamaSans-MediumItalic.ttf */,
+				C8B877E92C9B08A600C18A57 /* ArbFONTS-LamaSans-SemiBold.ttf */,
+				C8B877E82C9B08A600C18A57 /* ArbFONTS-LamaSans-SemiBoldItalic.ttf */,
+				C8B877E32C9B08A600C18A57 /* LamaSans-Bold.ttf */,
+				C8B877F12C9B08A700C18A57 /* LamaSans-BoldItalic.ttf */,
+				C8B877E42C9B08A600C18A57 /* LamaSans-ExtraLight.ttf */,
+				C8B877E52C9B08A600C18A57 /* LamaSans-Regular.ttf */,
+				C8B877EE2C9B08A700C18A57 /* LamaSans-RegularItalic.ttf */,
+				C8B877EF2C9B08A700C18A57 /* LamaSans-Thin.ttf */,
+				C8B877E72C9B08A600C18A57 /* LamaSans-ThinItalic.ttf */,
 				C8FB11D32ADDADD10051715F /* FontsExtension.swift */,
 			);
 			path = Fonts;
@@ -2506,17 +2545,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8FB11B42ADD99800051715F /* SoraSemiBold.ttf in Resources */,
-				C8FB11B62ADD99800051715F /* SoraRegular.ttf in Resources */,
+				C8B877F62C9B08A700C18A57 /* LamaSans-ExtraLight.ttf in Resources */,
+				C8B878032C9B08A700C18A57 /* LamaSans-BoldItalic.ttf in Resources */,
+				C8B878012C9B08A700C18A57 /* LamaSans-Thin.ttf in Resources */,
+				C8B877FE2C9B08A700C18A57 /* ArbFONTS-LamaSans-Medium.ttf in Resources */,
+				C8B877F92C9B08A700C18A57 /* LamaSans-ThinItalic.ttf in Resources */,
+				C8B877FB2C9B08A700C18A57 /* ArbFONTS-LamaSans-SemiBold.ttf in Resources */,
+				C8B877F42C9B08A700C18A57 /* ArbFONTS-LamaSans-Black.ttf in Resources */,
 				C81A2EBE2BBEC7E400B4CE99 /* GoogleService-Info.plist in Resources */,
-				C8FB11B32ADD99800051715F /* SoraBold.ttf in Resources */,
 				C81A2EC02BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 in Resources */,
-				C8FB11B52ADD99800051715F /* RobotoRegular.ttf in Resources */,
+				C8B878022C9B08A700C18A57 /* ArbFONTS-LamaSans-Light.ttf in Resources */,
+				C8B878042C9B08A700C18A57 /* ArbFONTS-LamaSans-MediumItalic.ttf in Resources */,
+				C8B877F52C9B08A700C18A57 /* LamaSans-Bold.ttf in Resources */,
+				C8B877FA2C9B08A700C18A57 /* ArbFONTS-LamaSans-SemiBoldItalic.ttf in Resources */,
 				C829C9442C567C2C001B6BF0 /* Launch Screen.storyboard in Resources */,
-				C8FB11B22ADD99800051715F /* InterMedium.ttf in Resources */,
+				C8B877FC2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBold.ttf in Resources */,
+				C8B877FF2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf in Resources */,
 				C8FB11BE2ADD9C3B0051715F /* Localizable.strings in Resources */,
+				C8B877F82C9B08A700C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf in Resources */,
+				C8B877FD2C9B08A700C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf in Resources */,
 				C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */,
+				C8B878002C9B08A700C18A57 /* LamaSans-RegularItalic.ttf in Resources */,
+				C8B878052C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraBoldItalic.ttf in Resources */,
 				C89EA90A2ADD906800891D41 /* Assets.xcassets in Resources */,
+				C8B877F72C9B08A700C18A57 /* LamaSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2898,7 +2950,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = 23H4SBD5QL;
 				ENABLE_PREVIEWS = YES;
@@ -2941,8 +2993,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = 23H4SBD5QL;
 				ENABLE_PREVIEWS = YES;
@@ -2969,6 +3022,7 @@
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

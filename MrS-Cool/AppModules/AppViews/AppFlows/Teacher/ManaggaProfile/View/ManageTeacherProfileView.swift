@@ -71,11 +71,11 @@ struct ManageTeacherProfileView: View {
                         }
                         
                         Text(manageprofilevm.name)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundColor(.black900)
                         
                         Text(manageprofilevm.code)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundColor(.black900)
                             .padding(.top,2)
                         
@@ -83,7 +83,7 @@ struct ManageTeacherProfileView: View {
                             HStack{
                                 Text("\(manageprofilevm.rate ?? 0,specifier: "%.1f")")
                                     .foregroundColor(ColorConstants.MainColor)
-                                    .font(.SoraSemiBold(size: 13))
+                                    .font(.semiBold(size: 13))
                                 StarsView(rating: manageprofilevm.rate ?? 0)
 
                             }
@@ -258,7 +258,7 @@ struct TeacherAccountStatus: View {
                 .padding(.vertical, 4.0)
             
             Text(profileStatus.statusName ?? "")
-                .font(Font.SoraRegular(size: 14.0))
+                .font(Font.regular(size: 14.0))
                 .fontWeight(.regular)
                 .foregroundColor(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : profileStatus.statusId == 2 ? ColorConstants.Red400 : .mainBlue)
                 .multilineTextAlignment(.leading)
@@ -273,7 +273,7 @@ struct TeacherAccountStatus: View {
                         .background(RoundedCorners(topLeft: 3.5,topRight:3.5, bottomLeft: 3.5,bottomRight: 3.5)
                             .fill(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : ColorConstants.Red400))
                     Text(profileStatus.statusId == 1 ? "Active".localized():"Not Active".localized())
-                        .font(Font.SoraRegular(size: 14.0))
+                        .font(Font.regular(size: 14.0))
                         .fontWeight(.regular)
                         .foregroundColor(profileStatus.statusId == 1 ? ColorConstants.LightGreen800 : ColorConstants.Red400)
                         .multilineTextAlignment(.leading)

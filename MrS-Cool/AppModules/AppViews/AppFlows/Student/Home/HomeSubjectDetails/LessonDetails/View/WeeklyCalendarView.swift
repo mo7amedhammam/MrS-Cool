@@ -75,7 +75,7 @@ struct WeeklyCalendarView: View {
             // Display selected date below the calendar
             if let selectedDate = selectedDate {
                 Text("\(selectedDate, formatter: Self.taskDateFormat)")
-                    .font(.SoraSemiBold(size: 13))
+                    .font(.semiBold(size: 13))
                     .foregroundColor(.mainBlue)
             }
             WeeklyCalendarRepresentableView(selectedDate: $selectedDate)

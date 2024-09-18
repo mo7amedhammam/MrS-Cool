@@ -69,11 +69,11 @@ struct StudentEditProfileView: View {
 
                         }
                         Text(studentsignupvm.name)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundStyle(ColorConstants.MainColor)
                         
                         Text(studentsignupvm.code)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundStyle(ColorConstants.MainColor)
                             .padding(.top,2)
 

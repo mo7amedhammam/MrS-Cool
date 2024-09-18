@@ -352,22 +352,30 @@ extension StudentHomeVM{
     }
     
     func getHomeData(){
-    DispatchQueue.global(qos: .background).async {[weak self] in
+//    DispatchQueue.global(qos: .background).async {[weak self] in
         
-        guard let self = self else{return}
+//        guard let self = self else{return}
+        let DispatchGroup = DispatchGroup()
+        DispatchGroup.enter()
+
         GetStudentSubjects()
         
+        DispatchGroup.enter()
         // Perform the background task here
         GetStudentLessons(mostType: .mostviewed)
         GetStudentLessons(mostType: .mostBooked)
         
+        DispatchGroup.enter()
         GetStudentMostSubjects(mostType: .mostviewed)
         GetStudentMostSubjects(mostType: .mostBooked)
         
+        DispatchGroup.enter()
         GetStudentTeachers(mostType: .mostviewed)
         GetStudentTeachers(mostType: .topRated)
         GetStudentMostBookedTeachers()
-    }
+        DispatchGroup.leave()
+
+//    }
 }
     
     func clearselections(){

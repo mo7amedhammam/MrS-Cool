@@ -52,7 +52,7 @@ struct ManageMyDocumentsView: View {
                                     SignUpHeaderTitle(Title: "Add New Document")
     //                                Spacer()
     //                                Text("(3 / 3)")
-    //                                    .font(.SoraRegular(size: 14))
+    //                                    .font(.regular(size: 14))
     //                                    .foregroundColor(.black)
     //                            }
                                 
@@ -81,7 +81,7 @@ struct ManageMyDocumentsView: View {
                                             })
                                             
                                             Text("Your file uploaded successfully".localized())
-                                                .font(Font.SoraRegular(size:12))
+                                                .font(Font.regular(size:12))
                                                 .foregroundColor(ColorConstants.Gray900)
                                                 .multilineTextAlignment(.center)
                                         }
@@ -93,7 +93,7 @@ struct ManageMyDocumentsView: View {
                                         Text("File or image not selected".localized())
                                             .lineSpacing(4)
                                             .frame(minWidth: 0,maxWidth: .infinity)
-                                            .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                            .font(Font.regular(size: getRelativeHeight(12.0)))
                                             .foregroundColor(ColorConstants.Red400)
                                             .multilineTextAlignment(.center)
                                             .padding(.top)
@@ -110,7 +110,7 @@ struct ManageMyDocumentsView: View {
                                     Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
                                         .lineSpacing(4)
                                         .frame(minWidth: 0,maxWidth: .infinity)
-                                        .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                        .font(Font.regular(size: getRelativeHeight(12.0)))
                                         .foregroundColor(ColorConstants.Gray901)
                                         .multilineTextAlignment(.center)
                                         .padding(.top)
@@ -132,7 +132,7 @@ struct ManageMyDocumentsView: View {
                             }.padding(.vertical)
     //                        HStack {
     //                            Text("* Note: Must be enter one item at least".localized())
-    //                                .font(Font.SoraRegular(size: 14))
+    //                                .font(Font.regular(size: 14))
     //                                .multilineTextAlignment(.leading)
     //                                .foregroundColor(ColorConstants.Black900)
     //                            Spacer()
@@ -303,7 +303,7 @@ struct ManageMyDocumentsView: View {
                           .padding(.top,2.5)
                       HStack {
                           Text("Filter".localized())
-                              .font(Font.SoraBold(size: 18))
+                              .font(Font.bold(size: 18))
                               .foregroundColor(.mainBlue)
                       }
                       

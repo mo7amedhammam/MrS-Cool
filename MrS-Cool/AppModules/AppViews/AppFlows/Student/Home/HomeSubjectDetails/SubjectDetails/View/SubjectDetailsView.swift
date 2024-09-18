@@ -51,7 +51,7 @@ struct SubjectDetailsView: View {
                         
                         VStack{
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                         }
                         .foregroundColor(.mainBlue)
                         
@@ -61,7 +61,7 @@ struct SubjectDetailsView: View {
                     .padding(.horizontal,30)
                     
 //                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
-//                        .font(.SoraRegular(size: 10))
+//                        .font(.regular(size: 10))
 //                        .foregroundColor(.mainBlue)
 //                        .multilineTextAlignment(.leading)
 //                        .padding(.horizontal,30)
@@ -77,7 +77,7 @@ struct SubjectDetailsView: View {
                                 
                                 HStack {
                                     Text("Teacher Info".localized())
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
                                         .foregroundColor(ColorConstants.WhiteA700)
                                         .multilineTextAlignment(.leading)
                                     Spacer()
@@ -92,7 +92,7 @@ struct SubjectDetailsView: View {
                                 
                                 HStack {
                                     Text("Group Booking".localized())
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
                                         .foregroundColor(ColorConstants.WhiteA700)
                                         .multilineTextAlignment(.leading)
                                     Spacer()
@@ -135,7 +135,7 @@ struct SubjectDetailsView: View {
                                                 }
                                                 .offset(x:-40)
                                                 Text(slot.groupName ?? "")
-                                                    .font(.SoraBold(size: 18))
+                                                    .font(.bold(size: 18))
                                                     .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
                                             }
                                             .frame(width:170,height: 45)
@@ -152,7 +152,7 @@ struct SubjectDetailsView: View {
                                                     Group {
                                                         Text("Start Date".localized())+Text(": ")+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
-                                                    .font(.SoraRegular(size: 10))
+                                                    .font(.semiBold(size: 10))
                                                     .foregroundColor(.mainBlue)
                                                 }, icon: {
                                                     Image("calvector")
@@ -165,7 +165,7 @@ struct SubjectDetailsView: View {
                                                     Group {
                                                         Text("End Date".localized())+Text(": ")+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
-                                                    .font(.SoraRegular(size: 10))
+                                                    .font(.semiBold(size: 10))
                                                     .foregroundColor(.mainBlue)
                                                 }, icon: {
                                                     Image("calvector")
@@ -179,7 +179,7 @@ struct SubjectDetailsView: View {
                                                         Group {
                                                             Text(schedual.dayName ?? "" )+Text(": ")+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
-                                                        .font(.SoraRegular(size: 10))
+                                                        .font(.semiBold(size: 10))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("calvector")
@@ -258,7 +258,7 @@ struct SubjectDetailsView: View {
                                     
                                 }else{
                                     Text("No Available Subject Groups".localized())
-                                        .font(Font.SoraBold(size: 15))
+                                        .font(Font.bold(size: 15))
                                         .foregroundColor(ColorConstants.MainColor)
                                 }
                                 
@@ -333,11 +333,11 @@ struct SubjectTeacherInfoView : View {
             VStack(alignment: .center, spacing:0){
                 //                VStack {
                 Text(teacher.teacherName ?? "")
-                    .font(.SoraBold(size: 20))
+                    .font(.bold(size: 20))
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.SoraRegular(size: 9))
+                    .font(.regular(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal,30)
@@ -348,16 +348,16 @@ struct SubjectTeacherInfoView : View {
                     StarsView(rating: teacher.teacherRate ?? 0.0)
                     Text("\(teacher.teacherRate ?? 0,specifier: "%.1f")")
                         .foregroundColor(ColorConstants.Black900)
-                        .font(.SoraSemiBold(size: 13))
+                        .font(.semiBold(size: 13))
                 }
                 
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
-                Group{
+                HStack(spacing:2) {
                     Text("\(teacher.teacherReview ?? 0) ")
-                    + Text("Reviews")
+                     Text("Reviews")
                 }
                 .foregroundColor(ColorConstants.Black900)
-                .font(.SoraRegular(size: 12))
+                .font(.semiBold(size: 12))
                 //                }
                 
                 HStack(spacing: 0){
@@ -366,11 +366,11 @@ struct SubjectTeacherInfoView : View {
                         .renderingMode(.template)
                         .foregroundColor(ColorConstants.MainColor )
                         .frame(width: 20,height: 20, alignment: .center)
-                    Group {
+                    HStack(spacing:2) {
                         Text("  \(teacher.price ?? 0,specifier:"%.2f") ")
-                        + Text("EGP".localized())
+                         Text("EGP".localized())
                     }
-                    .font(Font.SoraBold(size: 18))
+                    .font(Font.bold(size: 18))
                     .foregroundColor(ColorConstants.MainColor)
                 }.padding(7)
                 
@@ -378,19 +378,19 @@ struct SubjectTeacherInfoView : View {
                 
                 VStack(alignment:.leading){
                     Text("Subject Breif:".localized())
-                        .font(Font.SoraSemiBold(size: 13))
+                        .font(Font.semiBold(size: 13))
                         .foregroundColor(.mainBlue)
                     
                     if let teacherBrief = teacher.teacherBrief{
                         Text(teacherBrief)
-                            .font(.SoraRegular(size: 9))
+                            .font(.regular(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
                             .padding(.bottom,8)
                     }else{
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.SoraRegular(size: 9))
+                            .font(.regular(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -402,14 +402,14 @@ struct SubjectTeacherInfoView : View {
                                 .renderingMode(.template)
                                 .foregroundColor(ColorConstants.MainColor)
                                 .frame(width: 12,height: 12, alignment: .center)
-                            Group {
+                            HStack(spacing:2) {
                                 Text("Duration :".localized())
-                                + Text("  \(teacher.duration?.formattedTime() ?? "") ")
-                                    .font(Font.SoraSemiBold(size: 13))
-                                + Text("hrs".localized())
-                                    .font(Font.SoraSemiBold(size: 13))
+                                 Text("  \(teacher.duration?.formattedTime() ?? "") ")
+                                    .font(Font.semiBold(size: 13))
+                                 Text("hrs".localized())
+                                    .font(Font.semiBold(size: 13))
                             }
-                            .font(Font.SoraRegular(size: 10))
+                            .font(Font.regular(size: 10))
                             .foregroundColor(.mainBlue)
                             Spacer()
                         }
@@ -423,9 +423,9 @@ struct SubjectTeacherInfoView : View {
 //                            Group {
 //                                Text("Minimum :".localized())
 //                                + Text(" \(teacher.minGroup ?? 0) ")
-//                                    .font(Font.SoraSemiBold(size: 13))
+//                                    .font(Font.semiBold(size: 13))
 //                            }
-//                            .font(Font.SoraRegular(size: 10))
+//                            .font(Font.regular(size: 10))
 //                            .foregroundColor(.mainBlue)
 //                            Spacer()
 //                        }
@@ -438,14 +438,13 @@ struct SubjectTeacherInfoView : View {
                                 .renderingMode(.template)
                                 .foregroundColor(ColorConstants.MainColor )
                                 .frame(width: 12,height: 12, alignment: .center)
-                            Group {
+                            HStack(spacing:2) {
                                 Text("Lessons :".localized())
-                                + Text(" \(teacher.lessonsCount ?? 0) ")
-                                    .font(Font.SoraSemiBold(size: 13))
+                                 Text(" \(teacher.lessonsCount ?? 0) ")
+                                    .font(Font.semiBold(size: 13))
                                 
-                                    .font(Font.SoraSemiBold(size: 13))
                             }
-                            .font(Font.SoraRegular(size: 10))
+                            .font(Font.semiBold(size: 10))
                             .foregroundColor(.mainBlue)
                             Spacer()
                         }
@@ -459,9 +458,9 @@ struct SubjectTeacherInfoView : View {
 //                            Group {
 //                                Text("Maximum :".localized())
 //                                + Text(" \(teacher.maxGroup ?? 0)")
-//                                    .font(Font.SoraSemiBold(size: 13))
+//                                    .font(Font.semiBold(size: 13))
 //                            }
-//                            .font(Font.SoraRegular(size: 10))
+//                            .font(Font.regular(size: 10))
 //                            .foregroundColor(.mainBlue)
 //                            Spacer()
 //                        }
@@ -487,7 +486,7 @@ struct SubjectTeacherInfoView : View {
 //    var body: some View {
 //        ScrollView(.vertical){
 //            Text(text)
-//                .font(.SoraRegular(size: 10))
+//                .font(.regular(size: 10))
 //                .foregroundColor(.mainBlue)
 //                .lineSpacing(10)
 //                .multilineTextAlignment(.leading)
@@ -503,7 +502,7 @@ struct scrollableBriedText: View {
     var body: some View {
         ScrollView(.vertical) {
             Text(text)
-                .font(.SoraRegular(size: 10))
+                .font(.semiBold(size: 10))
                 .foregroundColor(.mainBlue)
                 .lineSpacing(10)
                 .multilineTextAlignment(.leading)

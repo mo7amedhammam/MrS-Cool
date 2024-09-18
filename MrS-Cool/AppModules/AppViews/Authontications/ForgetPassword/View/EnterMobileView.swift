@@ -28,7 +28,7 @@ struct EnterMobileView: View {
                                 Group {
                                     Text("Welcome To Mr.S-cool...".localized())
                                         .foregroundColor(Color.mainBlue)
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
 
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $resetpasswordvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
                                         .onChange(of: resetpasswordvm.phone) { newValue in
@@ -39,7 +39,7 @@ struct EnterMobileView: View {
 
                                     Text("We will send  you otp to your mobile number\nto reset a new password".localized())
                                         .foregroundColor(Color.mainBlue)
-                                        .font(.SoraRegular(size: 13))
+                                        .font(.regular(size: 13))
                                         .frame(maxWidth:.infinity,alignment:.center)
                                         .multilineTextAlignment(.center)
                                 }

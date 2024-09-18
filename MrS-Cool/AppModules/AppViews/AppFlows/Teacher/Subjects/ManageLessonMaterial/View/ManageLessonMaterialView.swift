@@ -60,42 +60,42 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                         HStack(alignment:.top){
                                             VStack(alignment:.leading){
                                                 Text("Education Type".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentLesson?.educationTypeName ?? "")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                                 Spacer().frame(height:20)
                                                 
                                                 Text("Academic Year".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentLesson?.academicYearName ?? "")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                                 Spacer().frame(height:20)
                                                 
                                                 Text("Lesson".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentLesson?.lessonName ?? "")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                             }
                                             Spacer()
                                             VStack(alignment:.leading){
                                                 Text("Education Level".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentLesson?.educationLevelName ?? "")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                                 Spacer().frame(height:20)
                                                 
                                                 Text("Subject".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentLesson?.subjectSemesterYearName ?? "")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                             }
                                         }
                                         
@@ -156,7 +156,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                         })
                                                                         
                                                                         Text("Your file uploaded successfully".localized())
-                                                                            .font(Font.SoraRegular(size:12))
+                                                                            .font(Font.regular(size:12))
                                                                             .foregroundColor(ColorConstants.Gray900)
                                                                             .multilineTextAlignment(.center)
                                                                     }
@@ -168,7 +168,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                     Text("Invalid URL".localized())
                                                                         .lineSpacing(4)
                                                                         .frame(minWidth: 0,maxWidth: .infinity)
-                                                                        .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                                                        .font(Font.regular(size: getRelativeHeight(12.0)))
                                                                         .foregroundColor(ColorConstants.Red400)
                                                                         .multilineTextAlignment(.center)
                                                                         .padding(.top)
@@ -177,7 +177,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                     Text("File or image not selected".localized())
                                                                         .lineSpacing(4)
                                                                         .frame(minWidth: 0,maxWidth: .infinity)
-                                                                        .font(Font.SoraRegular(size: getRelativeHeight(12.0)))
+                                                                        .font(Font.regular(size: getRelativeHeight(12.0)))
                                                                         .foregroundColor(ColorConstants.Red400)
                                                                         .multilineTextAlignment(.center)
                                                                         .padding(.top)
@@ -194,7 +194,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                 Text("Files supported: PDF, JPG, PNG,\nTIFF, GIF, WORD\nMaximum size is : 2MB".localized())
                                                                     .lineSpacing(4)
                                                                     .frame(minWidth: 0,maxWidth: .infinity)
-                                                                    .font(Font.SoraRegular(size: 12.0))
+                                                                    .font(Font.regular(size: 12.0))
                                                                     .foregroundColor(ColorConstants.Gray901)
                                                                     .multilineTextAlignment(.center)
                                                                     .padding(.top)
@@ -385,7 +385,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                             .padding(.top,2.5)
                         HStack {
                             Text("Filter".localized())
-                                .font(Font.SoraBold(size: 18))
+                                .font(Font.bold(size: 18))
                                 .foregroundColor(.mainBlue)
                             //                                            Spacer()
                         }

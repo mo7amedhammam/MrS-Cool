@@ -27,7 +27,7 @@ struct ManageSubjectCell: View {
                 
                 VStack{
                     Text(model.subjectSemesterYearName ?? "")
-                        .font(Font.SoraSemiBold(size:13.0))
+                        .font(Font.semiBold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }
                 
@@ -73,15 +73,15 @@ struct ManageSubjectCell: View {
             HStack (alignment:.bottom){
                 VStack (alignment:.leading,spacing: 10){
                     Text(model.academicYearName ?? "")
-                        .font(Font.SoraRegular(size: 12.0))
+                        .font(Font.regular(size: 12.0))
                         .foregroundColor(.mainBlue)
                     
                         Text(model.educationLevelName ?? "")
-                            .font(Font.SoraRegular(size: 12.0))
+                            .font(Font.regular(size: 12.0))
                             .foregroundColor(ColorConstants.Bluegray402)
                         
                         Text(model.educationTypeName ?? "")
-                            .font(Font.SoraRegular(size: 12.0))
+                            .font(Font.regular(size: 12.0))
                             .foregroundColor(ColorConstants.Bluegray402)
                 }
                 .padding(.leading,30)
@@ -92,21 +92,21 @@ struct ManageSubjectCell: View {
     //                    Spacer()
                                 
                         Text("Group Price".localized())
-                            .font(Font.SoraSemiBold(size: 9))
+                            .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
                             Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
                         }
-                    .font(Font.SoraRegular(size: 12))
+                    .font(Font.semiBold(size: 12))
                     .foregroundColor(.mainBlue)
                         
                           
 //                        HStack(alignment:.bottom,spacing: 4) {
 //                            Text("\(model.minGroup ?? 5) - \(model.maxGroup ?? 50)")
-//                        .font(Font.SoraRegular(size: 12))
+//                        .font(Font.regular(size: 12))
 //                    .foregroundColor(.mainBlue)
 //                            Text("Student".localized())
-//                        .font(Font.SoraRegular(size: 9))
+//                        .font(Font.regular(size: 9))
 //                    .foregroundColor(.mainBlue)
 //
 //                        }
@@ -115,12 +115,12 @@ struct ManageSubjectCell: View {
 //                    VStack(alignment:.leading){
 //    //                    Spacer()
 //                        Text("Individual Info".localized())
-//                            .font(Font.SoraSemiBold(size: 9))
+//                            .font(Font.semiBold(size: 9))
 //                            .foregroundColor(.grayBtnText)
 //                        Group{
 //                            Text("\(model.individualCost  ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
 //                        }
-//                    .font(Font.SoraRegular(size: 12))
+//                    .font(Font.regular(size: 12))
 //                    .foregroundColor(.mainBlue)
 //                    }
                 }

@@ -44,13 +44,13 @@ struct SignInView: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 VStack (alignment: .leading,spacing: 5){
                                     Text("Welcome Back!".localized())
-                                        .font(Font.SoraBold(size:18))
+                                        .font(Font.bold(size:18))
                                         .fontWeight(.bold)
                                         .foregroundColor(ColorConstants.Black900)
                                         .multilineTextAlignment(.leading)
                                     
                                     Text("Sign in to continue".localized())
-                                        .font(Font.SoraRegular(size: 10.0))
+                                        .font(Font.regular(size: 10.0))
                                         .fontWeight(.regular)
                                         .foregroundColor(ColorConstants.Black900)
                                         .multilineTextAlignment(.leading)
@@ -80,7 +80,7 @@ struct SignInView: View {
                                         isPush = true
                                     }, label: {
                                         Text("Forget password ?".localized())
-                                            .font(Font.SoraRegular(size: 13))
+                                            .font(Font.regular(size: 13))
                                             .fontWeight(.regular)
                                             .foregroundColor(ColorConstants.Red400)
                                             .multilineTextAlignment(.trailing)
@@ -101,7 +101,7 @@ struct SignInView: View {
                                 HStack(spacing:5){
                                     Text("Don't have an account ?".localized())
                                         .foregroundColor(ColorConstants.Gray900)
-                                        .font(Font.SoraRegular(size: 12))
+                                        .font(Font.regular(size: 12))
                                     
                                     Button(action: {
                                         destination = AnyView(SignUpView(selecteduser:$selectedUser).hideNavigationBar())
@@ -109,7 +109,7 @@ struct SignInView: View {
                                     }, label: {
                                         Text("sign_up".localized())
                                             .foregroundColor(ColorConstants.Red400)
-                                            .font(Font.SoraRegular(size: 13))
+                                            .font(Font.regular(size: 13))
                                     })
                                 }
                                 .multilineTextAlignment(.leading)

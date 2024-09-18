@@ -17,13 +17,13 @@ struct ManageLessonMaterialCell: View {
         VStack(alignment:.leading,spacing: 10){
             HStack(alignment: .center,spacing: 10) {
 //                Text("\(model. ?? 1)")
-//                    .font(Font.SoraBold(size:16.0))
+//                    .font(Font.bold(size:16.0))
 //                    .foregroundColor(ColorConstants.Bluegray402)
 //                    .fontWeight(.bold)
                 
                 VStack{
                     Text(model.name ?? "Material")
-                        .font(Font.SoraSemiBold(size:13.0))
+                        .font(Font.semiBold(size:13.0))
                         .foregroundColor(ColorConstants.Black900)
                         .fontWeight(.semibold)
                 }
@@ -56,7 +56,7 @@ struct ManageLessonMaterialCell: View {
             
             HStack (alignment:.center,spacing: 10){
                 Text(model.materialTypeName ?? "PDF")
-                    .font(Font.SoraRegular(size: 12.0))
+                    .font(Font.regular(size: 12.0))
                     .fontWeight(.regular)
                     .foregroundColor(ColorConstants.Black900)
                 
@@ -72,7 +72,7 @@ struct ManageLessonMaterialCell: View {
                                    alignment: .leading)
                             .scaledToFit()
                         Text("Click For Prev".localized())
-                            .font(Font.SoraRegular(size:11))
+                            .font(Font.regular(size:11))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Gray901)
                     }

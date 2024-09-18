@@ -31,7 +31,7 @@ struct TeacherSubjectsDataView: View {
                             SignUpHeaderTitle(Title: "Subjects Information")
                             Spacer()
                             Text("(2 / 3)".localized())
-                                .font(.SoraRegular(size: 14))
+                                .font(.regular(size: 14))
                                 .foregroundColor(.black)
                         }
                         // -- inputs --
@@ -72,7 +72,7 @@ struct TeacherSubjectsDataView: View {
                     
                     HStack {
                         Text("* Note: Must be enter one item at least".localized())
-                            .font(Font.SoraRegular(size: 14))
+                            .font(Font.regular(size: 14))
                             .multilineTextAlignment(.leading)
                             .foregroundColor(ColorConstants.Black900)
                         

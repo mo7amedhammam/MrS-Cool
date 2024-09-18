@@ -45,35 +45,35 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                         HStack{
                                             VStack(alignment:.leading){
                                                 Text("Education Type".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentSubject?.educationTypeName ?? "Egyption")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                                 Spacer().frame(height:30)
                                                 
                                                 Text("Academic Year".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentSubject?.academicYearName ?? "level 1")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                             }
                                             Spacer()
                                             VStack(alignment:.leading){
                                                 Text("Education Level".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentSubject?.educationLevelName ?? "Primary")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                                 Spacer().frame(height:30)
                                                 
                                                 Text("Subject".localized())
-                                                    .font(Font.SoraSemiBold(size: 16))
+                                                    .font(Font.semiBold(size: 16))
                                                 
                                                 Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                                    .font(Font.SoraRegular(size: 14))
+                                                    .font(Font.regular(size: 14))
                                                 
                                             }
                                         }
@@ -82,26 +82,26 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                         //                                    HStack{
                                         ////                                        VStack(alignment:.leading){
                                         ////                                            Text("Academic Year".localized())
-                                        ////                                                .font(Font.SoraSemiBold(size: 16))
+                                        ////                                                .font(Font.semiBold(size: 16))
                                         ////
                                         ////                                            Text(currentSubject?.academicYearName ?? "level 1")
-                                        ////                                                .font(Font.SoraRegular(size: 14))
+                                        ////                                                .font(Font.regular(size: 14))
                                         ////                                        }
                                         //                                        VStack(alignment:.leading){
                                         ////                                            Text("Subject".localized())
-                                        ////                                                .font(Font.SoraSemiBold(size: 16))
+                                        ////                                                .font(Font.semiBold(size: 16))
                                         ////
                                         ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                        ////                                                .font(Font.SoraRegular(size: 14))
+                                        ////                                                .font(Font.regular(size: 14))
                                         //
                                         //                                        }
                                         //                                    }
                                         //
                                         //                                    Text("Status".localized())
-                                        //                                        .font(Font.SoraSemiBold(size: 16))
+                                        //                                        .font(Font.semiBold(size: 16))
                                         //
                                         //                                    Text(currentSubject?.statusIDName ?? "Aproved")
-                                        //                                        .font(Font.SoraRegular(size: 14))
+                                        //                                        .font(Font.regular(size: 14))
                                         //                                        .padding(.bottom)
                                     }
                                     .foregroundColor(.mainBlue)
@@ -132,7 +132,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                         Section(header:
                                                     HStack {
                                             Text(unit.unitName ?? "")
-                                                .font(Font.SoraBold(size: 18))
+                                                .font(Font.bold(size: 18))
                                                 .foregroundColor(.mainBlue)
                                                 .padding(.top)
                                             Spacer()
@@ -206,7 +206,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     //                                                .renderingMode(.template)
                                     
                                     Text("Update Lesson".localized())
-                                        .font(Font.SoraBold(size: 18))
+                                        .font(Font.bold(size: 18))
                                         .foregroundColor(.mainBlue)
                                     Spacer()
                                 }
@@ -221,7 +221,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                              Text(manageteachersubjectlessonsvm.recommendedgroupCost)
                                              Text("EGP".localized())
                                         }
-                                        .font(Font.SoraRegular(size: 9))
+                                        .font(Font.semiBold(size: 9))
                                         .foregroundColor(ColorConstants.Bluegray402)
                                         .padding(5)
                                     }
@@ -243,7 +243,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                          Text(manageteachersubjectlessonsvm.recommendedindividualCost)
                                          Text("EGP".localized())
                                     }
-                                    .font(Font.SoraRegular(size: 9))
+                                    .font(Font.regular(size: 9))
                                     .foregroundColor(ColorConstants.Bluegray402)
                                     .padding(5)
                                 }
@@ -286,7 +286,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     Image("img_group512375")
                                     //                                                .renderingMode(.template)
                                     Text("Update Lesson Brief".localized())
-                                        .font(Font.SoraBold(size: 18))
+                                        .font(Font.bold(size: 18))
                                         .foregroundColor(.mainBlue)
                                     Spacer()
                                 }
@@ -346,7 +346,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                 .padding(.top,2.5)
                             HStack {
                                 Text("Filter".localized())
-                                    .font(Font.SoraBold(size: 18))
+                                    .font(Font.bold(size: 18))
                                     .foregroundColor(.mainBlue)
                                 //                                            Spacer()
                             }

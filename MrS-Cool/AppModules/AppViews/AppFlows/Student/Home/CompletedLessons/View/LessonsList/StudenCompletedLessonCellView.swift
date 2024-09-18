@@ -28,7 +28,7 @@ struct StudenCompletedLessonCellView: View {
                         )
                     
                     Text(model.subject ?? "")
-                        .font(Font.SoraSemiBold(size:13.0))
+                        .font(Font.semiBold(size:13.0))
                         .foregroundColor(.mainBlue)
 
                     Spacer()
@@ -86,18 +86,18 @@ struct StudenCompletedLessonCellView: View {
                 HStack{
                     VStack (alignment:.leading,spacing: 10){
                         Text(model.teacherName ?? "")
-                            .font(Font.SoraSemiBold(size:13.0))
+                            .font(Font.semiBold(size:13.0))
                             .foregroundColor(.mainBlue)
 
                         Text(model.groupName ?? "")
-                            .font(Font.SoraRegular(size: 12.0))
+                            .font(Font.regular(size: 12.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Black900)
 //                            .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                         
                         Text(model.lessonname ?? "")
-                            .font(Font.SoraRegular(size: 12.0))
+                            .font(Font.regular(size: 12.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Black900)
 //                            .minimumScaleFactor(0.5)
@@ -110,22 +110,22 @@ struct StudenCompletedLessonCellView: View {
                     VStack(alignment:.trailing){
                         VStack(alignment:.leading,spacing: 2.5){
                             Text("Date".localized())
-                                .font(Font.SoraSemiBold(size: 9))
+                                .font(Font.semiBold(size: 9))
                                 .foregroundColor(.grayBtnText)
                             
                             Text("\(model.date ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                .font(Font.SoraRegular(size: 12))
+                                .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
                             
                             Spacer().frame(height:3)
                             
                             Text("Time".localized())
-                                .font(Font.SoraSemiBold(size: 9))
+                                .font(Font.semiBold(size: 9))
                                 .foregroundColor(.grayBtnText)
                             
                             Group{
                                 Text("\(model.startTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))+Text(" - \("\(model.endTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))")
-                            }                            .font(Font.SoraRegular(size: 12))
+                            }                            .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
                             
                         }

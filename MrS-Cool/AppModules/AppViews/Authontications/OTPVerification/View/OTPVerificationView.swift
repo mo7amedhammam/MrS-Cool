@@ -31,7 +31,7 @@ struct OTPVerificationView: View {
                 ScrollView(.vertical){
                     VStack{
                         Text("OTP Verification".localized())
-                            .font(Font.SoraBold(size: 18.0))
+                            .font(Font.bold(size: 18.0))
                             .fontWeight(.bold)
                             .foregroundColor(ColorConstants.Bluegray901)
                             .minimumScaleFactor(0.5)
@@ -39,7 +39,7 @@ struct OTPVerificationView: View {
                             .padding(.horizontal, 26.0)
                             .padding(.top,60)
                         Text("An authentication code has been sent to".localized())
-                            .font(Font.SoraRegular(size: 13.0))
+                            .font(Font.regular(size: 13.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Bluegray402)
                             .minimumScaleFactor(0.5)
@@ -47,7 +47,7 @@ struct OTPVerificationView: View {
                             .padding(.top, getRelativeHeight(17.0))
                             .padding(.horizontal, getRelativeWidth(26.0))
                         Text("(+2) \(PhoneNumber ?? "")")
-                            .font(Font.SoraRegular(size: 13.0))
+                            .font(Font.regular(size: 13.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Bluegray402)
                             .minimumScaleFactor(0.5)
@@ -64,7 +64,7 @@ struct OTPVerificationView: View {
                         
                         HStack {
                             Text("I didn't receive code.".localized())
-                                .font(Font.SoraRegular(size: 12.0))
+                                .font(Font.regular(size: 12.0))
                                 .fontWeight(.regular)
                                 .foregroundColor(ColorConstants.Black900)
                                 .minimumScaleFactor(0.5)
@@ -73,7 +73,7 @@ struct OTPVerificationView: View {
                                 otpvm.SendOtp()
                             }, label: {
                                 Text("Resend Code".localized())
-                                    .font(Font.SoraSemiBold(size: 13.0))
+                                    .font(Font.semiBold(size: 13.0))
                                     .fontWeight(.semibold)
                                     .foregroundColor(ColorConstants.Red400)
                                     .minimumScaleFactor(0.5)
@@ -84,7 +84,7 @@ struct OTPVerificationView: View {
                         }
                         
                         Text("\(otpvm.remainingSeconds.formattedTime() ) Sec left")
-                            .font(Font.SoraSemiBold(size: 13.0))
+                            .font(Font.semiBold(size: 13.0))
                             .fontWeight(.semibold)
                             .foregroundColor(ColorConstants.Bluegray901)
                             .minimumScaleFactor(0.5)
@@ -95,7 +95,7 @@ struct OTPVerificationView: View {
                         Spacer()
                         HStack {
                             Text("Mobile number not correct ?".localized())
-                                .font(Font.SoraRegular(size: 12.0))
+                                .font(Font.regular(size: 12.0))
                                 .fontWeight(.regular)
                                 .foregroundColor(ColorConstants.Black900)
                                 .minimumScaleFactor(0.5)
@@ -106,7 +106,7 @@ struct OTPVerificationView: View {
                                 dismiss()
                             }, label:{
                                 Text("Modify Now".localized())
-                                    .font(Font.SoraSemiBold(size: 13.0))
+                                    .font(Font.semiBold(size: 13.0))
                                     .fontWeight(.semibold)
                                     .foregroundColor(ColorConstants.LightGreen800)
                                     .minimumScaleFactor(0.5)

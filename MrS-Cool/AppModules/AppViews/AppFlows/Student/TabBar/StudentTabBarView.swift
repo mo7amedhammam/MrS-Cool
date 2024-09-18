@@ -12,7 +12,7 @@ enum Studentdestinations{
 }
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
-    @StateObject var localizeHelper = LocalizeHelper.shared
+//    @StateObject var localizeHelper = LocalizeHelper.shared
     @State private var selectedDestination : Studentdestinations?
 
     private let tabBarItems = [
@@ -34,7 +34,7 @@ struct StudentTabBarView: View {
                         Group{
                             Text("Hi, ".localized())+Text(studentsignupvm.name)
                         }
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.whiteA700)
                     }
                     
@@ -150,9 +150,9 @@ struct StudentTabBarView: View {
             .task{
                 studentsignupvm.GetStudentProfile()
             }
-            .task(id: localizeHelper.currentLanguage, {
-                studentsignupvm.GetStudentProfile()
-            })
+//            .task(id: localizeHelper.currentLanguage, {
+//                studentsignupvm.GetStudentProfile()
+//            })
 //            .onChange(of: localizeHelper.currentLanguage, perform: {_ in
 //                Task(priority: .background, operation: {
 //                    studentsignupvm.GetStudentProfile()
@@ -354,11 +354,11 @@ struct StudentSideMenuContent: View {
                         }
                         VStack(alignment:.leading) {
                             Text(studentsignupvm.name)
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                                 .foregroundStyle(.whiteA700)
                             
                             Text("Edit your profile")
-                                .font(.SoraRegular(size: 12))
+                                .font(.regular(size: 12))
                                 .foregroundStyle(.whiteA700)
                         }
                         
@@ -422,7 +422,7 @@ struct StudentSideMenuContent: View {
                 }
                 //            Text("Build Number: \(Helper.shared.getBuildNumber())")
             }
-            .font(.SoraSemiBold(size: 12))
+            .font(.semiBold(size: 12))
             .foregroundStyle(.whiteA700)
             .padding(.bottom)
         }
@@ -445,7 +445,7 @@ struct SideMenuSectionTitle: View {
     var body: some View {
         HStack {
             Text(title.localized())
-                .font(.SoraBold(size: 18))
+                .font(.bold(size: 18))
                 .foregroundColor(ColorConstants.WhiteA700)
                 .multilineTextAlignment(.leading)
             Spacer()
@@ -473,7 +473,7 @@ struct SideMenuButton: View {
                     .renderingMode(.template)
                     .foregroundStyle(Color("StudentBtnBg"))
                 Text(title.localized())
-                    .font(.SoraSemiBold(size: 13))
+                    .font(.semiBold(size: 13))
                     .foregroundStyle(titleColor ?? ColorConstants.WhiteA700)
                 Spacer()
             }

@@ -70,14 +70,14 @@ struct BookingCheckoutView: View {
                             VStack(alignment:.leading){
                                 if let headerName = details.headerName{
                                     Text(headerName)
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
                                 }
                                 if let subjectSemesterName = details.subjectSemesterName{
                                     Text(subjectSemesterName)
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
                                 }
                                 Text(details.academicYearName ?? "")
-                                    .font(.SoraSemiBold(size: 16))
+                                    .font(.semiBold(size: 16))
                             }
                             .foregroundColor(.mainBlue)
                             
@@ -96,7 +96,7 @@ struct BookingCheckoutView: View {
                         }
                         
                         Text(details.lessonOrSubjectBrief ?? "")
-                            .font(.SoraRegular(size: 10))
+                            .font(.regular(size: 10))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                         //                        .padding(.horizontal,30)
@@ -126,14 +126,14 @@ struct BookingCheckoutView: View {
                         Text("Total Payment".localized())
                             .foregroundColor(.mainBlue)
 
-                    .font(Font.SoraBold(size: 18))
+                    .font(Font.bold(size: 18))
                         HStack(spacing: 0){
                             Group {
                                 Text(String(format: "%.2f",details.paymentAmount ?? 0))
                                 Text(" EGP".localized())
                             }
                             .foregroundColor(ColorConstants.MainColor)
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                         }.padding(7)
                         
                         CustomButton(Title: "Confirm Payment", IsDisabled: .constant(false), action: {
@@ -265,12 +265,12 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Teacher".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             CustomDivider()
             
@@ -283,12 +283,12 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Start Date".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             CustomDivider()
             
@@ -301,12 +301,12 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("End Date".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text("\(details.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             CustomDivider()
             
@@ -319,7 +319,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Schedule".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 VStack{
@@ -328,7 +328,7 @@ struct CheckOutFullSubjectInfo: View {
                             Text("\(sched.dayName ?? "") ")+Text("\(sched.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                         }
                         .foregroundColor(.mainBlue)
-                        .font(Font.SoraRegular(size: 10))
+                        .font(Font.regular(size: 10))
                     }
                 }
             }
@@ -343,7 +343,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Duration".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
 //                Text("\(Int(details.duration ?? "")?.formattedHrsMins() ?? "0")")
@@ -351,7 +351,7 @@ struct CheckOutFullSubjectInfo: View {
                     Text("\(Int(details.duration ?? "")?.hours ?? 0) ") + Text("hrs".localized()) + Text(", ".localized()) + Text("\(Int(details.duration ?? "")?.minutes ?? 0) ") + Text("mins".localized())
                 }
                         .foregroundColor(.mainBlue)
-                        .font(Font.SoraRegular(size: 10))
+                        .font(Font.regular(size: 10))
                 
             }
             
@@ -365,13 +365,13 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Price".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f", details.price ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
             HStack(spacing: 10){
                 Image("moneyicon")
@@ -382,13 +382,13 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Tax Amoun".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
             HStack(spacing: 10){
                 Image("moneyicon")
@@ -399,13 +399,13 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Total Price With Taxs".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
             
             CustomDivider()
@@ -418,13 +418,13 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Text("Current Wallet Balance".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
         }
     }
@@ -443,12 +443,12 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Teacher".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             CustomDivider()
             
@@ -461,12 +461,12 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Booking Type".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text(details.bookType ?? "")
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             CustomDivider()
             
@@ -479,12 +479,12 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Date".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             
             CustomDivider()
@@ -497,12 +497,12 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Time".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Text("\(details.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraRegular(size: 10))
+                    .font(Font.regular(size: 10))
             }
             
             CustomDivider()
@@ -515,13 +515,13 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Price".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f",details.price ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
             HStack(spacing: 10){
                 Image("taxIcon")
@@ -532,13 +532,13 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Tax".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
             HStack(spacing: 10){
                 Image("moneyicon")
@@ -549,13 +549,13 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Total Price With Tax".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
             
             CustomDivider()
@@ -568,13 +568,13 @@ struct CheckOutLessonInfo: View {
                 
                 Text("Current Wallet Balance".localized())
                     .foregroundColor(.mainBlue)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
                 
                 Spacer()
                 Group{
                     Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text("EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
-                    .font(Font.SoraBold(size: 12))
+                    .font(Font.bold(size: 12))
             }
         }
     }

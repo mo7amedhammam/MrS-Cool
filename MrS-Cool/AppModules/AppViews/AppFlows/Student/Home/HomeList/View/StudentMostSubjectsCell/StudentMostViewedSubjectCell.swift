@@ -51,8 +51,8 @@ struct StudentMostViewedSubjectCell: View {
                     let thirdPart = subjectParts.indices.contains(2) ? subjectParts[2] : ""
                     
                     Text(firstPart)
-                        .font(Font.SoraSemiBold(size: 13))
-                        .fontWeight(.semibold)
+                        .font(Font.bold(size: 13))
+//                        .fontWeight(.semibold)
                         .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                         .multilineTextAlignment(.center)
                         .padding(.top, 19.0)
@@ -60,7 +60,7 @@ struct StudentMostViewedSubjectCell: View {
                     HStack {
                         Text("\(secondPart), \(thirdPart)")
                     }
-                    .font(Font.SoraRegular(size: 12))
+                    .font(Font.semiBold(size: 12))
                     .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 8)
@@ -83,12 +83,12 @@ struct StudentMostViewedSubjectCell: View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                             Text("\(subject.teacherCount ?? 0)  ")
-                                .font(Font.SoraSemiBold(size: 9))
-                            + Text("Available Teachers".localized())
+                                .font(Font.bold(size: 9))
+                             Text("Available Teachers".localized())
                         }
-                        .font(Font.SoraRegular(size: 9))
+                        .font(Font.semiBold(size: 9))
                         
                         .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
 //                        Spacer()
@@ -100,12 +100,12 @@ struct StudentMostViewedSubjectCell: View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        Group {
+                        HStack (spacing:2){
                             Text("\(subject.lessonsCount ?? 0)  ")
-                                .font(Font.SoraSemiBold(size: 9))
-                            + Text("Lessons".localized())
+                                .font(Font.bold(size: 9))
+                             Text("Lessons".localized())
                         }
-                        .font(Font.SoraRegular(size: 9))
+                        .font(Font.semiBold(size: 9))
                         
                         .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
 //                        Spacer()

@@ -12,7 +12,7 @@ enum Parentdestinations{
 }
 struct ParentTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
-    @StateObject var localizeHelper = LocalizeHelper.shared
+//    @StateObject var localizeHelper = LocalizeHelper.shared
     @State private var selectedDestination : Parentdestinations?
     
     private let tabBarItems = [
@@ -34,7 +34,7 @@ struct ParentTabBarView: View {
                     Group{
                         Text("Hi, ".localized())+Text(parentProfilevm.name)
                     }
-                    .font(Font.SoraBold(size: 18))
+                    .font(Font.bold(size: 18))
                     .foregroundColor(.whiteA700)
                 }
                 
@@ -119,10 +119,10 @@ struct ParentTabBarView: View {
         .task {
             parentProfilevm.GetParentProfile()
         }
-        .task(id: localizeHelper.currentLanguage, {
-            parentProfilevm.GetParentProfile()
-            listchildrenvm.GetMyChildren()
-        })
+//        .task(id: localizeHelper.currentLanguage, {
+//            parentProfilevm.GetParentProfile()
+//            listchildrenvm.GetMyChildren()
+//        })
 //        .onAppear{
 //            Task(priority: .background, operation: {
 //                parentProfilevm.GetParentProfile()
@@ -236,11 +236,11 @@ struct ParentSideMenuContent: View {
                         
                         VStack(alignment:.leading) {
                             Text(parentprofilevm.name)
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                                 .foregroundStyle(.whiteA700)
                             
                             Text("Edit your profile")
-                                .font(.SoraRegular(size: 12))
+                                .font(.regular(size: 12))
                                 .foregroundStyle(.whiteA700)
                         }
                         
@@ -294,11 +294,11 @@ struct ParentSideMenuContent: View {
                             }
                             VStack(alignment:.leading) {
                                 Text(Helper.shared.selectedchild?.name ?? "")
-                                    .font(.SoraBold(size: 14))
+                                    .font(.bold(size: 14))
                                     .foregroundStyle(.whiteA700)
                                 
                                 Text("Edit your kid profile".localized())
-                                    .font(.SoraRegular(size: 12))
+                                    .font(.regular(size: 12))
                                     .foregroundStyle(.whiteA700)
                             }
                             
@@ -368,7 +368,7 @@ struct ParentSideMenuContent: View {
                 }
                 //            Text("Build Number: \(Helper.shared.getBuildNumber())")
             }
-            .font(.SoraSemiBold(size: 12))
+            .font(.semiBold(size: 12))
             .foregroundStyle(.whiteA700)
             .padding(.bottom)
         }

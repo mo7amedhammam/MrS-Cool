@@ -24,19 +24,19 @@ struct PaymentStatusView: View {
 
                 Text(paymentsuccess ? "Your Payment Approve\n Successfully".localized():"Your Payment Failed".localized())
                     .multilineTextAlignment(.center)
-                    .font(.SoraBold(size: 18))
+                    .font(.bold(size: 18))
                     .foregroundColor(paymentsuccess ? ColorConstants.MainColor : .red)
                     .padding(.vertical)
                     
                 Text(paymentsuccess ? "Your payment had beed done \nsuccessfully.".localized():"Your payment had beed Failed.".localized())
                     .multilineTextAlignment(.center)
-                    .font(.SoraRegular(size: 14))
+                    .font(.regular(size: 14))
                     .foregroundColor(ColorConstants.Bluegray400)
                     .padding(.vertical,5)
   
                 Text(paymentsuccess ? "Please back to your account and \nenjoy".localized():"Please back to your account and try \nagain".localized())
                     .multilineTextAlignment(.center)
-                    .font(.SoraRegular(size: 14))
+                    .font(.regular(size: 14))
                     .foregroundColor(ColorConstants.Bluegray400)
             }.padding()
 

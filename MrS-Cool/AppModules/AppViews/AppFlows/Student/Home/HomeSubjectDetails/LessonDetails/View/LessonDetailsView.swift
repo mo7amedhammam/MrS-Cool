@@ -87,9 +87,9 @@ struct LessonDetailsView: View {
                         
                         VStack(alignment:.leading){
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                             Text(details.SubjectOrLessonDto?.subjectName ?? "")
-                                .font(.SoraSemiBold(size: 16))
+                                .font(.semiBold(size: 16))
 
                         }
                         .foregroundColor(.mainBlue)
@@ -100,7 +100,7 @@ struct LessonDetailsView: View {
                     .padding(.horizontal,30)
                     
 //                    Text(details.SubjectOrLessonDto?.systemBrief ?? "")
-//                        .font(.SoraRegular(size: 10))
+//                        .font(.regular(size: 10))
 //                        .foregroundColor(.mainBlue)
 //                        .multilineTextAlignment(.leading)
 //                        .padding(.horizontal,30)
@@ -110,7 +110,7 @@ struct LessonDetailsView: View {
 
 //                    ScrollView(.vertical){
 //                                Text(details.SubjectOrLessonDto?.systemBrief ?? "")
-//                                .font(.SoraRegular(size: 10))
+//                                .font(.regular(size: 10))
 //                                .foregroundColor(.mainBlue)
 //                                .lineSpacing(10)
 //                                .multilineTextAlignment(.leading)
@@ -127,7 +127,7 @@ struct LessonDetailsView: View {
                                 
                                 HStack {
                                     Text("Teacher Info".localized())
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
                                         .foregroundColor(ColorConstants.WhiteA700)
                                         .multilineTextAlignment(.leading)
                                     Spacer()
@@ -147,7 +147,7 @@ struct LessonDetailsView: View {
                                         lessondetailsvm.selectedsched = nil //clear individual
                                     }, label: {
                                         Text("Group".localized())
-                                            .font(.SoraBold(size: 18))
+                                            .font(.bold(size: 18))
                                             .padding()
                                             .frame(minWidth:80,maxWidth:.infinity)
                                             .foregroundColor(lessoncase == .Group ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
@@ -163,7 +163,7 @@ struct LessonDetailsView: View {
                                         selectedDate = Date()
                                     }, label: {
                                         Text("Individual".localized())
-                                            .font(.SoraBold(size: 18))
+                                            .font(.bold(size: 18))
                                             .padding()
                                             .frame(minWidth:80,maxWidth:.infinity)
                                             .foregroundColor(lessoncase == .Individual ? ColorConstants.WhiteA700 : ColorConstants.MainColor)
@@ -175,7 +175,7 @@ struct LessonDetailsView: View {
                                 }
                                 HStack {
                                     Text(lessoncase == .Group ? "Group Booking".localized():"Individual Booking".localized())
-                                        .font(.SoraBold(size: 18))
+                                        .font(.bold(size: 18))
                                         .foregroundColor(ColorConstants.WhiteA700)
                                     //                                        .multilineTextAlignment(.leading)
                                 }
@@ -220,7 +220,7 @@ struct LessonDetailsView: View {
                                                     }
                                                     .offset(x:-40)
                                                     Text(slot.groupName ?? "")
-                                                        .font(.SoraBold(size: 18))
+                                                        .font(.bold(size: 18))
                                                         .foregroundColor(isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor)
                                                 }
                                                 .frame(width:170,height: 45)
@@ -233,10 +233,11 @@ struct LessonDetailsView: View {
                                                 })
                                                 Group{
                                                     Label(title: {
-                                                        Group {
-                                                            Text("Date".localized())+Text(": ")+Text("\(slot.date ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMMM yyyy"))
+                                                        HStack (spacing:2){
+                                                            Text("Date".localized())+Text(": ")
+                                                            Text("\(slot.date ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMMM yyyy"))
                                                         }
-                                                        .font(.SoraRegular(size: 10))
+                                                        .font(.regular(size: 10))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("calvector")
@@ -245,10 +246,11 @@ struct LessonDetailsView: View {
                                                     })
                                                     
                                                     Label(title: {
-                                                        Group {
-                                                            Text("Start Time".localized())+Text(": ")+Text("\(slot.timeFrom ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                        HStack (spacing:2){
+                                                            Text("Start Time".localized())+Text(": ")
+                                                            Text("\(slot.timeFrom ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
-                                                        .font(.SoraRegular(size: 10))
+                                                        .font(.regular(size: 10))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("caltimevector")
@@ -256,10 +258,11 @@ struct LessonDetailsView: View {
                                                             .frame(width:15,height:15)
                                                     })
                                                     Label(title: {
-                                                        Group {
-                                                            Text("End Time".localized())+Text(": ")+Text("\(slot.timeTo ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                        HStack (spacing:2){
+                                                            Text("End Time".localized())
+                                                            Text(": ")+Text("\(slot.timeTo ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
-                                                        .font(.SoraRegular(size: 10))
+                                                        .font(.regular(size: 10))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("caltimevector")
@@ -312,7 +315,7 @@ struct LessonDetailsView: View {
                                         
                                     }else{
                                         Text("No Available Group Times".localized())
-                                            .font(Font.SoraBold(size: 15))
+                                            .font(Font.bold(size: 15))
                                             .foregroundColor(ColorConstants.MainColor)
                                         
                                         //                                          print("no slots to display")
@@ -329,11 +332,11 @@ struct LessonDetailsView: View {
                                             .renderingMode(.template)
                                             .foregroundColor(ColorConstants.MainColor )
                                             .frame(width: 20,height: 20, alignment: .center)
-                                        Group {
+                                        HStack (spacing:2){
                                             Text("  \(details.individualCost ?? 0,specifier:"%.2f") ")
-                                            + Text("EGP".localized())
+                                             Text("EGP".localized())
                                         }
-                                        .font(Font.SoraBold(size: 18))
+                                        .font(Font.bold(size: 18))
                                         .foregroundColor(ColorConstants.MainColor)
                                     }.padding(7)
                                     
@@ -350,12 +353,12 @@ struct LessonDetailsView: View {
                                         .padding(.vertical,8)
                                     
                                     if (lessoncase == .Individual && lessondetailsvm.availableScheduals == []){
-                                        Group{
-                                        Text(" No Available Times on ".localized())
-                                        + Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy")
+                                        HStack (spacing:2){
+                                            Text(" No Available Times on ".localized())
+                                            Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy")
                                         )
                                     }
-                                        .font(Font.SoraBold(size: 15))
+                                        .font(Font.bold(size: 15))
                                         .foregroundColor(ColorConstants.MainColor)
                                 }
                                     ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
@@ -454,7 +457,9 @@ struct HorizontalScrollWithTwoRows: View {
     @Binding var selectedsched : TeacherAvaliableSchedualDto?
     
     var body: some View {
-        ScrollViewRTL(type: .hList){
+//        ScrollViewRTL(type: .hList){
+        ScrollView(.horizontal,showsIndicators: false){
+
             if let items = items{
                 if items.count < 3 {
                     HStack(spacing: 10) {
@@ -500,7 +505,7 @@ struct HorizontalScrollWithTwoRows: View {
                                     //                                .padding(.horizontal)
                                     
                                     //                                .background(ColorConstants.MainColor)
-                                    .font(.SoraRegular(size: 10))
+                                    .font(.regular(size: 10))
                                     //                            .foregroundColor(ColorConstants.WhiteA700)
                                 }
                                 .padding(8)
@@ -560,7 +565,7 @@ struct HorizontalScrollWithTwoRows: View {
                                         
                                     }
                                     .frame(width: 120)
-                                    .font(.SoraRegular(size: 10))
+                                    .font(.regular(size: 10))
                                 }
                                 .padding(8)
                                 .background(content: {

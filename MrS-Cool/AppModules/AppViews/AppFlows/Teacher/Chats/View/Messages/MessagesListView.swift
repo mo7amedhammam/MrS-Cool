@@ -50,11 +50,11 @@ struct MessagesListView: View {
                             .clipShape(Circle())
                             VStack(alignment: .leading,spacing: 4){
                                 Text(Helper.shared.getSelectedUserType() == .Teacher ? student.studentName ?? "" : student.teacherName ?? "")
-                                    .font(Font.SoraSemiBold(size:15))
+                                    .font(Font.semiBold(size:15))
                                     .foregroundColor(.mainBlue)
                                 
                                 Text(student.subjectName ?? "")
-                                    .font(Font.SoraSemiBold(size:15))
+                                    .font(Font.semiBold(size:15))
                                     .foregroundColor(.bluegray400)
                             }
                             Spacer()
@@ -92,12 +92,12 @@ struct MessagesListView: View {
                                                     
                                                     HStack(spacing: 4){
                                                         Text(comment.fromName != nil ? comment.fromName ?? "" :comment.toName ?? "")
-                                                            .font(Font.SoraSemiBold(size:15))
+                                                            .font(Font.semiBold(size:15))
                                                             .foregroundColor(.mainBlue)
                                                             .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
                                                         
                                                         Text("\(comment.creationDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM , yyyy HH:mm"))
-                                                            .font(Font.SoraRegular(size:10))
+                                                            .font(Font.regular(size:10))
                                                             .foregroundColor(.bluegray400)
                                                             .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
                                                     }
@@ -138,7 +138,7 @@ struct MessagesListView: View {
                                 chatlistvm.CreateChatComment()
                             })
 //                            TextField("Send a message".localized(), text: $chatlistvm.comment)
-                                .font(Font.SoraSemiBold(size:15))
+                                .font(Font.semiBold(size:15))
                                 .foregroundColor(.mainBlue)
                                 .disableAutocorrection(true)
                                 .textInputAutocapitalization(.never)
@@ -171,7 +171,7 @@ struct MessagesListView: View {
                         Spacer()
                         Image("messagebox")
                         Text("Message box is empty".localized())
-                            .font(Font.SoraRegular(size:14))
+                            .font(Font.regular(size:14))
                             .foregroundColor(.bluegray400)
                             .padding()
                         Spacer()

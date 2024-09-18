@@ -34,7 +34,7 @@ struct CompletedLessonDetails: View {
                             }, label: {
                                 HStack{
                                     Text("Manage Lesson Materials".localized())
-                                        .font(Font.SoraRegular(size: 11))
+                                        .font(Font.regular(size: 11))
                                     Image("img_group_white_a700")
                                         .resizable()
                                         .frame(width: 10, height: 10, alignment: .center)
@@ -49,28 +49,28 @@ struct CompletedLessonDetails: View {
                             
                             Group{
                                 Text("Subject".localized())
-                                    .font(Font.SoraBold(size: 16))
+                                    .font(Font.bold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.subjectName ?? "")
-                                    .font(Font.SoraBold(size: 18))
+                                    .font(Font.bold(size: 18))
                                 
                                 Text("Subject Brief".localized())
-                                    .font(Font.SoraBold(size: 16))
+                                    .font(Font.bold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
-                                    .font(Font.SoraRegular(size: 13))
+                                    .font(Font.regular(size: 13))
                                 
                                 Text("Lesson".localized())
-                                    .font(Font.SoraSemiBold(size: 16))
+                                    .font(Font.semiBold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "")
-                                    .font(Font.SoraRegular(size: 12))
+                                    .font(Font.regular(size: 12))
                                 
                                 Text("Lesson Brief".localized())
-                                    .font(Font.SoraSemiBold(size: 16))
+                                    .font(Font.semiBold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
-                                    .font(Font.SoraRegular(size: 13))
+                                    .font(Font.regular(size: 13))
                                 
                             }
                             .foregroundColor(.mainBlue)

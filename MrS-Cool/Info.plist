@@ -27,11 +27,25 @@
     <string>We need to send you notifications to keep you updated.</string>
     <key>UIAppFonts</key>
     <array>
-        <string>InterMedium.ttf</string>
-        <string>SoraBold.ttf</string>
-        <string>RobotoRegular.ttf</string>
-        <string>SoraSemiBold.ttf</string>
-        <string>SoraRegular.ttf</string>
+        <string>ArbFONTS-LamaSans-Black.ttf</string>
+        <string>ArbFONTS-LamaSans-BlackItalic.ttf</string>
+        <string>ArbFONTS-LamaSans-ExtraBold.ttf</string>
+        <string>ArbFONTS-LamaSans-ExtraBoldItalic.ttf</string>
+        <string>ArbFONTS-LamaSans-ExtraLightItalic.ttf</string>
+        <string>ArbFONTS-LamaSans-Light.ttf</string>
+        <string>ArbFONTS-LamaSans-LightItalic.ttf</string>
+        <string>ArbFONTS-LamaSans-Medium.ttf</string>
+        <string>ArbFONTS-LamaSans-MediumItalic.ttf</string>
+        <string>ArbFONTS-LamaSans-SemiBold.ttf</string>
+        <string>ArbFONTS-LamaSans-SemiBoldItalic.ttf</string>
+        <string>LamaSans-Bold.ttf</string>
+        <string>LamaSans-BoldItalic.ttf</string>
+        <string>LamaSans-ExtraLight.ttf</string>
+        <string>LamaSans-Regular.ttf</string>
+        <string>LamaSans-RegularItalic.ttf</string>
+        <string>LamaSans-Thin.ttf</string>
+        <string>LamaSans-ThinItalic.ttf</string>
+
     </array>
     <key>UIBackgroundModes</key>
     <array>

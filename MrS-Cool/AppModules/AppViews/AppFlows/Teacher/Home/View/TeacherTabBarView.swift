@@ -12,7 +12,7 @@ enum Teacherdestinations{
 }
 struct TeacherTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
-    @StateObject var localizeHelper = LocalizeHelper.shared
+//    @StateObject var localizeHelper = LocalizeHelper.shared
 
     @State private var selectedDestination : Teacherdestinations?
     
@@ -36,7 +36,7 @@ struct TeacherTabBarView: View {
                     Group{
                         Text("Hi, ".localized())+Text(teacherProfilevm.name)
                   }
-                    .font(Font.SoraBold(size: 18))
+                    .font(Font.bold(size: 18))
                     .foregroundColor(.whiteA700)
                 }
                 
@@ -121,9 +121,9 @@ struct TeacherTabBarView: View {
             teacherProfilevm.GetTeacherProfile()
 
         })
-        .task(id: localizeHelper.currentLanguage, {
-            teacherProfilevm.GetTeacherProfile()
-        })
+//        .task(id: localizeHelper.currentLanguage, {
+//            teacherProfilevm.GetTeacherProfile()
+//        })
 //            .onAppear{
 //                Task(priority: .background, operation: {
 //                    teacherProfilevm.GetTeacherProfile()
@@ -256,11 +256,11 @@ struct TeacherSideMenuContent: View {
                         }
                         VStack(alignment:.leading) {
                             Text(teacherprofilevm.name)
-                                .font(.SoraBold(size: 18))
+                                .font(.bold(size: 18))
                                 .foregroundStyle(.whiteA700)
                             
-                            Text("Edit your profile")
-                                .font(.SoraRegular(size: 12))
+                            Text("Edit your profile".localized())
+                                .font(.regular(size: 12))
                                 .foregroundStyle(.whiteA700)
                         }
                         
@@ -359,7 +359,7 @@ struct TeacherSideMenuContent: View {
                 }
                 //            Text("Build Number: \(Helper.shared.getBuildNumber())")
             }
-            .font(.SoraSemiBold(size: 12))
+            .font(.semiBold(size: 12))
             .foregroundStyle(.whiteA700)
             .padding(.bottom)
         }

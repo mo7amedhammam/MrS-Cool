@@ -31,11 +31,11 @@ struct StudentHomeView: View {
                     
                     VStack(alignment:.leading){
                         Text("Subjects For".localized())
-                            .font(Font.SoraBold(size: 18))
+                            .font(Font.bold(size: 18))
                             .foregroundColor(.mainBlue)
                         
                         Text(studenthomevm.StudentSubjectsM?.academicLevelName ?? "")
-                            .font(Font.SoraRegular(size: 13))
+                            .font(Font.regular(size: 13))
                             .foregroundColor(ColorConstants.Red400)
                         
                     }.padding([.top,.horizontal])
@@ -49,7 +49,7 @@ struct StudentHomeView: View {
 //                                .resizable()
 //                                .aspectRatio(contentMode: .fit)
                         Text("No available subjects yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
@@ -71,7 +71,7 @@ struct StudentHomeView: View {
                     }
                     
                     Text("Most Viewed Lessons".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -82,12 +82,14 @@ struct StudentHomeView: View {
                             .padding()
 
                         Text("No available most viewed lessons yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
 //                        ScrollViewReader {proxy in
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
 //                                ScrollViewReader { proxy in
                                     HStack(spacing:10){
                                         Spacer().frame(width:1)
@@ -110,7 +112,7 @@ struct StudentHomeView: View {
                     
                     
                     Text("Most Booked Lessons".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -120,11 +122,13 @@ struct StudentHomeView: View {
                             .frame(width: 100,height: 100)
                             .padding()
                         Text("No available most booked lessons yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
                            HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
@@ -148,7 +152,7 @@ struct StudentHomeView: View {
                     }
                     
                     Text("Most Viewed Subjects".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -162,11 +166,13 @@ struct StudentHomeView: View {
 //                                .resizable()
 //                                .aspectRatio(contentMode: .fit)
                         Text("No available most viewed subjects yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
                             HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
@@ -188,7 +194,7 @@ struct StudentHomeView: View {
                     }
                     
                     Text("Most Booked Subjects".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -202,11 +208,13 @@ struct StudentHomeView: View {
 //                                .resizable()
 //                                .aspectRatio(contentMode: .fit)
                         Text("No available most booked subjects yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
                             HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
@@ -228,7 +236,7 @@ struct StudentHomeView: View {
                     }
                     
                     Text("Most Viewed Teachers".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -242,11 +250,13 @@ struct StudentHomeView: View {
 //                                .resizable()
 //                                .aspectRatio(contentMode: .fit)
                         Text("No available most viewd teachers yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
                             HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
@@ -265,7 +275,7 @@ struct StudentHomeView: View {
                     }
                     
                     Text("Most Booked Teachers".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -279,11 +289,13 @@ struct StudentHomeView: View {
 //                                .resizable()
 //                                .aspectRatio(contentMode: .fit)
                         Text("No available most booked teachers yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
                             HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 
@@ -302,7 +314,7 @@ struct StudentHomeView: View {
                     }
                     
                     Text("Top Rated Teachers".localized())
-                        .font(Font.SoraBold(size: 18))
+                        .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                         .padding([.top,.horizontal])
                         .frame(maxWidth:.infinity,alignment: .leading)
@@ -316,11 +328,13 @@ struct StudentHomeView: View {
 //                                .resizable()
 //                                .aspectRatio(contentMode: .fit)
                         Text("No available top rated teachers yet".localized())
-                            .font(Font.SoraRegular(size: 15))
+                            .font(Font.regular(size: 15))
                             .foregroundColor(ColorConstants.Bluegray400)
 
                     }else{
-                        ScrollViewRTL(type: .hList){
+//                        ScrollViewRTL(type: .hList){
+                        ScrollView(.horizontal,showsIndicators: false){
+
                             HStack(spacing:10){
                                 Spacer().frame(width:1)
                                 ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
