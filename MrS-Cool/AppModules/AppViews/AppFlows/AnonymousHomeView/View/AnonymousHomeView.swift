@@ -614,7 +614,7 @@ struct ChangeLanguage: View {
                     .resizable()
                     .frame(width: 25,height: 20)
                 Text("English".localized())
-                    .font(.semiBold(size: 13))
+                    .font(.bold(size: 13))
                     .foregroundStyle(ColorConstants.WhiteA700)
                 Spacer()
             }

@@ -96,7 +96,7 @@ struct BookingCheckoutView: View {
                         }
                         
                         Text(details.lessonOrSubjectBrief ?? "")
-                            .font(.regular(size: 10))
+                            .font(.bold(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                         //                        .padding(.horizontal,30)
@@ -270,7 +270,7 @@ struct CheckOutFullSubjectInfo: View {
                 Spacer()
                 Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             CustomDivider()
             
@@ -288,7 +288,7 @@ struct CheckOutFullSubjectInfo: View {
                 Spacer()
                 Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             CustomDivider()
             
@@ -306,7 +306,7 @@ struct CheckOutFullSubjectInfo: View {
                 Spacer()
                 Text("\(details.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             CustomDivider()
             
@@ -328,7 +328,7 @@ struct CheckOutFullSubjectInfo: View {
                             Text("\(sched.dayName ?? "") ")+Text("\(sched.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                         }
                         .foregroundColor(.mainBlue)
-                        .font(Font.regular(size: 10))
+                        .font(Font.semiBold(size: 12))
                     }
                 }
             }
@@ -351,8 +351,8 @@ struct CheckOutFullSubjectInfo: View {
                     Text("\(Int(details.duration ?? "")?.hours ?? 0) ") + Text("hrs".localized()) + Text(", ".localized()) + Text("\(Int(details.duration ?? "")?.minutes ?? 0) ") + Text("mins".localized())
                 }
                         .foregroundColor(.mainBlue)
-                        .font(Font.regular(size: 10))
-                
+                        .font(Font.semiBold(size: 12))
+
             }
             
             CustomDivider()
@@ -448,7 +448,7 @@ struct CheckOutLessonInfo: View {
                 Spacer()
                 Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             CustomDivider()
             
@@ -466,7 +466,7 @@ struct CheckOutLessonInfo: View {
                 Spacer()
                 Text(details.bookType ?? "")
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             CustomDivider()
             
@@ -484,7 +484,7 @@ struct CheckOutLessonInfo: View {
                 Spacer()
                 Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             
             CustomDivider()
@@ -502,7 +502,7 @@ struct CheckOutLessonInfo: View {
                 Spacer()
                 Text("\(details.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                     .foregroundColor(.mainBlue)
-                    .font(Font.regular(size: 10))
+                    .font(Font.semiBold(size: 12))
             }
             
             CustomDivider()

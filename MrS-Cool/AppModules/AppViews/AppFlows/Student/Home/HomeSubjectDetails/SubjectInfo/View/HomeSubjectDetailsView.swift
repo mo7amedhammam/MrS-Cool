@@ -68,7 +68,7 @@ struct HomeSubjectDetailsView: View {
 //                        .padding(.horizontal,30)
 //                        .frame(minHeight: 20)
                     
-                    scrollableBriedText(text:details.systemBrief ?? "")
+                    scrollableBriefText(text:details.systemBrief ?? "")
 
 //                    ScrollView(.vertical){
 //                                Text(details.systemBrief ?? "")

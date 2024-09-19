@@ -106,7 +106,7 @@ struct LessonDetailsView: View {
 //                        .padding(.horizontal,30)
 //                        .frame(minHeight: 20)
                     
-                    scrollableBriedText(text:details.SubjectOrLessonDto?.systemBrief ?? "")
+                    scrollableBriefText(text:details.SubjectOrLessonDto?.systemBrief ?? "")
 
 //                    ScrollView(.vertical){
 //                                Text(details.SubjectOrLessonDto?.systemBrief ?? "")
@@ -237,7 +237,7 @@ struct LessonDetailsView: View {
                                                             Text("Date".localized())+Text(": ")
                                                             Text("\(slot.date ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMMM yyyy"))
                                                         }
-                                                        .font(.regular(size: 10))
+                                                        .font(.bold(size: 9))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("calvector")
@@ -250,7 +250,7 @@ struct LessonDetailsView: View {
                                                             Text("Start Time".localized())+Text(": ")
                                                             Text("\(slot.timeFrom ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
-                                                        .font(.regular(size: 10))
+                                                        .font(.bold(size: 9))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("caltimevector")
@@ -262,7 +262,7 @@ struct LessonDetailsView: View {
                                                             Text("End Time".localized())
                                                             Text(": ")+Text("\(slot.timeTo ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
-                                                        .font(.regular(size: 10))
+                                                        .font(.bold(size: 9))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("caltimevector")
@@ -370,8 +370,15 @@ struct LessonDetailsView: View {
                                 if (lessoncase == .Group && details.LessonGroupsDto != []) || (lessoncase == .Individual && lessondetailsvm.availableScheduals != [])  {
                                     CustomButton(Title:"Book Now",IsDisabled:.constant( lessondetailsvm.selectedLessonGroup == nil && lessondetailsvm.selectedsched == nil) , action: {
                                         if Helper.shared.CheckIfLoggedIn(){
-                                            destination = AnyView(BookingCheckoutView(selectedgroupid: selectedDataToBook(selectedId: lessoncase == .Group ? lessondetailsvm.selectedLessonGroup:selectedlessonid, Date: lessondetailsvm.selectedsched?.date, DayName: lessondetailsvm.selectedsched?.dayName, FromTime: lessondetailsvm.selectedsched?.fromTime, ToTime: lessondetailsvm.selectedsched?.toTime), bookingcase: lessoncase))
-                                        isPush = true                                  
+                                            if Helper.shared.getSelectedUserType() == .Teacher{
+                                                lessondetailsvm.error = .error(image:"img_subtract", message: "This Service Available For Student Only",buttonTitle:"OK",mainBtnAction:{
+
+                                                })
+                                                lessondetailsvm.isError = true
+                                            }else{
+                                                destination = AnyView(BookingCheckoutView(selectedgroupid: selectedDataToBook(selectedId: lessoncase == .Group ? lessondetailsvm.selectedLessonGroup:selectedlessonid, Date: lessondetailsvm.selectedsched?.date, DayName: lessondetailsvm.selectedsched?.dayName, FromTime: lessondetailsvm.selectedsched?.fromTime, ToTime: lessondetailsvm.selectedsched?.toTime), bookingcase: lessoncase))
+                                                isPush = true
+                                            }
                                         }else{
                                             lessondetailsvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
 //                                                Helper.shared.logout()

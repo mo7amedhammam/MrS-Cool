@@ -473,7 +473,7 @@ struct SideMenuButton: View {
                     .renderingMode(.template)
                     .foregroundStyle(Color("StudentBtnBg"))
                 Text(title.localized())
-                    .font(.semiBold(size: 13))
+                    .font(.bold(size: 13))
                     .foregroundStyle(titleColor ?? ColorConstants.WhiteA700)
                 Spacer()
             }

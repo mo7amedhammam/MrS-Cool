@@ -32,7 +32,7 @@ struct LessonTeacherInfoView : View {
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.semiBold(size: 10))
+                    .font(.bold(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2)
@@ -45,7 +45,7 @@ struct LessonTeacherInfoView : View {
                         StarsView(rating: rate )
                         Text("\(rate ,specifier: "%.1f")")
                             .foregroundColor(ColorConstants.Black900)
-                            .font(.semiBold(size: 13))
+                            .font(.bold(size: 12))
                     }
                 }
                 
@@ -76,13 +76,13 @@ struct LessonTeacherInfoView : View {
                 
                 VStack(alignment:.leading){
                     Text("Lesson Breif:".localized())
-                        .font(Font.semiBold(size: 13))
+                        .font(Font.bold(size: 12))
                         .foregroundColor(.mainBlue)
                     
                     if let teacherbrief = teacher.teacherBrief{
                         
                         Text(teacherbrief)
-                            .font(.regular(size: 10))
+                            .font(.bold(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -90,7 +90,7 @@ struct LessonTeacherInfoView : View {
                     }else{
                         
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.regular(size: 10))
+                            .font(.bold(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -102,6 +102,7 @@ struct LessonTeacherInfoView : View {
                                 .renderingMode(.template)
                                 .foregroundColor(ColorConstants.MainColor)
                                 .frame(width: 12,height: 12, alignment: .center)
+                            
                             HStack (spacing:2){
                                 Text("Duration :".localized())
                                  Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")

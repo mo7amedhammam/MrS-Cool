@@ -36,12 +36,12 @@ struct ChatListCell: View {
                 .clipShape(Circle())
                 
                 Text(model.studentName ?? "")
-                    .font(Font.semiBold(size:15))
+                    .font(Font.bold(size:15))
                     .foregroundColor(isExpanded ? .whiteA700:.mainBlue)
                 Spacer()
                 if let lessonNum = model.lessonNum,lessonNum > 0{
                     Text("\(lessonNum)")
-                        .font(Font.regular(size:11))
+                        .font(Font.bold(size:11))
                         .foregroundColor(.whiteA700)
                         .background{
                             ColorConstants.LightGreen800
@@ -96,7 +96,7 @@ struct ChatLessonNameCell: View {
                 .fill(isLessonSelected ? .black : .bluegray100 )
                 .frame(width: 8, height: 8, alignment: .center)
             Text(model.lessonName ?? "")
-                .font(Font.regular(size:13))
+                .font(Font.bold(size:13))
             Spacer()
         }
 //        .frame(minWidth: 0,maxWidth: .infinity)

@@ -136,7 +136,7 @@ struct SubjectTeachersListView: View {
 //                        .multilineTextAlignment(.leading)
 //                        .padding(.horizontal,30)
 //                        .frame(minHeight: 20)
-                    scrollableBriedText(text:subjectorLesson.systemBrief ?? "")
+                    scrollableBriefText(text:subjectorLesson.systemBrief ?? "")
 
 //                    ScrollView(.vertical){
 //                                Text(subjectorLesson.systemBrief ?? "")
@@ -168,7 +168,7 @@ struct SubjectTeachersListView: View {
                                         Image("sorticondown")
                                         
                                         Text(homesubjectteachersvm.sortCase?.rawValue.localized() ?? "Sort".localized())
-                                            .font(.semiBold(size: 13))
+                                            .font(.bold(size: 12))
                                             .padding(.leading,6)
                                     }
                                 })
@@ -237,7 +237,6 @@ struct SubjectTeachersListView: View {
 //                                    .frame(height:50)
                             }
                         }
-                        
                         }
                     }
                     .background{
@@ -682,7 +681,7 @@ struct TeacherCellView : View {
                 }
                 
                 Text(teacher.teacherBrief ?? "")
-                    .font(.semiBold(size: 9))
+                    .font(.semiBold(size: 10))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
                 //                    .frame(minHeight: 20)
@@ -714,7 +713,7 @@ struct TeacherCellView : View {
                             Text("  \(teacher.price ?? 0,specifier:"%.2f") ")
                              Text("EGP".localized())
                         }
-                        .font(Font.semiBold(size: 13))
+                        .font(Font.bold(size: 12))
                         .foregroundColor(ColorConstants.MainColor)
                     }
                 }

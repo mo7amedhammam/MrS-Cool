@@ -50,11 +50,11 @@ struct MessagesListView: View {
                             .clipShape(Circle())
                             VStack(alignment: .leading,spacing: 4){
                                 Text(Helper.shared.getSelectedUserType() == .Teacher ? student.studentName ?? "" : student.teacherName ?? "")
-                                    .font(Font.semiBold(size:15))
+                                    .font(Font.bold(size:15))
                                     .foregroundColor(.mainBlue)
                                 
                                 Text(student.subjectName ?? "")
-                                    .font(Font.semiBold(size:15))
+                                    .font(Font.bold(size:14))
                                     .foregroundColor(.bluegray400)
                             }
                             Spacer()
@@ -106,6 +106,7 @@ struct MessagesListView: View {
                                                 .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
                                                 
                                                 Text(comment.comment ?? "")
+                                                    .font(Font.bold(size:10))
                                                     .padding(10)
                                                     .foregroundColor(Color.black)
                                                     .background(comment.fromName != nil ? Color.myMsgBg : ColorConstants.Red400.opacity(0.08))

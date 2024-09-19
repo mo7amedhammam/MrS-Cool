@@ -67,7 +67,7 @@ struct SubjectDetailsView: View {
 //                        .padding(.horizontal,30)
 //                        .frame(minHeight: 20)
                     
-                    scrollableBriedText(text:details.SubjectOrLessonDto?.systemBrief ?? "")
+                    scrollableBriefText(text:details.SubjectOrLessonDto?.systemBrief ?? "")
 
                     GeometryReader { gr in
                         VStack(alignment:.leading){ // Title - Data - Submit Button)
@@ -119,7 +119,7 @@ struct SubjectDetailsView: View {
                                             }
                                             .padding()
                                             .buttonStyle(.plain)
-                                            
+                                            .localizeView()
                                             Spacer()
                                         }
                                         
@@ -152,7 +152,7 @@ struct SubjectDetailsView: View {
                                                     Group {
                                                         Text("Start Date".localized())+Text(": ")+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
-                                                    .font(.semiBold(size: 10))
+                                                    .font(.bold(size: 10))
                                                     .foregroundColor(.mainBlue)
                                                 }, icon: {
                                                     Image("calvector")
@@ -165,7 +165,7 @@ struct SubjectDetailsView: View {
                                                     Group {
                                                         Text("End Date".localized())+Text(": ")+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
-                                                    .font(.semiBold(size: 10))
+                                                    .font(.bold(size: 10))
                                                     .foregroundColor(.mainBlue)
                                                 }, icon: {
                                                     Image("calvector")
@@ -179,7 +179,7 @@ struct SubjectDetailsView: View {
                                                         Group {
                                                             Text(schedual.dayName ?? "" )+Text(": ")+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
-                                                        .font(.semiBold(size: 10))
+                                                        .font(.bold(size: 10))
                                                         .foregroundColor(.mainBlue)
                                                     }, icon: {
                                                         Image("calvector")
@@ -234,9 +234,15 @@ struct SubjectDetailsView: View {
                                     
                                     CustomButton(Title:"Book Now",IsDisabled:.constant(subjectdetailsvm.selectedSubjectId == nil) , action: {
                                         if Helper.shared.CheckIfLoggedIn(){
-                                            destination = AnyView(BookingCheckoutView(selectedgroupid:selectedDataToBook(selectedId: subjectdetailsvm.selectedSubjectId ?? 0) , bookingcase: nil))
-                                            isPush = true
-                                            
+                                            if Helper.shared.getSelectedUserType() == .Teacher{
+                                                subjectdetailsvm.error = .error(image:"img_subtract", message: "This Service Available For Student Only",buttonTitle:"OK",mainBtnAction:{
+
+                                                })
+                                                subjectdetailsvm.isError = true
+                                            }else{
+                                                destination = AnyView(BookingCheckoutView(selectedgroupid:selectedDataToBook(selectedId: subjectdetailsvm.selectedSubjectId ?? 0) , bookingcase: nil))
+                                                isPush = true
+                                            }
                                         }else{
                                             subjectdetailsvm.error = .error(image:"img_subtract", message: "You have to login first",buttonTitle:"OK",secondButtonTitle:"Cancel",mainBtnAction:{
 //                                                Helper.shared.logout()
@@ -337,7 +343,7 @@ struct SubjectTeacherInfoView : View {
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.regular(size: 9))
+                    .font(.bold(size: 9))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal,30)
@@ -348,7 +354,7 @@ struct SubjectTeacherInfoView : View {
                     StarsView(rating: teacher.teacherRate ?? 0.0)
                     Text("\(teacher.teacherRate ?? 0,specifier: "%.1f")")
                         .foregroundColor(ColorConstants.Black900)
-                        .font(.semiBold(size: 13))
+                        .font(.bold(size: 12))
                 }
                 
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
@@ -378,19 +384,19 @@ struct SubjectTeacherInfoView : View {
                 
                 VStack(alignment:.leading){
                     Text("Subject Breif:".localized())
-                        .font(Font.semiBold(size: 13))
+                        .font(Font.bold(size: 13))
                         .foregroundColor(.mainBlue)
                     
                     if let teacherBrief = teacher.teacherBrief{
                         Text(teacherBrief)
-                            .font(.regular(size: 9))
+                            .font(.bold(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
                             .padding(.bottom,8)
                     }else{
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.regular(size: 9))
+                            .font(.bold(size: 9))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -405,9 +411,9 @@ struct SubjectTeacherInfoView : View {
                             HStack(spacing:2) {
                                 Text("Duration :".localized())
                                  Text("  \(teacher.duration?.formattedTime() ?? "") ")
-                                    .font(Font.semiBold(size: 13))
+                                    .font(Font.bold(size: 13))
                                  Text("hrs".localized())
-                                    .font(Font.semiBold(size: 13))
+                                    .font(Font.bold(size: 13))
                             }
                             .font(Font.regular(size: 10))
                             .foregroundColor(.mainBlue)
@@ -441,8 +447,7 @@ struct SubjectTeacherInfoView : View {
                             HStack(spacing:2) {
                                 Text("Lessons :".localized())
                                  Text(" \(teacher.lessonsCount ?? 0) ")
-                                    .font(Font.semiBold(size: 13))
-                                
+                                    .font(Font.bold(size: 13))
                             }
                             .font(Font.semiBold(size: 10))
                             .foregroundColor(.mainBlue)
@@ -496,13 +501,13 @@ struct SubjectTeacherInfoView : View {
 //    }
 //}
 
-struct scrollableBriedText: View {
+struct scrollableBriefText: View {
     var text: String
 
     var body: some View {
         ScrollView(.vertical) {
             Text(text)
-                .font(.semiBold(size: 10))
+                .font(.bold(size: 9))
                 .foregroundColor(.mainBlue)
                 .lineSpacing(10)
                 .multilineTextAlignment(.leading)
