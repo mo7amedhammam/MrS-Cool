@@ -16,3 +16,9 @@ extension Date {
         Calendar.current.date(byAdding: .hour, value: hours, to: self)!
     }
 }
+extension DateFormatter {
+    static let cachedFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        return formatter
+    }()
+}

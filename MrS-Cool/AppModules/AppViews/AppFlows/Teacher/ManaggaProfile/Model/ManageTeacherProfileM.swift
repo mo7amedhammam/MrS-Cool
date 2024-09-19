@@ -22,6 +22,8 @@ struct ManageTeacherProfileM: Codable {
     var cityID, genderID: Int?
     var isTeacher: Bool?
     var teacherBio: String?
+    var bankName, iban: String?
+    var bankId: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, code, image, mobile, email, birthdate
@@ -33,6 +35,7 @@ struct ManageTeacherProfileM: Codable {
         case cityID = "cityId"
         case genderID = "genderId"
         case isTeacher, teacherBio
+        case bankName,bankId,iban
     }
 }
 

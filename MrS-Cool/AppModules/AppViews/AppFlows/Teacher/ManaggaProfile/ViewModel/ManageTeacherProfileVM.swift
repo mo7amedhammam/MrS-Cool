@@ -71,6 +71,9 @@ class ManageTeacherProfileVM: ObservableObject {
     @Published var isemailvalid : Bool?
     @Published var bio = ""
 
+    @Published var bank : DropDownOption?
+    @Published var iban = ""
+    
 //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -137,6 +140,10 @@ extension ManageTeacherProfileVM{
         if let image = image {
             parameters["TeacherImage"] = image
         }
+        if let bankid = bank?.id, iban.count > 0{
+            parameters["BankId"] = bankid
+            parameters["Iban"] = iban
+        }
         print("parameters",parameters)
         let target = teacherServices.UpdateTeacherProfile(parameters: parameters)
         isLoading = true
@@ -195,6 +202,8 @@ extension ManageTeacherProfileVM{
         birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
         email =  model.email ?? ""
         bio = model.teacherBio ?? ""
+        bank = .init(id:model.bankId,Title: model.bankName)
+        iban = model.iban ?? ""
         
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
             isFillingData = false

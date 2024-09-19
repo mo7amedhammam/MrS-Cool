@@ -481,7 +481,16 @@ class LookUpsVM: ObservableObject {
         }
     }
     @Published var SubjectListBySubjectIdAndEducationLevelIdList: [DropDownOption] = []
-    
+
+    @Published var BanksArray: [GendersM] = []{
+        didSet{
+            BanksList = BanksArray.map { gender in
+                return DropDownOption(id: gender.id, Title: gender.name)
+            }
+        }
+    }
+    @Published var BanksList: [DropDownOption] = []
+
     
     @Published private var error: Error?
     
@@ -866,6 +875,23 @@ extension LookUpsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 BookedLessonsForListArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    func getBanksArr(){
+        let target = LookupsServices.GetBankForList
+        BaseNetwork.CallApi(target, BaseResponse<[GendersM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                BanksArray = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

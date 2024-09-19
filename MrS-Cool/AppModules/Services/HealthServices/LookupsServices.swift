@@ -35,6 +35,7 @@ enum LookupsServices {
     case GetBookedStudentSubjects(parameters : [String:Any])
     case GetBookedStudentLessons(parameters : [String:Any])
 
+    case GetBankForList
 }
 
 
@@ -86,6 +87,8 @@ extension LookupsServices : TargetType {
         case .GetBookedStudentLessons:
             return EndPoints.GetBookedStudentLessons.rawValue
 
+        case .GetBankForList:
+            return EndPoints.GetBankForList.rawValue
         }
     }
     
@@ -101,7 +104,8 @@ extension LookupsServices : TargetType {
                 .GetSubjectsForList,.GetLessonsForList,
                 .GetSemesters,
                 .GetStatus,
-                .GetBookedStudentSubjects,.GetBookedStudentLessons:
+                .GetBookedStudentSubjects,.GetBookedStudentLessons,
+                .GetBankForList:
             return .get
             
         case .GetAllSubjectBySubjectIdAndEducationLevelId:
@@ -119,7 +123,8 @@ extension LookupsServices : TargetType {
                 .GetDays,
                 .GetSubjectsForList,
                 .GetSemesters,
-                .GetStatus:
+                .GetStatus,
+                .GetBankForList:
             return .plainRequest
         case .GetGovernorates(parameters: let parameters),
                 .GetCities(parameters: let parameters),

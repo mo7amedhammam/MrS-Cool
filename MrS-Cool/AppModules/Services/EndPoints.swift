@@ -35,6 +35,7 @@ enum EndPoints: String {
     case GetDays = "Lookups/GetDay"
     case GetAcademicSemester = "AcademicSemester/Get"
     case GetStatus = "Lookups/GetStatus"
+    case GetBankForList = "Bank/GetBankForList"
 
     // ... new Change for teacher register/ subjects ...
     case GetAllForListByEducationLevelId = "Subject/GetAllForListByEducationLevelId"

@@ -260,10 +260,3 @@ extension Character {
     }
     
 }
-
-extension DateFormatter {
-    static let cachedFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        return formatter
-    }()
-}
