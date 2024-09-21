@@ -56,7 +56,7 @@ struct TeacherInfoView: View {
                     .padding(.horizontal,30)
                     
                     Text(teacher.teacherBIO ?? "")
-                        .font(.regular(size: 10))
+                        .font(.bold(size: 9))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal,30)

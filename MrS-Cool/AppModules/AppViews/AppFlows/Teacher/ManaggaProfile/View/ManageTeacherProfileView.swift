@@ -121,15 +121,15 @@ struct ManageTeacherProfileView: View {
                                 let endDate = Calendar.current.date(byAdding: .year, value: -18, to: Date()) ?? Date()
 
                                 CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,endDate: endDate,local:.current ,isvalid:manageprofilevm.isbirthDateStrvalid)
-                                
-                                CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $manageprofilevm.bio,charLimit: 1000)
-                                
+                                                                
                                 CustomDropDownField(iconName:"img_group_512374",placeholder: "ِBank", selectedOption: $manageprofilevm.bank,options:lookupsvm.BanksList)
 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "IBAN", text: $manageprofilevm.iban,keyboardType: .alphabet)
                                     .onChange(of: manageprofilevm.iban) { newValue in
                                         manageprofilevm.iban = newValue.filter { $0.isEnglish }
                                     }
+
+                                CustomTextEditor(iconName:"img_group512375",placeholder: "Teacher BIO *", text: $manageprofilevm.bio,charLimit: 1000)
 
                             }
                             .padding([.top])
