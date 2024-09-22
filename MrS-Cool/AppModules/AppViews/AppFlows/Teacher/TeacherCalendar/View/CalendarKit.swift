@@ -883,10 +883,10 @@ struct ContentView3: View {
                                 }
                                 isShowingDetailSheet = false
                             },onJoinEvent: { event in
-                                print("Event joining closure executed")
-                                if let index = events.firstIndex(where: { $0.id == event.id }) {
+                                print("Event joining closure executed",event)
+//                                if let index = events.firstIndex(where: { $0.id == event.id }) {
                                     onJoinEvent?(selectedEvent)
-                                }
+//                                }
                             },isError: $isError,error: $error)
                         }
                         Spacer()
@@ -1158,7 +1158,8 @@ struct EventDetailsView: View {
                         ////                        if let url = URL(string: meetingLink) {
                         ////                            UIApplication.shared.open(url)
                         ////                        }
-                        
+                        print("join btn for event",event)
+
                         joinMeeting(event: event, meetingLink: meetingLink)
                     }){
                         HStack {

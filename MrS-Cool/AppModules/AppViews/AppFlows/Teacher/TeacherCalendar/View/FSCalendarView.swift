@@ -188,8 +188,8 @@ struct CalView1: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var calendarschedualsvm = TeacherCalendarSvhedualsVM()
     @State var events: [EventM] = []
-//    @State var events1: [EventM]?
-
+    //    @State var events1: [EventM]?
+    
     @State var date : Date?
     @State var scope: FSCalendarScope = .month
     //    static let taskDateFormat: DateFormatter = {
@@ -226,40 +226,48 @@ struct CalView1: View {
                     
                     switch scope {
                     case .month:
-//                        if let evvarr = events1{
-//                            CalendarModuleView(selectedDate: $date, calendar: calendar, scope: .month, events: evvarr)
+                        //                        if let evvarr = events1{
+                        //                            CalendarModuleView(selectedDate: $date, calendar: calendar, scope: .month, events: evvarr)
                         
                         if let evarr = calendarschedualsvm.CalendarScheduals{
-////                            CalendarModuleView1(studentEvents: evarr)
-                        CalendarModuleView1(studentEvents:evarr, selectedDate: $date, scope: .month)
-//
+                            ////                            CalendarModuleView1(studentEvents: evarr)
+                            CalendarModuleView1(studentEvents:evarr, selectedDate: $date, scope: .month)
+                            //
                         }else{
                             Spacer()
                         }
-
-
+                        
+                        
                     case .week:
                         ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events, onCancelEvent:{event in
                             DispatchQueue.main.async {
                                 calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
                             }
                         },onJoinEvent: {event in
-                            guard let eventid = event.bookTeacherlessonsessionDetailId else {return}
-                            calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
+                            //                            guard let eventid = event.bookTeacherlessonsessionDetailId else {return}
+                            print("Joining event:",event)
+                            
+                            if let eventid = event.bookTeacherlessonsessionDetailId {
+                                calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
+                            }else{
+                                if Helper.shared.getSelectedUserType() == .Teacher,let eventid = event.id{
+                                    calendarschedualsvm.StudentAttendanceCalendarSchedual(id: eventid)
+                                }
+                            }
                         })
                         
                     @unknown default:
                         if let evarr = calendarschedualsvm.CalendarScheduals{
                             CalendarModuleView1(studentEvents:evarr, selectedDate: $date, scope: .month)
                         }
-
-//                        CalendarModuleView(selectedDate: $date, calendar: calendar, scope: .month,events: events)
+                        
+                        //                        CalendarModuleView(selectedDate: $date, calendar: calendar, scope: .month,events: events)
                     }
                 }
                 
-
+                
                 .onChange(of: date, perform: { value in
-//                    calendarschedualsvm.GetCalendarCheduals()
+                    //                    calendarschedualsvm.GetCalendarCheduals()
                     if value != nil{
                         withAnimation{
                             scope = .week
@@ -269,52 +277,52 @@ struct CalView1: View {
                 .onChange(of: calendarschedualsvm.CalendarScheduals ?? []){
                     newval in
                     events = newval
-//                    events1 = newval
+                    //                    events1 = newval
                     print("Updated Events: \(events)")
-//                    calendar.reloadData()
+                    //                    calendar.reloadData()
                 }
                 
-//                .onAppear(perform: {
-//                    calendarschedualsvm.GetCalendarCheduals()
-//                })
+                //                .onAppear(perform: {
+                //                    calendarschedualsvm.GetCalendarCheduals()
+                //                })
             }
         }
         .localizeView()
         .hideNavigationBar()
         .showHud(isShowing: $calendarschedualsvm.isLoading)
-
+        
     }
     
-//    private func showNextDate() {
-//        if let currentDate = date {
-//            let granularity: Calendar.Component = (scope == .month) ? .month : .weekOfMonth
-//            date = Calendar.current.date(byAdding: granularity, value: 1, to: currentDate)
-//        }
-//    }
-//    func filterEventsForSelectedDate(selectedDate: Date, scope: FSCalendarScope, events: [EventM]) -> [EventM] {
-//        switch scope {
-//        case .month:
-//            let selectedMonth = Calendar.current.component(.month, from: selectedDate)
-//            return events.filter { event in
-//                guard let eventDateStr = event.date,
-//                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
-//                    return false
-//                }
-//                return Calendar.current.component(.month, from: eventDate) == selectedMonth
-//            }
-//        case .week:
-//            let selectedWeek = Calendar.current.component(.weekOfYear, from: selectedDate)
-//            return events.filter { event in
-//                guard let eventDateStr = event.date,
-//                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
-//                    return false
-//                }
-//                return Calendar.current.component(.weekOfYear, from: eventDate) == selectedWeek
-//            }
-//        @unknown default:
-//            return []
-//        }
-//    }
+    //    private func showNextDate() {
+    //        if let currentDate = date {
+    //            let granularity: Calendar.Component = (scope == .month) ? .month : .weekOfMonth
+    //            date = Calendar.current.date(byAdding: granularity, value: 1, to: currentDate)
+    //        }
+    //    }
+    //    func filterEventsForSelectedDate(selectedDate: Date, scope: FSCalendarScope, events: [EventM]) -> [EventM] {
+    //        switch scope {
+    //        case .month:
+    //            let selectedMonth = Calendar.current.component(.month, from: selectedDate)
+    //            return events.filter { event in
+    //                guard let eventDateStr = event.date,
+    //                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
+    //                    return false
+    //                }
+    //                return Calendar.current.component(.month, from: eventDate) == selectedMonth
+    //            }
+    //        case .week:
+    //            let selectedWeek = Calendar.current.component(.weekOfYear, from: selectedDate)
+    //            return events.filter { event in
+    //                guard let eventDateStr = event.date,
+    //                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
+    //                    return false
+    //                }
+    //                return Calendar.current.component(.weekOfYear, from: eventDate) == selectedWeek
+    //            }
+    //        @unknown default:
+    //            return []
+    //        }
+    //    }
     var dateFormatter2: DateFormatter = {
         let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "yyyy-MM-dd"
@@ -335,7 +343,7 @@ struct CalView1: View {
 //import FSCalendar
 
 class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
-
+    
     var calendar: FSCalendar!
     var events: [String: [EventM]] = [:]
     var studentEvents: [EventM] = [] {
@@ -344,7 +352,7 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
         }
     }
     var selectedDateBinding: Binding<Date?>?
-        var scope: FSCalendarScope = .month
+    var scope: FSCalendarScope = .month
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -358,7 +366,7 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
         
         // Configure appearance for event dots
         calendar.appearance.eventDefaultColor = UIColor.mainBlue // Adjust the color as needed
-//        calendar.appearance.eventOffset = CGPoint(x: 0, y: -7) // Adjust the offset as needed
+        //        calendar.appearance.eventOffset = CGPoint(x: 0, y: -7) // Adjust the offset as needed
         calendar.scrollDirection = .vertical
         
         view.addSubview(calendar)
@@ -370,7 +378,7 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
         events = [:] // Clear previous events
         let inputDateFormatter = DateFormatter()
         inputDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
+        
         let outputDateFormatter = DateFormatter()
         outputDateFormatter.dateFormat = "yyyy-MM-dd"
         
@@ -383,7 +391,7 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
                 events[formattedDateString]?.append(event)
             }
         }
-
+        
         if let calendar = calendar {
             calendar.reloadData() // Safely reload calendar data
         }
@@ -401,14 +409,14 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        let dateString = dateFormatter.string(from: date)
+        //        let dateFormatter = DateFormatter()
+        //        dateFormatter.dateFormat = "yyyy-MM-dd"
+        //        let dateString = dateFormatter.string(from: date)
         
-//        if let eventsOnDate = events[dateString] {
-            // Do something with the events on the selected date
-            selectedDateBinding?.wrappedValue = date
-//        }
+        //        if let eventsOnDate = events[dateString] {
+        // Do something with the events on the selected date
+        selectedDateBinding?.wrappedValue = date
+        //        }
     }
 }
 
@@ -418,7 +426,7 @@ struct CalendarModuleView1: UIViewControllerRepresentable {
     var studentEvents: [EventM]
     @Binding var selectedDate: Date?
     var scope: FSCalendarScope
-
+    
     func makeUIViewController(context: Context) -> CalendarViewController {
         let calendarVC = CalendarViewController()
         calendarVC.studentEvents = studentEvents

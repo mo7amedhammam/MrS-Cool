@@ -39,9 +39,9 @@ final class BaseNetwork{
             
             let parameters = buildparameter(paramaters: target.parameter)
             let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-//            print(target.requestURL)
+            print(target.requestURL)
 //            print(target.method)
-//            print(parameters)
+            print(parameters)
 //            print(headers ?? [:])
             AF.request(target.requestURL,method: target.method ,parameters:parameters.0,encoding:parameters.1,headers:headers)
                 .responseDecodable(of: M.self, decoder: JSONDecoder()){ response in
