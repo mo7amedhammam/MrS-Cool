@@ -94,9 +94,9 @@ struct StudentTabBarView: View {
                                 // Disable swipe gestures
                             }
                         )
-                        .onAppear(perform: {
-                            presentSideMenu = true
-                        })
+//                        .onAppear(perform: {
+//                            presentSideMenu = true
+//                        })
                     
                     StudentFinanceView(selectedChild: .constant(nil)) // finance
                         .tag(1)
@@ -149,6 +149,10 @@ struct StudentTabBarView: View {
 //            }
             .task{
                 studentsignupvm.GetStudentProfile()
+            }
+            .onChange(of: studenttabbarvm.selectedIndex){newval in
+                guard newval == 0 else {return}
+                    presentSideMenu = true
             }
 //            .task(id: localizeHelper.currentLanguage, {
 //                studentsignupvm.GetStudentProfile()

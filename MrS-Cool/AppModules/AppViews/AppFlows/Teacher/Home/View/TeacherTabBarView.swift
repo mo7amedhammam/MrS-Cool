@@ -68,9 +68,9 @@ struct TeacherTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
-                    .onAppear(perform: {
-                        presentSideMenu = true
-                    })
+//                    .onAppear(perform: {
+//                        presentSideMenu = true
+//                    })
                 
                 TeacherFinanceView() // finance
                     .tag(1)
@@ -121,6 +121,10 @@ struct TeacherTabBarView: View {
             teacherProfilevm.GetTeacherProfile()
 
         })
+        .onChange(of: tabbarvm.selectedIndex){newval in
+            guard newval == 0 else {return}
+                presentSideMenu = true
+        }
 //        .task(id: localizeHelper.currentLanguage, {
 //            teacherProfilevm.GetTeacherProfile()
 //        })

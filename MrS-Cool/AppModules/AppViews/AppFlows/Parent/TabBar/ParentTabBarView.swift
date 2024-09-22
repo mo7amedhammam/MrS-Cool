@@ -67,9 +67,9 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
-                    .onAppear(perform: {
-                        presentSideMenu = true
-                    })
+//                    .onAppear(perform: {
+//                        presentSideMenu = true
+//                    })
                 
                 StudentFinanceView(selectedChild:$listchildrenvm.selectedChild) // finance
                     .tag(1)
@@ -118,6 +118,10 @@ struct ParentTabBarView: View {
         .localizeView()
         .task {
             parentProfilevm.GetParentProfile()
+        }
+        .onChange(of: tabbarvm.selectedIndex){newval in
+            guard newval == 0 else {return}
+                presentSideMenu = true
         }
 //        .task(id: localizeHelper.currentLanguage, {
 //            parentProfilevm.GetParentProfile()
