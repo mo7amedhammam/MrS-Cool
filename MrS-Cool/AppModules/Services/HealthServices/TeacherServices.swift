@@ -126,8 +126,11 @@ extension teacherServices:TargetType{
              }
             
         case .AttendanceStudentCalenderSchedual: // this for student Only
-            return EndPoints.StudentAttendanceCalenderSchedual.rawValue
-            
+            if Helper.shared.getSelectedUserType() == .Teacher{
+                return EndPoints.TeacherAttendanceCalenderSchedual.rawValue
+            }else{
+                return EndPoints.StudentAttendanceCalenderSchedual.rawValue
+            }
         case .GetAllComentsList:
             if Helper.shared.getSelectedUserType() == .Teacher{
                 return EndPoints.GetAllStudentsChat.rawValue

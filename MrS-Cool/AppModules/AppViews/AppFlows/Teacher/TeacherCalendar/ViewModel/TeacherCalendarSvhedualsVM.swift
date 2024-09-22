@@ -21,8 +21,8 @@ class TeacherCalendarSvhedualsVM: ObservableObject {
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
     @Published var CalendarScheduals : [EventM]?
-//    @Published var StudentCalendarScheduals : [StudentEventM]?
-
+    //    @Published var StudentCalendarScheduals : [StudentEventM]?
+    
     init()  {
         GetCalendarCheduals()
     }
@@ -84,10 +84,10 @@ extension TeacherCalendarSvhedualsVM{
                     if receivedData.success == true,let model = receivedData.data {
                         //                    TeacherSubjects?.append(model)
                         CalendarScheduals = model.convertToEvent()
-//                        DispatchQueue.main.async(execute: {
-//                        StudentCalendarScheduals = model
-//                        })
-
+                        //                        DispatchQueue.main.async(execute: {
+                        //                        StudentCalendarScheduals = model
+                        //                        })
+                        
                     }else{
                         isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -105,7 +105,7 @@ extension TeacherCalendarSvhedualsVM{
             Parameters["StudentId"] = Helper.shared.selectedchild?.id
         }
         print(Parameters)
-
+        
         let target = teacherServices.cancelMyCalenderSchedual(parameters: Parameters)
         isLoading = true
         if Helper.shared.getSelectedUserType() == .Teacher {
@@ -125,8 +125,8 @@ extension TeacherCalendarSvhedualsVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-//                        GetCalendarCheduals()
-                        CalendarScheduals = receivedData.data 
+                        //                        GetCalendarCheduals()
+                        CalendarScheduals = receivedData.data
                         
                     }else{
                         isError =  true
@@ -167,42 +167,45 @@ extension TeacherCalendarSvhedualsVM{
     }
     
     func StudentAttendanceCalendarSchedual(id:Int){
-            var parameters:[String:Any] = [:]
-//            if Helper.shared.getSelectedUserType() == .Parent {
-//                parameters["StudentId"] = Helper.shared.selectedchild?.id
-//            }
-            print("parameters",parameters)
-
-        parameters["BookteacherlessonsessiondetailId"] = id
-
-            let target = teacherServices.AttendanceStudentCalenderSchedual(parameters: parameters)
-            isLoading = true
-                BaseNetwork.CallApi(target, BaseResponse<[StudentEventM]>.self)
-                    .receive(on: DispatchQueue.main)
-                    .sink(receiveCompletion: {[weak self] completion in
-                        guard let self = self else{return}
-                        isLoading = false
-                        switch completion {
-                        case .finished:
-                            break
-                        case .failure(let error):
-                            isError =  true
-                            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                        }
-                    },receiveValue: {[weak self] receivedData in
-                        guard let self = self else{return}
-                        print("receivedData",receivedData)
-                        if receivedData.success == true {
-                            //                    TeacherSubjects?.append(model)
-//                            CalendarScheduals = receivedData.data?.convertToEvent() ?? []
-                        }else{
-                            isError =  true
-                            //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                            error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                        }
-                        isLoading = false
-                    })
-                    .store(in: &cancellables)
+        var parameters:[String:Any] = [:]
+        //            if Helper.shared.getSelectedUserType() == .Parent {
+        //                parameters["StudentId"] = Helper.shared.selectedchild?.id
+        //            }
+        print("parameters",parameters)
+        
+        if Helper.shared.getSelectedUserType() == .Teacher{
+            parameters["teacherlessonsessionScheduleSlotId"] = id
+        }else {
+            parameters["BookteacherlessonsessiondetailId"] = id
+        }
+        let target = teacherServices.AttendanceStudentCalenderSchedual(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<[StudentEventM]>.self)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                    //                    TeacherSubjects?.append(model)
+                    //                            CalendarScheduals = receivedData.data?.convertToEvent() ?? []
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
     }
     
     func cleanup() {
