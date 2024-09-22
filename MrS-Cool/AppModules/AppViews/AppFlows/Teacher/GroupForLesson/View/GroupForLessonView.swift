@@ -86,9 +86,12 @@ struct GroupForLessonView: View {
                                                     Spacer()
                                                     HStack {
                                                         Spacer()
-                                                        Group{
-                                                            Text("This Lesson Takes".localized())+Text(" \(groupsforlessonvm.lesson?.subTitle ?? 0) ")+Text("mins".localized())
-                                                        }        .font(Font.bold(size: 9))
+                                                        HStack(spacing:1){
+                                                            Text("This Lesson Takes".localized())
+                                                            Text(" \(groupsforlessonvm.lesson?.subTitle ?? 0) ")
+                                                            Text("mins".localized())
+                                                        }   
+                                                        .font(Font.bold(size: 9))
                                                             .foregroundColor(ColorConstants.LightGreen800)
                                                     }
                                                 }
@@ -108,9 +111,11 @@ struct GroupForLessonView: View {
                                                     Spacer()
                                                     HStack {
                                                         Spacer()
-                                                        Group{
-                                                            Text("End Time Is ".localized())+Text("\(groupsforlessonvm.endTime ?? "")")
-                                                        }     .font(Font.bold(size: 9))
+                                                        HStack(spacing:1){
+                                                            Text("End Time Is ".localized())
+                                                            Text("\(groupsforlessonvm.endTime ?? "")")
+                                                        }     
+                                                        .font(Font.bold(size: 9))
                                                             .foregroundColor(ColorConstants.LightGreen800)
                                                     }
                                                 }

@@ -840,7 +840,7 @@ extension View {
 
 
 extension Date{
-    func formatDate(format: String, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english:.arabic, inputTimeZone: TimeZone = .current, outputLocal: SupportedLocale = .current, outputTimeZone: TimeZone = .current) -> String {
+    func formatDate(format: String, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english:.current, inputTimeZone: TimeZone = .current, outputLocal: SupportedLocale = .current, outputTimeZone: TimeZone = .current) -> String {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
 
