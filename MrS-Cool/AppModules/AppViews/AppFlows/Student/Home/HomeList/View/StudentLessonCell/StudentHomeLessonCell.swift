@@ -14,7 +14,7 @@ struct StudentHomeLessonCell: View {
 
     var body: some View {
         Button(action: {
-            selectedlesson = lesson
+//            selectedlesson = lesson
             action?()
 
         }, label: {
@@ -35,10 +35,19 @@ struct StudentHomeLessonCell: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, 19.0)
                 
-                Text(lesson.subjectName ?? "")
+                let subjectName = lesson.subjectName ?? ""
+                let name = subjectName.split(separator: ",").map{ String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+
+                let Part1 = name.indices.contains(0) ? name[0] : ""
+                let remaining = name.dropFirst().joined(separator: ", ")
+                Group{
+                    Text(Part1)
+                        .foregroundColor(lesson.id == selectedlesson.id ? .studentBtnBg : ColorConstants.MainColor)
+
+                    Text(remaining)
+                        .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 :.mainBlue)
+                }
                     .font(Font.semiBold(size: 13))
-                    .fontWeight(.medium)
-                    .foregroundColor(ColorConstants.MainColor)
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
                     .padding(.top, 5)
@@ -57,7 +66,9 @@ struct StudentHomeLessonCell: View {
                     HStack{
                         Image("img_vector_black_900_20x20")
                             .renderingMode(.template)
-                            .foregroundColor(ColorConstants.MainColor )
+//                            .foregroundColor(ColorConstants.MainColor )
+                            .foregroundColor(lesson.id == selectedlesson.id ? .studentBtnBg : ColorConstants.MainColor)
+
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                            Text("\(lesson.availableTeacher ?? 0)  ")
@@ -74,7 +85,9 @@ struct StudentHomeLessonCell: View {
                     HStack{
                         Image("img_group_black_900")
                             .renderingMode(.template)
-                            .foregroundColor(ColorConstants.MainColor )
+//                            .foregroundColor(ColorConstants.MainColor )
+                            .foregroundColor(lesson.id == selectedlesson.id ? .studentBtnBg : ColorConstants.MainColor)
+
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("Min Price :".localized())
@@ -92,7 +105,9 @@ struct StudentHomeLessonCell: View {
                     HStack{
                         Image("img_group_black_900")
                             .renderingMode(.template)
-                            .foregroundColor(ColorConstants.MainColor )
+//                            .foregroundColor(ColorConstants.MainColor )
+                            .foregroundColor(lesson.id == selectedlesson.id ? .studentBtnBg : ColorConstants.MainColor)
+
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("Max Price :".localized())
@@ -120,5 +135,5 @@ struct StudentHomeLessonCell: View {
 }
 
 #Preview {
-    StudentHomeLessonCell(selectedlesson: .constant(StudentMostViewedLessonsM.init()))
+    StudentHomeLessonCell(selectedlesson: .constant(StudentMostViewedLessonsM.init(id: 0, lessonName: "less name", subjectName: "phisics,1st term 2023, G11", lessonBrief: "", availableTeacher: 2, minPrice: 220, maxPrice: 333)))
 }

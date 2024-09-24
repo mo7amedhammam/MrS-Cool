@@ -48,6 +48,9 @@ class ManageSubjectGroupVM: ObservableObject {
     
     @Published var CreateSchedualSlotsArr = []
     
+    @Published var teacherLessonList : [LessonForListM] = []
+    @Published var CreateTeacherLessonList = []
+
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -125,12 +128,13 @@ extension ManageSubjectGroupVM{
         guard checkValidfields() else {return}
         guard let subjectid = subject?.id ,let subjectname = subject?.Title ,let startdate = startDate else {return}
         prepareSlotsArrays()
-
+        prepareLessonsForList()
         let parameters:[String:Any] = [ "teacherSubjectAcademicSemesterYearId":subjectid,
                                         "teacherSubjectAcademicSemesterYearName":subjectname,
                                         "groupName":groupName,
-                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
-                                        "scheduleSlots":CreateSchedualSlotsArr]
+                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",inputLocal: .current,outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
+                                        "scheduleSlots":CreateSchedualSlotsArr,
+                                        "teacherLessonList":CreateTeacherLessonList]
         print("parameters",parameters)
         let target = teacherServices.ReviewMySubjectGroup(parameters: parameters)
         isLoading = true
@@ -282,7 +286,11 @@ extension ManageSubjectGroupVM{
 //           return ["dayId" : newSlot.day?.id ?? 0, "fromTime": newSlot.fromTime ?? ""]
         }
     }
-    
+    func prepareLessonsForList() {
+        CreateTeacherLessonList = teacherLessonList.map{ newSlot in
+            return newSlot.toDictionary()
+        }
+    }
     func clearCurrentSlot(){
         day = nil
         startTime = nil

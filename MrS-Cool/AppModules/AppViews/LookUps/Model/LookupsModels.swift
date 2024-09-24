@@ -66,9 +66,25 @@ struct SubjectForListM: Codable {
     var subjectDisplayName: String?
 }
 // MARK: - Lesson For List M -
-struct LessonForListM: Codable {
-    var  id,groupDuration: Int?
+struct LessonForListM: Codable,Hashable {
+        static func == (lhs: LessonForListM, rhs: LessonForListM) -> Bool {
+            return lhs.id == rhs.id
+        }
+    var id,groupDuration: Int?
     var lessonName: String?
+    var count,order: Int?
+}
+
+extension LessonForListM{
+    func toDictionary() -> [String: Any] {
+        var dictionary: [String: Any] = [:]
+        dictionary["id"] = id
+        dictionary["groupDuration"] = groupDuration
+        dictionary["lessonName"] = lessonName
+        dictionary["count"] = count
+        dictionary["order"] = order
+        return dictionary
+    }
 }
 
 

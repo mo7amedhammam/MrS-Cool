@@ -390,6 +390,7 @@ struct SubjectTeacherInfoView : View {
                     if let teacherBrief = teacher.teacherBrief{
                         Text(teacherBrief)
                             .font(.bold(size: 9))
+                            .lineSpacing(10)
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -397,6 +398,7 @@ struct SubjectTeacherInfoView : View {
                     }else{
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
                             .font(.bold(size: 9))
+                            .lineSpacing(10)
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)

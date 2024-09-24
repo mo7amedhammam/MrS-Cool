@@ -22,7 +22,7 @@ struct StudentMostViewedSubjectCell: View {
 
     var body: some View {
         Button(action: {
-            selectedsubject = subject
+//            selectedsubject = subject
             action?()
 
         }, label: {
@@ -60,7 +60,7 @@ struct StudentMostViewedSubjectCell: View {
                     HStack {
                         Text("\(secondPart), \(thirdPart)")
                     }
-                    .font(Font.semiBold(size: 12))
+                    .font(Font.semiBold(size: 13))
                     .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 8)
@@ -81,7 +81,9 @@ struct StudentMostViewedSubjectCell: View {
                     HStack{
                         Image("img_vector_black_900_20x20")
                             .renderingMode(.template)
-                            .foregroundColor(ColorConstants.MainColor )
+//                            .foregroundColor(ColorConstants.MainColor )
+                            .foregroundColor(subject.id == selectedsubject.id ? .studentBtnBg : ColorConstants.MainColor)
+
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("\(subject.teacherCount ?? 0)  ")
@@ -98,7 +100,9 @@ struct StudentMostViewedSubjectCell: View {
                     HStack{
                         Image("img_group_512390")
                             .renderingMode(.template)
-                            .foregroundColor(ColorConstants.MainColor )
+//                            .foregroundColor(ColorConstants.MainColor )
+                            .foregroundColor(subject.id == selectedsubject.id ? .studentBtnBg : ColorConstants.MainColor)
+
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("\(subject.lessonsCount ?? 0)  ")

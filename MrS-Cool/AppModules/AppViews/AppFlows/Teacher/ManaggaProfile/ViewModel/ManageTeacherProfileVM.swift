@@ -140,8 +140,10 @@ extension ManageTeacherProfileVM{
         if let image = image {
             parameters["TeacherImage"] = image
         }
-        if let bankid = bank?.id, iban.count > 0{
+        if let bankid = bank?.id{
             parameters["BankId"] = bankid
+        }
+        if iban.count > 0{
             parameters["Iban"] = iban
         }
         print("parameters",parameters)

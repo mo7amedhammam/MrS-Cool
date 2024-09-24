@@ -15,7 +15,7 @@ struct StudentTopRatedTeachersCell: View {
 
     var body: some View {
         Button(action: {
-            selectedteacher = teacher
+//            selectedteacher = teacher
             action?()
         }, label: {
             VStack (spacing:0){

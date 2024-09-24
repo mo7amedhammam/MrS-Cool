@@ -52,7 +52,7 @@ struct TeacherHomeAsAnonymous: View {
                             .borderRadius(Color.mainBlue, width: 1, cornerRadius: 8, corners: [.allCorners])
                             .padding(.horizontal)
                             .padding(.top,2)
-
+                            
                         }
                         if isSearch {
                             VStack{
@@ -79,36 +79,36 @@ struct TeacherHomeAsAnonymous: View {
                                     
                                     SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
                                         ZStack{
-
+                                            
                                             let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")".removingTrailingComma()
-                                                
-                                                Text(searchselections)
-                                                    .font(Font.regular(size: 10.0))
-                                                    .foregroundColor(ColorConstants.Red400)
+                                            
+                                            Text(searchselections)
+                                                .font(Font.regular(size: 10.0))
+                                                .foregroundColor(ColorConstants.Red400)
                                         }
                                     ))
                                     
                                     Spacer()
                                 }
                                 
-
+                                
                                 if studenthomevm.newStudentSubjects == [] || studenthomevm.newStudentSubjects.isEmpty{
-//                                    ProgressView()
-//                                        .frame(width: gr.size.width/2.7, height: 160)
+                                    //                                    ProgressView()
+                                    //                                        .frame(width: gr.size.width/2.7, height: 160)
                                     Image(.emptySubjects)
                                         .frame(width: 100,height: 100)
                                         .padding()
-        //                                .resizable()
-        //                                .aspectRatio(contentMode: .fit)
+                                    //                                .resizable()
+                                    //                                .aspectRatio(contentMode: .fit)
                                     Text("No available subjects yet".localized())
                                         .font(Font.regular(size: 15))
                                         .foregroundColor(ColorConstants.Bluegray400)
-
+                                    
                                 }else{
-//                                    LazyVGrid(columns: [.init(), .init(),.init()]) {
-//                                    ScrollViewRTL(type: .hList){
+                                    //                                    LazyVGrid(columns: [.init(), .init(),.init()]) {
+                                    //                                    ScrollViewRTL(type: .hList){
                                     ScrollView(.horizontal,showsIndicators: false){
-
+                                        
                                         HStack(spacing:10){
                                             Spacer().frame(width:1)
                                             
@@ -133,7 +133,7 @@ struct TeacherHomeAsAnonymous: View {
                                 
                             }
                             .transition(.move(edge: isSearch ? .trailing : .leading))
-
+                            
                         }
                         
                         
@@ -144,21 +144,21 @@ struct TeacherHomeAsAnonymous: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostBookedsubjects == []{
-//                            ProgressView()                                .frame(width: gr.size.width/2.7, height: 280)
-
+                            //                            ProgressView()                                .frame(width: gr.size.width/2.7, height: 280)
+                            
                             Image(.emptySubjects)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available most booked subjects yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
-
+                            
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
-
+                                
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
                                     
@@ -185,20 +185,20 @@ struct TeacherHomeAsAnonymous: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostBookedTeachers == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 180)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 180)
                             Image(.emptyTeachers)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available  most booked teachers yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
-
+                                
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
                                     
@@ -215,7 +215,7 @@ struct TeacherHomeAsAnonymous: View {
                                 .padding(.bottom,10)
                             }
                         }
-                       
+                        
                         
                         Text("Most Booked Lessons".localized())
                             .font(Font.bold(size: 18))
@@ -223,18 +223,18 @@ struct TeacherHomeAsAnonymous: View {
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostBookedLessons == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 240)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 240)
                             Image(.emptyLessons)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available  most booked lessons yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
@@ -243,7 +243,7 @@ struct TeacherHomeAsAnonymous: View {
                                             guard lesson.availableTeacher ?? 0 > 0 else {return}
                                             tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             tabbarvm.ispush = true
-
+                                            
                                         }
                                         .frame(width: gr.size.width/2.5, height: 240)
                                     }
@@ -261,18 +261,18 @@ struct TeacherHomeAsAnonymous: View {
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostRatedTeachers == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 180)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 180)
                             Image(.emptyTeachers)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available top rated teachers yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
@@ -299,21 +299,21 @@ struct TeacherHomeAsAnonymous: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostViewedSubjects == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 280)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 280)
                             Image(.emptySubjects)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available most viewed subjects yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
-
+                            
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
-
+                                
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
                                     
@@ -322,7 +322,7 @@ struct TeacherHomeAsAnonymous: View {
                                             guard subject.teacherCount ?? 0 > 0 else {return}
                                             tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             tabbarvm.ispush = true
-
+                                            
                                         }
                                         .frame(width: gr.size.width/2.33, height: 280)
                                     }
@@ -341,19 +341,19 @@ struct TeacherHomeAsAnonymous: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostViewedLessons == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 240)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 240)
                             Image(.emptyLessons)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available most viewed lessons yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
-
+                            
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
@@ -362,7 +362,7 @@ struct TeacherHomeAsAnonymous: View {
                                             guard lesson.availableTeacher ?? 0 > 0 else {return}
                                             tabbarvm.destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
                                             tabbarvm.ispush = true
-
+                                            
                                         }
                                         .frame(width: gr.size.width/2.5, height: 240)
                                     }
@@ -379,19 +379,19 @@ struct TeacherHomeAsAnonymous: View {
                             .padding([.top,.horizontal])
                             .frame(maxWidth:.infinity,alignment: .leading)
                         if studenthomevm.StudentMostViewedTeachers == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 180)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 180)
                             Image(.emptyTeachers)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available most viewed teachers yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
-
+                            
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
@@ -410,18 +410,19 @@ struct TeacherHomeAsAnonymous: View {
                         }
                     }
                     .padding(.top,5)
-
+                    
                     .frame(height:gr.size.height)
                     .onAppear {
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
                         studenthomevm.getHomeData()
-//                        studenthomevm.GetStudentSubjects()
+                        //                        studenthomevm.GetStudentSubjects()
                     }
                     .onDisappear{
                         if !isSearch {
                             studenthomevm.clearsearch()
                         }
+                        studenthomevm.cleanup()
                     }
                     .onChange(of: localizeHelper.currentLanguage, perform: {_ in
                         lookupsvm.GetEducationTypes()

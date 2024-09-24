@@ -45,7 +45,7 @@ extension StudentServices:TargetType{
     var path: String {
         switch self {
         case .GetStudentSubjects:
-            if Helper.shared.CheckIfLoggedIn(){
+            if Helper.shared.CheckIfLoggedIn() && !(Helper.shared.getSelectedUserType() == .Teacher){
                 return EndPoints.GetStudentSubjects.rawValue
             }else {
                 return EndPoints.GetAllAnonymousSubjects.rawValue
@@ -130,7 +130,7 @@ extension StudentServices:TargetType{
     var method: Alamofire.HTTPMethod {
         switch self {
         case .GetStudentSubjects:
-            if Helper.shared.CheckIfLoggedIn(){
+            if Helper.shared.CheckIfLoggedIn() && !(Helper.shared.getSelectedUserType() == .Teacher){
                 return .get
             }else {
                 return .post
@@ -164,7 +164,7 @@ extension StudentServices:TargetType{
 //        case :
 //            return .plainRequest
         case .GetStudentSubjects(parameters: let Parameters):
-            if Helper.shared.CheckIfLoggedIn(){
+            if Helper.shared.CheckIfLoggedIn() && !(Helper.shared.getSelectedUserType() == .Teacher){
                 return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             }else {
                 return .parameterRequest(Parameters: Parameters, Encoding: .default)

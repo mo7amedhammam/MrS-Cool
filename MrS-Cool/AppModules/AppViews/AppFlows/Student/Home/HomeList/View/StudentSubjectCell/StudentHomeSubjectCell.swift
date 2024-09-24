@@ -24,7 +24,7 @@ struct StudentHomeSubjectCell: View {
 //    var teacherInfoTitle: teacherTitle?
     var body: some View {
         Button(action: {
-            selectedSubject = subject
+//            selectedSubject = subject
             action?()
         }, label: {
             VStack (spacing:4){

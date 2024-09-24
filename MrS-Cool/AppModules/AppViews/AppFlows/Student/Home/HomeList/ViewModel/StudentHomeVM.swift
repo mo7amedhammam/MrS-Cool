@@ -97,7 +97,7 @@ extension StudentHomeVM{
     func GetStudentSubjects(){
         var parameters:[String:Any] = [:]
         print("parameters",parameters) // id
-        if Helper.shared.CheckIfLoggedIn() == true && Helper.shared.getSelectedUserType() != .Teacher{
+        if Helper.shared.CheckIfLoggedIn() == true && !(Helper.shared.getSelectedUserType() == .Teacher){
             if Helper.shared.getSelectedUserType() == .Parent{
                 parameters["id"] = Helper.shared.selectedchild?.id ?? 0
             }
