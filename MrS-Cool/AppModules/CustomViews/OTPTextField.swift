@@ -28,7 +28,7 @@ struct OTPTextField: View {
             ForEach(0..<numberOfFields, id: \.self) { index in
                 ZStack(alignment: .bottom) {
                     TextField("", text: $enteredValue[index])
-                        .keyboardType(.numberPad)
+                        .keyboardType(.asciiCapableNumberPad)
                         .frame(width: 50, height: 50)
                         .foregroundColor(.black)
                         .cornerRadius(5)
