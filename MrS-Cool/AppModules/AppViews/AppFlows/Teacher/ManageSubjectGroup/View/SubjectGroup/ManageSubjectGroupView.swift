@@ -88,17 +88,7 @@ struct ManageSubjectGroupView: View {
                                                                     }),
                                                                 keyboardType: .asciiCapableNumberPad,
                                                                 isvalid: true)
-                                                //
-                                                //                                                    CustomTextField(placeholder: "Lesson No",
-                                                //                                                                    text: .constant(String(lesson.LessonItem?.count ?? 0)),
-                                                //                                                                    keyboardType: .numberPad,
-                                                //                                                                    isvalid: true)
-                                                //                                                    .onChange(of: lesson.LessonItem){newval in
-                                                //                                                        print(newval)
-                                                //
-                                                //                                                    }
-                                                //
-                                                //                                                    CustomTextField(placeholder: "Lesson Order",text: .constant(String(lesson.LessonItem?.order ?? 0)),keyboardType: .numberPad,isvalid: true)
+                                              
                                             }
                                         }
                                         .padding()

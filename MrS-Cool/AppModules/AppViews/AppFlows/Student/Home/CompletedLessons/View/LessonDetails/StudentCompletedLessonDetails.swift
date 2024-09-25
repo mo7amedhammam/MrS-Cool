@@ -55,21 +55,27 @@ struct StudentCompletedLessonDetails: View {
                                 
                                 Text("Subject Brief".localized())
                                     .font(Font.bold(size: 16))
-                                
+//                                    .fontWeight(.medium)
+
                                 Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
                                     .font(Font.regular(size: 12))
+                                    .fontWeight(.medium)
                                 
                                 Text("Lesson".localized())
-                                    .font(Font.semiBold(size: 16))
-                                
+                                    .font(Font.bold(size: 16))
+//                                    .fontWeight(.medium)
+
                                 Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "")
                                     .font(Font.regular(size: 12))
+                                    .fontWeight(.medium)
                                 
                                 Text("Lesson Brief".localized())
-                                    .font(Font.semiBold(size: 16))
-                                
+                                    .font(Font.bold(size: 16))
+//                                    .fontWeight(.medium)
+
                                 Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
                                     .font(Font.regular(size: 12))
+                                    .fontWeight(.medium)
                                 
                             }
                             .foregroundColor(.mainBlue)
@@ -148,9 +154,11 @@ struct StudentLessonDetailsCell: View {
             Text(model.materialTypeName ?? "")
                     .font(Font.regular(size:7))
                     .foregroundColor(.mainBlue)
+                    .fontWeight(.medium)
 
             Text(model.name ?? "")
                     .font(Font.semiBold(size: 10))
+                    .fontWeight(.medium)
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
             

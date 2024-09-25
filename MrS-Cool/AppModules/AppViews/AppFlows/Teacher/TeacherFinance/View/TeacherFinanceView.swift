@@ -378,17 +378,6 @@ struct TeacherFinanceView: View {
                         ScrollView {
                             VStack{
                                 Group {
-//                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
-//                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
-//                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
-//                                        }
-//                                        filterlesson = nil
-//                                        lookupsvm.SelectedFilterSubjectForList = newval
-//                                    }
-                                    
-//                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
-                                    
-//                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date From", selectedDateStr:$filterlessonsdatefrom,datePickerComponent:.date)
                                     

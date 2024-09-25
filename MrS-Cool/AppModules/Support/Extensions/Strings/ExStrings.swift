@@ -93,7 +93,7 @@ extension String {
 //        return newdate
 //    }
     
-    func ChangeDateFormat(FormatFrom: String, FormatTo: String, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english:.current,outputLocal: SupportedLocale? = .current, inputTimeZone: TimeZone? = .current, outputTimeZone: TimeZone? = .current) -> String {
+    func ChangeDateFormat(FormatFrom: String, FormatTo: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic,outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic , inputTimeZone: TimeZone? = .current, outputTimeZone: TimeZone? = .current) -> String {
 //        let formatter = DateFormatter()
         let formatter = DateFormatter.cachedFormatter
 
@@ -119,7 +119,7 @@ extension String {
     }
     
     
-    func toDate(withFormat format: String, inputTimeZone: TimeZone? = .current, inputLocal: SupportedLocale? = Helper.shared.getLanguage() == "en" ? .english : .current, outputTimeZone: TimeZone? = .current, outputLocal: SupportedLocale? = .current) -> Date? {
+    func toDate(withFormat format: String, inputTimeZone: TimeZone? = .current, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic, outputTimeZone: TimeZone? = .current, outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic) -> Date? {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
 

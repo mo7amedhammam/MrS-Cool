@@ -509,7 +509,8 @@ struct scrollableBriefText: View {
     var body: some View {
         ScrollView(.vertical) {
             Text(text)
-                .font(.bold(size: 9))
+                .font(.semiBold(size: 10))
+                .fontWeight(.medium)
                 .foregroundColor(.mainBlue)
                 .lineSpacing(10)
                 .multilineTextAlignment(.leading)

@@ -299,7 +299,6 @@ struct SubjectTeachersListView: View {
 //                        ScrollView{
                             VStack{
                                 Group {
-                                    
                                     VStack{
                                         Button(action: {
                                             isNameVisible.toggle()
@@ -682,6 +681,7 @@ struct TeacherCellView : View {
                 
                 Text(teacher.teacherBrief ?? "")
                     .font(.semiBold(size: 10))
+                    .fontWeight(.medium)
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
                 //                    .frame(minHeight: 20)
@@ -695,6 +695,7 @@ struct TeacherCellView : View {
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("Duration :".localized())
+                                .fontWeight(.medium)
                              Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
                                 .font(Font.bold(size: 12))
                              Text("hrs".localized())

@@ -59,6 +59,7 @@ struct StudentMostViewedSubjectCell: View {
                     
                     HStack {
                         Text("\(secondPart), \(thirdPart)")
+                            .fontWeight(.medium)
                     }
                     .font(Font.semiBold(size: 13))
                     .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
@@ -89,6 +90,7 @@ struct StudentMostViewedSubjectCell: View {
                             Text("\(subject.teacherCount ?? 0)  ")
                                 .font(Font.bold(size: 9))
                              Text("Available Teachers".localized())
+                                .fontWeight(.medium)
                         }
                         .font(Font.semiBold(size: 9))
                         
@@ -108,6 +110,7 @@ struct StudentMostViewedSubjectCell: View {
                             Text("\(subject.lessonsCount ?? 0)  ")
                                 .font(Font.bold(size: 9))
                              Text("Lessons".localized())
+                                .fontWeight(.medium)
                         }
                         .font(Font.semiBold(size: 9))
                         

@@ -49,7 +49,7 @@ struct SubjectGroupDetailsView: View {
                                         HStack(alignment:.top){
                                             VStack(alignment:.leading){
                                                 Text("Subject".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 //
                                                 Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
                                                     .font(Font.regular(size: 14))
@@ -57,17 +57,19 @@ struct SubjectGroupDetailsView: View {
                                                 Spacer().frame(height:30)
                                                 //
                                                 Text("Start Date".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
+                                                
                                                 Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
                                                     .font(Font.regular(size: 14))
+                                                    .fontWeight(.medium)
                                                 //
                                                 Spacer().frame(height:30)
                                                 //
                                                 Text("Num Of Lessons".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 Group{
-                                                    Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ")
-                                                    + Text("Lesson".localized())
+                                                    Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ").fontWeight(.medium)+Text("Lesson".localized()).fontWeight(.medium)
+
                                                 }
                                                 .font(Font.regular(size: 14))
                                             }
@@ -75,18 +77,21 @@ struct SubjectGroupDetailsView: View {
                                             
                                             VStack(alignment:.leading){
                                                 Text("Group Name".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
                                                     .font(Font.regular(size: 14))
+                                                    .fontWeight(.medium)
+
                                                 
                                                 Spacer().frame(height:30)
                                                 
                                                 Text("End Date".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
                                                     .font(Font.regular(size: 14))
+                                                    .fontWeight(.medium)
                                             }
                                         }
                                         

@@ -86,10 +86,10 @@ struct HomeSubjectDetailsView: View {
                             
                             HStack(){
                                 SignUpHeaderTitle(Title:"Subject Content",subTitleView: AnyView(
-                                    Text("\(details.getSubjectLessonsDetailsDtoList?.count ?? 0)") +
-                                    Text(" units .".localized()) +
-                                    Text(" \(details.lessonsCount ?? 0) ") +
-                                    Text("Lessons".localized())))
+                                    Text("\(details.getSubjectLessonsDetailsDtoList?.count ?? 0)")                                .fontWeight(.medium) +
+                                    Text(" units .".localized())                                .fontWeight(.medium) +
+                                    Text(" \(details.lessonsCount ?? 0) ")                                .fontWeight(.medium) +
+                                    Text("Lessons".localized())                                .fontWeight(.medium)))
                                 .foregroundColor(.mainBlue)
                                 .font(Font.semiBold(size: 12))
                                 
@@ -138,6 +138,7 @@ struct HomeSubjectDetailsView: View {
                                             Text("\(details.availableTeacherCount ?? 0)  ")
                                                 .font(Font.bold(size: 12))
                                             Text("Available Teachers".localized())
+                                                .fontWeight(.medium)
                                         }
                                         .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
@@ -151,6 +152,7 @@ struct HomeSubjectDetailsView: View {
 //                                            + Text("Available Teachers".localized())
 //                                        }
                                         .font(Font.semiBold(size: 12))
+                                        .fontWeight(.medium)
                                         .foregroundColor(.mainBlue)
                                         Spacer()
                                     }                                    .padding(.horizontal)
@@ -164,6 +166,7 @@ struct HomeSubjectDetailsView: View {
                                              Text("  \(details.lessonsCount ?? 0) ")
                                                 .font(Font.bold(size: 12))
                                              Text("Lessons".localized())
+                                                .fontWeight(.medium)
                                         }
                                         .font(Font.semiBold(size: 12))
                                         .foregroundColor(.mainBlue)
@@ -177,6 +180,7 @@ struct HomeSubjectDetailsView: View {
                                             .frame(width: 14,height: 14, alignment: .center)
                                         HStack (spacing:2){
                                             Text("Highest Price :".localized())
+                                                .fontWeight(.medium)
                                              Text("  \(details.maxPrice ?? 0,specifier: "%.1f") ")
                                                 .font(Font.bold(size: 12))
                                              Text("EGP".localized())
@@ -195,6 +199,7 @@ struct HomeSubjectDetailsView: View {
                                             .frame(width: 14,height: 14, alignment: .center)
                                         HStack (spacing:2){
                                             Text("Lowest Price :".localized())
+                                                .fontWeight(.medium)
                                              Text("  \(details.minPrice ?? 0,specifier: "%.1f") ")
                                                 .font(Font.bold(size: 12))
                                              Text("EGP".localized())
@@ -331,10 +336,12 @@ struct UnitListCell: View {
                                         .frame(width: 12,height: 12, alignment: .center)
                                     HStack (spacing:2){
                                         Text("Min Price :".localized())
+                                            .fontWeight(.medium)
                                          Text("  \(lesson.minPrice ?? 0,specifier: "%.1f") ")
                                             .font(Font.bold(size: 12))
                                          Text("EGP".localized())
                                             .font(Font.bold(size: 12))
+
                                     }
                                     .font(Font.semiBold(size: 12))
                                     
@@ -349,6 +356,7 @@ struct UnitListCell: View {
                                         .frame(width: 12,height: 12, alignment: .center)
                                     HStack (spacing:2){
                                         Text("Max Price :".localized())
+                                            .fontWeight(.medium)
                                          Text("  \(lesson.maxPrice ?? 0,specifier: "%.1f") ")
                                             .font(Font.bold(size: 12))
                                          Text("EGP".localized())
@@ -368,6 +376,7 @@ struct UnitListCell: View {
                                             Text("\(lesson.availableTeacherCount ?? 0)  ")
                                                 .font(Font.bold(size: 12))
                                              Text(" Teachers".localized())
+                                                .fontWeight(.medium)
                                         }
                                         .font(Font.semiBold(size: 12))
                                         

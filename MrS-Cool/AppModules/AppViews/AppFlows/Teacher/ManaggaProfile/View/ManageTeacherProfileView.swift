@@ -120,7 +120,7 @@ struct ManageTeacherProfileView: View {
                                 
                                 let endDate = Calendar.current.date(byAdding: .year, value: -18, to: Date()) ?? Date()
 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,endDate: endDate,local:.current ,isvalid:manageprofilevm.isbirthDateStrvalid)
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,endDate: endDate,isvalid:manageprofilevm.isbirthDateStrvalid)
                                                                 
                                 CustomDropDownField(iconName:"img_group_512374",placeholder: "ِBank", selectedOption: $manageprofilevm.bank,options:lookupsvm.BanksList)
 

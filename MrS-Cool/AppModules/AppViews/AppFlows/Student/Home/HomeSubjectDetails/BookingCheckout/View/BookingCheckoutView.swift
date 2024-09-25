@@ -96,7 +96,8 @@ struct BookingCheckoutView: View {
                         }
                         
                         Text(details.lessonOrSubjectBrief ?? "")
-                            .font(.bold(size: 9))
+                            .font(.semiBold(size: 10))
+                            .fontWeight(.medium)
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                         //                        .padding(.horizontal,30)
@@ -271,6 +272,7 @@ struct CheckOutFullSubjectInfo: View {
                 Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             CustomDivider()
             
@@ -289,6 +291,7 @@ struct CheckOutFullSubjectInfo: View {
                 Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             CustomDivider()
             
@@ -307,6 +310,7 @@ struct CheckOutFullSubjectInfo: View {
                 Text("\(details.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             CustomDivider()
             
@@ -325,7 +329,7 @@ struct CheckOutFullSubjectInfo: View {
                 VStack{
                     ForEach(details.bookSchedules ?? [],id:\.self){sched in
                         Group{
-                            Text("\(sched.dayName ?? "") ")+Text("\(sched.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                            Text("\(sched.dayName ?? "") ").fontWeight(.medium)+Text("\(sched.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a")).fontWeight(.medium)
                         }
                         .foregroundColor(.mainBlue)
                         .font(Font.semiBold(size: 12))
@@ -348,7 +352,7 @@ struct CheckOutFullSubjectInfo: View {
                 Spacer()
 //                Text("\(Int(details.duration ?? "")?.formattedHrsMins() ?? "0")")
                 HStack(spacing:0){
-                    Text("\(Int(details.duration ?? "")?.hours ?? 0) ") + Text("hrs".localized()) + Text(", ".localized()) + Text("\(Int(details.duration ?? "")?.minutes ?? 0) ") + Text("mins".localized())
+                    Text("\(Int(details.duration ?? "")?.hours ?? 0) ").fontWeight(.medium) + Text("hrs".localized()).fontWeight(.medium) + Text(", ".localized()).fontWeight(.medium) + Text("\(Int(details.duration ?? "")?.minutes ?? 0) ").fontWeight(.medium) + Text("mins".localized()).fontWeight(.medium)
                 }
                         .foregroundColor(.mainBlue)
                         .font(Font.semiBold(size: 12))
@@ -449,6 +453,7 @@ struct CheckOutLessonInfo: View {
                 Text(details.teacherName ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             CustomDivider()
             
@@ -467,6 +472,7 @@ struct CheckOutLessonInfo: View {
                 Text(details.bookType ?? "")
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             CustomDivider()
             
@@ -485,6 +491,7 @@ struct CheckOutLessonInfo: View {
                 Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             
             CustomDivider()
@@ -503,6 +510,7 @@ struct CheckOutLessonInfo: View {
                 Text("\(details.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
             }
             
             CustomDivider()

@@ -388,7 +388,6 @@ struct LessonDetailsView: View {
                                                                           
                                                 Helper.shared.logout()
                                                 isPush = true
-
                                                 
                                             })
                                             lessondetailsvm.isError = true
@@ -487,9 +486,10 @@ struct HorizontalScrollWithTwoRows: View {
                                         HStack{
                                             Group{
                                                 Text("Start Time".localized())
-                                                
+                                                    .fontWeight(.medium)
                                                 Spacer()
                                                 Text("\(items[index].fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                    .fontWeight(.medium)
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                             
@@ -500,18 +500,16 @@ struct HorizontalScrollWithTwoRows: View {
                                         HStack {
                                             Group{
                                                 Text("End Time".localized())
-                                                
+                                                    .fontWeight(.medium)
                                                 Spacer()
                                                 Text("\(items[index].toTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                    .fontWeight(.medium)
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                         }
                                         
                                     }
                                     .frame(width: 120)
-                                    //                                .padding(.horizontal)
-                                    
-                                    //                                .background(ColorConstants.MainColor)
                                     .font(.regular(size: 10))
                                     //                            .foregroundColor(ColorConstants.WhiteA700)
                                 }
@@ -550,12 +548,12 @@ struct HorizontalScrollWithTwoRows: View {
                                         HStack{
                                             Group{
                                                 Text("Start Time".localized())
-                                                
+                                                    .fontWeight(.medium)
                                                 Spacer()
                                                 Text("\(items[index].fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                    .fontWeight(.medium)
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
-                                            
                                         }
                                         
                                         CustomDivider()
@@ -563,9 +561,10 @@ struct HorizontalScrollWithTwoRows: View {
                                         HStack {
                                             Group{
                                                 Text("End Time".localized())
-                                                
+                                                    .fontWeight(.medium)
                                                 Spacer()
                                                 Text("\(items[index].toTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                    .fontWeight(.medium)
                                             }
                                             .foregroundColor(selectedsched == items[index] ? ColorConstants.WhiteA700:.mainBlue)
                                         }

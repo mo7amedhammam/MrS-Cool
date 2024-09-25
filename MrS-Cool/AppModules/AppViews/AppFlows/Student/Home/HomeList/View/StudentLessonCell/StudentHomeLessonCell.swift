@@ -43,9 +43,11 @@ struct StudentHomeLessonCell: View {
                 Group{
                     Text(Part1)
                         .foregroundColor(lesson.id == selectedlesson.id ? .studentBtnBg : ColorConstants.MainColor)
+                        .fontWeight(.medium)
 
                     Text(remaining)
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 :.mainBlue)
+                        .fontWeight(.medium)
                 }
                     .font(Font.semiBold(size: 13))
                     .multilineTextAlignment(.center)
@@ -74,6 +76,7 @@ struct StudentHomeLessonCell: View {
                            Text("\(lesson.availableTeacher ?? 0)  ")
                                 .font(Font.bold(size: 9))
                              Text("Available Teachers".localized())
+                                .fontWeight(.medium)
                         }
                         .font(Font.semiBold(size: 9))
                         
@@ -91,9 +94,11 @@ struct StudentHomeLessonCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("Min Price :".localized())
+                                .fontWeight(.medium)
                             Text("\(lesson.minPrice ?? 0,specifier: "%.2f")")
                                 .font(Font.bold(size: 9))
                              Text("EGP".localized())
+                                .font(Font.bold(size: 9))
                         }
                         .font(Font.semiBold(size: 9))
                         
@@ -111,9 +116,11 @@ struct StudentHomeLessonCell: View {
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
                             Text("Max Price :".localized())
+                                .fontWeight(.medium)
                              Text("  \(lesson.maxPrice ?? 250,specifier: "%.2f") ")
                                 .font(Font.bold(size: 9))
                              Text("EGP".localized())
+                                .font(Font.bold(size: 9))
                         }
                         .font(Font.semiBold(size: 9))
                         

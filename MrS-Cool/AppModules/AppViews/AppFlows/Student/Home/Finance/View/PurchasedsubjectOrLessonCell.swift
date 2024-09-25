@@ -34,15 +34,16 @@ struct PurchasedsubjectOrLessonCell: View {
                     switch financese {
                     case .Subjects:
                         HStack(spacing:0){
-                            Text("\(Part4)").font(Font.semiBold(size:13.0))
-                            Text(", ").font(Font.semiBold(size:13.0))
+                            Text("\(Part4)").font(Font.bold(size:13.0))
+                            Text(", ").font(Font.bold(size:13.0))
 
-                            Text("\(Part5)").font(Font.regular(size:13.0))
+                            Text("\(Part5)").font(Font.regular(size:13.0)) .fontWeight(.medium)
+
                         }
                         .foregroundColor(.mainBlue)
 
                     case .Lessons:
-                        Text("\(Part1)").font(Font.semiBold(size:13.0))
+                        Text("\(Part1)").font(Font.bold(size:13.0))
                             .lineLimit(2)
 //                        + Text("\(Part5)").font(Font.regular(size:13.0))
 //                            .foregroundColor(.mainBlue)
@@ -56,18 +57,18 @@ struct PurchasedsubjectOrLessonCell: View {
                     VStack (alignment: .leading,spacing:financese == .Lessons ? 5 : 10){
                         switch financese {
                         case .Subjects:
-                            Text(Part3)
+                            Text(Part3).fontWeight(.medium)
                                 .foregroundColor(.mainBlue)
-                            Text(Part2)
-                            Text(Part1)
+                            Text(Part2).fontWeight(.medium)
+                            Text(Part1).fontWeight(.medium)
 
                         case .Lessons:
-                             Text("\(Part5), ").font(Font.regular(size:13.0))
-                                .foregroundColor(.mainBlue) + Text(Part6)
+                             Text("\(Part5), ").font(Font.regular(size:13.0)).fontWeight(.medium)
+                                .foregroundColor(.mainBlue) + Text(Part6).fontWeight(.medium)
                                 .foregroundColor(.mainBlue)
-                            Text(Part4)
-                            Text(Part3)
-                            Text(Part2)
+                            Text(Part4).fontWeight(.medium)
+                            Text(Part3).fontWeight(.medium)
+                            Text(Part2).fontWeight(.medium)
 
                         }
                         
@@ -82,10 +83,12 @@ struct PurchasedsubjectOrLessonCell: View {
                     VStack (alignment:.leading,spacing: 2.5){
                         Text("Teacher".localized())
                             .font(Font.semiBold(size: 9))
+                            .fontWeight(.medium)
                             .foregroundColor(.grayBtnText)
 
                         Text(model.teacherName ?? "")
                             .font(Font.regular(size: 12.0))
+                            .fontWeight(.medium)
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                     }
@@ -96,20 +99,24 @@ struct PurchasedsubjectOrLessonCell: View {
                         VStack(alignment:.leading,spacing: 2.5){
                             Text("Date".localized())
                                 .font(Font.semiBold(size: 9))
+                                .fontWeight(.medium)
                                 .foregroundColor(.grayBtnText)
                             
                             Text("\(model.date ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
                                 .font(Font.regular(size: 12))
+                                .fontWeight(.medium)
                                 .foregroundColor(.mainBlue)
                             
                             Spacer().frame(height:3)
                             
                             Text("Amount".localized())
                                 .font(Font.semiBold(size: 9))
+                                .fontWeight(.medium)
                                 .foregroundColor(.grayBtnText)
                             
                                 Text("\(model.amount ?? 0,specifier:"%.2f")")
                             .font(Font.regular(size: 12))
+                            .fontWeight(.medium)
                                 .foregroundColor(.mainBlue)
 //                            Spacer()
                         }

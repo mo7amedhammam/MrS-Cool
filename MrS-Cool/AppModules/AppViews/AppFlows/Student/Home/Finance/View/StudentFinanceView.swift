@@ -61,8 +61,8 @@ struct StudentFinanceView: View {
                             
                             HStack(spacing:0){
                                 let formattedToday = dateFormatter.string(from: Date())
-                                Text("Till ".localized())
-                                Text(formattedToday)
+                                Text("Till ".localized()).fontWeight(.medium)
+                                Text(formattedToday).fontWeight(.medium)
                             }
                             .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)

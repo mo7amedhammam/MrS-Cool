@@ -48,7 +48,6 @@ struct StudentHomeSubjectCell: View {
 
                 let Part1 = name.indices.contains(0) ? name[0] : ""
 //                let Part2 = name.indices.contains(1) ? name[1] : ""
-
                 
                             Text(Part1)
                             .font(Font.bold(size: 13))
@@ -62,8 +61,10 @@ struct StudentHomeSubjectCell: View {
                 if let teachertitle = subject.teacherSubject {
                     Group{
                         Text(teachertitle.subjectAcademicYear ?? "")
+                            .fontWeight(.medium)
 //                            .padding(.top,-30)
                         Text(teachertitle.subjectLevel ?? "")
+                            .fontWeight(.medium)
 //                            .padding(.top,-30)
 //                            .frame(minHeight:15,idealHeight:25,maxHeight: 60)
                     }

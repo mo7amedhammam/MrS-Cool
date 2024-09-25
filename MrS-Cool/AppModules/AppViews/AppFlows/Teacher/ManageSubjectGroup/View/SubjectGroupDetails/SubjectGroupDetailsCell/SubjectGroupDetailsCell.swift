@@ -20,7 +20,7 @@ struct SubjectGroupDetailsCell: View {
                     .foregroundColor(ColorConstants.Bluegray40099)
 
                 Text(model.lessonName ?? "day name dau name dau one")
-                    .font(Font.semiBold(size:13.0))
+                    .font(Font.bold(size:13.0))
                     .foregroundColor(.mainBlue)
                 
                 Spacer()
@@ -29,6 +29,7 @@ struct SubjectGroupDetailsCell: View {
             HStack(alignment:.top){
                     Text(model.dayName ?? "day 1")
                         .font(Font.regular(size: 12.0))
+                        .fontWeight(.medium)
                         .foregroundColor(ColorConstants.Black900)
                         .multilineTextAlignment(.leading)
                                     
@@ -42,6 +43,7 @@ struct SubjectGroupDetailsCell: View {
                         
                         Text("\(model.timeFrom ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm", FormatTo: "hh:mm aa"))
                             .font(Font.regular(size: 12))
+                            .fontWeight(.medium)
                             .foregroundColor(.mainBlue)
                     }
                     Spacer().frame(width:20)
@@ -52,6 +54,7 @@ struct SubjectGroupDetailsCell: View {
                         
                         Text("\(model.timeTo ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "HH:mm", FormatTo: "hh:mm aa"))
                             .font(Font.regular(size: 12))
+                            .fontWeight(.medium)
                             .foregroundColor(.mainBlue)
                     }
                 }

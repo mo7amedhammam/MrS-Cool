@@ -27,7 +27,7 @@ struct ManageSubjectCell: View {
                 
                 VStack{
                     Text(model.subjectSemesterYearName ?? "")
-                        .font(Font.semiBold(size:13.0))
+                        .font(Font.bold(size:13.0))
                         .foregroundColor(.mainBlue)
                 }
                 
@@ -97,7 +97,7 @@ struct ManageSubjectCell: View {
                         Group{
                             Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
                         }
-                    .font(Font.semiBold(size: 12))
+                    .font(Font.bold(size: 10))
                     .foregroundColor(.mainBlue)
                         
                           

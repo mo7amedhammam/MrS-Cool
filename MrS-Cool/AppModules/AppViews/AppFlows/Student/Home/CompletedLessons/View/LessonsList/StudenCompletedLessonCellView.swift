@@ -28,7 +28,7 @@ struct StudenCompletedLessonCellView: View {
                         )
                     
                     Text(model.subject ?? "")
-                        .font(Font.semiBold(size:13.0))
+                        .font(Font.bold(size:13.0))
                         .foregroundColor(.mainBlue)
 
                     Spacer()
@@ -86,19 +86,19 @@ struct StudenCompletedLessonCellView: View {
                 HStack{
                     VStack (alignment:.leading,spacing: 10){
                         Text(model.teacherName ?? "")
-                            .font(Font.semiBold(size:13.0))
+                            .font(Font.bold(size:13.0))
                             .foregroundColor(.mainBlue)
 
                         Text(model.groupName ?? "")
                             .font(Font.regular(size: 12.0))
-                            .fontWeight(.regular)
+                            .fontWeight(.medium)
                             .foregroundColor(ColorConstants.Black900)
 //                            .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                         
                         Text(model.lessonname ?? "")
                             .font(Font.regular(size: 12.0))
-                            .fontWeight(.regular)
+                            .fontWeight(.medium)
                             .foregroundColor(ColorConstants.Black900)
 //                            .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
@@ -116,6 +116,7 @@ struct StudenCompletedLessonCellView: View {
                             Text("\(model.date ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
                                 .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
+                                .fontWeight(.medium)
                             
                             Spacer().frame(height:3)
                             
@@ -124,8 +125,9 @@ struct StudenCompletedLessonCellView: View {
                                 .foregroundColor(.grayBtnText)
                             
                             Group{
-                                Text("\(model.startTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))+Text(" - \("\(model.endTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))")
-                            }                            .font(Font.regular(size: 12))
+                                Text("\(model.startTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa")).fontWeight(.medium)+Text(" - \("\(model.endTime ?? "07:30")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm aa"))").fontWeight(.medium)
+                            }
+                            .font(Font.regular(size: 12))
                                 .foregroundColor(.mainBlue)
                             
                         }

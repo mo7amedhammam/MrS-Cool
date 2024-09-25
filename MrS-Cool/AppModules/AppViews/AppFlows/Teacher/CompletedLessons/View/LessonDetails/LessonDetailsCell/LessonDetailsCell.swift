@@ -29,7 +29,7 @@ struct LessonDetailsCell: View {
             .clipShape(Circle())
             HStack(alignment: .top,spacing: 20) {
                 Text("Attendance".localized())
-                    .font(Font.regular(size:7))
+                    .font(Font.semiBold(size:7))
                     .foregroundColor(.mainBlue)
 
                 Spacer()
@@ -46,7 +46,7 @@ struct LessonDetailsCell: View {
             
             HStack(){
                 Text(model.studentName ?? "")
-                    .font(Font.semiBold(size: 12.0))
+                    .font(Font.bold(size: 12.0))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
                 Spacer()
@@ -66,13 +66,13 @@ struct LessonDetailsCell: View {
             
             HStack(){
                 Text( "parent ".localized())
-                    .font(Font.regular(size:7))
+                    .font(Font.semiBold(size:7))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
 
                 if model.parentName != "" || ((model.parentName?.isEmpty) == nil){
                     Text(model.parentName ?? "")
-                        .font(Font.semiBold(size: 10))
+                        .font(Font.bold(size: 10))
                         .foregroundColor(.mainBlue)
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)

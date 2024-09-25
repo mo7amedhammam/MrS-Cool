@@ -90,7 +90,7 @@ struct StudentEditProfileView: View {
                                 
 //                                let twelveYearsAgo = Calendar.current.date(byAdding: .year, value: -12, to: Date()) ?? Date()
 
-                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$studentsignupvm.birthDateStr,endDate: Date(),local: .current,datePickerComponent:.date)
+                                CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$studentsignupvm.birthDateStr,endDate: Date(),datePickerComponent:.date)
                                 
                                 CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.EducationTypesList)
                                     .onChange(of: studentsignupvm.educationType, perform: { val in
