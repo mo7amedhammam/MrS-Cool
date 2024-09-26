@@ -381,6 +381,22 @@ class LookUpsVM: ObservableObject {
         }
     }
     @Published var LessonsForList: [DropDownOption] = []
+    
+    //----------------- Estra Sessions --------
+    @Published var AllLessonsForListArray: [LessonForListM] = []{
+        didSet{
+            if !AllLessonsForListArray.isEmpty {
+                // Use map to transform GendersM into DropDownOption
+                AllLessonsForList = AllLessonsForListArray.map { gender in
+                    return DropDownOption(id: gender.id, Title: gender.lessonName,subTitle: gender.groupDuration,LessonItem: gender)
+                }
+            }else{
+                AllLessonsForList.removeAll()
+            }
+        }
+    }
+    @Published var AllLessonsForList: [DropDownOption] = []
+    
     //---------- Filter  -------
     @Published var SelectedFilterSubjectForList: DropDownOption?{
         didSet{
@@ -404,8 +420,6 @@ class LookUpsVM: ObservableObject {
         }
     }
     @Published var FilterLessonsForList: [DropDownOption] = []
-    
-    
 
     @Published var BookedSubjectsForListArray: [BookedStudentSubjectsM] = []{
         didSet{
@@ -832,7 +846,26 @@ extension LookUpsVM{
             })
             .store(in: &cancellables)
     }
-    
+
+    func GetAllLessonsForList(id:Int) {
+//        guard let SelectedSubjectForListid = forcase == .Adding ? SelectedSubjectForList?.id : SelectedFilterSubjectForList?.id  else {LessonsForListArray.removeAll(); return}
+        let parameters:[String:Any] = ["teacherSubjectAcademicSemesterYearId":id]
+        let target = LookupsServices.GetAllTeacherLessonForList(parameters: parameters)
+        BaseNetwork.CallApi(target, BaseResponse<[LessonForListM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                    AllLessonsForListArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
     func GetBookedSubjestForList() {
         var parameters:[String:Any] = [:]
         if Helper.shared.getSelectedUserType() == .Parent{

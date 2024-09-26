@@ -10,6 +10,7 @@ import Combine
 
 class ManageSubjectGroupVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
+    static let shared = ManageSubjectGroupVM()
     
     //    MARK: --- inputs ---
     @Published var subject : DropDownOption?{
@@ -43,6 +44,13 @@ class ManageSubjectGroupVM: ObservableObject {
     @Published var day : DropDownOption?
     @Published var startTime : String?
     //    @Published var endTime : String?
+    
+    //Extra session
+    @Published var ShowAddExtraSession = false
+     var selectedGroup : SubjectGroupM?
+    @Published var extraLesson : DropDownOption?
+    @Published var extraDate : String?
+    @Published var extraTime : String?
     
     @Published var DisplaySchedualSlotsArr:[NewScheduleSlotsM] = []
     
@@ -279,6 +287,55 @@ extension ManageSubjectGroupVM{
             .store(in: &cancellables)
     }
     
+    func CreateExtraSession(){
+        guard let group = selectedGroup ,let teacherlessonsessionid = group.id ,let lessonlessonid = extraLesson?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
+        let parameters:[String:Any] = [
+//            "teacherLessonSessionScheduleSlotId": 0,
+            "teacherlessonsessionId": teacherlessonsessionid,
+            "teacherLessonId": lessonlessonid,
+            "duration":duration ,
+            "date": extradate,
+            "timeFrom":extratime ,
+            "isCancel": false
+        ]
+
+        print("parameters",parameters)
+        let target = teacherServices.CreateExtraSession(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<SubjectGroupDeleteM>.self)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    isError =  true
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true{
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+                        guard let self = self else {return}
+//                        clearExtraSession()
+//                        ShowAddExtraSession = false
+                    })
+                    isError =  true
+
+                }else{
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                    isError =  true
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+
+    
+    
     // Map DisplaySchedualSlotsArr to CreateSchedualSlotsArr
     func prepareSlotsArrays() {
         CreateSchedualSlotsArr = DisplaySchedualSlotsArr.map{ newSlot in
@@ -317,6 +374,13 @@ extension ManageSubjectGroupVM{
         filtergroupName = ""
         filterstartdate = nil
         filterenddate = nil
+    }
+    
+    func clearExtraSession(){
+        extraLesson = nil
+        extraDate = nil
+        extraTime = nil
+        selectedGroup = nil
     }
     
     func cleanup() {

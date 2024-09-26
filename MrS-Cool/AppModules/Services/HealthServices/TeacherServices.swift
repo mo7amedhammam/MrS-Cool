@@ -36,7 +36,8 @@ enum teacherServices{
     case ReviewMySubjectGroup(parameters : [String:Any])
     case CreateMySubjectGroup(parameters : [String:Any])
     case DeleteMySubjectGroup(parameters : [String:Any])
-    
+    case CreateExtraSession(parameters : [String:Any])
+
     case GetMyCompletedLessons(parameters : [String:Any])
     case GetMyCompletedLessonDetails(parameters : [String:Any])
     
@@ -106,7 +107,9 @@ extension teacherServices:TargetType{
             return EndPoints.CreateSubjectSchedual.rawValue
         case .DeleteMySubjectGroup:
             return EndPoints.DeleteSubjectSchedual.rawValue
-            
+        case .CreateExtraSession:
+            return EndPoints.CreateExtraSession.rawValue
+
         case .GetMyCompletedLessons:
             return EndPoints.GetMyCompletedLessons.rawValue
         case .GetMyCompletedLessonDetails:
@@ -193,7 +196,7 @@ extension teacherServices:TargetType{
                 .GetMyLessonMaterial,.CreateMyLessonMaterial,.UpdateMyLessonMaterial,
                 .GetMyScheduals,.CreateMyNewSchedual,
                 .GetMyLessonSchedualGroup, .CreateMyLessonScheduleGroup,
-                .GetMySubjectGroup,.ReviewMySubjectGroup,.CreateMySubjectGroup,
+                .GetMySubjectGroup,.ReviewMySubjectGroup,.CreateMySubjectGroup,.CreateExtraSession,
                 .GetMyCompletedLessons,
                 .CreateComment,
                 .GetTeacherFinanceSubjects,
@@ -237,6 +240,7 @@ extension teacherServices:TargetType{
                 .GetMySubjectGroup(parameters: let Parameters),
                 .ReviewMySubjectGroup(parameters: let Parameters),
                 .CreateMySubjectGroup(parameters: let Parameters),
+                .CreateExtraSession(parameters: let Parameters),
                 .GetMyCompletedLessons(parameters: let Parameters),
                 .CreateComment(parameters: let Parameters),
                 .GetTeacherFinanceSubjects(_, parameters: let Parameters),

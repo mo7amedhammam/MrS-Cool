@@ -12,7 +12,7 @@ struct ManageSubjectGroupView: View {
     //        @Environment(\.dismiss) var dismiss
     @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
-    @StateObject var subjectgroupvm = ManageSubjectGroupVM()
+    @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
     
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -21,6 +21,8 @@ struct ManageSubjectGroupView: View {
     @State var showFilter : Bool = false
     //    var selectedSubject:TeacherSubjectM?
     @State var showConfirmDelete = false
+    //    @State var addExtraSession = true
+    //    @State var selectedGrup = SubjectGroupM()
     
     fileprivate func preparelessonscounts() {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
@@ -88,7 +90,7 @@ struct ManageSubjectGroupView: View {
                                                                     }),
                                                                 keyboardType: .asciiCapableNumberPad,
                                                                 isvalid: true)
-                                              
+                                                
                                             }
                                         }
                                         .padding()
@@ -212,6 +214,13 @@ struct ManageSubjectGroupView: View {
                                     .environmentObject(lookupsvm)
                                 )
                                 
+                            },extraTimetnAction: {
+                                subjectgroupvm.clearExtraSession()
+                                if let id = group.teacherSubjectAcademicSemesterYearID{
+                                    lookupsvm.GetAllLessonsForList(id: id)
+                                }
+                                subjectgroupvm.selectedGroup = group
+                                subjectgroupvm.ShowAddExtraSession = true
                             }, deleteBtnAction: {
                                 subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     subjectgroupvm.DeleteTeacherGroup(id: group.id)
@@ -245,10 +254,54 @@ struct ManageSubjectGroupView: View {
             subjectgroupvm.cleanup()
         }
         
-        .showHud(isShowing: $subjectgroupvm.isLoading)
-        .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
-        .showAlert(hasAlert: $showConfirmDelete, alertType: subjectgroupvm.error)
-        
+        .bottomSheet(isPresented: $subjectgroupvm.ShowAddExtraSession){
+            VStack{
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2)
+                HStack {
+                    Text("Extra Session".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                }.padding(8)
+                ScrollView{
+                    Group {
+                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList)
+                        
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,datePickerComponent:.date)
+                        
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute)
+                        
+                    }
+                    .padding(.top,5)
+                    
+                    HStack {
+                        Group{
+                            CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                                subjectgroupvm.CreateExtraSession()
+                                subjectgroupvm.ShowAddExtraSession = false
+                            })
+                            
+                            CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
+                                subjectgroupvm.clearExtraSession()
+                                //                            subjectgroupvm.GetTeacherSubjectGroups()
+                                subjectgroupvm.ShowAddExtraSession = false
+                            })
+                        }
+                        .frame(width:130,height:40)
+                        .padding(.vertical)
+                    }
+                    .padding(.horizontal,3)
+                    .padding(.top)
+                    
+                }
+                .frame(height: 320)
+            }
+            .background(ColorConstants.WhiteA700.cornerRadius(8))
+            .padding()
+            
+        }
         .overlay{
             if showFilter{
                 // Blurred Background and Sheet
@@ -314,6 +367,10 @@ struct ManageSubjectGroupView: View {
                 }
             }
         }
+        
+        .showHud(isShowing: $subjectgroupvm.isLoading)
+        .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
+        .showAlert(hasAlert: $showConfirmDelete, alertType: subjectgroupvm.error)
         
         NavigationLink(destination: destination, isActive: $subjectgroupvm.letsPreview, label: {})
     }

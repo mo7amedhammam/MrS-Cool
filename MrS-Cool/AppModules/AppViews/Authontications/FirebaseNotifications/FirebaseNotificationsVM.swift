@@ -15,21 +15,7 @@ class FirebaseNotificationsVM: ObservableObject {
     static let shared = FirebaseNotificationsVM()
 
     //    MARK: --- inputs ---
-//    @Published var phone = ""{
-//        didSet{
-//            if phone.count == 11 {
-//                isPhoneValid = true
-//            }else{
-//                isPhoneValid = false
-//            }
-//        }
-//    }
-//    @Published var isPhoneValid = false
-//
-////    @Published var currentPassword = ""
-//    @Published var newPassword = ""
-//    @Published var confirmNewPassword = ""
-//    @Published var isFormValid = false
+
 
     //  MARK: -- validations --
     // Published properties for length validation

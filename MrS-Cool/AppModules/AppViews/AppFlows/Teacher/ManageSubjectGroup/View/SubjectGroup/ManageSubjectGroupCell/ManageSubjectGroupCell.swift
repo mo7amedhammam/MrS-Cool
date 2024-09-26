@@ -10,6 +10,7 @@ import SwiftUI
 struct ManageSubjectGroupCell: View {
     var model = SubjectGroupM()
     var reviewBtnAction : (()->())?
+    var extraTimetnAction : (()->())?
     var deleteBtnAction : (()->())?
 
     var body: some View {
@@ -28,25 +29,37 @@ struct ManageSubjectGroupCell: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    reviewBtnAction?()
-                }, label: {
-                    Image("img_group8733_gray_908")
-                        .resizable()
-                        .frame(width: 20, height: 15,alignment: .leading)
-                        .aspectRatio(contentMode: .fill)
-                })
-                .buttonStyle(.plain)
-                
-                Button(action: {
-                    deleteBtnAction?()
-                }, label: {
-                    Image("img_group")
-                        .resizable()
-                        .frame(width: 15, height: 18,alignment: .leading)
-                        .aspectRatio(contentMode: .fill)
-                })
-                .buttonStyle(.plain)
+                HStack(){
+                    Button(action: {
+                        reviewBtnAction?()
+                    }, label: {
+                        Image("img_group8733_gray_908")
+                            .resizable()
+                            .frame(width: 20, height: 15,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                    
+                    Button(action: {
+                        extraTimetnAction?()
+                    }, label: {
+                        Image(.clockadd)
+                            .resizable()
+                            .frame(width: 20, height: 20,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                    
+                    Button(action: {
+                        deleteBtnAction?()
+                    }, label: {
+                        Image("img_group")
+                            .resizable()
+                            .frame(width: 15, height: 18,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                }
 
             }
             HStack{

@@ -29,6 +29,7 @@ enum LookupsServices {
     
     case GetSubjectsForList
     case GetLessonsForList(parameters : [String:Any])
+    case GetAllTeacherLessonForList(parameters : [String:Any]) // for extra sessions
     
     case GetStatus
     
@@ -79,6 +80,9 @@ extension LookupsServices : TargetType {
             return EndPoints.GetTeacherSubjectForList.rawValue
         case .GetLessonsForList:
             return EndPoints.GetTeacherLessonForList.rawValue
+        case .GetAllTeacherLessonForList: // for extrs sessions
+            return EndPoints.GetTeacherLessonForList.rawValue
+
         case .GetStatus:
             return EndPoints.GetStatus.rawValue
             
@@ -101,7 +105,7 @@ extension LookupsServices : TargetType {
                 .GetDocumentTypes,
                 .GetMaterialTypes,
                 .GetDays,
-                .GetSubjectsForList,.GetLessonsForList,
+                .GetSubjectsForList,.GetLessonsForList,.GetAllTeacherLessonForList,
                 .GetSemesters,
                 .GetStatus,
                 .GetBookedStudentSubjects,.GetBookedStudentLessons,
@@ -130,7 +134,7 @@ extension LookupsServices : TargetType {
                 .GetCities(parameters: let parameters),
                 .GetEducationLevels(parameters: let parameters),
                 .GetAcademicYears(parameters: let parameters),
-                .GetLessonsForList(parameters: let parameters),
+                .GetLessonsForList(parameters: let parameters),.GetAllTeacherLessonForList(parameters: let parameters),
                 .GetAllForListByEducationLevelId(parameters: let parameters),
                 .GetBookedStudentSubjects(parameters: let parameters),
                 .GetBookedStudentLessons(parameters: let parameters):
