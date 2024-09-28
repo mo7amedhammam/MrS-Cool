@@ -201,6 +201,10 @@
 		C8F938D52C92F4D400C4A0B4 /* TeacherFinanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */; };
 		C8F938D72C93069400C4A0B4 /* TeacherFinanceM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F938D62C93069400C4A0B4 /* TeacherFinanceM.swift */; };
 		C8F938D92C930DCC00C4A0B4 /* TeacherFinanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F938D82C930DCC00C4A0B4 /* TeacherFinanceVM.swift */; };
+		C8F9877E2CA8206F00CCB817 /* TeacherHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9877D2CA8206F00CCB817 /* TeacherHomeView.swift */; };
+		C8F987802CA8208300CCB817 /* TeacherHomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F9877F2CA8208300CCB817 /* TeacherHomeVM.swift */; };
+		C8F987822CA8209800CCB817 /* TeacherHomeM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F987812CA8209800CCB817 /* TeacherHomeM.swift */; };
+		C8F987842CA840EA00CCB817 /* TeacherHomeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F987832CA840EA00CCB817 /* TeacherHomeCellView.swift */; };
 		C8FB11A92ADD99800051715F /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118C2ADD99800051715F /* EndPoints.swift */; };
 		C8FB11AA2ADD99800051715F /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118D2ADD99800051715F /* BaseRequest.swift */; };
 		C8FB11AB2ADD99800051715F /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB118E2ADD99800051715F /* BaseResponse.swift */; };
@@ -416,6 +420,10 @@
 		C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceView.swift; sourceTree = "<group>"; };
 		C8F938D62C93069400C4A0B4 /* TeacherFinanceM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceM.swift; sourceTree = "<group>"; };
 		C8F938D82C930DCC00C4A0B4 /* TeacherFinanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinanceVM.swift; sourceTree = "<group>"; };
+		C8F9877D2CA8206F00CCB817 /* TeacherHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeView.swift; sourceTree = "<group>"; };
+		C8F9877F2CA8208300CCB817 /* TeacherHomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeVM.swift; sourceTree = "<group>"; };
+		C8F987812CA8209800CCB817 /* TeacherHomeM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeM.swift; sourceTree = "<group>"; };
+		C8F987832CA840EA00CCB817 /* TeacherHomeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeCellView.swift; sourceTree = "<group>"; };
 		C8FB118C2ADD99800051715F /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		C8FB118D2ADD99800051715F /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		C8FB118E2ADD99800051715F /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -1809,6 +1817,7 @@
 			isa = PBXGroup;
 			children = (
 				C8CA132F2B1DFA6C00570B2F /* Home */,
+				C8F987792CA81FA300CCB817 /* NewHome */,
 				C85B9FD42C90810500307E47 /* TeacherHomeAsAnonymous */,
 				C8796AFE2AFB948B004AAA98 /* ManaggaProfile */,
 				C8B89DDF2AFA515100219AEC /* ManageDocuments */,
@@ -2263,6 +2272,41 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C8F987792CA81FA300CCB817 /* NewHome */ = {
+			isa = PBXGroup;
+			children = (
+				C8F9877C2CA81FDF00CCB817 /* Model */,
+				C8F9877B2CA81FDB00CCB817 /* ViewModel */,
+				C8F9877A2CA81FCE00CCB817 /* View */,
+			);
+			path = NewHome;
+			sourceTree = "<group>";
+		};
+		C8F9877A2CA81FCE00CCB817 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C8F9877D2CA8206F00CCB817 /* TeacherHomeView.swift */,
+				C8F987832CA840EA00CCB817 /* TeacherHomeCellView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C8F9877B2CA81FDB00CCB817 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C8F9877F2CA8208300CCB817 /* TeacherHomeVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C8F9877C2CA81FDF00CCB817 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C8F987812CA8209800CCB817 /* TeacherHomeM.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C8FB11832ADD91BA0051715F /* AppMain */ = {
 			isa = PBXGroup;
 			children = (
@@ -2679,9 +2723,11 @@
 				C8357E802B611AD000911371 /* SubjectTeachersListVM.swift in Sources */,
 				C81A2EC32BBEE96100B4CE99 /* FirebaseNotificationsVM.swift in Sources */,
 				C80403462B554ED9003279AD /* HomeSubjectDetailsVM.swift in Sources */,
+				C8F987802CA8208300CCB817 /* TeacherHomeVM.swift in Sources */,
 				C88C52DB2AE00124003DE051 /* CheckboxField.swift in Sources */,
 				C8438EFD2B94B73500D9412D /* KingFisherImageLoader.swift in Sources */,
 				C8986C7B2AE93282003E9179 /* TeacherM.swift in Sources */,
+				C8F9877E2CA8206F00CCB817 /* TeacherHomeView.swift in Sources */,
 				C80D09662AE7D94A00F83DB4 /* TeacherPersonalDataView.swift in Sources */,
 				C85B9FD72C90814500307E47 /* TeacherHomeAsAnonymous.swift in Sources */,
 				C8438EFB2B94906E00D9412D /* StudentEditProfileM.swift in Sources */,
@@ -2759,6 +2805,7 @@
 				C88C52D82ADFE4EC003DE051 /* CustomTextField.swift in Sources */,
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C85A71152B4D5D7300462277 /* StudentHomeSubjectCell.swift in Sources */,
+				C8F987842CA840EA00CCB817 /* TeacherHomeCellView.swift in Sources */,
 				C8526AC32B03C18B001F8196 /* ManageSubjectCell.swift in Sources */,
 				C8D7C0762B063D6B009D5533 /* ChangePasswordVM.swift in Sources */,
 				C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */,
@@ -2796,6 +2843,7 @@
 				C8DDFB5A2B3AF88800C785D4 /* ChatsListView.swift in Sources */,
 				C8986C822AE9580F003E9179 /* OTPVerificationVM.swift in Sources */,
 				C83837092B1B51E100000DA3 /* GroupForLessonCell.swift in Sources */,
+				C8F987822CA8209800CCB817 /* TeacherHomeM.swift in Sources */,
 				C8E20F262AEBFB99000D99F2 /* TeacherSubjectCell.swift in Sources */,
 				C86CABCE2B65208E00BF8E21 /* SubjectDetailsM.swift in Sources */,
 				C877C8452B1207D1000F176A /* ManageLessonMaterialVM.swift in Sources */,

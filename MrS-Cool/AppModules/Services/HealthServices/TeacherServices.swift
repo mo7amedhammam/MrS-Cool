@@ -8,6 +8,8 @@
 import Alamofire
 
 enum teacherServices{
+    case GetHomeScheduals(parameters : [String:Any])
+
     case GetTeacherProfile
     case UpdateTeacherProfile(parameters : [String:Any])
     case UpdateTeacherSubject(parameters : [String:Any])
@@ -58,6 +60,9 @@ enum teacherServices{
 extension teacherServices:TargetType{
     var path: String {
         switch self {
+        case .GetHomeScheduals:
+            return EndPoints.GetTeacherHomeCalenderSchedualPaged.rawValue
+
         case .GetTeacherProfile:
             return EndPoints.GetTeacherProfile.rawValue
         case .UpdateTeacherProfile:
@@ -188,7 +193,9 @@ extension teacherServices:TargetType{
                 .GetAllComentsList,.GetAllComentsListById,
                 .GetTeacherFinance:
             return .get
-        case .UpdateTeacherProfile,
+            
+        case  .GetHomeScheduals,
+                .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
                 .GetTeacherSubjectLessons,
                 .UpdateTeacherSubjectLessons,
@@ -225,7 +232,8 @@ extension teacherServices:TargetType{
                 .GetAllComentsListById(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
-        case .UpdateTeacherProfile(parameters: let Parameters),
+        case .GetHomeScheduals(parameters: let Parameters),
+                .UpdateTeacherProfile(parameters: let Parameters),
                 .UpdateTeacherSubject(parameters: let Parameters),
                 .GetTeacherSubjectLessons(parameters: let Parameters),
                 .UpdateTeacherSubjectLessons(parameters: let Parameters),

@@ -91,6 +91,9 @@ enum EndPoints: String {
     case GetTeacherProfile = "Teacher/Profile"
     case UpdateTeacherProfile = "Teacher/UpdateProfile"
     
+    // MARK: -- Teacher Home --
+    case GetTeacherHomeCalenderSchedualPaged = "TeacherCalenderSchedual/GetMyCalenderSchedualPaged"
+    
     // MARK: -- Teacher Subject --
     case UpdateTeacherSubject = "TeacherSubjectAcademicSemesterYear/Update"
     
@@ -148,6 +151,8 @@ enum EndPoints: String {
     case GetTeacherRates = "Teacher/TeacherLessonRate"
     
     //    MARK: -- Student Home --
+    case GetStudentHomeCalenderSchedualPaged = "StudentCalenderSchedule/GetMyCalenderSchedualPaged"
+    
     case GetStudentSubjects = "Student/GetStudentSubjects" // for loggedin student
     case GetAllAnonymousSubjects = "SubjectOrLessonTeachers/GetAllSubjects" // for anonymous
     

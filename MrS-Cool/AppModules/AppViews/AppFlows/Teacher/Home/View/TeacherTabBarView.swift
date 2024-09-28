@@ -80,7 +80,8 @@ struct TeacherTabBarView: View {
                         }
                     )
 
-                TeacherHomeAsAnonymous()
+//                TeacherHomeAsAnonymous()
+                TeacherHomeView()
                     .tag(2)
                     .environmentObject(tabbarvm)
                     .gesture(

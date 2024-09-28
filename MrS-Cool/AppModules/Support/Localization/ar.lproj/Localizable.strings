@@ -626,3 +626,8 @@
 "ِSubject *" = "ِSubject *";
 "ِSubject Status" = "ِSubject Status";
 "ِTerm *" = "ِTerm *";
+
+//-------- some adds on subject group ---
+"Lesson No" = "Lesson No";
+"Lesson Order" = "Lesson Order";
+"Extra Session" = "Extra Session";
