@@ -112,7 +112,7 @@ struct TeacherHomeCellView: View {
                     .foregroundColor(.mainBlue)
                 
                 Spacer()
-                if model.teamMeetingLink?.count ?? 0 > 0 , isCurrentTimeWithinEventTime(){
+                if model.isCancel == false && isCurrentTimeWithinEventTime(){
                     Button(action: {
                         joinBtnAction?()
                     }, label: {
