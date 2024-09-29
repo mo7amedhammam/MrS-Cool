@@ -216,7 +216,7 @@ struct ManageSubjectGroupView: View {
                                 
                             },extraTimetnAction: {
                                 subjectgroupvm.clearExtraSession()
-                                if let id = group.teacherSubjectAcademicSemesterYearID{
+                                if let id = group.teacherSubjectAcademicSemesterYearID {
                                     lookupsvm.GetAllLessonsForList(id: id)
                                 }
                                 subjectgroupvm.selectedGroup = group

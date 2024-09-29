@@ -48,6 +48,7 @@ class ManageSubjectGroupVM: ObservableObject {
     //Extra session
     @Published var ShowAddExtraSession = false
      var selectedGroup : SubjectGroupM?
+    var teachersubjectAcademicSemesterYearID: Int?
     @Published var extraLesson : DropDownOption?
     @Published var extraDate : String?
     @Published var extraTime : String?
@@ -288,16 +289,19 @@ extension ManageSubjectGroupVM{
     }
     
     func CreateExtraSession(){
-        guard let group = selectedGroup ,let teacherlessonsessionid = group.id ,let lessonlessonid = extraLesson?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
-        let parameters:[String:Any] = [
+        guard let group = selectedGroup ,let teacherlessonsessionid = group.id ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
+        var parameters:[String:Any] = [
 //            "teacherLessonSessionScheduleSlotId": 0,
             "teacherlessonsessionId": teacherlessonsessionid,
             "teacherLessonId": lessonlessonid,
             "duration":duration ,
             "date": extradate,
             "timeFrom":extratime ,
-            "isCancel": false
+            "isCancel":false
         ]
+//        if let teachersubjectAcademicSemesterYearID = teachersubjectAcademicSemesterYearID{
+//            parameters["teacherLessonSessionScheduleSlotId"] = teachersubjectAcademicSemesterYearID
+//        }
 
         print("parameters",parameters)
         let target = teacherServices.CreateExtraSession(parameters: parameters)
@@ -317,8 +321,8 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
-                        guard let self = self else {return}
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {
+//                        guard let self = self else {return}
 //                        clearExtraSession()
 //                        ShowAddExtraSession = false
                     })

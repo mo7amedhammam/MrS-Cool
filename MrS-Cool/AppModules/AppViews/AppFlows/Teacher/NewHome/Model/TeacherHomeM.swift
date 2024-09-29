@@ -13,22 +13,21 @@ struct TeacherHomeM: Codable {
 
 // MARK: - TeacherHomeItemM
 struct TeacherHomeItemM: Codable,Hashable {
-    var teacherlessonID, teacherlessonsessionID, teachersubjectAcademicSemesterYearID, teacherLessonSessionSchedualSlotID: Int?
-    var teacherSujectAcademicSemesterYearID: Int?
+    var teacherlessonID, teacherlessonsessionID, teacherLessonSessionSchedualSlotID: Int?
+    var teachersubjectAcademicSemesterYearID: Int?
     var groupName, date, timeFrom, timeTo: String?
     var isCancel: Bool?
     var cancelDate, teamMeetingLink: String?
     var teacherAttended: Bool?
     var subjectName, sessionName: String?
-    var students: Int?
+    var students,groupDuration: Int?
 
     enum CodingKeys: String, CodingKey {
         case teacherlessonID = "teacherlessonId"
         case teacherlessonsessionID = "teacherlessonsessionId"
-        case teachersubjectAcademicSemesterYearID = "teachersubjectAcademicSemesterYearId"
+        case teachersubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
-        case teacherSujectAcademicSemesterYearID = "teacherSujectAcademicSemesterYearId"
-        case groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, teacherAttended, subjectName, sessionName, students
+        case groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, teacherAttended, subjectName, sessionName, students,groupDuration
     }
 }
 
@@ -46,10 +45,11 @@ struct StudentHomeItemM: Codable,Hashable {
     var timeTo: String?
     var isCancel: Bool?
     var cancelDate, teamMeetingLink, subjectName, teacherName: String?
+    var groupDuration: Int?
     
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case bookTeacherlessonsessionDetailID = "bookTeacherlessonsessionDetailId"
-        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName
+        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName, groupDuration
     }
 }
