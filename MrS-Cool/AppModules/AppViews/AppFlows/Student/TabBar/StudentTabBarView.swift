@@ -106,10 +106,11 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-                    StudentHomeView() // home
+//                    StudentHomeView() // home
+                    TeacherHomeView(selectedChild: .constant(nil))
                         .tag(2)
                         .environmentObject(studenttabbarvm)
-                        .environmentObject(studentsignupvm)
+//                        .environmentObject(studentsignupvm)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures

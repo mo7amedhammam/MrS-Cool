@@ -32,24 +32,21 @@ struct TeacherHomeItemM: Codable,Hashable {
 }
 
 
-
 // MARK: - StudentHomeM
 struct StudentHomeM: Codable {
-    var items: [TeacherHomeItemM]?
+    var items: [StudentHomeItemM]?
     var totalCount: Int?
 }
 // MARK: - StudentHomeItemM
 struct StudentHomeItemM: Codable,Hashable {
     var teacherLessonSessionSchedualSlotID, bookTeacherlessonsessionDetailID: Int?
-    var lessonName, groupName, date, timeFrom: String?
-    var timeTo: String?
+    var lessonName, groupName, date, timeFrom,timeTo: String?
     var isCancel: Bool?
     var cancelDate, teamMeetingLink, subjectName, teacherName: String?
-    var groupDuration: Int?
     
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case bookTeacherlessonsessionDetailID = "bookTeacherlessonsessionDetailId"
-        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName, groupDuration
+        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName
     }
 }

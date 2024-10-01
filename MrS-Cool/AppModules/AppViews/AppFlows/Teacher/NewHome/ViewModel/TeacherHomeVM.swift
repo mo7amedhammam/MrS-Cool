@@ -147,9 +147,19 @@ extension TeacherHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-                        GetScheduals()
+//                        skipCount = 0
+//                        TeacherScheduals?.items?.removeAll()
+//                        GetScheduals()
                         //                        CalendarScheduals = receivedData.data
                         
+                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
+                            var updatedItem = item
+                            if item.teacherLessonSessionSchedualSlotID == id {
+                                updatedItem.isCancel = true
+                            }
+                            return updatedItem
+                        }
+
                     }else{
                         isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -179,7 +189,18 @@ extension TeacherHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-                        GetScheduals()
+//                        skipCount = 0
+//                        StudentScheduals?.items?.removeAll()
+//                        GetScheduals()
+                        
+                        StudentScheduals?.items = StudentScheduals?.items?.map { item in
+                            var updatedItem = item
+                            if item.teacherLessonSessionSchedualSlotID == id {
+                                updatedItem.isCancel = true
+                            }
+                            return updatedItem
+                        }
+
                     }else{
                         isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

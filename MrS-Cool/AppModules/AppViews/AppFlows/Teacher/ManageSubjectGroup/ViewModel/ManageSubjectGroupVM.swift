@@ -141,7 +141,7 @@ extension ManageSubjectGroupVM{
         let parameters:[String:Any] = [ "teacherSubjectAcademicSemesterYearId":subjectid,
                                         "teacherSubjectAcademicSemesterYearName":subjectname,
                                         "groupName":groupName,
-                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",inputLocal: .current,outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
+                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
                                         "scheduleSlots":CreateSchedualSlotsArr,
                                         "teacherLessonList":CreateTeacherLessonList]
         print("parameters",parameters)
