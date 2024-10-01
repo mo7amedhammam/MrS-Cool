@@ -15,12 +15,34 @@ struct EventM: Codable,Identifiable ,Equatable{
     var teamMeetingLink: String?
     var bookTeacherlessonsessionDetailId: Int?
     
+    var sessionName: String?
+    var teacherlessonId,teacherlessonsessionId,teacherSubjectAcademicSemesterYearId,groupDuration: Int?
+    
     enum CodingKeys: String, CodingKey {
         case id = "teacherLessonSessionSchedualSlotId"
         case groupName, date, timeFrom, timeTo, isCancel, cancelDate
         case teamMeetingLink
         case bookTeacherlessonsessionDetailId
+        
+        case sessionName, teacherlessonId, teacherlessonsessionId, teacherSubjectAcademicSemesterYearId, groupDuration
     }
+    
+//    
+//    "sessionName": "string",
+//         "teacherlessonId": 0,
+//         "teacherlessonsessionId": 0,
+//         "teacherSubjectAcademicSemesterYearId": 0,
+//         "teacherLessonSessionSchedualSlotId": 0,
+//         "groupDuration": 0,
+//         "groupName": "string",
+//         "date": "2024-10-01T12:05:24.359Z",
+//         "timeFrom": "00:00:00",
+//         "timeTo": "00:00:00",
+//         "isCancel": true,
+//         "cancelDate": "2024-10-01T12:05:24.359Z",
+//         "teamMeetingLink": "string",
+//         "teacherAttended": true
+    
 }
 
 // MARK: - StudentEventM -

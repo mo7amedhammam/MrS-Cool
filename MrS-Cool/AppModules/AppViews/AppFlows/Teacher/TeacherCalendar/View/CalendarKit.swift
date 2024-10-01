@@ -668,8 +668,6 @@ final class CustomCalendarExampleController: DayViewController {
             onEventSelected?(eventM)
         }
         
-        
-        
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
@@ -876,12 +874,17 @@ struct ContentView3: View {
                         if let selectedEvent = selectedEvent {
                             EventDetailsView(event: selectedEvent, onCancelEvent: { event in
                                 // Handle the event cancellation here
-                                if let index = events.firstIndex(where: { $0.id == event.id }) {
-                                    events[index].isCancel = true
+                                if Helper.shared.getSelectedUserType() == .Teacher && !(event.teacherSubjectAcademicSemesterYearId == nil){
                                     onCancelEvent?(selectedEvent)
-                                    //                        isError = true
+                                }else{
+                                    if let index = events.firstIndex(where: { $0.id == event.id }) {
+                                        events[index].isCancel = true
+                                        onCancelEvent?(selectedEvent)
+                                        //                        isError = true
+                                    }
                                 }
                                 isShowingDetailSheet = false
+                                    
                             },onJoinEvent: { event in
                                 print("Event joining closure executed",event)
 //                                if let index = events.firstIndex(where: { $0.id == event.id }) {

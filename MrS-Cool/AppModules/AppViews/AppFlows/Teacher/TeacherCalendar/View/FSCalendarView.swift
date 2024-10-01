@@ -198,7 +198,7 @@ struct CalView1: View {
     //        return formatter
     //    }()
     @Binding var selectedChild:ChildrenM?
-    let calendar = FSCalendar()
+//    let calendar = FSCalendar()
     var body: some View {
         VStack {
             if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
@@ -240,8 +240,20 @@ struct CalView1: View {
                         
                     case .week:
                         ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events, onCancelEvent:{event in
-                            DispatchQueue.main.async {
-                                calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+                            if Helper.shared.getSelectedUserType() == .Teacher && !(event.teacherSubjectAcademicSemesterYearId == nil){
+                                // add extra session
+                                calendarschedualsvm.clearExtraSession()
+                                
+                                calendarschedualsvm.teacherlessonsessionid = event.teacherlessonsessionId
+                                calendarschedualsvm.teacherLessonSessionSchedualSlotID = event.id
+                                
+                                calendarschedualsvm.extraLesson = DropDownOption(id: event.teacherlessonId ?? 0, Title: event.sessionName ?? "", LessonItem: LessonForListM(id: event.teacherlessonId ?? 0,groupDuration: event.groupDuration ?? 0,lessonName: event.sessionName ?? ""))
+                                
+                                calendarschedualsvm.ShowAddExtraSession = true
+                            } else{
+                                DispatchQueue.main.async {
+                                    calendarschedualsvm.CancelCalendarCheduals(id: event.id ?? 0)
+                                }
                             }
                         },onJoinEvent: {event in
                             //                            guard let eventid = event.bookTeacherlessonsessionDetailId else {return}
@@ -276,9 +288,11 @@ struct CalView1: View {
                 })
                 .onChange(of: calendarschedualsvm.CalendarScheduals ?? []){
                     newval in
-                    events = newval
+//                    DispatchQueue.main.async(execute: {
+                        events = newval
+//                    })
                     //                    events1 = newval
-                    print("Updated Events: \(events)")
+//                    print("Updated Events: \(events)")
                     //                    calendar.reloadData()
                 }
                 
@@ -290,6 +304,56 @@ struct CalView1: View {
         .localizeView()
         .hideNavigationBar()
         .showHud(isShowing: $calendarschedualsvm.isLoading)
+        .showAlert(hasAlert: $calendarschedualsvm.isError, alertType: calendarschedualsvm.error)
+
+        .bottomSheet(isPresented: $calendarschedualsvm.ShowAddExtraSession){
+            VStack{
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2)
+                HStack {
+                    Text("Extra Session".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                }.padding(8)
+                ScrollView{
+                    Group {
+                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $calendarschedualsvm.extraLesson,options:[],Disabled: true)
+                        
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$calendarschedualsvm.extraDate,datePickerComponent:.date)
+                        
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$calendarschedualsvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute)
+                        
+                    }
+                    .padding(.top,5)
+                    
+                    HStack {
+                        Group{
+                            CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
+                                calendarschedualsvm.CreateExtraSession()
+                                calendarschedualsvm.ShowAddExtraSession = false
+                            })
+                            
+                            CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
+                                calendarschedualsvm.clearExtraSession()
+                                //                            subjectgroupvm.GetTeacherSubjectGroups()
+                                calendarschedualsvm.ShowAddExtraSession = false
+                            })
+                        }
+                        .frame(width:130,height:40)
+                        .padding(.vertical)
+                    }
+                    .padding(.horizontal,3)
+                    .padding(.top)
+                    
+                }
+                .frame(height: 320)
+            }
+            .background(ColorConstants.WhiteA700.cornerRadius(8))
+            .padding()
+            
+        }
         
     }
     

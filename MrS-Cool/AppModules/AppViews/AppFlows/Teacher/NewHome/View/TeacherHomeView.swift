@@ -63,15 +63,15 @@ struct TeacherHomeView: View {
             //            }
             
             GeometryReader { gr in
-                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
-                    VStack{
-                        Text("You Have To Select Child First".localized())
-                            .frame(minHeight:gr.size.height)
-                            .frame(width: gr.size.width,alignment: .center)
-                            .font(.title2)
-                            .foregroundColor(ColorConstants.MainColor)
-                    }
-                }else{
+//                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
+//                    VStack{
+//                        Text("You Have To Select Child First".localized())
+//                            .frame(minHeight:gr.size.height)
+//                            .frame(width: gr.size.width,alignment: .center)
+//                            .font(.title2)
+//                            .foregroundColor(ColorConstants.MainColor)
+//                    }
+//                }else{
                     ScrollView(.vertical,showsIndicators: false){
                         VStack{ // (Title - Data - Submit Button)
                             Group{
@@ -219,7 +219,7 @@ struct TeacherHomeView: View {
                         }
                         .frame(minHeight: gr.size.height)
                     }
-                }
+//                }
             }
         }
         .localizeView()
@@ -228,8 +228,12 @@ struct TeacherHomeView: View {
             hideKeyboard()
         })
         .task {
-            SchedualsVm.clearFilter()
-            SchedualsVm.GetScheduals()
+            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
+            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
+
+//            SchedualsVm.clearFilter()
+            applyFilter()
+//            SchedualsVm.GetScheduals()
         }
         
         //        .onAppear{
