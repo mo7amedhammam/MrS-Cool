@@ -20,13 +20,16 @@ struct ManageSubjectGroupView: View {
     
     @State var showFilter : Bool = false
     //    var selectedSubject:TeacherSubjectM?
+    @State private var countHints: [Int: Bool] = [:]
+    @State private var orderHints: [Int: Bool] = [:]
+
     @State var showConfirmDelete = false
     //    @State var addExtraSession = true
     //    @State var selectedGrup = SubjectGroupM()
     
     fileprivate func preparelessonscounts() {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
-        subjectgroupvm.teacherLessonList = lookupsvm.LessonsForList.compactMap{option in
+        subjectgroupvm.teacherLessonList = lookupsvm.AllLessonsForList.compactMap{option in
             return option.LessonItem
         }
         //        print("subjectgroupvm.CreateTeacherLessonList",subjectgroupvm.CreateTeacherLessonList)
@@ -62,6 +65,35 @@ struct ManageSubjectGroupView: View {
                                             Text(lookupsvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
                                                 .fontWeight(.medium)
                                                 .frame(maxWidth:.infinity,alignment:.leading)
+                                            
+//                                            // Validation hint for Lesson No
+//                                                     if showCountHint {
+//                                                             Text("Number must be between 1 and 5".localized())
+//                                                                 .foregroundColor(.red)
+//                                                                 .font(.caption)
+//                                                         
+//                                                     }
+//                                            // Validation hint for Lesson Order
+//                                                      if showOrderHint {
+//                                                          Text("Order cannot be 0".localized())
+//                                                              .foregroundColor(.red)
+//                                                              .font(.caption)
+//                                                      }
+                                            
+                                            // Validation hint for Lesson No
+                                               if let showHint = countHints[index], showHint {
+                                                   Text("Number must be between 1 and 5".localized())
+                                                       .foregroundColor(.red)
+                                                       .font(.caption)
+                                               }
+
+                                               // Validation hint for Lesson Order
+                                               if let showHint = orderHints[index], showHint {
+                                                   Text("Order cannot be 0".localized())
+                                                       .foregroundColor(.red)
+                                                       .font(.caption)
+                                               }
+
                                             HStack{
                                                 
                                                 CustomTextField(placeholder: "Lesson No",
@@ -74,11 +106,18 @@ struct ManageSubjectGroupView: View {
                                                                         }                                                                        },
                                                                     set: { newValue in
                                                                         if index >= 0 && index < lookupsvm.AllLessonsForList.count {
-                                                                            lookupsvm.LessonsForList[index].LessonItem?.count = Int(newValue)
-                                                                        }
+                                                                            if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
+                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.count = intValue
+                                                                                countHints[index] = false  // Show hint for invalid input
+
+                                                                            } else {
+                                                                                countHints[index] = true  // Show hint for invalid input
+
+                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.count = nil  // Reset if invalid
+                                                                                                         }                                                                        }
                                                                     }),
                                                                 keyboardType: .asciiCapableNumberPad,
-                                                                isvalid: true)
+                                                                isvalid: !(countHints[index] ?? false))
                                                 
                                                 CustomTextField(placeholder: "Lesson Order",
                                                                 text: Binding(
@@ -91,11 +130,19 @@ struct ManageSubjectGroupView: View {
                                                                     },
                                                                     set: { newValue in
                                                                         if index >= 0 && index < lookupsvm.AllLessonsForList.count {
-                                                                            lookupsvm.AllLessonsForList[index].LessonItem?.order = Int(newValue)
+                                                                            if let intValue = Int(newValue), intValue > 0 {
+                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.order = intValue
+                                                                                orderHints[index] = false  // Show hint for invalid input
+
+                                                                            } else {
+                                                                                orderHints[index] = true  // Show hint for invalid input
+
+                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.order = nil  // Reset if invalid
+                                                                            }
                                                                         }
                                                                     }),
                                                                 keyboardType: .asciiCapableNumberPad,
-                                                                isvalid: true)
+                                                                isvalid: !(orderHints[index] ?? false))
                                                 
                                             }
                                         }
@@ -180,6 +227,8 @@ struct ManageSubjectGroupView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title: "Review Details" ,IsDisabled: .constant(subjectgroupvm.DisplaySchedualSlotsArr.isEmpty), action: {
+                                        guard !(countHints.values.contains(true) || orderHints.values.contains(true)) else {return}
+
                                         preparelessonscounts()
                                         
                                         subjectgroupvm.ReviewTeacherGroup()
@@ -245,6 +294,9 @@ struct ManageSubjectGroupView: View {
                     }
                     .frame(minHeight: gr.size.height)
                 }
+            }
+            .task{
+                subjectgroupvm.GetTeacherSubjectGroups()
             }
             .onAppear(perform: {
                 lookupsvm.GetSubjestForList()

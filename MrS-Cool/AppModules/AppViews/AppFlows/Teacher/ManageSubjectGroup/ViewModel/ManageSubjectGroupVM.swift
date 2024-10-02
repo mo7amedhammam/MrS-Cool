@@ -105,7 +105,7 @@ class ManageSubjectGroupVM: ObservableObject {
     @Published var TeacherSubjectGroupCreated : Bool = false
     
     init()  {
-        GetTeacherSubjectGroups()
+//        GetTeacherSubjectGroups()
     }
 }
 

@@ -631,3 +631,5 @@
 "Extra Session" = "Extra Session";
 
 "Schedual List" = "Schedual List";
+"Number must be between 1 and 5" = "Number must be between 1 and 5";
+"Order cannot be 0" = "Order cannot be 0";
