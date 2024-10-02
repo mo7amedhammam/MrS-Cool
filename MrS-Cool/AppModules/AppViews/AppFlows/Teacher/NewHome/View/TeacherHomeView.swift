@@ -58,9 +58,9 @@ struct TeacherHomeView: View {
     //    }
     var body: some View {
         VStack {
-            //            if hasNavBar ?? true{
-            //                CustomTitleBarView(title: "Completed Lessons")
-            //            }
+            if hasNavBar ?? true{
+                CustomTitleBarView(title: "Schedual List")
+            }
             
             GeometryReader { gr in
 //                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
@@ -99,7 +99,7 @@ struct TeacherHomeView: View {
                                         
                                         TeacherHomeCellView(model: schedual, cancelBtnAction: {
                                             
-                                            if schedual.teachersubjectAcademicSemesterYearID == nil{
+                                            if !(schedual.teachersubjectAcademicSemesterYearID ?? 0 > 0){
                                                 
                                                 SchedualsVm.error = .question(title: "Are you sure you want to cancel this event ?", image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
                                                     if let eventid = schedual.teacherLessonSessionSchedualSlotID{
@@ -280,9 +280,9 @@ struct TeacherHomeView: View {
                     Group {
                         CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $SchedualsVm.extraLesson,options:[],Disabled: true)
                         
-                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$SchedualsVm.extraDate,datePickerComponent:.date)
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$SchedualsVm.extraDate,datePickerComponent:.date,isvalid: SchedualsVm.isextraDatevalid)
                         
-                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$SchedualsVm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute)
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$SchedualsVm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid: SchedualsVm.isextraTimevalid)
                         
                     }
                     .padding(.top,5)

@@ -56,9 +56,11 @@ struct CompletedLessonsList: View {
        if completedlessonsvm.filtersubject == nil {
            filtersubject = nil
            lookupsvm.BookedLessonsForList.removeAll()
+           lookupsvm.AllLessonsForList.removeAll()
        }else {
            filtersubject = completedlessonsvm.filtersubject
-           lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
+//           lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
+           lookupsvm.GetAllLessonsForList(id: filtersubject?.id ?? 0)
        }
         
         if completedlessonsvm.filterlesson != filterlesson{
@@ -209,14 +211,18 @@ struct CompletedLessonsList: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList)
                                         .onChange(of: filtersubject){newval in
+                                            guard let newval = newval else {return}
 //                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
 //                                            {
                                                 filterlesson = nil
-                                                lookupsvm.SelectedSubjectForList = newval
+//                                                lookupsvm.SelectedSubjectForList = newval
+                                            if let id = newval.id{
+                                                lookupsvm.GetAllLessonsForList(id: id)
+                                            }
 //                                            }
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.LessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.AllLessonsForList)
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
@@ -249,9 +255,10 @@ struct CompletedLessonsList: View {
                     .frame(height:430)
                     .keyboardAdaptive()
                 }
-                .onAppear(perform: {
-                    lookupsvm.SelectedSubjectForList = nil
-                })
+//                .onAppear(perform: {
+////                    lookupsvm.SelectedSubjectForList = nil
+////                    lookupsvm.AllLessonsForList.removeAll()
+//                })
             }
         }
         

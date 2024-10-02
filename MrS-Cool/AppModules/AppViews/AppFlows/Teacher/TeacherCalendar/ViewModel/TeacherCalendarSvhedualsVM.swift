@@ -18,10 +18,32 @@ class TeacherCalendarSvhedualsVM: ObservableObject {
 //     var selectedGroup : SubjectGroupM?
     var teacherlessonsessionid : Int?
     var teacherLessonSessionSchedualSlotID: Int?
-    @Published var extraLesson : DropDownOption?
-    @Published var extraDate : String?
-    @Published var extraTime : String?
+    @Published var extraLesson : DropDownOption?{
+        didSet{
+            if extraLesson != nil{
+                isextraLessonvalid = true
+            }
+        }
+    }
+    @Published var isextraLessonvalid:Bool?
+
+    @Published var extraDate : String?{
+        didSet{
+            if extraDate != nil {
+                isextraDatevalid = true
+            }
+        }
+    }
+    @Published var isextraDatevalid:Bool?
     
+    @Published var extraTime : String?{
+        didSet{
+            if extraTime != nil{
+                isextraTimevalid = true
+            }
+        }
+    }
+    @Published var isextraTimevalid:Bool?
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -217,6 +239,8 @@ extension TeacherCalendarSvhedualsVM{
     }
 
     func CreateExtraSession(){
+        guard checkValidExtraSessionfields() else {return}
+
         guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
         let parameters:[String:Any] = [
             "teacherLessonSessionScheduleSlotId": teachersubjectAcademicSemesterYearSlotId,
@@ -249,7 +273,7 @@ extension TeacherCalendarSvhedualsVM{
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
                         guard let self = self else {return}
 //                        clearExtraSession()
-//                        ShowAddExtraSession = false
+                        ShowAddExtraSession = false
                         if let index = CalendarScheduals?.firstIndex(where: { $0.id == self.teacherLessonSessionSchedualSlotID}) {
                             CalendarScheduals?[index].isCancel = true
                         }
@@ -276,6 +300,26 @@ extension TeacherCalendarSvhedualsVM{
 //        selectedGroup = nil
         teacherlessonsessionid  = nil
         teacherLessonSessionSchedualSlotID = nil
+    }
+    private func checkValidExtraSessionfields()->Bool{
+        isextraLessonvalid = extraLesson != nil
+        isextraDatevalid = extraDate != nil
+        isextraTimevalid = extraTime != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+//        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+//        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+//        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+//        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+        
+        return isextraLessonvalid ?? true && isextraDatevalid ?? true && isextraTimevalid ?? true
     }
     
     func cleanup() {

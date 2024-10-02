@@ -49,9 +49,32 @@ class ManageSubjectGroupVM: ObservableObject {
     @Published var ShowAddExtraSession = false
      var selectedGroup : SubjectGroupM?
     var teachersubjectAcademicSemesterYearID: Int?
-    @Published var extraLesson : DropDownOption?
-    @Published var extraDate : String?
-    @Published var extraTime : String?
+    @Published var extraLesson : DropDownOption?{
+        didSet{
+            if extraLesson != nil{
+                isextraLessonvalid = true
+            }
+        }
+    }
+    @Published var isextraLessonvalid:Bool?
+
+    @Published var extraDate : String?{
+        didSet{
+            if extraDate != nil {
+                isextraDatevalid = true
+            }
+        }
+    }
+    @Published var isextraDatevalid:Bool?
+    
+    @Published var extraTime : String?{
+        didSet{
+            if extraTime != nil{
+                isextraTimevalid = true
+            }
+        }
+    }
+    @Published var isextraTimevalid:Bool?
     
     @Published var DisplaySchedualSlotsArr:[NewScheduleSlotsM] = []
     
@@ -289,8 +312,10 @@ extension ManageSubjectGroupVM{
     }
     
     func CreateExtraSession(){
+        guard checkValidExtraSessionfields() else {return}
+        
         guard let group = selectedGroup ,let teacherlessonsessionid = group.id ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
-        var parameters:[String:Any] = [
+        let parameters:[String:Any] = [
 //            "teacherLessonSessionScheduleSlotId": 0,
             "teacherlessonsessionId": teacherlessonsessionid,
             "teacherLessonId": lessonlessonid,
@@ -321,10 +346,10 @@ extension ManageSubjectGroupVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {
-//                        guard let self = self else {return}
+                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
+                        guard let self = self else {return}
 //                        clearExtraSession()
-//                        ShowAddExtraSession = false
+                        ShowAddExtraSession = false
                     })
                     isError =  true
 
@@ -414,6 +439,27 @@ extension ManageSubjectGroupVM{
 //        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
         
         return issubjectvalid ?? true && isgroupNamevalid ?? true && isstartDatevalid ?? true
+    }
+    
+    private func checkValidExtraSessionfields()->Bool{
+        isextraLessonvalid = extraLesson != nil
+        isextraDatevalid = extraDate != nil
+        isextraTimevalid = extraTime != nil
+
+        // Publisher for checking if the phone is 11 char
+//        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
+//            $phone
+//                .map { phone in
+//                    return phone.count == 11
+//                }
+//                .eraseToAnyPublisher()
+//        }
+//        isminGroupvalid = !minGroup.isEmpty && Int(minGroup) != 0
+//        ismaxGroupvalid = !maxGroup.isEmpty && Int(maxGroup) != 0
+//        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
+//        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
+        
+        return isextraLessonvalid ?? true && isextraDatevalid ?? true && isextraTimevalid ?? true
     }
 
 }

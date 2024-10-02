@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Parentdestinations{
-    case editProfile,changePassword,signOut, deleteAccount,editStudentProfile,calendar, tickets
+    case editProfile,changePassword,signOut, deleteAccount,editStudentProfile,calendar, schedualsList, tickets
 }
 struct ParentTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
@@ -157,6 +157,9 @@ struct ParentTabBarView: View {
                 
             }else if newval == .calendar { //calendar
                 tabbarvm.destination = AnyView(CalView1(selectedChild: $listchildrenvm.selectedChild))
+                
+            }else if newval == .schedualsList{
+                tabbarvm.destination = AnyView(TeacherHomeView(selectedChild: .constant(nil)).environmentObject(tabbarvm))
                 
             }else if newval == .changePassword { // change password
                 tabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
@@ -338,6 +341,14 @@ struct ParentSideMenuContent: View {
                             isPush = true
                         }
                         .padding(.leading,30)
+                        
+                        SideMenuButton(image: "checkoutcaltime", title: "Schedual List"){
+                            selectedDestination = .schedualsList // rates
+                            presentSideMenu =  false
+                            isPush = true
+                        }
+                        .padding(.leading,30)
+
                         
                         //                    SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
                         //                        selectedDestination = .rates // rates

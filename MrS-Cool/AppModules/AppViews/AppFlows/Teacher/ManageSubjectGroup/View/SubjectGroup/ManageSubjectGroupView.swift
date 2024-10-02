@@ -49,25 +49,31 @@ struct ManageSubjectGroupView: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
                                         .onChange(of: subjectgroupvm.subject){newval in
-                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
+                                            guard let newval = newval else {return}
+                                            
+                                            //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
+                                            if let id = newval.id{
+                                                lookupsvm.GetAllLessonsForList(id: id)
+                                            }
                                         }
                                     
-                                    ForEach(lookupsvm.LessonsForList.indices,id:\.self){index in
+                                    ForEach(lookupsvm.AllLessonsForList.indices,id:\.self){index in
                                         VStack{
-                                            Text(lookupsvm.LessonsForList[index].LessonItem?.lessonName ?? "")
+                                            Text(lookupsvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
+                                                .fontWeight(.medium)
                                                 .frame(maxWidth:.infinity,alignment:.leading)
                                             HStack{
                                                 
                                                 CustomTextField(placeholder: "Lesson No",
                                                                 text: Binding(
                                                                     get: {
-                                                                        if index >= 0 && index < lookupsvm.LessonsForList.count {
-                                                                            return lookupsvm.LessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
+                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
+                                                                            return lookupsvm.AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
                                                                         } else {
                                                                             return ""  // Default value if index is out of range
                                                                         }                                                                        },
                                                                     set: { newValue in
-                                                                        if index >= 0 && index < lookupsvm.LessonsForList.count {
+                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
                                                                             lookupsvm.LessonsForList[index].LessonItem?.count = Int(newValue)
                                                                         }
                                                                     }),
@@ -77,15 +83,15 @@ struct ManageSubjectGroupView: View {
                                                 CustomTextField(placeholder: "Lesson Order",
                                                                 text: Binding(
                                                                     get: {
-                                                                        if index >= 0 && index < lookupsvm.LessonsForList.count {
-                                                                            return   lookupsvm.LessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
+                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
+                                                                            return   lookupsvm.AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
                                                                         } else {
                                                                             return ""  // Default value if index is out of range
                                                                         }
                                                                     },
                                                                     set: { newValue in
-                                                                        if index >= 0 && index < lookupsvm.LessonsForList.count {
-                                                                            lookupsvm.LessonsForList[index].LessonItem?.order = Int(newValue)
+                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
+                                                                            lookupsvm.AllLessonsForList[index].LessonItem?.order = Int(newValue)
                                                                         }
                                                                     }),
                                                                 keyboardType: .asciiCapableNumberPad,
@@ -94,7 +100,7 @@ struct ManageSubjectGroupView: View {
                                             }
                                         }
                                         .padding()
-                                        .font(Font.bold(size: 13))
+                                        .font(Font.regular(size: 13))
                                         .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(ColorConstants.WhiteA700))
                                         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
                                                                 bottomRight: 5.0)
@@ -267,11 +273,11 @@ struct ManageSubjectGroupView: View {
                 }.padding(8)
                 ScrollView{
                     Group {
-                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList)
+                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList,isvalid: subjectgroupvm.isextraLessonvalid)
                         
-                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,datePickerComponent:.date)
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
                         
-                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute)
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid:subjectgroupvm.isextraTimevalid)
                         
                     }
                     .padding(.top,5)
@@ -280,7 +286,7 @@ struct ManageSubjectGroupView: View {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
                                 subjectgroupvm.CreateExtraSession()
-                                subjectgroupvm.ShowAddExtraSession = false
+                                //                                subjectgroupvm.ShowAddExtraSession = false
                             })
                             
                             CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {

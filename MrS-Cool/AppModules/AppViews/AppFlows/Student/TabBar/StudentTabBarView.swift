@@ -8,7 +8,7 @@
 
 import SwiftUI
 enum Studentdestinations{
-    case editProfile, calendar, changePassword, tickets, signOut, deleteAccount
+    case editProfile, calendar, changePassword, tickets, schedualsList, signOut, deleteAccount
 }
 struct StudentTabBarView: View {
     @StateObject var studenttabbarvm = StudentTabBarVM()
@@ -106,11 +106,11 @@ struct StudentTabBarView: View {
                             }
                         )
                     
-//                    StudentHomeView() // home
-                    TeacherHomeView(selectedChild: .constant(nil))
+                    StudentHomeView() // home
+//                    TeacherHomeView(selectedChild: .constant(nil))
                         .tag(2)
                         .environmentObject(studenttabbarvm)
-//                        .environmentObject(studentsignupvm)
+                        .environmentObject(studentsignupvm)
                         .gesture(
                             DragGesture().onChanged { _ in
                                 // Disable swipe gestures
@@ -176,6 +176,9 @@ struct StudentTabBarView: View {
                     studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
                 }else if newval == .calendar { //calendar
                     studenttabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
+                } else if newval == .schedualsList{
+                    studenttabbarvm.destination = AnyView(TeacherHomeView(selectedChild: .constant(nil)).environmentObject(studentsignupvm))
+                
                 }else if newval == .changePassword { // change password
                     studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
                     
@@ -384,11 +387,11 @@ struct StudentSideMenuContent: View {
                         isPush = true
                     }
 
-    //                SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
-    //                    selectedDestination = .rates // rates
-    //                    presentSideMenu =  false
-    //                    isPush = true
-    //                }
+                    SideMenuButton(image: "checkoutcaltime", title: "Schedual List"){
+                        selectedDestination = .schedualsList // rates
+                        presentSideMenu =  false
+                        isPush = true
+                    }
                     
                     SideMenuSectionTitle(title: "Settings")
 

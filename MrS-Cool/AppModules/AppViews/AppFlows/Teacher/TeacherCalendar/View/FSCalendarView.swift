@@ -240,7 +240,7 @@ struct CalView1: View {
                         
                     case .week:
                         ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events, onCancelEvent:{event in
-                            if Helper.shared.getSelectedUserType() == .Teacher && !(event.teacherSubjectAcademicSemesterYearId == nil){
+                            if Helper.shared.getSelectedUserType() == .Teacher && event.teacherSubjectAcademicSemesterYearId ?? 0 > 0{
                                 // add extra session
                                 calendarschedualsvm.clearExtraSession()
                                 
@@ -321,9 +321,9 @@ struct CalView1: View {
                     Group {
                         CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $calendarschedualsvm.extraLesson,options:[],Disabled: true)
                         
-                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$calendarschedualsvm.extraDate,datePickerComponent:.date)
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$calendarschedualsvm.extraDate,datePickerComponent:.date,isvalid: calendarschedualsvm.isextraDatevalid)
                         
-                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$calendarschedualsvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute)
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$calendarschedualsvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid: calendarschedualsvm.isextraTimevalid)
                         
                     }
                     .padding(.top,5)
@@ -332,7 +332,7 @@ struct CalView1: View {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
                                 calendarschedualsvm.CreateExtraSession()
-                                calendarschedualsvm.ShowAddExtraSession = false
+//                                calendarschedualsvm.ShowAddExtraSession = false
                             })
                             
                             CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {

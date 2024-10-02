@@ -81,7 +81,7 @@ struct TeacherTabBarView: View {
                     )
 
 //                TeacherHomeAsAnonymous()
-                TeacherHomeView(selectedChild: .constant(nil))
+                TeacherHomeView(hasNavBar:false, selectedChild: .constant(nil))
                     .tag(2)
                     .environmentObject(tabbarvm)
                     .gesture(

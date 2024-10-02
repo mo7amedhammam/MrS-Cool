@@ -80,8 +80,9 @@ extension LookupsServices : TargetType {
             return EndPoints.GetTeacherSubjectForList.rawValue
         case .GetLessonsForList:
             return EndPoints.GetTeacherLessonForList.rawValue
+            
         case .GetAllTeacherLessonForList: // for extrs sessions
-            return EndPoints.GetTeacherLessonForList.rawValue
+            return EndPoints.GetAllTeacherLessonForList.rawValue
 
         case .GetStatus:
             return EndPoints.GetStatus.rawValue

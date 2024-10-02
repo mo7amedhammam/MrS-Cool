@@ -133,7 +133,8 @@ struct SignInView: View {
         .task{
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
                 if skipToSignUp == true{
-                    teachersigninvm.skipToSignUp = true                    }
+                    teachersigninvm.skipToSignUp = true              
+                }
             })
             
         }
