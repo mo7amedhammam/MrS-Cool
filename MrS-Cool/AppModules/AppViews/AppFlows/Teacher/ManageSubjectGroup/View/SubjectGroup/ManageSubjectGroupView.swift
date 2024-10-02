@@ -29,12 +29,14 @@ struct ManageSubjectGroupView: View {
     
     fileprivate func preparelessonscounts() {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
-        subjectgroupvm.teacherLessonList = lookupsvm.AllLessonsForList.compactMap{option in
+        subjectgroupvm.teacherLessonList = AllLessonsForList.compactMap{option in
             return option.LessonItem
         }
         //        print("subjectgroupvm.CreateTeacherLessonList",subjectgroupvm.CreateTeacherLessonList)
     }
     
+    @State var AllLessonsForList: [DropDownOption] = []
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Subject")
@@ -56,104 +58,97 @@ struct ManageSubjectGroupView: View {
                                             
                                             //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
                                             if let id = newval.id{
-                                                lookupsvm.GetAllLessonsForList(id: id)
+                                                    lookupsvm.GetAllLessonsForList(id: id)
+                                                DispatchQueue.main.asyncAfter(deadline: .now()+0.8, execute:{
+                                                    AllLessonsForList = lookupsvm.AllLessonsForList
+                                                })
+
                                             }
                                         }
                                     
-                                    ForEach(lookupsvm.AllLessonsForList.indices,id:\.self){index in
-                                        VStack{
-                                            Text(lookupsvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
-                                                .fontWeight(.medium)
-                                                .frame(maxWidth:.infinity,alignment:.leading)
-                                            
-//                                            // Validation hint for Lesson No
-//                                                     if showCountHint {
-//                                                             Text("Number must be between 1 and 5".localized())
-//                                                                 .foregroundColor(.red)
-//                                                                 .font(.caption)
-//                                                         
-//                                                     }
-//                                            // Validation hint for Lesson Order
-//                                                      if showOrderHint {
-//                                                          Text("Order cannot be 0".localized())
-//                                                              .foregroundColor(.red)
-//                                                              .font(.caption)
-//                                                      }
-                                            
-                                            // Validation hint for Lesson No
-                                               if let showHint = countHints[index], showHint {
-                                                   Text("Number must be between 1 and 5".localized())
-                                                       .foregroundColor(.red)
-                                                       .font(.caption)
-                                               }
-
-                                               // Validation hint for Lesson Order
-                                               if let showHint = orderHints[index], showHint {
-                                                   Text("Order cannot be 0".localized())
-                                                       .foregroundColor(.red)
-                                                       .font(.caption)
-                                               }
-
-                                            HStack{
+//                                    if subjectgroupvm.subject != nil{
+                                       
+                                        ForEach(AllLessonsForList.indices,id:\.self){index in
+                                            VStack{
+                                                Text(AllLessonsForList[index].LessonItem?.lessonName ?? "")
+                                                    .fontWeight(.medium)
+                                                    .frame(maxWidth:.infinity,alignment:.leading)
                                                 
-                                                CustomTextField(placeholder: "Lesson No",
-                                                                text: Binding(
-                                                                    get: {
-                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
-                                                                            return lookupsvm.AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
-                                                                        } else {
-                                                                            return ""  // Default value if index is out of range
-                                                                        }                                                                        },
-                                                                    set: { newValue in
-                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
-                                                                            if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
-                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.count = intValue
-                                                                                countHints[index] = false  // Show hint for invalid input
-
-                                                                            } else {
-                                                                                countHints[index] = true  // Show hint for invalid input
-
-                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.count = nil  // Reset if invalid
-                                                                                                         }                                                                        }
-                                                                    }),
-                                                                keyboardType: .asciiCapableNumberPad,
-                                                                isvalid: !(countHints[index] ?? false))
+                                                // Validation hint for Lesson No
+                                                if let showHint = countHints[index], showHint {
+                                                    Text("Number must be between 1 and 5".localized())
+                                                        .foregroundColor(.red)
+                                                        .font(.caption)
+                                                }
                                                 
-                                                CustomTextField(placeholder: "Lesson Order",
-                                                                text: Binding(
-                                                                    get: {
-                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
-                                                                            return   lookupsvm.AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
-                                                                        } else {
-                                                                            return ""  // Default value if index is out of range
-                                                                        }
-                                                                    },
-                                                                    set: { newValue in
-                                                                        if index >= 0 && index < lookupsvm.AllLessonsForList.count {
-                                                                            if let intValue = Int(newValue), intValue > 0 {
-                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.order = intValue
-                                                                                orderHints[index] = false  // Show hint for invalid input
-
+                                                // Validation hint for Lesson Order
+                                                if let showHint = orderHints[index], showHint {
+                                                    Text("Order cannot be 0".localized())
+                                                        .foregroundColor(.red)
+                                                        .font(.caption)
+                                                }
+                                                
+                                                HStack{
+                                                    
+                                                    CustomTextField(placeholder: "Lesson No",
+                                                                    text: Binding(
+                                                                        get: {
+                                                                            if index >= 0 && index < AllLessonsForList.count {
+                                                                                return AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
                                                                             } else {
-                                                                                orderHints[index] = true  // Show hint for invalid input
-
-                                                                                lookupsvm.AllLessonsForList[index].LessonItem?.order = nil  // Reset if invalid
+                                                                                return ""  // Default value if index is out of range
+                                                                            }                                                                        },
+                                                                        set: { newValue in
+                                                                            if index >= 0 && index < AllLessonsForList.count {
+                                                                                if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
+                                                                                    AllLessonsForList[index].LessonItem?.count = intValue
+                                                                                    countHints[index] = false  // Show hint for invalid input
+                                                                                    
+                                                                                } else {
+                                                                                    countHints[index] = true  // Show hint for invalid input
+                                                                                    
+                                                                                    AllLessonsForList[index].LessonItem?.count = nil  // Reset if invalid
+                                                                                }                                                                        }
+                                                                        }),
+                                                                    keyboardType: .asciiCapableNumberPad,
+                                                                    isvalid: !(countHints[index] ?? false))
+                                                    
+                                                    CustomTextField(placeholder: "Lesson Order",
+                                                                    text: Binding(
+                                                                        get: {
+                                                                            if index >= 0 && index < AllLessonsForList.count {
+                                                                                return   AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
+                                                                            } else {
+                                                                                return ""  // Default value if index is out of range
                                                                             }
-                                                                        }
-                                                                    }),
-                                                                keyboardType: .asciiCapableNumberPad,
-                                                                isvalid: !(orderHints[index] ?? false))
-                                                
+                                                                        },
+                                                                        set: { newValue in
+                                                                            if index >= 0 && index < AllLessonsForList.count {
+                                                                                if let intValue = Int(newValue), intValue > 0 {
+                                                                                    AllLessonsForList[index].LessonItem?.order = intValue
+                                                                                    orderHints[index] = false  // Show hint for invalid input
+                                                                                    
+                                                                                } else {
+                                                                                    orderHints[index] = true  // Show hint for invalid input
+                                                                                    
+                                                                                    AllLessonsForList[index].LessonItem?.order = nil  // Reset if invalid
+                                                                                }
+                                                                            }
+                                                                        }),
+                                                                    keyboardType: .asciiCapableNumberPad,
+                                                                    isvalid: !(orderHints[index] ?? false))
+                                                    
+                                                }
                                             }
+                                            .padding()
+                                            .font(Font.regular(size: 13))
+                                            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(ColorConstants.WhiteA700))
+                                            .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
+                                                                    bottomRight: 5.0)
+                                                .stroke(ColorConstants.Bluegray30066,
+                                                        lineWidth: 1))
                                         }
-                                        .padding()
-                                        .font(Font.regular(size: 13))
-                                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(ColorConstants.WhiteA700))
-                                        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
-                                                                bottomRight: 5.0)
-                                            .stroke(ColorConstants.Bluegray30066,
-                                                    lineWidth: 1))
-                                    }
+//                                    }
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName,isvalid:subjectgroupvm.isgroupNamevalid)
                                     
@@ -296,6 +291,7 @@ struct ManageSubjectGroupView: View {
                 }
             }
             .task{
+                subjectgroupvm.subject = nil
                 subjectgroupvm.GetTeacherSubjectGroups()
             }
             .onAppear(perform: {

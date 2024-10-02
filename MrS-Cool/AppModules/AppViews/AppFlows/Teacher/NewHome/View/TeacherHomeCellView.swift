@@ -372,15 +372,14 @@ struct StudentHomeCellView: View {
                     //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                     
-//                    HStack{
-//                        Text("Students :".localized())
-//                            .fontWeight(.medium)
-//
-//                        Text(model.students ?? 0,format: .number)
-//                            .fontWeight(.semibold)
-//
-//                    }
-//                    .font(Font.semiBold(size: 12.0))
+                    HStack{
+                        Text("Teacher :".localized())
+
+                        Text(model.teacherName ?? "")
+                            .fontWeight(.medium)
+
+                    }
+                    .font(Font.semiBold(size: 12.0))
 //                        .foregroundColor(ColorConstants.Black900)
                     
                 }

@@ -15,7 +15,9 @@ class ManageSubjectGroupVM: ObservableObject {
     //    MARK: --- inputs ---
     @Published var subject : DropDownOption?{
         didSet{
-            issubjectvalid = subject == nil ? false:true
+            if subject != nil{
+                issubjectvalid = true
+            }
         }
     }
     @Published var issubjectvalid:Bool?
