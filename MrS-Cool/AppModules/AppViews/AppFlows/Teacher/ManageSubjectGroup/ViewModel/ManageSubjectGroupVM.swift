@@ -82,6 +82,7 @@ class ManageSubjectGroupVM: ObservableObject {
     
     @Published var CreateSchedualSlotsArr = []
     
+    @Published var AllLessonsForList: [DropDownOption] = []
     @Published var teacherLessonList : [LessonForListM] = []
     @Published var CreateTeacherLessonList = []
 
@@ -396,6 +397,7 @@ extension ManageSubjectGroupVM{
         subject = nil
         groupName = ""
         startDate = nil
+        AllLessonsForList.removeAll()
         DisplaySchedualSlotsArr.removeAll()
         CreateSchedualSlotsArr.removeAll()
         clearCurrentSlot()

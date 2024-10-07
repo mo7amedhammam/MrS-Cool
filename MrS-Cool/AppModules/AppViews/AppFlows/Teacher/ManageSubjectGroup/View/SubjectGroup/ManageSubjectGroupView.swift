@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ManageSubjectGroupView: View {
-    //        @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
@@ -29,17 +29,20 @@ struct ManageSubjectGroupView: View {
     
     fileprivate func preparelessonscounts() {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
-        subjectgroupvm.teacherLessonList = AllLessonsForList.compactMap{option in
+        subjectgroupvm.teacherLessonList = subjectgroupvm.AllLessonsForList.compactMap{option in
             return option.LessonItem
         }
         //        print("subjectgroupvm.CreateTeacherLessonList",subjectgroupvm.CreateTeacherLessonList)
     }
     
-    @State var AllLessonsForList: [DropDownOption] = []
+//    @State var AllLessonsForList: [DropDownOption] = []
 
     var body: some View {
         VStack {
-            CustomTitleBarView(title: "Manage Groups For Subject")
+            CustomTitleBarView(title: "Manage Groups For Subject",action: {
+                subjectgroupvm.clearTeacherGroup()
+                dismiss()
+            })
             
             GeometryReader { gr in
                 ScrollView(.vertical,showsIndicators: false){
@@ -56,11 +59,12 @@ struct ManageSubjectGroupView: View {
                                         .onChange(of: subjectgroupvm.subject){newval in
                                             guard let newval = newval else {return}
                                             
-                                            //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
+//                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
                                             if let id = newval.id{
                                                     lookupsvm.GetAllLessonsForList(id: id)
-                                                DispatchQueue.main.asyncAfter(deadline: .now()+0.8, execute:{
-                                                    AllLessonsForList = lookupsvm.AllLessonsForList
+                                                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
+//                                                    AllLessonsForList = lookupsvm.AllLessonsForList
+                                                subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
                                                 })
 
                                             }
@@ -68,9 +72,9 @@ struct ManageSubjectGroupView: View {
                                     
 //                                    if subjectgroupvm.subject != nil{
                                        
-                                        ForEach(AllLessonsForList.indices,id:\.self){index in
+                                    ForEach(subjectgroupvm.AllLessonsForList.indices,id:\.self){index in
                                             VStack{
-                                                Text(AllLessonsForList[index].LessonItem?.lessonName ?? "")
+                                                Text(subjectgroupvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
                                                     .fontWeight(.medium)
                                                     .frame(maxWidth:.infinity,alignment:.leading)
                                                 
@@ -93,21 +97,21 @@ struct ManageSubjectGroupView: View {
                                                     CustomTextField(placeholder: "Lesson No",
                                                                     text: Binding(
                                                                         get: {
-                                                                            if index >= 0 && index < AllLessonsForList.count {
-                                                                                return AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
+                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
+                                                                                return subjectgroupvm.AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
                                                                             } else {
                                                                                 return ""  // Default value if index is out of range
                                                                             }                                                                        },
                                                                         set: { newValue in
-                                                                            if index >= 0 && index < AllLessonsForList.count {
+                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
                                                                                 if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
-                                                                                    AllLessonsForList[index].LessonItem?.count = intValue
+                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.count = intValue
                                                                                     countHints[index] = false  // Show hint for invalid input
                                                                                     
                                                                                 } else {
                                                                                     countHints[index] = true  // Show hint for invalid input
                                                                                     
-                                                                                    AllLessonsForList[index].LessonItem?.count = nil  // Reset if invalid
+                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.count = nil  // Reset if invalid
                                                                                 }                                                                        }
                                                                         }),
                                                                     keyboardType: .asciiCapableNumberPad,
@@ -116,22 +120,22 @@ struct ManageSubjectGroupView: View {
                                                     CustomTextField(placeholder: "Lesson Order",
                                                                     text: Binding(
                                                                         get: {
-                                                                            if index >= 0 && index < AllLessonsForList.count {
-                                                                                return   AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
+                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
+                                                                                return   subjectgroupvm.AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
                                                                             } else {
                                                                                 return ""  // Default value if index is out of range
                                                                             }
                                                                         },
                                                                         set: { newValue in
-                                                                            if index >= 0 && index < AllLessonsForList.count {
+                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
                                                                                 if let intValue = Int(newValue), intValue > 0 {
-                                                                                    AllLessonsForList[index].LessonItem?.order = intValue
+                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.order = intValue
                                                                                     orderHints[index] = false  // Show hint for invalid input
                                                                                     
                                                                                 } else {
                                                                                     orderHints[index] = true  // Show hint for invalid input
                                                                                     
-                                                                                    AllLessonsForList[index].LessonItem?.order = nil  // Reset if invalid
+                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.order = nil  // Reset if invalid
                                                                                 }
                                                                             }
                                                                         }),
@@ -143,8 +147,7 @@ struct ManageSubjectGroupView: View {
                                             .padding()
                                             .font(Font.regular(size: 13))
                                             .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(ColorConstants.WhiteA700))
-                                            .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,
-                                                                    bottomRight: 5.0)
+                                            .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0)
                                                 .stroke(ColorConstants.Bluegray30066,
                                                         lineWidth: 1))
                                         }
@@ -222,6 +225,9 @@ struct ManageSubjectGroupView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title: "Review Details" ,IsDisabled: .constant(subjectgroupvm.DisplaySchedualSlotsArr.isEmpty), action: {
+//                                        print("AllLessonsForList",AllLessonsForList)
+                                        print("subjectgroupvm.AllLessonsForList",subjectgroupvm.AllLessonsForList)
+                                        print("subjectgroupvm.teacherLessonList",subjectgroupvm.teacherLessonList)
                                         guard !(countHints.values.contains(true) || orderHints.values.contains(true)) else {return}
 
                                         preparelessonscounts()
@@ -291,7 +297,7 @@ struct ManageSubjectGroupView: View {
                 }
             }
             .task{
-                subjectgroupvm.subject = nil
+//                subjectgroupvm.subject = nil
                 subjectgroupvm.GetTeacherSubjectGroups()
             }
             .onAppear(perform: {
