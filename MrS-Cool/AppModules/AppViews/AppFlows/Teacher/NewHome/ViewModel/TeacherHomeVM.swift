@@ -309,16 +309,24 @@ extension TeacherHomeVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
+                    ShowAddExtraSession = false
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
                         guard let self = self else {return}
 //                        clearExtraSession()
-                        ShowAddExtraSession = false
                         GetScheduals()
+                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
+                            var updatedItem = item
+                            if item.teacherLessonSessionSchedualSlotID == teachersubjectAcademicSemesterYearSlotId {
+                                updatedItem.isCancel = true
+                            }
+                            return updatedItem
+                        }
                     })
                     isError =  true
 
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    ShowAddExtraSession = false
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                     isError =  true
                 }

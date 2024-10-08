@@ -55,12 +55,14 @@ struct TeacherInfoView: View {
                     .padding(.vertical)
                     .padding(.horizontal,30)
                     
-                    Text(teacher.teacherBIO ?? "")
-                        .font(.bold(size: 9))
-                        .foregroundColor(.mainBlue)
-                        .multilineTextAlignment(.leading)
-                        .padding(.horizontal,30)
-                        .frame(minHeight: 20)
+                    scrollableBriefText(text: teacher.teacherBIO ?? "")
+                    
+//                    Text(teacher.teacherBIO ?? "")
+//                        .font(.bold(size: 9))
+//                        .foregroundColor(.mainBlue)
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.horizontal,30)
+//                        .frame(minHeight: 20)
                     
                     GeometryReader { gr in
                         VStack(alignment:.leading){ // Title - Data - Submit Button)
@@ -86,7 +88,7 @@ struct TeacherInfoView: View {
                                             ForEach(teacher.teacherRatePercents ?? [],id:\.self){percent in
                                                 
                                                 HStack {
-                                                    Slider(value:.constant(percent.ratePercents ?? 20),in:0...100)
+                                                    Slider(value:.constant(percent.ratePercents ?? 0),in:0...100)
                                                         .tint(Color.orange)
                                                     
                                                     StarsView(rating: percent.rateNumber ?? 0)

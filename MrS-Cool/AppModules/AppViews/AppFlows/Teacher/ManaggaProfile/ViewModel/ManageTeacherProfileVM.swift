@@ -204,7 +204,9 @@ extension ManageTeacherProfileVM{
         birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
         email =  model.email ?? ""
         bio = model.teacherBio ?? ""
-        bank = .init(id:model.bankId,Title: model.bankName)
+        if let bankId = model.bankId,let bankName = model.bankName{
+            bank = .init(id:bankId,Title: bankName)
+        }
         iban = model.iban ?? ""
         
         DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in

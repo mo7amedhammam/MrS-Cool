@@ -125,7 +125,6 @@ struct StarsView: View {
               .resizable()
               .frame(width:10,height: 10)
               .aspectRatio(contentMode: .fit)
-          
       }
     }
     .foregroundColor(.yellow)
