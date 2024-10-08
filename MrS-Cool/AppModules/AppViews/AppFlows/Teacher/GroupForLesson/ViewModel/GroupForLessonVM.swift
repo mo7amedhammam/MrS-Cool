@@ -250,7 +250,7 @@ extension GroupForLessonVM{
   func calculateendTime(){
         if time != nil && lesson != nil{
 
-            endTime = time?.toDate(withFormat: "hh:mm aa",inputTimeZone: .current, inputLocal: .english, outputLocal: .english)?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa",inputLocal: .english,outputLocal: .current) ?? ""
+            endTime = time?.toDate(withFormat: "hh:mm aa",inputTimeZone: .current)?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
         }else{
             endTime = nil
         }

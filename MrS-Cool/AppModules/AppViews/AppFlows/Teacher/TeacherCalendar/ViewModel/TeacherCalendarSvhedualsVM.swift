@@ -270,21 +270,22 @@ extension TeacherCalendarSvhedualsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
+                    ShowAddExtraSession = false
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
                         guard let self = self else {return}
 //                        clearExtraSession()
-                        ShowAddExtraSession = false
                         if let index = CalendarScheduals?.firstIndex(where: { $0.id == self.teacherLessonSessionSchedualSlotID}) {
                             CalendarScheduals?[index].isCancel = true
                         }
-                        DispatchQueue.main.async(execute: { [weak self] in
-                            self?.GetCalendarCheduals()
-                        })
+//                        DispatchQueue.main.async(execute: { [weak self] in
+                            self.GetCalendarCheduals()
+//                        })
                     })
                     isError =  true
 
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    ShowAddExtraSession = false
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                     isError =  true
                 }

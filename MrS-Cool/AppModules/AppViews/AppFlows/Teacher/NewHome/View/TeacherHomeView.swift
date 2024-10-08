@@ -280,7 +280,8 @@ struct TeacherHomeView: View {
                     Group {
                         CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $SchedualsVm.extraLesson,options:[],Disabled: true)
                         
-                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$SchedualsVm.extraDate,datePickerComponent:.date,isvalid: SchedualsVm.isextraDatevalid)
+                        let startDate = Date()
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$SchedualsVm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: SchedualsVm.isextraDatevalid)
                         
                         CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$SchedualsVm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid: SchedualsVm.isextraTimevalid)
                         

@@ -329,7 +329,8 @@ struct ManageSubjectGroupView: View {
                     Group {
                         CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList,isvalid: subjectgroupvm.isextraLessonvalid)
                         
-                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
+                        let startDate = Date()
+                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
                         
                         CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid:subjectgroupvm.isextraTimevalid)
                         
