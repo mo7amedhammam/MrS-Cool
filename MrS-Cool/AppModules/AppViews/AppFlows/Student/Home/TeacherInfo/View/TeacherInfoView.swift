@@ -84,24 +84,30 @@ struct TeacherInfoView: View {
                                         .frame(width:110)
                                         //                            }
                                         
-                                        VStack{
+                                        VStack(alignment:.leading){
                                             ForEach(teacher.teacherRatePercents ?? [],id:\.self){percent in
                                                 
                                                 HStack {
                                                     Slider(value:.constant(percent.ratePercents ?? 0),in:0...100)
                                                         .tint(Color.orange)
+                                                        .frame(width: 110)
                                                     
                                                     StarsView(rating: percent.rateNumber ?? 0)
                                                     
                                                     Text("\(percent.ratePercents ?? 0,specifier: "%.1f") %")
                                                         .foregroundColor(Color.mainBlue)
                                                         .font(.regular(size: 10))
+                                                    
                                                 }
                                             }
                                         }
                                         .onAppear {
-                                            UISlider
-                                                .appearance().thumbTintColor = .clear
+                                            let transparentImage = UIImage()
+                                            UISlider.appearance().setThumbImage(transparentImage, for: .normal)
+                                            UISlider.appearance().setThumbImage(transparentImage, for: .highlighted)
+
+//                                            UISlider
+//                                                .appearance().thumbTintColor = .clear
                                         }
                                     }
                                 }
