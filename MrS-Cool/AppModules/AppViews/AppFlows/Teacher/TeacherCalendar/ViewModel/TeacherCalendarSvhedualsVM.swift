@@ -241,7 +241,7 @@ extension TeacherCalendarSvhedualsVM{
     func CreateExtraSession(){
         guard checkValidExtraSessionfields() else {return}
 
-        guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
+        guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
         let parameters:[String:Any] = [
             "teacherLessonSessionScheduleSlotId": teachersubjectAcademicSemesterYearSlotId,
             "teacherlessonsessionId": teacherlessonsessionId,
@@ -254,6 +254,7 @@ extension TeacherCalendarSvhedualsVM{
 
         print("parameters",parameters)
         let target = teacherServices.CreateExtraSession(parameters: parameters)
+        ShowAddExtraSession = false
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<SubjectGroupDeleteM>.self)
             .sink(receiveCompletion: {[weak self] completion in
@@ -270,7 +271,7 @@ extension TeacherCalendarSvhedualsVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true{
-                    ShowAddExtraSession = false
+//                    ShowAddExtraSession = false
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
                         guard let self = self else {return}
 //                        clearExtraSession()

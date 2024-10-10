@@ -298,6 +298,7 @@ struct ManageSubjectGroupView: View {
             }
             .task{
 //                subjectgroupvm.subject = nil
+                subjectgroupvm.clearFilter()
                 subjectgroupvm.GetTeacherSubjectGroups()
             }
             .onAppear(perform: {

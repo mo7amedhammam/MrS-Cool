@@ -151,6 +151,9 @@ extension TeacherHomeVM{
     
     func CancelCalendarCheduals(id:Int){
         var Parameters = ["TeacherLessonSessionSchedualSlotId":id]
+        if Helper.shared.getSelectedUserType() == .Parent {
+            Parameters["StudentId"] = Helper.shared.selectedchild?.id
+        }
         let target = teacherServices.cancelMyCalenderSchedual(parameters: Parameters)
         isLoading = true
         if Helper.shared.getSelectedUserType() == .Teacher {
@@ -193,9 +196,6 @@ extension TeacherHomeVM{
                 .store(in: &cancellables)
             
         }else {
-            if Helper.shared.getSelectedUserType() == .Parent {
-                Parameters["StudentId"] = Helper.shared.selectedchild?.id
-            }
             BaseNetwork.CallApi(target, BaseResponse<[StudentEventM]>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
@@ -280,7 +280,7 @@ extension TeacherHomeVM{
     func CreateExtraSession(){
         guard checkValidExtraSessionfields() else {return}
 
-        guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
+        guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current) else {return}
         let parameters:[String:Any] = [
             "teacherLessonSessionScheduleSlotId": teachersubjectAcademicSemesterYearSlotId,
             "teacherlessonsessionId": teacherlessonsessionId,
