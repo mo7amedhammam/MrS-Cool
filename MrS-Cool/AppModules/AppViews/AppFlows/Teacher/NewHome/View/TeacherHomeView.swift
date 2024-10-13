@@ -292,7 +292,7 @@ struct TeacherHomeView: View {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
                                 SchedualsVm.CreateExtraSession()
-                                SchedualsVm.ShowAddExtraSession = false
+//                                SchedualsVm.ShowAddExtraSession = false
                             })
                             
                             CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
