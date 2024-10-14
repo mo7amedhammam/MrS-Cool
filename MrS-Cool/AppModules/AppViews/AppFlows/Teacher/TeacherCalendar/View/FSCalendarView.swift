@@ -267,6 +267,8 @@ struct CalView1: View {
                                 }
                             }
                         })
+                        .environment(\.layoutDirection,.leftToRight)
+
                         
                     @unknown default:
                         if let evarr = calendarschedualsvm.CalendarScheduals{
@@ -355,57 +357,13 @@ struct CalView1: View {
             .padding()
             
         }
-        
     }
-    
-    //    private func showNextDate() {
-    //        if let currentDate = date {
-    //            let granularity: Calendar.Component = (scope == .month) ? .month : .weekOfMonth
-    //            date = Calendar.current.date(byAdding: granularity, value: 1, to: currentDate)
-    //        }
-    //    }
-    //    func filterEventsForSelectedDate(selectedDate: Date, scope: FSCalendarScope, events: [EventM]) -> [EventM] {
-    //        switch scope {
-    //        case .month:
-    //            let selectedMonth = Calendar.current.component(.month, from: selectedDate)
-    //            return events.filter { event in
-    //                guard let eventDateStr = event.date,
-    //                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
-    //                    return false
-    //                }
-    //                return Calendar.current.component(.month, from: eventDate) == selectedMonth
-    //            }
-    //        case .week:
-    //            let selectedWeek = Calendar.current.component(.weekOfYear, from: selectedDate)
-    //            return events.filter { event in
-    //                guard let eventDateStr = event.date,
-    //                      let eventDate = dateFormatter2.date(from: String(eventDateStr.prefix(10))) else {
-    //                    return false
-    //                }
-    //                return Calendar.current.component(.weekOfYear, from: eventDate) == selectedWeek
-    //            }
-    //        @unknown default:
-    //            return []
-    //        }
-    //    }
-    var dateFormatter2: DateFormatter = {
-        let formatter = DateFormatter.cachedFormatter
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.locale = Locale(identifier: "en_US")
-        return formatter
-    }()
 }
 
 
 #Preview{
     CalView1( selectedChild: .constant(nil))
 }
-
-
-
-
-//import UIKit
-//import FSCalendar
 
 class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
     
