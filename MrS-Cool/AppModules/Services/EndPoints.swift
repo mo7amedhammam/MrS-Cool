@@ -9,13 +9,13 @@ import Foundation
 
 struct Constants {
 // MARK: - APIs Constants
-    static var baseURL:String {return "https://mrscoolapi.azurewebsites.net/"} //TEST
-//static var baseURL:String {return "https://mrscoolapi.azurewebsites.net/"} //LIVE
+//    static var baseURL:String {return "https://mrscoolapi.azurewebsites.net/"} //TEST
+static var baseURL:String {return "https://alnada-devmrsapi.azurewebsites.net/"} //LIVE
 
     static var apiURL:String {return "\(baseURL)api/\(LocalizeHelper.shared.currentLanguage)/"}
 //    static var imagesURL:String {return "http://mrscoolapi.azurewebsites.net/"}
 
-    static var TermsAndConditionsURL:String {return "https://mrscoolapi.azurewebsites.net/Files/TermsAndConditions\(LocalizeHelper.shared.currentLanguage.uppercased()).pdf"}
+    static var TermsAndConditionsURL:String {return "\(baseURL)Files/TermsAndConditions\(LocalizeHelper.shared.currentLanguage.uppercased()).pdf"}
 
 //    static var WhatsAppNum = "+201011138900"
 }
