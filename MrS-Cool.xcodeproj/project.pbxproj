@@ -30,8 +30,6 @@
 		C815A0252B84C19100416A2A /* StudentCompletedLessonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C815A0242B84C19100416A2A /* StudentCompletedLessonsView.swift */; };
 		C815A0272B84C24900416A2A /* StudenCompletedLessonCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C815A0262B84C24900416A2A /* StudenCompletedLessonCellView.swift */; };
 		C819BB8F2AF6A77C00EE476E /* StudentSignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */; };
-		C81A2EBE2BBEC7E400B4CE99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C81A2EBD2BBEC7E400B4CE99 /* GoogleService-Info.plist */; };
-		C81A2EC02BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 in Resources */ = {isa = PBXBuildFile; fileRef = C81A2EBF2BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 */; };
 		C81A2EC32BBEE96100B4CE99 /* FirebaseNotificationsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81A2EC22BBEE96100B4CE99 /* FirebaseNotificationsVM.swift */; };
 		C823446B2B455E2E002D90A3 /* ExViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823446A2B455E2E002D90A3 /* ExViews.swift */; };
 		C823446E2B45AC3B002D90A3 /* StudentTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C823446D2B45AC3B002D90A3 /* StudentTabBarView.swift */; };
@@ -141,6 +139,8 @@
 		C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */; };
 		C8A529B32BB4640A005F54BE /* AddExistingStudentPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */; };
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
+		C8AAF1672CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 in Resources */ = {isa = PBXBuildFile; fileRef = C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */; };
+		C8AAF16A2CC5028300F2F235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */; };
 		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
 		C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */; };
 		C8B72C222B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C212B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift */; };
@@ -248,8 +248,6 @@
 		C815A0242B84C19100416A2A /* StudentCompletedLessonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentCompletedLessonsView.swift; sourceTree = "<group>"; };
 		C815A0262B84C24900416A2A /* StudenCompletedLessonCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudenCompletedLessonCellView.swift; sourceTree = "<group>"; };
 		C819BB8E2AF6A77C00EE476E /* StudentSignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpVM.swift; sourceTree = "<group>"; };
-		C81A2EBD2BBEC7E400B4CE99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C81A2EBF2BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_66DNB8S82R.p8; sourceTree = "<group>"; };
 		C81A2EC22BBEE96100B4CE99 /* FirebaseNotificationsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNotificationsVM.swift; sourceTree = "<group>"; };
 		C823446A2B455E2E002D90A3 /* ExViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExViews.swift; sourceTree = "<group>"; };
 		C823446D2B45AC3B002D90A3 /* StudentTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTabBarView.swift; sourceTree = "<group>"; };
@@ -360,6 +358,8 @@
 		C89EA90C2ADD906800891D41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExistingStudentPhone.swift; sourceTree = "<group>"; };
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
+		C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MWKRLV5AU5.p8; sourceTree = "<group>"; };
+		C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		C8B72C212B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCalendarSvhedualsVM.swift; sourceTree = "<group>"; };
@@ -1731,8 +1731,8 @@
 			children = (
 				C829C9432C567C2C001B6BF0 /* Launch Screen.storyboard */,
 				C88E99362BD6F42300F063FA /* MrS-Cool.entitlements */,
-				C81A2EBF2BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 */,
-				C81A2EBD2BBEC7E400B4CE99 /* GoogleService-Info.plist */,
+				C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */,
+				C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */,
 				C8FB11CE2ADDA6610051715F /* Info.plist */,
 				C8FB11832ADD91BA0051715F /* AppMain */,
 				C8FB11882ADD99800051715F /* AppModules */,
@@ -2596,8 +2596,7 @@
 				C8B877F92C9B08A700C18A57 /* LamaSans-ThinItalic.ttf in Resources */,
 				C8B877FB2C9B08A700C18A57 /* ArbFONTS-LamaSans-SemiBold.ttf in Resources */,
 				C8B877F42C9B08A700C18A57 /* ArbFONTS-LamaSans-Black.ttf in Resources */,
-				C81A2EBE2BBEC7E400B4CE99 /* GoogleService-Info.plist in Resources */,
-				C81A2EC02BBECC9500B4CE99 /* AuthKey_66DNB8S82R.p8 in Resources */,
+				C8AAF1672CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 in Resources */,
 				C8B878022C9B08A700C18A57 /* ArbFONTS-LamaSans-Light.ttf in Resources */,
 				C8B878042C9B08A700C18A57 /* ArbFONTS-LamaSans-MediumItalic.ttf in Resources */,
 				C8B877F52C9B08A700C18A57 /* LamaSans-Bold.ttf in Resources */,
@@ -2607,6 +2606,7 @@
 				C8B877FF2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf in Resources */,
 				C8FB11BE2ADD9C3B0051715F /* Localizable.strings in Resources */,
 				C8B877F82C9B08A700C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf in Resources */,
+				C8AAF16A2CC5028300F2F235 /* GoogleService-Info.plist in Resources */,
 				C8B877FD2C9B08A700C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf in Resources */,
 				C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */,
 				C8B878002C9B08A700C18A57 /* LamaSans-RegularItalic.ttf in Resources */,
@@ -2997,15 +2997,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.7;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
-				DEVELOPMENT_TEAM = 23H4SBD5QL;
+				DEVELOPMENT_TEAM = BGRWN8V6Q2;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MrS-Cool/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Mr-S Cool";
+				INFOPLIST_KEY_CFBundleDisplayName = "MR S Cool";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need calendar access to provide you with event information.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "we need to use your camera for picking images for documents";
@@ -3022,9 +3023,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "wecancityagency.MrS-Cool";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -3043,14 +3045,14 @@
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.7;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
-				DEVELOPMENT_TEAM = 23H4SBD5QL;
+				DEVELOPMENT_TEAM = BGRWN8V6Q2;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MrS-Cool/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Mr-S Cool";
+				INFOPLIST_KEY_CFBundleDisplayName = "MR S Cool";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "We need calendar access to provide you with event information.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "we need to use your camera for picking images for documents";
@@ -3067,8 +3069,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "wecancityagency.MrS-Cool";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
