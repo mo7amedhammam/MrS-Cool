@@ -84,7 +84,7 @@ struct SignInView: View {
                                             .fontWeight(.regular)
                                             .foregroundColor(ColorConstants.Red400)
                                             .multilineTextAlignment(.trailing)
-                                            .frame(width: 112.0, height: 30,
+                                            .frame(height: 30,
                                                    alignment: .trailing)
                                     })
                                 }
