@@ -61,6 +61,7 @@
 		C8438EF92B9484F400D9412D /* StudentEditProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8438EF82B9484F400D9412D /* StudentEditProfileVM.swift */; };
 		C8438EFB2B94906E00D9412D /* StudentEditProfileM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8438EFA2B94906E00D9412D /* StudentEditProfileM.swift */; };
 		C8438EFD2B94B73500D9412D /* KingFisherImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8438EFC2B94B73500D9412D /* KingFisherImageLoader.swift */; };
+		C84A6DFC2CCA54F4006D3F8E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C84A6DFB2CCA54F4006D3F8E /* StoreKit.framework */; };
 		C85168A52BA5B60000B83E4A /* ParentTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85168A42BA5B60000B83E4A /* ParentTabBarView.swift */; };
 		C85168A72BA5C50D00B83E4A /* ParentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85168A62BA5C50D00B83E4A /* ParentServices.swift */; };
 		C85168AC2BA5E01F00B83E4A /* ListChildrenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85168AB2BA5E01F00B83E4A /* ListChildrenView.swift */; };
@@ -279,6 +280,7 @@
 		C8438EF82B9484F400D9412D /* StudentEditProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentEditProfileVM.swift; sourceTree = "<group>"; };
 		C8438EFA2B94906E00D9412D /* StudentEditProfileM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentEditProfileM.swift; sourceTree = "<group>"; };
 		C8438EFC2B94B73500D9412D /* KingFisherImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherImageLoader.swift; sourceTree = "<group>"; };
+		C84A6DFB2CCA54F4006D3F8E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C85168A42BA5B60000B83E4A /* ParentTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTabBarView.swift; sourceTree = "<group>"; };
 		C85168A62BA5C50D00B83E4A /* ParentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentServices.swift; sourceTree = "<group>"; };
 		C85168AB2BA5E01F00B83E4A /* ListChildrenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChildrenView.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */,
+				C84A6DFC2CCA54F4006D3F8E /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +471,7 @@
 		A185DE38C796146E2464A6B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C84A6DFB2CCA54F4006D3F8E /* StoreKit.framework */,
 				23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */,
 			);
 			name = Frameworks;
@@ -3023,7 +3027,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3069,7 +3073,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
