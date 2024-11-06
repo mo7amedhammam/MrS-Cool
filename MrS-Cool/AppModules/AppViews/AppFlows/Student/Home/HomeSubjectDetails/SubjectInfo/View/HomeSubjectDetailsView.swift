@@ -145,17 +145,17 @@ struct HomeSubjectDetailsView: View {
                                         Spacer()
                                     }
                                     .padding(.horizontal)
-                                    HStack(){
-//                                        Group {
-                                        Text("Standard listing submission, active for 30 days".localized())
-//                                                .font(Font.semiBold(size: 12))
-//                                            + Text("Available Teachers".localized())
-//                                        }
-                                        .font(Font.semiBold(size: 12))
-                                        .fontWeight(.medium)
-                                        .foregroundColor(.mainBlue)
-                                        Spacer()
-                                    }                                    .padding(.horizontal)
+//                                    HStack(){
+////                                        Group {
+//                                        Text("Standard listing submission, active for 30 days".localized())
+////                                                .font(Font.semiBold(size: 12))
+////                                            + Text("Available Teachers".localized())
+////                                        }
+//                                        .font(Font.semiBold(size: 12))
+//                                        .fontWeight(.medium)
+//                                        .foregroundColor(.mainBlue)
+//                                        Spacer()
+//                                    }                                    .padding(.horizontal)
 
                                     HStack{
                                         Image("openningBookicon")
