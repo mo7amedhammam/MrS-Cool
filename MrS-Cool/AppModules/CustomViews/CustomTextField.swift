@@ -208,6 +208,7 @@ struct DropDownOption:Hashable{
     var subTitle:Int? = 0
     var subject:SubjectsByAcademicLevelM? = SubjectsByAcademicLevelM()
     var LessonItem:LessonForListM? = LessonForListM()
+    var isSelected: Bool? = false
 }
 
 struct CustomDropDownField: View {

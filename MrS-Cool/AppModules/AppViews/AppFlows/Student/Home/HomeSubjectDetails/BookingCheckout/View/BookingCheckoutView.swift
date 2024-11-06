@@ -277,6 +277,26 @@ struct CheckOutFullSubjectInfo: View {
             CustomDivider()
             
             HStack(spacing: 10){
+                Image("img_vector_black_900_20x20")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor )
+                    .frame(width: 18,height: 18, alignment: .center)
+                
+                Text("Lessons".localized())
+                    .foregroundColor(.mainBlue)
+                    .font(Font.bold(size: 12))
+                
+                Spacer()
+                Text(details.numOfLessons ?? 0,format: .number)
+                    .foregroundColor(.mainBlue)
+                    .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
+            }
+            CustomDivider()
+            
+            
+            HStack(spacing: 10){
                 Image("checkoutcal")
                     .resizable()
                     .renderingMode(.template)
@@ -451,6 +471,25 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Text(details.teacherName ?? "")
+                    .foregroundColor(.mainBlue)
+                    .font(Font.semiBold(size: 12))
+                    .fontWeight(.medium)
+            }
+            CustomDivider()
+            
+            HStack(spacing: 10){
+                Image("img_vector_black_900_20x20")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor )
+                    .frame(width: 18,height: 18, alignment: .center)
+                
+                Text("Lessons".localized())
+                    .foregroundColor(.mainBlue)
+                    .font(Font.bold(size: 12))
+                
+                Spacer()
+                Text(details.numOfLessons ?? 0,format: .number)
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
                     .fontWeight(.medium)

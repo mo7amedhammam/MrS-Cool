@@ -33,11 +33,12 @@ struct TeacherSubjectDetailsM: Codable {
 struct SubjectGroup: Codable,Hashable {
     var teacherLessonSessionID: Int?
     var groupName, startDate, endDate: String?
+    var duration,numOfLessons: Int?
     var getSubjectScheduleGroups: [SubjectScheduleGroup]?
 
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionID = "teacherLessonSessionId"
-        case groupName, startDate, endDate, getSubjectScheduleGroups
+        case groupName, startDate, endDate, getSubjectScheduleGroups, duration,numOfLessons
     }
 }
 

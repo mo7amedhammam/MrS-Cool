@@ -30,6 +30,7 @@ struct BookingCheckoutM: Codable {
     var price, currentBalance: Float?
     var startDate, endDate, fromTime, toTime,image : String?
     var paymentAmount, taxAmount, totalPriceWithTax: Float?
+    var numOfLessons:Int?
     var bookSchedules: [BookSchedule]?
 }
 

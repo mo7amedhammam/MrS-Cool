@@ -74,7 +74,8 @@ struct WeeklyCalendarView: View {
         VStack {
             // Display selected date below the calendar
             if let selectedDate = selectedDate {
-                Text("\(selectedDate, formatter: Self.taskDateFormat)")
+//                Text("\(selectedDate, formatter: Self.taskDateFormat)")
+                Text("\(selectedDate)".ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy"))
                     .font(.semiBold(size: 13))
                     .foregroundColor(.mainBlue)
             }
@@ -83,11 +84,14 @@ struct WeeklyCalendarView: View {
                 .padding(.bottom,-200)
                 .padding(.top,-40)
         }
+//        .onChange(of: selectedDate, perform: { value in
+//            print("date :\(value)") // 2024-11-06 22:00:00 +0000
+//        })
     }
     
-    static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter.cachedFormatter
-        formatter.dateFormat = "EEEE dd, MMM yyyy"
-        return formatter
-    }()
+//    static let taskDateFormat: DateFormatter = {
+//        let formatter = DateFormatter.cachedFormatter
+//        formatter.dateFormat = "EEEE dd, MMM yyyy"
+//        return formatter
+//    }()
 }

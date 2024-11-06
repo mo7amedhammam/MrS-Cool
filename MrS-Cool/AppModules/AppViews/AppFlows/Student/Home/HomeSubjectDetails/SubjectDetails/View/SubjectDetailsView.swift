@@ -150,7 +150,43 @@ struct SubjectDetailsView: View {
                                             Group{
                                                 Label(title: {
                                                     Group {
-                                                        Text("Start Date".localized())+Text(": ")+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
+                                                        Text("\(slot.numOfLessons ?? 0) ")+Text("Lessons".localized())
+                                                    }
+                                                    .font(.bold(size: 10))
+                                                    .foregroundColor(.mainBlue)
+                                                }, icon: {
+                                                    Image("img_vector_black_900_20x20")
+                                                        .resizable()
+                                                        .renderingMode(.template)
+                                                        .foregroundColor(ColorConstants.MainColor )
+                                                        .frame(width:15,height:15)
+                                                })
+                                                .frame(maxWidth:.infinity,alignment:.leading)
+                                                
+                                                Label(title: {
+                                                    Group {
+                                                        Text("Duration".localized())+Text(": ".localized()) +
+//                                                        HStack(spacing:0){
+                                                            Text("\((slot.duration ?? 0).hours) ") +
+                                                            Text("hrs".localized()) +
+                                                            Text(", ".localized()) +
+                                                            Text("\((slot.duration ?? 0).minutes) ") +
+                                                            Text("mins".localized())
+//                                                        }
+                                                        
+                                                    }
+                                                    .font(.bold(size: 10))
+                                                    .foregroundColor(.mainBlue)
+                                                }, icon: {
+                                                    Image("clockcheckout")
+                                                        .resizable()
+                                                        .frame(width:15,height:15)
+                                                })
+                                                .frame(maxWidth:.infinity,alignment:.leading)
+                                                
+                                                Label(title: {
+                                                    Group {
+                                                        Text("Start Date".localized())+Text(": ".localized())+Text("\(slot.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
                                                     .font(.bold(size: 10))
                                                     .foregroundColor(.mainBlue)
@@ -163,7 +199,7 @@ struct SubjectDetailsView: View {
                                                 
                                                 Label(title: {
                                                     Group {
-                                                        Text("End Date".localized())+Text(": ")+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
+                                                        Text("End Date".localized())+Text(": ".localized())+Text("\(slot.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM yyyy"))
                                                     }
                                                     .font(.bold(size: 10))
                                                     .foregroundColor(.mainBlue)
@@ -177,7 +213,7 @@ struct SubjectDetailsView: View {
                                                 ForEach(slot.getSubjectScheduleGroups ?? [],id:\.self){ schedual in
                                                     Label(title: {
                                                         Group {
-                                                            Text(schedual.dayName ?? "" )+Text(": ")+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
+                                                            Text(schedual.dayName ?? "" )+Text(": ".localized())+Text("\(schedual.fromTime ?? "")".ChangeDateFormat(FormatFrom: "HH:mm:ss", FormatTo: "hh:mm a"))
                                                         }
                                                         .font(.bold(size: 10))
                                                         .foregroundColor(.mainBlue)
@@ -191,7 +227,7 @@ struct SubjectDetailsView: View {
                                                 }
                                             }
                                             .padding(.top,8)
-                                            .padding(.horizontal)
+                                            .padding(.leading )
                                             
                                         }
                                         .padding(.bottom)
@@ -199,7 +235,6 @@ struct SubjectDetailsView: View {
                                             ColorConstants.ParentDisableBg.opacity(0.5).clipShape(CornersRadious(radius: 12, corners: [.allCorners]))
                                         })
                                         .frame(width:170)
-
                                         .onTapGesture(perform: {
                                             subjectdetailsvm.selectedSubjectId = details.SubjectGroups?[currentPage].teacherLessonSessionID
                                         })

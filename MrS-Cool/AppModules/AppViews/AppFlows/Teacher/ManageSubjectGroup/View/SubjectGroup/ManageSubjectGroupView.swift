@@ -30,7 +30,12 @@ struct ManageSubjectGroupView: View {
     fileprivate func preparelessonscounts() {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
         subjectgroupvm.teacherLessonList = subjectgroupvm.AllLessonsForList.compactMap{option in
-            return option.LessonItem
+//            return option.LessonItem
+            
+            if option.isSelected == true {
+                      return option.LessonItem
+                  }
+                  return nil
         }
         //        print("subjectgroupvm.CreateTeacherLessonList",subjectgroupvm.CreateTeacherLessonList)
     }
@@ -74,9 +79,26 @@ struct ManageSubjectGroupView: View {
                                        
                                     ForEach(subjectgroupvm.AllLessonsForList.indices,id:\.self){index in
                                             VStack{
-                                                Text(subjectgroupvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
-                                                    .fontWeight(.medium)
-                                                    .frame(maxWidth:.infinity,alignment:.leading)
+                                                Button(action: {
+                                                    subjectgroupvm.AllLessonsForList[index].isSelected?.toggle()
+                                                }, label: {
+                                                    HStack {
+                                                    Text(subjectgroupvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
+                                                        .fontWeight(.medium)
+                                                        .frame(maxWidth:.infinity,alignment:.leading)
+                                                        .foregroundColor(ColorConstants.MainColor)
+                                                    
+                                                    // Checkbox for selection
+                                                         let isSelected = subjectgroupvm.AllLessonsForList[index].isSelected ?? true
+                                                         Image(systemName: isSelected ? "checkmark.square.fill" : "square")
+                                                            .resizable()
+                                                            .foregroundColor(isSelected ? ColorConstants.MainColor : .gray)
+                                                             .frame(width: 20, height: 20)
+                                                      
+                                                     }
+                                                })
+
+                                             
                                                 
                                                 // Validation hint for Lesson No
                                                 if let showHint = countHints[index], showHint {
