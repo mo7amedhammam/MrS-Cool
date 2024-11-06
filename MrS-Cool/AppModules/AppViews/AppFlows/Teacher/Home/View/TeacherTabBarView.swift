@@ -371,7 +371,7 @@ struct TeacherSideMenuContent: View {
         .frame(width: UIScreen.main.bounds.width - 80)
         .padding(.top, 55)
         .background{
-            Color.mainBlue
+            Color.mainBlue.opacity(0.95)
         }
         .onDisappear(perform: {
             selectedDestination = nil

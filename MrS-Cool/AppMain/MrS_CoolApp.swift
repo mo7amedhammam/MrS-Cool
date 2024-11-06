@@ -23,12 +23,8 @@ struct MrS_CoolApp: App {
                             await notificationManager.request()
                         }
                     }
-                //                .onAppear(perform: {
-                //                    // Disable swipe back gesture
-                //                             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-                //                             appDelegate.window?.rootViewController?.children.first?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                
-                //                })
+                    .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft : .leftToRight)
+
 //            }
         }
         

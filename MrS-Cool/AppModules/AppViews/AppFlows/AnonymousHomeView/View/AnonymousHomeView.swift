@@ -466,21 +466,13 @@ struct AnonymousHomeView: View {
                         studenthomevm.getHomeData()
 //                        studenthomevm.GetStudentSubjects()
                     }
-//                    .task(id:localizeHelper.currentLanguage){
-//                        lookupsvm.GetEducationTypes()
-//                        lookupsvm.GetSemesters()
-//                        studenthomevm.getHomeData()
-//                    }
+
                     .onDisappear{
                         if !isSearch {
                             studenthomevm.clearsearch()
                         }
                     }
-//                    .onChange(of: localizeHelper.currentLanguage, perform: {_ in
-//                        lookupsvm.GetEducationTypes()
-//                        lookupsvm.GetSemesters()
-//                        studenthomevm.getHomeData()
-//                    })
+
                     
                     .onChange(of: studenthomevm.educationType, perform: { value in
                         lookupsvm.SelectedEducationType = value
@@ -587,7 +579,7 @@ struct AnonymousSideMenuContent: View {
         .frame(width: UIScreen.main.bounds.width - 80)
         .padding(.top, 55)
         .background{
-            Color.mainBlue
+            Color.mainBlue.opacity(0.95)
         }
         .onDisappear(perform: {
             selectedDestination = nil

@@ -141,12 +141,17 @@ class Helper: NSObject {
         //                                    window?.makeKeyAndVisible()
         
         if let window = window {
-            let signInView = AnyView(toView)
+            // Determine the layout direction based on the current language
+            let layoutDirection = LocalizeHelper.shared.currentLanguage == "ar" ? LayoutDirection.rightToLeft : LayoutDirection.leftToRight
+            
+            // Apply the layout direction to the root view
+            let signInView = AnyView(toView.environment(\.layoutDirection, layoutDirection))
             let signInHostingController = UIHostingController(rootView: signInView)
-            let navigationController = UINavigationController(rootViewController: signInHostingController)
+            let navigationController = CustomNavigationController(rootViewController: signInHostingController)
             
             // Disable swipe back gesture
-            navigationController.interactivePopGestureRecognizer?.isEnabled = false
+//            navigationController.interactivePopGestureRecognizer?.isEnabled = false
+            navigationController.navigationBar.isHidden = true
             
             // Set up the flip animation
             let transition = CATransition()

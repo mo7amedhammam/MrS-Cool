@@ -165,9 +165,9 @@ struct SignInView: View {
                 guard newval == true else{return}
                 switch selectedUser.user {
                 case .Student:
-                    //                    destination = AnyView(StudentTabBarView())
+//                            destination = AnyView(StudentTabBarView())
                     Helper.shared.changeRoot(toView: StudentTabBarView())
-                    
+//                        isPush = newval
                 case .Parent:
                     //                    destination = AnyView(ParentTabBarView())
                     Helper.shared.changeRoot(toView: ParentTabBarView())

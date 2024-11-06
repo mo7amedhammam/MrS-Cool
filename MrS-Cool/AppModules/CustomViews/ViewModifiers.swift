@@ -19,6 +19,8 @@ struct hideNavigationBarModifier: ViewModifier {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
             .navigationViewStyle(.stack)
+            .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft : .leftToRight)
+
         //MARK:  --- add Done key for keyboard to Dismss Keyboard ---
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
@@ -45,10 +47,43 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
-        interactivePopGestureRecognizer?.isEnabled = false
+//        interactivePopGestureRecognizer?.isEnabled = false
     }
 
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
+    }
+}
+
+
+//----------- The Solution: NavigationPopGestureDisabler ------
+extension UIView {
+    var parentViewController: UIViewController? {
+        sequence(first: self) {
+            $0.next
+        }.first { $0 is UIViewController } as? UIViewController
+    }
+}
+
+private struct NavigationPopGestureDisabler: UIViewRepresentable {
+    let disabled: Bool
+    
+    func makeUIView(context: Context) -> some UIView { UIView() }
+    
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+            uiView
+                .parentViewController?
+                .navigationController?
+                .interactivePopGestureRecognizer?.isEnabled = !disabled
+        }
+    }
+}
+public extension View {
+    @ViewBuilder
+    func navigationPopGestureDisabled(_ disabled: Bool) -> some View {
+        background {
+            NavigationPopGestureDisabler(disabled: disabled)
+        }
     }
 }
