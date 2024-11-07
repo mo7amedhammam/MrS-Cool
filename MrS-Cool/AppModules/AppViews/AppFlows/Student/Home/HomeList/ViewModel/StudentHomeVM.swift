@@ -21,12 +21,12 @@ class StudentHomeVM: ObservableObject {
     //    MARK: --- inputs ---
     @Published var educationType : DropDownOption?{
         didSet{
-                educationLevel = nil
+            educationLevel = nil
         }
     }
     @Published var educationLevel : DropDownOption?{
         didSet{
-                academicYear = nil
+            academicYear = nil
         }
     }
     @Published var academicYear : DropDownOption?{
@@ -35,7 +35,7 @@ class StudentHomeVM: ObservableObject {
         }
     }
     @Published var isacademicYearvalid : Bool = true
-
+    
     @Published var term : DropDownOption?{
         didSet{
             isacademicYearvalid = term != nil && academicYear != nil
@@ -43,7 +43,7 @@ class StudentHomeVM: ObservableObject {
     }
     
     
-//    MARK: -  for student -
+    //    MARK: -  for student -
     @Published var academicLevelId:Int?
     
     //    MARK: --- outpust ---
@@ -65,7 +65,7 @@ class StudentHomeVM: ObservableObject {
     @Published var SelectedStudentSubjects : HomeSubject = HomeSubject()
     @Published var newStudentSubjects : [StudentMostViewedSubjectsM] =  []
     @Published var newSSelectedStudentSubjects : StudentMostViewedSubjectsM = StudentMostViewedSubjectsM()
-
+    
     
     @Published var StudentMostViewedLessons : [StudentMostViewedLessonsM] = []
     @Published var SelectedStudentMostViewedLesson : StudentMostViewedLessonsM = StudentMostViewedLessonsM()
@@ -84,10 +84,10 @@ class StudentHomeVM: ObservableObject {
     
     @Published var StudentMostRatedTeachers : [StudentMostViewedTeachersM] = []
     @Published var SelectedStudentMostRatedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
-
+    
     @Published var StudentMostBookedTeachers : [StudentMostViewedTeachersM] = []
     @Published var SelectedStudentMostBookedTeachers : StudentMostViewedTeachersM = StudentMostViewedTeachersM()
-
+    
     init()  {
     }
 }
@@ -104,7 +104,7 @@ extension StudentHomeVM{
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true
             BaseNetwork.CallApi(target, BaseResponse<StudentSubjectsM>.self)
-                .receive(on: DispatchQueue.main)
+            //                .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
                     guard let self = self else{return}
                     //                isLoading = false
@@ -120,7 +120,7 @@ extension StudentHomeVM{
                     print("receivedData",receivedData)
                     if receivedData.success == true {
                         //                    TeacherSubjects?.append(model)
-                            StudentSubjectsM = receivedData.data
+                        StudentSubjectsM = receivedData.data
                     }else{
                         //                    isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
@@ -144,7 +144,7 @@ extension StudentHomeVM{
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true
             BaseNetwork.CallApi(target, BaseResponse<AnonymousallSubjectM>.self)
-                .receive(on: DispatchQueue.main)
+            //                .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
                     guard let self = self else{return}
                     //                isLoading = false
@@ -160,11 +160,11 @@ extension StudentHomeVM{
                     print("receivedData",receivedData)
                     if receivedData.success == true,let data = receivedData.data {
                         //                    TeacherSubjects?.append(model)
-//                        newStudentSubjects = data.getAllSubjects?.newconvertToStudentSubjects()
+                        //                        newStudentSubjects = data.getAllSubjects?.newconvertToStudentSubjects()
                         
                         guard let subjects = data.getAllSubjects else {return}
-//                        StudentSubjects = subjects.convertToStudentSubjects()
-
+                        //                        StudentSubjects = subjects.convertToStudentSubjects()
+                        
                         newStudentSubjects = subjects.newconvertToStudentSubjects()
                     }else{
                         //                    isError =  true
@@ -180,17 +180,17 @@ extension StudentHomeVM{
     
     func GetStudentMostSubjects(mostType:studentLessonMostCases){
         var parameters:[String:Any] = [:]
-           if let academicLevelId = academicLevelId{
-                parameters["academicLevelId"] = academicLevelId
-           }else if let educationLevelid = academicYear?.id{
-               parameters["academicLevelId"] = educationLevelid
-           }
+        if let academicLevelId = academicLevelId{
+            parameters["academicLevelId"] = academicLevelId
+        }else if let educationLevelid = academicYear?.id{
+            parameters["academicLevelId"] = educationLevelid
+        }
         print("parameters",parameters)
-
+        
         let target = StudentServices.GetMostSubjects(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedSubjectsM]>.self)
-            .receive(on: DispatchQueue.main)
+        //            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -225,17 +225,17 @@ extension StudentHomeVM{
     
     func GetStudentLessons(mostType:studentLessonMostCases){
         var parameters:[String:Any] = [:]
-           if let academicLevelId = academicLevelId{
-               parameters["academicleveid"] = academicLevelId
-           }else if let educationLevelid = academicYear?.id{
-               parameters["academicleveid"] = educationLevelid
-           }
+        if let academicLevelId = academicLevelId{
+            parameters["academicleveid"] = academicLevelId
+        }else if let educationLevelid = academicYear?.id{
+            parameters["academicleveid"] = educationLevelid
+        }
         print("parameters",parameters)
         
         let target = StudentServices.GetMostLessons(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedLessonsM]>.self)
-            .receive(on: DispatchQueue.main)
+        //            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -270,16 +270,16 @@ extension StudentHomeVM{
     
     func GetStudentTeachers(mostType:studentTeacherMostCases){
         var parameters:[String:Any] = [:]
-           if let academicLevelId = academicLevelId{
-                parameters["academicLevelId"] = academicLevelId
-           }else if let educationLevelid = academicYear?.id{
-               parameters["academicLevelId"] = educationLevelid
-           }
+        if let academicLevelId = academicLevelId{
+            parameters["academicLevelId"] = academicLevelId
+        }else if let educationLevelid = academicYear?.id{
+            parameters["academicLevelId"] = educationLevelid
+        }
         print("parameters",parameters)
         let target = StudentServices.GetMostTeachers(mostType: mostType, parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedTeachersM]>.self)
-            .receive(on: DispatchQueue.main)
+        //            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -314,16 +314,16 @@ extension StudentHomeVM{
     
     func GetStudentMostBookedTeachers(){
         var parameters:[String:Any] = [:]
-           if let academicLevelId = academicLevelId{
-                parameters["academicLevelId"] = academicLevelId
-            }else if let educationLevelid = academicYear?.id {
+        if let academicLevelId = academicLevelId{
+            parameters["academicLevelId"] = academicLevelId
+        }else if let educationLevelid = academicYear?.id {
             parameters["academicLevelId"] = educationLevelid
         }
         print("parameters",parameters)
         let target = StudentServices.GetMostBookedTeachers(parameters: parameters)
         //        isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[StudentMostViewedTeachersM]>.self)
-            .receive(on: DispatchQueue.main)
+        //            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 //                isLoading = false
@@ -339,7 +339,7 @@ extension StudentHomeVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
-                        StudentMostBookedTeachers = receivedData.data ?? []
+                    StudentMostBookedTeachers = receivedData.data ?? []
                     
                 }else{
                     isError =  true
@@ -352,12 +352,12 @@ extension StudentHomeVM{
     }
     
     func getHomeData(){
-//    DispatchQueue.global(qos: .background).async {[weak self] in
+        //    DispatchQueue.global(qos: .background).async {[weak self] in
         
-//        guard let self = self else{return}
+        //        guard let self = self else{return}
         let DispatchGroup = DispatchGroup()
         DispatchGroup.enter()
-
+        
         GetStudentSubjects()
         
         DispatchGroup.enter()
@@ -374,9 +374,9 @@ extension StudentHomeVM{
         GetStudentTeachers(mostType: .topRated)
         GetStudentMostBookedTeachers()
         DispatchGroup.leave()
-
-//    }
-}
+        
+        //    }
+    }
     
     func clearselections(){
         SelectedStudentSubjects = HomeSubject()
@@ -424,10 +424,146 @@ extension Array where Element == GetAllSubject {
                 id: getAllSubject.id,
                 subjectName: getAllSubject.name,
                 image: getAllSubject.image
-//                ,
+                //                ,
                 ,lessonsCount:getAllSubject.lessonsCount
                 ,teacherCount:getAllSubject.availableTeacherCount
             )
         }
     }
 }
+
+
+// ----- Async Await api calls -----
+//extension StudentHomeVM{
+//
+//    func GetStudentSubjects1() async {
+//        var parameters:[String:Any] = [:]
+//        print("parameters",parameters) // id
+//        if Helper.shared.CheckIfLoggedIn() == true && !(Helper.shared.getSelectedUserType() == .Teacher){
+//            if Helper.shared.getSelectedUserType() == .Parent{
+//                parameters["id"] = Helper.shared.selectedchild?.id ?? 0
+//            }
+//            let target = StudentServices.GetStudentSubjects(parameters: parameters)
+//            print(parameters)
+//            
+//            isLoading = true
+//            //            error = nil
+//            do{
+//                let response = try await BaseNetwork.shared.request(target, BaseResponse<StudentSubjectsM>.self)
+//                print(response)
+//                
+//                self.isLoading = false
+//                if response.success == true {
+//                    StudentSubjectsM = response.data
+//                    
+//                    //                                     self.loginSuccess = true
+//                } else {
+//                    self.error = .error(image:nil, message: "\(response.message)",buttonTitle:"Done")
+//                    self.isError = true
+//                }
+//                
+//            } catch let error as NetworkError {
+//                self.isLoading = false
+//                self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                self.isError = true
+////                print("Network error: \(error.errorDescription)")
+//            } catch {
+//                self.isLoading = false
+//                self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                self.isError = true
+////                print("Unexpected error: \(error.localizedDescription)")
+//            }
+//        }else{
+//            
+//            parameters["maxResultCount"] = 25
+//            parameters["skipCount"] = 0
+//            if let educationLevelid = academicYear?.id {
+//                parameters["academicEducationLevelId"] = educationLevelid
+//            }
+//            if let termid = term?.id{
+//                parameters["semesterId"] = termid
+//            }
+//            
+//            let target = StudentServices.GetStudentSubjects(parameters: parameters)
+//            print(parameters)
+//            
+//            isLoading = true
+//            //            error = nil
+//            do{
+//                let response = try await BaseNetwork.shared.request(target, BaseResponse<AnonymousallSubjectM>.self)
+//                print(response)
+//                
+//                self.isLoading = false
+//                if response.success == true {
+//                    guard let subjects = response.data?.getAllSubjects else {return}
+//                    //                        StudentSubjects = subjects.convertToStudentSubjects()
+//                    
+//                    newStudentSubjects = subjects.newconvertToStudentSubjects()
+//
+//                    //                                     self.loginSuccess = true
+//                } else {
+//                    self.error = .error(image:nil, message: "\(response.message)",buttonTitle:"Done")
+//                    self.isError = true
+//                }
+//                
+//            } catch let error as NetworkError {
+//                self.isLoading = false
+//                self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                self.isError = true
+////                print("Network error: \(error.errorDescription)")
+//            } catch {
+//                self.isLoading = false
+//                self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                self.isError = true
+////                print("Unexpected error: \(error.localizedDescription)")
+//            }
+//        }
+//    }
+//    
+//    func GetStudentMostSubjects1(mostType:studentLessonMostCases) async {
+//        var parameters:[String:Any] = [:]
+//        if let academicLevelId = academicLevelId{
+//            parameters["academicLevelId"] = academicLevelId
+//        }else if let educationLevelid = academicYear?.id{
+//            parameters["academicLevelId"] = educationLevelid
+//        }
+//        print("parameters",parameters)
+//        
+//        let target = StudentServices.GetMostSubjects(mostType: mostType, parameters: parameters)
+//            print(parameters)
+//            
+//            isLoading = true
+//            //            error = nil
+//            do{
+//                let response = try await BaseNetwork.shared.request(target, BaseResponse<[StudentMostViewedSubjectsM]>.self)
+//                print(response)
+//                
+//                self.isLoading = false
+//                if response.success == true {
+//                    switch mostType {
+//                    case .mostviewed:
+//                        StudentMostViewedSubjects = response.data ?? []
+//                    case .mostBooked:
+//                        StudentMostBookedsubjects = response.data ?? []
+//                    }
+//                    
+//                    //                                     self.loginSuccess = true
+//                } else {
+//                    self.error = .error(image:nil, message: "\(response.message)",buttonTitle:"Done")
+//                    self.isError = true
+//                }
+//                
+//            } catch let error as NetworkError {
+//                self.isLoading = false
+//                self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                self.isError = true
+////                print("Network error: \(error.errorDescription)")
+//            } catch {
+//                self.isLoading = false
+//                self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                self.isError = true
+////                print("Unexpected error: \(error.localizedDescription)")
+//            }
+//        
+//    }
+//}

@@ -69,6 +69,30 @@ public extension TargetType {
             return components.url!
         }
     }
+    
+    // MARK: - Request URL
+    func asURL() throws -> URL{
+        switch parameter {
+        case .plainRequest,.parameterRequest,.BodyparameterRequest:
+            return baseURL.appendingPathComponent(path)
+
+            
+        case .parameterdGetRequest(let parameters, _):
+            // For GET requests with parameters in the URL
+            var components = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
+            let queryItems = parameters.map { key, value in
+                URLQueryItem(name: key, value: "\(value)")
+            }
+            components.queryItems = queryItems
+//            return components.url!
+            
+            guard let url = components.url else {
+                throw NetworkError.badURL("Invalid URL")
+            }
+            
+            return url
+        }
+    }
     var headers: [String: String]? {
         var header = [String: String]()
 //

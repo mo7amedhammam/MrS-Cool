@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 enum teachersSortCases:String{
-    case MostBooked = "Most Booked"
+    case MostBooked = "Most Booked "
     case TopRated = "Top Rated"
     case PriceLowToHigh = "Price Low To High"
     case PriceHighToLow = "Price High To Low"

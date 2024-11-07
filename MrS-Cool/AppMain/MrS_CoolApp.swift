@@ -64,9 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch
         do {
-             print("app started")
-             print("app in: user :", Helper.shared.getSelectedUserType()?.rawValue ?? "")
-             print("app in: loged in :", Helper.shared.CheckIfLoggedIn())
+//             print("app started")
+             print("app started: For :", Helper.shared.getSelectedUserType()?.rawValue ?? "")
+//             print("app in: loged in :", Helper.shared.CheckIfLoggedIn())
+            
              try registerForRemoteNotifications(application: application)
              FirebaseApp.configure()
              Messaging.messaging().delegate = self
@@ -82,6 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
         return true
     }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        print("app became active")
+    }
+    
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         // The app entered the background

@@ -279,15 +279,21 @@ struct TeacherSideMenuContent: View {
                         
                     }
                     
-                    SideMenuSectionTitle(title: "My Information")
-                    SideMenuButton(image: "MenuSt_calendar", title: "My Documents"){
-                        selectedDestination = .documents // calendar
-                        presentSideMenu =  false
-                        isPush = true
-                    }
                     SideMenuSectionTitle(title: "Academic")
                     SideMenuButton(image: "img_group_512380", title: "My Subjects"){
                         selectedDestination = .subjects // calendar
+                        presentSideMenu =  false
+                        isPush = true
+                    }
+                    
+                    SideMenuButton(image: "img_group58", title: "Manage Subject Groups"){
+                        selectedDestination = .lessonGroups // rates
+                        presentSideMenu =  false
+                        isPush = true
+                    }
+
+                    SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
+                        selectedDestination = .subjectgroup // calendar
                         presentSideMenu =  false
                         isPush = true
                     }
@@ -298,18 +304,12 @@ struct TeacherSideMenuContent: View {
                         isPush = true
                     }
                     
-                    SideMenuButton(image: "img_group58", title: "Manage Lesson Groups"){
-                        selectedDestination = .subjectgroup // calendar
+                    SideMenuSectionTitle(title: "My Information")
+                    SideMenuButton(image: "MenuSt_calendar", title: "My Documents"){
+                        selectedDestination = .documents // calendar
                         presentSideMenu =  false
                         isPush = true
                     }
-                    
-                    SideMenuButton(image: "img_group58", title: "Manage Subject Groups"){
-                        selectedDestination = .lessonGroups // rates
-                        presentSideMenu =  false
-                        isPush = true
-                    }
-                    
                     
                     SideMenuSectionTitle(title: "Student Sessions")
                     

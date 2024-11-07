@@ -144,7 +144,7 @@
 "End Time" = "وقت الانتهاء";
 "End Time Is " = "وقت الانتهاء هو ";
 "End date must be greater than start date" = "يجب أن يكون تاريخ الانتهاء أكبر من تاريخ البداية";
-"Enter subtitle here" = "أدخل العنوان الفرعي هنا";
+"Enter subtitle here" = "";
 "FeMale" = "أنثى";
 "Female" = "أنثى";
 "File or image not selected" = "لم يتم اختيار ملف أو صورة";

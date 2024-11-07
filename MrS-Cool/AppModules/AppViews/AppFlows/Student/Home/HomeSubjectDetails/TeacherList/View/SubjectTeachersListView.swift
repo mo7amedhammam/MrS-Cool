@@ -116,12 +116,14 @@ struct SubjectTeachersListView: View {
                             .background{Color.white.clipShape(Circle())}
 
                     }
-                        VStack(alignment:.leading,spacing: 2){
+                        VStack(alignment:.leading,spacing: 5){
                             Text(subjectorLesson.headerName ?? "" )
                                 .font(.bold(size: 18))
+                                .lineSpacing(5)
                             Text(subjectorLesson.subjectName ?? "")
                                 .font(.semiBold(size: 16))
-                            
+                                .lineSpacing(5)
+
                         }
                         .foregroundColor(.mainBlue)
                         

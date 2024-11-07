@@ -365,7 +365,7 @@ struct StudentSideMenuContent: View {
                                 .font(.bold(size: 18))
                                 .foregroundStyle(.whiteA700)
                             
-                            Text("Edit your profile")
+                            Text("Edit your profile".localized())
                                 .font(.regular(size: 12))
                                 .foregroundStyle(.whiteA700)
                         }

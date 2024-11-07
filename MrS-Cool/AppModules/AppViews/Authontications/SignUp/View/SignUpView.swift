@@ -140,8 +140,8 @@ struct haveAccountView: View {
 
 struct SignUpHeaderTitle: View {
     var Title:String? = "Personal Information"
-    var subTitle:String? = "Enter subtitle here"
-    var subTitleView:AnyView? 
+    var subTitle:String? = ""
+    var subTitleView:AnyView?
 
     var body: some View {
         VStack (alignment: .leading,spacing: 5){

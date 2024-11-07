@@ -64,6 +64,55 @@ final class BaseNetwork{
     }
     
     
+    private let session: Session
+        
+        private init() {
+            let configuration = URLSessionConfiguration.default
+            configuration.timeoutIntervalForRequest = 30
+            configuration.timeoutIntervalForResource = 30
+            self.session = Session(configuration: configuration)
+        }
+    func request<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) async throws -> M {
+        guard Helper.shared.isConnectedToNetwork() else {
+             throw NetworkError.noConnection
+         }
+         
+        let url = try target.asURL()
+         
+        let parameters = buildparameter(paramaters: target.parameter)
+        let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
+        
+        print(url)
+        
+        print(target.requestURL)
+        print(target.method)
+        print(parameters)
+        print(headers ?? [:])
+
+         let response = try await session.request(
+             url,
+             method: target.method,
+             parameters: parameters.0,
+             encoding: parameters.1,
+             headers: headers
+         )
+         .validate()
+         .serializingDecodable(BaseResponse<M>.self)
+         .value
+         
+        print(response)
+       
+         guard let data = response.data else {
+             throw NetworkError.unknown(
+                 code: 0,
+                 error: response.message ?? "Unknown error"
+             )
+         }
+         
+         return data
+     }
+    
+    
     // combine -> return anypublisher
 //        static func callApi<T: TargetType, M: Codable>(_ target: T, _ modelType: M.Type) -> AnyPublisher<M, Error> {
 //            guard Helper.shared.isConnectedToNetwork() else {
