@@ -20,27 +20,24 @@ import SwiftUI
 
 struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
     let content: Content
-    private let layoutDirection: LayoutDirection
-
 
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
-        self.layoutDirection = LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft : .leftToRight
     }
 
     func makeUIViewController(context: Context) -> UINavigationController {
-        let rootViewController = UIHostingController(rootView: content.environment(\.layoutDirection, layoutDirection))
+        let rootViewController = UIHostingController(rootView: content)
         let navigationController = CustomNavigationController(rootViewController: rootViewController)
         return navigationController
     }
 
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
         if let rootViewController = uiViewController.viewControllers.first as? UIHostingController<Content> {
-            rootViewController.rootView = content.environment(\.layoutDirection, layoutDirection) as! Content
+            rootViewController.rootView = content
         }
     }
 }
-//import SwiftUI
+
 
 //struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
 //    let content: Content
@@ -64,4 +61,3 @@ struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
 //        }
 //    }
 //}
-

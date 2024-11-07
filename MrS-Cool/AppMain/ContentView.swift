@@ -28,6 +28,8 @@ struct ContentView: View {
                 }
             }
         }
+        .environment(\.locale, Locale(identifier: LocalizeHelper.shared.currentLanguage))
+        .environment(\.layoutDirection,LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft:.leftToRight)
         .edgesIgnoringSafeArea(.vertical)
         .hideNavigationBar()
 //        .onAppear {

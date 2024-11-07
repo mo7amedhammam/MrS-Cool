@@ -131,7 +131,7 @@ struct BookingCheckoutView: View {
                         HStack(spacing: 0){
                             Group {
                                 Text(String(format: "%.2f",details.paymentAmount ?? 0))
-                                Text(" EGP".localized())
+                                Text("EGP".localized())
                             }
                             .foregroundColor(ColorConstants.MainColor)
                             .font(Font.bold(size: 18))
@@ -372,7 +372,7 @@ struct CheckOutFullSubjectInfo: View {
                 Spacer()
 //                Text("\(Int(details.duration ?? "")?.formattedHrsMins() ?? "0")")
                 HStack(spacing:0){
-                    Text("\(Int(details.duration ?? "")?.hours ?? 0) ").fontWeight(.medium) + Text("hrs".localized()).fontWeight(.medium) + Text(", ".localized()).fontWeight(.medium) + Text("\(Int(details.duration ?? "")?.minutes ?? 0) ").fontWeight(.medium) + Text("mins".localized()).fontWeight(.medium)
+                    Text(Int(details.duration ?? "")?.hours ?? 0,format:.number).fontWeight(.medium) + Text("hrs".localized()).fontWeight(.medium) + Text(", ".localized()).fontWeight(.medium) + Text(Int(details.duration ?? "")?.minutes ?? 0,format:.number).fontWeight(.medium) + Text("mins".localized()).fontWeight(.medium)
                 }
                         .foregroundColor(.mainBlue)
                         .font(Font.semiBold(size: 12))

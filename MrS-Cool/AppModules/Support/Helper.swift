@@ -146,7 +146,7 @@ class Helper: NSObject {
             
             // Apply the layout direction to the root view
             let signInView = AnyView(toView.environment(\.layoutDirection, layoutDirection))
-            let signInHostingController = UIHostingController(rootView: signInView)
+            let signInHostingController = UIHostingController(rootView: signInView.environment(\.layoutDirection, layoutDirection))
             let navigationController = CustomNavigationController(rootViewController: signInHostingController)
             
             // Disable swipe back gesture

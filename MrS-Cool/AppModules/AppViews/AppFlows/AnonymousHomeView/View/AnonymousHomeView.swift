@@ -61,6 +61,7 @@ struct AnonymousHomeView: View {
             GeometryReader{gr in
                 LazyVStack(spacing:0) {
                     ScrollView(showsIndicators:false){
+                        KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Smart.jpg"), placeholder: Image("img_younghappysmi"))
                         
                         if !isSearch{
                             VStack {
