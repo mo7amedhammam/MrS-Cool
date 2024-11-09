@@ -52,6 +52,7 @@ struct SubjectDetailsView: View {
                         VStack{
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.bold(size: 18))
+                                .multilineTextAlignment(.leading)
                         }
                         .foregroundColor(.mainBlue)
                         
@@ -378,7 +379,7 @@ struct SubjectTeacherInfoView : View {
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.bold(size: 9))
+                    .font(.bold(size: 12))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal,30)
@@ -395,7 +396,7 @@ struct SubjectTeacherInfoView : View {
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
                 HStack(spacing:2) {
                     Text("\(teacher.teacherReview ?? 0) ")
-                     Text("Reviews")
+                    Text("Reviews".localized())
                 }
                 .foregroundColor(ColorConstants.Black900)
                 .font(.semiBold(size: 12))
@@ -432,7 +433,7 @@ struct SubjectTeacherInfoView : View {
                             .padding(.bottom,8)
                     }else{
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.bold(size: 9))
+                            .font(.bold(size: 12))
                             .lineSpacing(10)
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
@@ -544,7 +545,7 @@ struct scrollableBriefText: View {
     var body: some View {
         ScrollView(.vertical) {
             Text(text)
-                .font(.semiBold(size: 10))
+                .font(.semiBold(size: 12))
                 .fontWeight(.medium)
                 .foregroundColor(.mainBlue)
                 .lineSpacing(10)

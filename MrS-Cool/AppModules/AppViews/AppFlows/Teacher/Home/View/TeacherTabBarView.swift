@@ -118,10 +118,9 @@ struct TeacherTabBarView: View {
         }
         .localizeView()
         .disableSwipeBack()
-        .task(priority: .background, {
+        .task{
             teacherProfilevm.GetTeacherProfile()
-
-        })
+        }
         .onChange(of: tabbarvm.selectedIndex){newval in
             guard newval == 0 else {return}
                 presentSideMenu = true

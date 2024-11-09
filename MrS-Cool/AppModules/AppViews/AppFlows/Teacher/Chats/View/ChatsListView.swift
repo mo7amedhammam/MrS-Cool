@@ -26,7 +26,6 @@ struct ChatsListView: View {
                 CustomTitleBarView(title: "Messages")
             }
             GeometryReader { gr in
-                
                 if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
                     VStack{
                         Text("You Have To Select Child First".localized())
@@ -87,13 +86,17 @@ struct ChatsListView: View {
 //                    .onAppear(perform: {
 //                        chatlistvm.GetChatsList()
 //                    })
-                    .task {
-                        chatlistvm.GetChatsList()
+                    .onAppear(){
+                        Task{
+                            chatlistvm.GetChatsList()
+                        }
                     }
                     .onDisappear(perform: {
                         chatlistvm.cleanup()
                     })
                 }
+                //-----
+                
             }
             
         }

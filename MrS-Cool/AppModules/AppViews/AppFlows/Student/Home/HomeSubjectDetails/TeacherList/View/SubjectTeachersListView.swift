@@ -86,6 +86,403 @@ struct SubjectTeachersListView: View {
         
        }
     
+    fileprivate func FilterView() -> DynamicHeightSheet<some View> {
+        return // Adjust the blur radius as needed
+        DynamicHeightSheet(isPresented: $showFilter){
+            VStack {
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2.5)
+                HStack {
+                    Text("Filter".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                    //                                            Spacer()
+                }
+                //                        ScrollView{
+                VStack{
+                    Group {
+                        VStack{
+                            Button(action: {
+                                isNameVisible.toggle()
+                            }, label: {
+                                HStack {
+                                    Image("teacher_nameFiltericon")
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                    
+                                    Text("Teacher Name".localized())
+                                        .font(.bold(size: 13))
+                                        .foregroundColor(.mainBlue)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                    Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 15, height: 15, alignment: .center)
+                                        .foregroundColor(ColorConstants.Bluegray20099)
+                                }
+                            })
+                            .padding(.vertical)
+                            
+                            if isNameVisible{
+                                CustomTextField(iconName:"",placeholder: "Teacher Name", text: $teacherName)
+                            }
+                        }
+                        
+                        VStack {
+                            Button(action: {
+                                isPriceVisible.toggle()
+                            }, label: {
+                                HStack {
+                                    Image("moneyicon")
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                    
+                                    Text("Price".localized())
+                                        .font(.bold(size: 13))
+                                        .foregroundColor(.mainBlue)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                    Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 15, height: 15, alignment: .center)
+                                        .foregroundColor(ColorConstants.Bluegray20099)
+                                }
+                            })
+                            .padding(.vertical)
+                            if isPriceVisible{
+                                HStack{
+                                    CustomTextField(iconName:"",placeholder: "Price From", text: $priceFrom,keyboardType: .decimalPad)
+                                        .onChange(of: priceFrom) { newValue in
+                                            priceFrom = newValue.filter { $0.isEnglish }
+                                            //                                                        checkPrices()
+                                        }
+                                    
+                                    CustomTextField(iconName:"",placeholder: "Price To", text: $priceTo,keyboardType: .decimalPad)
+                                        .onChange(of: priceTo) { newValue in
+                                            priceTo = newValue.filter { $0.isEnglish }
+                                            //                                                        checkPrices()
+                                        }
+                                }
+                                if showPriceHint{
+                                    Text("The price to should be greater than or equal the price from".localized())
+                                        .font(.regular(size: 12))
+                                        .foregroundColor(ColorConstants.Red400)
+                                }
+                            }
+                        }
+                        
+                        VStack{
+                            Button(action: {
+                                isRateVisible.toggle()
+                            }, label: {
+                                HStack {
+                                    Image("rate_iconfilter")
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                    
+                                    Text("Rating".localized())
+                                        .font(.bold(size: 13))
+                                        .foregroundColor(.mainBlue)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                    Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 15, height: 15, alignment: .center)
+                                        .foregroundColor(ColorConstants.Bluegray20099)
+                                }
+                            })
+                            .padding(.vertical)
+                            
+                            if isRateVisible{
+                                HStack(spacing:20){
+                                    ForEach(0..<5){ num in
+                                        Button(action: {
+                                            rate = num + 1
+                                        }, label: {
+                                            Image(systemName: rate > num ? "star.fill":"star")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 35, height: 35, alignment: .center)
+                                                .foregroundColor(ColorConstants.MainColor)
+                                        })
+                                    }
+                                }
+                                .background(.white)
+                            }
+                        }
+                        
+                        VStack{
+                            Button(action: {
+                                isGenderVisible.toggle()
+                            }, label: {
+                                HStack {
+                                    Image("img_toilet1")
+                                        .renderingMode(.template)
+                                        .foregroundColor(ColorConstants.MainColor)
+                                    
+                                    Text("Gender".localized())
+                                        .font(.bold(size: 13))
+                                        .foregroundColor(.mainBlue)
+                                        .multilineTextAlignment(.leading)
+                                    Spacer()
+                                    Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
+                                        .renderingMode(.template)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 15, height: 15, alignment: .center)
+                                        .foregroundColor(ColorConstants.Bluegray20099)
+                                    //                                                .font(.system(size: 20))
+                                }
+                            })
+                            .padding(.vertical)
+                            if isGenderVisible{
+                                HStack{
+                                    Button(action: {
+                                        genderCase = .Male
+                                    }, label: {
+                                        HStack{
+                                            Image(systemName:genderCase == .Male ? "largecircle.fill.circle":"circle")
+                                                .frame(width: 20, height: 20, alignment: .center)
+                                                .foregroundColor(ColorConstants.MainColor)
+                                            Text("Male".localized())
+                                                .font(Font.semiBold(size: 13))
+                                                .foregroundColor(.mainBlue)
+                                            Spacer()
+                                        }
+                                    })
+                                    Button(action: {
+                                        genderCase = .Female
+                                    }, label: {
+                                        HStack{
+                                            Image(systemName:genderCase == .Female ? "largecircle.fill.circle":"circle")
+                                                .frame(width: 20, height: 20, alignment: .center)
+                                                .foregroundColor(ColorConstants.MainColor)
+                                            Text("Female".localized())
+                                                .font(Font.semiBold(size: 13))
+                                                .foregroundColor(.mainBlue)
+                                            Spacer()
+                                        }
+                                    })
+                                }
+                                .padding()
+                            }
+                        }
+                    }.padding(.top,5)
+                    
+                    //                                Spacer()
+                    HStack {
+                        Group{
+                            CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                guard !checkPrices() else {return}
+                                
+                                homesubjectteachersvm.rate = rate
+                                homesubjectteachersvm.priceFrom = priceFrom
+                                homesubjectteachersvm.priceTo = priceTo
+                                homesubjectteachersvm.genderCase = genderCase
+                                homesubjectteachersvm.teacherName = teacherName
+                                
+                                homesubjectteachersvm.skipCount = 0
+                                homesubjectteachersvm.GetStudentSubjectTeachers()
+                                ScrollToTop = true
+                                showFilter = false
+                            })
+                            
+                            CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                homesubjectteachersvm.skipCount = 0
+                                clearFilter()
+                                homesubjectteachersvm.GetStudentSubjectTeachers()
+                                isNameVisible = false
+                                isPriceVisible = false
+                                isRateVisible = false
+                                isGenderVisible = false
+                                ScrollToTop = true
+                                showFilter = false
+                            })
+                        } .frame(width:130,height:40)
+                            .padding(.vertical)
+                    }
+                }
+                .padding(.horizontal,3)
+                .padding(.top)
+                //                        }
+            }
+            .padding()
+            //                    .frame(height:430)
+            .frame(minHeight:120)
+            .frame(maxWidth:.infinity)
+            .keyboardAdaptive()
+        }
+    }
+    
+    fileprivate func SortView() -> DynamicHeightSheet<some View> {
+        return // Adjust the blur radius as needed
+        DynamicHeightSheet(isPresented: $showSort){
+            VStack {
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2.5)
+                HStack {
+                    Text("Sort".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                    //                                            Spacer()
+                }
+                //                        ScrollView{
+                VStack{
+                    Group {
+                        Button(action: {
+                            sortCase = .MostBooked
+                        }, label: {
+                            HStack{
+                                Image(systemName:sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
+                                    .frame(width: 20, height: 20, alignment: .center)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                Text("Most Booked ".localized())
+                                    .font(Font.semiBold(size: 13))
+                                    .foregroundColor(.mainBlue)
+                                Spacer()
+                            }
+                        })
+                        
+                        Button(action: {
+                            sortCase = .TopRated
+                        }, label: {
+                            HStack{
+                                Image(systemName:sortCase == .TopRated ? "largecircle.fill.circle":"circle")
+                                    .frame(width: 20, height: 20, alignment: .center)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                Text("Top Rated".localized())
+                                    .font(Font.semiBold(size: 13))
+                                    .foregroundColor(.mainBlue)
+                                Spacer()
+                            }
+                        })
+                        Button(action: {
+                            sortCase = .PriceLowToHigh
+                        }, label: {
+                            HStack{
+                                Image(systemName:sortCase == .PriceLowToHigh ? "largecircle.fill.circle":"circle")
+                                    .frame(width: 20, height: 20, alignment: .center)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                Text("Price Low To High".localized())
+                                    .font(Font.semiBold(size: 13))
+                                    .foregroundColor(.mainBlue)
+                                Spacer()
+                            }
+                        })
+                        Button(action: {
+                            sortCase = .PriceHighToLow
+                        }, label: {
+                            HStack{
+                                Image(systemName:sortCase == .PriceHighToLow ? "largecircle.fill.circle":"circle")
+                                    .frame(width: 20, height: 20, alignment: .center)
+                                    .foregroundColor(ColorConstants.MainColor)
+                                Text("Price High To Low".localized())
+                                    .font(Font.semiBold(size: 13))
+                                    .foregroundColor(.mainBlue)
+                                Spacer()
+                            }
+                        })
+                        
+                    }.padding(.top,15)
+                    
+                    HStack {
+                        Group{
+                            CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
+                                homesubjectteachersvm.skipCount = 0
+                                homesubjectteachersvm.sortCase = sortCase
+                                homesubjectteachersvm .GetStudentSubjectTeachers()
+                                ScrollToTop = true
+                                showSort = false
+                            })
+                            
+                            CustomBorderedButton(Title:"Default",IsDisabled: .constant(false), action: {
+                                homesubjectteachersvm.skipCount = 0
+                                sortCase = .MostBooked
+                                homesubjectteachersvm.clearSort()
+                                homesubjectteachersvm .GetStudentSubjectTeachers()
+                                ScrollToTop = true
+                                showSort = false
+                            })
+                        } .frame(width:130,height:40)
+                            .padding(.vertical)
+                    }
+                }
+                .padding(.horizontal,3)
+                .padding(.top)
+                //                        }
+            }
+            .padding()
+            //                    .frame(height:430)
+            .frame(minHeight:50)
+            .frame(maxWidth:.infinity)
+            .keyboardAdaptive()
+        }
+    }
+    
+    @ViewBuilder
+    fileprivate func ListTeahers(teachers:StudentHomeSubjectTeachersListM) -> some View {
+        if let items = teachers.items{
+            ScrollViewReader { proxy in
+                List(items,id:\.id){teacher in
+                    //                                    if teacher == items.first{
+                    //                                        ColorConstants.Bluegray20099.frame(maxHeight:0.3)
+                    //                                            .id(1) // Assign unique ID to scoll to top
+                    //                                        //                                        .padding(.vertical,-20)
+                    //                                            .listRowSeparator(.hidden)
+                    //                                        //                                        .listRowSpacing(-15)
+                    //                                            .padding(.vertical,-15)
+                    //                                    }
+                    Button(action: {
+                        switch bookingcase {
+                        case .subject:
+                            destination = AnyView(SubjectDetailsView(selectedsubjectid: teacher.teacherSubjectID ?? 0))
+                        case .lesson:
+                            destination = AnyView(LessonDetailsView(selectedlessonid: teacher.teacherLessonID ?? 0))
+                        }
+                        
+                        isPush = true
+                    }, label: {
+                        TeacherCellView(teacher: teacher)
+                    })
+                    .tag(teacher.id)
+                    .onAppear {
+                        guard teacher == items.last else {return}
+                        if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, items.count < totalCount {
+                            // Load the next page if there are more items to fetch
+                            homesubjectteachersvm.skipCount += homesubjectteachersvm.maxResultCount
+                            homesubjectteachersvm.GetStudentSubjectTeachers()
+                        }
+                    }
+                    .listRowSeparator(.hidden)
+                    //                                    .listRowSpacing(-15)
+                    .padding(.vertical,-10)
+                    .onChange(of: ScrollToTop) { value in
+                        if value == true {
+                            withAnimation {
+                                proxy.scrollTo(items.first?.id , anchor: .bottom)
+                            }
+                        }
+                        ScrollToTop = false
+                    }
+                    
+                }
+                .listStyle(.plain)
+                //                                Spacer()
+                //                                    .frame(height:50)
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             CustomTitleBarView(title:bookingcase == .subject ? "Subject Info":"Lesson Info")
@@ -189,56 +586,7 @@ struct SubjectTeachersListView: View {
                             .padding(.top)
                             .padding(.horizontal)
                             
-                            if let items = teachers.items{
-                                ScrollViewReader { proxy in
-                                List(items,id:\.id){teacher in
-//                                    if teacher == items.first{
-//                                        ColorConstants.Bluegray20099.frame(maxHeight:0.3)
-//                                            .id(1) // Assign unique ID to scoll to top
-//                                        //                                        .padding(.vertical,-20)
-//                                            .listRowSeparator(.hidden)
-//                                        //                                        .listRowSpacing(-15)
-//                                            .padding(.vertical,-15)
-//                                    }
-                                    Button(action: {
-                                        switch bookingcase {
-                                        case .subject:
-                                            destination = AnyView(SubjectDetailsView(selectedsubjectid: teacher.teacherSubjectID ?? 0))
-                                        case .lesson:
-                                            destination = AnyView(LessonDetailsView(selectedlessonid: teacher.teacherLessonID ?? 0))
-                                        }
-                                        
-                                        isPush = true
-                                    }, label: {
-                                        TeacherCellView(teacher: teacher)
-                                    })
-                                    .tag(teacher.id)
-                                    .onAppear {
-                                        guard teacher == items.last else {return}
-                                        if let totalCount = homesubjectteachersvm.TeachersModel?.totalCount, items.count < totalCount {
-                                            // Load the next page if there are more items to fetch
-                                            homesubjectteachersvm.skipCount += homesubjectteachersvm.maxResultCount
-                                            homesubjectteachersvm.GetStudentSubjectTeachers()
-                                        }
-                                    }
-                                    .listRowSeparator(.hidden)
-//                                    .listRowSpacing(-15)
-                                    .padding(.vertical,-10)
-                                    .onChange(of: ScrollToTop) { value in
-                                        if value == true {
-                                                withAnimation {
-                                                    proxy.scrollTo(items.first?.id , anchor: .bottom)
-                                                }
-                                        }
-                                        ScrollToTop = false
-                                             }
-                              
-                                }
-                                .listStyle(.plain)
-//                                Spacer()
-//                                    .frame(height:50)
-                            }
-                        }
+                            ListTeahers(teachers:teachers)
                         }
                     }
                     .background{
@@ -285,239 +633,8 @@ struct SubjectTeachersListView: View {
                     .onTapGesture {
                         showFilter.toggle()
                     }
-                    .blur(radius: 4) // Adjust the blur radius as needed
-                DynamicHeightSheet(isPresented: $showFilter){
-                    VStack {
-                        ColorConstants.Bluegray100
-                            .frame(width:50,height:5)
-                            .cornerRadius(2.5)
-                            .padding(.top,2.5)
-                        HStack {
-                            Text("Filter".localized())
-                                .font(Font.bold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            //                                            Spacer()
-                        }
-//                        ScrollView{
-                            VStack{
-                                Group {
-                                    VStack{
-                                        Button(action: {
-                                            isNameVisible.toggle()
-                                        }, label: {
-                                            HStack {
-                                                Image("teacher_nameFiltericon")
-                                                    .renderingMode(.template)
-                                                    .foregroundColor(ColorConstants.MainColor)
-                                                
-                                                Text("Teacher Name".localized())
-                                                    .font(.bold(size: 13))
-                                                    .foregroundColor(.mainBlue)
-                                                    .multilineTextAlignment(.leading)
-                                                Spacer()
-                                                Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
-                                                    .renderingMode(.template)
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 15, height: 15, alignment: .center)
-                                                    .foregroundColor(ColorConstants.Bluegray20099)
-                                            }
-                                        })
-                                        .padding(.vertical)
-                                        
-                                        if isNameVisible{
-                                            CustomTextField(iconName:"",placeholder: "Teacher Name", text: $teacherName)
-                                        }
-                                    }
-                                    
-                                    VStack {
-                                        Button(action: {
-                                            isPriceVisible.toggle()
-                                        }, label: {
-                                            HStack {
-                                                Image("moneyicon")
-                                                    .renderingMode(.template)
-                                                    .foregroundColor(ColorConstants.MainColor)
-                                                
-                                                Text("Price".localized())
-                                                    .font(.bold(size: 13))
-                                                    .foregroundColor(.mainBlue)
-                                                    .multilineTextAlignment(.leading)
-                                                Spacer()
-                                                Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
-                                                    .renderingMode(.template)
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 15, height: 15, alignment: .center)
-                                                    .foregroundColor(ColorConstants.Bluegray20099)
-                                            }
-                                        })
-                                        .padding(.vertical)
-                                        if isPriceVisible{
-                                            HStack{
-                                                CustomTextField(iconName:"",placeholder: "Price From", text: $priceFrom,keyboardType: .decimalPad)
-                                                    .onChange(of: priceFrom) { newValue in
-                                                        priceFrom = newValue.filter { $0.isEnglish }
-//                                                        checkPrices()
-                                                    }
-                                                
-                                                CustomTextField(iconName:"",placeholder: "Price To", text: $priceTo,keyboardType: .decimalPad)
-                                                    .onChange(of: priceTo) { newValue in
-                                                        priceTo = newValue.filter { $0.isEnglish }
-//                                                        checkPrices()
-                                                    }
-                                            }
-                                            if showPriceHint{
-                                                Text("The price to should be greater than or equal the price from".localized())
-                                                    .font(.regular(size: 12))
-                                                    .foregroundColor(ColorConstants.Red400)
-                                            }
-                                        }
-                                    }
-                                    
-                                    VStack{
-                                        Button(action: {
-                                            isRateVisible.toggle()
-                                        }, label: {
-                                            HStack {
-                                                Image("rate_iconfilter")
-                                                    .renderingMode(.template)
-                                                    .foregroundColor(ColorConstants.MainColor)
-                                                
-                                                Text("Rating".localized())
-                                                    .font(.bold(size: 13))
-                                                    .foregroundColor(.mainBlue)
-                                                    .multilineTextAlignment(.leading)
-                                                Spacer()
-                                                Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
-                                                    .renderingMode(.template)
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 15, height: 15, alignment: .center)
-                                                    .foregroundColor(ColorConstants.Bluegray20099)
-                                            }
-                                        })
-                                        .padding(.vertical)
-                                     
-                                        if isRateVisible{
-                                        HStack(spacing:20){
-                                            ForEach(0..<5){ num in
-                                                Button(action: {
-                                                    rate = num + 1
-                                                }, label: {
-                                                    Image(systemName: rate > num ? "star.fill":"star")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: 35, height: 35, alignment: .center)
-                                                        .foregroundColor(ColorConstants.MainColor)
-                                                })
-                                            }
-                                        }
-                                        .background(.white)
-                                    }
-                                    }
-
-                                    VStack{
-                                        Button(action: {
-                                            isGenderVisible.toggle()
-                                        }, label: {
-                                        HStack {
-                                            Image("img_toilet1")
-                                                .renderingMode(.template)
-                                                .foregroundColor(ColorConstants.MainColor)
-
-                                            Text("Gender".localized())
-                                                .font(.bold(size: 13))
-                                                .foregroundColor(.mainBlue)
-                                                .multilineTextAlignment(.leading)
-                                            Spacer()
-                                            Image(isGenderVisible ? "img_arrowdownblue":"img_arrowright")
-                                                .renderingMode(.template)
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .frame(width: 15, height: 15, alignment: .center)
-                                                .foregroundColor(ColorConstants.Bluegray20099)
-//                                                .font(.system(size: 20))
-                                        }
-                                        })
-                                        .padding(.vertical)
-                                        if isGenderVisible{
-                                            HStack{
-                                                Button(action: {
-                                                    genderCase = .Male
-                                                }, label: {
-                                                    HStack{
-                                                        Image(systemName:genderCase == .Male ? "largecircle.fill.circle":"circle")
-                                                            .frame(width: 20, height: 20, alignment: .center)
-                                                            .foregroundColor(ColorConstants.MainColor)
-                                                        Text("Male".localized())
-                                                            .font(Font.semiBold(size: 13))
-                                                            .foregroundColor(.mainBlue)
-                                                        Spacer()
-                                                    }
-                                                })
-                                                Button(action: {
-                                                    genderCase = .Female
-                                                }, label: {
-                                                    HStack{
-                                                        Image(systemName:genderCase == .Female ? "largecircle.fill.circle":"circle")
-                                                            .frame(width: 20, height: 20, alignment: .center)
-                                                            .foregroundColor(ColorConstants.MainColor)
-                                                        Text("Female".localized())
-                                                            .font(Font.semiBold(size: 13))
-                                                            .foregroundColor(.mainBlue)
-                                                        Spacer()
-                                                    }
-                                                })
-                                            }
-                                            .padding()
-                                        }
-                                    }
-                                }.padding(.top,5)
-                                
-//                                Spacer()
-                                HStack {
-                                    Group{
-                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            guard !checkPrices() else {return}
-                                            
-                                            homesubjectteachersvm.rate = rate
-                                            homesubjectteachersvm.priceFrom = priceFrom
-                                            homesubjectteachersvm.priceTo = priceTo
-                                            homesubjectteachersvm.genderCase = genderCase
-                                            homesubjectteachersvm.teacherName = teacherName
-                                            
-                                            homesubjectteachersvm.skipCount = 0
-                                            homesubjectteachersvm.GetStudentSubjectTeachers()
-                                            ScrollToTop = true
-                                            showFilter = false
-                                        })
-                                        
-                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            homesubjectteachersvm.skipCount = 0
-                                            clearFilter()
-                                            homesubjectteachersvm.GetStudentSubjectTeachers()
-                                            isNameVisible = false
-                                            isPriceVisible = false
-                                            isRateVisible = false
-                                            isGenderVisible = false
-                                            ScrollToTop = true
-                                            showFilter = false
-                                        })
-                                    } .frame(width:130,height:40)
-                                        .padding(.vertical)
-                                }
-                            }
-                            .padding(.horizontal,3)
-                            .padding(.top)
-//                        }
-                    }
-                    .padding()
-//                    .frame(height:430)
-                    .frame(minHeight:120)
-                    .frame(maxWidth:.infinity)
-                    .keyboardAdaptive()
-                }
+                    .blur(radius: 4)
+                FilterView()
             }
             if showSort{
                 // Blurred Background and Sheet
@@ -527,110 +644,8 @@ struct SubjectTeachersListView: View {
                     .onTapGesture {
                         showSort.toggle()
                     }
-                    .blur(radius: 4) // Adjust the blur radius as needed
-                DynamicHeightSheet(isPresented: $showSort){
-                    VStack {
-                        ColorConstants.Bluegray100
-                            .frame(width:50,height:5)
-                            .cornerRadius(2.5)
-                            .padding(.top,2.5)
-                        HStack {
-                            Text("Sort".localized())
-                                .font(Font.bold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            //                                            Spacer()
-                        }
-                        //                        ScrollView{
-                        VStack{
-                            Group {
-                                Button(action: {
-                                    sortCase = .MostBooked
-                                }, label: {
-                                    HStack{
-                                        Image(systemName:sortCase == .MostBooked ? "largecircle.fill.circle":"circle")
-                                            .frame(width: 20, height: 20, alignment: .center)
-                                            .foregroundColor(ColorConstants.MainColor)
-                                        Text("Most Booked ".localized())
-                                            .font(Font.semiBold(size: 13))
-                                            .foregroundColor(.mainBlue)
-                                        Spacer()
-                                    }
-                                })
-                                
-                                Button(action: {
-                                    sortCase = .TopRated
-                                }, label: {
-                                    HStack{
-                                        Image(systemName:sortCase == .TopRated ? "largecircle.fill.circle":"circle")
-                                            .frame(width: 20, height: 20, alignment: .center)
-                                            .foregroundColor(ColorConstants.MainColor)
-                                        Text("Top Rated".localized())
-                                            .font(Font.semiBold(size: 13))
-                                            .foregroundColor(.mainBlue)
-                                        Spacer()
-                                    }
-                                })
-                                Button(action: {
-                                    sortCase = .PriceLowToHigh
-                                }, label: {
-                                    HStack{
-                                        Image(systemName:sortCase == .PriceLowToHigh ? "largecircle.fill.circle":"circle")
-                                            .frame(width: 20, height: 20, alignment: .center)
-                                            .foregroundColor(ColorConstants.MainColor)
-                                        Text("Price Low To High".localized())
-                                            .font(Font.semiBold(size: 13))
-                                            .foregroundColor(.mainBlue)
-                                        Spacer()
-                                    }
-                                })
-                                Button(action: {
-                                    sortCase = .PriceHighToLow
-                                }, label: {
-                                    HStack{
-                                        Image(systemName:sortCase == .PriceHighToLow ? "largecircle.fill.circle":"circle")
-                                            .frame(width: 20, height: 20, alignment: .center)
-                                            .foregroundColor(ColorConstants.MainColor)
-                                        Text("Price High To Low".localized())
-                                            .font(Font.semiBold(size: 13))
-                                            .foregroundColor(.mainBlue)
-                                        Spacer()
-                                    }
-                                })
-                                
-                            }.padding(.top,15)
-                            
-                            HStack {
-                                Group{
-                                    CustomButton(Title:"Apply Sort",IsDisabled: .constant(false), action: {
-                                        homesubjectteachersvm.skipCount = 0
-                                        homesubjectteachersvm.sortCase = sortCase
-                                        homesubjectteachersvm .GetStudentSubjectTeachers()
-                                        ScrollToTop = true
-                                        showSort = false
-                                    })
-                                    
-                                    CustomBorderedButton(Title:"Default",IsDisabled: .constant(false), action: {
-                                        homesubjectteachersvm.skipCount = 0
-                                        sortCase = .MostBooked
-                                        homesubjectteachersvm.clearSort()
-                                        homesubjectteachersvm .GetStudentSubjectTeachers()
-                                        ScrollToTop = true
-                                        showSort = false
-                                    })
-                                } .frame(width:130,height:40)
-                                    .padding(.vertical)
-                            }
-                        }
-                        .padding(.horizontal,3)
-                        .padding(.top)
-                        //                        }
-                    }
-                    .padding()
-                    //                    .frame(height:430)
-                    .frame(minHeight:50)
-                    .frame(maxWidth:.infinity)
-                    .keyboardAdaptive()
-                }
+                    .blur(radius: 4)
+                SortView()
             }
         }
         .showHud(isShowing: $homesubjectteachersvm.isLoading)
@@ -682,7 +697,7 @@ struct TeacherCellView : View {
                 }
                 
                 Text(teacher.teacherBrief ?? "")
-                    .font(.semiBold(size: 10))
+                    .font(.semiBold(size: 12))
                     .fontWeight(.medium)
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
@@ -732,30 +747,3 @@ struct TeacherCellView : View {
 }
 
 
-//struct ScrollableTextView: View {
-//    let text: String
-//    
-//    var body: some View {
-//        ScrollView {
-//            Text(text)
-//                .font(.body)
-//                .padding()
-//                .lineSpacing(5) // Adds space between lines
-//                .frame(maxWidth: .infinity, alignment: .leading)
-//                .background(Color(UIColor.systemBackground))
-//                .cornerRadius(12)
-//                .shadow(radius: 5)
-//        }
-////        .navigationTitle("Scrollable Text View")
-//        .padding()
-//    }
-//}
-//#Preview{
-//        ScrollableTextView(text: """
-//        This is a sample text. You can replace this with any text of your choice.
-//        It will be displayed in a scrollable view if the content exceeds the available space.
-//        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-//        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-//        """)
-//
-//}

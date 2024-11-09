@@ -10,6 +10,7 @@ import UIKit
 
 class StudentEditProfileVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
+    static let shared = StudentEditProfileVM()
     @Published var isUserChangagble = true // available unless teacher save personal data
 
 //    MARK: --- inputs ---

@@ -327,6 +327,7 @@ struct UnitListCell: View {
                                 Text("\(lesson.lessonName ?? "")")
                                     .font(.bold(size: 13))
                                     .foregroundColor(.mainBlue)
+                                    .multilineTextAlignment(.leading)
                                 
                                 
                                 HStack{
@@ -375,7 +376,7 @@ struct UnitListCell: View {
                                         HStack (spacing:2){
                                             Text("\(lesson.availableTeacherCount ?? 0)  ")
                                                 .font(Font.bold(size: 12))
-                                             Text(" Teachers".localized())
+                                             Text("Teachers".localized())
                                                 .fontWeight(.medium)
                                         }
                                         .font(Font.semiBold(size: 12))

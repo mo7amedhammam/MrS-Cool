@@ -32,7 +32,7 @@ struct LessonTeacherInfoView : View {
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.bold(size: 9))
+                    .font(.bold(size: 12))
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2)
@@ -82,7 +82,7 @@ struct LessonTeacherInfoView : View {
                     if let teacherbrief = teacher.teacherBrief{
                         
                         Text(teacherbrief)
-                            .font(.bold(size: 9))
+                            .font(.bold(size: 11))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
@@ -90,7 +90,7 @@ struct LessonTeacherInfoView : View {
                     }else{
                         
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.bold(size: 9))
+                            .font(.bold(size: 11))
                             .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
                             .frame(minHeight:40)
