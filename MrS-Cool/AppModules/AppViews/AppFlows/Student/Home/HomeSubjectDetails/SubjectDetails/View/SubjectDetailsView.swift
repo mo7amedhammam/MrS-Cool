@@ -379,7 +379,8 @@ struct SubjectTeacherInfoView : View {
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
-                    .font(.bold(size: 12))
+                    .font(.semiBold(size: 12))
+                    .fontWeight(.medium)
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal,30)
