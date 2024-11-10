@@ -31,35 +31,55 @@ final class BaseNetwork{
     
     // MARK: --- (Combine) CAll API with Future ---
 //    // more modern and aligned with Swift's async/await concurrency model
-    static func CallApi<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) -> AnyPublisher<M, NetworkError> {
-        return Future<M, NetworkError>{ promise in
+    static func CallApi<T: TargetType, M: Codable>(_ target: T, _ Model: M.Type) -> AnyPublisher<M, NetworkError> {
+        return Future<M, NetworkError> { promise in
+            let totalStartTime = Date()
+            
+            // Step 1: Network Check
+//            let networkCheckStartTime = Date()
             guard Helper.shared.isConnectedToNetwork() else {
+//                print("Network check time: \(Date().timeIntervalSince(networkCheckStartTime)) seconds")
                 return promise(.failure(.noConnection))
             }
+//            print("Network check time: \(Date().timeIntervalSince(networkCheckStartTime)) seconds")
             
+            // Step 2: Prepare Parameters and Headers
+//            let preparationStartTime = Date()
             let parameters = buildparameter(paramaters: target.parameter)
             let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
+//            print("Parameter and header preparation time: \(Date().timeIntervalSince(preparationStartTime)) seconds")
+            
             print(target.requestURL)
-//            print(target.method)
             print(parameters)
-//            print(headers ?? [:])
-            AF.request(target.requestURL,method: target.method ,parameters:parameters.0,encoding:parameters.1,headers:headers)
-                .responseDecodable(of: M.self, decoder: JSONDecoder()){ response in
-                    //                          print(response)
-                    //                      print(response.response?.statusCode)
-                    if response.response?.statusCode == 401{
+
+            // Step 3: Make the Network Request
+            let requestStartTime = Date()
+            
+            AF.request(target.requestURL, method: target.method, parameters: parameters.0, encoding: parameters.1, headers: headers)
+                .responseDecodable(of: M.self, decoder: JSONDecoder()) { response in
+                    
+                    let requestTime = Date().timeIntervalSince(requestStartTime)
+                    print("Network request time: \(requestTime) seconds")
+                    
+                    // Step 4: Decode and Handle Response
+                    let decodingStartTime = Date()
+                    
+                    if response.response?.statusCode == 401 {
+                        print("Total time: \(Date().timeIntervalSince(totalStartTime)) seconds")
                         promise(.failure(.unauthorized(code: response.response?.statusCode ?? 0, error: NetworkError.expiredTokenMsg.errorDescription ?? "")))
-                    }else{
+                    } else {
                         switch response.result {
                         case .success(let model):
+//                            print("Decoding time: \(Date().timeIntervalSince(decodingStartTime)) seconds")
+//                            print("Total time: \(Date().timeIntervalSince(totalStartTime)) seconds")
                             promise(.success(model))
                         case .failure(let error):
-                            //                              print(error.localizedDescription)
+//                            print("Decoding time: \(Date().timeIntervalSince(decodingStartTime)) seconds")
+//                            print("Total time: \(Date().timeIntervalSince(totalStartTime)) seconds")
                             promise(.failure(.unknown(code: 0, error: error.localizedDescription)))
                         }
                     }
                 }
-            
         }.eraseToAnyPublisher()
     }
     

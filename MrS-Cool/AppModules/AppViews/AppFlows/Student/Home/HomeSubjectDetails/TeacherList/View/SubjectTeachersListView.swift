@@ -86,8 +86,9 @@ struct SubjectTeachersListView: View {
         
        }
     
+    @ViewBuilder
     fileprivate func FilterView() -> DynamicHeightSheet<some View> {
-        return // Adjust the blur radius as needed
+//        return // Adjust the blur radius as needed
         DynamicHeightSheet(isPresented: $showFilter){
             VStack {
                 ColorConstants.Bluegray100
@@ -322,8 +323,9 @@ struct SubjectTeachersListView: View {
         }
     }
     
+    @ViewBuilder
     fileprivate func SortView() -> DynamicHeightSheet<some View> {
-        return // Adjust the blur radius as needed
+//        return // Adjust the blur radius as needed
         DynamicHeightSheet(isPresented: $showSort){
             VStack {
                 ColorConstants.Bluegray100

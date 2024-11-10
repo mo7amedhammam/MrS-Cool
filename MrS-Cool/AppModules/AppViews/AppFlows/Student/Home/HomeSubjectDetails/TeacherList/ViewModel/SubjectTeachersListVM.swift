@@ -115,7 +115,7 @@ extension SubjectTeachersListVM{
             parameters["sortColumn"] = sortColumn
         }
         
-        print("parameters",parameters)
+//        print("parameters",parameters)
         let target = StudentServices.GetSubjectOrLessonTeachers(parameters: parameters)
                 isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<StudentHomeSubjectTeachersListM>.self)

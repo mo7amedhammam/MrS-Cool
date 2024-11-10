@@ -7,9 +7,9 @@
 
 
 import SwiftUI
-//enum Studentdestinations{
-//    case editProfile, calendar, changePassword, tickets, schedualsList, signOut, deleteAccount
-//}
+enum Studentdestinations{
+    case editProfile, calendar, changePassword, tickets, schedualsList, signOut, deleteAccount
+}
 //struct StudentTabBarView: View {
 //    @StateObject var studenttabbarvm = StudentTabBarVM()
 ////    @StateObject var localizeHelper = LocalizeHelper.shared
@@ -22,9 +22,9 @@ import SwiftUI
 //        TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
 //        TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
 //    ]
-//    
+//
 //    @StateObject var studentsignupvm = StudentEditProfileVM()
-//    
+//
 //    @State var presentSideMenu = false
 //    var body: some View {
 ////        NavigationView{
@@ -37,7 +37,7 @@ import SwiftUI
 //                        .font(Font.bold(size: 18))
 //                        .foregroundColor(.whiteA700)
 //                    }
-//                    
+//
 //                    Spacer()
 //                    Button(action: {
 //                        presentSideMenu.toggle()
@@ -57,15 +57,15 @@ import SwiftUI
 //                        .fill(ColorConstants.MainColor)
 //                        .edgesIgnoringSafeArea(.top)
 //                )
-//                
+//
 ////                Group{
 ////                    switch studenttabbarvm.selectedIndex{
 ////                        //                case 0:
 ////                        //                    Text("tab 0") // dashboard
-////                        
+////
 ////                    case 1:
 ////                        StudentFinanceView(selectedChild: .constant(nil)) // finance
-////                        
+////
 ////                    case 2:
 ////                        StudentHomeView() // home
 ////                            .environmentObject(studenttabbarvm)
@@ -73,14 +73,14 @@ import SwiftUI
 ////                    case 3:
 ////                        ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
 ////                            .environmentObject(studenttabbarvm)
-////                        
+////
 ////                    case 4:
 ////                        StudentCompletedLessonsView(hasNavBar : false, selectedChild: .constant(nil)) // completed lessons
 ////                            .environmentObject(studenttabbarvm)
-////                        
+////
 ////                    default: // case 0
 ////                        Text("tab 0") // dashboard
-////                        
+////
 ////                    }
 ////                }
 ////                .padding(.top,-8)
@@ -97,7 +97,7 @@ import SwiftUI
 ////                        .onAppear(perform: {
 ////                            presentSideMenu = true
 ////                        })
-//                    
+//
 //                    StudentFinanceView(selectedChild: .constant(nil)) // finance
 //                        .tag(1)
 //                        .gesture(
@@ -105,7 +105,7 @@ import SwiftUI
 //                                // Disable swipe gestures
 //                            }
 //                        )
-//                    
+//
 //                    StudentHomeView() // home
 ////                    TeacherHomeView(selectedChild: .constant(nil))
 //                        .tag(2)
@@ -116,7 +116,7 @@ import SwiftUI
 //                                // Disable swipe gestures
 //                            }
 //                        )
-//                    
+//
 //                    ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
 //                        .tag(3)
 //                        .environmentObject(studenttabbarvm)
@@ -125,7 +125,7 @@ import SwiftUI
 //                                // Disable swipe gestures
 //                            }
 //                        )
-//                    
+//
 //                    StudentCompletedLessonsView(hasNavBar : false, selectedChild: .constant(nil)) // completed lessons
 //                        .tag(4)
 //                        .environmentObject(studenttabbarvm)
@@ -138,7 +138,7 @@ import SwiftUI
 //                .tabViewStyle(.page(indexDisplayMode: .never))
 //                .padding(.top,-8)
 //                .padding(.bottom,-15)
-//                                
+//
 //                Spacer()
 //                CustomTabBarView(selectedIndex: $studenttabbarvm.selectedIndex,tabBarItems:tabBarItems)
 //            }
@@ -178,10 +178,10 @@ import SwiftUI
 //                    studenttabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
 //                } else if newval == .schedualsList{
 //                    studenttabbarvm.destination = AnyView(TeacherHomeView(selectedChild: .constant(nil)).environmentObject(studentsignupvm))
-//                
+//
 //                }else if newval == .changePassword { // change password
 //                    studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
-//                    
+//
 //                }else if newval == .signOut { // signout
 //                    studenttabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
 //                        Helper.shared.changeRoot(toView: AnonymousHomeView())
@@ -191,7 +191,7 @@ import SwiftUI
 //                        selectedDestination = nil
 //                    })
 //                    studenttabbarvm.showSignOutConfirm = true
-//                    
+//
 //                }else if newval == .deleteAccount{
 //                    studenttabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
 //                        studenttabbarvm.deleteAccount()
@@ -212,7 +212,7 @@ import SwiftUI
 //                }
 //            })
 //    }
-//    
+//
 //    @ViewBuilder
 //    private func SideMenuView() -> some View {
 //        SideView(isShowing: $presentSideMenu, content: AnyView(StudentSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $studenttabbarvm.ispush).environmentObject(studentsignupvm)), direction: .leading)
@@ -223,11 +223,11 @@ import SwiftUI
 //}
 
 
-
-enum Studentdestinations {
-    case editProfile, calendar, changePassword, tickets, schedualsList, signOut, deleteAccount
-}
-
+//
+//enum Studentdestinations {
+//    case editProfile, calendar, changePassword, tickets, schedualsList, signOut, deleteAccount
+//}
+//
 struct StudentTabBarView: View {
     @StateObject private var studenttabbarvm = StudentTabBarVM()
     @StateObject private var studentsignupvm = StudentEditProfileVM()
@@ -241,7 +241,7 @@ struct StudentTabBarView: View {
         TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
         TabBarItem(icon: "tab4", selectedicon: "tab4selected", title: "")
     ]
-
+    
     var body: some View {
         VStack(spacing: 0) {
             // Header
@@ -249,7 +249,7 @@ struct StudentTabBarView: View {
             
             // Main Content
             TabView(selection: $studenttabbarvm.selectedIndex) {
-                EmptyView()
+                Text("")
                     .tag(0)
                     .gesture(DragGesture().onChanged { _ in })
                 
@@ -295,11 +295,48 @@ struct StudentTabBarView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-                NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
-
-//        .navigationDestination(isPresented: $studenttabbarvm.ispush) {
-//            studenttabbarvm.destination
-//        }
+        .onChange(of: selectedDestination) {newval in
+            if newval == .editProfile{ //edit Profile
+                studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
+            }else if newval == .calendar { //calendar
+                studenttabbarvm.destination = AnyView(CalView1(selectedChild: .constant(nil)))
+            } else if newval == .schedualsList{
+                studenttabbarvm.destination = AnyView(TeacherHomeView(selectedChild: .constant(nil)).environmentObject(studentsignupvm))
+                
+            }else if newval == .changePassword { // change password
+                studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
+                
+            }else if newval == .signOut { // signout
+                studenttabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                    Helper.shared.changeRoot(toView: AnonymousHomeView())
+                    Helper.shared.logout()
+                    Helper.shared.selectedchild = nil
+                },secondBtnAction:{
+                    selectedDestination = nil
+                })
+                studenttabbarvm.showSignOutConfirm = true
+                
+            }else if newval == .deleteAccount{
+                studenttabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                    studenttabbarvm.deleteAccount()
+                },secondBtnAction:{
+                    selectedDestination = nil
+                })
+                studenttabbarvm.showDeleteConfirm = true
+            }
+        }
+        .onChange(of: presentSideMenu, perform: { value in
+            if value == false && studenttabbarvm.selectedIndex == 0{
+                studenttabbarvm.selectedIndex = 2
+            }
+        })
+        .showAlert(hasAlert: $studenttabbarvm.isError, alertType: studenttabbarvm.error)
+        .showAlert(hasAlert: $studenttabbarvm.showSignOutConfirm, alertType: studenttabbarvm.error)
+        .showAlert(hasAlert: $studenttabbarvm.showDeleteConfirm, alertType: studenttabbarvm.error)
+        
+        
+        NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
+        
     }
     
     @ViewBuilder
@@ -321,8 +358,8 @@ struct StudentTabBarView: View {
         }
     }
 }
-
-// MARK: - Header View
+//
+//// MARK: - Header View
 private struct HeaderView: View {
     @Binding var presentSideMenu: Bool
     let name: String
@@ -376,7 +413,7 @@ struct CustomTabBarView: View {
     private let middleTabCurveHeight: CGFloat = 30
     var body: some View {
         VStack(spacing: 0) {
-
+            
             HStack(spacing: 0) {
                 ForEach(0..<tabBarItems.count) { index in
                     TabBarItemView(
@@ -387,9 +424,9 @@ struct CustomTabBarView: View {
                         }
                     )
                     .offset(y:index == tabBarItems.count / 2  ? -12 : 8 )
-//                    if index == tabBarItems.count / 2 - 1 {
-//                        Spacer()
-//                    }
+                    //                    if index == tabBarItems.count / 2 - 1 {
+                    //                        Spacer()
+                    //                    }
                 }
             }
             .frame(height: middleTabHeight)
@@ -400,7 +437,7 @@ struct CustomTabBarView: View {
                     .edgesIgnoringSafeArea(.bottom)
                 
             })
-
+            
             //            }
             //            .frame(height: middleTabHeight)
         }
@@ -417,22 +454,22 @@ struct TabBarItemView: View {
     let onTap: () -> Void
     
     var body: some View {
-//        Button(action: onTap) {
-            VStack(spacing: 4) {
-                Image(isSelected ? item.selectedicon:item.icon)
-                    .font(.system(size: 24))
-                    .foregroundColor(isSelected ? .blue : .gray)
-                
-                Text(item.title)
-                    .font(.caption)
-                    .foregroundColor(isSelected ? .blue : .gray)
-            }
-            .frame(maxWidth: .infinity)
-            .onTapGesture {
-                onTap()
-            }
-//        }
-//        .frame(maxWidth: .infinity)
+        //        Button(action: onTap) {
+        VStack(spacing: 4) {
+            Image(isSelected ? item.selectedicon:item.icon)
+                .font(.system(size: 24))
+                .foregroundColor(isSelected ? .blue : .gray)
+            
+            Text(item.title)
+                .font(.caption)
+                .foregroundColor(isSelected ? .blue : .gray)
+        }
+        .frame(maxWidth: .infinity)
+        .onTapGesture {
+            onTap()
+        }
+        //        }
+        //        .frame(maxWidth: .infinity)
     }
 }
 
@@ -472,11 +509,11 @@ enum Categories:String{
 
 struct StudentSideMenuContent: View {
     @EnvironmentObject var studentsignupvm : StudentEditProfileVM
-
+    
     @Binding var presentSideMenu: Bool
     @Binding var selectedDestination: Studentdestinations?
     @Binding var isPush: Bool
-
+    
     var body: some View {
         VStack {
             ScrollView{
@@ -488,7 +525,7 @@ struct StudentSideMenuContent: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 60,height: 60)
                                 .clipShape(Circle())
-
+                            
                             
                             Image("Edit_fill")
                             //                        .resizable().aspectRatio(contentMode: .fit)
@@ -510,13 +547,13 @@ struct StudentSideMenuContent: View {
                         }
                         
                         Spacer()
-                        }
+                    }
                     .padding()
                     .onTapGesture {
                         selectedDestination = .editProfile
                         presentSideMenu =  false
                         isPush = true
-
+                        
                     }
                     SideMenuSectionTitle(title: "Academic")
                     
@@ -525,7 +562,7 @@ struct StudentSideMenuContent: View {
                         presentSideMenu =  false
                         isPush = true
                     }
-
+                    
                     SideMenuButton(image: "checkoutcaltime", title: "Schedual List"){
                         selectedDestination = .schedualsList // rates
                         presentSideMenu =  false
@@ -533,36 +570,36 @@ struct StudentSideMenuContent: View {
                     }
                     
                     SideMenuSectionTitle(title: "Settings")
-
+                    
                     SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
                         selectedDestination = .changePassword // cahnage Password
                         presentSideMenu =  false
                         isPush = true
                     }
-
-//                    SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
-//                        selectedDestination = .tickets // Tickets
-//                        presentSideMenu =  false
-//                        isPush = true
-//                    }
+                    
+                    //                    SideMenuButton(image: "MenuSt_tickets", title: "Tickets"){
+                    //                        selectedDestination = .tickets // Tickets
+                    //                        presentSideMenu =  false
+                    //                        isPush = true
+                    //                    }
                     ChangeLanguage()
-
+                    
                     SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
                         selectedDestination = .signOut // sign out
                         presentSideMenu =  false
-    //                    isPush = true
+                        //                    isPush = true
                     }
                     
                     SideMenuButton(image: "MenuSt_signout", title: "Delete Account",titleColor: ColorConstants.Red400){
                         selectedDestination = .deleteAccount // delete account
                         presentSideMenu =  false
                     }
-
+                    
                     Spacer()
                 }
             }
             VStack(alignment:.center){
-//                Spacer()
+                //                Spacer()
                 HStack {
                     Text("Version:".localized())
                     Text("\(Helper.shared.getAppVersion())")
@@ -588,7 +625,7 @@ struct StudentSideMenuContent: View {
 struct SideMenuSectionTitle: View {
     var title : String
     var backgroundcolor : Color? = Color("StudentBtnBg")
-
+    
     var body: some View {
         HStack {
             Text(title.localized())
