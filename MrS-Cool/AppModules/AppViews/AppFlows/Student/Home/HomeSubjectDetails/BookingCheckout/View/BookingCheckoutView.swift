@@ -53,7 +53,6 @@ struct BookingCheckoutView: View {
                             if let imgurl = details.image{
                             let imageURL : URL? = URL(string: Constants.baseURL+imgurl.reverseSlaches())
                             KFImageLoader(url: imageURL, placeholder: Image("homelessonoicon"))
-
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())
@@ -71,13 +70,19 @@ struct BookingCheckoutView: View {
                                 if let headerName = details.headerName{
                                     Text(headerName)
                                         .font(.bold(size: 18))
+                                        .multilineTextAlignment(.leading)
+                                        .lineSpacing(5)
                                 }
                                 if let subjectSemesterName = details.subjectSemesterName{
                                     Text(subjectSemesterName)
                                         .font(.bold(size: 18))
+                                        .multilineTextAlignment(.leading)
+                                        .lineSpacing(5)
                                 }
                                 Text(details.academicYearName ?? "")
                                     .font(.semiBold(size: 16))
+                                    .multilineTextAlignment(.leading)
+                                    .lineSpacing(5)
                             }
                             .foregroundColor(.mainBlue)
                             
@@ -96,10 +101,11 @@ struct BookingCheckoutView: View {
                         }
                         
                         Text(details.lessonOrSubjectBrief ?? "")
-                            .font(.semiBold(size: 10))
+                            .font(.semiBold(size: 12))
                             .fontWeight(.medium)
-                            .foregroundColor(.mainBlue)
                             .multilineTextAlignment(.leading)
+                            .lineSpacing(5)
+                            .foregroundColor(.mainBlue)
                         //                        .padding(.horizontal,30)
                             .frame(minHeight: 20)
                             .padding(.bottom)

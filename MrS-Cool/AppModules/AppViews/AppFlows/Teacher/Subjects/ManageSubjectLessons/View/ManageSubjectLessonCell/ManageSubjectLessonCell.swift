@@ -28,6 +28,7 @@ struct ManageSubjectLessonCell: View {
                     Text(model.subjectSemesterYearName ?? "")
                         .font(Font.bold(size:13.0))
                         .foregroundColor(.mainBlue)
+                        .lineSpacing(8)
                 }
                 
                 Spacer()

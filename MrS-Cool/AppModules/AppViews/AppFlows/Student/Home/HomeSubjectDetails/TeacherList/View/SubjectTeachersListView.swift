@@ -515,12 +515,14 @@ struct SubjectTeachersListView: View {
                             .background{Color.white.clipShape(Circle())}
 
                     }
-                        VStack(alignment:.leading,spacing: 5){
+                        VStack(alignment:.leading,spacing: 8){
                             Text(subjectorLesson.headerName ?? "" )
                                 .font(.bold(size: 18))
+                                .multilineTextAlignment(.leading)
                                 .lineSpacing(5)
                             Text(subjectorLesson.subjectName ?? "")
                                 .font(.semiBold(size: 16))
+                                .multilineTextAlignment(.leading)
                                 .lineSpacing(5)
 
                         }
@@ -585,7 +587,7 @@ struct SubjectTeachersListView: View {
                                         showFilter = true
                                     })
                             }
-                            .padding(.top)
+//                            .padding(.top)
                             .padding(.horizontal)
                             
                             ListTeahers(teachers:teachers)
@@ -682,7 +684,7 @@ struct TeacherCellView : View {
             .frame(width: 72,height: 72)
             .clipShape(Circle())
             
-            VStack(alignment: .leading, spacing:0){
+            VStack(alignment: .leading, spacing:5){
                 HStack {
                     Text(teacher.teacherName ?? "")
                         .font(.bold(size: 13))
@@ -703,6 +705,7 @@ struct TeacherCellView : View {
                     .fontWeight(.medium)
                     .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.leading)
+                    .lineSpacing(5)
                 //                    .frame(minHeight: 20)
                     .frame(height:40)
                 

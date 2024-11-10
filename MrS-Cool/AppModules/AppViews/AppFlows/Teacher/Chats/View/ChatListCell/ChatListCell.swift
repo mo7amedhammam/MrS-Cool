@@ -38,6 +38,7 @@ struct ChatListCell: View {
                 Text(model.studentName ?? "")
                     .font(Font.bold(size:15))
                     .foregroundColor(isExpanded ? .whiteA700:.mainBlue)
+                    .lineSpacing(8)
                 Spacer()
                 if let lessonNum = model.lessonNum,lessonNum > 0{
                     Text("\(lessonNum)")
@@ -97,6 +98,7 @@ struct ChatLessonNameCell: View {
                 .frame(width: 8, height: 8, alignment: .center)
             Text(model.lessonName ?? "")
                 .font(Font.bold(size:13))
+                .lineSpacing(8)
             Spacer()
         }
 //        .frame(minWidth: 0,maxWidth: .infinity)

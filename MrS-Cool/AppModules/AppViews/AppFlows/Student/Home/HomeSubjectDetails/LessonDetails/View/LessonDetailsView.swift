@@ -69,11 +69,9 @@ struct LessonDetailsView: View {
                         if let imgurl = details.SubjectOrLessonDto?.image{
                         let imageURL : URL? = URL(string: Constants.baseURL+imgurl.reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("homelessonoicon"))
-
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 60,height: 60)
                         .clipShape(Circle())
-                        
                         
                     }else{
                         Image("homelessonoicon")
@@ -82,15 +80,17 @@ struct LessonDetailsView: View {
                             .frame(width: 50,height: 50)
                             .padding(15)
                             .background{Color.white.clipShape(Circle())}
-
                     }
                         
-                        VStack(alignment:.leading){
+                        VStack(alignment:.leading,spacing: 8){
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.bold(size: 18))
+                                .multilineTextAlignment(.leading)
+                                .lineSpacing(5)
                             Text(details.SubjectOrLessonDto?.subjectName ?? "")
                                 .font(.semiBold(size: 16))
-
+                                .multilineTextAlignment(.leading)
+                                .lineSpacing(5)
                         }
                         .foregroundColor(.mainBlue)
                         

@@ -11,10 +11,14 @@ import SwiftUI
 struct KFImageLoader: View {
     let url: URL?
     let placeholder: Image
+    let isOpenable: Bool?  // New property to specify if the image can be opened
+    @State private var showFullImage = false
+
     
-    init(url: URL?, placeholder: Image = Image(systemName: "photo")) {
+    init(url: URL?, placeholder: Image = Image(systemName: "photo"), isOpenable: Bool? = false) {
         self.url = url
         self.placeholder = placeholder
+        self.isOpenable = isOpenable
     }
     
     var body: some View {
@@ -27,6 +31,19 @@ struct KFImageLoader: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .cornerRadius(8)
+//            .onTapGesture {
+//                if isOpenable == true {
+//                    showFullImage = true
+//                }
+//            }
+            .if(isOpenable == true) { view in
+                view.onTapGesture {
+                    showFullImage = true
+                }
+            }
+            .sheet(isPresented: $showFullImage) {
+                FullImageView(imageURL: url)
+            }
         
         
         
@@ -53,7 +70,77 @@ struct KFImageLoader: View {
     }
 }
 
+// Helper extension to conditionally apply a modifier
+extension View {
+    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        Group {
+            if condition {
+                transform(self)
+            } else {
+                self
+            }
+        }
+    }
+}
 
+
+struct FullImageView: View {
+    let imageURL: URL?
+    
+    @Environment(\.presentationMode) var presentationMode
+    @State private var scale: CGFloat = 1.0
+    @State private var lastScale: CGFloat = 1.0
+    @State private var offset: CGSize = .zero // State to track the drag offset
+
+    var body: some View {
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
+            
+            if let imageURL = imageURL {
+                KFImage(imageURL)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .scaleEffect(scale)
+                    .offset(offset) // Apply the offset for dragging
+//                    .gesture(MagnificationGesture()
+//                        .onChanged { value in
+//                            scale = lastScale * value
+//                        }
+//                        .onEnded { value in
+//                            lastScale = scale
+//                        }
+//                    )
+//                    .gesture(DragGesture()
+//                        .onChanged { value in
+//                            // Update the offset based on drag
+//                            offset = CGSize(width: value.translation.width + offset.width, height: value.translation.height + offset.height)
+//                        }
+//                        .onEnded { value in
+//                            // Optional: Add some inertia effect if desired
+//                            // You can calculate the new offset based on the velocity here
+//                        }
+//                    )
+            }
+            
+            // Close button
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss() // Dismiss the view
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 44, height: 44)
+                            .foregroundColor(.white.opacity(0.5))
+                    }
+                    .padding()
+                }
+                Spacer()
+            }
+        }
+    }
+}
 
 // --------
 

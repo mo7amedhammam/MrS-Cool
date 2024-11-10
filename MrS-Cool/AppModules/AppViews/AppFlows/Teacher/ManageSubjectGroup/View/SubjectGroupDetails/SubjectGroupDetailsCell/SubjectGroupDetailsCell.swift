@@ -21,6 +21,7 @@ struct SubjectGroupDetailsCell: View {
                 
                 Text(model.lessonName ?? "day name dau name dau one")
                     .font(Font.bold(size:13.0))
+                    .lineSpacing(8)
                     .foregroundColor(.mainBlue)
                 
                 Spacer()

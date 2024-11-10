@@ -27,7 +27,8 @@ struct CheckboxField: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: self.size, height: self.size)
                 Text(label.localized())
-                    .font(Font.system(size: self.textSize))
+                    .font(Font.regular(size: self.textSize))
+                    .fontWeight(.regular)
                     .underline(isunderlined)
                     .onTapGesture(perform: {
                         onTabText?()

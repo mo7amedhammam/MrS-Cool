@@ -39,6 +39,7 @@ struct TeacherFinanceCellView: View {
                 Text(subjectOrLessonName)
                     .font(Font.bold(size:12))
                     .lineLimit(2)
+                    .lineSpacing(8)
                 //                        HStack(spacing:0){
                 //                            Text("\(Part4)").font(Font.semiBold(size:13.0))
                 //                            Text(", ").font(Font.semiBold(size:13.0))
@@ -48,13 +49,12 @@ struct TeacherFinanceCellView: View {
                     .foregroundColor(.mainBlue)
                 
             case .Lessons:
-                
-                
                 Text(subjectOrLessonName)
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
+                    .lineSpacing(8)
                 
                 
                 //                        Text("\(Part1)").font(Font.semiBold(size:13.0))

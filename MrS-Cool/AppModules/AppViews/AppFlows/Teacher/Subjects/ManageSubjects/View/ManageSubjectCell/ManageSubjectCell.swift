@@ -29,6 +29,7 @@ struct ManageSubjectCell: View {
                     Text(model.subjectSemesterYearName ?? "")
                         .font(Font.bold(size:13.0))
                         .foregroundColor(.mainBlue)
+                        .lineSpacing(8)
                 }
                 
                 Spacer()
@@ -74,6 +75,7 @@ struct ManageSubjectCell: View {
                 VStack (alignment:.leading,spacing: 10){
                     Text(model.academicYearName ?? "")
                         .font(Font.regular(size: 12.0))
+                        .lineSpacing(8)
                         .foregroundColor(.mainBlue)
                     
                         Text(model.educationLevelName ?? "")
@@ -88,7 +90,7 @@ struct ManageSubjectCell: View {
                 
                 Spacer()
                 HStack (alignment:.bottom,spacing:25){
-                    VStack(alignment:.leading){
+                    VStack(alignment:.leading,spacing: 5){
     //                    Spacer()
                                 
                         Text("Group Price".localized())

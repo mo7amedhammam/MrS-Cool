@@ -140,7 +140,7 @@ struct haveAccountView: View {
 
 struct SignUpHeaderTitle: View {
     var Title:String? = "Personal Information"
-    var subTitle:String? = ""
+    var subTitle:String?
     var subTitleView:AnyView?
 
     var body: some View {
@@ -148,17 +148,20 @@ struct SignUpHeaderTitle: View {
             Text(Title?.localized() ?? "")
                 .font(Font.bold(size:18))
                 .fontWeight(.bold)
+                .lineSpacing(5)
 //                .foregroundColor(ColorConstants.Black900)
                 .multilineTextAlignment(.leading)
             
             if let subTitleView = subTitleView{
                 subTitleView
             }else{
-                Text(subTitle?.localized() ?? "")
-                    .font(Font.regular(size: 12))
-                    .fontWeight(.regular)
-                    .foregroundColor(ColorConstants.Black900)
-                    .multilineTextAlignment(.leading)
+                if let subtitle = subTitle {
+                    Text(subtitle.localized())
+                        .font(Font.regular(size: 12))
+                        .fontWeight(.regular)
+                        .foregroundColor(ColorConstants.Black900)
+                        .multilineTextAlignment(.leading)
+                }
             }
         }
     }

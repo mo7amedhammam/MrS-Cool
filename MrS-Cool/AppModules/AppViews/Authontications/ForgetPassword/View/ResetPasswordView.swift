@@ -26,7 +26,7 @@ struct ResetPasswordView: View {
                             VStack(alignment: .leading, spacing: 0) {
 
                                 Group {
-                                    SignUpHeaderTitle(Title: "Reset New Password ", subTitle: "Enter subtitle here")
+                                    SignUpHeaderTitle(Title: "Reset New Password ")
                                     
                                     CustomTextField(fieldType:.Password,placeholder: "New password *", text: $resetpasswordvm.newPassword)
 

@@ -44,7 +44,6 @@ struct SubjectDetailsView: View {
                         //                        }
                         let imageURL : URL? = URL(string: Constants.baseURL+(details.SubjectOrLessonDto?.image ?? "").reverseSlaches())
                         KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                        
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())
@@ -53,6 +52,7 @@ struct SubjectDetailsView: View {
                             Text(details.SubjectOrLessonDto?.headerName ?? "")
                                 .font(.bold(size: 18))
                                 .multilineTextAlignment(.leading)
+                                .lineSpacing(5)
                         }
                         .foregroundColor(.mainBlue)
                         
@@ -366,7 +366,7 @@ struct SubjectTeacherInfoView : View {
             //                    .resizable()
             //            }
             let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? "").reverseSlaches())
-            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"),isOpenable: true)
             
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 115,height: 115)
@@ -376,14 +376,16 @@ struct SubjectTeacherInfoView : View {
                 //                VStack {
                 Text(teacher.teacherName ?? "")
                     .font(.bold(size: 20))
+                    .multilineTextAlignment(.leading)
                 //                    Spacer()
                 
                 Text(teacher.teacherBIO ?? "")
                     .font(.semiBold(size: 12))
                     .fontWeight(.medium)
-                    .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal,30)
+                    .lineSpacing(5)
+                    .foregroundColor(.mainBlue)
+//                    .padding(.horizontal,30)
                     .frame(minHeight:40)
                     .padding(8)
                 
@@ -393,6 +395,7 @@ struct SubjectTeacherInfoView : View {
                         .foregroundColor(ColorConstants.Black900)
                         .font(.bold(size: 12))
                 }
+                .padding(.vertical,5)
                 
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
                 HStack(spacing:2) {
@@ -426,18 +429,20 @@ struct SubjectTeacherInfoView : View {
                     
                     if let teacherBrief = teacher.teacherBrief{
                         Text(teacherBrief)
-                            .font(.bold(size: 9))
-                            .lineSpacing(10)
-                            .foregroundColor(.mainBlue)
+                            .font(.semiBold(size: 12))
+                            .fontWeight(.medium)
                             .multilineTextAlignment(.leading)
+                            .lineSpacing(5)
+                            .foregroundColor(.mainBlue)
                             .frame(minHeight:40)
                             .padding(.bottom,8)
                     }else{
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.bold(size: 12))
-                            .lineSpacing(10)
-                            .foregroundColor(.mainBlue)
+                            .font(.semiBold(size: 12))
+                            .fontWeight(.medium)
                             .multilineTextAlignment(.leading)
+                            .lineSpacing(5)
+                            .foregroundColor(.mainBlue)
                             .frame(minHeight:40)
                             .padding(.bottom,8)
                     }
@@ -548,9 +553,9 @@ struct scrollableBriefText: View {
             Text(text)
                 .font(.semiBold(size: 12))
                 .fontWeight(.medium)
-                .foregroundColor(.mainBlue)
-                .lineSpacing(10)
+                .lineSpacing(5)
                 .multilineTextAlignment(.leading)
+                .foregroundColor(.mainBlue)
                 .padding(.horizontal, 30)
                 .background(GeometryReader { geometry in
                     Color.clear.preference(key: ViewHeightKey.self, value: geometry.size.height)

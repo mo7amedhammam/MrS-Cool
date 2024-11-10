@@ -51,7 +51,7 @@ struct StudentEditProfileView: View {
 //                                        .resizable()
 //                                }
                                 let imageURL : URL? = URL(string: Constants.baseURL+(studentsignupvm.imageStr ?? "").reverseSlaches())
-                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"),isOpenable: true)
 
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 130,height: 130)

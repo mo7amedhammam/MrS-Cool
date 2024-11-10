@@ -95,7 +95,7 @@ struct TeacherFinanceView: View {
     var body: some View {
         VStack {
                 VStack (alignment: .leading,spacing:0){
-                    SignUpHeaderTitle(Title: "Finance", subTitle: "Enter subtitle here")
+                    SignUpHeaderTitle(Title: "Finance")
                         .frame(maxWidth:.infinity,alignment:.leading)
                         .foregroundStyle(Color.mainBlue)
                         .padding(.bottom)
@@ -190,7 +190,7 @@ struct TeacherFinanceView: View {
 //                                .padding(.vertical)
                             
                             HStack(){
-                                SignUpHeaderTitle(Title: "Purchased Lessons", subTitle: "Enter subtitle here")
+                                SignUpHeaderTitle(Title: "Purchased Lessons")
                                     .frame(maxWidth:.infinity,alignment:.leading)
                                     .foregroundStyle(Color.mainBlue)
                                     .padding(.vertical)
@@ -235,7 +235,7 @@ struct TeacherFinanceView: View {
 //                                .padding(.vertical)
                             
                             HStack(){
-                                SignUpHeaderTitle(Title: "Purchased Subjects", subTitle: "Enter subtitle here")
+                                SignUpHeaderTitle(Title: "Purchased Subjects")
                                     .frame(maxWidth:.infinity,alignment:.leading)
                                     .foregroundStyle(Color.mainBlue)
                                     .padding(.vertical)

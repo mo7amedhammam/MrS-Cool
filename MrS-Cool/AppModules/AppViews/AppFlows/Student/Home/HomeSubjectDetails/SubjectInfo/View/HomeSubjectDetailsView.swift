@@ -53,6 +53,7 @@ struct HomeSubjectDetailsView: View {
                         VStack{
                             Text(details.name ?? "")
                                 .font(.bold(size: 18))
+                                .lineSpacing(8)
                         }
                         .foregroundColor(.mainBlue)
                         

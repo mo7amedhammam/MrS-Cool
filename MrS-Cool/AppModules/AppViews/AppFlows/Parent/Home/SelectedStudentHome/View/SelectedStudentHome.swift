@@ -69,7 +69,8 @@ struct SelectedStudentHome: View {
             LazyVStack(spacing:0) {
                 
                 ScrollView(showsIndicators:false){
-                    
+                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"), placeholder: Image("splashicon1"))
+
                     VStack(alignment:.leading){
                         Text("Subjects For".localized())
                             .font(Font.bold(size: 18))

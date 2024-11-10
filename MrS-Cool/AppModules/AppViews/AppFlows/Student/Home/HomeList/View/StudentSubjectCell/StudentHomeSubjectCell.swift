@@ -52,6 +52,7 @@ struct StudentHomeSubjectCell: View {
                             Text(Part1)
                             .font(Font.bold(size: 13))
                             .lineLimit(2)
+                            .lineSpacing(5)
                             .foregroundColor(subject.id == selectedSubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                             .multilineTextAlignment(.center)
 //                            .frame(height:60)
@@ -70,6 +71,7 @@ struct StudentHomeSubjectCell: View {
                     }
                     .font(Font.bold(size: 13))
                     .lineLimit(2)
+                    
                     .foregroundColor(subject.id == selectedSubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
                     .frame(height:20)

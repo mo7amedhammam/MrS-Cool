@@ -22,7 +22,7 @@ struct ChangePasswordView: View {
                             VStack(alignment: .leading, spacing: 0) {
 
                                 Group {
-                                    SignUpHeaderTitle(Title: "Change Password", subTitle: "Enter subtitle here")
+                                    SignUpHeaderTitle(Title: "Change Password")
                                     
                                     CustomTextField(fieldType:.Password,placeholder: "Current password *", text: $changepasswordvm.currentPassword)
 

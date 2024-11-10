@@ -53,6 +53,7 @@ struct StudentMostViewedSubjectCell: View {
                     Text(firstPart)
                         .font(Font.bold(size: 13))
 //                        .fontWeight(.semibold)
+//                        .lineSpacing(5)
                         .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                         .multilineTextAlignment(.center)
                         .padding(.top, 19.0)
@@ -62,6 +63,7 @@ struct StudentMostViewedSubjectCell: View {
                             .fontWeight(.medium)
                     }
                     .font(Font.semiBold(size: 13))
+//                    .lineSpacing(5)
                     .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 8)

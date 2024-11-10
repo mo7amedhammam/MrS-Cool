@@ -41,13 +41,14 @@ struct PurchasedsubjectOrLessonCell: View {
 
                         }
                         .foregroundColor(.mainBlue)
-
+                        .lineSpacing(5)
+                        
                     case .Lessons:
                         Text("\(Part1)").font(Font.bold(size:13.0))
                             .lineLimit(2)
 //                        + Text("\(Part5)").font(Font.regular(size:13.0))
 //                            .foregroundColor(.mainBlue)
-
+                            .lineSpacing(5)
                     }
 
                     Spacer()
@@ -77,6 +78,7 @@ struct PurchasedsubjectOrLessonCell: View {
                     .font(Font.regular(size:12))
                     .foregroundColor(.grayBtnText)
                     .multilineTextAlignment(.leading)
+                    .lineSpacing(5)
                     
                     Spacer()
 

@@ -73,6 +73,10 @@ struct TeacherHomeView: View {
 //                    }
 //                }else{
                     ScrollView(.vertical,showsIndicators: false){
+                        
+                        KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("splashicon1"))
+
+                        
                         VStack{ // (Title - Data - Submit Button)
                             Group{
                                 HStack(){

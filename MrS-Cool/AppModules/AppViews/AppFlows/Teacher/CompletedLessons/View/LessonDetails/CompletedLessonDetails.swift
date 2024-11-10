@@ -58,30 +58,30 @@ struct CompletedLessonDetails: View {
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.subjectBrief ?? "")
                                     .font(Font.semiBold(size: 13))
+                                    .fontWeight(.medium)
                                 
                                 Text("Lesson".localized())
                                     .font(Font.bold(size: 16))
                                 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonName ?? "")
                                     .font(Font.semiBold(size: 13))
+                                    .fontWeight(.medium)
                                 
                                 Text("Lesson Brief".localized())
                                     .font(Font.bold(size: 16))
 
                                 Text(completedlessonsvm.completedLessonDetails?.lessonBrief ?? "")
                                     .font(Font.semiBold(size: 13))
-                                
+                                    .fontWeight(.medium)
                             }
                             .foregroundColor(.mainBlue)
-                            
+                            .lineSpacing(8)
                         }
                         .padding(.top)
-                        
                         .padding(.horizontal)
                         
                         SignUpHeaderTitle(Title: "Student / Parent Info")
                             .padding()
-                        
                         
                         LazyVGrid(columns: [.init(), .init()]) {
                             ForEach(completedlessonsvm.completedLessonDetails?.teacherCompletedLessonStudentList ?? [], id:\.self) {student in

@@ -439,6 +439,8 @@ struct StudentHomeView: View {
         GeometryReader { gr in
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
+                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"), placeholder: Image("splashicon1"))
+
                     headerSection()
                     subjectsSection(gr: gr)
                     mostBookedSubjectsSection(gr: gr)

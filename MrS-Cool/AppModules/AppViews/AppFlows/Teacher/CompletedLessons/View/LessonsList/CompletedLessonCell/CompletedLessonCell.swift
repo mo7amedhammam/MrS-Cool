@@ -23,6 +23,7 @@ struct CompletedLessonCell: View {
                 Text(model.subjectName ?? "day name dau name dau one")
                     .font(Font.bold(size:13.0))
                     .foregroundColor(.mainBlue)
+                    .lineSpacing(8)
                 
                 Spacer()
                 
@@ -59,7 +60,7 @@ struct CompletedLessonCell: View {
                     
                     VStack(alignment:.leading,spacing: 2.5){
                         Text("Date".localized())
-                            .font(Font.semiBold(size: 9))
+                            .font(Font.semiBold(size: 10))
                             .foregroundColor(.grayBtnText)
                         
                         Text("\(model.date ?? "30 Apr 2023")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
@@ -69,7 +70,7 @@ struct CompletedLessonCell: View {
                         Spacer().frame(height:3)
                         
                         Text("Time".localized())
-                            .font(Font.semiBold(size: 9))
+                            .font(Font.semiBold(size: 10))
                             .foregroundColor(.grayBtnText)
                         
                         Group{

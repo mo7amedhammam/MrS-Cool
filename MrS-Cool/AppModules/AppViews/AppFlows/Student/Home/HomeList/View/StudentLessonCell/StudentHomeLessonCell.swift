@@ -34,6 +34,7 @@ struct StudentHomeLessonCell: View {
                     .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 :.mainBlue)
                     .multilineTextAlignment(.center)
                     .padding(.top, 19.0)
+                    .lineSpacing(5)
                 
                 let subjectName = lesson.subjectName ?? ""
                 let name = subjectName.split(separator: ",").map{ String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -44,12 +45,13 @@ struct StudentHomeLessonCell: View {
                     Text(Part1)
                         .foregroundColor(lesson.id == selectedlesson.id ? .studentBtnBg : ColorConstants.MainColor)
                         .fontWeight(.medium)
-
+                        
                     Text(remaining)
                         .foregroundColor(lesson.id == selectedlesson.id ? ColorConstants.WhiteA700 :.mainBlue)
                         .fontWeight(.medium)
                 }
                     .font(Font.semiBold(size: 13))
+                    .lineSpacing(5)
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
                     .padding(.top, 5)

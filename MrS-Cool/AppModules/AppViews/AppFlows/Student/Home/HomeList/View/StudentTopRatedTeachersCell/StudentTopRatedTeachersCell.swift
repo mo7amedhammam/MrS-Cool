@@ -36,6 +36,7 @@ struct StudentTopRatedTeachersCell: View {
 
                 Text(teacher.teacherName ?? "")
                     .font(Font.bold(size: 13))
+                    .lineSpacing(5)
 //                    .fontWeight(.semibold)
                     .foregroundColor(teacher.id == selectedteacher.id ? ColorConstants.WhiteA700 : .mainBlue)
                     .multilineTextAlignment(.center)

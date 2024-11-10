@@ -32,7 +32,7 @@ struct StudentFinanceView: View {
                 }
             }else{
                 VStack (alignment: .leading,spacing:0){
-                    SignUpHeaderTitle(Title: "Finance", subTitle: "Enter subtitle here")
+                    SignUpHeaderTitle(Title: "Finance")
                         .frame(maxWidth:.infinity,alignment:.leading)
                         .foregroundStyle(Color.mainBlue)
                         .padding(.bottom)
@@ -51,7 +51,7 @@ struct StudentFinanceView: View {
                         }
                         .padding([.top,.leading],10)
                         
-                        VStack(alignment:.trailing,spacing:0){
+                        VStack(alignment:.trailing,spacing:5){
                             HStack(spacing:0){
                                 Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ")
                                 Text("LE".localized())
@@ -76,7 +76,7 @@ struct StudentFinanceView: View {
                     
                     GeometryReader { gr in
                         ScrollView(.vertical,showsIndicators: false){
-                            SignUpHeaderTitle(Title: "Purchased Lessons", subTitle: "Enter subtitle here")
+                            SignUpHeaderTitle(Title: "Purchased Lessons")
                                 .frame(maxWidth:.infinity,alignment:.leading)
                                 .foregroundStyle(Color.mainBlue)
                                 .padding(.vertical)
@@ -103,7 +103,7 @@ struct StudentFinanceView: View {
                                 .frame(minHeight: gr.size.height)
                             }
                             
-                            SignUpHeaderTitle(Title: "Purchased Subjects", subTitle: "Enter subtitle here")
+                            SignUpHeaderTitle(Title: "Purchased Subjects")
                                 .frame(maxWidth:.infinity,alignment:.leading)
                                 .foregroundStyle(Color.mainBlue)
                                 .padding(.vertical)

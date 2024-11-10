@@ -79,7 +79,7 @@ struct StudentCompletedLessonDetails: View {
                                 
                             }
                             .foregroundColor(.mainBlue)
-                            
+                            .lineSpacing(5)
                         }
                         .padding(.top)
                         .padding(.horizontal)

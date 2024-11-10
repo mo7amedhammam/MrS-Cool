@@ -19,7 +19,7 @@ struct LessonTeacherInfoView : View {
 //                    .resizable()
 //            }
             let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? "").reverseSlaches())
-            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"),isOpenable: true)
 
             .aspectRatio(contentMode: .fill)
             .frame(width: 115,height: 115)
@@ -34,10 +34,10 @@ struct LessonTeacherInfoView : View {
                 Text(teacher.teacherBIO ?? "")
                     .font(.semiBold(size: 12))
                     .fontWeight(.medium)
-                    .foregroundColor(.mainBlue)
                     .multilineTextAlignment(.center)
-                    .lineSpacing(2)
-                    .padding(.horizontal,30)
+                    .lineSpacing(5)
+                    .foregroundColor(.mainBlue)
+//                    .padding(.horizontal,30)
                     .frame(minHeight:40)
                     .padding(8)
                 
@@ -47,7 +47,7 @@ struct LessonTeacherInfoView : View {
                         Text("\(rate ,specifier: "%.1f")")
                             .foregroundColor(ColorConstants.Black900)
                             .font(.bold(size: 12))
-                    }
+                    }.padding(.vertical,5)
                 }
                 
                 //                if let ratescount = teacher.teacherReview, ratescount > 0{
@@ -83,17 +83,21 @@ struct LessonTeacherInfoView : View {
                     if let teacherbrief = teacher.teacherBrief{
                         
                         Text(teacherbrief)
-                            .font(.bold(size: 11))
-                            .foregroundColor(.mainBlue)
+                            .font(.semiBold(size: 12))
+                            .fontWeight(.medium)
                             .multilineTextAlignment(.leading)
+                            .lineSpacing(5)
+                            .foregroundColor(.mainBlue)
                             .frame(minHeight:40)
                             .padding(.bottom,8)
                     }else{
                         
                         Text(teacher.SubjectOrLessonDto?.systemBrief ?? "")
-                            .font(.bold(size: 11))
-                            .foregroundColor(.mainBlue)
+                            .font(.semiBold(size: 12))
+                            .fontWeight(.medium)
                             .multilineTextAlignment(.leading)
+                            .lineSpacing(5)
+                            .foregroundColor(.mainBlue)
                             .frame(minHeight:40)
                             .padding(.bottom,8)
                     }

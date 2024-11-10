@@ -30,6 +30,7 @@ struct StudenCompletedLessonCellView: View {
                     Text(model.subject ?? "")
                         .font(Font.bold(size:13.0))
                         .foregroundColor(.mainBlue)
+                        .lineSpacing(8)
 
                     Spacer()
                     

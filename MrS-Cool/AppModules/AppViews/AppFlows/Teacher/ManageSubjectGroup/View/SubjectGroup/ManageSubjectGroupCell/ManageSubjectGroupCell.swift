@@ -25,6 +25,7 @@ struct ManageSubjectGroupCell: View {
                 
                 Text(model.teacherSubjectAcademicSemesterYearName ?? "day name dau name dau one")
                     .font(Font.bold(size:13.0))
+                    .lineSpacing(5)
                     .foregroundColor(.mainBlue)
                 
                 Spacer()

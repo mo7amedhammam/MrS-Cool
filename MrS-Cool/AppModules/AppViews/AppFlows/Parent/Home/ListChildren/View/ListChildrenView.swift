@@ -18,6 +18,8 @@ struct ListChildrenView: View {
         CustomNavigationView{
             VStack {
                 ScrollView {
+                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Parent.jpg"), placeholder: Image("splashicon1"))
+
                     LazyVGrid(columns: [.init(), .init(),.init()]) {
                         ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
                             ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild, deleteAction: {
@@ -80,27 +82,28 @@ struct ListChildrenView: View {
                                            height: 75, alignment: .center)
                                 
                                 Text("Add New".localized())
-                                    .font(Font.semiBold(size: 8))
+                                    .font(Font.semiBold(size: 10))
                                     .fontWeight(.medium)
                                     .foregroundColor(.mainBlue)
                                     .multilineTextAlignment(.center)
-                                    .padding(.top,4)
+                                    .padding(.vertical,4)
                                 
                                 Text("Student".localized())
-                                    .font(Font.semiBold(size: 12))
+                                    .font(Font.semiBold(size: 14))
                                     .fontWeight(.medium)
                                     .foregroundColor(.mainBlue)
                                     .multilineTextAlignment(.center)
                                 
                                 Spacer()
                             }
-                            .frame(height:150)
-                            .frame(minWidth: 0,maxWidth: 110)
+                            .frame(height:160)
+                            .frame(minWidth: 0,maxWidth: (.infinity/3)-60)
                             .background(
                                 CornersRadious(radius: 8, corners: .allCorners).fill(ColorConstants.Bluegray100).opacity(0.33))
                         })
                     }
                     .padding(.top,2)
+                    .padding(.horizontal,2)
                 }
                 Spacer()
                 NavigationLink(destination: destination, isActive: $isPush, label: {})
@@ -161,7 +164,7 @@ struct ChildrenCell: View {
             HStack{
                 Image("img_group")
                     .resizable()
-                    .frame(width: 12, height: 12, alignment: .center)
+                    .frame(width: 13.5, height: 13.5, alignment: .center)
                     .padding(5)
                     .background(){
                         Color.white.clipShape(Circle())
@@ -181,19 +184,19 @@ struct ChildrenCell: View {
                 .padding(.top, -27.0)
             
             Text(children.name ?? "")
-                .font(Font.bold(size: 10))
+                .font(Font.bold(size: 13))
 //                .fontWeight(.medium)
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : ColorConstants.Red400)
                 .multilineTextAlignment(.center)
             
             Text(children.academicYearEducationLevelName ?? "")
-                .font(Font.bold(size: 7))
+                .font(Font.bold(size: 9))
                 .fontWeight(.medium)
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : ColorConstants.Red400)
                 .multilineTextAlignment(.center)
             
             Text(children.code ?? "")
-                .font(Font.bold(size: 10))
+                .font(Font.bold(size: 11))
                 .fontWeight(.medium)
                 .foregroundStyle(selectedChild == children ? ColorConstants.WhiteA700 : .studentBtnBg)
                 .multilineTextAlignment(.center)
@@ -204,7 +207,7 @@ struct ChildrenCell: View {
                     self.detailsaction?()
             },label: {
                 Text("Details".localized())
-                    .font(Font.bold(size:9))
+                    .font(Font.bold(size:11))
                     .fontWeight(.medium)
                     .foregroundStyle(selectedChild == children ? ColorConstants.Red400 : .whiteA700)
             })
@@ -217,8 +220,8 @@ struct ChildrenCell: View {
             Spacer()
         }
       
-        .frame(height:150)
-        .frame(minWidth: 0,maxWidth: 110)
+        .frame(height:160)
+        .frame(minWidth: 0,maxWidth: (.infinity/3)-60)
         .background(
             CornersRadious(radius: 8, corners: .allCorners).fill(selectedChild == children ? ColorConstants.Red400 : .parentDisableBg).opacity(selectedChild == children ? 1 : 0.33)
             .borderRadius(ColorConstants.Red400, width: 1, cornerRadius: 8, corners: [.allCorners]))
