@@ -80,7 +80,7 @@ struct StudentCompletedLessonsView: View {
                         Text("You Have To Select Child First".localized())
                             .frame(minHeight:gr.size.height)
                             .frame(width: gr.size.width,alignment: .center)
-                            .font(.title2)
+                            .font(Font.semiBold(size: 18))
                             .foregroundColor(ColorConstants.MainColor)
                     }
                 }else {

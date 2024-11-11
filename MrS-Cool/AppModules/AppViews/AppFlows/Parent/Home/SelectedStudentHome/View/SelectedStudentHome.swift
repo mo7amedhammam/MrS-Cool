@@ -70,6 +70,7 @@ struct SelectedStudentHome: View {
                 
                 ScrollView(showsIndicators:false){
                     KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"), placeholder: Image("Student-Panner"),shouldRefetch: true)
+                        .padding(.horizontal)
 
                     VStack(alignment:.leading){
                         Text("Subjects For".localized())
