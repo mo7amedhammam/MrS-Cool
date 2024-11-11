@@ -330,7 +330,8 @@
 "Session Time" = "مدة الجلسة";
 "Sign In" = "تسجيل دخول";
 "Sign In Now" = "سجل الدخول الآن";
-"Sign Out" = "تسجيل خروج";
+"Sign Out" =  "خروج";
+"Sign Out-menu" = "تسجيل خروج";
 "Sign Up" = "إنشاء حساب جديد";
 //"Sign in" = "دخول";
 "Sign in now" = "سجل الدخول الآن";

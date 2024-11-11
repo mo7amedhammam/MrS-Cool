@@ -271,7 +271,7 @@ struct ParentSideMenuContent: View {
                     
                     ChangeLanguage()
                     
-                    SideMenuButton(image: "MenuSt_signout", title: "Sign Out"){
+                    SideMenuButton(image: "MenuSt_signout", title: "Sign Out-menu"){
                         selectedDestination = .signOut // sign out
                         presentSideMenu =  false
                         //                    isPush = true
