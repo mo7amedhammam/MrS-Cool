@@ -27,7 +27,7 @@ struct StudentFinanceView: View {
                     Text("You Have To Select Child First".localized())
                         .frame(minHeight:UIScreen.main.bounds.height)
                         .frame(width: UIScreen.main.bounds.width,alignment: .center)
-                        .font(.title2)
+                        .font(Font.semiBold(size: 18))
                         .foregroundColor(ColorConstants.MainColor)
                 }
             }else{
