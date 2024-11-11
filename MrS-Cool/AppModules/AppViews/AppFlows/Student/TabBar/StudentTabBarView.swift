@@ -334,7 +334,6 @@ struct StudentTabBarView: View {
         .showAlert(hasAlert: $studenttabbarvm.showSignOutConfirm, alertType: studenttabbarvm.error)
         .showAlert(hasAlert: $studenttabbarvm.showDeleteConfirm, alertType: studenttabbarvm.error)
         
-        
         NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
         
     }
@@ -525,7 +524,6 @@ struct StudentSideMenuContent: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 60,height: 60)
                                 .clipShape(Circle())
-                            
                             
                             Image("Edit_fill")
                             //                        .resizable().aspectRatio(contentMode: .fit)

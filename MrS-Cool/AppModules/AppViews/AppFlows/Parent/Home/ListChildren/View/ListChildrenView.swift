@@ -18,7 +18,7 @@ struct ListChildrenView: View {
         CustomNavigationView{
             VStack {
                 ScrollView {
-                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Parent.jpg"), placeholder: Image("splashicon1"))
+                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Parent.jpg"),placeholder: Image("Parent-Panner"), shouldRefetch: true)
 
                     LazyVGrid(columns: [.init(), .init(),.init()]) {
                         ForEach(listchildrenvm.Children ?? [], id:\.self) {children in

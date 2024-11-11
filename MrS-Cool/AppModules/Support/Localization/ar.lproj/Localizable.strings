@@ -190,7 +190,7 @@
 "Lessons Materials" = "ملفات الدرس";
 "Lessons Schedule" = "جدول الدروس";
 "Lets Start Learning! " = "Lets Start Learning! ";
-"Log Out" = "خروج";
+"Log Out" = "تسجيل خروج";
 "Lowest Price :" = "أقل سعر: :";
 "Male" = "ذكر";
 "Manage Documents" = "إدارة المستندات";
@@ -328,13 +328,13 @@
 "Send message" = "إرسال رسالة";
 "Sending" = "جاري الإرسال";
 "Session Time" = "مدة الجلسة";
-"Sign In" = "دخول";
+"Sign In" = "تسجيل دخول";
 "Sign In Now" = "سجل الدخول الآن";
-"Sign Out" = "خروج";
-"Sign Up" = "تسجيل";
-"Sign in" = "دخول";
+"Sign Out" = "تسجيل خروج";
+"Sign Up" = "إنشاء حساب جديد";
+//"Sign in" = "دخول";
 "Sign in now" = "سجل الدخول الآن";
-"Sign up" = "تسجيل";
+//"Sign up" = "تسجيل";
 "Sign up now" = "سجل الآن";
 "Start" = "بدء";
 "Start Date" = "تاريخ البدء";

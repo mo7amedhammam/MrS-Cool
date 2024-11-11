@@ -428,8 +428,6 @@ enum HomeSubjectCase{
 //}
 
 
-
-
 struct StudentHomeView: View {
     @EnvironmentObject var studenthometabbarvm: StudentTabBarVM
     @EnvironmentObject var studentsignupvm: StudentEditProfileVM
@@ -439,13 +437,14 @@ struct StudentHomeView: View {
         GeometryReader { gr in
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
-                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"), placeholder: Image("splashicon1"))
+                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"),placeholder: Image("Student-Panner"),placeholderSize: CGSize(width: 120, height: 120), shouldRefetch: true)
 
                     headerSection()
                     subjectsSection(gr: gr)
                     mostBookedSubjectsSection(gr: gr)
                     mostBookedTeachersSection(gr: gr)
                 }
+                .padding(.top)
                 .padding(.horizontal)
                 .task {
                     await loadData()
@@ -468,7 +467,7 @@ struct StudentHomeView: View {
             Text("Subjects For".localized())
                 .font(Font.bold(size: 18))
                 .foregroundColor(.mainBlue)
-                .padding([.top,.horizontal])
+                .padding([.horizontal])
                 .frame(maxWidth:.infinity,alignment: .leading)
             Text(studenthomevm.StudentSubjectsM?.academicLevelName ?? "")
                 .font(Font.regular(size: 13))

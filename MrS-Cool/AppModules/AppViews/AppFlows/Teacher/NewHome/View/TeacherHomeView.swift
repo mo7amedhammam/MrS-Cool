@@ -74,8 +74,8 @@ struct TeacherHomeView: View {
 //                }else{
                     ScrollView(.vertical,showsIndicators: false){
                         
-                        KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("splashicon1"))
-
+                        KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
+                            .padding()
                         
                         VStack{ // (Title - Data - Submit Button)
                             Group{
@@ -92,7 +92,7 @@ struct TeacherHomeView: View {
                                             //                                        validateFilterValues()
                                         })
                                 }
-                                .padding(.top)
+//                                .padding(.top)
                             }
                             .padding(.horizontal)
                             

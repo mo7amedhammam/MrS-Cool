@@ -9,28 +9,50 @@ import Kingfisher
 import SwiftUI
 
 struct KFImageLoader: View {
-    let url: URL?
+    var url: URL?
     let placeholder: Image
+    let placeholderSize: CGSize? // New property for placeholder size
     let isOpenable: Bool?  // New property to specify if the image can be opened
+    let shouldRefetch: Bool? // New property to control appending the query item
+    let showSkeleton: Bool? // New property to control showing the skeleton view
     @State private var showFullImage = false
 
     
-    init(url: URL?, placeholder: Image = Image(systemName: "photo"), isOpenable: Bool? = false) {
+    init(url: URL?,
+         placeholder: Image = Image(systemName: "photo"),
+         placeholderSize: CGSize? = nil, // Optional placeholder size
+         isOpenable: Bool? = false,
+         shouldRefetch:Bool? = false,
+         showSkeleton: Bool? = false) {
         self.url = url
         self.placeholder = placeholder
+        self.placeholderSize = placeholderSize
         self.isOpenable = isOpenable
+        self.shouldRefetch = shouldRefetch
+        self.showSkeleton = showSkeleton
     }
     
     var body: some View {
-        KFImage(url)
+        
+        let finalURL = shouldRefetch ?? false ? url?.appendingQueryItem("t=\(Date().timeIntervalSince1970)") : url
+        
+        KFImage(finalURL)
+//            .cacheOriginalImage() // Prevent caching of the original image
             .placeholder {
-                placeholder
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                if showSkeleton == true {
+                                   SkeletonView() // Show skeleton view if enabled
+                } else {
+                    placeholder
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: placeholderSize?.width, height: placeholderSize?.height) // Set the placeholder size
+
+                }
             }
             .resizable()
             .aspectRatio(contentMode: .fit)
             .cornerRadius(8)
+        
 //            .onTapGesture {
 //                if isOpenable == true {
 //                    showFullImage = true
@@ -44,9 +66,6 @@ struct KFImageLoader: View {
             .sheet(isPresented: $showFullImage) {
                 FullImageView(imageURL: url)
             }
-        
-        
-        
 //        AsyncDownSamplingImage(
 //                                 url: url,
 //                                 downsampleSize: .height(
@@ -65,8 +84,6 @@ struct KFImageLoader: View {
 //                                     .aspectRatio(contentMode: .fit)
 //                                     .scaledToFit() // Ensure image fits the frame size
 //                             }
-        
-        
     }
 }
 
@@ -83,6 +100,40 @@ extension View {
     }
 }
 
+// Skeleton view implementation
+struct SkeletonView: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.gray.opacity(0.3)) // Skeleton color
+            .cornerRadius(8)
+            .shimmer() // Optional shimmer effect
+            .frame(height: 200) // Set a fixed height or adjust as needed
+    }
+}
+
+// Shimmer effect modifier
+extension View {
+    func shimmer() -> some View {
+        self.overlay(
+            Rectangle()
+                .fill(LinearGradient(gradient: Gradient(colors: [Color.gray.opacity(0.3), Color.gray.opacity(0.5), Color.gray.opacity(0.3)]), startPoint: .leading, endPoint: .trailing))
+                .mask(self)
+                .rotationEffect(.degrees(30))
+                .offset(x: -100)
+                .animation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false), value: UUID())
+        )
+    }
+}
+// URL extension to append query items
+extension URL {
+    func appendingQueryItem(_ queryItem: String) -> URL {
+        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        var queryItems = urlComponents?.queryItems ?? []
+        queryItems.append(URLQueryItem(name: "cache", value: queryItem))
+        urlComponents?.queryItems = queryItems
+        return urlComponents?.url ?? self
+    }
+}
 
 struct FullImageView: View {
     let imageURL: URL?
