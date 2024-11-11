@@ -437,7 +437,7 @@ struct StudentHomeView: View {
         GeometryReader { gr in
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
-                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"),placeholder: Image("Student-Panner"),placeholderSize: CGSize(width: 120, height: 120), shouldRefetch: true)
+                    KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Student.jpg"),placeholder: Image("Student-Panner"), shouldRefetch: true)
 
                     headerSection()
                     subjectsSection(gr: gr)
