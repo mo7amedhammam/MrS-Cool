@@ -692,11 +692,11 @@ struct TeacherCellView : View {
                     HStack{
                         StarsView(rating: teacher.teacherRate ?? 0.0)
 //                        RatingsView(value: Double(teacher.teacherRate ?? 0.0))
-                        if let ratescount = teacher.teacherReview, ratescount > 0{
-                            Text(" \(ratescount)")
-                                .foregroundColor(ColorConstants.Bluegray30066)
-                                .font(Font.regular(size: 12))
-                        }
+//                        if let ratescount = teacher.teacherReview, ratescount > 0{
+//                            Text(" \(ratescount)")
+//                                .foregroundColor(ColorConstants.Bluegray30066)
+//                                .font(Font.regular(size: 12))
+//                        }
                     }
                 }
                 
