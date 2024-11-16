@@ -74,6 +74,7 @@ struct TeacherFinanceCellView: View {
                 }
                 .foregroundColor(.mainBlue)
                 .font(Font.regular(size:13.0))
+                .padding(.top,5)
 
         }
 

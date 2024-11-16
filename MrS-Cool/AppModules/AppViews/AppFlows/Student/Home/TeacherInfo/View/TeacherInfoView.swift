@@ -26,7 +26,7 @@ struct TeacherInfoView: View {
                 if let teacher = teacherinfovm.Teacher{
                     HStack {
                         let imageURL : URL? = URL(string: Constants.baseURL+(teacher.teacherImage ?? "").reverseSlaches())
-                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                        KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"),isOpenable: true)
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 60,height: 60)
                             .clipShape(Circle())

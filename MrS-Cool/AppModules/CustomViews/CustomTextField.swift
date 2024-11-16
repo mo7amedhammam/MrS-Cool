@@ -288,7 +288,7 @@ struct CustomDropDownField: View {
             if isMenuVisible && !options.isEmpty{
                 GeometryReader { gr in
                     ScrollView(.vertical,showsIndicators: false){
-                        VStack(alignment:.leading,spacing:0){
+                        VStack(alignment:.leading,spacing:8){
                             ForEach(options,id:\.self){option in
                                 Button(action: {
                                     if selectedOption != option{
@@ -302,6 +302,7 @@ struct CustomDropDownField: View {
                                     HStack() {
                                         Text(option.Title?.localized() ?? "")
                                             .multilineTextAlignment(.leading)
+                                            .lineSpacing(5)
                                         Spacer()
                                     }
                                     .frame(minWidth:0,maxWidth:.infinity)

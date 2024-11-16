@@ -240,7 +240,7 @@ extension StudentEditProfileVM{
         imageStr =  model.image ?? ""
         code = model.code ?? ""
         phone = model.mobile ?? ""
-        selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
+        selectedGender = .init(id:model.genderID,Title:model.genderName )
         if let countryID = model.countryID, let countryName = model.countryName{
             country = .init(id:countryID,Title: countryName)
         }else{

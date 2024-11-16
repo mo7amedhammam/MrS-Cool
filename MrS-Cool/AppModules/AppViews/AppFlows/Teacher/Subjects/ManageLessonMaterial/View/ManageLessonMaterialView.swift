@@ -58,17 +58,17 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                     // -- inputs --
                                     Group {
                                         HStack(alignment:.top){
-                                            VStack(alignment:.leading){
+                                            VStack(alignment:.leading,spacing:5){
                                                 Text("Education Type".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentLesson?.educationTypeName ?? "")
                                                     .font(Font.regular(size: 14))
                                                 
-                                                Spacer().frame(height:20)
+                                                Spacer().frame(height:15)
                                                 
                                                 Text("Academic Year".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentLesson?.academicYearName ?? "")
                                                     .font(Font.regular(size: 14))
@@ -76,28 +76,28 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                 Spacer().frame(height:20)
                                                 
                                                 Text("Lesson".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentLesson?.lessonName ?? "")
                                                     .font(Font.regular(size: 14))
                                             }
                                             Spacer()
-                                            VStack(alignment:.leading){
+                                            VStack(alignment:.leading,spacing:5){
                                                 Text("Education Level".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentLesson?.educationLevelName ?? "")
                                                     .font(Font.regular(size: 14))
                                                 
-                                                Spacer().frame(height:20)
+                                                Spacer().frame(height:15)
                                                 
                                                 Text("Subject".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentLesson?.subjectSemesterYearName ?? "")
                                                     .font(Font.regular(size: 14))
                                             }
-                                        }
+                                        }.lineSpacing(5)
                                         
                                     }
                                     .foregroundColor(.mainBlue)
@@ -295,7 +295,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                             // Call a function to add a PDF document
                                         }
                                         Button("Cancel".localized(), role: .cancel) { }
-                                    } message: {Text("this is the file type you will add".localized())}
+                                    } message: {Text("What is the file type you will add".localized())}
                                     
                                     //MARK: -------- imagePicker From Camera and Library ------
                                         .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {

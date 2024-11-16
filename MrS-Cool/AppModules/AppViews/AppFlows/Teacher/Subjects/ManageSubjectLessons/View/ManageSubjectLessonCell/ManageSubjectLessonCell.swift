@@ -72,7 +72,7 @@ struct ManageSubjectLessonCell: View {
             }
             
             HStack (alignment:.bottom){
-                VStack (alignment:.leading){
+                VStack (alignment:.leading,spacing:5){
                     Text(model.lessonName ?? "")
                         .font(Font.semiBold(size: 13))
                         .foregroundColor(.mainBlue)
@@ -89,7 +89,7 @@ struct ManageSubjectLessonCell: View {
                 
                 Spacer()
                 HStack (alignment:.bottom,spacing:25){
-                    VStack(alignment:.leading){
+                    VStack(alignment:.leading,spacing:5){
     //                    Spacer()
                                 
                         Text("Group Info".localized())
@@ -115,7 +115,7 @@ struct ManageSubjectLessonCell: View {
 
                     }
                     
-                    VStack(alignment:.leading){
+                    VStack(alignment:.leading,spacing:5){
     //                    Spacer()
                         Text("Individual Info".localized())
                             .font(Font.bold(size: 9))

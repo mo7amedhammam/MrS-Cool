@@ -295,6 +295,7 @@ struct DynamicHeightSheet<Content: View>: View {
             .edgesIgnoringSafeArea(.bottom)
             //            }
         }
+        .localizeView()
         .frame(maxWidth: .infinity, maxHeight: isPresented ? .infinity:0)
         .opacity(isPresented ? 1 : 0)
         .animation(.easeInOut)
@@ -363,6 +364,8 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
                 .animation(.easeInOut, value: isPresented)
             }
         }
+        .localizeView()
+        
     }
 }
 

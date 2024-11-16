@@ -286,7 +286,7 @@ struct CustomAlertView: View {
             .cornerRadius(10)
             .padding(.horizontal)
         }
-        
+        .localizeView()
         .zIndex(2)
     }
 }

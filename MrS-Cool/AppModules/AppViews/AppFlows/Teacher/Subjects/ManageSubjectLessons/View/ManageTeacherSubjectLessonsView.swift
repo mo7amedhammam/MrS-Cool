@@ -43,40 +43,41 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     // -- inputs --
                                     Group {
                                         HStack{
-                                            VStack(alignment:.leading){
+                                            VStack(alignment:.leading,spacing:5){
                                                 Text("Education Type".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentSubject?.educationTypeName ?? "Egyption")
                                                     .font(Font.regular(size: 14))
                                                 
-                                                Spacer().frame(height:30)
+                                                Spacer().frame(height:25)
                                                 
                                                 Text("Academic Year".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentSubject?.academicYearName ?? "level 1")
                                                     .font(Font.regular(size: 14))
                                                 
                                             }
                                             Spacer()
-                                            VStack(alignment:.leading){
+                                            VStack(alignment:.leading,spacing:5){
                                                 Text("Education Level".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentSubject?.educationLevelName ?? "Primary")
                                                     .font(Font.regular(size: 14))
                                                 
-                                                Spacer().frame(height:30)
+                                                Spacer().frame(height:25)
                                                 
                                                 Text("Subject".localized())
-                                                    .font(Font.semiBold(size: 16))
+                                                    .font(Font.bold(size: 16))
                                                 
                                                 Text(currentSubject?.subjectSemesterYearName ?? "level 1")
                                                     .font(Font.regular(size: 14))
                                                 
                                             }
                                         }
+                                        .lineSpacing(5)
                                         
                                         
                                         //                                    HStack{

@@ -28,7 +28,7 @@ struct PaymentStatusView: View {
                     .foregroundColor(paymentsuccess ? ColorConstants.MainColor : .red)
                     .padding(.vertical)
                     
-                Text(paymentsuccess ? "Your payment had beed done \nsuccessfully.".localized():"Your payment had beed Failed.".localized())
+                Text(paymentsuccess ? "Your payment had been done \nsuccessfully.".localized():"Your payment had beed Failed.".localized())
                     .multilineTextAlignment(.center)
                     .font(.regular(size: 14))
                     .foregroundColor(ColorConstants.Bluegray400)

@@ -196,7 +196,7 @@ extension ManageTeacherProfileVM{
         rate = model.rate ?? 0
         accountStatus = .init(ProfileStatus(statusId: model.statusID,statusName: model.statusName))
         phone = model.mobile ?? ""
-        selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
+        selectedGender = .init(id:model.genderID,Title:model.genderName )
         isTeacher = model.isTeacher ?? true
         country = .init(id:model.countryID,Title: model.countryName)
         governorte = .init(id:model.governorateID,Title: model.governorateName)

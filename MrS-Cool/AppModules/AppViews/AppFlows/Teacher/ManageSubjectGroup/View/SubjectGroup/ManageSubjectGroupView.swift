@@ -27,7 +27,7 @@ struct ManageSubjectGroupView: View {
     //    @State var addExtraSession = true
     //    @State var selectedGrup = SubjectGroupM()
     
-    fileprivate func preparelessonscounts() {
+    fileprivate func preparelessonscounts() -> Bool {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
         subjectgroupvm.teacherLessonList = subjectgroupvm.AllLessonsForList.compactMap{option in
 //            return option.LessonItem
@@ -38,6 +38,14 @@ struct ManageSubjectGroupView: View {
                   return nil
         }
         //        print("subjectgroupvm.CreateTeacherLessonList",subjectgroupvm.CreateTeacherLessonList)
+        
+        // Check if there are no selected items
+        guard !subjectgroupvm.teacherLessonList.isEmpty else {
+            subjectgroupvm.error = .error(title:  "", image: "img_group", message: "You must choose at least one lesson", buttonTitle: "OK", mainBtnAction: {})
+            subjectgroupvm.isError = true
+            return false
+        }
+            return true
     }
     
 //    @State var AllLessonsForList: [DropDownOption] = []
@@ -125,15 +133,14 @@ struct ManageSubjectGroupView: View {
                                                                                 return ""  // Default value if index is out of range
                                                                             }                                                                        },
                                                                         set: { newValue in
+                                                                            subjectgroupvm.AllLessonsForList[index].LessonItem?.count = Int(newValue)
                                                                             if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
                                                                                 if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
-                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.count = intValue
                                                                                     countHints[index] = false  // Show hint for invalid input
                                                                                     
                                                                                 } else {
                                                                                     countHints[index] = true  // Show hint for invalid input
                                                                                     
-                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.count = nil  // Reset if invalid
                                                                                 }                                                                        }
                                                                         }),
                                                                     keyboardType: .asciiCapableNumberPad,
@@ -149,15 +156,15 @@ struct ManageSubjectGroupView: View {
                                                                             }
                                                                         },
                                                                         set: { newValue in
+                                                                            subjectgroupvm.AllLessonsForList[index].LessonItem?.order = Int(newValue)
+
                                                                             if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
                                                                                 if let intValue = Int(newValue), intValue > 0 {
-                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.order = intValue
                                                                                     orderHints[index] = false  // Show hint for invalid input
                                                                                     
                                                                                 } else {
                                                                                     orderHints[index] = true  // Show hint for invalid input
                                                                                     
-                                                                                    subjectgroupvm.AllLessonsForList[index].LessonItem?.order = nil  // Reset if invalid
                                                                                 }
                                                                             }
                                                                         }),
@@ -252,7 +259,7 @@ struct ManageSubjectGroupView: View {
                                         print("subjectgroupvm.teacherLessonList",subjectgroupvm.teacherLessonList)
                                         guard !(countHints.values.contains(true) || orderHints.values.contains(true)) else {return}
 
-                                        preparelessonscounts()
+                                        guard preparelessonscounts() else{ return }
                                         
                                         subjectgroupvm.ReviewTeacherGroup()
                                         destination = AnyView(    SubjectGroupDetailsView(previewOption: .newGroup).hideNavigationBar().environmentObject(subjectgroupvm).environmentObject(lookupsvm))
@@ -382,6 +389,7 @@ struct ManageSubjectGroupView: View {
                 }
                 .frame(height: 320)
             }
+//            .localizeView()
             .background(ColorConstants.WhiteA700.cornerRadius(8))
             .padding()
             

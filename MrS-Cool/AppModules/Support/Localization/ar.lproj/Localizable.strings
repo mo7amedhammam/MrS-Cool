@@ -35,20 +35,19 @@
 "Teachers" = "المعلمين";
 " of 5 " = " of 5 ";
 " units ." = " الوحدات .";
-"(" = "(";
+"(" = ")";
 "(1 / 3)" = "(1 / 3)";
 "(2 / 3)" = "(2 / 3)";
 "(3 / 3)" = "(3 / 3)";
-")" = ")";
-") " = ") ";
+")" = "(";
+") " = "( ";
 "* Note: Must enter at least one item" = "* ملاحظة: يجب إدخال عنصر واحد على الأقل";
 "/" = "/";
 ":" = ":";
-": " = ": ";
+": " = " :";
 "Academic" = "أكاديمي";
 "Academic Year" = "صف الدراسي";
 "Academic Year *" = "صف الدراسي *";
-"AcademicYearEducationLevelId" = "AcademicYearEducationLevelId";
 "Accept" = "قبول";
 "Account Created" = "تم إنشاء الحساب";
 "Account Created!" = "تم إنشاء الحساب!";
@@ -94,8 +93,8 @@
 "Change Your New Password" = "تغيير كلمة المرور الجديدة";
 "Chat" = "الدردشة";
 "Choose Files" = "اختر الملفات";
-"Choose_File_Type" = "Choose_File_Type";
-"Choose_Image_From" = "Choose_Image_From";
+"Choose_File_Type" = "اختر نوع الملف";
+"Choose_Image_From" = "اختيار صوره من";
 "Clear" = "مسح";
 "Click For Prev" = "انقر للمعاينة";
 "Close" = "Close";
@@ -113,7 +112,7 @@
 "Current Time:" = "الوقت الحالي:";
 "Current Wallet Balance" = "رصيد المحفظة الحالي";
 "Current password *" = "كلمة المرور الحالية *";
-"DELETE" = "DELETE";
+"DELETE" = "حذف";
 "Date" = "التاريخ";
 "Day" = "اليوم";
 "Day *" = "اليوم *";
@@ -154,7 +153,6 @@
 "Forget Password" = "نسيت كلمة المرور";
 "Gender" = "الجنس";
 "Gender *" = "الجنس *";
-"GenderId" = "GenderId";
 "Go To Home" = "الذهاب إلى الصفحة الرئيسية";
 "Governorate *" = "المحافظة *";
 "Group" = "مجموعة";
@@ -219,8 +217,6 @@
 "Material" = "المادة";
 "Material Title" = "عنوان المادة";
 "Material Type" = "نوع المادة";
-"MaterialFile" = "MaterialFile";
-"MaterialTypeId" = "MaterialTypeId";
 "Maximum Number Of Students" = "الحد الأقصى لعدد الطلاب";
 "Maximum Size: 2MB" = "الحجم الأقصى: 2 ميجابايت";
 "Me" = "أنا";
@@ -268,7 +264,7 @@
 "No lessons found" = "لم يتم العثور على دروس";
 "No subjects found" = "لا توجد مواد دراسية";
 "Number of students *" = "عدد الطلاب *";
-"OK" = "OK";
+"OK" = "موافق";
 "Okay" = "Okay";
 "One account is allowed only" = "يُسمح بحساب واحد فقط";
 "Or" = "أو";
@@ -462,9 +458,9 @@
 "My Information" = "معلوماتي";
 "My Schedule" = "انا موجود اونلاين لشرح درس";
 "New password *" = "كلمة المرور الجديدة *";
-"Next" = "Next";
+"Next" = "التالى";
 "Next Payment" = "الرصيد الحالي";
-"No" = "No";
+"No" = "لا";
 "No Available Group Times" = "لا توجد أوقات متاحة للمجموعة";
 "No Available Subject Groups" = "لا توجد مجموعات مواد متاحة";
 "No Group Name" = "لا يوجد اسم المجموعة";
@@ -481,10 +477,9 @@
 "Not Now" = "ليس الآن";
 "Num Of Lessons" = "عدد الدروس";
 "OTP Verification" = "التحقق باستخدام OTP";
-"Ok" = "Ok";
 "Order" = "Order";
 "Order *" = "Order *";
-"PDF" = "PDF";
+"PDF" = "بى دى اف";
 "Parent Name *" = "اسم ولي الأمر *";
 "Password *" = "كلمة المرور *";
 "Payment Approved" = "تمت الموافقة على الدفع";
@@ -588,7 +583,6 @@
 "Your file uploaded successfully" = "تم رفع الملف بنجاح";
 "Your payment had beed Failed." = "فشلت عملية الدفع الخاصة بك.";
 "birthDate" = "تاريخ الميلاد";
-"booktypecheckout" = "booktypecheckout";
 "brief" = "brief";
 "chat" = "chat";
 "current:" = "الحالي:";
@@ -607,8 +601,8 @@
 "payment done :" = "تم الدفع:";
 "payment_approved" = "payment_approved";
 "payment_failed" = "payment_failed";
-"photo" = "photo";
-"photo_Library" = "photo_Library";
+"photo" = "صوره";
+"photo_Library" = "الصور";
 "preview : " = "preview : ";
 "profile" = "profile";
 "sendmessage" = "sendmessage";
@@ -636,3 +630,14 @@
 
 "View Details" = "عرض المعلمين";
 "Manage My Scheduals" = "إدارة مواعيدى";
+
+"You must choose at least one lesson" =  "يجب أن تختار درسًا واحدًا على الأقل";
+"What is the file type you will add" = "ما نوع الملف المطلوب";
+"* Note: Must be enter one item at least" = "* ملحوظه: يجب عليك إدخال ماده واحده على الاقل";
+" No Available Times on " = " لا توجد أوقات متاحة في ";
+
+
+"Your Payment Approve\n Successfully" = "تم الدفع\n بنجاح";
+"Your payment had been done \nsuccessfully." = "تمت عملية الدفع \nبنجاح.";
+"Please back to your account and \nenjoy" = "الرجاء العودة إلى حسابك \nوالإستمتاع";
+"Please back to your account and try \nagain" = "الرجاء العودة إلى حسابك والمحاولة \nمرة أخرى";

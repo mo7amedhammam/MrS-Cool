@@ -122,63 +122,66 @@ struct TeacherFinanceView: View {
                                     Text("LE".localized())
                                 }
                                 .font(Font.bold(size: 24))
-                                .foregroundColor(ColorConstants.MainColor)
+                                .foregroundColor(.mainBlue)
                             }
                         }
-                        .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-                        
-                        VStack(spacing:0){
-                            HStack(spacing: 10){
-                                Image("moneyicon")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(.mainBlue )
-                                    .frame(width: 20,height: 20, alignment: .center)
-                                Text("Next Payment".localized())
-                                    .font(Font.regular(size: 12))
-                                    .foregroundColor(.mainBlue)
-                                Spacer()
-                            }
-                            .padding([.top,.leading],10)
-                            
-                            VStack(alignment:.trailing,spacing:0){
-                                HStack(spacing:0){
-                                    Text("\(financevm.Finance?.nextCycleDue ?? 0,specifier:"%.2f") ")
-                                    Text("LE".localized())
-                                }
-                                .font(Font.bold(size: 24))
-                                .foregroundColor(ColorConstants.LightGreen800)
-                            }
-                        }
+                        .padding(.bottom,10)
                         .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
 
-                        }
-                        
-                        VStack(spacing:0){
-                            HStack(spacing: 10){
-                                Image("moneyicon")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(.mainBlue )
-                                    .frame(width: 20,height: 20, alignment: .center)
-                                Text("You Earned".localized())
-                                    .font(Font.regular(size: 12))
-                                    .foregroundColor(.mainBlue)
-                                Spacer()
-                            }
-                            .padding([.top,.leading],10)
-                            
-                            VStack(alignment:.trailing,spacing:0){
-                                HStack(spacing:0){
-                                    Text("\(financevm.Finance?.totalIncome ?? 0,specifier:"%.2f") ")
-                                    Text("LE".localized())
+                            VStack(spacing:0){
+                                HStack(spacing: 10){
+                                    Image("moneyicon")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundColor(.mainBlue )
+                                        .frame(width: 20,height: 20, alignment: .center)
+                                    Text("You Earned".localized())
+                                        .font(Font.regular(size: 12))
+                                        .foregroundColor(ColorConstants.LightGreen800)
+                                    Spacer()
                                 }
-                                .font(Font.bold(size: 48))
-                                .foregroundColor(ColorConstants.MainColor)
+                                .padding([.top,.leading],10)
+                                
+                                VStack(alignment:.trailing,spacing:0){
+                                    HStack(spacing:0){
+                                        Text("\(financevm.Finance?.totalIncome ?? 0,specifier:"%.2f") ")
+                                        Text("LE".localized())
+                                    }
+                                    .font(Font.bold(size: 24))
+                                    .foregroundColor(ColorConstants.LightGreen800)
+                                }
                             }
+                            .padding(.bottom,10)
+                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+                            
+                            
+//                        VStack(spacing:0){
+//                            HStack(spacing: 10){
+//                                Image("moneyicon")
+//                                    .resizable()
+//                                    .renderingMode(.template)
+//                                    .foregroundColor(.mainBlue )
+//                                    .frame(width: 20,height: 20, alignment: .center)
+//                                Text("Next Payment".localized())
+//                                    .font(Font.regular(size: 12))
+//                                    .foregroundColor(.mainBlue)
+//                                Spacer()
+//                            }
+//                            .padding([.top,.leading],10)
+//                            
+//                            VStack(alignment:.trailing,spacing:0){
+//                                HStack(spacing:0){
+//                                    Text("\(financevm.Finance?.nextCycleDue ?? 0,specifier:"%.2f") ")
+//                                    Text("LE".localized())
+//                                }
+//                                .font(Font.bold(size: 24))
+//                                .foregroundColor(ColorConstants.LightGreen800)
+//                            }
+//                        }
+//                        .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+
                         }
-                        .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-                    }
+                       }
                     .padding(.bottom,5)
 
                     
@@ -204,7 +207,7 @@ struct TeacherFinanceView: View {
                                         showLessonsFilter = true
 //                                        validateFilterValues()
                                     })
-                            }
+                            }.padding(.top)
                             
                             if let lessons = financevm.PurchasedLessons?.items{
                                 List(lessons, id:\.self) { lesson in
@@ -225,7 +228,7 @@ struct TeacherFinanceView: View {
                                 }
                                 .padding(.horizontal,-15)
                                 .listStyle(.plain)
-                                .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count)*80)
+                                .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count)*80+30)
 //                                .frame(minHeight: gr.size.height)
                             }
                             
@@ -272,7 +275,7 @@ struct TeacherFinanceView: View {
                                 .padding(.horizontal,-15)
                                 .listStyle(.plain)
 //                                .frame(minHeight: gr.size.height)
-                                .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count)*80)
+                                .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count)*80+30)
 
                             }
                         }

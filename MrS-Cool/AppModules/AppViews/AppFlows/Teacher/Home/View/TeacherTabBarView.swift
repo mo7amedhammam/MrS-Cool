@@ -219,6 +219,7 @@ struct TeacherTabBarView: View {
     @ViewBuilder
     private func SideMenuView() -> some View {
         SideView(isShowing: $presentSideMenu, content: AnyView(TeacherSideMenuContent(presentSideMenu: $presentSideMenu, selectedDestination: $selectedDestination, isPush: $tabbarvm.ispush).environmentObject(teacherProfilevm)), direction: .leading)
+            .localizeView()
             .onDisappear(perform: {
                 selectedDestination = nil
             })

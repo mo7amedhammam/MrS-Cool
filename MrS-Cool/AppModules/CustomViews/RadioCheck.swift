@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RadioCheck: View {
     @Binding var isSelected : Bool?
-    var buttons = ["Yes":true,"No":false]
+//    var buttons = ["Yes":true,"No":false]
     var body: some View {
         HStack(spacing:0){
             Spacer()

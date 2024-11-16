@@ -47,14 +47,15 @@ struct SubjectGroupDetailsView: View {
                                     // -- inputs --
                                     Group {
                                         HStack(alignment:.top){
-                                            VStack(alignment:.leading){
+                                            VStack(alignment:.leading,spacing:5){
                                                 Text("Subject".localized())
                                                     .font(Font.bold(size: 16))
                                                 //
                                                 Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
                                                     .font(Font.regular(size: 14))
+                                                
                                                 //
-                                                Spacer().frame(height:30)
+                                                Spacer().frame(height:25)
                                                 //
                                                 Text("Start Date".localized())
                                                     .font(Font.bold(size: 16))
@@ -75,16 +76,15 @@ struct SubjectGroupDetailsView: View {
                                             }
                                             Spacer()
                                             
-                                            VStack(alignment:.leading){
+                                            VStack(alignment:.leading,spacing:5){
                                                 Text("Group Name".localized())
                                                     .font(Font.bold(size: 16))
                                                 
                                                 Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
                                                     .font(Font.regular(size: 14))
                                                     .fontWeight(.medium)
-
                                                 
-                                                Spacer().frame(height:30)
+                                                Spacer().frame(height:25)
                                                 
                                                 Text("End Date".localized())
                                                     .font(Font.bold(size: 16))
@@ -94,6 +94,7 @@ struct SubjectGroupDetailsView: View {
                                                     .fontWeight(.medium)
                                             }
                                         }
+                                        .lineSpacing(5)
                                         
                                         //                                    HStack{
                                         ////                                        VStack(alignment:.leading){

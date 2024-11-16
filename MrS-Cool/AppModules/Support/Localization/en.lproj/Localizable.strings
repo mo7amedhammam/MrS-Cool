@@ -59,7 +59,7 @@
 "Add New Material" = "Add New Material";
 "Add New Schedule" = "Add New Schedule";
 "Add New Student Account" = "Add New Student Account";
-"Add New Subject Group" = "Add New Subject Group";
+"Add New Subject Group" = "Creating a course group for the term - Please note that the first date of the group start does not include today’s date. The actual start date is counted from the day following the group creation. Please take this into account when planning your course schedules.";
 "Amount" = "Amount";
 "An authentication code has been sent to" = "An authentication code has been sent to";
 "Anonymous" = "Anonymous";
@@ -482,7 +482,6 @@
 "Not Now" = "Not Now";
 "Num Of Lessons" = "Num Of Lessons";
 "OTP Verification" = "OTP Verification";
-"Ok" = "Ok";
 "Order" = "Order";
 "Order *" = "Order *";
 "PDF" = "PDF";
@@ -637,3 +636,12 @@
 
 "View Details" = "View Details";
 "Manage My Scheduals" = "Manage My Scheduals";
+
+"You must choose at least one lesson" =  "You must choose at least one lesson";
+"What is the file type you will add" = "What is the file type you will add";
+
+
+"Your Payment Approve\n Successfully" = "Your Payment Approve\n Successfully";
+"Your payment had been done \nsuccessfully." = "Your payment had been done \nsuccessfully.";
+"Please back to your account and \nenjoy" = "Please back to your account and \nenjoy";
+"Please back to your account and try \nagain" = "Please back to your account and try \nagain";

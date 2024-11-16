@@ -353,7 +353,7 @@ struct LessonDetailsView: View {
                                         .padding(.vertical,8)
                                     
                                     if (lessoncase == .Individual && lessondetailsvm.availableScheduals == []){
-                                        HStack (spacing:2){
+                                        VStack (spacing:5){
                                             Text(" No Available Times on ".localized())
                                             Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy")
                                         )

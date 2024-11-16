@@ -193,7 +193,7 @@ extension ParentProfileVM{
         code = model.code ?? ""
 //        accountStatus = .init(ProfileStatus(statusId: model.statusID,statusName: model.statusName))
         phone = model.mobile ?? ""
-        selectedGender = .init(id:model.genderID,Title:model.genderID == 1 ? "Male":"Female" )
+        selectedGender = .init(id:model.genderID,Title:model.genderName)
 //        isTeacher = model.isTeacher ?? true
         country = .init(id:model.countryID,Title: model.countryName)
         governorte = .init(id:model.governoratedID,Title: model.governorateName)

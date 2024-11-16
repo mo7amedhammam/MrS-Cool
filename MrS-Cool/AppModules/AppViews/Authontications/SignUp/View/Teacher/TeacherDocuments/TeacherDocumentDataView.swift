@@ -193,7 +193,7 @@ struct TeacherDocumentDataView: View {
                 // Call a function to add a PDF document
             }
             Button("Cancel".localized(), role: .cancel) { }
-        } message: {Text("this is the file type you will add".localized())}
+        } message: {Text("What is the file type you will add".localized())}
         
         //MARK: -------- imagePicker From Camera and Library ------
             .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {

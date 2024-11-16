@@ -17,7 +17,7 @@ struct ManageTeacherProfileM: Codable {
     var statusName: String?
     var statusID: Int?
     var rate: Float?
-    var creationDate, countryName, governorateName, cityName: String?
+    var creationDate, countryName, governorateName, cityName,genderName: String?
     var name: String?
     var cityID, genderID: Int?
     var isTeacher: Bool?
@@ -31,7 +31,7 @@ struct ManageTeacherProfileM: Codable {
         case governorateID = "governorateId"
         case statusName
         case statusID = "statusId"
-        case rate, creationDate, countryName, governorateName, cityName, name
+        case rate, creationDate, countryName, governorateName, cityName, name,genderName
         case cityID = "cityId"
         case genderID = "genderId"
         case isTeacher, teacherBio
