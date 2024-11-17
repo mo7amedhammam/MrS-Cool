@@ -8,6 +8,7 @@
     import Foundation
     import Combine
 
+@MainActor
     class ChatListVM: ObservableObject {
         private var cancellables: Set<AnyCancellable> = []
         
@@ -21,6 +22,7 @@
         
         //    MARK: --- outpust ---
         @Published var isLoading : Bool?
+        @Published var isLoadingComments : Bool?
         @Published var isError : Bool = false
         //    @Published var error: Error?
         @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
@@ -35,6 +37,8 @@
         init(){
         }
         func cleanup(){
+            isLoading = false
+            isLoadingComments = false
             cancellables.forEach{ cancellable in
                 cancellable.cancel()
             }
@@ -117,13 +121,13 @@
             
             print("parameters",parameters)
             let target = teacherServices.GetAllComentsListById(parameters: parameters)
-            isLoading = true
+            isLoadingComments = true
             if Helper.shared.getSelectedUserType() == .Teacher{
                 BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
                     .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: {[weak self] completion in
                         guard let self = self else{return}
-                        isLoading = false
+                        isLoadingComments = false
                         switch completion {
                         case .finished:
                             break
@@ -142,7 +146,7 @@
                             //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                             error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                         }
-                        isLoading = false
+                        isLoadingComments = false
                     })
                     .store(in: &cancellables)
             }else{
@@ -150,7 +154,7 @@
                     .receive(on: DispatchQueue.main)
                     .sink(receiveCompletion: {[weak self] completion in
                         guard let self = self else{return}
-                        isLoading = false
+                        isLoadingComments = false
                         switch completion {
                         case .finished:
                             break
@@ -168,7 +172,7 @@
                             //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                             error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                         }
-                        isLoading = false
+                        isLoadingComments = false
                     })
                     .store(in: &cancellables)
             }
@@ -189,7 +193,7 @@
                 parameters["studentId"] = Helper.shared.selectedchild?.id
             }
             let target = teacherServices.CreateComment(parameters: parameters)
-            isLoading = true
+            isLoadingComments = true
             BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: {[weak self] completion in
@@ -206,14 +210,14 @@
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-                        ChatDetails = receivedData.data
                         comment.removeAll()
+                            ChatDetails = receivedData.data
                     }else{
                         isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                         error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                     }
-                    isLoading = false
+                    isLoadingComments = false
                 })
                 .store(in: &cancellables)
         }

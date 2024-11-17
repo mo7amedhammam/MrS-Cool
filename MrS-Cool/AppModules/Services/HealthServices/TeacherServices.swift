@@ -255,7 +255,8 @@ extension teacherServices:TargetType{
                 .GetTeacherRates(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
             
-//        case  .GetAllComentsList(parameters: let Parameters):
+//        case  .GetAllComentsList(parameters: let Parameters),
+//                .GetAllComentsListById(parameters: let Parameters):
 //            return .parameterdGetRequest(Parameters: Parameters, Encoding: .default)
 
         }

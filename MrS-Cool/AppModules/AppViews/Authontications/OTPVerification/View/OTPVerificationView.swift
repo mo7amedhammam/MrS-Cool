@@ -55,7 +55,7 @@ struct OTPVerificationView: View {
                             .padding(.top, getRelativeHeight(7.0))
                             .padding(.horizontal, getRelativeWidth(26.0))
                         
-                        Text(otpvm.CurrentOtp ?? "")
+//                        Text(otpvm.CurrentOtp ?? "")
                         
                         OTPTextField(numberOfFields: 6,finalOTP: $otpvm.EnteredOtp)
                             .padding(.vertical)
