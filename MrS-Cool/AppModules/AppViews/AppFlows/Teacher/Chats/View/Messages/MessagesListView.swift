@@ -31,133 +31,20 @@ struct MessagesListView: View {
                 .padding(.horizontal)
                 if let student = chatlistvm.ChatDetails{
                     VStack{
-                        HStack{
-                            let imageurl = Helper.shared.getSelectedUserType() == .Teacher ? student.studentImage ?? "":student.teacherImage ?? ""
-//                            let studentimageurl = student.studentImage ?? ""
-
-//                            AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
-//                                image
-//                                    .resizable()
-//                            }placeholder: {
-//                                Image("img_younghappysmi")
-//                                    .resizable()
-//                            }
-                            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl).reverseSlaches())
-                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 50,height: 50)
-                            .clipShape(Circle())
-                            VStack(alignment: .leading,spacing: 4){
-                                Text(Helper.shared.getSelectedUserType() == .Teacher ? student.studentName ?? "" : student.teacherName ?? "")
-                                    .font(Font.bold(size:15))
-                                    .foregroundColor(.mainBlue)
-                                
-                                Text(student.subjectName ?? "")
-                                    .font(Font.bold(size:14))
-                                    .foregroundColor(.bluegray400)
-                            }
-                            Spacer()
-                        }
-                        .padding([.top,.horizontal])
+                        CommentsHeader(header: student)
                         Divider().padding(.horizontal)
                         
-                        if let array = student.comments {
-                            ScrollViewReader { scrollView in
-                                ScrollView {
-                                    ForEach(Array(array.enumerated()), id:\.element.hashValue){ index,comment in
-                                        HStack{
-                                            if comment.fromName != nil {
-                                                Spacer()
-                                            }
-                                            VStack(alignment:comment.fromName != nil ? .trailing : .leading) {
-                                                HStack{
-                                                    let imageurl = comment.fromImage != nil ? comment.fromImage ?? "":comment.toImage ?? ""
-//                                                    AsyncImage(url: URL(string: Constants.baseURL+imageurl)){image in
-//                                                        image
-//                                                            .resizable()
-//                                                    }
-//                                                placeholder: {
-//                                                    Image("img_younghappysmi")
-//                                                        .resizable()
-//                                                }
-                                                    let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ).reverseSlaches())
-                                                    KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 40,height: 40)
-                                                .clipShape(Circle())
-                                                .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
-                                                    
-                                                    
-                                                    HStack(spacing: 4){
-                                                        Text(comment.fromName != nil ? comment.fromName ?? "" :comment.toName ?? "")
-                                                            .font(Font.semiBold(size:15))
-                                                            .foregroundColor(.mainBlue)
-                                                            .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
-                                                        
-                                                        Text("\(comment.creationDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM , yyyy HH:mm"))
-                                                            .font(Font.regular(size:10))
-                                                            .foregroundColor(.bluegray400)
-                                                            .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
-                                                    }
-                                                    Spacer()
-                                                }
-                                                .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
-                                                
-                                                Text(comment.comment ?? "")
-                                                    .font(Font.bold(size:10))
-                                                    .padding(10)
-                                                    .foregroundColor(Color.black)
-                                                    .background(comment.fromName != nil ? Color.myMsgBg : ColorConstants.Red400.opacity(0.08))
-                                                    .cornerRadius(10)
-                                            }
-                                            
-                                            if comment.fromName == nil {
-                                                Spacer()
-                                            }
-                                        }
-                                        .padding()
-                                        .id(index)
-                                        .onAppear {
-                                            if index == array.count - 1 {
-                                                // Scroll to the bottom when the last item appears
-                                                scrollView.scrollTo(index, anchor: .bottom)
-                                            }
-                                        }
-                                        
-                                    }
-                                }
-                                
-                            }
+                        if let comments = student.comments {
+                            CommentsList(comments: comments)
                         }
                         
                         Divider().padding(.horizontal)
-                        HStack{
-                            MultilineTextField("Send a message", text: $chatlistvm.comment, onCommit: {
-                                print("Final text: \(chatlistvm.comment)")
-                                chatlistvm.CreateChatComment()
-                            })
-//                            TextField("Send a message".localized(), text: $chatlistvm.comment)
-                                .font(Font.semiBold(size:15))
-                                .foregroundColor(.mainBlue)
-                                .disableAutocorrection(true)
-                                .textInputAutocapitalization(.never)
-
-                            
-                            Button(action: {
-                                chatlistvm.CreateChatComment()
-                            }, label: {
-                                Image("sendmessage")
-                            })
-                            .disabled(chatlistvm.comment.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        
+                        MessageInputField(comment: $chatlistvm.comment) {
+                            Task { chatlistvm.CreateChatComment(chatid: selectedLessonId) }
                         }
                         .padding(.horizontal)
-                        .padding(.vertical,8)
-                        .background(RoundedCorners(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16)
-                            .fill(.red400.opacity(0.08)))
-                        .padding(.horizontal)
-                        .padding(.bottom,8)
+                        .padding(.bottom, 8)
                         
                     }
                     .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
@@ -167,6 +54,7 @@ struct MessagesListView: View {
                         .fill(ColorConstants.WhiteA700))
                     .padding(.top)
                     .padding(.horizontal,10)
+                    
                 }else{
                     VStack{
                         Spacer()
@@ -176,21 +64,15 @@ struct MessagesListView: View {
                             .foregroundColor(.bluegray400)
                             .padding()
                         Spacer()
-
+                        
                     }
-                    
-                    
-                    
                 }
-                
-                
                 Spacer()
             }
-            
             .onAppear(perform: {
                 chatlistvm.comment.removeAll()
-                chatlistvm.selectedChatId = selectedLessonId
-                chatlistvm.GetChatComments()
+//                chatlistvm.selectedChatId = selectedLessonId
+                chatlistvm.GetChatComments(chatid: selectedLessonId)
             })
             
         }
@@ -198,10 +80,10 @@ struct MessagesListView: View {
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
-//        .onDisappear {
-////            chatlistvm.cleanup()
-//        }
-        .showHud(isShowing: $chatlistvm.isLoading)
+        //        .onDisappear {
+        ////            chatlistvm.cleanup()
+        //        }
+        .showHud(isShowing: $chatlistvm.isLoadingComments)
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
         
     }
@@ -217,16 +99,16 @@ import UIKit
 
 fileprivate struct UITextViewWrapper: UIViewRepresentable {
     typealias UIViewType = UITextView
-
+    
     @Binding var text: String
     @Binding var calculatedHeight: CGFloat
     var maxHeight: CGFloat
     var onDone: (() -> Void)?
-
+    
     func makeUIView(context: UIViewRepresentableContext<UITextViewWrapper>) -> UITextView {
         let textView = UITextView()
         textView.delegate = context.coordinator
-
+        
         textView.isEditable = true
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.isSelectable = true
@@ -238,18 +120,18 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
         if nil != onDone {
             textView.returnKeyType = .done
         }
-
+        
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return textView
     }
-
+    
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<UITextViewWrapper>) {
         if uiView.text != self.text {
             uiView.text = self.text
         }
         UITextViewWrapper.recalculateHeight(view: uiView, result: $calculatedHeight, maxHeight: maxHeight)
     }
-
+    
     fileprivate static func recalculateHeight(view: UIView, result: Binding<CGFloat>, maxHeight: CGFloat) {
         let newSize = view.sizeThatFits(CGSize(width: view.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
         let newHeight = min(newSize.height, maxHeight)
@@ -259,27 +141,27 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
             }
         }
     }
-
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator(text: $text, height: $calculatedHeight, onDone: onDone)
     }
-
+    
     final class Coordinator: NSObject, UITextViewDelegate {
         var text: Binding<String>
         var calculatedHeight: Binding<CGFloat>
         var onDone: (() -> Void)?
-
+        
         init(text: Binding<String>, height: Binding<CGFloat>, onDone: (() -> Void)? = nil) {
             self.text = text
             self.calculatedHeight = height
             self.onDone = onDone
         }
-
+        
         func textViewDidChange(_ uiView: UITextView) {
             text.wrappedValue = uiView.text
             UITextViewWrapper.recalculateHeight(view: uiView, result: calculatedHeight, maxHeight: uiView.frame.size.height)
         }
-
+        
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             if let onDone = self.onDone, text == "\n" {
                 textView.resignFirstResponder()
@@ -292,10 +174,10 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
 }
 
 struct MultilineTextField: View {
-
+    
     private var placeholder: String
     private var onCommit: (() -> Void)?
-
+    
     @Binding private var text: String
     private var internalText: Binding<String> {
         Binding<String>(get: { self.text } ) { newValue in
@@ -303,11 +185,11 @@ struct MultilineTextField: View {
             self.updatePlaceholderVisibility()
         }
     }
-
+    
     @State private var dynamicHeight: CGFloat = 100
     @State private var showingPlaceholder = false
     private var maxHeight: CGFloat = 100
-
+    
     init (_ placeholder: String = "", text: Binding<String>, maxHeight: CGFloat = 100, onCommit: (() -> Void)? = nil) {
         self.placeholder = placeholder
         self.onCommit = onCommit
@@ -315,29 +197,152 @@ struct MultilineTextField: View {
         self.maxHeight = maxHeight
         self._showingPlaceholder = State(initialValue: text.wrappedValue.isEmpty)
     }
-
+    
     var body: some View {
         UITextViewWrapper(text: self.internalText, calculatedHeight: $dynamicHeight, maxHeight: maxHeight, onDone: onCommit)
+            .font(Font.bold(size: 13))
             .frame(minHeight: dynamicHeight, maxHeight: dynamicHeight)
-            .background(placeholderView, alignment: .topLeading)
+            .background(placeholderView, alignment: .leading)
             .onAppear {
                 self.updatePlaceholderVisibility()
             }
+            .onChange(of: text){_ in
+                self.updatePlaceholderVisibility()
+            }
     }
-
+    
     var placeholderView: some View {
         Group {
             if showingPlaceholder {
                 Text(placeholder.localized())
+                    .font(Font.bold(size: 13))
                     .foregroundColor(.gray)
                     .padding(.leading, 4)
                     .padding(.top, 8)
             }
         }
     }
-
+    
     private func updatePlaceholderVisibility() {
         self.showingPlaceholder = self.text.isEmpty
     }
 }
 
+
+
+
+
+struct CommentsHeader :View {
+    let header : StudentChatDetailsM
+    var body: some View {
+        HStack{
+            let isTeacher = Helper.shared.getSelectedUserType() == .Teacher
+            let imageurl = isTeacher ? header.studentImage ?? "":header.teacherImage ?? ""
+            let imageURL : URL? = URL(string: Constants.baseURL+(imageurl).reverseSlaches())
+            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 50,height: 50)
+                .clipShape(Circle())
+            
+            VStack(alignment: .leading,spacing: 4){
+                Text(isTeacher ? header.studentName ?? "" : header.teacherName ?? "")
+                    .font(Font.bold(size:15))
+                    .foregroundColor(.mainBlue)
+                
+                Text(header.subjectName ?? "")
+                    .font(Font.bold(size:14))
+                    .foregroundColor(.bluegray400)
+            }
+            Spacer()
+        }
+        .padding([.top,.horizontal])
+    }
+}
+
+struct CommentsList:View {
+    let comments : [StudentLessonSessionCommentDetailsDto]
+    
+    var body: some View{
+        ScrollViewReader { scrollView in
+            //            if let array = student.comments {
+            let messages = Array(comments.enumerated())
+            
+            ScrollView {
+                ForEach(messages, id:\.element.hashValue){ index,comment in
+                    let ismine = comment.fromName != nil
+                    HStack{
+                        if ismine {
+                            Spacer()
+                        }
+                        VStack(alignment:ismine ? .trailing : .leading) {
+                            HStack{
+                                let imageurl = ismine ? comment.fromImage ?? "":comment.toImage ?? ""
+                                let imageURL : URL? = URL(string: Constants.baseURL+(imageurl ).reverseSlaches())
+                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 40,height: 40)
+                                    .clipShape(Circle())
+                                    .rotationEffect(Angle(degrees: comment.fromName != nil ? 180 : 0))
+                                
+                                HStack(spacing: 4){
+                                    Text(ismine ? comment.fromName ?? "" : comment.toName ?? "")
+                                        .font(Font.semiBold(size:15))
+                                        .foregroundColor(.mainBlue)
+                                        .rotationEffect(Angle(degrees: ismine ? 180 : 0))
+                                    
+                                    Text("\(comment.creationDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "d MMM , yyyy  HH:mm"))
+                                        .font(Font.regular(size:10))
+                                        .foregroundColor(.bluegray400)
+                                        .rotationEffect(Angle(degrees: ismine ? 180 : 0))
+                                }
+                                Spacer()
+                            }
+                            .rotationEffect(Angle(degrees: ismine ? 180 : 0))
+                            
+                            Text(comment.comment ?? "")
+                                .font(Font.bold(size:12))
+                                .padding(10)
+                                .foregroundColor(Color.black)
+                                .background(ismine ? Color.myMsgBg : ColorConstants.Red400.opacity(0.08))
+                                .cornerRadius(10)
+                                .lineSpacing(5)
+                        }
+                        
+                        if comment.fromName == nil {
+                            Spacer()
+                        }
+                    }
+                    .padding()
+                    .id(index)
+                    .onAppear {
+                        if index == comments.count - 1 {
+                            // Scroll to the bottom when the last item appears
+                            scrollView.scrollTo(index, anchor: .bottom)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+struct MessageInputField: View {
+    @Binding var comment: String
+    let onSend: () -> Void
+    
+    var body: some View {
+        HStack {
+            MultilineTextField("Send a message", text: $comment, onCommit: onSend)
+            
+            Button(action: onSend) {
+                Image("sendmessage")
+            }
+            .disabled(comment.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(RoundedCorners(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16)
+            .fill(.red400.opacity(0.08)))
+    }
+}

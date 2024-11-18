@@ -112,12 +112,12 @@
 
             }
         }
-        func GetChatComments(){
+        func GetChatComments(chatid:Int){
     //        isLoading = false
             var parameters:[String:Any] = [:]
-            if let chatid = selectedChatId{
+//            if let chatid = selectedChatId{
                 parameters["bookTeacherLessonSessionDetailId"] = chatid
-            }
+//            }
             
             print("parameters",parameters)
             let target = teacherServices.GetAllComentsListById(parameters: parameters)
@@ -177,7 +177,7 @@
                     .store(in: &cancellables)
             }
         }
-        func CreateChatComment(){
+        func CreateChatComment(chatid:Int){
     //        isLoading = false
             // Trim leading and trailing spaces
             let trimmedComment = comment.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -187,7 +187,7 @@
                    return
                }
             
-            var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : selectedChatId ?? 0,"comment":trimmedComment ]
+            var parameters:[String:Any] = ["bookTeacherLessonSessionDetailId" : chatid ,"comment":trimmedComment ]
             print("parameters",parameters)
             if Helper.shared.getSelectedUserType() == .Parent {
                 parameters["studentId"] = Helper.shared.selectedchild?.id
