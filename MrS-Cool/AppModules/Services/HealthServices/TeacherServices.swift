@@ -227,9 +227,10 @@ extension teacherServices:TargetType{
                 .GetMyCompletedLessonDetails(parameters: let Parameters),
                 .GetMyCalenderSchedual(parameters:let Parameters),
                 .cancelMyCalenderSchedual(parameters: let Parameters),
-                .AttendanceStudentCalenderSchedual(parameters: let Parameters),
-                .GetAllComentsList(parameters: let Parameters),
-                .GetAllComentsListById(parameters: let Parameters):
+                .AttendanceStudentCalenderSchedual(parameters: let Parameters)
+//                .GetAllComentsList(parameters: let Parameters),
+//                .GetAllComentsListById(parameters: let Parameters)
+            :
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetHomeScheduals(parameters: let Parameters),
@@ -255,9 +256,9 @@ extension teacherServices:TargetType{
                 .GetTeacherRates(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
             
-//        case  .GetAllComentsList(parameters: let Parameters),
-//                .GetAllComentsListById(parameters: let Parameters):
-//            return .parameterdGetRequest(Parameters: Parameters, Encoding: .default)
+        case  .GetAllComentsList(parameters: let Parameters),
+                .GetAllComentsListById(parameters: let Parameters):
+            return .parameterdGetRequest(Parameters: Parameters, Encoding: .default)
 
         }
     }

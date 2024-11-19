@@ -29,14 +29,14 @@ struct MessagesListView: View {
                     .padding(.top)
                 }
                 .padding(.horizontal)
-                if let student = chatlistvm.ChatDetails{
+                if chatlistvm.ChatDetails != nil{
                     VStack{
-                        CommentsHeader(header: student)
+                        CommentsHeader(header: chatlistvm.ChatDetails)
                         Divider().padding(.horizontal)
                         
-                        if let comments = student.comments {
-                            CommentsList(comments: comments)
-                        }
+//                        if let comments = chatlistvm.ChatDetails?.comments {
+                        CommentsList(comments: chatlistvm.ChatDetails?.comments ?? [])
+//                        }
                         
                         Divider().padding(.horizontal)
                         
@@ -56,23 +56,17 @@ struct MessagesListView: View {
                     .padding(.horizontal,10)
                     
                 }else{
-                    VStack{
-                        Spacer()
-                        Image("messagebox")
-                        Text("Message box is empty".localized())
-                            .font(Font.regular(size:14))
-                            .foregroundColor(.bluegray400)
-                            .padding()
-                        Spacer()
-                        
-                    }
+                    EmptyMessageBox()
                 }
                 Spacer()
             }
             .onAppear(perform: {
                 chatlistvm.comment.removeAll()
 //                chatlistvm.selectedChatId = selectedLessonId
-                chatlistvm.GetChatComments(chatid: selectedLessonId)
+//                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+                    chatlistvm.GetChatComments(chatid: selectedLessonId)
+//                })
+                print(chatlistvm.ChatDetails)
             })
             
         }
@@ -233,11 +227,11 @@ struct MultilineTextField: View {
 
 
 struct CommentsHeader :View {
-    let header : StudentChatDetailsM
+    let header : StudentChatDetailsM?
     var body: some View {
         HStack{
             let isTeacher = Helper.shared.getSelectedUserType() == .Teacher
-            let imageurl = isTeacher ? header.studentImage ?? "":header.teacherImage ?? ""
+            let imageurl = isTeacher ? header?.studentImage ?? "":header?.teacherImage ?? ""
             let imageURL : URL? = URL(string: Constants.baseURL+(imageurl).reverseSlaches())
             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                 .aspectRatio(contentMode: .fill)
@@ -245,11 +239,11 @@ struct CommentsHeader :View {
                 .clipShape(Circle())
             
             VStack(alignment: .leading,spacing: 4){
-                Text(isTeacher ? header.studentName ?? "" : header.teacherName ?? "")
+                Text(isTeacher ? header?.studentName ?? "" : header?.teacherName ?? "")
                     .font(Font.bold(size:15))
                     .foregroundColor(.mainBlue)
                 
-                Text(header.subjectName ?? "")
+                Text(header?.subjectName ?? "")
                     .font(Font.bold(size:14))
                     .foregroundColor(.bluegray400)
             }
@@ -345,4 +339,23 @@ struct MessageInputField: View {
         .background(RoundedCorners(topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16)
             .fill(.red400.opacity(0.08)))
     }
+}
+
+struct EmptyMessageBox: View {
+    var body: some View {
+        VStack{
+            Spacer()
+            Image("messagebox")
+            Text("Message box is empty".localized())
+                .font(Font.regular(size:14))
+                .foregroundColor(.bluegray400)
+                .padding()
+            Spacer()
+            
+        }
+    }
+}
+
+#Preview {
+    EmptyMessageBox()
 }
