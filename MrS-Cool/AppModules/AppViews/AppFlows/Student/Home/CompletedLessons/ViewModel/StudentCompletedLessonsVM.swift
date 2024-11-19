@@ -29,6 +29,8 @@ class StudentCompletedLessonsVM: ObservableObject {
     
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
+    @Published var isLoadingDetails : Bool?
+
     @Published var isError : Bool = false
     //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
@@ -108,12 +110,12 @@ extension StudentCompletedLessonsVM{
         let parameters:[String:Any] = ["teacherlessonid":teacherlessonid]
         print("parameters",parameters)
         let target = StudentServices.GetStudentCompletedLessonDetails(parameters: parameters)
-        isLoading = true
+        isLoadingDetails = true
         BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonDetailsM>.self)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
-                isLoading = false
+                isLoadingDetails = false
                 switch completion {
                 case .finished:
                     break
@@ -132,7 +134,7 @@ extension StudentCompletedLessonsVM{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                 }
-                isLoading = false
+                isLoadingDetails = false
             })
             .store(in: &cancellables)
     }

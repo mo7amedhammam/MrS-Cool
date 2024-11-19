@@ -63,10 +63,7 @@ struct MessagesListView: View {
             .onAppear(perform: {
                 chatlistvm.comment.removeAll()
 //                chatlistvm.selectedChatId = selectedLessonId
-//                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
                     chatlistvm.GetChatComments(chatid: selectedLessonId)
-//                })
-                print(chatlistvm.ChatDetails)
             })
             
         }

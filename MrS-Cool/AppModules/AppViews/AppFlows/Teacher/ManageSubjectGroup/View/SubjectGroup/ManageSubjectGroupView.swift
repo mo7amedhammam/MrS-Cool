@@ -50,6 +50,115 @@ struct ManageSubjectGroupView: View {
     
 //    @State var AllLessonsForList: [DropDownOption] = []
 
+    @ViewBuilder
+    fileprivate func ExtraSession() -> some View {
+        VStack{
+            ColorConstants.Bluegray100
+                .frame(width:50,height:5)
+                .cornerRadius(2.5)
+                .padding(.top,2)
+            HStack {
+                Text("Extra Session".localized())
+                    .font(Font.bold(size: 18))
+                    .foregroundColor(.mainBlue)
+            }.padding(8)
+            ScrollView{
+                Group {
+                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList,isvalid: subjectgroupvm.isextraLessonvalid)
+                    
+                    let startDate = Date()
+                    CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
+                    
+                    CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid:subjectgroupvm.isextraTimevalid)
+                    
+                }
+                .padding(.top,5)
+                
+                HStack {
+                    Group{
+                        CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
+                            subjectgroupvm.CreateExtraSession()
+                            //                                subjectgroupvm.ShowAddExtraSession = false
+                        })
+                        
+                        CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
+                            subjectgroupvm.clearExtraSession()
+                            //                            subjectgroupvm.GetTeacherSubjectGroups()
+                            subjectgroupvm.ShowAddExtraSession = false
+                        })
+                    }
+                    .frame(width:130,height:40)
+                    .padding(.vertical)
+                }
+                .padding(.horizontal,3)
+                .padding(.top)
+                
+            }
+            .frame(height: 320)
+        }
+        //            .localizeView()
+        .background(ColorConstants.WhiteA700.cornerRadius(8))
+        .padding()
+    }
+
+    @ViewBuilder
+    fileprivate func FilterView() -> DynamicHeightSheet<some View> {
+        // Adjust the blur radius as needed
+        DynamicHeightSheet(isPresented: $showFilter){
+            
+            VStack {
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2.5)
+                HStack {
+                    Text("Filter".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                    //                                            Spacer()
+                }
+                //                        .padding(.vertical)
+                ScrollView {
+                    VStack{
+                        Group {
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.filtersubject,options:lookupsvm.SubjectsForList)
+                            
+                            CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.filtergroupName)
+                            
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.filterstartdate,datePickerComponent:.date)
+                            
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$subjectgroupvm.filterenddate,datePickerComponent:.date)
+                            
+                        }
+                        .padding(.top,5)
+                        
+                        //                                Spacer()
+                        HStack {
+                            Group{
+                                CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                    subjectgroupvm.GetTeacherSubjectGroups()
+                                    showFilter = false
+                                })
+                                
+                                CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                    subjectgroupvm.clearFilter()
+                                    subjectgroupvm.GetTeacherSubjectGroups()
+                                    showFilter = false
+                                })
+                            } .frame(width:130,height:40)
+                                .padding(.vertical)
+                        }
+                    }
+                    .padding(.horizontal,3)
+                    .padding(.top)
+                }
+            }
+            .padding()
+            .frame(height:450)
+            .keyboardAdaptive()
+        }
+    }
+    
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Subject",action: {
@@ -70,23 +179,24 @@ struct ManageSubjectGroupView: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
                                         .onChange(of: subjectgroupvm.subject){newval in
-                                            guard let newval = newval else {return}
-                                            
+                                            guard let newval = newval,let id = newval.id else {return}
+                                            subjectgroupvm.AllLessonsForList.removeAll()
+                                            lookupsvm.AllLessonsForList.removeAll()
 //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
-                                            if let id = newval.id{
-                                                    lookupsvm.GetAllLessonsForList(id: id)
+//                                            if let id = newval.id{
+                                            lookupsvm.GetAllLessonsForList(id: id)
                                                 DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
 //                                                    AllLessonsForList = lookupsvm.AllLessonsForList
                                                 subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
                                                 })
 
-                                            }
+//                                            }
                                         }
                                     
 //                                    if subjectgroupvm.subject != nil{
                                        
                                     ForEach(subjectgroupvm.AllLessonsForList.indices,id:\.self){index in
-                                            VStack{
+                                            LazyVStack{
                                                 Button(action: {
                                                     subjectgroupvm.AllLessonsForList[index].isSelected?.toggle()
                                                 }, label: {
@@ -293,7 +403,7 @@ struct ManageSubjectGroupView: View {
                             ManageSubjectGroupCell(model: group,
                                                    reviewBtnAction:{
                                 subjectgroupvm.GetTeacherGroupDetails(id: group.id)
-                                destination = AnyView(  SubjectGroupDetailsView(previewOption: .existingGroup)
+                                destination = AnyView( SubjectGroupDetailsView(previewOption: .existingGroup)
                                     .hideNavigationBar()
                                     .environmentObject(subjectgroupvm)
                                     .environmentObject(lookupsvm)
@@ -345,53 +455,7 @@ struct ManageSubjectGroupView: View {
         }
         
         .bottomSheet(isPresented: $subjectgroupvm.ShowAddExtraSession){
-            VStack{
-                ColorConstants.Bluegray100
-                    .frame(width:50,height:5)
-                    .cornerRadius(2.5)
-                    .padding(.top,2)
-                HStack {
-                    Text("Extra Session".localized())
-                        .font(Font.bold(size: 18))
-                        .foregroundColor(.mainBlue)
-                }.padding(8)
-                ScrollView{
-                    Group {
-                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList,isvalid: subjectgroupvm.isextraLessonvalid)
-                        
-                        let startDate = Date()
-                        CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
-                        
-                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid:subjectgroupvm.isextraTimevalid)
-                        
-                    }
-                    .padding(.top,5)
-                    
-                    HStack {
-                        Group{
-                            CustomButton(Title:"Save",IsDisabled: .constant(false), action: {
-                                subjectgroupvm.CreateExtraSession()
-                                //                                subjectgroupvm.ShowAddExtraSession = false
-                            })
-                            
-                            CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
-                                subjectgroupvm.clearExtraSession()
-                                //                            subjectgroupvm.GetTeacherSubjectGroups()
-                                subjectgroupvm.ShowAddExtraSession = false
-                            })
-                        }
-                        .frame(width:130,height:40)
-                        .padding(.vertical)
-                    }
-                    .padding(.horizontal,3)
-                    .padding(.top)
-                    
-                }
-                .frame(height: 320)
-            }
-//            .localizeView()
-            .background(ColorConstants.WhiteA700.cornerRadius(8))
-            .padding()
+            ExtraSession()
             
         }
         .overlay{
@@ -403,60 +467,8 @@ struct ManageSubjectGroupView: View {
                     .onTapGesture {
                         showFilter.toggle()
                     }
-                    .blur(radius: 4) // Adjust the blur radius as needed
-                DynamicHeightSheet(isPresented: $showFilter){
-                    
-                    VStack {
-                        ColorConstants.Bluegray100
-                            .frame(width:50,height:5)
-                            .cornerRadius(2.5)
-                            .padding(.top,2.5)
-                        HStack {
-                            Text("Filter".localized())
-                                .font(Font.bold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            //                                            Spacer()
-                        }
-                        //                        .padding(.vertical)
-                        ScrollView {
-                            VStack{
-                                Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.filtersubject,options:lookupsvm.SubjectsForList)
-                                    
-                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.filtergroupName)
-                                    
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$subjectgroupvm.filterstartdate,datePickerComponent:.date)
-                                    
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$subjectgroupvm.filterenddate,datePickerComponent:.date)
-                                    
-                                }
-                                .padding(.top,5)
-                                
-                                //                                Spacer()
-                                HStack {
-                                    Group{
-                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            subjectgroupvm.GetTeacherSubjectGroups()
-                                            showFilter = false
-                                        })
-                                        
-                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            subjectgroupvm.clearFilter()
-                                            subjectgroupvm.GetTeacherSubjectGroups()
-                                            showFilter = false
-                                        })
-                                    } .frame(width:130,height:40)
-                                        .padding(.vertical)
-                                }
-                            }
-                            .padding(.horizontal,3)
-                            .padding(.top)
-                        }
-                    }
-                    .padding()
-                    .frame(height:450)
-                    .keyboardAdaptive()
-                }
+                    .blur(radius: 4)
+                FilterView()
             }
         }
         

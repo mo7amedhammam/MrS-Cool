@@ -183,7 +183,6 @@ extension StudentServices:TargetType{
                 .GetHomeSubjectDetails(parameters: let Parameters),
                 .GetSubjectGroupDetails(parameters: let Parameters),
                 .GetLessonGroupDetails(parameters: let Parameters),.GetAvaliableScheduals(parameters: let Parameters),
-                .GetStudentCompletedLessonDetails(parameters: let Parameters),
                 .GetTeacherProfileView(parameters: let Parameters),
                 .GetStudentFinance(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
@@ -198,6 +197,10 @@ extension StudentServices:TargetType{
                 .GetStudentFinanceSubjects(_, parameters: let Parameters),
                 .StudentAddRate(parameters: let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
+            
+        case .GetStudentCompletedLessonDetails(parameters: let Parameters):
+            return .parameterdGetRequest(Parameters: Parameters, Encoding: .default)
+
         }
     }
     
