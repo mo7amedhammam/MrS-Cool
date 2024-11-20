@@ -89,6 +89,8 @@ class ManageSubjectGroupVM: ObservableObject {
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
+    @Published var showConfirmDelete : Bool = false
+
     //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
@@ -133,6 +135,7 @@ extension ManageSubjectGroupVM{
         let target = teacherServices.GetMySubjectGroup(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<[SubjectGroupM]>.self)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false

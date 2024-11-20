@@ -22,7 +22,7 @@ struct ManageSubjectGroupView: View {
     //    var selectedSubject:TeacherSubjectM?
     @State private var countHints: [Int: Bool] = [:]
     @State private var orderHints: [Int: Bool] = [:]
-
+    
     @State var showConfirmDelete = false
     //    @State var addExtraSession = true
     //    @State var selectedGrup = SubjectGroupM()
@@ -30,12 +30,12 @@ struct ManageSubjectGroupView: View {
     fileprivate func preparelessonscounts() -> Bool {
         //        print("updated lookupsvm.LessonsForList/n",lookupsvm.LessonsForList)
         subjectgroupvm.teacherLessonList = subjectgroupvm.AllLessonsForList.compactMap{option in
-//            return option.LessonItem
+            //            return option.LessonItem
             
             if option.isSelected == true {
-                      return option.LessonItem
-                  }
-                  return nil
+                return option.LessonItem
+            }
+            return nil
         }
         //        print("subjectgroupvm.CreateTeacherLessonList",subjectgroupvm.CreateTeacherLessonList)
         
@@ -45,11 +45,11 @@ struct ManageSubjectGroupView: View {
             subjectgroupvm.isError = true
             return false
         }
-            return true
+        return true
     }
     
-//    @State var AllLessonsForList: [DropDownOption] = []
-
+    //    @State var AllLessonsForList: [DropDownOption] = []
+    
     @ViewBuilder
     fileprivate func ExtraSession() -> some View {
         VStack{
@@ -100,7 +100,7 @@ struct ManageSubjectGroupView: View {
         .background(ColorConstants.WhiteA700.cornerRadius(8))
         .padding()
     }
-
+    
     @ViewBuilder
     fileprivate func FilterView() -> DynamicHeightSheet<some View> {
         // Adjust the blur radius as needed
@@ -182,115 +182,21 @@ struct ManageSubjectGroupView: View {
                                             guard let newval = newval,let id = newval.id else {return}
                                             subjectgroupvm.AllLessonsForList.removeAll()
                                             lookupsvm.AllLessonsForList.removeAll()
-//                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
-//                                            if let id = newval.id{
+                                            //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
+                                            //                                            if let id = newval.id{
                                             lookupsvm.GetAllLessonsForList(id: id)
-                                                DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
-//                                                    AllLessonsForList = lookupsvm.AllLessonsForList
+                                            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
+                                                //                                                    AllLessonsForList = lookupsvm.AllLessonsForList
                                                 subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
-                                                })
-
-//                                            }
+                                            })
+                                            
+                                            //                                            }
                                         }
                                     
-//                                    if subjectgroupvm.subject != nil{
-                                       
-                                    ForEach(subjectgroupvm.AllLessonsForList.indices,id:\.self){index in
-                                            LazyVStack{
-                                                Button(action: {
-                                                    subjectgroupvm.AllLessonsForList[index].isSelected?.toggle()
-                                                }, label: {
-                                                    HStack {
-                                                    Text(subjectgroupvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
-                                                        .fontWeight(.medium)
-                                                        .frame(maxWidth:.infinity,alignment:.leading)
-                                                        .foregroundColor(ColorConstants.MainColor)
-                                                    
-                                                    // Checkbox for selection
-                                                         let isSelected = subjectgroupvm.AllLessonsForList[index].isSelected ?? true
-                                                         Image(systemName: isSelected ? "checkmark.square.fill" : "square")
-                                                            .resizable()
-                                                            .foregroundColor(isSelected ? ColorConstants.MainColor : .gray)
-                                                             .frame(width: 20, height: 20)
-                                                      
-                                                     }
-                                                })
-
-                                             
-                                                
-                                                // Validation hint for Lesson No
-                                                if let showHint = countHints[index], showHint {
-                                                    Text("Number must be between 1 and 5".localized())
-                                                        .foregroundColor(.red)
-                                                        .font(.caption)
-                                                }
-                                                
-                                                // Validation hint for Lesson Order
-                                                if let showHint = orderHints[index], showHint {
-                                                    Text("Order cannot be 0".localized())
-                                                        .foregroundColor(.red)
-                                                        .font(.caption)
-                                                }
-                                                
-                                                HStack{
-                                                    
-                                                    CustomTextField(placeholder: "Lesson No",
-                                                                    text: Binding(
-                                                                        get: {
-                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
-                                                                                return subjectgroupvm.AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
-                                                                            } else {
-                                                                                return ""  // Default value if index is out of range
-                                                                            }                                                                        },
-                                                                        set: { newValue in
-                                                                            subjectgroupvm.AllLessonsForList[index].LessonItem?.count = Int(newValue)
-                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
-                                                                                if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
-                                                                                    countHints[index] = false  // Show hint for invalid input
-                                                                                    
-                                                                                } else {
-                                                                                    countHints[index] = true  // Show hint for invalid input
-                                                                                    
-                                                                                }                                                                        }
-                                                                        }),
-                                                                    keyboardType: .asciiCapableNumberPad,
-                                                                    isvalid: !(countHints[index] ?? false))
-                                                    
-                                                    CustomTextField(placeholder: "Lesson Order",
-                                                                    text: Binding(
-                                                                        get: {
-                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
-                                                                                return   subjectgroupvm.AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
-                                                                            } else {
-                                                                                return ""  // Default value if index is out of range
-                                                                            }
-                                                                        },
-                                                                        set: { newValue in
-                                                                            subjectgroupvm.AllLessonsForList[index].LessonItem?.order = Int(newValue)
-
-                                                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
-                                                                                if let intValue = Int(newValue), intValue > 0 {
-                                                                                    orderHints[index] = false  // Show hint for invalid input
-                                                                                    
-                                                                                } else {
-                                                                                    orderHints[index] = true  // Show hint for invalid input
-                                                                                    
-                                                                                }
-                                                                            }
-                                                                        }),
-                                                                    keyboardType: .asciiCapableNumberPad,
-                                                                    isvalid: !(orderHints[index] ?? false))
-                                                    
-                                                }
-                                            }
-                                            .padding()
-                                            .font(Font.regular(size: 13))
-                                            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(ColorConstants.WhiteA700))
-                                            .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0)
-                                                .stroke(ColorConstants.Bluegray30066,
-                                                        lineWidth: 1))
-                                        }
-//                                    }
+                                    //                                    if subjectgroupvm.subject != nil{
+                                    
+                                    lessonsOrder(countHints: $countHints, orderHints: $orderHints).environmentObject(subjectgroupvm)
+                                    //                                    }
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName,isvalid:subjectgroupvm.isgroupNamevalid)
                                     
@@ -364,11 +270,7 @@ struct ManageSubjectGroupView: View {
                             HStack {
                                 Group{
                                     CustomButton(Title: "Review Details" ,IsDisabled: .constant(subjectgroupvm.DisplaySchedualSlotsArr.isEmpty), action: {
-//                                        print("AllLessonsForList",AllLessonsForList)
-                                        print("subjectgroupvm.AllLessonsForList",subjectgroupvm.AllLessonsForList)
-                                        print("subjectgroupvm.teacherLessonList",subjectgroupvm.teacherLessonList)
                                         guard !(countHints.values.contains(true) || orderHints.values.contains(true)) else {return}
-
                                         guard preparelessonscounts() else{ return }
                                         
                                         subjectgroupvm.ReviewTeacherGroup()
@@ -381,7 +283,6 @@ struct ManageSubjectGroupView: View {
                                 .frame(width:150,height: 40)
                                 
                             }.padding(.vertical)
-                            
                             
                             HStack(){
                                 SignUpHeaderTitle(Title: "Manage My Subject Groups")
@@ -398,45 +299,17 @@ struct ManageSubjectGroupView: View {
                             
                         }
                         .padding(.horizontal)
+              listGroups( isPush: $isPush, destination: $destination, gr: gr)
+                            .environmentObject(subjectgroupvm)
+                            .environmentObject(lookupsvm)
                         
-                        List(subjectgroupvm.TeacherSubjectGroups ?? [] ,id:\.self){ group in
-                            ManageSubjectGroupCell(model: group,
-                                                   reviewBtnAction:{
-                                subjectgroupvm.GetTeacherGroupDetails(id: group.id)
-                                destination = AnyView( SubjectGroupDetailsView(previewOption: .existingGroup)
-                                    .hideNavigationBar()
-                                    .environmentObject(subjectgroupvm)
-                                    .environmentObject(lookupsvm)
-                                )
-                                
-                            },extraTimetnAction: {
-                                subjectgroupvm.clearExtraSession()
-                                if let id = group.teacherSubjectAcademicSemesterYearID {
-                                    lookupsvm.GetAllLessonsForList(id: id)
-                                }
-                                subjectgroupvm.selectedGroup = group
-                                subjectgroupvm.ShowAddExtraSession = true
-                            }, deleteBtnAction: {
-                                subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                                    subjectgroupvm.DeleteTeacherGroup(id: group.id)
-                                })
-                                showConfirmDelete = true
-                            })
-                            .listRowSpacing(0)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .padding(.vertical,-4)
-                        }
-                        //                        .scrollContentBackground(.hidden)
-                        .listStyle(.plain)
-                        .frame(height: gr.size.height/2)
                         Spacer()
                     }
                     .frame(minHeight: gr.size.height)
                 }
             }
             .task{
-//                subjectgroupvm.subject = nil
+                //                subjectgroupvm.subject = nil
                 subjectgroupvm.clearFilter()
                 subjectgroupvm.GetTeacherSubjectGroups()
             }
@@ -474,7 +347,7 @@ struct ManageSubjectGroupView: View {
         
         .showHud(isShowing: $subjectgroupvm.isLoading)
         .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
-        .showAlert(hasAlert: $showConfirmDelete, alertType: subjectgroupvm.error)
+        .showAlert(hasAlert: $subjectgroupvm.showConfirmDelete, alertType: subjectgroupvm.error)
         
         NavigationLink(destination: destination, isActive: $subjectgroupvm.letsPreview, label: {})
     }
@@ -484,5 +357,154 @@ struct ManageSubjectGroupView: View {
     ManageSubjectGroupView()
     //        .environmentObject(LookUpsVM())
     //        .environmentObject(ManageSubjectGroupVM())
+}
+
+
+struct lessonsOrder: View {
+    @EnvironmentObject var subjectgroupvm : ManageSubjectGroupVM
+    @Binding var countHints: [Int: Bool]
+    @Binding var orderHints: [Int: Bool]
+    
+    
+    var body: some View {
+        ForEach(subjectgroupvm.AllLessonsForList.indices,id:\.self){index in
+            LazyVStack{
+                Button(action: {
+                    subjectgroupvm.AllLessonsForList[index].isSelected?.toggle()
+                }, label: {
+                    HStack {
+                        Text(subjectgroupvm.AllLessonsForList[index].LessonItem?.lessonName ?? "")
+                            .fontWeight(.medium)
+                            .frame(maxWidth:.infinity,alignment:.leading)
+                            .foregroundColor(ColorConstants.MainColor)
+                        
+                        // Checkbox for selection
+                        let isSelected = subjectgroupvm.AllLessonsForList[index].isSelected ?? true
+                        Image(systemName: isSelected ? "checkmark.square.fill" : "square")
+                            .resizable()
+                            .foregroundColor(isSelected ? ColorConstants.MainColor : .gray)
+                            .frame(width: 20, height: 20)
+                        
+                    }
+                })
+                
+                // Validation hint for Lesson No
+                if let showHint = countHints[index], showHint {
+                    Text("Number must be between 1 and 5".localized())
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
+                
+                // Validation hint for Lesson Order
+                if let showHint = orderHints[index], showHint {
+                    Text("Order cannot be 0".localized())
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
+                
+                HStack{
+                    
+                    CustomTextField(placeholder: "Lesson No",
+                                    text: Binding(
+                                        get: {
+                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
+                                                return subjectgroupvm.AllLessonsForList[index].LessonItem?.count.map { String($0) } ?? ""
+                                            } else {
+                                                return ""  // Default value if index is out of range
+                                            }                                                                        },
+                                        set: { newValue in
+                                            subjectgroupvm.AllLessonsForList[index].LessonItem?.count = Int(newValue)
+                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
+                                                if let intValue = Int(newValue), intValue > 0 && intValue <= 5 {
+                                                    countHints[index] = false  // Show hint for invalid input
+                                                    
+                                                } else {
+                                                    countHints[index] = true  // Show hint for invalid input
+                                                    
+                                                }                                                                        }
+                                        }),
+                                    keyboardType: .asciiCapableNumberPad,
+                                    isvalid: !(countHints[index] ?? false))
+                    
+                    CustomTextField(placeholder: "Lesson Order",
+                                    text: Binding(
+                                        get: {
+                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
+                                                return   subjectgroupvm.AllLessonsForList[index].LessonItem?.order.map { String($0) } ?? ""
+                                            } else {
+                                                return ""  // Default value if index is out of range
+                                            }
+                                        },
+                                        set: { newValue in
+                                            subjectgroupvm.AllLessonsForList[index].LessonItem?.order = Int(newValue)
+                                            
+                                            if index >= 0 && index < subjectgroupvm.AllLessonsForList.count {
+                                                if let intValue = Int(newValue), intValue > 0 {
+                                                    orderHints[index] = false  // Show hint for invalid input
+                                                    
+                                                } else {
+                                                    orderHints[index] = true  // Show hint for invalid input
+                                                    
+                                                }
+                                            }
+                                        }),
+                                    keyboardType: .asciiCapableNumberPad,
+                                    isvalid: !(orderHints[index] ?? false))
+                    
+                }
+            }
+            .padding()
+            .font(Font.regular(size: 13))
+            .background(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0).fill(ColorConstants.WhiteA700))
+            .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0,bottomRight: 5.0)
+                .stroke(ColorConstants.Bluegray30066,
+                        lineWidth: 1))
+        }
+    }
+}
+
+
+
+struct listGroups: View {
+    @EnvironmentObject var subjectgroupvm : ManageSubjectGroupVM
+    @EnvironmentObject var lookupsvm : LookUpsVM
+
+    @Binding var isPush : Bool
+    @Binding var destination : AnyView
+    var gr:GeometryProxy
+    var body: some View {
+        
+        List(subjectgroupvm.TeacherSubjectGroups ?? [] ,id:\.self){ group in
+            ManageSubjectGroupCell(model: group,
+                                   reviewBtnAction:{
+                subjectgroupvm.GetTeacherGroupDetails(id: group.id)
+                destination = AnyView( SubjectGroupDetailsView(previewOption: .existingGroup)
+                    .hideNavigationBar()
+                    .environmentObject(subjectgroupvm)
+                    .environmentObject(lookupsvm)
+                )
+                
+            },extraTimetnAction: {
+                subjectgroupvm.clearExtraSession()
+                if let id = group.teacherSubjectAcademicSemesterYearID {
+                    lookupsvm.GetAllLessonsForList(id: id)
+                }
+                subjectgroupvm.selectedGroup = group
+                subjectgroupvm.ShowAddExtraSession = true
+            }, deleteBtnAction: {
+                subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                    subjectgroupvm.DeleteTeacherGroup(id: group.id)
+                })
+                subjectgroupvm.showConfirmDelete = true
+            })
+            .listRowSpacing(0)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .padding(.vertical,-4)
+        }
+        //                        .scrollContentBackground(.hidden)
+        .listStyle(.plain)
+        .frame(height: gr.size.height/2)
+    }
 }
 
