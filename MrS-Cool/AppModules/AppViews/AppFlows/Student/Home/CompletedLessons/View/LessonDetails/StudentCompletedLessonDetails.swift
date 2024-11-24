@@ -197,6 +197,7 @@ import SwiftUI
 struct StudentCompletedLessonDetails: View {
     @EnvironmentObject var viewModel: StudentCompletedLessonsVM
     @State private var previewUrl: String = ""
+    var teacherlessonid : Int 
     
     var body: some View {
         VStack {
@@ -207,12 +208,12 @@ struct StudentCompletedLessonDetails: View {
                     VStack(alignment: .leading, spacing: 20) {
                         SubjectInfoSection(details: viewModel.completedLessonDetails)
                         
-                        if let materials = viewModel.completedLessonDetails?.teacherLessonMaterials {
-                            MaterialsSection(materials: materials) { url in
+//                        if let materials = viewModel.completedLessonDetails?.teacherLessonMaterials {
+                            MaterialsSection(materials: viewModel.completedLessonDetails?.teacherLessonMaterials) { url in
                                 previewUrl = url
                                 previewUrl.openAsURL()
                             }
-                        }
+//                        }
                         
                         Spacer()
                     }
@@ -226,14 +227,28 @@ struct StudentCompletedLessonDetails: View {
                 .ignoresSafeArea()
                 .onTapGesture { hideKeyboard() }
         )
+//        .onAppear {
+//                  Task {
+//                      await fetchLessonDetails()
+//                  }
+//              }
+        .task {
+            await fetchLessonDetails()
+        }
         .showHud(isShowing: $viewModel.isLoadingDetails)
         .showAlert(hasAlert: $viewModel.isError, alertType: viewModel.error)
     }
+    @MainActor
+       private func fetchLessonDetails() async {
+           viewModel.isLoadingDetails = true // Start the loading animation
+           await viewModel.GetCompletedLessonDetails1(teacherlessonid: teacherlessonid)
+           viewModel.isLoadingDetails = false // Stop the loading animation
+       }
 }
 
 // MARK: - Preview
 #Preview {
-    StudentCompletedLessonDetails()
+    StudentCompletedLessonDetails(teacherlessonid: 0)
         .environmentObject(StudentCompletedLessonsVM())
 }
 
@@ -275,7 +290,7 @@ private struct InfoRow: View {
 
 
 struct MaterialsSection: View {
-    let materials: [StudentCompletedLessonMaterialM]
+    let materials: [StudentCompletedLessonMaterialM]?
     let onDownload: (String) -> Void
     
     var body: some View {
@@ -287,7 +302,7 @@ struct MaterialsSection: View {
                 GridItem(.flexible()),
                 GridItem(.flexible())
             ]) {
-                ForEach(materials, id: \.self) { material in
+                ForEach(materials ?? [], id: \.self) { material in
                     MaterialCell(
                         material: material,
                         onDownload: {

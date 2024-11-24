@@ -180,7 +180,7 @@ struct ManageSubjectGroupView: View {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
                                         .onChange(of: subjectgroupvm.subject){newval in
                                             guard let newval = newval,let id = newval.id else {return}
-                                            subjectgroupvm.AllLessonsForList.removeAll()
+//                                            subjectgroupvm.AllLessonsForList.removeAll()
                                             lookupsvm.AllLessonsForList.removeAll()
                                             //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
                                             //                                            if let id = newval.id{

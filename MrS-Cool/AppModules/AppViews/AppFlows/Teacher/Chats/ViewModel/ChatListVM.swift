@@ -113,71 +113,139 @@
             }
         }
       
-        func GetChatComments(chatid:Int){
-    //        isLoading = false
-            var parameters:[String:Any] = [:]
-//            if let chatid = selectedChatId{
-                parameters["bookTeacherLessonSessionDetailId"] = chatid
+//        func GetChatComments(chatid:Int){
+//    //        isLoading = false
+//            var parameters:[String:Any] = [:]
+////            if let chatid = selectedChatId{
+//                parameters["bookTeacherLessonSessionDetailId"] = chatid
+////            }
+//            
+//            print("parameters",parameters)
+//            let target = teacherServices.GetAllComentsListById(parameters: parameters)
+//            isLoadingComments = true
+//            if Helper.shared.getSelectedUserType() == .Teacher{
+//                BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
+//                    .receive(on: DispatchQueue.main)
+//                    .sink(receiveCompletion: {[weak self] completion in
+//                        guard let self = self else{return}
+//                        isLoadingComments = false
+//                        switch completion {
+//                        case .finished:
+//                            break
+//                        case .failure(let error):
+//                            isError =  true
+//                            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        }
+//                    },receiveValue: {[weak self] receivedData in
+//                        guard let self = self else{return}
+//                        print("receivedData",receivedData)
+//                        if receivedData.success == true {
+//                            //                    TeacherSubjects?.append(model)
+//                            ChatDetails = receivedData.data
+//                        }else{
+//                            isError =  true
+//                            //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                            error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                        }
+//                        isLoadingComments = false
+//                    })
+//                    .store(in: &cancellables)
+//            }else{
+//                BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
+//                    .receive(on: DispatchQueue.main)
+//                    .sink(receiveCompletion: {[weak self] completion in
+//                        guard let self = self else{return}
+//                        isLoadingComments = false
+//                        switch completion {
+//                        case .finished:
+//                            break
+//                        case .failure(let error):
+//                            isError =  true
+//                            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        }
+//                    },receiveValue: {[weak self] receivedData in
+//                        guard let self = self else{return}
+//                        print("receivedData",receivedData)
+//                        if receivedData.success == true {
+//                            ChatDetails = receivedData.data
+//                        }else{
+//                            isError =  true
+//                            //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                            error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                        }
+//                        isLoadingComments = false
+//                    })
+//                    .store(in: &cancellables)
 //            }
+//        }
+
+        
+        func GetChatComments(chatid:Int) async{
+            var parameters:[String:Any] = [:]
+                parameters["bookTeacherLessonSessionDetailId"] = chatid
             
             print("parameters",parameters)
             let target = teacherServices.GetAllComentsListById(parameters: parameters)
-            isLoadingComments = true
+//            isLoadingComments = true
+
             if Helper.shared.getSelectedUserType() == .Teacher{
-                BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
-                    .receive(on: DispatchQueue.main)
-                    .sink(receiveCompletion: {[weak self] completion in
-                        guard let self = self else{return}
-                        isLoadingComments = false
-                        switch completion {
-                        case .finished:
-                            break
-                        case .failure(let error):
-                            isError =  true
-                            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    print(parameters)
+        
+                isLoadingComments = true
+                    do{
+                        let response = try await BaseNetwork.shared.request(target, BaseResponse<StudentChatDetailsM>.self)
+                        print(response)
+        
+                        if response.success == true {
+                            ChatDetails = response.data
+                        } else {
+                            self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+                            self.isError = true
                         }
-                    },receiveValue: {[weak self] receivedData in
-                        guard let self = self else{return}
-                        print("receivedData",receivedData)
-                        if receivedData.success == true {
-                            //                    TeacherSubjects?.append(model)
-                            ChatDetails = receivedData.data
-                        }else{
-                            isError =  true
-                            //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                            error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                        self.isLoadingComments = false
+
+//                    } catch let error as NetworkError {
+//                        self.isLoadingComments = false
+//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        self.isError = true
+//        //                print("Network error: \(error.errorDescription)")
+                    } catch {
+//                        self.isLoadingComments = false
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                        self.isError = true
+        //                print("Unexpected error: \(error.localizedDescription)")
+                    }
+                
+                }else{
+    
+//                    isLoadingComments = true
+                    //            error = nil
+                    do{
+                        let response = try await BaseNetwork.shared.request(target, BaseResponse<StudentChatDetailsM>.self)
+                        print(response)
+        
+                        if response.success == true {
+                            ChatDetails = response.data
+                        } else {
+                            self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+                            self.isError = true
                         }
-                        isLoadingComments = false
-                    })
-                    .store(in: &cancellables)
-            }else{
-                BaseNetwork.CallApi(target, BaseResponse<StudentChatDetailsM>.self)
-                    .receive(on: DispatchQueue.main)
-                    .sink(receiveCompletion: {[weak self] completion in
-                        guard let self = self else{return}
-                        isLoadingComments = false
-                        switch completion {
-                        case .finished:
-                            break
-                        case .failure(let error):
-                            isError =  true
-                            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                        }
-                    },receiveValue: {[weak self] receivedData in
-                        guard let self = self else{return}
-                        print("receivedData",receivedData)
-                        if receivedData.success == true {
-                            ChatDetails = receivedData.data
-                        }else{
-                            isError =  true
-                            //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                            error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                        }
-                        isLoadingComments = false
-                    })
-                    .store(in: &cancellables)
+//                        self.isLoadingComments = false
+
+//                    } catch let error as NetworkError {
+//                        self.isLoading = false
+//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        self.isError = true
+//        //                print("Network error: \(error.errorDescription)")
+                    } catch {
+//                        self.isLoadingComments = false
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                        self.isError = true
+                    }
+                }
             }
-        }
+        
+        
         func CreateChatComment(chatid:Int){
     //        isLoading = false
             // Trim leading and trailing spaces

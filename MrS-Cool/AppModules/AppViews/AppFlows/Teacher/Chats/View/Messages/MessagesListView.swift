@@ -60,11 +60,14 @@ struct MessagesListView: View {
                 }
                 Spacer()
             }
-            .onAppear(perform: {
-                chatlistvm.comment.removeAll()
-//                chatlistvm.selectedChatId = selectedLessonId
-                    chatlistvm.GetChatComments(chatid: selectedLessonId)
-            })
+//            .onAppear(perform: {
+//                chatlistvm.comment.removeAll()
+////                chatlistvm.selectedChatId = selectedLessonId
+//                    chatlistvm.GetChatComments(chatid: selectedLessonId)
+//            })
+            .task {
+                await fetchComments()
+            }
             
         }
         .hideNavigationBar()
@@ -78,7 +81,12 @@ struct MessagesListView: View {
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
         
     }
-    
+    @MainActor
+       private func fetchComments() async {
+           chatlistvm.isLoadingComments = true // Start the loading animation
+           await chatlistvm.GetChatComments(chatid: selectedLessonId)
+           chatlistvm.isLoadingComments = false // Stop the loading animation
+       }
 }
 
 #Preview {

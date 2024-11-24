@@ -9,7 +9,7 @@ import Foundation
 
 
 // MARK: - SubjectGroupM
-struct SubjectGroupM: Codable,Hashable {
+struct SubjectGroupM: Codable,Hashable,Identifiable{
     var id, teacherSubjectAcademicSemesterYearID: Int?
     var teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate: String?
 

@@ -14,14 +14,14 @@ struct StudentCompletedLessonM: Codable {
     var totalCount: Int?
 }
 // MARK: - StudentCompletedLessonM -
-struct StudentCompletedLessonItemM: Codable ,Hashable{
-    var studentID,teacherLessonId: Int?
+struct StudentCompletedLessonItemM: Codable ,Hashable,Identifiable{
+    var id,teacherLessonId: Int?
     var subject,teacherName,lessonname,groupName,date,startTime,endTime: String?
     var attendance,isRated: Bool?
     var bookSessionDetailId: Int?
 
     enum CodingKeys: String, CodingKey {
-        case studentID = "studentId"
+        case id = "studentId"
         case teacherLessonId = "teacherLessonId"
         case lessonname = "lessonname"
         case subject,teacherName, groupName, date, startTime, endTime
@@ -45,7 +45,7 @@ struct StudentCompletedLessonDetailsM: Codable {
 }
 
 // MARK: - studentCompletedLessonStudentList -
-struct StudentCompletedLessonMaterialM: Codable ,Hashable{
+struct StudentCompletedLessonMaterialM: Codable ,Hashable,Identifiable{
     
     var name,materialUrl,materialTypeName,nameEn: String?
     var id,teacherLessonId,materialTypeId : Int?

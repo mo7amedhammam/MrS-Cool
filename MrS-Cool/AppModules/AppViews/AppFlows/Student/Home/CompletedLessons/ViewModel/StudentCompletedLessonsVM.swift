@@ -12,7 +12,7 @@ class StudentCompletedLessonsVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published var maxResultCount = 10
+     var maxResultCount = 10
     @Published var skipCount = 0
     
 //    @Published var selectedLessonid : Int?
@@ -42,6 +42,8 @@ class StudentCompletedLessonsVM: ObservableObject {
     init()  {
     }
     func cleanup(){
+        isLoading = false
+        isLoadingDetails = false
         cancellables.forEach{ cancellable in
             cancellable.cancel()
         }
@@ -74,7 +76,7 @@ extension StudentCompletedLessonsVM{
         let target = StudentServices.GetStudentCompletedLessons(parameters: parameters)
         isLoading = true
         BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonM>.self)
-//            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
                 isLoading = false
@@ -106,38 +108,60 @@ extension StudentCompletedLessonsVM{
             .store(in: &cancellables)
     }
     
-    func GetCompletedLessonDetails(teacherlessonid:Int){
+//    func GetCompletedLessonDetails(teacherlessonid:Int){
+//        let parameters:[String:Any] = ["teacherlessonid":teacherlessonid]
+//        print("parameters",parameters)
+//        let target = StudentServices.GetStudentCompletedLessonDetails(parameters: parameters)
+//        isLoadingDetails = true
+//        BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonDetailsM>.self)
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveCompletion: {[weak self] completion in
+//                guard let self = self else{return}
+//                isLoadingDetails = false
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    isError =  true
+//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                }
+//            },receiveValue: {[weak self] receivedData in
+//                guard let self = self else{return}
+//                print("receivedData",receivedData)
+//                if receivedData.success == true {
+//                    //                    TeacherSubjects?.append(model)
+//                    completedLessonDetails = receivedData.data
+//                }else{
+//                    isError =  true
+//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                }
+//                isLoadingDetails = false
+//            })
+//            .store(in: &cancellables)
+//    }
+    
+    func GetCompletedLessonDetails1(teacherlessonid:Int) async{
         let parameters:[String:Any] = ["teacherlessonid":teacherlessonid]
-        print("parameters",parameters)
         let target = StudentServices.GetStudentCompletedLessonDetails(parameters: parameters)
-        isLoadingDetails = true
-        BaseNetwork.CallApi(target, BaseResponse<StudentCompletedLessonDetailsM>.self)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {[weak self] completion in
-                guard let self = self else{return}
-                isLoadingDetails = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    isError =  true
+//        isLoadingDetails = true
+                do{
+                    let response = try await BaseNetwork.shared.request(target, BaseResponse<StudentCompletedLessonDetailsM>.self)
+    
+                    if response.success == true {
+                        completedLessonDetails = response.data
+                    } else {
+                        self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+                        self.isError = true
+                    }
+//                    self.isLoadingDetails = false
+                } catch {
+//                    self.isLoadingDetails = false
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    self.isError = true
                 }
-            },receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                if receivedData.success == true {
-                    //                    TeacherSubjects?.append(model)
-                    completedLessonDetails = receivedData.data
-                }else{
-                    isError =  true
-                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                }
-                isLoadingDetails = false
-            })
-            .store(in: &cancellables)
-    }
+            
+        }
     
     func AddStudentRate(){
         guard let teacherlessonid = selectedLesson?.teacherLessonId , let bookTeacherLessonSessionDetailId = selectedLesson?.bookSessionDetailId else {return}

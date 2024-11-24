@@ -178,19 +178,20 @@ final class BaseNetwork{
              headers: headers
          )
          .validate()
-         .serializingDecodable(BaseResponse<M>.self)
+//         .validate(contentType: ["application/json"]) // Explicitly validate the expected content type
+         .serializingDecodable(M.self)
          .value
          
         print(response)
        
-         guard let data = response.data else {
-             throw NetworkError.unknown(
-                 code: 0,
-                 error: response.message ?? "Unknown error"
-             )
-         }
+//         guard let data = response.data else {
+//             throw NetworkError.unknown(
+//                 code: 0,
+//                 error: response.message ?? "Unknown error"
+//             )
+//         }
          
-         return data
+         return response
      }
     
     

@@ -221,8 +221,11 @@ struct StudentCompletedLessonsView: View {
                                 ScrollViewReader{proxy in
                                     List(lessons, id:\.self) { lesson in
                                         StudenCompletedLessonCellView(model: lesson,reviewBtnAction:{
-                                            completedlessonsvm.GetCompletedLessonDetails(teacherlessonid: lesson.teacherLessonId ?? 0)
-                                            studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails().environmentObject(completedlessonsvm))
+                                            guard let lessonid = lesson.teacherLessonId else {return}
+
+//                                            studenthometabbarvm.selectedlesson = lesson
+//                                           await completedlessonsvm.GetCompletedLessonDetails1(teacherlessonid: lesson.teacherLessonId ?? 0)
+                                            studenthometabbarvm.destination = AnyView(StudentCompletedLessonDetails(teacherlessonid:lessonid).environmentObject(completedlessonsvm))
                                             studenthometabbarvm.ispush = true
                                         },chatBtnAction: {
                                             studenthometabbarvm.destination = AnyView(MessagesListView( selectedLessonId: lesson.bookSessionDetailId ?? 0 ).environmentObject(ChatListVM()))
