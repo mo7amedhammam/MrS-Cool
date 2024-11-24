@@ -288,7 +288,7 @@ private struct ChatListContent: View {
             Spacer()
         }
         .frame(minHeight: geometry.size.height)
-        .task { await chatListVM.GetChatsList() }
+        .task { await fetchChats() }
         .onDisappear { chatListVM.cleanup() }
     }
     
@@ -297,6 +297,13 @@ private struct ChatListContent: View {
         if searchQuery.isEmpty { return chats }
         return chats.filter { $0.studentName?.contains(searchQuery) ?? false }
     }
+    
+    @MainActor
+       private func fetchChats() async {
+           chatListVM.isLoading = true // Start the loading animation
+           await chatListVM.GetChatsList1()
+           chatListVM.isLoading = false // Stop the loading animation
+       }
 }
 
 private struct HeaderView: View {

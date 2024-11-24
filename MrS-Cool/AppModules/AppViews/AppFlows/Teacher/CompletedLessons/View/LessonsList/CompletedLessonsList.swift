@@ -52,7 +52,7 @@ struct CompletedLessonsList: View {
            completedlessonsvm.GetCompletedLessons()
        }
     }
-    func validateFilterValues(){
+    func validateFilterValues() async{
        if completedlessonsvm.filtersubject == nil {
            filtersubject = nil
            lookupsvm.BookedLessonsForList.removeAll()
@@ -60,7 +60,8 @@ struct CompletedLessonsList: View {
        }else {
            filtersubject = completedlessonsvm.filtersubject
 //           lookupsvm.SelectedSubjectForList = completedlessonsvm.filtersubject
-           lookupsvm.GetAllLessonsForList(id: filtersubject?.id ?? 0)
+//           lookupsvm.GetAllLessonsForList(id: filtersubject?.id ?? 0)
+           await fetchlessons(id:filtersubject?.id ?? 0)
        }
         
         if completedlessonsvm.filterlesson != filterlesson{
@@ -73,6 +74,12 @@ struct CompletedLessonsList: View {
             filterdate = nil
         }
     }
+    
+    @MainActor
+    private func fetchlessons(id:Int)async{
+        await lookupsvm.GetAllLessonsForList(id: id)
+    }
+    
     var body: some View {
         VStack {
             if hasNavBar ?? true{
@@ -92,7 +99,9 @@ struct CompletedLessonsList: View {
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
                                         showFilter = true
-                                        validateFilterValues()
+                                        Task {
+                                         await validateFilterValues()
+                                        }
                                     })
                             }
                             .padding(.top)
@@ -211,15 +220,18 @@ struct CompletedLessonsList: View {
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList)
                                         .onChange(of: filtersubject){newval in
-                                            guard let newval = newval else {return}
+                                            guard let newval = newval,let id = newval.id else {return}
 //                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
 //                                            {
                                                 filterlesson = nil
 //                                                lookupsvm.SelectedSubjectForList = newval
-                                            if let id = newval.id{
-                                                lookupsvm.GetAllLessonsForList(id: id)
+                                            Task{
+                                                await fetchlessons(id: id)
+                                                //                                            if let id = newval.id{
+                                                //                                                lookupsvm.GetAllLessonsForList(id: id)
+                                                //                                            }
+                                                //                                            }
                                             }
-//                                            }
                                         }
                                     
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.AllLessonsForList)

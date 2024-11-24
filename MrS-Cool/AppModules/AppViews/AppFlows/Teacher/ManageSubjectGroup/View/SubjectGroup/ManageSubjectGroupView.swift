@@ -158,6 +158,22 @@ struct ManageSubjectGroupView: View {
             .keyboardAdaptive()
         }
     }
+        
+    @MainActor
+    private func fetchlessons(id:Int)async{
+        await lookupsvm.GetAllLessonsForList(id: id)
+        subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
+        
+    }
+   
+    
+    @MainActor
+       private func fetchSubjectGroups() async {
+           subjectgroupvm.isLoading = true // Start the loading animation
+           await subjectgroupvm.GetTeacherSubjectGroups1()
+           subjectgroupvm.isLoading = false // Stop the loading animation
+       }
+    
     
     var body: some View {
         VStack {
@@ -180,15 +196,19 @@ struct ManageSubjectGroupView: View {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
                                         .onChange(of: subjectgroupvm.subject){newval in
                                             guard let newval = newval,let id = newval.id else {return}
+                                            
+                                            Task{
+                                                await fetchlessons(id:id)
+                                            }
 //                                            subjectgroupvm.AllLessonsForList.removeAll()
-                                            lookupsvm.AllLessonsForList.removeAll()
+//                                            lookupsvm.AllLessonsForList.removeAll()
                                             //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
                                             //                                            if let id = newval.id{
-                                            lookupsvm.GetAllLessonsForList(id: id)
-                                            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
+//                                           await lookupsvm.GetAllLessonsForList(id: id)
+//                                            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
                                                 //                                                    AllLessonsForList = lookupsvm.AllLessonsForList
-                                                subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
-                                            })
+//                                                subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
+//                                            })
                                             
                                             //                                            }
                                         }
@@ -311,7 +331,8 @@ struct ManageSubjectGroupView: View {
             .task{
                 //                subjectgroupvm.subject = nil
                 subjectgroupvm.clearFilter()
-                subjectgroupvm.GetTeacherSubjectGroups()
+//                subjectgroupvm.GetTeacherSubjectGroups()
+               await fetchSubjectGroups()
             }
             .onAppear(perform: {
                 lookupsvm.GetSubjestForList()
@@ -472,6 +493,12 @@ struct listGroups: View {
     @Binding var isPush : Bool
     @Binding var destination : AnyView
     var gr:GeometryProxy
+    
+    @MainActor
+    private func fetchlessons(id:Int)async{
+        await lookupsvm.GetAllLessonsForList(id: id)
+    }
+    
     var body: some View {
         
         List(subjectgroupvm.TeacherSubjectGroups ?? [] ,id:\.self){ group in
@@ -487,7 +514,10 @@ struct listGroups: View {
             },extraTimetnAction: {
                 subjectgroupvm.clearExtraSession()
                 if let id = group.teacherSubjectAcademicSemesterYearID {
-                    lookupsvm.GetAllLessonsForList(id: id)
+//                    lookupsvm.GetAllLessonsForList(id: id)
+                    Task{
+                        await fetchlessons(id: id)
+                    }
                 }
                 subjectgroupvm.selectedGroup = group
                 subjectgroupvm.ShowAddExtraSession = true

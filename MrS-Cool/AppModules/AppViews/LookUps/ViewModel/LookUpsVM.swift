@@ -847,24 +847,52 @@ extension LookUpsVM{
             .store(in: &cancellables)
     }
 
-    func GetAllLessonsForList(id:Int) {
+    func GetAllLessonsForList(id:Int) async {
 //        guard let SelectedSubjectForListid = forcase == .Adding ? SelectedSubjectForList?.id : SelectedFilterSubjectForList?.id  else {LessonsForListArray.removeAll(); return}
         let parameters:[String:Any] = ["teacherSubjectAcademicSemesterYearId":id]
         let target = LookupsServices.GetAllTeacherLessonForList(parameters: parameters)
-        BaseNetwork.CallApi(target, BaseResponse<[LessonForListM]>.self)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = error
-                }
-            }, receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                    AllLessonsForListArray = receivedData.data ?? []
-            })
-            .store(in: &cancellables)
+//        BaseNetwork.CallApi(target, BaseResponse<[LessonForListM]>.self)
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    self.error = error
+//                }
+//            }, receiveValue: {[weak self] receivedData in
+//                guard let self = self else{return}
+//                print("receivedData",receivedData)
+//                    AllLessonsForListArray = receivedData.data ?? []
+//            })
+//            .store(in: &cancellables)
+        
+        
+        do{
+            let response = try await BaseNetwork.shared.request(target, BaseResponse<[LessonForListM]>.self)
+            print(response)
+
+            if response.success == true {
+                AllLessonsForListArray = response.data ?? []
+            } else {
+//                self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+//                self.isError = true
+            }
+//                        self.isLoadingComments = false
+
+//                    } catch let error as NetworkError {
+//                        self.isLoadingComments = false
+//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        self.isError = true
+//        //                print("Network error: \(error.errorDescription)")
+        } catch {
+            
+//                        self.isLoadingComments = false
+//            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//            self.isError = true
+//                print("Unexpected error: \(error.localizedDescription)")
+        }
+        
+        
     }
     func GetBookedSubjestForList() {
         var parameters:[String:Any] = [:]

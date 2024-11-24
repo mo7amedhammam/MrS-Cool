@@ -161,6 +161,51 @@ extension ManageSubjectGroupVM{
             })
             .store(in: &cancellables)
     }
+    func GetTeacherSubjectGroups1() async{
+        var parameters:[String:Any] = [:]
+        if let filtersubjectid = filtersubject?.id{
+            parameters["teacherSubjectAcademicSemesterYearId"] = filtersubjectid
+        }
+        if filtergroupName.count > 0{
+            parameters["groupName"] = filtergroupName
+        }
+        
+        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+            parameters["startDate"] = filterstartdate
+        }
+        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+            parameters["endDate"] = filterenddate
+        }
+        
+        let target = teacherServices.GetMySubjectGroup(parameters: parameters)
+
+    
+//                isLoadingComments = true
+                do{
+                    let response = try await BaseNetwork.shared.request(target, BaseResponse<[SubjectGroupM]>.self)
+                    print(response)
+    
+                    if response.success == true {
+                        TeacherSubjectGroups = response.data
+                    } else {
+                        self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+                        self.isError = true
+                    }
+//                        self.isLoadingComments = false
+
+//                    } catch let error as NetworkError {
+//                        self.isLoadingComments = false
+//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        self.isError = true
+//        //                print("Network error: \(error.errorDescription)")
+                } catch {
+//                        self.isLoadingComments = false
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    self.isError = true
+    //                print("Unexpected error: \(error.localizedDescription)")
+                }
+           
+        }
     
     func ReviewTeacherGroup(){
         guard checkValidfields() else {return}
