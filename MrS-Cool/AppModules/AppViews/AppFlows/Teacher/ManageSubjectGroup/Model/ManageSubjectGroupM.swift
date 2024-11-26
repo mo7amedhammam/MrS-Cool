@@ -25,12 +25,14 @@ struct SubjectGroupDetailsM: Codable {
     var id, teacherSubjectAcademicSemesterYearID: Int?
     var teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate: String?
     var numLessons: Int?
+    var groupCost:Float?
     var scheduleSlots: [ScheduleSlot]?
 
     enum CodingKeys: String, CodingKey {
         case id
         case teacherSubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate, numLessons, scheduleSlots
+        case groupCost
     }
 }
 
@@ -59,6 +61,7 @@ extension SubjectGroupDetailsM {
         dictionary["teacherSubjectAcademicSemesterYearID"] = teacherSubjectAcademicSemesterYearID
         dictionary["teacherSubjectAcademicSemesterYearName"] = teacherSubjectAcademicSemesterYearName
         dictionary["groupName"] = groupName
+        dictionary["groupCost"] = groupCost
         dictionary["startDate"] = startDate
         dictionary["endDate"] = endDate
         dictionary["numLessons"] = numLessons

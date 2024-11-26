@@ -645,3 +645,7 @@
 "Your payment had been done \nsuccessfully." = "Your payment had been done \nsuccessfully.";
 "Please back to your account and \nenjoy" = "Please back to your account and \nenjoy";
 "Please back to your account and try \nagain" = "Please back to your account and try \nagain";
+
+"Session Price" = "Session Price";
+"Session Price cannot be 0" = "Session Price cannot be 0";
+"Total Cost" = "Total Cost";

@@ -154,8 +154,11 @@ extension ManageTeacherSubjectsVM{
         guard let subjectAcademicYearId = subject?.id, let groupCost = Float(groupCost)
 //                , let individualCost = Float(individualCost),let minGroup = Int(minGroup),let maxGroup = Int(maxGroup)
         else {return}
-        var parameters:[String:Any] = ["subjectSemesterYearId":subjectAcademicYearId,"groupCost":groupCost,"individualCost":0
-//                                       ,"minGroup":minGroup,"maxGroup":maxGroup
+        var parameters:[String:Any] = [
+            "subjectSemesterYearId":subjectAcademicYearId,
+            "groupSessionCost":groupCost,
+            "individualCost":0
+            //                                       ,"minGroup":minGroup,"maxGroup":maxGroup
         ]
         
         if !subjectBrief.isEmpty || subjectBrief.count > 0 {

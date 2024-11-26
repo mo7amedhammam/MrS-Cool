@@ -17,10 +17,25 @@ class ManageSubjectGroupVM: ObservableObject {
         didSet{
             if subject != nil{
                 issubjectvalid = true
+                guard let SessionCost = subject?.subject?.groupSessionCost else {return}
+                SessionPrice = String(SessionCost)
             }
         }
     }
     @Published var issubjectvalid:Bool?
+
+    @Published var SessionPrice : String = ""{
+        didSet{
+            guard let price = Float(SessionPrice) else {return}
+            if price > 0{
+                isSessionPricevalid = true
+            }else{
+                isSessionPricevalid = false
+            }
+        }
+
+    }
+    @Published var isSessionPricevalid:Bool?
     
     @Published var groupName : String = ""{
         didSet{
@@ -115,52 +130,62 @@ class ManageSubjectGroupVM: ObservableObject {
 }
 
 extension ManageSubjectGroupVM{
-    func GetTeacherSubjectGroups(){
-        var parameters:[String:Any] = [:]
-        if let filtersubjectid = filtersubject?.id{
-            parameters["teacherSubjectAcademicSemesterYearId"] = filtersubjectid
-        }
-        if filtergroupName.count > 0{
-            parameters["groupName"] = filtergroupName
-        }
-        
-        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
-            parameters["startDate"] = filterstartdate
-        }
-        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
-            parameters["endDate"] = filterenddate
-        }
-        
-        print("parameters",parameters)
-        let target = teacherServices.GetMySubjectGroup(parameters: parameters)
-        isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<[SubjectGroupM]>.self)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {[weak self] completion in
-                guard let self = self else{return}
-                isLoading = false
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                    isError =  true
-                }
-            },receiveValue: {[weak self] receivedData in
-                guard let self = self else{return}
-                print("receivedData",receivedData)
-                if receivedData.success == true {
-                    //                    TeacherSubjects?.append(model)
-                    TeacherSubjectGroups = receivedData.data
-                }else{
-                    isError =  true
-                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-                }
-                isLoading = false
-            })
-            .store(in: &cancellables)
-    }
+//    func GetTeacherSubjectGroups(){
+//        var parameters:[String:Any] = [:]
+//        if let filtersubjectid = filtersubject?.id{
+//            parameters["teacherSubjectAcademicSemesterYearId"] = filtersubjectid
+//        }
+//        if filtergroupName.count > 0{
+//            parameters["groupName"] = filtergroupName
+//        }
+//        
+//        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+//            parameters["startDate"] = filterstartdate
+//        }
+//        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+//            parameters["endDate"] = filterenddate
+//        }
+//        
+//        print("parameters",parameters)
+//        let target = teacherServices.GetMySubjectGroup(parameters: parameters)
+//        isLoading = true
+//        BaseNetwork.CallApi(target, BaseResponse<[SubjectGroupM]>.self)
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveCompletion: {[weak self] completion in
+//                guard let self = self else{return}
+//                isLoading = false
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                    isError =  true
+//                }
+//            },receiveValue: {[weak self] receivedData in
+//                guard let self = self else{return}
+//                print("receivedData",receivedData)
+//                if receivedData.success == true {
+//                    //                    TeacherSubjects?.append(model)
+//                    TeacherSubjectGroups = receivedData.data
+//                }else{
+//                    isError =  true
+//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+//                }
+//                isLoading = false
+//            })
+//            .store(in: &cancellables)
+//    }
+    
+    @MainActor
+    func fetchSubjectGroups() async {
+           isLoading = true // Start the loading animation
+           await GetTeacherSubjectGroups1()
+           isLoading = false // Stop the loading animation
+       }
+    
+    
+    @MainActor
     func GetTeacherSubjectGroups1() async{
         var parameters:[String:Any] = [:]
         if let filtersubjectid = filtersubject?.id{
@@ -179,7 +204,6 @@ extension ManageSubjectGroupVM{
         
         let target = teacherServices.GetMySubjectGroup(parameters: parameters)
 
-    
 //                isLoadingComments = true
                 do{
                     let response = try await BaseNetwork.shared.request(target, BaseResponse<[SubjectGroupM]>.self)
@@ -191,14 +215,7 @@ extension ManageSubjectGroupVM{
                         self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
                         self.isError = true
                     }
-//                        self.isLoadingComments = false
-
-//                    } catch let error as NetworkError {
-//                        self.isLoadingComments = false
-//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                        self.isError = true
-//        //                print("Network error: \(error.errorDescription)")
-                } catch {
+    } catch {
 //                        self.isLoadingComments = false
                     self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
                     self.isError = true
@@ -208,6 +225,14 @@ extension ManageSubjectGroupVM{
         }
     
     func ReviewTeacherGroup(){
+        // Calculate the sum of counts for selected lessons
+           let totalCount = teacherLessonList.reduce(0) { partialResult, lessonItem in
+               partialResult + (lessonItem.count ?? 0) // Use optional chaining in case count is nil
+           }
+        let totalCost = Float(totalCount)*(Float(SessionPrice) ?? 0)
+        print("totalCount",totalCount)
+        print("totalprice",Float(totalCount)*(Float(SessionPrice) ?? 0))
+
         guard checkValidfields() else {return}
         guard let subjectid = subject?.id ,let subjectname = subject?.Title ,let startdate = startDate else {return}
         prepareSlotsArrays()
@@ -215,6 +240,7 @@ extension ManageSubjectGroupVM{
         let parameters:[String:Any] = [ "teacherSubjectAcademicSemesterYearId":subjectid,
                                         "teacherSubjectAcademicSemesterYearName":subjectname,
                                         "groupName":groupName,
+                                        "groupCost":totalCost,
                                         "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
                                         "scheduleSlots":CreateSchedualSlotsArr,
                                         "teacherLessonList":CreateTeacherLessonList]
@@ -276,7 +302,9 @@ extension ManageSubjectGroupVM{
                         clearTeacherGroup()
                         clearFilter()
                         TeacherSubjectGroupCreated = true
-                        GetTeacherSubjectGroups()
+                        Task{
+                            await self.fetchSubjectGroups()
+                        }
                     })
                     isError =  true
 
@@ -491,7 +519,7 @@ extension ManageSubjectGroupVM{
 //        isgroupCostvalid = !groupCost.isEmpty && Int(groupCost) != 0
 //        isindividualCostvalid = !individualCost.isEmpty && Int(individualCost) != 0
         
-        return issubjectvalid ?? true && isgroupNamevalid ?? true && isstartDatevalid ?? true
+        return issubjectvalid ?? true && isgroupNamevalid ?? true && isstartDatevalid ?? true && isSessionPricevalid ?? true
     }
     
     private func checkValidExtraSessionfields()->Bool{

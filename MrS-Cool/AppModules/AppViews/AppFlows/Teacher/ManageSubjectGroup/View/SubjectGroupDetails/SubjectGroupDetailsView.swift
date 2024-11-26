@@ -10,194 +10,257 @@ enum PreviewOptions{
 }
 import SwiftUI
 
-struct SubjectGroupDetailsView: View {  
+struct SubjectGroupDetailsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var lookupsvm : LookUpsVM
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var subjectgroupvm : ManageSubjectGroupVM
-
+    
     //    @State var isPush = false
     //    @State var destination = EmptyView()
     @State private var isEditing = false
     
     @State var showFilter : Bool = false
     var previewOption:PreviewOptions? = .newGroup
-
+    
     @State var showConfirmSave : Bool = false
-
-//    @State var isPush = false
-//    @State var destination = AnyView(EmptyView())
-
+    
+    //    @State var isPush = false
+    //    @State var destination = AnyView(EmptyView())
+    let columns: [GridItem] =
+    Array(repeating: .init(.flexible(),spacing: 25,alignment: .topLeading), count: 2)
+    
     var body: some View {
-            VStack {
-                CustomTitleBarView(title: "Manage Groups For Lesson")
-                
-                GeometryReader { gr in
-                    ScrollView(.vertical,showsIndicators: false){
-                        VStack{ // (Title - Data - Submit Button)
-                            Group{
-                                VStack(alignment: .leading, spacing: 0){
-                                    // -- Data Title --
-                                    HStack(alignment: .top){
-                                        SignUpHeaderTitle(Title:"Group Information")
-                                        Spacer()
-                                    }
-                                    //                                .padding(.bottom )
-                                    
-                                    // -- inputs --
-                                    Group {
-                                        HStack(alignment:.top){
-                                            VStack(alignment:.leading,spacing:5){
-                                                Text("Subject".localized())
-                                                    .font(Font.bold(size: 16))
-                                                //
-                                                Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
-                                                    .font(Font.regular(size: 14))
-                                                
-                                                //
-                                                Spacer().frame(height:25)
-                                                //
-                                                Text("Start Date".localized())
-                                                    .font(Font.bold(size: 16))
-                                                
-                                                Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                                    .font(Font.regular(size: 14))
-                                                    .fontWeight(.medium)
-                                                //
-                                                Spacer().frame(height:30)
-                                                //
-                                                Text("Num Of Lessons".localized())
-                                                    .font(Font.bold(size: 16))
-                                                Group{
-                                                    Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ").fontWeight(.medium)+Text("Lesson".localized()).fontWeight(.medium)
-
-                                                }
-                                                .font(Font.regular(size: 14))
-                                            }
-                                            Spacer()
-                                            
-                                            VStack(alignment:.leading,spacing:5){
-                                                Text("Group Name".localized())
-                                                    .font(Font.bold(size: 16))
-                                                
-                                                Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
-                                                    .font(Font.regular(size: 14))
-                                                    .fontWeight(.medium)
-                                                
-                                                Spacer().frame(height:25)
-                                                
-                                                Text("End Date".localized())
-                                                    .font(Font.bold(size: 16))
-                                                
-                                                Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                                    .font(Font.regular(size: 14))
-                                                    .fontWeight(.medium)
-                                            }
-                                        }
-                                        .lineSpacing(5)
-                                        
-                                        //                                    HStack{
-                                        ////                                        VStack(alignment:.leading){
-                                        ////                                            Text("Academic Year".localized())
-                                        ////                                                .font(Font.semiBold(size: 16))
-                                        ////
-                                        ////                                            Text(currentSubject?.academicYearName ?? "level 1")
-                                        ////                                                .font(Font.regular(size: 14))
-                                        ////                                        }
-                                        //                                        VStack(alignment:.leading){
-                                        ////                                            Text("Subject".localized())
-                                        ////                                                .font(Font.semiBold(size: 16))
-                                        ////
-                                        ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                        ////                                                .font(Font.regular(size: 14))
-                                        //
-                                        //                                        }
-                                        //                                    }
-                                        //
-                                        //                                    Text("Status".localized())
-                                        //                                        .font(Font.semiBold(size: 16))
-                                        //
-                                        //                                    Text(currentSubject?.statusIDName ?? "Aproved")
-                                        //                                        .font(Font.regular(size: 14))
-                                        //                                        .padding(.bottom)
-                                    }
-                                    .foregroundColor(.mainBlue)
-                                    .padding([.top,.horizontal])
-                                }
-                                .padding(.top,20)
-                                
-                                HStack(){
-                                    SignUpHeaderTitle(Title: "Lessons Schedule")
+        VStack {
+            CustomTitleBarView(title: "Manage Groups For Lesson")
+            
+            GeometryReader { gr in
+                ScrollView(.vertical,showsIndicators: false){
+                    VStack{ // (Title - Data - Submit Button)
+                        Group{
+                            VStack(alignment: .leading, spacing: 0){
+                                // -- Data Title --
+                                HStack(alignment: .top){
+                                    SignUpHeaderTitle(Title:"Group Information")
                                     Spacer()
                                 }
-                                .padding(.top)
+                                //                                .padding(.bottom )
                                 
+                                // -- inputs --
+                                
+                                LazyVGrid(columns: columns,alignment: .center,spacing: 25){
+                                    VStack(alignment:.leading,spacing:5){
+                                        Text("Subject".localized())
+                                            .font(Font.bold(size: 16))
+                                        //
+                                        Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
+                                            .font(Font.regular(size: 14))
+                                            .lineSpacing(5)
+                                    }
+                                    
+                                    VStack(alignment:.leading,spacing:5){
+                                        Text("Group Name".localized())
+                                            .font(Font.bold(size: 16))
+                                        
+                                        Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
+                                            .font(Font.regular(size: 14))
+                                            .fontWeight(.medium)
+                                    }
+                                    
+                                    VStack(alignment:.leading,spacing:5){
+                                        Text("Start Date".localized())
+                                            .font(Font.bold(size: 16))
+                                        
+                                        Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
+                                            .font(Font.regular(size: 14))
+                                            .fontWeight(.medium)
+                                    }
+                                    
+                                    VStack(alignment:.leading,spacing:5){
+                                        Text("End Date".localized())
+                                            .font(Font.bold(size: 16))
+                                        
+                                        Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
+                                            .font(Font.regular(size: 14))
+                                            .fontWeight(.medium)
+                                    }
+                                    
+                                    VStack(alignment:.leading,spacing:5){
+                                        Text("Num Of Lessons".localized())
+                                            .font(Font.bold(size: 16))
+                                        Group{
+                                            Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ").fontWeight(.medium)+Text("Lesson".localized()).fontWeight(.medium)
+                                            
+                                        }
+                                        .font(Font.regular(size: 14))
+                                    }
+                                    
+                                    VStack(alignment:.leading,spacing:5){
+                                        Text("Total Cost".localized())
+                                            .font(Font.bold(size: 16))
+                                        
+                                        Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text("EGP".localized()).fontWeight(.medium)
+                                    }
+                                    
+                                }
+                                .foregroundColor(.mainBlue)
+                                .padding([.top,.horizontal])
+                                
+                                
+                                
+                                //                                    Group {
+                                //                                        HStack(alignment:.top){
+                                //                                            VStack(alignment:.leading,spacing:5){
+                                //                                                Text("Subject".localized())
+                                //                                                    .font(Font.bold(size: 16))
+                                //                                                //
+                                //                                                Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
+                                //                                                    .font(Font.regular(size: 14))
+                                //
+                                //                                                //
+                                //                                                Spacer().frame(height:25)
+                                //                                                //
+                                //                                                Text("Start Date".localized())
+                                //                                                    .font(Font.bold(size: 16))
+                                //
+                                //                                                Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
+                                //                                                    .font(Font.regular(size: 14))
+                                //                                                    .fontWeight(.medium)
+                                //                                                //
+                                //                                                Spacer().frame(height:30)
+                                //                                                //
+                                //                                                Text("Num Of Lessons".localized())
+                                //                                                    .font(Font.bold(size: 16))
+                                //                                                Group{
+                                //                                                    Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ").fontWeight(.medium)+Text("Lesson".localized()).fontWeight(.medium)
+                                //
+                                //                                                }
+                                //                                                .font(Font.regular(size: 14))
+                                //                                            }
+                                //                                            Spacer()
+                                //
+                                //                                            VStack(alignment:.leading,spacing:5){
+                                //                                                Text("Group Name".localized())
+                                //                                                    .font(Font.bold(size: 16))
+                                //
+                                //                                                Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
+                                //                                                    .font(Font.regular(size: 14))
+                                //                                                    .fontWeight(.medium)
+                                //
+                                //                                                Spacer().frame(height:25)
+                                //
+                                //                                                Text("End Date".localized())
+                                //                                                    .font(Font.bold(size: 16))
+                                //
+                                //                                                Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
+                                //                                                    .font(Font.regular(size: 14))
+                                //                                                    .fontWeight(.medium)
+                                //                                            }
+                                //                                        }
+                                //                                        .lineSpacing(5)
+                                //
+                                //                                        //                                    HStack{
+                                //                                        ////                                        VStack(alignment:.leading){
+                                //                                        ////                                            Text("Academic Year".localized())
+                                //                                        ////                                                .font(Font.semiBold(size: 16))
+                                //                                        ////
+                                //                                        ////                                            Text(currentSubject?.academicYearName ?? "level 1")
+                                //                                        ////                                                .font(Font.regular(size: 14))
+                                //                                        ////                                        }
+                                //                                        //                                        VStack(alignment:.leading){
+                                //                                        ////                                            Text("Subject".localized())
+                                //                                        ////                                                .font(Font.semiBold(size: 16))
+                                //                                        ////
+                                //                                        ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
+                                //                                        ////                                                .font(Font.regular(size: 14))
+                                //                                        //
+                                //                                        //                                        }
+                                //                                        //                                    }
+                                //                                        //
+                                //                                        //                                    Text("Status".localized())
+                                //                                        //                                        .font(Font.semiBold(size: 16))
+                                //                                        //
+                                //                                        //                                    Text(currentSubject?.statusIDName ?? "Aproved")
+                                //                                        //                                        .font(Font.regular(size: 14))
+                                //                                        //                                        .padding(.bottom)
+                                //                                    }
+                                //                                    .foregroundColor(.mainBlue)
+                                //                                    .padding([.top,.horizontal])
                             }
-                            .padding(.horizontal)
-
-                            let scheduleSlots = subjectgroupvm.TeacherSubjectGroupsDetails?.scheduleSlots ?? []
-                            let enumeratedSlots = Array(scheduleSlots.enumerated())
-                                List(enumeratedSlots, id: \.element) { index, group in
-                                SubjectGroupDetailsCell(number: index+1, model: group)
-                                        .listRowSpacing(0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                        .padding(.vertical,-4)
-                            }
-                            .padding(.horizontal,-4)
-                            .listStyle(.plain)
-                            //                            .scrollContentBackground(.hidden)
-                            .frame(minHeight: gr.size.height/2)
+                            .padding(.top,20)
                             
-                            Spacer()
-                
+                            HStack(){
+                                SignUpHeaderTitle(Title: "Lessons Schedule")
+                                Spacer()
+                            }
+                            .padding(.top)
+                            
                         }
-                        .frame(minHeight: gr.size.height)
-     
+                        .padding(.horizontal)
+                        
+                        let scheduleSlots = subjectgroupvm.TeacherSubjectGroupsDetails?.scheduleSlots ?? []
+                        let enumeratedSlots = Array(scheduleSlots.enumerated())
+                        List(enumeratedSlots, id: \.element) { index, group in
+                            SubjectGroupDetailsCell(number: index+1, model: group)
+                                .listRowSpacing(0)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                                .padding(.vertical,-4)
+                        }
+                        .padding(.horizontal,-4)
+                        .listStyle(.plain)
+                        //                            .scrollContentBackground(.hidden)
+                        .frame(minHeight: gr.size.height/2)
+                        
+                        Spacer()
+                        
                     }
+                    .frame(minHeight: gr.size.height)
                     
                 }
-                if previewOption == .newGroup{
-                    HStack {
-                        Group{
-                            CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
-                                subjectgroupvm.error = .question(title: "", image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
-                                    subjectgroupvm.CreateTeacherGroup()
-                                })
-                                showConfirmSave = true
-                            })
-                            CustomBorderedButton(Title:"Back",IsDisabled: .constant(false), action: {
-                                //                                    subjectgroupvm.clearTeacherGroup()
-                                dismiss()
-                            })
-                        }
-                        .frame(width:150,height: 40)
-                        
-                    }.padding(.vertical)
-                }
-//                .onAppear(perform: {
-//                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
-//                    manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
-//                })
-
+                
             }
-            .hideNavigationBar()
-            .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
-                hideKeyboard()
-            })
-            .onChange(of: subjectgroupvm.TeacherSubjectGroupCreated){value in
-                if value == true {
-                    dismiss()
-                }
+            if previewOption == .newGroup{
+                HStack {
+                    Group{
+                        CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
+                            subjectgroupvm.error = .question(title: "", image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
+                                subjectgroupvm.CreateTeacherGroup()
+                            })
+                            showConfirmSave = true
+                        })
+                        CustomBorderedButton(Title:"Back",IsDisabled: .constant(false), action: {
+                            //                                    subjectgroupvm.clearTeacherGroup()
+                            dismiss()
+                        })
+                    }
+                    .frame(width:150,height: 40)
+                    
+                }.padding(.vertical)
             }
-//            .onDisappear {
-//                subjectgroupvm.cleanup()
-//            }
-            .showHud(isShowing: $subjectgroupvm.isLoading)
-            .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
-            .showAlert(hasAlert: $showConfirmSave, alertType: subjectgroupvm.error)
-
-//        NavigationLink(destination: destination, isActive: $isPush, label: {})
+            //                .onAppear(perform: {
+            //                    manageteachersubjectlessonsvm.subjectSemesterYearId = currentSubject?.subjectAcademicYearID ?? 0
+            //                    manageteachersubjectlessonsvm.GetTeacherSubjectLessons()
+            //                })
+            
+        }
+        .hideNavigationBar()
+        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+            hideKeyboard()
+        })
+        .onChange(of: subjectgroupvm.TeacherSubjectGroupCreated){value in
+            if value == true {
+                dismiss()
+            }
+        }
+        //            .onDisappear {
+        //                subjectgroupvm.cleanup()
+        //            }
+        .showHud(isShowing: $subjectgroupvm.isLoading)
+        .showAlert(hasAlert: $subjectgroupvm.isError, alertType: subjectgroupvm.error)
+        .showAlert(hasAlert: $showConfirmSave, alertType: subjectgroupvm.error)
+        
+        //        NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
 }
 

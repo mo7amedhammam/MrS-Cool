@@ -641,3 +641,7 @@
 "Your payment had been done \nsuccessfully." = "تمت عملية الدفع \nبنجاح.";
 "Please back to your account and \nenjoy" = "الرجاء العودة إلى حسابك \nوالإستمتاع";
 "Please back to your account and try \nagain" = "الرجاء العودة إلى حسابك والمحاولة \nمرة أخرى";
+
+"Session Price" = "سعر الحصه الواحده";
+"Session Price cannot be 0" = "لا يمكن أن يكون سعر الحصه 0";
+"Total Cost" = "التكلفه الاجماليه";

@@ -45,6 +45,12 @@ struct ManageSubjectGroupView: View {
             subjectgroupvm.isError = true
             return false
         }
+        
+        // Calculate the sum of counts for selected lessons
+           let totalCount = subjectgroupvm.teacherLessonList.reduce(0) { partialResult, lessonItem in
+               partialResult + (lessonItem.count ?? 0) // Use optional chaining in case count is nil
+           }
+        
         return true
     }
     
@@ -136,13 +142,17 @@ struct ManageSubjectGroupView: View {
                         HStack {
                             Group{
                                 CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                    subjectgroupvm.GetTeacherSubjectGroups()
+                                    Task{
+                                        await subjectgroupvm.fetchSubjectGroups()
+                                    }
                                     showFilter = false
                                 })
                                 
                                 CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                     subjectgroupvm.clearFilter()
-                                    subjectgroupvm.GetTeacherSubjectGroups()
+                                    Task{
+                                        await subjectgroupvm.fetchSubjectGroups()
+                                    }
                                     showFilter = false
                                 })
                             } .frame(width:130,height:40)
@@ -163,16 +173,9 @@ struct ManageSubjectGroupView: View {
     private func fetchlessons(id:Int)async{
         await lookupsvm.GetAllLessonsForList(id: id)
         subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
-        
     }
    
-    
-    @MainActor
-       private func fetchSubjectGroups() async {
-           subjectgroupvm.isLoading = true // Start the loading animation
-           await subjectgroupvm.GetTeacherSubjectGroups1()
-           subjectgroupvm.isLoading = false // Stop the loading animation
-       }
+   
     
     
     var body: some View {
@@ -200,23 +203,35 @@ struct ManageSubjectGroupView: View {
                                             Task{
                                                 await fetchlessons(id:id)
                                             }
-//                                            subjectgroupvm.AllLessonsForList.removeAll()
-//                                            lookupsvm.AllLessonsForList.removeAll()
+                                            //                                            subjectgroupvm.AllLessonsForList.removeAll()
+                                            //                                            lookupsvm.AllLessonsForList.removeAll()
                                             //                                            lookupsvm.SelectedSubjectForList = subjectgroupvm.subject
                                             //                                            if let id = newval.id{
-//                                           await lookupsvm.GetAllLessonsForList(id: id)
-//                                            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
-                                                //                                                    AllLessonsForList = lookupsvm.AllLessonsForList
-//                                                subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
-//                                            })
+                                            //                                           await lookupsvm.GetAllLessonsForList(id: id)
+                                            //                                            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute:{
+                                            //                                                    AllLessonsForList = lookupsvm.AllLessonsForList
+                                            //                                                subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
+                                            //                                            })
                                             
                                             //                                            }
                                         }
                                     
-                                    //                                    if subjectgroupvm.subject != nil{
+                                    if subjectgroupvm.subject != nil{
+                                        // Validation hint for Lesson Order
+                                        if let price = Float(subjectgroupvm.SessionPrice), !(price > 0){
+                                                Text("Session Price cannot be 0".localized())
+                                                .foregroundColor(.red)
+                                                .font(Font.semiBold(size: 11))
+                                        }
+
+                                        CustomTextField(iconName:"img_group_black_900",placeholder: "Session Price", text: $subjectgroupvm.SessionPrice,keyboardType:.decimalPad,isvalid:subjectgroupvm.isSessionPricevalid)
+                                            .onChange(of: subjectgroupvm.SessionPrice) { newValue in
+                                                subjectgroupvm.SessionPrice = newValue.filter { $0.isEnglish }
+                                            }
+                                        
+                                        lessonsOrder(countHints: $countHints, orderHints: $orderHints).environmentObject(subjectgroupvm)
+                                    }
                                     
-                                    lessonsOrder(countHints: $countHints, orderHints: $orderHints).environmentObject(subjectgroupvm)
-                                    //                                    }
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.groupName,isvalid:subjectgroupvm.isgroupNamevalid)
                                     
@@ -332,7 +347,7 @@ struct ManageSubjectGroupView: View {
                 //                subjectgroupvm.subject = nil
                 subjectgroupvm.clearFilter()
 //                subjectgroupvm.GetTeacherSubjectGroups()
-               await fetchSubjectGroups()
+                await subjectgroupvm.fetchSubjectGroups()
             }
             .onAppear(perform: {
                 lookupsvm.GetSubjestForList()
@@ -413,14 +428,14 @@ struct lessonsOrder: View {
                 if let showHint = countHints[index], showHint {
                     Text("Number must be between 1 and 5".localized())
                         .foregroundColor(.red)
-                        .font(.caption)
+                        .font(Font.semiBold(size: 11))
                 }
                 
                 // Validation hint for Lesson Order
                 if let showHint = orderHints[index], showHint {
                     Text("Order cannot be 0".localized())
                         .foregroundColor(.red)
-                        .font(.caption)
+                        .font(Font.semiBold(size: 11))
                 }
                 
                 HStack{

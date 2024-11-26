@@ -64,6 +64,7 @@ struct DocumentTypeM: Codable {
 struct SubjectForListM: Codable {
     var  id: Int?
     var subjectDisplayName: String?
+    var groupSessionCost:Float?
 }
 // MARK: - Lesson For List M -
 struct LessonForListM: Codable,Hashable {

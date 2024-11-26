@@ -351,7 +351,7 @@ class LookUpsVM: ObservableObject {
             if !SubjectsForListArray.isEmpty {
                 // Use map to transform GendersM into DropDownOption
                 SubjectsForList = SubjectsForListArray.map { gender in
-                    return DropDownOption(id: gender.id, Title: gender.subjectDisplayName)
+                    return DropDownOption(id: gender.id, Title: gender.subjectDisplayName,subject: SubjectsByAcademicLevelM(groupSessionCost: gender.groupSessionCost))
                 }
             }else{
                 SubjectsForList.removeAll()
@@ -847,6 +847,7 @@ extension LookUpsVM{
             .store(in: &cancellables)
     }
 
+    @MainActor
     func GetAllLessonsForList(id:Int) async {
 //        guard let SelectedSubjectForListid = forcase == .Adding ? SelectedSubjectForList?.id : SelectedFilterSubjectForList?.id  else {LessonsForListArray.removeAll(); return}
         let parameters:[String:Any] = ["teacherSubjectAcademicSemesterYearId":id]
@@ -971,6 +972,7 @@ struct SubjectsByAcademicLevelM: Codable,Hashable {
     var name: String?
     var groupDurationFrom, groupDurationTo: Int?
     var individualCostFrom, individualCostTo, groupCostFrom, groupCostTo: Float?
+    var groupSessionCost:Float?
 }
 
 

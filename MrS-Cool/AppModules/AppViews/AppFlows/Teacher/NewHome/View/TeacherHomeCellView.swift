@@ -143,6 +143,7 @@ struct TeacherHomeCellView: View {
                     }
                 }
             }
+            
             HStack{
                 VStack (alignment:.leading,spacing: 10){
                     Text(model.subjectName ?? "المنهج المصري العربي,المرحلة الثانوية,أولي ثانوي,الفيزياء,الترم الأول 2023")
@@ -151,6 +152,7 @@ struct TeacherHomeCellView: View {
                         .foregroundColor(ColorConstants.Black900)
                     //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
+                        .lineSpacing(5)
                     
                     Text(model.sessionName ?? "session 1")
                         .font(Font.semiBold(size: 12.0))
@@ -158,6 +160,8 @@ struct TeacherHomeCellView: View {
                         .foregroundColor(ColorConstants.Black900)
                     //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
+                        .lineSpacing(5)
+
                     HStack{
                         Text("Students :".localized())
                             .fontWeight(.medium)
@@ -364,6 +368,7 @@ struct StudentHomeCellView: View {
                         .foregroundColor(ColorConstants.Black900)
                     //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
+                        .lineSpacing(5)
                     
                     Text(model.lessonName ?? "lesson 1")
                         .font(Font.semiBold(size: 12.0))
@@ -371,7 +376,8 @@ struct StudentHomeCellView: View {
                         .foregroundColor(ColorConstants.Black900)
                     //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
-                    
+                        .lineSpacing(5)
+
                     HStack{
                         Text("Teacher :".localized())
 
