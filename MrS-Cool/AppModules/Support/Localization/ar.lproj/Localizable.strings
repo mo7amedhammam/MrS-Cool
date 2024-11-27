@@ -642,6 +642,8 @@
 "Please back to your account and \nenjoy" = "الرجاء العودة إلى حسابك \nوالإستمتاع";
 "Please back to your account and try \nagain" = "الرجاء العودة إلى حسابك والمحاولة \nمرة أخرى";
 
-"Session Price" = "سعر الحصه الواحده";
+"Session Price *" = "سعر الحصه الواحده *";
 "Session Price cannot be 0" = "لا يمكن أن يكون سعر الحصه 0";
 "Total Cost" = "التكلفه الاجماليه";
+"ِStudy materials for the stages *" = "ِالمواد الدراسيه للمرحله *";
+"Session Price" = "سعر الحصه";

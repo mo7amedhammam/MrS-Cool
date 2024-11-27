@@ -93,11 +93,11 @@ struct ManageSubjectCell: View {
                     VStack(alignment:.leading,spacing: 5){
     //                    Spacer()
                                 
-                        Text("Group Price".localized())
+                        Text("Session Price".localized())
                             .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
-                            Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                            Text("\(model.groupSessionCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
                         }
                     .font(Font.bold(size: 10))
                     .foregroundColor(.mainBlue)
@@ -139,5 +139,5 @@ struct ManageSubjectCell: View {
 }
 
 #Preview {
-    ManageSubjectCell()
+    ManageSubjectCell(model: .init(subjectSemesterYearID: 1, minGroup: 2, groupCost: 1, individualCost: 4, maxGroup: 4, statusID: 4, id: 4, educationTypeName: "education Type Name", educationLevelName: "education Level Name", academicYearName: "academic Year Name", subjectSemesterYearName: "subject Semester Year Name", subjectDisplayName: "subject Display Name", educationTypeID: 0, educationLevelID: 0, academicYearID: 1, statusIDName: "ff", brief: "fsdg", teacherBrief: "f", teacherBriefEn: "fff", groupCostFrom: 2, groupCostTo: 4, individualCostFrom: 4, individualCostTo: 4, groupSessionCost: 55))
 }

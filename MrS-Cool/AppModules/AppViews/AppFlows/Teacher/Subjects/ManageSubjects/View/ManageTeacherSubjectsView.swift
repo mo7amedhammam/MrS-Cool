@@ -78,7 +78,7 @@ struct ManageTeacherSubjectsView: View {
                                         CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
                                         
                                         ZStack(alignment:.bottomTrailing){
-                                            CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
+                                            CustomTextField(iconName:"img_group_black_900",placeholder: "Session Price *", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
                                                 .onChange(of: manageteachersubjectsvm.groupCost) { newValue in
                                                     manageteachersubjectsvm.groupCost = newValue.filter { $0.isEnglish }
                                                 }

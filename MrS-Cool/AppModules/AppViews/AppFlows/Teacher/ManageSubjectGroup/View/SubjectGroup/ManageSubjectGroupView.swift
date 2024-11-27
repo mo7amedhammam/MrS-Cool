@@ -46,11 +46,6 @@ struct ManageSubjectGroupView: View {
             return false
         }
         
-        // Calculate the sum of counts for selected lessons
-           let totalCount = subjectgroupvm.teacherLessonList.reduce(0) { partialResult, lessonItem in
-               partialResult + (lessonItem.count ?? 0) // Use optional chaining in case count is nil
-           }
-        
         return true
     }
     
@@ -174,9 +169,6 @@ struct ManageSubjectGroupView: View {
         await lookupsvm.GetAllLessonsForList(id: id)
         subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
     }
-   
-   
-    
     
     var body: some View {
         VStack {
@@ -224,7 +216,7 @@ struct ManageSubjectGroupView: View {
                                                 .font(Font.semiBold(size: 11))
                                         }
 
-                                        CustomTextField(iconName:"img_group_black_900",placeholder: "Session Price", text: $subjectgroupvm.SessionPrice,keyboardType:.decimalPad,isvalid:subjectgroupvm.isSessionPricevalid)
+                                        CustomTextField(iconName:"img_group_black_900",placeholder: "Session Price *", text: $subjectgroupvm.SessionPrice,keyboardType:.decimalPad,isvalid:subjectgroupvm.isSessionPricevalid)
                                             .onChange(of: subjectgroupvm.SessionPrice) { newValue in
                                                 subjectgroupvm.SessionPrice = newValue.filter { $0.isEnglish }
                                             }

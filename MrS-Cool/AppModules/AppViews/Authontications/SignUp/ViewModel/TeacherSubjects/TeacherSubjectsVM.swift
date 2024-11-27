@@ -33,27 +33,39 @@ class TeacherSubjectsVM: ObservableObject {
 
     @Published var academicYear : DropDownOption?{
         didSet{
-//                subject = nil
-            subjectsArr.removeAll()
+                subject = nil
+//            subjectsArr.removeAll()
             isacademicYearvalid = academicYear == nil ? false:true
         }
     }
     @Published var isacademicYearvalid:Bool?
 
-//    @Published var subject : DropDownOption?{
-//        didSet{
-//            issubjectvalid = subject == nil ? false:true
-//        }
-//    }
-//    @Published var issubjectvalid:Bool?
-
-    @Published var subjectsArr : [DropDownOption] = []{
+    @Published var subject : DropDownOption?{
         didSet{
-            issubjectsArrvalid = subjectsArr.isEmpty ? false:true
+            issubjectvalid = subject == nil ? false:true
         }
     }
-    @Published var issubjectsArrvalid:Bool?
+    @Published var issubjectvalid:Bool?
+
+//    @Published var subjectsArr : [DropDownOption] = []{
+//        didSet{
+//            issubjectsArrvalid = subjectsArr.isEmpty ? false:true
+//        }
+//    }
+//    @Published var issubjectsArrvalid:Bool?
     
+    @Published var SessionPrice : String = ""{
+        didSet{
+            guard let price = Float(SessionPrice) else {return}
+            if price > 0{
+                isSessionPricevalid = true
+            }else{
+                isSessionPricevalid = false
+            }
+        }
+
+    }
+    @Published var isSessionPricevalid:Bool?
     
 //    MARK: --- outpust ---
     @Published var showConfirmDelete : Bool = false
@@ -80,9 +92,13 @@ extension TeacherSubjectsVM{
     
     func CreateTeacherSubject(){
         guard checkValidfields() else {return}
-//        guard let subjectAcademicYearId = subject?.id else {return}
-        let subjectAcademicYearIds: [Int] = subjectsArr.map { $0.id ?? 0 }
-        let parameters:[String:Any] = ["subjectSemesterYearIds":subjectAcademicYearIds]
+        guard let subjectAcademicYearId = subject?.id , let sessioncost = Float(SessionPrice) else {return}
+//        let subjectAcademicYearIds: [Int] = subjectsArr.map { $0.id ?? 0 }
+        let parameters:[String:Any] = [
+            "subjectSemesterYearId":subjectAcademicYearId,
+//            "subjectSemesterYearIds":subjectAcademicYearIds,
+            "groupSessionCost" : sessioncost
+        ]
         
         print("parameters",parameters)
         let target = Authintications.TeacherRegisterSubjects(parameters: parameters)
@@ -199,14 +215,15 @@ extension TeacherSubjectsVM{
         educationType = nil
         educationLevel = nil
         academicYear = nil
-//        subject = nil
-        subjectsArr.removeAll()
+        subject = nil
+//        subjectsArr.removeAll()
+        SessionPrice = ""
         
         iseducationTypevalid = true
         iseducationLevelvalid = true
         isacademicYearvalid =  true
-//        issubjectvalid = true
-        issubjectsArrvalid = true
+        issubjectvalid = true
+//        issubjectsArrvalid = true
 
     }
 
@@ -214,8 +231,8 @@ extension TeacherSubjectsVM{
         iseducationTypevalid = educationType != nil
         iseducationLevelvalid = educationLevel != nil
         isacademicYearvalid = academicYear != nil
-//        issubjectvalid = subject != nil
-        issubjectsArrvalid = !subjectsArr.isEmpty
+        issubjectvalid = subject != nil
+//        issubjectsArrvalid = !subjectsArr.isEmpty
 
         // Publisher for checking if the phone is 11 char
 //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
@@ -225,7 +242,7 @@ extension TeacherSubjectsVM{
 //                }
 //                .eraseToAnyPublisher()
 //        }
-        return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectsArrvalid ?? true
+        return iseducationTypevalid ?? true && iseducationLevelvalid ?? true && isacademicYearvalid ?? true && issubjectvalid ?? true && isSessionPricevalid ?? true
     }
 }
 

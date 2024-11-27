@@ -40,6 +40,7 @@ struct TeacherSubjectCell: View {
                 .buttonStyle(.plain)
             }
             
+            HStack(alignment: .bottom){
             VStack (alignment:.leading,spacing: 10){
                 Text(model.academicYearName ?? "")
                     .font(Font.regular(size: 12.0))
@@ -48,7 +49,6 @@ struct TeacherSubjectCell: View {
                     .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.leading)
                 
-                HStack (spacing:45){
                     Text(model.educationLevelName ?? "")
                         .font(Font.regular(size: 12.0))
                         .fontWeight(.regular)
@@ -56,16 +56,28 @@ struct TeacherSubjectCell: View {
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                     
+//                HStack (spacing:45){
                     Text(model.educationTypeName ?? "")
                         .font(Font.regular(size: 12.0))
                         .fontWeight(.regular)
                         .foregroundColor(ColorConstants.Bluegray402)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
+                    
+                }
+                Spacer()
+                VStack(alignment:.leading,spacing: 5){
+                    Text("Session Cost".localized())
+                        .font(Font.semiBold(size: 9))
+                        .foregroundColor(.grayBtnText)
+                    Group{
+                        Text("\(model.groupSessionCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                    }
+                    .font(Font.bold(size: 10))
+                    .foregroundColor(.mainBlue)
                 }
             }
             .padding(.leading,30)
-            
             
             
         }
@@ -80,5 +92,5 @@ struct TeacherSubjectCell: View {
 }
 
 #Preview {
-    TeacherSubjectCell()
+    TeacherSubjectCell(model: .init(subjectSemesterYearID: 1, minGroup: 2, groupCost: 1, individualCost: 4, maxGroup: 4, statusID: 4, id: 4, educationTypeName: "education Type Name", educationLevelName: "education Level Name", academicYearName: "academic Year Name", subjectSemesterYearName: "subject Semester Year Name", subjectDisplayName: "subject Display Name", educationTypeID: 0, educationLevelID: 0, academicYearID: 1, statusIDName: "ff", brief: "fsdg", teacherBrief: "f", teacherBriefEn: "fff", groupCostFrom: 2, groupCostTo: 4, individualCostFrom: 4, individualCostTo: 4, groupSessionCost: 55))
 }

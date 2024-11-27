@@ -473,6 +473,7 @@ extension ManageSubjectGroupVM{
     func clearTeacherGroup(){
         subject = nil
         groupName = ""
+        SessionPrice = ""
         startDate = nil
         AllLessonsForList.removeAll()
         DisplaySchedualSlotsArr.removeAll()

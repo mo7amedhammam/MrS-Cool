@@ -646,6 +646,8 @@
 "Please back to your account and \nenjoy" = "Please back to your account and \nenjoy";
 "Please back to your account and try \nagain" = "Please back to your account and try \nagain";
 
-"Session Price" = "Session Price";
+"Session Price *" = "Session Price *";
 "Session Price cannot be 0" = "Session Price cannot be 0";
 "Total Cost" = "Total Cost";
+"ِStudy materials for the stages *" = "ِStudy materials for the stage *";
+"Session Price" = "Session Price";
