@@ -232,6 +232,7 @@ extension TeacherSubjectsVM{
         iseducationLevelvalid = educationLevel != nil
         isacademicYearvalid = academicYear != nil
         issubjectvalid = subject != nil
+        isSessionPricevalid = SessionPrice.count > 0
 //        issubjectsArrvalid = !subjectsArr.isEmpty
 
         // Publisher for checking if the phone is 11 char

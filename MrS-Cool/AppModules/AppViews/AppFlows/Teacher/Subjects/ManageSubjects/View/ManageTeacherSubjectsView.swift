@@ -46,6 +46,77 @@ struct ManageTeacherSubjectsView: View {
          manageteachersubjectsvm.clearFilter()
     }
     
+    fileprivate func FilterView() -> DynamicHeightSheet<some View> {
+        return // Adjust the blur radius as needed
+        DynamicHeightSheet(isPresented: $showFilter){
+            
+            VStack {
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2.5)
+                HStack {
+                    Text("Filter".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                    //                                            Spacer()
+                }
+                
+                ScrollView{
+                    VStack{
+                        Group {
+                            CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $filterEducationType,options:lookupsvm.EducationTypesList)
+                                .onChange(of: filterEducationType){val in
+                                    filterEducationLevel = nil
+                                    lookupsvm.FilterSelectedEducationType = val
+                                }
+                            
+                            CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $filterEducationLevel,options:lookupsvm.FilterEducationLevelsList)
+                                .onChange(of:filterEducationLevel){val in
+                                    filterAcademicYear = nil
+                                    lookupsvm.FilterSelectedEducationLevel = val
+                                }
+                            
+                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $filterAcademicYear,options:lookupsvm.FilterAcademicYearsList)
+                                .onChange(of:filterAcademicYear){val in
+                                    filterSubject = nil
+                                    //                                            filterSubjectStatus = nil
+                                    lookupsvm.FilterSelectedAcademicYear = val
+                                    
+                                }
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filterSubject,options:lookupsvm.FilterSubjectsList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $filterSubjectStatus,options:lookupsvm.StatusList)
+                        }
+                        .padding(.top,5)
+                        Spacer()
+                        HStack {
+                            Group{
+                                CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                    PassFilterValues()
+                                    manageteachersubjectsvm.GetTeacherSubjects()
+                                    showFilter = false
+                                })
+                                
+                                CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                    showFilter = false
+                                    ClearFilterValues()
+                                    manageteachersubjectsvm.clearFilter()
+                                    manageteachersubjectsvm.GetTeacherSubjects()
+                                })
+                            } .frame(width:130,height:40)
+                                .padding(.vertical)
+                        }
+                    }
+                    .padding(.horizontal,3)
+                    .padding(.top)
+                }
+            }
+            .padding()
+            .frame(height:515)
+            //                    .keyboardAdaptive()
+        }
+    }
+    
     var body: some View{
         VStack {
             CustomTitleBarView(title: "Manage my Subjects")
@@ -197,7 +268,7 @@ struct ManageTeacherSubjectsView: View {
                                     manageteachersubjectsvm.selectSubjectForEdit(item: subject)
                                     scrollViewProxy.scrollTo(1)
                                 },editLessonsBtnAction: {
-                                    if subject.groupCost == 0
+                                    if subject.groupSessionCost == 0
 //                                        || subject.individualCost == 0
                                     {
                                         manageteachersubjectsvm.error = .error(title: "You Must Enter YOUR  Subject Price First To Can Access To This Page", message: "You Must Enter YOUR  Subject Price First To Can Access To This Page", buttonTitle: "Ok", mainBtnAction: {
@@ -292,74 +363,8 @@ struct ManageTeacherSubjectsView: View {
                     .onTapGesture {
                         showFilter.toggle()
                     }
-                    .blur(radius: 4) // Adjust the blur radius as needed
-                DynamicHeightSheet(isPresented: $showFilter){
-                    
-                    VStack {
-                        ColorConstants.Bluegray100
-                            .frame(width:50,height:5)
-                            .cornerRadius(2.5)
-                            .padding(.top,2.5)
-                        HStack {
-                            Text("Filter".localized())
-                                .font(Font.bold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            //                                            Spacer()
-                        }
-                        
-                        ScrollView{
-                            VStack{
-                                Group {
-                                    CustomDropDownField(iconName:"img_vector",placeholder: "Education Type", selectedOption: $filterEducationType,options:lookupsvm.EducationTypesList)
-                                        .onChange(of: filterEducationType){val in
-                                            filterEducationLevel = nil
-                                            lookupsvm.FilterSelectedEducationType = val
-                                        }
-                                    
-                                    CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level", selectedOption: $filterEducationLevel,options:lookupsvm.FilterEducationLevelsList)
-                                        .onChange(of:filterEducationLevel){val in
-                                            filterAcademicYear = nil
-                                            lookupsvm.FilterSelectedEducationLevel = val
-                                        }
-                                    
-                                    CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year", selectedOption: $filterAcademicYear,options:lookupsvm.FilterAcademicYearsList)
-                                        .onChange(of:filterAcademicYear){val in
-                                            filterSubject = nil
-//                                            filterSubjectStatus = nil
-                                            lookupsvm.FilterSelectedAcademicYear = val
-                                            
-                                        }
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filterSubject,options:lookupsvm.FilterSubjectsList)
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $filterSubjectStatus,options:lookupsvm.StatusList)
-                                }
-                                .padding(.top,5)
-                                Spacer()
-                                HStack {
-                                    Group{
-                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            PassFilterValues()
-                                            manageteachersubjectsvm.GetTeacherSubjects()
-                                            showFilter = false
-                                        })
-                                        
-                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            showFilter = false
-                                            ClearFilterValues()
-                                            manageteachersubjectsvm.clearFilter()
-                                            manageteachersubjectsvm.GetTeacherSubjects()
-                                        })
-                                    } .frame(width:130,height:40)
-                                        .padding(.vertical)
-                                }
-                            }
-                            .padding(.horizontal,3)
-                            .padding(.top)
-                        }
-                    }
-                    .padding()
-                    .frame(height:515)
-                    //                    .keyboardAdaptive()
-                }
+                    .blur(radius: 4)
+                FilterView()
                 
             }
         }

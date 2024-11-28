@@ -506,6 +506,7 @@ extension ManageSubjectGroupVM{
         issubjectvalid = subject != nil
         isgroupNamevalid = !groupName.isEmpty
         isstartDatevalid = startDate != nil
+        isSessionPricevalid = SessionPrice.count > 0
 
         // Publisher for checking if the phone is 11 char
 //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
