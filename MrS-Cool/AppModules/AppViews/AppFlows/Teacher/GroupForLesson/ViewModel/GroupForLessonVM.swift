@@ -39,8 +39,8 @@ class GroupForLessonVM: ObservableObject {
     
     @Published var GroupPrice : String = ""{
         didSet{
-            guard let price = Float(GroupPrice) else {return}
-            if price > 0{
+//            guard let price = Float(GroupPrice) else {return}
+            if GroupPrice.count > 0{
                 isGroupPricevalid = true
             }else{
                 isGroupPricevalid = false

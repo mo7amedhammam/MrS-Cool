@@ -26,7 +26,7 @@ class ManageSubjectGroupVM: ObservableObject {
 
     @Published var SessionPrice : String = ""{
         didSet{
-            guard let price = Float(SessionPrice) else {return}
+            guard SessionPrice.count > 0 ,let price = Float(SessionPrice) else {return}
             if price > 0{
                 isSessionPricevalid = true
             }else{
@@ -506,7 +506,7 @@ extension ManageSubjectGroupVM{
         issubjectvalid = subject != nil
         isgroupNamevalid = !groupName.isEmpty
         isstartDatevalid = startDate != nil
-        isSessionPricevalid = SessionPrice.count > 0
+        isSessionPricevalid = SessionPrice.count > 0 && Float(SessionPrice) ?? 0 > 0
 
         // Publisher for checking if the phone is 11 char
 //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
