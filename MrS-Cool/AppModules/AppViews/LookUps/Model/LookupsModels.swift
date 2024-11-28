@@ -73,6 +73,7 @@ struct LessonForListM: Codable,Hashable {
         }
     var id,groupDuration: Int?
     var lessonName: String?
+    var groupCost: Float?
     var count,order: Int?
 }
 
@@ -82,6 +83,7 @@ extension LessonForListM{
         dictionary["id"] = id
         dictionary["groupDuration"] = groupDuration
         dictionary["lessonName"] = lessonName
+        dictionary["groupCost"] = groupCost
         dictionary["count"] = count
         dictionary["order"] = order
         return dictionary

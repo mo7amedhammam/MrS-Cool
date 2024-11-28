@@ -269,6 +269,19 @@ struct LessonDetailsView: View {
                                                             .resizable()
                                                             .frame(width:15,height:15)
                                                     })
+                                                    
+                                                    Label(title: {
+                                                        HStack (spacing:2){
+                                                            Text("Group Price".localized())
+                                                            Text(" : ")+Text("\(slot.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                                                        }
+                                                        .font(.bold(size: 9))
+                                                        .foregroundColor(.mainBlue)
+                                                    }, icon: {
+                                                        Image("money_checkout")
+                                                            .resizable()
+                                                            .frame(width:15,height:15)
+                                                    })
                                                 }
                                                 .frame(maxWidth:.infinity,alignment:.leading)
                                                 .padding(.top,8)

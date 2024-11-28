@@ -56,6 +56,68 @@ struct GroupForLessonView: View {
         }
     }
     
+    @ViewBuilder
+    fileprivate func FilterView() -> DynamicHeightSheet<some View>{
+         // Adjust the blur radius as needed
+        DynamicHeightSheet(isPresented: $showFilter){
+            
+            VStack {
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2.5)
+                HStack {
+                    Text("Filter".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                    //                                            Spacer()
+                }
+                //                        .padding(.vertical)
+                ScrollView {
+                    VStack{
+                        Group {
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
+                                //                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
+                                //                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
+                                //                                        }
+                                filterlesson = nil
+                                lookupsvm.SelectedFilterSubjectForList = newval
+                            }
+                            
+                            CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
+                            
+                            CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
+                            
+                            CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$filterdate,datePickerComponent:.date)
+                        }
+                        .padding(.top,5)
+                        
+                        HStack {
+                            Group{
+                                CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
+                                    sendFilterValues()
+                                    showFilter = false
+                                })
+                                
+                                CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
+                                    clearFilterValues()
+                                    showFilter = false
+                                })
+                            } .frame(width:130,height:40)
+                                .padding(.vertical)
+                        }
+                    }
+                    .padding(.horizontal,3)
+                    .padding(.top)
+                }
+                //                                    .presentationDetents([.fraction(0.50),.medium])
+            }
+            .padding()
+            .frame(height:450)
+            .keyboardAdaptive()
+        }
+    }
+    
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Lesson")
@@ -101,6 +163,10 @@ struct GroupForLessonView: View {
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $groupsforlessonvm.groupName,isvalid:groupsforlessonvm.isgroupNamevalid)
                                     
+                                    CustomTextField(iconName:"img_group_black_900",placeholder: "Group Price *", text: $groupsforlessonvm.GroupPrice,keyboardType:.decimalPad,isvalid:groupsforlessonvm.isGroupPricevalid)
+                                        .onChange(of: groupsforlessonvm.GroupPrice) { newValue in
+                                            groupsforlessonvm.GroupPrice = newValue.filter { $0.isEnglish }
+                                        }
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$groupsforlessonvm.date,startDate:Date(),datePickerComponent:.date,isvalid:groupsforlessonvm.isdatevalid)
                                     
@@ -200,64 +266,8 @@ struct GroupForLessonView: View {
                     .onTapGesture {
                         showFilter.toggle()
                     }
-                    .blur(radius: 4) // Adjust the blur radius as needed
-                DynamicHeightSheet(isPresented: $showFilter){
-                    
-                    VStack {
-                        ColorConstants.Bluegray100
-                            .frame(width:50,height:5)
-                            .cornerRadius(2.5)
-                            .padding(.top,2.5)
-                        HStack {
-                            Text("Filter".localized())
-                                .font(Font.bold(size: 18))
-                                .foregroundColor(.mainBlue)
-                            //                                            Spacer()
-                        }
-                        //                        .padding(.vertical)
-                        ScrollView {
-                            VStack{
-                                Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList).onChange(of:filtersubject) {newval in
-//                                        if                                                     lookupsvm.SelectedFilterSubjectForList != groupsforlessonvm.filtersubject{
-//                                            lookupsvm.SelectedFilterSubjectForList = groupsforlessonvm.filtersubject
-//                                        }
-                                        filterlesson = nil
-                                        lookupsvm.SelectedFilterSubjectForList = newval
-                                    }
-                                    
-                                    CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.FilterLessonsForList)
-                                    
-                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
-                                    
-                                    CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Date", selectedDateStr:$filterdate,datePickerComponent:.date)
-                                }
-                                .padding(.top,5)
-                                
-                                HStack {
-                                    Group{
-                                        CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            sendFilterValues()
-                                            showFilter = false
-                                        })
-                                        
-                                        CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            clearFilterValues()
-                                            showFilter = false
-                                        })
-                                    } .frame(width:130,height:40)
-                                        .padding(.vertical)
-                                }
-                            }
-                            .padding(.horizontal,3)
-                            .padding(.top)
-                        }
-                        //                                    .presentationDetents([.fraction(0.50),.medium])
-                    }
-                    .padding()
-                    .frame(height:450)
-                    .keyboardAdaptive()
-                }
+                    .blur(radius: 4)
+                FilterView()
             }
         }
         

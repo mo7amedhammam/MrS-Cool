@@ -22,8 +22,9 @@ class GroupForLessonVM: ObservableObject {
     
     @Published var lesson : DropDownOption?{
         didSet{
+            guard lesson != nil else {return}
             islessonvalid = (lesson == nil) ? false:true
-            
+            GroupPrice = String(lesson?.LessonItem?.groupCost ?? 0)
             calculateendTime()
         }
     }
@@ -35,6 +36,19 @@ class GroupForLessonVM: ObservableObject {
         }
     }
     @Published var isgroupNamevalid:Bool?
+    
+    @Published var GroupPrice : String = ""{
+        didSet{
+            guard let price = Float(GroupPrice) else {return}
+            if price > 0{
+                isGroupPricevalid = true
+            }else{
+                isGroupPricevalid = false
+            }
+        }
+
+    }
+    @Published var isGroupPricevalid:Bool?
     
     @Published var date : String?{
         didSet{
@@ -78,12 +92,13 @@ class GroupForLessonVM: ObservableObject {
 extension GroupForLessonVM{
     func CreateTeacherGroup(){
         guard checkValidfields() else {return}
-        guard let lessonid = lesson?.id,let date = date,let starttime = time,let endtime = endTime else {return}
+        guard let lessonid = lesson?.id,let date = date,let starttime = time,let endtime = endTime , let groupprice = Float(GroupPrice) else {return}
         
         let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
                                 "timeFrom":starttime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current),
                                 "timeTo":endtime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current)]
         let parameters:[String:Any] = [ "groupName":groupName,
+                                        "groupCost":groupprice,
                                         "teacherLessonId":lessonid,
                                         "teacherLessonSessionScheduleSlotsDto":[Dto]]
         print("parameters",parameters)
@@ -215,6 +230,7 @@ extension GroupForLessonVM{
         time = nil
         endTime = nil
         groupName = ""
+        GroupPrice = ""
     }
     func clearFilter(){
         guard filtersubject != nil || filterlesson != nil || filterdate != nil || filtergroupName != "" else {return}
@@ -270,7 +286,7 @@ extension GroupForLessonVM{
         isdatevalid = date != nil
         istimevalid = time != nil
         isgroupNamevalid = !groupName.isEmpty
-
+        isGroupPricevalid = GroupPrice.count > 0
         // Publisher for checking if the phone is 11 char
 //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
 //            $phone
@@ -286,7 +302,7 @@ extension GroupForLessonVM{
 //        isgroupTimevalid = !groupTime.isEmpty && Int(groupTime) != 0
 //        isindividualTimevalid = !individualTime.isEmpty && Int(individualTime) != 0
 
-        return issubjectvalid ?? true && islessonvalid ?? true && isdatevalid ?? true && istimevalid ?? true && isgroupNamevalid ?? true
+        return issubjectvalid ?? true && islessonvalid ?? true && isdatevalid ?? true && istimevalid ?? true && isgroupNamevalid ?? true && isGroupPricevalid ?? true
     }
 }
 

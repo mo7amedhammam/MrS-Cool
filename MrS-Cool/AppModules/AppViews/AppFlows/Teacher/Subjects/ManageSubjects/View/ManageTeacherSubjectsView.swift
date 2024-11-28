@@ -46,8 +46,9 @@ struct ManageTeacherSubjectsView: View {
          manageteachersubjectsvm.clearFilter()
     }
     
+    @ViewBuilder
     fileprivate func FilterView() -> DynamicHeightSheet<some View> {
-        return // Adjust the blur radius as needed
+         // Adjust the blur radius as needed
         DynamicHeightSheet(isPresented: $showFilter){
             
             VStack {

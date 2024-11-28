@@ -36,10 +36,12 @@ struct TeacherLessonDetailsM: Codable {
 struct LessonGroupsDto: Codable,Hashable {
     var teacherLessonSessionID: Int?
     var groupName, date, timeFrom, timeTo: String?
+    var groupCost:Float?
 
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionID = "teacherLessonSessionId"
         case groupName, date, timeFrom, timeTo
+        case groupCost
     }
 }
 
