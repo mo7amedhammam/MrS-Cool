@@ -412,9 +412,14 @@ struct SubjectTeacherInfoView : View {
                         .renderingMode(.template)
                         .foregroundColor(ColorConstants.MainColor )
                         .frame(width: 20,height: 20, alignment: .center)
-                    HStack(spacing:2) {
-                        Text("  \(teacher.price ?? 0,specifier:"%.2f")")
-                         Text("EGP".localized())
+                    HStack (spacing:8){
+                        if let minprice = teacher.minPrice{
+                            Text("\(minprice ,specifier:"%.2f")")
+                            Text("-")
+                             }
+                        Text("\(teacher.maxPrice ?? 0,specifier:"%.2f")")
+
+                        Text("EGP".localized())
                     }
                     .font(Font.bold(size: 18))
                     .foregroundColor(ColorConstants.MainColor)

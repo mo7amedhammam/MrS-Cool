@@ -22,6 +22,7 @@ struct SubjectTeacherM: Codable,Identifiable,Hashable {
     var teacherRate,price: Float?
     var teacherReview, duration : Int?
     var academicSemesterName, academicEducationLevelName : String?
+    var minPrice, maxPrice: Float?
     enum CodingKeys: String, CodingKey {
         case id = "teacherId"
         case getSubjectOrLessonDto
@@ -29,6 +30,7 @@ struct SubjectTeacherM: Codable,Identifiable,Hashable {
         case teacherSubjectID = "teacherSubjectId"
         case teacherImage, teacherName, teacherBIO, teacherBrief, teacherRate, teacherReview, duration, price
         case academicSemesterName, academicEducationLevelName
+        case minPrice, maxPrice
     }
 }
 

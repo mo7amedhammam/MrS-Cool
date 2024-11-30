@@ -17,6 +17,7 @@ struct TeacherSubjectDetailsM: Codable {
     var lessonsCount, minGroup, maxGroup: Int?
     var SubjectGroups: [SubjectGroup]?
     var teacherRateDto: TeacherRateDto?
+    var minPrice,maxPrice:Float?
 
     enum CodingKeys: String, CodingKey {
         case SubjectOrLessonDto = "getSubjectOrLessonDto"
@@ -26,6 +27,7 @@ struct TeacherSubjectDetailsM: Codable {
         case teacherImage, teacherName, teacherBIO, teacherBrief, teacherRate, teacherReview, duration, price, lessonsCount, minGroup, maxGroup
         case SubjectGroups = "getSubjectGroups"
         case teacherRateDto
+        case minPrice,maxPrice
     }
 }
 
