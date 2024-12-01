@@ -105,7 +105,7 @@ final class BaseNetwork{
                        parameters: parameters.0,
                        encoding: parameters.1,
                        headers: headers)
-                .validate(statusCode: 200..<300) // Automatically validate acceptable response codes
+                .validate(statusCode: 200..<500) // Automatically validate acceptable response codes
                 .responseDecodable(of: M.self, decoder: JSONDecoder()) { response in
                     let elapsedTime = Date().timeIntervalSince(startTime)
                     print("Total API call time: \(elapsedTime) seconds")
@@ -142,8 +142,6 @@ final class BaseNetwork{
             )))
         }
     }
-
-    
     
     private let session: Session
         
@@ -153,46 +151,59 @@ final class BaseNetwork{
             configuration.timeoutIntervalForResource = 30
             self.session = Session(configuration: configuration)
         }
-    func request<T: TargetType,M:Codable>(_ target: T,_ Model:M.Type) async throws -> M {
+    
+
+    func request<T: TargetType, M: Codable>(_ target: T, _ Model: M.Type) async throws -> M {
         guard Helper.shared.isConnectedToNetwork() else {
-             throw NetworkError.noConnection
-         }
-         
+            throw NetworkError.noConnection
+        }
+        
         let url = try target.asURL()
-         
+        
         let parameters = buildparameter(paramaters: target.parameter)
         let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-        
-        print(url)
         
         print(target.requestURL)
         print(target.method)
         print(parameters)
         print(headers ?? [:])
 
-         let response = try await session.request(
-             url,
-             method: target.method,
-             parameters: parameters.0,
-             encoding: parameters.1,
-             headers: headers
-         )
-         .validate()
-//         .validate(contentType: ["application/json"]) // Explicitly validate the expected content type
-         .serializingDecodable(M.self)
-         .value
-         
-        print(response)
-       
-//         guard let data = response.data else {
-//             throw NetworkError.unknown(
-//                 code: 0,
-//                 error: response.message ?? "Unknown error"
-//             )
-//         }
-         
-         return response
-     }
+        let response = try await session.request(
+            url,
+            method: target.method,
+            parameters: parameters.0,
+            encoding: parameters.1,
+            headers: headers
+        )
+        .validate(statusCode: 200..<500) // Validate status codes in the 200 range
+        .serializingDecodable(M.self) // Decode to BaseResponse
+        .value
+        
+        print("response : \n", response)
+        
+        // Check the success property of the BaseResponse
+//        if let success = response.success, success == false {
+//            throw NetworkError.unknown(
+//                code: response.messageCode ?? 0,
+//                error: response.message ?? "Unknown error"
+//            )
+//        }
+        
+        // Return the data if there's no error
+//        guard let data = response.data else {
+//            throw NetworkError.unknown(
+//                code: response.messageCode ?? 0,
+//                error: response.message ?? "No data received"
+//            )
+//        }
+        
+        return response
+    }
+
+
+
+
+
     
     
     // combine -> return anypublisher
@@ -233,48 +244,45 @@ final class BaseNetwork{
 //           }
     
     // async throw using withCheckedThrowingContinuation
-    //    static func asyncCallApi<T: TargetType, M: Codable>(
-    //        _ target: T,
-    //        _ modelType: M.Type
-    //    ) async throws -> M {
-    //        guard Helper.isConnectedToNetwork() else {
-    //            throw NetworkError.noConnection
-    //        }
-    //
-    //        let parameters = buildparameter(paramaters: target.parameter)
-    //        let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-    //
-    //        let (requestURL, method, parametersarr, encoding) = (target.requestURL, target.method, parameters.0, parameters.1)
-    //        print("url",requestURL)
-    //        print("parameters",parametersarr)
-    //        print("headers",headers ?? [:])
-    //
-    //        let response = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<M, Error>) in
-    //            AF.request(requestURL, method: method, parameters: parametersarr, encoding: encoding, headers: headers)
-    //                .responseDecodable(of: M.self, decoder: JSONDecoder()) { dataResponse in
-    //                    do {
-    //                        guard let responsecode = dataResponse.response?.statusCode else {
-    //                            throw NetworkError.unknown(code: 0, error: "No response code")
-    //                        }
-    //
-    //                        switch dataResponse.result {
-    //                        case .success(let model):
-    //                            continuation.resume(returning: model)
-    //                        case .failure(let error):
-    //                            if responsecode == 401 {
-    //                                continuation.resume(throwing: NetworkError.unauthorized(code: responsecode, error: NetworkError.expiredTokenMsg.localizedDescription))
-    //                            } else {
-    //                                continuation.resume(throwing: NetworkError.unknown(code: responsecode, error: error.localizedDescription))
-    //                            }
-    //                        }
-    //                    } catch {
-    //                        continuation.resume(throwing: error)
-    //                    }
-    //                }
-    //        }
-    //
-    //        return response
-    //    }
+//        static func asyncCallApi<T: TargetType, M: Codable>(_ target: T,_ modelType: M.Type) async throws -> M {
+//            guard Helper.shared.isConnectedToNetwork() else {
+//                throw NetworkError.noConnection
+//            }
+//    
+//            let parameters = buildparameter(paramaters: target.parameter)
+//            let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
+//    
+//            let (requestURL, method, parametersarr, encoding) = (target.requestURL, target.method, parameters.0, parameters.1)
+//            print("url",requestURL)
+//            print("parameters",parametersarr)
+//            print("headers",headers ?? [:])
+//    
+//            let response = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<M, Error>) in
+//                AF.request(requestURL, method: method, parameters: parametersarr, encoding: encoding, headers: headers)
+//                    .responseDecodable(of: M.self, decoder: JSONDecoder()) { dataResponse in
+//                        do {
+//                            guard let responsecode = dataResponse.response?.statusCode else {
+//                                throw NetworkError.unknown(code: 0, error: "No response code")
+//                            }
+//    
+//                            switch dataResponse.result {
+//                            case .success(let model):
+//                                continuation.resume(returning: model)
+//                            case .failure(let error):
+//                                if responsecode == 401 {
+//                                    continuation.resume(throwing: NetworkError.unauthorized(code: responsecode, error: NetworkError.expiredTokenMsg.localizedDescription))
+//                                } else {
+//                                    continuation.resume(throwing: NetworkError.unknown(code: responsecode, error: error.localizedDescription))
+//                                }
+//                            }
+//                        } catch {
+//                            continuation.resume(throwing: error)
+//                        }
+//                    }
+//            }
+//    
+//            return response
+//        }
     
     
     

@@ -56,15 +56,18 @@ struct CommentDetailsDto: Codable,Hashable {
 
 // MARK: - StudentChatListM -
 struct StudentChatListM: Codable,Hashable {
+    var studentId:Int?
     var teacherName: String?
     var teacherImage : String?
-    var lessonNum: Int?
+    var lessonNum,teacherSubjectAcademicSemesterYearId: Int?
     var teacherLessonSessionsDtos: [TeacherLessonSessionsDto]?
     
     enum CodingKeys: String, CodingKey {
+        case studentId
         case teacherName = "teacherName"
         case teacherImage = "teacherImage"
         case lessonNum,teacherLessonSessionsDtos
+        case teacherSubjectAcademicSemesterYearId
     }
 }
 

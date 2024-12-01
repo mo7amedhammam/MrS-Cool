@@ -7,11 +7,19 @@
 
 import Foundation
 
+enum apiType:String{
+    case testing = "https://alnada-devmrsapi.azurewebsites.net/"
+    case production = "https://api.mrscool.app/"
+}
 struct Constants {
 // MARK: - APIs Constants
-    static var baseURL:String {return "https://alnada-devmrsapi.azurewebsites.net/"} //TEST
-//static var baseURL:String {return "https://api.mrscool.app/"} //LIVE
-
+    
+    static var apiType : apiType = .testing
+//     var testBaseURL:String {return "https://alnada-devmrsapi.azurewebsites.net/"} //TEST
+//     var liveBaseURL:String {return "https://api.mrscool.app/"} //LIVE
+    
+    static var baseURL:String = apiType.rawValue
+    
     static var apiURL:String {return "\(baseURL)api/\(LocalizeHelper.shared.currentLanguage)/"}
 //    static var imagesURL:String {return "http://mrscoolapi.azurewebsites.net/"}
 

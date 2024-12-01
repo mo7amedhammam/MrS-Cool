@@ -155,7 +155,7 @@
                     //            error = nil
                     do{
                         let response = try await BaseNetwork.shared.request(target, BaseResponse<[StudentChatListM]>.self)
-                        print(response)
+                        print("response in VM : ",response)
         
                         if response.success == true {
                             ChatsList = response.data?.convertToChatList()
@@ -269,11 +269,11 @@
                         }
 //                        self.isLoadingComments = false
 
-//                    } catch let error as NetworkError {
+                    } catch let error as NetworkError {
 //                        self.isLoadingComments = false
-//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                        self.isError = true
-//        //                print("Network error: \(error.errorDescription)")
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                        self.isError = true
+        //                print("Network error: \(error.errorDescription)")
                     } catch {
 //                        self.isLoadingComments = false
                         self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
@@ -297,11 +297,11 @@
                         }
 //                        self.isLoadingComments = false
 
-//                    } catch let error as NetworkError {
+                    } catch let error as NetworkError {
 //                        self.isLoading = false
-//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                        self.isError = true
-//        //                print("Network error: \(error.errorDescription)")
+                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                        self.isError = true
+        //                print("Network error: \(error.errorDescription)")
                     } catch {
 //                        self.isLoadingComments = false
                         self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
