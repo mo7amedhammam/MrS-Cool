@@ -37,10 +37,12 @@ struct SubjectGroup: Codable,Hashable {
     var groupName, startDate, endDate: String?
     var duration,numOfLessons: Int?
     var getSubjectScheduleGroups: [SubjectScheduleGroup]?
+    var groupCost: Float?
 
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionID = "teacherLessonSessionId"
         case groupName, startDate, endDate, getSubjectScheduleGroups, duration,numOfLessons
+        case groupCost
     }
 }
 

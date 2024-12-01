@@ -114,7 +114,11 @@ struct SubjectDetailsView: View {
                                                     currentPage = min(currentPage + 1, (details.SubjectGroups?.count ?? 0) - 1)
                                                 }
                                             }) {
-                                                Image(currentPage >= 0 && currentPage < (details.SubjectGroups?.count ?? 0) - 1 ? "nextfill":"nextempty")
+                                                let isEn = LocalizeHelper.shared.currentLanguage == "en"
+                                                let fillImgeName = isEn ? "nextfill": "prevfill"
+                                                let emptyImgeName = isEn ? "nextempty": "prevempty"
+
+                                                Image(currentPage >= 0 && currentPage < (details.SubjectGroups?.count ?? 0) - 1 ? fillImgeName:emptyImgeName)
                                                     .resizable()
                                                     .frame(width:30,height:30)
                                             }
@@ -149,6 +153,20 @@ struct SubjectDetailsView: View {
                                                     }
                                             })
                                             Group{
+                                                
+                                                Label(title: {
+                                                    HStack (spacing:2){
+                                                        Text("Group Price".localized())
+                                                        Text(" : ")+Text("\(slot.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                                                    }
+                                                    .font(.bold(size: 9))
+                                                    .foregroundColor(.mainBlue)
+                                                }, icon: {
+                                                    Image("money_checkout")
+                                                        .resizable()
+                                                        .frame(width:15,height:15)
+                                                })
+                                                
                                                 Label(title: {
                                                     Group {
                                                         Text("\(slot.numOfLessons ?? 0) ")+Text("Lessons".localized())
@@ -257,7 +275,11 @@ struct SubjectDetailsView: View {
                                                     currentPage = max(currentPage - 1, 0)
                                                 }
                                             }) {
-                                                Image((currentPage > 0 && currentPage <= (details.SubjectGroups?.count ?? 0) - 1) ? "prevfill":"prevempty")
+                                                let isEn = LocalizeHelper.shared.currentLanguage == "en"
+                                                let fillImgeName = !isEn ? "nextfill": "prevfill"
+                                                let emptyImgeName = !isEn ? "nextempty": "prevempty"
+
+                                                Image((currentPage > 0 && currentPage <= (details.SubjectGroups?.count ?? 0) - 1) ? fillImgeName:emptyImgeName)
                                                     .resizable()
                                                     .frame(width:30,height:30)
                                             }
