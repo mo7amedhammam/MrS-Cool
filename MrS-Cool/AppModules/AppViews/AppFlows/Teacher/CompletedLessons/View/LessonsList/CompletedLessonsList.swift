@@ -99,7 +99,7 @@ struct CompletedLessonsList: View {
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
                                         showFilter = true
-                                        Task {
+                                        Task{
                                          await validateFilterValues()
                                         }
                                     })

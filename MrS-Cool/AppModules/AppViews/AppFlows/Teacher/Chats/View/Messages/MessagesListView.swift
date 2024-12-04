@@ -41,7 +41,8 @@ struct MessagesListView: View {
                         Divider().padding(.horizontal)
                         
                         MessageInputField(comment: $chatlistvm.comment) {
-                            Task { chatlistvm.CreateChatComment(chatid: selectedLessonId) }
+                            Task{
+                                chatlistvm.CreateChatComment(chatid: selectedLessonId) }
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 8)

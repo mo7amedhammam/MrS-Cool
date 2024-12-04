@@ -146,7 +146,8 @@ class NotificationManager: ObservableObject{
     @Published private(set) var hasPermission = false
     
     init() {
-        Task{
+        Task{[weak self] in
+            guard let self = self else {return}
             await getAuthStatus()
         }
     }
