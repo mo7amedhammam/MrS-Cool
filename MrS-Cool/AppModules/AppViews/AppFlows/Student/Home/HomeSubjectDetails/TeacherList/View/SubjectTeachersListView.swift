@@ -716,8 +716,8 @@ struct TeacherCellView : View {
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
                         HStack (spacing:2){
-                            Text("Duration :".localized())
-                                .fontWeight(.medium)
+//                            Text("Duration :".localized())
+//                                .fontWeight(.medium)
                              Text("  \(teacher.duration?.formattedTime() ?? "1:33") ")
                                 .font(Font.bold(size: 12))
                              Text("hrs".localized())
