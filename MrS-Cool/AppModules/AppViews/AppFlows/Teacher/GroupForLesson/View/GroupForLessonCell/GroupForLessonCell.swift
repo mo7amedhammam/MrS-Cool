@@ -43,15 +43,29 @@ struct GroupForLessonCell: View {
                         .font(Font.regular(size: 12.0))
                         .fontWeight(.medium)
                         .foregroundColor(ColorConstants.Black900)
-                        .minimumScaleFactor(0.5)
+//                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                     
                     Text(model.lessonName ?? "Lesson 1")
                         .font(Font.regular(size: 12.0))
                         .fontWeight(.medium)
                         .foregroundColor(ColorConstants.Black900)
-                        .minimumScaleFactor(0.5)
+//                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
+                    
+                    VStack(alignment:.leading,spacing: 5){
+    //                    Spacer()
+                                
+//                        Text("Group Price".localized())
+//                            .font(Font.semiBold(size: 9))
+//                            .foregroundColor(.grayBtnText)
+                        Group{
+                            Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                        }
+                    .font(Font.bold(size: 12))
+                    .foregroundColor(.mainBlue)
+ 
+                    }
                 }
                 
                 Spacer()
@@ -82,6 +96,7 @@ struct GroupForLessonCell: View {
                         .foregroundColor(.mainBlue)
                     }
                     .padding(.top,8)
+
                 }
             }
             .padding(.leading,30)

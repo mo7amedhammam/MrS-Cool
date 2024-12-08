@@ -237,7 +237,6 @@ struct CalView1: View {
                             Spacer()
                         }
                         
-                        
                     case .week:
                         ContentView3(selectedDate: .constant(date ?? Date()), scope: $scope, events: $events, onCancelEvent:{event in
                             if Helper.shared.getSelectedUserType() == .Teacher && event.teacherSubjectAcademicSemesterYearId ?? 0 > 0{
@@ -269,7 +268,6 @@ struct CalView1: View {
                         })
                         .environment(\.layoutDirection,.leftToRight)
 
-                        
                     @unknown default:
                         if let evarr = calendarschedualsvm.CalendarScheduals{
                             CalendarModuleView1(studentEvents:evarr, selectedDate: $date, scope: .month)
@@ -278,7 +276,6 @@ struct CalView1: View {
                         //                        CalendarModuleView(selectedDate: $date, calendar: calendar, scope: .month,events: events)
                     }
                 }
-                
                 
                 .onChange(of: date, perform: { value in
                     //                    calendarschedualsvm.GetCalendarCheduals()
@@ -307,7 +304,6 @@ struct CalView1: View {
         .hideNavigationBar()
         .showHud(isShowing: $calendarschedualsvm.isLoading)
         .showAlert(hasAlert: $calendarschedualsvm.isError, alertType: calendarschedualsvm.error)
-
         .bottomSheet(isPresented: $calendarschedualsvm.ShowAddExtraSession){
             VStack{
                 ColorConstants.Bluegray100
@@ -391,7 +387,11 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
         calendar.appearance.eventDefaultColor = UIColor.mainBlue // Adjust the color as needed
         //        calendar.appearance.eventOffset = CGPoint(x: 0, y: -7) // Adjust the offset as needed
         calendar.scrollDirection = .vertical
-        
+        calendar.semanticContentAttribute = LocalizeHelper.shared.currentLanguage == "ar" ? .forceRightToLeft : .forceLeftToRight
+
+        // Set locale and calendar
+        calendar.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage) // Arabic locale
+
         view.addSubview(calendar)
         
         prepareEvents()
@@ -419,6 +419,14 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
             calendar.reloadData() // Safely reload calendar data
         }
     }
+    
+    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+          let formatter = DateFormatter()
+//          formatter.calendar = Calendar(identifier: .gregorian) // Or .islamicUmmAlQura
+        formatter.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
+          formatter.dateFormat = "d" // Only the day number
+          return formatter.string(from: date)
+      }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let dateFormatter = DateFormatter()

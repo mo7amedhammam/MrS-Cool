@@ -27,7 +27,7 @@ struct TeacherRatesView: View {
             GeometryReader { gr in
                 VStack(alignment:.leading) {
                     HStack (alignment:.top,spacing:15){
-                        Image("MenuSt_rates")
+                        Image("rates_icon")
                             .resizable()
                             .renderingMode(.template)
                             .foregroundStyle(Color.mainBlue)
@@ -124,13 +124,13 @@ struct RateCellView: View {
                     .foregroundStyle(ColorConstants.Bluegray40099)
             }
             Text(rate.teacherLessonName ?? "")
-                .font(.semiBold(size: 13))
+                .font(.bold(size: 14))
                 .foregroundStyle(Color.mainBlue)
             
-            Text(rate.teacherLessonComment ?? "")
-                .font(.regular(size: 14))
-                .foregroundStyle(Color.mainBlue)
-                .padding(.vertical,6)
+//            Text(rate.teacherLessonComment ?? "")
+//                .font(.bold(size: 16))
+//                .foregroundStyle(Color.mainBlue)
+//                .padding(.vertical,6)
             
             CustomDivider()
         }

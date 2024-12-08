@@ -319,7 +319,7 @@ struct TeacherSideMenuContent: View {
                         isPush = true
                     }
                     
-                    SideMenuButton(image: "MenuSt_lock", title: "Rates & Reviews"){
+                    SideMenuButton(image: "MenuSt_rates", title: "Rates & Reviews"){
                         selectedDestination = .rates // rates
                         presentSideMenu =  false
                         isPush = true
@@ -327,7 +327,7 @@ struct TeacherSideMenuContent: View {
                     
                     SideMenuSectionTitle(title: "Settings")
                     
-                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    SideMenuButton(image: "MenuSt_lock", title: "Change Password"){
                         selectedDestination = .changePassword // cahnage Password
                         presentSideMenu =  false
                         isPush = true

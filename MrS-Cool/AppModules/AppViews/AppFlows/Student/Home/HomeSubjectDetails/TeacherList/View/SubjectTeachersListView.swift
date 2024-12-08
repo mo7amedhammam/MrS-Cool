@@ -732,7 +732,7 @@ struct TeacherCellView : View {
                             .renderingMode(.template)
                             .foregroundColor(ColorConstants.MainColor )
                             .frame(width: 12,height: 12, alignment: .center)
-                        HStack (spacing:8){
+                        HStack (spacing:5){
                             if let minprice = teacher.minPrice{
                                 Text("\(minprice ,specifier:"%.2f")")
                                 Text("-")
