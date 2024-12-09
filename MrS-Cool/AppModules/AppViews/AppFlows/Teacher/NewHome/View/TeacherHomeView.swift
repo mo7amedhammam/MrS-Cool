@@ -74,9 +74,10 @@ struct TeacherHomeView: View {
 //                }else{
                     ScrollView(.vertical,showsIndicators: false){
                         
-                        KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
-                            .padding()
-                        
+                        if Helper.shared.getSelectedUserType() == .Teacher{
+                            KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
+                                .padding()
+                        }
                         VStack{ // (Title - Data - Submit Button)
                             Group{
                                 HStack(){

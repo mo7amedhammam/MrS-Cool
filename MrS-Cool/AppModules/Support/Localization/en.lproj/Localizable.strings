@@ -586,7 +586,7 @@
 "You have to login first" = "You have to login first";
 "Your Payment Failed" = "Your Payment Failed";
 "Your file uploaded successfully" = "Your file uploaded successfully";
-"Your payment had beed Failed." = "Your payment had beed Failed.";
+"Your payment had beed Failed." = "Your payment had been Failed.";
 "birthDate" = "birthDate";
 "booktypecheckout" = "booktypecheckout";
 "brief" = "brief";
@@ -654,3 +654,9 @@
 
 "Group Price *" = "Group Price *";
 "Group Price" = "Group Price";
+
+"Teacher :" = "Teacher :";
+"Your account had been created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy" = "Your account had been created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy";
+"Your account had beed created\nsuccessfully\nPlease sign in to use your account\nand enjoy" = "Your account had been created\nsuccessfully\nPlease sign in to use your account\nand enjoy";
+"Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "Your password had been changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy";
+"Your Student mobile number had\nbeed verified successfully." = "Your Student mobile number had\nbeen verified successfully.";

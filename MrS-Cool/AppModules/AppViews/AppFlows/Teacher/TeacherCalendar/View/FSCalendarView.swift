@@ -266,7 +266,7 @@ struct CalView1: View {
                                 }
                             }
                         })
-                        .environment(\.layoutDirection,.leftToRight)
+//                        .environment(\.layoutDirection,.leftToRight)
 
                     @unknown default:
                         if let evarr = calendarschedualsvm.CalendarScheduals{

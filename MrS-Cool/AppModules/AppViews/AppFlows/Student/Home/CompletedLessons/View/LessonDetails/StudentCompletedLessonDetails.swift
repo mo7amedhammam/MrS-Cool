@@ -257,13 +257,17 @@ struct SubjectInfoSection: View {
     let details: StudentCompletedLessonDetailsM?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            SignUpHeaderTitle(Title: "Subject and Lesson Info")
-            
-            InfoRow(title: "Subject", content: details?.subjectName ?? "")
-            InfoRow(title: "Subject Brief", content: details?.subjectBrief ?? "")
-            InfoRow(title: "Lesson", content: details?.lessonName ?? "")
-            InfoRow(title: "Lesson Brief", content: details?.lessonBrief ?? "")
+        VStack(alignment: .leading) {
+            Group{
+                SignUpHeaderTitle(Title: "Subject and Lesson Info")
+                
+                InfoRow(title: "Subject", content: details?.subjectName ?? "",contentfont:.bold(size: 18))
+                InfoRow(title: "Subject Brief", content: details?.subjectBrief ?? "")
+                InfoRow(title: "Lesson", content: details?.lessonName ?? "")
+                InfoRow(title: "Lesson Brief", content: details?.lessonBrief ?? "")
+            }              
+            .padding(.top)
+
         }
         .padding(.horizontal)
         .padding(.top)
@@ -273,18 +277,23 @@ struct SubjectInfoSection: View {
 private struct InfoRow: View {
     let title: String
     let content: String
+    var contentfont:Font?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(title.localized())
-                .font(.bold(size: 16))
-            
-            Text(content)
-                .font(.regular(size: 12))
-                .fontWeight(.medium)
+        VStack(alignment: .leading) {
+            Group{
+                Text(title.localized())
+                    .font(.bold(size: 16))
+                
+                Text(content)
+                    .font(contentfont ?? .semiBold(size: 13))
+                    .fontWeight(contentfont == nil ? .medium : .bold)
+            }
+            .lineSpacing(8)
+            .padding(.top)
+
         }
         .foregroundColor(.mainBlue)
-        .lineSpacing(5)
     }
 }
 

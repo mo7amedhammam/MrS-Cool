@@ -37,7 +37,7 @@ struct KFImageLoader: View {
         let finalURL = shouldRefetch ?? false ? url?.appendingQueryItem("t=\(Date().timeIntervalSince1970)") : url
         
         KFImage(finalURL)
-//            .cacheOriginalImage() // Prevent caching of the original image
+            .cacheOriginalImage() // Prevent caching of the original image
             .placeholder {
                 if showSkeleton == true {
                                    SkeletonView() // Show skeleton view if enabled

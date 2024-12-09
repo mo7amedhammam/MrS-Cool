@@ -69,7 +69,7 @@ struct CustomSuccessView: View {
             case .teacherRegistered:
                 title = "Phone Verification"
                 subtitle = "Account Created!"
-                describtion = "Your account had beed created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy"
+                describtion = "Your account had been created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy"
                 
             case .accountCreated:
                 title = "Account Created"
