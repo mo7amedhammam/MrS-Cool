@@ -656,3 +656,5 @@
 "Your account had beed created\nsuccessfully\nPlease sign in to use your account\nand enjoy" = "تم إنشاء حسابك\nبنجاح\nيرجى تسجيل الدخول لإستخدام\nحسابك والإستمتاع";
 "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "تم تغيير كلمة المرور الخاصة بك \nبنجاح\nيرجى تسجيل الدخول لإستخدام\nحسابك والإستمتاع";
 "Your Student mobile number had\nbeed verified successfully." = "تم التحقق من رقم\nهاتفك بنجاح.";
+
+"Date: " = "التاريخ: ";

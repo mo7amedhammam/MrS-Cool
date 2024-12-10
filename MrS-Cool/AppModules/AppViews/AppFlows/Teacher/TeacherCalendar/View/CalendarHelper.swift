@@ -181,6 +181,7 @@ private extension DateFormatter {
         self.init()
         self.dateFormat = dateFormat
         self.calendar = calendar
+        self.calendar.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
     }
 }
 

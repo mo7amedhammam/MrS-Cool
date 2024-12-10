@@ -27,11 +27,11 @@ struct CalendarFormatters {
         return formatter
     }()
     
-//    static let timeFormatter: DateFormatter = {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "HH:mm:ss"
-//        return formatter
-//    }()
+    //    static let timeFormatter: DateFormatter = {
+    //        let formatter = DateFormatter()
+    //        formatter.dateFormat = "HH:mm:ss"
+    //        return formatter
+    //    }()
     
     static let dayNameFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -42,7 +42,7 @@ struct CalendarFormatters {
     static let dayNumberFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
-        formatter.dateFormat = "d"
+        formatter.setLocalizedDateFormatFromTemplate("dd")
         return formatter
     }()
 }
@@ -75,8 +75,8 @@ final class CustomCalendarExampleController: DayViewController {
         dayView.move(to: selectedDate ?? Date())
         view = dayView
         
-//        calendar.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
-
+        //        calendar.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
+        
     }
     
     
@@ -85,30 +85,30 @@ final class CustomCalendarExampleController: DayViewController {
         title = "CalendarKit Demo"
         navigationController?.navigationBar.isTranslucent = false
         dayView.autoScrollToFirstEvent = true
-//        reloadData()
+        //        reloadData()
         setupDayView()
     }
     private func setupDayView() {
-
-          // Update day names based on current locale
-        let calendar = Calendar.current
-          let today = Date()
-          let weekdaySymbols = calendar.shortWeekdaySymbols
         
-          // Find the first day of the current week
-          var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
-          components.weekday = calendar.firstWeekday
-          guard let firstDayOfWeek = calendar.date(from: components) else { return }
-          
-          // Generate localized day names for the week
-          let dayNames = (0..<7).map { dayOffset -> String in
-              guard let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) else {
-                  return weekdaySymbols[dayOffset]
-              }
-              return CalendarFormatters.dayNameFormatter.string(from: date)
-          }
- 
-      }
+        // Update day names based on current locale
+        let calendar = Calendar.current
+        let today = Date()
+        let weekdaySymbols = calendar.shortWeekdaySymbols
+        
+        // Find the first day of the current week
+        var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)
+        components.weekday = calendar.firstWeekday
+        guard let firstDayOfWeek = calendar.date(from: components) else { return }
+        
+        // Generate localized day names for the week
+        let dayNames = (0..<7).map { dayOffset -> String in
+            guard let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) else {
+                return weekdaySymbols[dayOffset]
+            }
+            return CalendarFormatters.dayNameFormatter.string(from: date)
+        }
+        
+    }
     
     
     // MARK: EventDataSource
@@ -365,7 +365,11 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
         //        controller.calendar.timeZone = TimeZone(identifier: "GMT")!
         //        controller.calendar.locale = Locale(identifier: "ar")
         controller.calendar.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
-
+        
+        // Configure RTL support at the controller level
+              if LocalizeHelper.shared.currentLanguage == "ar" {
+                  controller.view.semanticContentAttribute = .forceRightToLeft
+              }
         controller.onCancelEvent = onCancelEvent
         //        controller.onJoinEvent = onJoinEvent
         controller.onEventSelected = { eventM in
@@ -379,14 +383,18 @@ struct CalendarKitWrapper: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: CustomCalendarExampleController, context: Context) {
         // Update your view controller if needed
-//        uiViewController.calendar.timeZone = TimeZone(identifier: "GMT")!
-//        uiViewController.calendar.locale = Locale(identifier: "en")
+        //        uiViewController.calendar.timeZone = TimeZone(identifier: "GMT")!
+        //        uiViewController.calendar.locale = Locale(identifier: "en")
         
         uiViewController.selectedDate = selectedDate
         uiViewController.events = events
         
         uiViewController.calendar.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
-
+        // Ensure RTL configuration is maintained on updates
+               if LocalizeHelper.shared.currentLanguage == "ar" {
+                   uiViewController.view.semanticContentAttribute = .forceRightToLeft
+               }
+        
     }
 }
 
@@ -462,31 +470,6 @@ struct ContentView3: View {
                 
             }
         }
-        //                .sheet(isPresented: $isShowingDetailSheet) {
-        //                    if let selectedEvent = selectedEvent {
-        //                        EventDetailsView(event: selectedEvent, onCancelEvent: { event in
-        //                            // Handle the event cancellation here
-        //                            if let index = events.firstIndex(where: { $0.id == event.id }) {
-        //                                events[index].isCancel = true
-        //
-        //        //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-        //        ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
-        //        //                            onCancelEvent?(selectedEvent)
-        //        //                            isShowingDetailSheet = false
-        //        //
-        //        //                        })
-        //                                onCancelEvent?(selectedEvent)
-        //        //                        isError = true
-        //                            }
-        //                            isShowingDetailSheet = false
-        //                        },onJoinEvent: { event in
-        //                            print("Event joining closure executed")
-        //                            if let index = events.firstIndex(where: { $0.id == event.id }) {
-        //                                onJoinEvent?(selectedEvent)
-        //                            }
-        //                        })
-        //                    }
-        //                }
         .showAlert(hasAlert: $isError, alertType: error)
     }
 }
@@ -505,16 +488,6 @@ struct EventDetailsView: View {
     let onCancelEvent: ((EventM) -> Void)? // Closure to handle event cancellation
     let onJoinEvent: ((EventM) -> Void)? // Closure to handle event join
     
-    
-    // Date formatter for parsing the event date and time
-    //    fileprivate let dateFormatter: DateFormatter = {
-    //        let formatter = DateFormatter.cachedFormatter
-    //        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-    ////        formatter.dateFormat = "HH:mm:ss"
-    //        formatter.timeZone = TimeZone(identifier: "GMT")
-    //        formatter.locale = Locale(identifier: "en")
-    //        return formatter
-    //    }()
     fileprivate let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -526,30 +499,6 @@ struct EventDetailsView: View {
         return formatter
     }()
     
-    
-    // Function to check if the event is in the past
-    //    func isEventInPast() -> Bool {
-    //        guard let eventDateStr = event.date, let timeToStr = event.timeTo else {
-    //            return false
-    //        }
-    //        print("eventDateStr: \(eventDateStr)")
-    //        print("timeToStr: \(timeToStr)")
-    //
-    //
-    //        // Create full date strings with event date and times
-    ////        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-    //        let toDateTimeStr = "\((eventDateStr.prefix(10)))T\(timeToStr)"
-    //        print("toDateTimestr: \(toDateTimeStr)")
-    //
-    //        // Parse the date strings into Date objects
-    //        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-    //            return false
-    //        }
-    //        print("toDateTime: \(toDateTime)")
-    //
-    //        let currentTime = Date()
-    //        return toDateTime < currentTime
-    //    }
     func isEventInPast() -> Bool {
         guard let eventDateStr = event.date, let timeToStr = event.timeTo else {
             return false
@@ -601,37 +550,6 @@ struct EventDetailsView: View {
         return currentTime >= fromDateTime && currentTime <= toDateTime
     }
     
-    // Function to check if the current time is between timeFrom and timeTo
-    //    func isCurrentTimeWithinEventTime() -> Bool {
-    //        guard let eventDateStr = event.date, let timeFromStr = event.timeFrom, let timeToStr = event.timeTo else {
-    //            print("One of the required date/time components is nil.")
-    //
-    //            return false
-    //        }
-    //
-    //        // Create full date strings with event date and times
-    //        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-    //        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-    //
-    //
-    //        // Debugging output
-    //        print("From Date Time String: \(fromDateTimeStr)")
-    //        print("To Date Time String: \(toDateTimeStr)")
-    //
-    //        // Parse the date strings into Date objects
-    //        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
-    //              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-    //            print("Failed to parse fromDateTime or toDateTime. Check format.")
-    //            return false
-    //        }
-    //
-    //        let currentTime = Date()
-    //                print("Current Time: \(currentTime)")
-    //                print("Event From Time: \(fromDateTime)")
-    //                print("Event To Time: \(toDateTime)")
-    //
-    //        return currentTime >= fromDateTime && currentTime <= toDateTime
-    //    }
     // Function to check if the event is not started yet
     func isEventNotStartedYet() -> Bool {
         guard let eventDateStr = event.date, let timeFromStr = event.timeFrom else {
@@ -691,37 +609,9 @@ struct EventDetailsView: View {
             // Join Meeting button
             if let meetingLink = event.teamMeetingLink , isCurrentTimeWithinEventTime() {
                 
-                //                    Button(action: {
-                ////                        print("Joining event...")
-                ////                        onJoinEvent?(event)
-                ////                        print("onJoinEvent closure executed")
-                ////                        if let url = URL(string: meetingLink) {
-                ////                            UIApplication.shared.open(url)
-                ////                        }
-                //
-                //                        joinMeeting(event: event, meetingLink: meetingLink)
-                //                    }){
-                //                        HStack {
-                //                            Image("microsoftteams")
-                //                                .resizable()
-                //                                .frame(width: 30,height: 30)
-                //                                .aspectRatio(contentMode: .fit)
-                //                            Text("Join Meeting".localized())
-                //                                .foregroundColor(.whiteA700)
-                //                        }
-                //                    }
-                //                    .frame(height: 50)
-                //                    .frame(maxWidth:.infinity)
-                //                    .background{ColorConstants.MainColor}
-                //                    .cornerRadius(8)
                 Spacer()
                 Button(action: {
-                    ////                        print("Joining event...")
-                    ////                        onJoinEvent?(event)
-                    ////                        print("onJoinEvent closure executed")
-                    ////                        if let url = URL(string: meetingLink) {
-                    ////                            UIApplication.shared.open(url)
-                    ////                        }
+                    
                     print("join btn for event",event)
                     
                     joinMeeting(event: event, meetingLink: meetingLink)
@@ -742,18 +632,6 @@ struct EventDetailsView: View {
             }
             // Cancel Event button
             else if event.isCancel != true && isEventNotStartedYet() {
-                //                    Button(action: {
-                //                        error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
-                ////                            teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
-                //                            onCancelEvent?(event)
-                ////                            isShowingDetailSheet = false
-                //                        })
-                //                        isError = true
-                ////                        onCancelEvent?(event)
-                //                    }) {
-                //                        Text("Cancel Event".localized())
-                //                            .foregroundColor(.red)
-                //                    }
                 
                 Spacer()
                 CustomButton(Title:"Cancel Event",bgColor: .red,IsDisabled: .constant(false), action: {
@@ -777,29 +655,6 @@ struct EventDetailsView: View {
         
         //        }
     }
-    
-    //    private func joinMeeting(event: EventM, meetingLink: String) {
-    //        backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
-    //            // Handle expiration here if needed
-    //            UIApplication.shared.endBackgroundTask(backgroundTask)
-    //            backgroundTask = .invalid
-    //        })
-    //
-    //        print("Joining event...")
-    //        onJoinEvent?(event)
-    //        print("onJoinEvent closure executed")
-    //
-    //        if let url = URL(string: meetingLink) {
-    //            UIApplication.shared.open(url) { success in
-    //                print("URL opened: \(success)")
-    //                if success {
-    //                    // Perform any additional actions if needed
-    //                }
-    //                UIApplication.shared.endBackgroundTask(backgroundTask)
-    //                backgroundTask = .invalid
-    //            }
-    //        }
-    //    }
     
     private func joinMeeting(event: EventM, meetingLink: String) {
         backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
@@ -853,9 +708,6 @@ struct EventDetailsView: View {
     }
     
 }
-
-
-
 
 #Preview{
     EventDetailsView(event: EventM(id: 1, groupName: "Math Class", date: "2024-05-29", timeFrom: "10:00", timeTo: "11:00", isCancel: false, cancelDate: nil, teamMeetingLink: "https://example.com/meeting"), onCancelEvent: { _ in }, onJoinEvent: { _ in },isError: .constant(false),error: .constant(.error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")))

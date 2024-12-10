@@ -266,7 +266,7 @@ struct CalView1: View {
                                 }
                             }
                         })
-//                        .environment(\.layoutDirection,.leftToRight)
+                        .environment(\.layoutDirection,.leftToRight)
 
                     @unknown default:
                         if let evarr = calendarschedualsvm.CalendarScheduals{
@@ -422,7 +422,7 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
     
     func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
           let formatter = DateFormatter()
-//          formatter.calendar = Calendar(identifier: .gregorian) // Or .islamicUmmAlQura
+          formatter.calendar = Calendar(identifier: .gregorian) // Or .islamicUmmAlQura
         formatter.locale = Locale(identifier: LocalizeHelper.shared.currentLanguage)
           formatter.dateFormat = "d" // Only the day number
           return formatter.string(from: date)
@@ -440,14 +440,14 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        //        let dateFormatter = DateFormatter()
-        //        dateFormatter.dateFormat = "yyyy-MM-dd"
-        //        let dateString = dateFormatter.string(from: date)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let dateString = dateFormatter.string(from: date)
         
-        //        if let eventsOnDate = events[dateString] {
+                if let eventsOnDate = events[dateString] {
         // Do something with the events on the selected date
         selectedDateBinding?.wrappedValue = date
-        //        }
+                }
     }
 }
 
@@ -470,3 +470,4 @@ struct CalendarModuleView1: UIViewControllerRepresentable {
         // If you need to update the view controller when SwiftUI state changes
     }
 }
+
