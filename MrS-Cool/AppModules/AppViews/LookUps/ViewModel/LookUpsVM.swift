@@ -388,7 +388,7 @@ class LookUpsVM: ObservableObject {
             if !AllLessonsForListArray.isEmpty {
                 // Use map to transform GendersM into DropDownOption
                 AllLessonsForList = AllLessonsForListArray.map { gender in
-                    return DropDownOption(id: gender.id, Title: gender.lessonName,subTitle: gender.groupDuration,LessonItem: gender,isSelected: true)
+                    return DropDownOption(id: gender.id, Title: gender.lessonName,subTitle: gender.groupDuration,LessonItem: gender,isSelected: false)
                 }
             }else{
                 AllLessonsForList.removeAll()

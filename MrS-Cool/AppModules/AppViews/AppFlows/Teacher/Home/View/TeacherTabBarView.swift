@@ -313,11 +313,11 @@ struct TeacherSideMenuContent: View {
                     
                     SideMenuSectionTitle(title: "Student Sessions")
                     
-                    SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
-                        selectedDestination = .calendar // calendar
-                        presentSideMenu =  false
-                        isPush = true
-                    }
+//                    SideMenuButton(image: "MenuSt_calendar", title: "Calendar"){
+//                        selectedDestination = .calendar // calendar
+//                        presentSideMenu =  false
+//                        isPush = true
+//                    }
                     
                     SideMenuButton(image: "MenuSt_rates", title: "Rates & Reviews"){
                         selectedDestination = .rates // rates

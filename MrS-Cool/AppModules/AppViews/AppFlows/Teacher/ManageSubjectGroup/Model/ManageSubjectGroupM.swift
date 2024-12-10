@@ -12,11 +12,13 @@ import Foundation
 struct SubjectGroupM: Codable,Hashable,Identifiable{
     var id, teacherSubjectAcademicSemesterYearID: Int?
     var teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate: String?
+    var groupCost: Float?
 
     enum CodingKeys: String, CodingKey {
         case id
         case teacherSubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate
+        case groupCost
     }
 }
 

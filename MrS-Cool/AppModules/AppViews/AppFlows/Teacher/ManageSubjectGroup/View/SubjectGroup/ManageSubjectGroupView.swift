@@ -407,7 +407,7 @@ struct lessonsOrder: View {
                             .foregroundColor(ColorConstants.MainColor)
                         
                         // Checkbox for selection
-                        let isSelected = subjectgroupvm.AllLessonsForList[index].isSelected ?? true
+                        let isSelected = subjectgroupvm.AllLessonsForList[index].isSelected ?? false
                         Image(systemName: isSelected ? "checkmark.square.fill" : "square")
                             .resizable()
                             .foregroundColor(isSelected ? ColorConstants.MainColor : .gray)

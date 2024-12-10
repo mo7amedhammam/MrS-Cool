@@ -23,7 +23,7 @@ struct ManageSubjectGroupCell: View {
                             .frame(width: 30 ,height: 30)
                     )
                 
-                Text(model.teacherSubjectAcademicSemesterYearName ?? "day name dau name dau one")
+                Text(model.teacherSubjectAcademicSemesterYearName ?? "")
                     .font(Font.bold(size:13.0))
                     .lineSpacing(5)
                     .foregroundColor(.mainBlue)
@@ -64,12 +64,12 @@ struct ManageSubjectGroupCell: View {
 
             }
             HStack{
-//                VStack (alignment:.leading,spacing: 10){
+                VStack (alignment:.leading,spacing: 5){
                     Text(model.groupName ?? "Group 1")
                         .font(Font.regular(size: 12.0))
                         .fontWeight(.medium)
                         .foregroundColor(ColorConstants.Black900)
-                        .minimumScaleFactor(0.5)
+//                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                     
 //                    Text(model.groupName ?? "Lesson 1")
@@ -79,7 +79,21 @@ struct ManageSubjectGroupCell: View {
 //                        .minimumScaleFactor(0.5)
 //                        .multilineTextAlignment(.leading)
 //                    Spacer()
-//                }
+                    
+                    VStack(alignment:.leading,spacing: 5){
+                                
+                        Text("Group Price".localized())
+                            .font(Font.semiBold(size: 9))
+                            .foregroundColor(.grayBtnText)
+                        Group{
+                            Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                        }
+                    .font(Font.bold(size: 12))
+                    .foregroundColor(.mainBlue)
+ 
+                    }
+                    .padding(.top,5)
+                }
                 
                 Spacer()
                 
