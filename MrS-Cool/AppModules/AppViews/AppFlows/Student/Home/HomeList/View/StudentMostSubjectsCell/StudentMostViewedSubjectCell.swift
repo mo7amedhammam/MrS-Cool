@@ -88,15 +88,17 @@ struct StudentMostViewedSubjectCell: View {
                             .foregroundColor(subject.id == selectedsubject.id ? .studentBtnBg : ColorConstants.MainColor)
 
                             .frame(width: 12,height: 12, alignment: .center)
-                        HStack (spacing:2){
-                            Text("\(subject.teacherCount ?? 0)  ")
-                                .font(Font.bold(size: 9))
-                             Text("Available Teachers".localized())
-                                .fontWeight(.medium)
-                        }
-                        .font(Font.semiBold(size: 9))
                         
-                        .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
+//                        HStack (spacing:2){
+//                            Text("\(subject.teacherCount ?? 0)  ")
+//                                .font(Font.bold(size: 9))
+//                             Text("Available Teachers".localized())
+//                                .fontWeight(.medium)
+//                        }
+//                        .font(Font.semiBold(size: 9))
+//                        .foregroundColor(subject.id == selectedsubject.id ? ColorConstants.WhiteA700 : .mainBlue)
+                        
+                        
 //                        Spacer()
                     }
                     .frame(maxWidth:.infinity,alignment: .leading)

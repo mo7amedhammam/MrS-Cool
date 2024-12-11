@@ -183,17 +183,7 @@ struct CustomAlertView: View {
                     //                    .frame(height: verticalButtonsHeight)
                     
                     
-                    if let title = alertType.title(){
-                        // alert title
-                        Text(title.localized())
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .frame(height: 25)
-                        ////                        .padding(.top, 16)
-                        ////                        .padding(.bottom, 8)
-                            .padding(.horizontal, 16)
-                    }
+
                 }
                 
 //                if let imgStr = alertType.image(){
@@ -209,6 +199,18 @@ struct CustomAlertView: View {
                     }
                     .padding(.top)
 //                }
+                
+                if let title = alertType.title(){
+                    // alert title
+                    Text(title.localized())
+                        .font(Font.regular(size: 16))
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.center)
+                        .frame(height: 25)
+                    ////                        .padding(.top, 16)
+                    ////                        .padding(.bottom, 8)
+                        .padding(.horizontal, 16)
+                }
                 
                 // alert message
                 Text(alertType.message().localized())

@@ -29,6 +29,13 @@ struct SubjectGroupDetailsView: View {
     //    @State var destination = AnyView(EmptyView())
     let columns: [GridItem] =
     Array(repeating: .init(.flexible(),spacing: 25,alignment: .topLeading), count: 2)
+    private func isPriceValid() -> Bool {
+        // Ensure the groupCost is safely unwrapped and cast to Int if it's a valid Double/Float
+        if let groupCost = subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost,groupCost.description.count > 0, groupCost > 0 {
+            return true
+        }
+        return false
+    }
     
     var body: some View {
         VStack {
@@ -98,94 +105,37 @@ struct SubjectGroupDetailsView: View {
                                     VStack(alignment:.leading,spacing:5){
                                         Text("Total Cost".localized())
                                             .font(Font.bold(size: 16))
+                                            
+                                            CustomTextField(
+                                                iconName: "img_group_black_900",
+                                                placeholder: "",
+                                                text: Binding(
+                                                    get: {
+                                                        // Convert groupCost to String for display
+                                                        "\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0)"
+                                                    },
+                                                    set: { newValue in
+                                                        // Validate and update groupCost dynamically
+                                                        
+                                                        let filteredValue = newValue.filter{$0.isEnglish}
+                                                        
+                                                        if let value = Float(filteredValue) {
+                                                            subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = value
+                                                        } else {
+                                                            subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = 0
+                                                                }
+                                                    }
+                                                ),
+                                                keyboardType: .decimalPad,
+                                                isvalid: isPriceValid()
+                                            )
                                         
-                                        Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text("EGP".localized()).fontWeight(.medium)
+//                                        Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text("EGP".localized()).fontWeight(.medium)
                                     }
                                     
                                 }
                                 .foregroundColor(.mainBlue)
                                 .padding([.top,.horizontal])
-                                
-                                
-                                
-                                //                                    Group {
-                                //                                        HStack(alignment:.top){
-                                //                                            VStack(alignment:.leading,spacing:5){
-                                //                                                Text("Subject".localized())
-                                //                                                    .font(Font.bold(size: 16))
-                                //                                                //
-                                //                                                Text(subjectgroupvm.TeacherSubjectGroupsDetails?.teacherSubjectAcademicSemesterYearName ?? "subhect name name")
-                                //                                                    .font(Font.regular(size: 14))
-                                //
-                                //                                                //
-                                //                                                Spacer().frame(height:25)
-                                //                                                //
-                                //                                                Text("Start Date".localized())
-                                //                                                    .font(Font.bold(size: 16))
-                                //
-                                //                                                Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                //                                                    .font(Font.regular(size: 14))
-                                //                                                    .fontWeight(.medium)
-                                //                                                //
-                                //                                                Spacer().frame(height:30)
-                                //                                                //
-                                //                                                Text("Num Of Lessons".localized())
-                                //                                                    .font(Font.bold(size: 16))
-                                //                                                Group{
-                                //                                                    Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.numLessons ?? 0) ").fontWeight(.medium)+Text("Lesson".localized()).fontWeight(.medium)
-                                //
-                                //                                                }
-                                //                                                .font(Font.regular(size: 14))
-                                //                                            }
-                                //                                            Spacer()
-                                //
-                                //                                            VStack(alignment:.leading,spacing:5){
-                                //                                                Text("Group Name".localized())
-                                //                                                    .font(Font.bold(size: 16))
-                                //
-                                //                                                Text(subjectgroupvm.TeacherSubjectGroupsDetails?.groupName ?? "group 1")
-                                //                                                    .font(Font.regular(size: 14))
-                                //                                                    .fontWeight(.medium)
-                                //
-                                //                                                Spacer().frame(height:25)
-                                //
-                                //                                                Text("End Date".localized())
-                                //                                                    .font(Font.bold(size: 16))
-                                //
-                                //                                                Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.endDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy"))
-                                //                                                    .font(Font.regular(size: 14))
-                                //                                                    .fontWeight(.medium)
-                                //                                            }
-                                //                                        }
-                                //                                        .lineSpacing(5)
-                                //
-                                //                                        //                                    HStack{
-                                //                                        ////                                        VStack(alignment:.leading){
-                                //                                        ////                                            Text("Academic Year".localized())
-                                //                                        ////                                                .font(Font.semiBold(size: 16))
-                                //                                        ////
-                                //                                        ////                                            Text(currentSubject?.academicYearName ?? "level 1")
-                                //                                        ////                                                .font(Font.regular(size: 14))
-                                //                                        ////                                        }
-                                //                                        //                                        VStack(alignment:.leading){
-                                //                                        ////                                            Text("Subject".localized())
-                                //                                        ////                                                .font(Font.semiBold(size: 16))
-                                //                                        ////
-                                //                                        ////                                            Text(currentSubject?.subjectSemesterYearName ?? "level 1")
-                                //                                        ////                                                .font(Font.regular(size: 14))
-                                //                                        //
-                                //                                        //                                        }
-                                //                                        //                                    }
-                                //                                        //
-                                //                                        //                                    Text("Status".localized())
-                                //                                        //                                        .font(Font.semiBold(size: 16))
-                                //                                        //
-                                //                                        //                                    Text(currentSubject?.statusIDName ?? "Aproved")
-                                //                                        //                                        .font(Font.regular(size: 14))
-                                //                                        //                                        .padding(.bottom)
-                                //                                    }
-                                //                                    .foregroundColor(.mainBlue)
-                                //                                    .padding([.top,.horizontal])
                             }
                             .padding(.top,20)
                             
@@ -209,22 +159,22 @@ struct SubjectGroupDetailsView: View {
                         }
                         .padding(.horizontal,-4)
                         .listStyle(.plain)
-                        //                            .scrollContentBackground(.hidden)
                         .frame(minHeight: gr.size.height/2)
-                        
                         Spacer()
-                        
                     }
                     .frame(minHeight: gr.size.height)
-                    
                 }
-                
             }
             if previewOption == .newGroup{
                 HStack {
                     Group{
                         CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
-                            subjectgroupvm.error = .question(title: "", image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
+                            guard isPriceValid() else {return}
+                            // Use a localized format string for the title
+                            let isArabic = LocalizeHelper.shared.currentLanguage == "ar"
+                            let title = isArabic ? "تكلفة المجموعه للطالب \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) جنيه" : "Cost for student is \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) EGP" 
+
+                            subjectgroupvm.error = .question(title: title, image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
                                 subjectgroupvm.CreateTeacherGroup()
                             })
                             showConfirmSave = true

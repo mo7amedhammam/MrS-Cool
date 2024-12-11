@@ -234,7 +234,7 @@ struct TeacherHomeView: View {
         })
         .task {
             filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
-            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
+//            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
 
 //            SchedualsVm.clearFilter()
             applyFilter()

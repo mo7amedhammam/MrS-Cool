@@ -258,5 +258,8 @@ extension Character {
                 (91...96 ~= unicodeScalars.first?.value ?? 0) ||
                 (123...126 ~= unicodeScalars.first?.value ?? 0))
     }
-    
+    var isEnglishNumber: Bool {
+          // English digits range: 48-57
+          return (48...57 ~= unicodeScalars.first?.value ?? 0)
+      }
 }

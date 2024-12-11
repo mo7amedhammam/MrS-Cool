@@ -117,7 +117,7 @@ struct TeacherHomeCellView: View {
                     }, label: {
                         Image("microsoftteams")
                             .resizable()
-                            .frame(width: 30,height: 30)
+                            .frame(width: 40,height: 40)
                             .aspectRatio(contentMode: .fill)
                     })
                     .buttonStyle(.plain)
@@ -334,7 +334,7 @@ struct StudentHomeCellView: View {
                     }, label: {
                         Image("microsoftteams")
                             .resizable()
-                            .frame(width: 30,height: 30)
+                            .frame(width: 40,height: 40)
                             .aspectRatio(contentMode: .fill)
                     })
                     .buttonStyle(.plain)
