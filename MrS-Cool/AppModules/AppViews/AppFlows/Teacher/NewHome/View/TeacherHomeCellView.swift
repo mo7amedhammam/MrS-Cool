@@ -111,6 +111,48 @@ struct TeacherHomeCellView: View {
                     .foregroundColor(.mainBlue)
                 
                 Spacer()
+                
+//                Menu {
+//                    Button(action: {
+//                        joinBtnAction?()
+//                    }, label: {
+//                        HStack {
+//                            Text("Join Teams".localized())
+//                                .font(Font.semiBold(size: 12.0))
+//                                .fontWeight(.medium)
+//                                .foregroundColor(ColorConstants.Black900)
+//
+//                            Image("microsoftteams")
+//                                .resizable()
+//                                .frame(width: 40,height: 40)
+//                            .aspectRatio(contentMode: .fill)
+//                        }
+//                    })
+//                    .disabled(!(model.isCancel == false && isCurrentTimeWithinEventTime()))
+//                    
+//                    Button(action: {
+//                        cancelBtnAction?()
+//                    }, label: {
+//                        HStack {
+//                            Text("Cancel & Edit".localized())
+//                                .font(Font.semiBold(size: 12.0))
+//                                .fontWeight(.medium)
+//                                .foregroundColor(ColorConstants.MainColor)
+//
+//                            Image("img_group")
+//                                .resizable()
+//                                .frame(width: 20,height: 25)
+//                            .aspectRatio(contentMode: .fill)
+//                        }
+//                    })
+//                    .disabled(!(model.isCancel != true && isEventNotStartedYet()))
+//                } label: {
+//                    Image(systemName: "ellipsis")
+//                        .foregroundColor(ColorConstants.MainColor)
+//                        .padding(.top,5)
+//                }
+                
+                
                 if model.isCancel == false && isCurrentTimeWithinEventTime(){
                     Button(action: {
                         joinBtnAction?()
@@ -127,19 +169,25 @@ struct TeacherHomeCellView: View {
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {
-                        Image("img_group")
-                            .resizable()
-                            .frame(width: 20,height: 25)
-                            .aspectRatio(contentMode: .fill)
+//                        Image("img_group")
+//                            .resizable()
+//                            .frame(width: 20,height: 25)
+//                            .aspectRatio(contentMode: .fill)
+                        
+                        Text("Cancel & Edit".localized())
+                            .font(Font.bold(size: 12.0))
+//                            .fontWeight(.medium)
+                            .foregroundColor(ColorConstants.Red400)
+                        
                     })
                         .buttonStyle(.plain)
             }
+                
                 if model.isCancel == true{
                     ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
                 }else{
                     if isEventNotStartedYet(){
                         ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
-
                     }
                 }
             }
