@@ -13,7 +13,7 @@ enum AnonymousDestinations{
 }
 
 struct AnonymousHomeView: View {
-//    @EnvironmentObject var tabbarvm : StudentTabBarVM
+    //    @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
     
@@ -24,8 +24,8 @@ struct AnonymousHomeView: View {
     
     //    @State var searchText = ""
     @State var presentSideMenu = false
-//    @StateObject var localizeHelper = LocalizeHelper.shared
-
+    //    @StateObject var localizeHelper = LocalizeHelper.shared
+    
     var body: some View {
         VStack {
             HStack {
@@ -57,7 +57,7 @@ struct AnonymousHomeView: View {
                     .fill(.mainBlue)
                     .edgesIgnoringSafeArea(.top)
             )
-        
+            
             GeometryReader{gr in
                 LazyVStack(spacing:0) {
                     ScrollView(showsIndicators:false){
@@ -91,7 +91,7 @@ struct AnonymousHomeView: View {
                             .borderRadius(Color.mainBlue, width: 1, cornerRadius: 8, corners: [.allCorners])
                             .padding(.horizontal)
                             .padding(.top,2)
-
+                            
                         }
                         if isSearch {
                             VStack{
@@ -118,36 +118,36 @@ struct AnonymousHomeView: View {
                                     
                                     SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
                                         ZStack{
-
+                                            
                                             let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")".removingTrailingComma()
-                                                
-                                                Text(searchselections)
-                                                    .font(Font.regular(size: 10.0))
-                                                    .foregroundColor(ColorConstants.Red400)
+                                            
+                                            Text(searchselections)
+                                                .font(Font.regular(size: 10.0))
+                                                .foregroundColor(ColorConstants.Red400)
                                         }
                                     ))
                                     
                                     Spacer()
                                 }
                                 
-
+                                
                                 if studenthomevm.newStudentSubjects == [] || studenthomevm.newStudentSubjects.isEmpty{
-//                                    ProgressView()
-//                                        .frame(width: gr.size.width/2.7, height: 160)
+                                    //                                    ProgressView()
+                                    //                                        .frame(width: gr.size.width/2.7, height: 160)
                                     Image(.emptySubjects)
                                         .frame(width: 100,height: 100)
                                         .padding()
-        //                                .resizable()
-        //                                .aspectRatio(contentMode: .fit)
+                                    //                                .resizable()
+                                    //                                .aspectRatio(contentMode: .fit)
                                     Text("No available subjects yet".localized())
                                         .font(Font.regular(size: 15))
                                         .foregroundColor(ColorConstants.Bluegray400)
-
+                                    
                                 }else{
-//                                    LazyVGrid(columns: [.init(), .init(),.init()]) {                                    
-//                                    ScrollViewRTL(type: .hList){
+                                    //                                    LazyVGrid(columns: [.init(), .init(),.init()]) {
+                                    //                                    ScrollViewRTL(type: .hList){
                                     ScrollView(.horizontal,showsIndicators: false){
-                                    HStack(spacing:10){
+                                        HStack(spacing:10){
                                             Spacer().frame(width:1)
                                             
                                             
@@ -160,7 +160,7 @@ struct AnonymousHomeView: View {
                                                 //                                        .frame(width: gr.size.width/2.7, height: 160)
                                                 //                                        }
                                                 
-                                                StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.newSSelectedStudentSubjects){
+                                                StudentMostViewedSubjectCell(isSearchCell: isSearch,subject: subject, selectedsubject: $studenthomevm.newSSelectedStudentSubjects){
                                                     destination = AnyView(HomeSubjectDetailsView(selectedsubjectid: subject.id ?? 0))
                                                     isPush = true
                                                 }
@@ -173,16 +173,12 @@ struct AnonymousHomeView: View {
                                         }
                                         .frame(height: 280)
                                         .padding(.bottom,10)
-
-                                        
                                     }
                                 }
                                 
                             }
                             .transition(.move(edge: isSearch ? .trailing : .leading))
-
                         }
-                        
                         
                         Text("Most Booked Subjects".localized())
                             .font(Font.bold(size: 18))
@@ -191,21 +187,21 @@ struct AnonymousHomeView: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostBookedsubjects == []{
-//                            ProgressView()                                .frame(width: gr.size.width/2.7, height: 280)
-
+                            //                            ProgressView()                                .frame(width: gr.size.width/2.7, height: 280)
+                            
                             Image(.emptySubjects)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available most booked subjects yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
-
+                            
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
-
+                                
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
                                     
@@ -232,20 +228,20 @@ struct AnonymousHomeView: View {
                             .frame(maxWidth:.infinity,alignment: .leading)
                         
                         if studenthomevm.StudentMostBookedTeachers == []{
-//                            ProgressView()
-//                                .frame(width: gr.size.width/2.7, height: 180)
+                            //                            ProgressView()
+                            //                                .frame(width: gr.size.width/2.7, height: 180)
                             Image(.emptyTeachers)
                                 .frame(width: 100,height: 100)
                                 .padding()
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
+                            //                                .resizable()
+                            //                                .aspectRatio(contentMode: .fit)
                             Text("No available most booked teachers yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
                         }else{
-//                            ScrollViewRTL(type: .hList){
+                            //                            ScrollViewRTL(type: .hList){
                             ScrollView(.horizontal,showsIndicators: false){
-
+                                
                                 HStack(spacing:10){
                                     Spacer().frame(width:1)
                                     
@@ -263,232 +259,232 @@ struct AnonymousHomeView: View {
                             }
                         }
                         
-//                        Text("Most Booked Lessons".localized())
-//                            .font(Font.bold(size: 18))
-//                            .foregroundColor(.mainBlue)
-//                            .padding([.top,.horizontal])
-//                            .frame(maxWidth:.infinity,alignment: .leading)
-//                        if studenthomevm.StudentMostBookedLessons == []{
-////                            ProgressView()
-////                                .frame(width: gr.size.width/2.7, height: 240)
-//                            Image(.emptyLessons)
-//                                .frame(width: 100,height: 100)
-//                                .padding()
-////                                .resizable()
-////                                .aspectRatio(contentMode: .fit)
-//                            Text("No available most booked lessons yet".localized())
-//                                .font(Font.regular(size: 15))
-//                                .foregroundColor(ColorConstants.Bluegray400)
-//                        }else{
-////                            ScrollViewRTL(type: .hList){
-//                            ScrollView(.horizontal,showsIndicators: false){
-//
-//                                HStack(spacing:10){
-//                                    Spacer().frame(width:1)
-//                                    ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
-//                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
-//                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
-//                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-//                                            isPush = true
-//                                            
-//                                        }
-//                                        .frame(width: gr.size.width/2.5, height: 240)
-//                                    }
-//                                    Spacer().frame(width:1)
-//                                    
-//                                }
-//                                .frame(height: 240)
-//                                .padding(.bottom,10)
-//                            }
-//                        }
+                        //                        Text("Most Booked Lessons".localized())
+                        //                            .font(Font.bold(size: 18))
+                        //                            .foregroundColor(.mainBlue)
+                        //                            .padding([.top,.horizontal])
+                        //                            .frame(maxWidth:.infinity,alignment: .leading)
+                        //                        if studenthomevm.StudentMostBookedLessons == []{
+                        ////                            ProgressView()
+                        ////                                .frame(width: gr.size.width/2.7, height: 240)
+                        //                            Image(.emptyLessons)
+                        //                                .frame(width: 100,height: 100)
+                        //                                .padding()
+                        ////                                .resizable()
+                        ////                                .aspectRatio(contentMode: .fit)
+                        //                            Text("No available most booked lessons yet".localized())
+                        //                                .font(Font.regular(size: 15))
+                        //                                .foregroundColor(ColorConstants.Bluegray400)
+                        //                        }else{
+                        ////                            ScrollViewRTL(type: .hList){
+                        //                            ScrollView(.horizontal,showsIndicators: false){
+                        //
+                        //                                HStack(spacing:10){
+                        //                                    Spacer().frame(width:1)
+                        //                                    ForEach(studenthomevm.StudentMostBookedLessons ,id:\.self){lesson in
+                        //                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostBookedLesson){
+                        //                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
+                        //                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                        //                                            isPush = true
+                        //
+                        //                                        }
+                        //                                        .frame(width: gr.size.width/2.5, height: 240)
+                        //                                    }
+                        //                                    Spacer().frame(width:1)
+                        //
+                        //                                }
+                        //                                .frame(height: 240)
+                        //                                .padding(.bottom,10)
+                        //                            }
+                        //                        }
                         
-//                        Text("Top Rated Teachers".localized())
-//                            .font(Font.bold(size: 18))
-//                            .foregroundColor(.mainBlue)
-//                            .padding([.top,.horizontal])
-//                            .frame(maxWidth:.infinity,alignment: .leading)
-//                        if studenthomevm.StudentMostRatedTeachers == []{
-////                            ProgressView()
-////                                .frame(width: gr.size.width/2.7, height: 180)
-//                            Image(.emptyTeachers)
-//                                .frame(width: 100,height: 100)
-//                                .padding()
-////                                .resizable()
-////                                .aspectRatio(contentMode: .fit)
-//                            Text("No available top rated teachers yet".localized())
-//                                .font(Font.regular(size: 15))
-//                                .foregroundColor(ColorConstants.Bluegray400)
-//                        }else{
-////                            ScrollViewRTL(type: .hList){
-//                            ScrollView(.horizontal,showsIndicators: false){
-//
-//                                HStack(spacing:10){
-//                                    Spacer().frame(width:1)
-//                                    ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
-//                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
-//                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
-//                                            isPush = true
-//                                        }
-//                                        .frame(width: gr.size.width/3.8, height: 180)
-//                                    }
-//                                    Spacer().frame(width:1)
-//                                    
-//                                }
-//                                .frame(height: 180)
-//                                .padding(.bottom,10)
-//                            }
-//                        }
+                        //                        Text("Top Rated Teachers".localized())
+                        //                            .font(Font.bold(size: 18))
+                        //                            .foregroundColor(.mainBlue)
+                        //                            .padding([.top,.horizontal])
+                        //                            .frame(maxWidth:.infinity,alignment: .leading)
+                        //                        if studenthomevm.StudentMostRatedTeachers == []{
+                        ////                            ProgressView()
+                        ////                                .frame(width: gr.size.width/2.7, height: 180)
+                        //                            Image(.emptyTeachers)
+                        //                                .frame(width: 100,height: 100)
+                        //                                .padding()
+                        ////                                .resizable()
+                        ////                                .aspectRatio(contentMode: .fit)
+                        //                            Text("No available top rated teachers yet".localized())
+                        //                                .font(Font.regular(size: 15))
+                        //                                .foregroundColor(ColorConstants.Bluegray400)
+                        //                        }else{
+                        ////                            ScrollViewRTL(type: .hList){
+                        //                            ScrollView(.horizontal,showsIndicators: false){
+                        //
+                        //                                HStack(spacing:10){
+                        //                                    Spacer().frame(width:1)
+                        //                                    ForEach(studenthomevm.StudentMostRatedTeachers ,id:\.self){teacher in
+                        //                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostRatedTeachers){
+                        //                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                        //                                            isPush = true
+                        //                                        }
+                        //                                        .frame(width: gr.size.width/3.8, height: 180)
+                        //                                    }
+                        //                                    Spacer().frame(width:1)
+                        //
+                        //                                }
+                        //                                .frame(height: 180)
+                        //                                .padding(.bottom,10)
+                        //                            }
+                        //                        }
                         
-//                        Text("Most Viewed Subjects".localized())
-//                            .font(Font.bold(size: 18))
-//                            .foregroundColor(.mainBlue)
-//                            .padding([.top,.horizontal])
-//                            .frame(maxWidth:.infinity,alignment: .leading)
-//                        
-//                        if studenthomevm.StudentMostViewedSubjects == []{
-////                            ProgressView()
-////                                .frame(width: gr.size.width/2.7, height: 280)
-//                            Image(.emptySubjects)
-//                                .frame(width: 100,height: 100)
-//                                .padding()
-////                                .resizable()
-////                                .aspectRatio(contentMode: .fit)
-//                            Text("No available most viewed subjects yet".localized())
-//                                .font(Font.regular(size: 15))
-//                                .foregroundColor(ColorConstants.Bluegray400)
-//
-//                        }else{
-////                            ScrollViewRTL(type: .hList){
-//                            ScrollView(.horizontal,showsIndicators: false){
-//                                HStack(spacing:10){
-//                                    Spacer().frame(width:1)
-//                                    
-//                                    ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
-//                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
-//                                            guard subject.teacherCount ?? 0 > 0 else {return}
-//                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
-//                                            isPush = true
-//                                            
-//                                        }
-//                                        .frame(width: gr.size.width/2.33, height: 280)
-//                                    }
-//                                    Spacer().frame(width:1)
-//                                    
-//                                }
-//                                .frame(height: 280)
-//                                .padding(.bottom,10)
-//                            }
-//                        }
+                        //                        Text("Most Viewed Subjects".localized())
+                        //                            .font(Font.bold(size: 18))
+                        //                            .foregroundColor(.mainBlue)
+                        //                            .padding([.top,.horizontal])
+                        //                            .frame(maxWidth:.infinity,alignment: .leading)
+                        //
+                        //                        if studenthomevm.StudentMostViewedSubjects == []{
+                        ////                            ProgressView()
+                        ////                                .frame(width: gr.size.width/2.7, height: 280)
+                        //                            Image(.emptySubjects)
+                        //                                .frame(width: 100,height: 100)
+                        //                                .padding()
+                        ////                                .resizable()
+                        ////                                .aspectRatio(contentMode: .fit)
+                        //                            Text("No available most viewed subjects yet".localized())
+                        //                                .font(Font.regular(size: 15))
+                        //                                .foregroundColor(ColorConstants.Bluegray400)
+                        //
+                        //                        }else{
+                        ////                            ScrollViewRTL(type: .hList){
+                        //                            ScrollView(.horizontal,showsIndicators: false){
+                        //                                HStack(spacing:10){
+                        //                                    Spacer().frame(width:1)
+                        //
+                        //                                    ForEach(studenthomevm.StudentMostViewedSubjects ,id:\.self){subject in
+                        //                                        StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostViewedSubject){
+                        //                                            guard subject.teacherCount ?? 0 > 0 else {return}
+                        //                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
+                        //                                            isPush = true
+                        //
+                        //                                        }
+                        //                                        .frame(width: gr.size.width/2.33, height: 280)
+                        //                                    }
+                        //                                    Spacer().frame(width:1)
+                        //
+                        //                                }
+                        //                                .frame(height: 280)
+                        //                                .padding(.bottom,10)
+                        //                            }
+                        //                        }
                         
-//                        Text("Most Viewed Lessons".localized())
-//                            .font(Font.bold(size: 18))
-//                            .foregroundColor(.mainBlue)
-//                            .padding([.top,.horizontal])
-//                            .frame(maxWidth:.infinity,alignment: .leading)
-//                        
-//                        if studenthomevm.StudentMostViewedLessons == []{
-////                            ProgressView()
-////                                .frame(width: gr.size.width/2.7, height: 240)
-//                            Image(.emptyLessons)
-//                                .frame(width: 100,height: 100)
-//                                .padding()
-////                                .resizable()
-////                                .aspectRatio(contentMode: .fit)
-//                            Text("No available most viewed lessons yet".localized())
-//                                .font(Font.regular(size: 15))
-//                                .foregroundColor(ColorConstants.Bluegray400)
-//
-//                        }else{
-////                            ScrollViewRTL(type: .hList){
-//                            ScrollView(.horizontal,showsIndicators: false){
-//                                HStack(spacing:10){
-//                                    Spacer().frame(width:1)
-//                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
-//                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
-//                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
-//                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
-//                                            isPush = true
-//                                            
-//                                        }
-//                                        .frame(width: gr.size.width/2.5, height: 240)
-//                                    }
-//                                    Spacer().frame(width:1)
-//                                }
-//                                .frame(height: 240)
-//                                .padding(.bottom,10)
-//                            }
-//                        }
+                        //                        Text("Most Viewed Lessons".localized())
+                        //                            .font(Font.bold(size: 18))
+                        //                            .foregroundColor(.mainBlue)
+                        //                            .padding([.top,.horizontal])
+                        //                            .frame(maxWidth:.infinity,alignment: .leading)
+                        //
+                        //                        if studenthomevm.StudentMostViewedLessons == []{
+                        ////                            ProgressView()
+                        ////                                .frame(width: gr.size.width/2.7, height: 240)
+                        //                            Image(.emptyLessons)
+                        //                                .frame(width: 100,height: 100)
+                        //                                .padding()
+                        ////                                .resizable()
+                        ////                                .aspectRatio(contentMode: .fit)
+                        //                            Text("No available most viewed lessons yet".localized())
+                        //                                .font(Font.regular(size: 15))
+                        //                                .foregroundColor(ColorConstants.Bluegray400)
+                        //
+                        //                        }else{
+                        ////                            ScrollViewRTL(type: .hList){
+                        //                            ScrollView(.horizontal,showsIndicators: false){
+                        //                                HStack(spacing:10){
+                        //                                    Spacer().frame(width:1)
+                        //                                    ForEach(studenthomevm.StudentMostViewedLessons ,id:\.self){lesson in
+                        //                                        StudentHomeLessonCell(lesson:lesson,selectedlesson:$studenthomevm.SelectedStudentMostViewedLesson){
+                        //                                            guard lesson.availableTeacher ?? 0 > 0 else {return}
+                        //                                            destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: lesson.id ?? 0, bookingcase: .lesson))
+                        //                                            isPush = true
+                        //
+                        //                                        }
+                        //                                        .frame(width: gr.size.width/2.5, height: 240)
+                        //                                    }
+                        //                                    Spacer().frame(width:1)
+                        //                                }
+                        //                                .frame(height: 240)
+                        //                                .padding(.bottom,10)
+                        //                            }
+                        //                        }
                         
-//                        Text("Most Viewed Teachers".localized())
-//                            .font(Font.bold(size: 18))
-//                            .foregroundColor(.mainBlue)
-//                            .padding([.top,.horizontal])
-//                            .frame(maxWidth:.infinity,alignment: .leading)
-//                        if studenthomevm.StudentMostViewedTeachers == []{
-////                            ProgressView()
-////                                .frame(width: gr.size.width/2.7, height: 180)
-//                            Image(.emptyTeachers)
-//                                .frame(width: 100,height: 100)
-//                                .padding()
-////                                .resizable()
-////                                .aspectRatio(contentMode: .fit)
-//                            Text("No available most viewed teachers yet".localized())
-//                                .font(Font.regular(size: 15))
-//                                .foregroundColor(ColorConstants.Bluegray400)
-//
-//                        }else{
-////                            ScrollViewRTL(type: .hList){
-//                            ScrollView(.horizontal,showsIndicators: false){
-//                                HStack(spacing:10){
-//                                    Spacer().frame(width:1)
-//                                    
-//                                    ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
-//                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
-//                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
-//                                            isPush = true
-//                                            
-//                                        }
-//                                        .frame(width: gr.size.width/3.8, height: 180)
-//                                    }
-//                                    Spacer().frame(width:1)
-//                                }
-//                                .frame(height: 180)
-//                                .padding(.bottom,10)
-//                            }
-//                        }
-//
+                        //                        Text("Most Viewed Teachers".localized())
+                        //                            .font(Font.bold(size: 18))
+                        //                            .foregroundColor(.mainBlue)
+                        //                            .padding([.top,.horizontal])
+                        //                            .frame(maxWidth:.infinity,alignment: .leading)
+                        //                        if studenthomevm.StudentMostViewedTeachers == []{
+                        ////                            ProgressView()
+                        ////                                .frame(width: gr.size.width/2.7, height: 180)
+                        //                            Image(.emptyTeachers)
+                        //                                .frame(width: 100,height: 100)
+                        //                                .padding()
+                        ////                                .resizable()
+                        ////                                .aspectRatio(contentMode: .fit)
+                        //                            Text("No available most viewed teachers yet".localized())
+                        //                                .font(Font.regular(size: 15))
+                        //                                .foregroundColor(ColorConstants.Bluegray400)
+                        //
+                        //                        }else{
+                        ////                            ScrollViewRTL(type: .hList){
+                        //                            ScrollView(.horizontal,showsIndicators: false){
+                        //                                HStack(spacing:10){
+                        //                                    Spacer().frame(width:1)
+                        //
+                        //                                    ForEach(studenthomevm.StudentMostViewedTeachers ,id:\.self){teacher in
+                        //                                        StudentTopRatedTeachersCell(teacher: teacher, selectedteacher: $studenthomevm.SelectedStudentMostViewedTeachers){
+                        //                                            destination = AnyView(TeacherInfoView(teacherid: teacher.id ?? 0))
+                        //                                            isPush = true
+                        //
+                        //                                        }
+                        //                                        .frame(width: gr.size.width/3.8, height: 180)
+                        //                                    }
+                        //                                    Spacer().frame(width:1)
+                        //                                }
+                        //                                .frame(height: 180)
+                        //                                .padding(.bottom,10)
+                        //                            }
+                        //                        }
+                        //
                     }
                     .padding(.top,5)
                     .frame(height:gr.size.height)
                     .task{
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
-//                        studenthomevm.getHomeData()
+                        //                        studenthomevm.getHomeData()
                         
-//                        let DispatchGroup = DispatchGroup()
-//                        DispatchGroup.enter()
-
-//                        studenthomevm.GetStudentSubjects()
+                        //                        let DispatchGroup = DispatchGroup()
+                        //                        DispatchGroup.enter()
                         
-//                        DispatchGroup.enter()
+                        //                        studenthomevm.GetStudentSubjects()
+                        
+                        //                        DispatchGroup.enter()
                         // Perform the background task here
-//                        studenthomevm.GetStudentLessons(mostType: .mostviewed)
-//                        studenthomevm.GetStudentLessons(mostType: .mostBooked)
+                        //                        studenthomevm.GetStudentLessons(mostType: .mostviewed)
+                        //                        studenthomevm.GetStudentLessons(mostType: .mostBooked)
                         
-//                        DispatchGroup.enter()
-//                        studenthomevm.GetStudentMostSubjects(mostType: .mostviewed)
+                        //                        DispatchGroup.enter()
+                        //                        studenthomevm.GetStudentMostSubjects(mostType: .mostviewed)
                         studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
-//                        await studenthomevm.GetStudentMostSubjects1(mostType: .mostBooked)
+                        //                        await studenthomevm.GetStudentMostSubjects1(mostType: .mostBooked)
                         
-//                        DispatchGroup.enter()
-//                        studenthomevm.GetStudentTeachers(mostType: .mostviewed)
-//                        studenthomevm.GetStudentTeachers(mostType: .topRated)
+                        //                        DispatchGroup.enter()
+                        //                        studenthomevm.GetStudentTeachers(mostType: .mostviewed)
+                        //                        studenthomevm.GetStudentTeachers(mostType: .topRated)
                         studenthomevm.GetStudentMostBookedTeachers()
                         
                         
-//                        DispatchGroup.leave()
+                        //                        DispatchGroup.leave()
                         
-//                        studenthomevm.GetStudentSubjects()
+                        //                        studenthomevm.GetStudentSubjects()
                     }
                     .onDisappear{
                         if !isSearch {
@@ -507,7 +503,7 @@ struct AnonymousHomeView: View {
                     })
                     .onChange(of: selectedDestination) {newval in
                         if newval == .login { // sign in
-                                                  
+                            
                             destination =                           AnyView(SignInView(hideimage:false))
                             Helper.shared.logout()
                             isPush = true
@@ -547,7 +543,7 @@ struct AnonymousHomeView: View {
 
 #Preview{
     AnonymousHomeView()
-//        .environmentObject(StudentTabBarVM())
+    //        .environmentObject(StudentTabBarVM())
 }
 
 
@@ -569,7 +565,7 @@ struct AnonymousSideMenuContent: View {
                         Spacer()
                     }
                     .padding()
-
+                    
                     SideMenuSectionTitle(title: "Settings")
                     
                     SideMenuButton(image: "MenuSt_signout", title: "Sign In"){
@@ -585,15 +581,15 @@ struct AnonymousSideMenuContent: View {
                     
                 }
             }
-
+            
             VStack(alignment:.center){
-//                Spacer()
+                //                Spacer()
                 HStack {
                     Text("Version:".localized())
                     Text("\(Helper.shared.getAppVersion())")
                 }
-//            Text("Build Number: \(Helper.shared.getBuildNumber())")
-                   }
+                //            Text("Build Number: \(Helper.shared.getBuildNumber())")
+            }
             .font(.semiBold(size: 12))
             .foregroundStyle(.whiteA700)
             .padding(.bottom)
@@ -605,7 +601,7 @@ struct AnonymousSideMenuContent: View {
         }
         .onDisappear(perform: {
             selectedDestination = nil
-    })
+        })
     }
 }
 
@@ -615,11 +611,11 @@ struct AnonymousSideMenuContent: View {
 
 struct ChangeLanguage: View {
     @StateObject var localizeHelper = LocalizeHelper.shared
-
+    
     var body: some View {
         Button(action: {
             LocalizeHelper.shared.setLanguage(language: localizeHelper.currentLanguage == "en" ? .arabic:.english_us)
-
+            
             Helper.shared.changeRoot(toView: destinationview)
         }, label: {
             HStack{
@@ -649,6 +645,6 @@ struct ChangeLanguage: View {
             AnonymousHomeView()
         default:
             AnonymousHomeView() // Handle any unexpected cases
-           }
+        }
     }
 }

@@ -307,7 +307,7 @@ struct StudentTabBarView: View {
                 studenttabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
                 
             }else if newval == .signOut { // signout
-                studenttabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                studenttabbarvm.error = .question( image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
                     Helper.shared.changeRoot(toView: AnonymousHomeView())
                     Helper.shared.logout()
                     Helper.shared.selectedchild = nil
@@ -317,7 +317,7 @@ struct StudentTabBarView: View {
                 studenttabbarvm.showSignOutConfirm = true
                 
             }else if newval == .deleteAccount{
-                studenttabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                studenttabbarvm.error = .question( image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                     studenttabbarvm.deleteAccount()
                 },secondBtnAction:{
                     selectedDestination = nil
@@ -569,7 +569,7 @@ struct StudentSideMenuContent: View {
                     
                     SideMenuSectionTitle(title: "Settings")
                     
-                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    SideMenuButton(image: "MenuSt_lock", title: "Change Password"){
                         selectedDestination = .changePassword // cahnage Password
                         presentSideMenu =  false
                         isPush = true

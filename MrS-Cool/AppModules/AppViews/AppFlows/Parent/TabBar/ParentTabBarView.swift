@@ -167,7 +167,7 @@ struct ParentTabBarView: View {
                 
             }else if newval == .signOut { // signout
                 
-                tabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                tabbarvm.error = .question( image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
                     Helper.shared.selectedchild = nil
                     Helper.shared.changeRoot(toView: AnonymousHomeView())
                     Helper.shared.logout()
@@ -177,7 +177,7 @@ struct ParentTabBarView: View {
                 tabbarvm.showSignOutConfirm = true
                 
             }else if newval == .deleteAccount{
-                tabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                tabbarvm.error = .question( image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                     tabbarvm.deleteAccount()
                 },secondBtnAction:{
                     selectedDestination = nil
@@ -263,7 +263,7 @@ struct ParentSideMenuContent: View {
                     
                     SideMenuSectionTitle(title: "My Information",backgroundcolor:Color.parentBtnBg)
                     
-                    SideMenuButton(image: "MenuSt_rates", title: "Change Password"){
+                    SideMenuButton(image: "MenuSt_lock", title: "Change Password"){
                         selectedDestination = .changePassword // cahnage Password for child
                         presentSideMenu =  false
                         isPush = true

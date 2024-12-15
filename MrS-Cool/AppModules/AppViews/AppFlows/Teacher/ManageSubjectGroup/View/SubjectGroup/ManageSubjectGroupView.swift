@@ -301,7 +301,7 @@ struct ManageSubjectGroupView: View {
                                         guard preparelessonscounts() else{ return }
                                         
                                         subjectgroupvm.ReviewTeacherGroup()
-                                        destination = AnyView(    SubjectGroupDetailsView(previewOption: .newGroup).hideNavigationBar().environmentObject(subjectgroupvm).environmentObject(lookupsvm))
+                                        destination = AnyView(    SubjectGroupDetailsView(isPriceCustomizable: true,previewOption: .newGroup).hideNavigationBar().environmentObject(subjectgroupvm).environmentObject(lookupsvm))
                                     })
                                     CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
                                         subjectgroupvm.clearTeacherGroup()
@@ -512,7 +512,7 @@ struct listGroups: View {
             ManageSubjectGroupCell(model: group,
                                    reviewBtnAction:{
                 subjectgroupvm.GetTeacherGroupDetails(id: group.id)
-                destination = AnyView( SubjectGroupDetailsView(previewOption: .existingGroup)
+                destination = AnyView(SubjectGroupDetailsView(previewOption: .existingGroup)
                     .hideNavigationBar()
                     .environmentObject(subjectgroupvm)
                     .environmentObject(lookupsvm)
@@ -529,7 +529,7 @@ struct listGroups: View {
                 subjectgroupvm.selectedGroup = group
                 subjectgroupvm.ShowAddExtraSession = true
             }, deleteBtnAction: {
-                subjectgroupvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                subjectgroupvm.error = .question( image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                     subjectgroupvm.DeleteTeacherGroup(id: group.id)
                 })
                 subjectgroupvm.showConfirmDelete = true

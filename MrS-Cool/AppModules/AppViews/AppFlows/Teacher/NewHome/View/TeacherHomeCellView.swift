@@ -169,16 +169,16 @@ struct TeacherHomeCellView: View {
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {
-//                        Image("img_group")
-//                            .resizable()
-//                            .frame(width: 20,height: 25)
-//                            .aspectRatio(contentMode: .fill)
-                        
-                        Text("Cancel & Edit".localized())
-                            .font(Font.bold(size: 12.0))
-//                            .fontWeight(.medium)
-                            .foregroundColor(ColorConstants.Red400)
-                        
+                        HStack{
+                            Text("Cancel & Edit".localized())
+                                .font(Font.bold(size: 12.0))
+                                .foregroundColor(ColorConstants.Red400)
+                            
+                            Image("img_group")
+                                .resizable()
+                                .frame(width: 15,height: 20)
+                                .aspectRatio(contentMode: .fill)
+                        }
                     })
                         .buttonStyle(.plain)
             }

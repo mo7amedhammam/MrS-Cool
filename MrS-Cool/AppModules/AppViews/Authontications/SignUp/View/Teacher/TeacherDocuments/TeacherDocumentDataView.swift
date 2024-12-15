@@ -143,7 +143,7 @@ struct TeacherDocumentDataView: View {
                     List(teacherdocumentsvm.TeacherDocuments ?? [] ,id:\.self){ document in
                         TeacherDocumentCell(model: document, deleteBtnAction: {
 //                            confirmDelete.toggle()
-                            teacherdocumentsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                            teacherdocumentsvm.error = .question( image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                 teacherdocumentsvm.DeleteTeacherDocument(id: document.id)
                             })
                             teacherdocumentsvm.showConfirmDelete.toggle()

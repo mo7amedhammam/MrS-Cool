@@ -658,7 +658,9 @@
 "Teacher :" = "Teacher :";
 "Your account had been created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy" = "Your account had been created\nsuccessfully\nPlease Submit to compelete your\naccount and enjoy";
 "Your account had beed created\nsuccessfully\nPlease sign in to use your account\nand enjoy" = "Your account had been created\nsuccessfully\nPlease sign in to use your account\nand enjoy";
-"Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "Your password had been changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy";
+"Your password had beed reset\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "Your password had been reset\nsuccessfully\nPlease sign in to use your\naccount and enjoy";
+"Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "Your password had been changed\nsuccessfully\nback to use your account and enjoy";
+
 "Your Student mobile number had\nbeed verified successfully." = "Your Student mobile number had\nbeen verified successfully.";
 
 "Date: " = "Date: ";

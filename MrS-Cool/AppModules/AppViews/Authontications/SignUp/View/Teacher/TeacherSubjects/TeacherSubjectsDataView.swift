@@ -86,7 +86,7 @@ struct TeacherSubjectsDataView: View {
 
                     List(teachersubjectsvm.TeacherSubjects ?? [] ,id:\.self){ subject in
                         TeacherSubjectCell(model: subject){
-                            teachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                            teachersubjectsvm.error = .question( image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                 teachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                             })
                             teachersubjectsvm.showConfirmDelete.toggle()

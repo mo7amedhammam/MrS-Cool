@@ -635,7 +635,7 @@ struct EventDetailsView: View {
                 
                 Spacer()
                 CustomButton(Title:"Cancel Event",bgColor: .red,IsDisabled: .constant(false), action: {
-                    error = .question(title: "Are you sure you want to cancel this event ?", image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
+                    error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
                         onCancelEvent?(event)
                     })
                     isError = true

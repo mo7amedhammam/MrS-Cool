@@ -223,7 +223,7 @@ struct GroupForLessonView: View {
                         
                         List(groupsforlessonvm.TeacherGroups ?? [] ,id:\.self){ schedual in
                             GroupForLessonCell(model: schedual, deleteBtnAction: {
-                                groupsforlessonvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                groupsforlessonvm.error = .question( image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                     groupsforlessonvm.DeleteTeacherGroup(id: schedual.id)
                                 })
                                 showConfirmDelete = true

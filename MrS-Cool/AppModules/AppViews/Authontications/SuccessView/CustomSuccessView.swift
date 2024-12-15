@@ -79,9 +79,9 @@ struct CustomSuccessView: View {
             case .passwordReset:
                 title = "Reset Password"
                 subtitle = "Reset Your New Password"
-                describtion = "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
+                describtion = "Your password had beed reset\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
             case .passwordCahnged:
-                title = "Reset Password"
+                title = "Change Password"
                 subtitle = "Change Your New Password"
                 describtion = "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy"
             case .childrenAccountAdded:
@@ -102,5 +102,7 @@ struct CustomSuccessView: View {
 }
 
 #Preview {
-    CustomSuccessView( successStep: .constant(.teacherRegistered))
+    CustomSuccessView( successStep: .constant(.passwordReset))
+//        .environment(\.locale, Locale(identifier:"en"))
+
 }

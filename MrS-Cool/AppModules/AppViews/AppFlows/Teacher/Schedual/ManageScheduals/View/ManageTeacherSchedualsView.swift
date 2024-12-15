@@ -117,7 +117,7 @@ struct ManageTeacherSchedualsView: View {
                             
                             List(manageteacherschedualsvm.TeacherScheduals ?? [] ,id:\.self){ schedual in
                                 ManageSchedualCell(model: schedual, deleteBtnAction: {
-                                    manageteacherschedualsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                    manageteacherschedualsvm.error = .question( image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         manageteacherschedualsvm.DeleteTeacherSchedual(id: schedual.id)
                                     })
                                     showConfirmDelete.toggle()

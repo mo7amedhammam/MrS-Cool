@@ -272,7 +272,7 @@ struct ManageTeacherSubjectsView: View {
                                     if subject.groupSessionCost == 0
 //                                        || subject.individualCost == 0
                                     {
-                                        manageteachersubjectsvm.error = .error(title: "You Must Enter YOUR  Subject Price First To Can Access To This Page", message: "You Must Enter YOUR  Subject Price First To Can Access To This Page", buttonTitle: "Ok", mainBtnAction: {
+                                        manageteachersubjectsvm.error = .error( message: "You Must Enter YOUR  Subject Price First To Can Access To This Page", buttonTitle: "Ok", mainBtnAction: {
                                         })
                                         manageteachersubjectsvm.isError.toggle()
                                     }else{
@@ -287,7 +287,7 @@ struct ManageTeacherSubjectsView: View {
                                 }, deleteBtnAction:{
 //                                    manageteachersubjectsvm.isEditing = false
 //                                    manageteachersubjectsvm.clearTeachersSubject()
-                                    manageteachersubjectsvm.error = .question(title: "Are you sure you want to delete this item ?", image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                                    manageteachersubjectsvm.error = .question( image: "img_group", message: "Are you sure you want to delete this item ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                                         manageteachersubjectsvm.DeleteTeacherSubject(id: subject.id)
                                     })
                                     showConfirmDelete.toggle()

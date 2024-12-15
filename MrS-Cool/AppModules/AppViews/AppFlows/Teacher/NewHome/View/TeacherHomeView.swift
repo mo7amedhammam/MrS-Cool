@@ -106,7 +106,7 @@ struct TeacherHomeView: View {
                                             
                                             if !(schedual.teachersubjectAcademicSemesterYearID ?? 0 > 0){
                                                 
-                                                SchedualsVm.error = .question(title: "Are you sure you want to cancel this event ?", image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
+                                                SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
                                                     if let eventid = schedual.teacherLessonSessionSchedualSlotID{
                                                         SchedualsVm.CancelCalendarCheduals(id:eventid)
                                                     }
@@ -177,7 +177,7 @@ struct TeacherHomeView: View {
                                         StudentHomeCellView(model: schedual, cancelBtnAction: {
                                             
                                             //                                        if schedual.teachersubjectAcademicSemesterYearID == nil{
-                                            SchedualsVm.error = .question(title: "Are you sure you want to cancel this event ?", image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
+                                            SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
                                                 if let eventid = schedual.teacherLessonSessionSchedualSlotID{
                                                     SchedualsVm.CancelCalendarCheduals(id:eventid)
                                                 }

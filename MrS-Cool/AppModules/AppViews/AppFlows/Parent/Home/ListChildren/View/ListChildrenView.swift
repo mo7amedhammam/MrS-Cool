@@ -24,7 +24,7 @@ struct ListChildrenView: View {
                         ForEach(listchildrenvm.Children ?? [], id:\.self) {children in
                             ChildrenCell(children: children, selectedChild: $listchildrenvm.selectedChild, deleteAction: {
                                 
-                                listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to delete this child account ?", buttonTitle: "Delete", secondButtonTitle: "Not Now",isVertical:false, mainBtnAction: {
+                                listchildrenvm.error = .question(image: "studenticon",imgrendermode: .original, message: "Are you want to delete this child account ?", buttonTitle: "Delete", secondButtonTitle: "Not Now",isVertical:false, mainBtnAction: {
                                     listchildrenvm.DeleteStudent(id: children.id ?? 0)
                                 }, secondBtnAction: {
                                     //                                listchildrenvm.isError = false
@@ -49,7 +49,7 @@ struct ListChildrenView: View {
                         }
                         
                         Button(action: {
-                            listchildrenvm.error = .question(title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
+                            listchildrenvm.error = .question( image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
                                 tabbarvm.destination = AnyView(
                                     AddNewStudentView()
                                 )

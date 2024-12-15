@@ -15,7 +15,8 @@ struct SubjectGroupDetailsView: View {
     @EnvironmentObject var lookupsvm : LookUpsVM
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @EnvironmentObject var subjectgroupvm : ManageSubjectGroupVM
-    
+    var isPriceCustomizable:Bool? = false
+
     //    @State var isPush = false
     //    @State var destination = EmptyView()
     @State private var isEditing = false
@@ -29,13 +30,29 @@ struct SubjectGroupDetailsView: View {
     //    @State var destination = AnyView(EmptyView())
     let columns: [GridItem] =
     Array(repeating: .init(.flexible(),spacing: 25,alignment: .topLeading), count: 2)
-    private func isPriceValid() -> Bool {
-        // Ensure the groupCost is safely unwrapped and cast to Int if it's a valid Double/Float
-        if let groupCost = subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost,groupCost.description.count > 0, groupCost > 0 {
-            return true
+
+    @State var TotalPrice : String = ""{
+        didSet{
+            guard TotalPrice.count > 0, let price = Float(TotalPrice) else {
+                isTotalPricevalid = false
+                return}
+            if price > 0{
+                isTotalPricevalid = true
+            }else{
+                isTotalPricevalid = false
+            }
         }
-        return false
     }
+    @State var isTotalPricevalid:Bool?
+    
+//    private func isPriceValid() -> Bool {
+//        
+//        // Ensure the groupCost is safely unwrapped and cast to Int if it's a valid Double/Float
+//        if let groupCost = subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost,groupCost.description.count > 0, groupCost > 0 {
+//            return true
+//        }
+//        return false
+//    }
     
     var body: some View {
         VStack {
@@ -105,34 +122,27 @@ struct SubjectGroupDetailsView: View {
                                     VStack(alignment:.leading,spacing:5){
                                         Text("Total Cost".localized())
                                             .font(Font.bold(size: 16))
-                                            
+                                        
+                                        
+                                        if isPriceCustomizable == true{
                                             CustomTextField(
                                                 iconName: "img_group_black_900",
                                                 placeholder: "",
-                                                text: Binding(
-                                                    get: {
-                                                        // Convert groupCost to String for display
-                                                        "\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0)"
-                                                    },
-                                                    set: { newValue in
-                                                        // Validate and update groupCost dynamically
-                                                        
-                                                        let filteredValue = newValue.filter{$0.isEnglish}
-                                                        
-                                                        if let value = Float(filteredValue) {
-                                                            subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = value
-                                                        } else {
-                                                            subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = 0
-                                                                }
-                                                    }
-                                                ),
+                                                text:$TotalPrice,
                                                 keyboardType: .decimalPad,
-                                                isvalid: isPriceValid()
+                                                isvalid: isTotalPricevalid
                                             )
-                                        
-//                                        Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text("EGP".localized()).fontWeight(.medium)
+                                            .task{
+                                                TotalPrice = String(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0)
+                                            }
+                                            .onChange(of: TotalPrice) { newValue in
+                                                TotalPrice = newValue.filter { $0.isEnglish }
+                                                subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = Float(TotalPrice)
+                                            }
+                                        }else{
+                                            Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text("EGP".localized()).fontWeight(.medium)
+                                        }
                                     }
-                                    
                                 }
                                 .foregroundColor(.mainBlue)
                                 .padding([.top,.horizontal])
@@ -169,7 +179,7 @@ struct SubjectGroupDetailsView: View {
                 HStack {
                     Group{
                         CustomButton(Title: "Save" ,IsDisabled: .constant(false), action: {
-                            guard isPriceValid() else {return}
+                            guard isTotalPricevalid == true else {return}
                             // Use a localized format string for the title
                             let isArabic = LocalizeHelper.shared.currentLanguage == "ar"
                             let title = isArabic ? "تكلفة المجموعه للطالب \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) جنيه" : "Cost for student is \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) EGP" 

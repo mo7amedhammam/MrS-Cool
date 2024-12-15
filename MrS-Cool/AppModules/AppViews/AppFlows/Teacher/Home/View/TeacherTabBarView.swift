@@ -186,7 +186,7 @@ struct TeacherTabBarView: View {
                     //                   AnyView(SignInView())
                     //                    Helper.shared.changeRoot(toView: SignInView())
                     //                    Helper.shared.logout()
-                    tabbarvm.error = .question(title: "Are you sure you want to sign out ?", image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                    tabbarvm.error = .question( image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
                         Helper.shared.changeRoot(toView: AnonymousHomeView())
                         Helper.shared.logout()
                     },secondBtnAction:{
@@ -195,7 +195,7 @@ struct TeacherTabBarView: View {
                     tabbarvm.showSignOutConfirm = true
                     
                 }else if newval == .deleteAccount{
-                    tabbarvm.error = .question(title: "Are you sure you want to Delete Your Account ?", image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
+                    tabbarvm.error = .question( image: "img_subtract", message: "Are you sure you want to Delete Your Account ?", buttonTitle: "Delete", secondButtonTitle: "Cancel", mainBtnAction: {
                         tabbarvm.deleteAccount()
                     },secondBtnAction:{
                         selectedDestination = nil

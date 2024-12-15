@@ -97,10 +97,13 @@ extension TeacherHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-                        if skipCount == 0{
-                            TeacherScheduals = receivedData.data
-                        }else{
-                            TeacherScheduals?.items?.append(contentsOf: receivedData.data?.items ?? [])
+                        DispatchQueue.main.async{[weak self] in
+                            guard let self = self else{return}
+                            if skipCount == 0{
+                                TeacherScheduals = receivedData.data
+                            }else{
+                                TeacherScheduals?.items?.append(contentsOf: receivedData.data?.items ?? [])
+                            }
                         }
                     }else{
                         isError =  true
