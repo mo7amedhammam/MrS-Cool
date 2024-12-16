@@ -13,6 +13,10 @@ struct TeacherHomeM: Codable {
 
 // MARK: - TeacherHomeItemM
 struct TeacherHomeItemM: Codable,Hashable {
+//        static func == (lhs: TeacherHomeItemM, rhs: TeacherHomeItemM) -> Bool {
+//            return lhs.teacherlessonID == rhs.teacherlessonID
+//        }
+
     var teacherlessonID, teacherlessonsessionID, teacherLessonSessionSchedualSlotID: Int?
     var teachersubjectAcademicSemesterYearID: Int?
     var groupName, date, timeFrom, timeTo: String?
@@ -39,6 +43,10 @@ struct StudentHomeM: Codable {
 }
 // MARK: - StudentHomeItemM
 struct StudentHomeItemM: Codable,Hashable {
+//    static func == (lhs: StudentHomeItemM, rhs: StudentHomeItemM) -> Bool {
+//        return lhs.teacherLessonSessionSchedualSlotID == rhs.teacherLessonSessionSchedualSlotID
+//    }
+
     var teacherLessonSessionSchedualSlotID, bookTeacherlessonsessionDetailID: Int?
     var lessonName, groupName, date, timeFrom,timeTo: String?
     var isCancel: Bool?

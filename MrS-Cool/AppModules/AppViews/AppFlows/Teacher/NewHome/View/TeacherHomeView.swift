@@ -29,13 +29,18 @@ struct TeacherHomeView: View {
     
     @State private var ScrollToTop = false
     
+    @MainActor
     func applyFilter() {
         SchedualsVm.filterstartdate = filterstartdate
         SchedualsVm.filterenddate = filterenddate
         
         SchedualsVm.skipCount = 0
-        SchedualsVm.GetScheduals()
+//        SchedualsVm.GetScheduals()
+        Task{
+            await fetchScheduals()
+        }
     }
+    @MainActor
     func clearFilter() {
         if filterstartdate != nil || filterenddate != nil{
             filterstartdate = nil
@@ -43,19 +48,14 @@ struct TeacherHomeView: View {
             
             SchedualsVm.skipCount = 0
             SchedualsVm.clearFilter()
-            SchedualsVm.GetScheduals()
+//            SchedualsVm.GetScheduals()
+            Task{
+                await fetchScheduals()
+            }
+
         }
     }
-    //    func validateFilterValues(){
-    //
-    //        //        if SchedualsVm.filterstartdate != filterstartdate{
-    //        //            filterstartdate = nil
-    //        //        }
-    //
-    //        //        if SchedualsVm.filterenddate != filterenddate{
-    //        //            filterenddate = nil
-    //        //        }
-    //    }
+
     var body: some View {
         VStack {
             if hasNavBar ?? true{
@@ -150,7 +150,10 @@ struct TeacherHomeView: View {
                                             if let totalCount = SchedualsVm.TeacherScheduals?.totalCount, scheduals.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 SchedualsVm.skipCount += SchedualsVm.maxResultCount
-                                                SchedualsVm.GetScheduals()
+//                                                SchedualsVm.GetScheduals()
+                                                Task{
+                                                    await fetchScheduals()
+                                                }
                                             }
                                         }
                                         .id(schedual)
@@ -202,7 +205,10 @@ struct TeacherHomeView: View {
                                             if let totalCount = SchedualsVm.StudentScheduals?.totalCount, scheduals.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 SchedualsVm.skipCount += SchedualsVm.maxResultCount
-                                                SchedualsVm.GetScheduals()
+//                                                SchedualsVm.GetScheduals()
+                                                Task{
+                                                    await fetchScheduals()
+                                                }
                                             }
                                         }
                                         .id(schedual)
@@ -240,31 +246,7 @@ struct TeacherHomeView: View {
             applyFilter()
 //            SchedualsVm.GetScheduals()
         }
-        
-        //        .onAppear{
-        ////            let dispatchGroup = DispatchGroup()
-        ////            dispatchGroup.enter()
-        ////            lookupsvm.GetSubjestForList()
-        ////            completedlessonsvm.completedLessonsList?.items?.removeAll()
-        ////            completedlessonsvm.skipCount = 0
-        ////            completedlessonsvm.GetCompletedLessons()
-        ////            dispatchGroup.leave()
-        //
-        ////            dispatchGroup.notify(queue: .main) {
-        ////                // Update the UI when all tasks are complete
-        ////                isLoading = false
-        ////            }
-        //
-        //        }
-        //        .onChange(of: tabbarvm.selectedIndex){ value in
-        //            if value == 2{
-        //                SchedualsVm.clearFilter()
-        //                SchedualsVm.TeacherScheduals?.items?.removeAll()
-        //                SchedualsVm.StudentScheduals?.items?.removeAll()
-        //                SchedualsVm.skipCount = 0
-        //                SchedualsVm.GetScheduals()
-        //            }
-        //        }
+
         .onDisappear {
             showFilter = false
             //            completedlessonsvm.cleanup()
@@ -349,18 +331,6 @@ struct TeacherHomeView: View {
                         ScrollView{
                             VStack{
                                 Group {
-                                    //                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList)
-                                    //                                        .onChange(of: filtersubject){newval in
-                                    ////                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
-                                    ////                                            {
-                                    //                                                filterlesson = nil
-                                    //                                                lookupsvm.SelectedSubjectForList = newval
-                                    ////                                            }
-                                    //                                        }
-                                    
-                                    //                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.LessonsForList)
-                                    
-                                    //                                    CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$filterstartdate,datePickerComponent:.date)
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$filterenddate,datePickerComponent:.date)
@@ -393,16 +363,17 @@ struct TeacherHomeView: View {
                     .frame(height:300)
                     .keyboardAdaptive()
                 }
-                //                .onAppear(perform: {
-                //                    lookupsvm.SelectedSubjectForList = nil
-                //                })
             }
         }
-        
-        //        if hasNavBar ?? true{
-        //            NavigationLink(destination: destination, isActive: $isPush, label: {})
-        //        }
+ 
     }
+    
+    @MainActor
+       private func fetchScheduals() async {
+           SchedualsVm.isLoading = true // Start the loading animation
+           await SchedualsVm.GetScheduals1()
+           SchedualsVm.isLoading = false // Stop the loading animation
+       }
 }
 
 #Preview {

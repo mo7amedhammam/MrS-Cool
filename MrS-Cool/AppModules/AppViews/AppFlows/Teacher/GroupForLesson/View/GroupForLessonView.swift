@@ -117,7 +117,9 @@ struct GroupForLessonView: View {
             .keyboardAdaptive()
         }
     }
-    
+    @State var showzerocosthint = false
+    @State var showsubjects = false
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Lesson")
@@ -135,11 +137,41 @@ struct GroupForLessonView: View {
                                 Group {
                                     
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList,isvalid:groupsforlessonvm.issubjectvalid)
-                                        .onChange(of: groupsforlessonvm.subject){newval in
+                                        .onChange(of: groupsforlessonvm.subject){newvalue in
                                             if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
                                                 lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
                                             }
+                                            guard let newval = newvalue else {return}
+                                            if newval.subject?.groupSessionCost == 0{
+                                                showzerocosthint = true
+                                            }else{
+                                                showzerocosthint = false
+                                            }
                                         }
+                                        .sheet(isPresented: $showsubjects, onDismiss: {
+                                            groupsforlessonvm.subject = nil
+                                            lookupsvm.GetSubjestForList()
+                                            showzerocosthint = false
+                                        }, content: {
+                                            ManageTeacherSubjectsView()
+                                        })
+                                    
+                                    if showzerocosthint {
+                                        HStack(){
+                                            Text("You Can Change Group Cost".localized())
+                                                .foregroundColor(ColorConstants.MainColor)
+                                                .font(Font.semiBold(size: 11))
+                                            Button(action: {
+                                                showsubjects = true
+                                            },label:{
+                                                Text("Click Here".localized())
+                                                    .font(Font.semiBold(size: 12))
+
+                                            })
+                                            Spacer()
+                                        }
+                                    }
+
                                     
                                     CustomDropDownField(iconName:"img_group_512388",placeholder: "Lesson", selectedOption: $groupsforlessonvm.lesson,options:lookupsvm.LessonsForList,isvalid:groupsforlessonvm.islessonvalid)
                                         .overlay(content: {

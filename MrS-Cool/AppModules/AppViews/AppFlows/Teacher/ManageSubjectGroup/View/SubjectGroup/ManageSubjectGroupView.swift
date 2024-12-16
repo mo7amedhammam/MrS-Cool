@@ -170,6 +170,9 @@ struct ManageSubjectGroupView: View {
         subjectgroupvm.AllLessonsForList = lookupsvm.AllLessonsForList
     }
     
+    @State var showzerocosthint = false
+    @State var showsubjects = false
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Subject",action: {
@@ -191,6 +194,11 @@ struct ManageSubjectGroupView: View {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
                                         .onChange(of: subjectgroupvm.subject){newval in
                                             guard let newval = newval,let id = newval.id else {return}
+                                            if newval.subject?.groupSessionCost == 0{
+                                                showzerocosthint = true
+                                            }else{
+                                                showzerocosthint = false
+                                            }
                                             
                                             Task{
                                                 await fetchlessons(id:id)
@@ -220,6 +228,29 @@ struct ManageSubjectGroupView: View {
                                             .onChange(of: subjectgroupvm.SessionPrice) { newValue in
                                                 subjectgroupvm.SessionPrice = newValue.filter { $0.isEnglish }
                                             }
+                                            .sheet(isPresented: $showsubjects, onDismiss: {
+                                                subjectgroupvm.subject = nil
+                                                lookupsvm.GetSubjestForList()
+                                                showzerocosthint = false
+                                            }, content: {
+                                                ManageTeacherSubjectsView()
+                                            })
+                                        
+                                        if showzerocosthint {
+                                            HStack(){
+                                                Text("You Can Change Group Cost".localized())
+                                                    .foregroundColor(ColorConstants.MainColor)
+                                                    .font(Font.semiBold(size: 11))
+                                                Button(action: {
+                                                    showsubjects = true
+                                                },label:{
+                                                    Text("Click Here".localized())
+                                                        .font(Font.semiBold(size: 12))
+
+                                                })
+                                                Spacer()
+                                            }
+                                        }
                                         
                                         lessonsOrder(countHints: $countHints, orderHints: $orderHints).environmentObject(subjectgroupvm)
                                     }
