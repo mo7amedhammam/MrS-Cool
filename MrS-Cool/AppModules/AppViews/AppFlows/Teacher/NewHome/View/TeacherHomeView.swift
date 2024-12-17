@@ -95,8 +95,17 @@ struct TeacherHomeView: View {
                                             showFilter = true
                                             //                                        validateFilterValues()
                                         })
+
                                 }
 //                                .padding(.top)
+                                Group{
+                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                    + Text(Date().formatDate(format: "dd MMM yyyy hh:mm a",inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,outputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current))
+                                }
+                                .foregroundColor(ColorConstants.Red400)
+                                .font(Font.bold(size: 13))
+                                .lineSpacing(5)
+
                             }
                             .padding(.horizontal)
                             

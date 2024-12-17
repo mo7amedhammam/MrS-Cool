@@ -82,7 +82,7 @@ struct ResetPasswordView: View {
 //                    isPush = true
                 passwordresset = true
 
-            }, successStep: .constant(.passwordCahnged))
+            }, successStep: .constant(.passwordReset))
         })
         
         .showHud(isShowing: $resetpasswordvm.isLoading)
