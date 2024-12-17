@@ -188,7 +188,9 @@ extension ManageTeacherSubjectLessonsVM{
     
     func UpdateTeacherSubjectLesson(){
         guard checkValidfields() else {return }
-        guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = Int(groupTime),let individualTime = Int(individualTime),let mingroup = Int(minGroup),let maxgroup = Int(maxGroup)  else {return}
+        guard let groupCost = Float(groupCost), let individualCost = Float(individualCost),let groupTime = Int(groupTime),let individualTime = Int(individualTime)
+//                ,let mingroup = Int(minGroup),let maxgroup = Int(maxGroup)
+        else {return}
         let parameters:[String:Any] = ["lessonId":editLessonId,"groupCost":groupCost,"groupDuration":groupTime,"individualCost":individualCost,"individualDuration":individualTime,
 //                                       "minGroup":mingroup,"maxGroup":maxgroup,
                                        "id":editRowId,"teacherSubjectAcademicSemesterYearId":editSubjectSemesterYearId ]

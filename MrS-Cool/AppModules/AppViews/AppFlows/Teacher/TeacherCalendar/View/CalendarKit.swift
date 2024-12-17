@@ -137,7 +137,7 @@ final class CustomCalendarExampleController: DayViewController {
                 let timeToComponents = timeToString.split(separator: ":").map { Int($0) ?? 0 }
                 
                 if timeFromComponents.count == 3, timeToComponents.count == 3 {
-                    var calendar = Calendar.current
+                    let calendar = Calendar.current
                     //                    calendar.timeZone = TimeZone(identifier: "GMT")!
                     //                        calendar.locale = Locale(identifier: "ar")
                     

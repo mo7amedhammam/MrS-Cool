@@ -724,7 +724,7 @@ struct CustomDatePickerField: View {
                             selectedDate = Date()
                             selectedDateStr = Date().formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
                         }else{
-                            print("startDate",startDate)
+//                            print("startDate",startDate)
                             selectedDate = startDate
                         }
                     }

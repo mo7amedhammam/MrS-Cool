@@ -24,7 +24,7 @@ class Helper: NSObject {
     let UserTypeKey = "setSelectedUserTypeKey"
     
     func saveUser(user: TeacherModel?) {
-        print("LoginModel : ",user)
+//        print("LoginModel : ",user)
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(user) {
 //            userDef.removeObject(forKey: UserDataKey) // Clear old data
@@ -201,7 +201,14 @@ extension UIDevice {
     {
         if #available(iOS 11.0, *)
         {
-            let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+            let keyWindow = UIApplication.shared.connectedScenes
+                           .compactMap { $0 as? UIWindowScene }
+                           .flatMap { $0.windows }
+                           .first { $0.isKeyWindow }
+
+                       let bottom = keyWindow?.safeAreaInsets.bottom ?? 0
+            
+//            let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
             return bottom > 0
         } else
         {

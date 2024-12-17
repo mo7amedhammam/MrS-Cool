@@ -446,6 +446,7 @@ class CalendarViewController: UIViewController, FSCalendarDataSource, FSCalendar
         
                 if let eventsOnDate = events[dateString] {
         // Do something with the events on the selected date
+                    print("eventsOnDate",eventsOnDate)
         selectedDateBinding?.wrappedValue = date
                 }
     }

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class TeacherHomeVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     

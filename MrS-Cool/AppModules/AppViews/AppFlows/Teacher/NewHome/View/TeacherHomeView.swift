@@ -30,18 +30,21 @@ struct TeacherHomeView: View {
     @State private var ScrollToTop = false
     
     @MainActor
-    func applyFilter() {
+    func applyFilter() async {
         SchedualsVm.filterstartdate = filterstartdate
         SchedualsVm.filterenddate = filterenddate
         
         SchedualsVm.skipCount = 0
 //        SchedualsVm.GetScheduals()
-        Task{
+//        Task{
             await fetchScheduals()
-        }
+//        }
     }
+    
+    
+    
     @MainActor
-    func clearFilter() {
+    func clearFilter() async {
         if filterstartdate != nil || filterenddate != nil{
             filterstartdate = nil
             filterenddate = nil
@@ -49,9 +52,9 @@ struct TeacherHomeView: View {
             SchedualsVm.skipCount = 0
             SchedualsVm.clearFilter()
 //            SchedualsVm.GetScheduals()
-            Task{
+//            Task{
                 await fetchScheduals()
-            }
+//            }
 
         }
     }
@@ -243,7 +246,7 @@ struct TeacherHomeView: View {
 //            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
 
 //            SchedualsVm.clearFilter()
-            applyFilter()
+           await applyFilter()
 //            SchedualsVm.GetScheduals()
         }
 
@@ -341,13 +344,13 @@ struct TeacherHomeView: View {
                                 HStack {
                                     Group{
                                         CustomButton(Title:"Apply Filter",IsDisabled: .constant(false), action: {
-                                            applyFilter()
+                                            Task{ await applyFilter() }
                                             ScrollToTop = true
                                             showFilter = false
                                         })
                                         
                                         CustomBorderedButton(Title:"Clear",IsDisabled: .constant(false), action: {
-                                            clearFilter()
+                                            Task{ await clearFilter() }
                                             ScrollToTop = true
                                             showFilter = false
                                         })
