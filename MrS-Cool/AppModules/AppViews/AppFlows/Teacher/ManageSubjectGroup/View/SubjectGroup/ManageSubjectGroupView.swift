@@ -70,7 +70,7 @@ struct ManageSubjectGroupView: View {
                     let startDate = Date()
                     CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
                     
-                    CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:.current,datePickerComponent:.hourAndMinute,isvalid:subjectgroupvm.isextraTimevalid)
+                    CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.extraTime,timeZone:TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:subjectgroupvm.isextraTimevalid)
                     
                 }
                 .padding(.top,5)
@@ -302,7 +302,7 @@ struct ManageSubjectGroupView: View {
                                         CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.day,options:lookupsvm.daysList)
                                         
                                         HStack {
-                                            CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,timeZone:.current,datePickerComponent:.hourAndMinute)
+                                            CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,timeZone:TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute)
                                         }
                                         
                                         HStack{

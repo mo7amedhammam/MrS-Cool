@@ -79,9 +79,9 @@ struct ManageTeacherSchedualsView: View {
 
                                         }
                                         
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,timeZone: .current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
+                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,timeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,timeZone: .current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isendTimevalid)
+                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,timeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isendTimevalid)
                                     }
                                     .padding([.top])
                                 }.padding(.top,20)

@@ -94,9 +94,9 @@ extension GroupForLessonVM{
         guard checkValidfields() else {return}
         guard let lessonid = lesson?.id,let date = date,let starttime = time,let endtime = endTime , let groupprice = Float(GroupPrice) else {return}
         
-        let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")),
-                                "timeFrom":starttime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current),
-                                "timeTo":endtime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current)]
+        let Dto:[String:Any] = ["date":date.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),
+                                "timeFrom":starttime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),
+                                "timeTo":endtime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current)]
         let parameters:[String:Any] = [ "groupName":groupName,
                                         "groupCost":groupprice,
                                         "teacherLessonId":lessonid,
@@ -148,7 +148,7 @@ extension GroupForLessonVM{
         if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "GMT")){
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
             parameters["startDate"] = filterdate
         }
 //        if let time = time{
@@ -266,7 +266,7 @@ extension GroupForLessonVM{
   func calculateendTime(){
         if time != nil && lesson != nil{
 
-            endTime = time?.toDate(withFormat: "hh:mm aa",inputTimeZone: .current)?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
+            endTime = time?.toDate(withFormat: "hh:mm aa",inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current)?.adding(minutes: lesson?.subTitle ?? 0).formatDate(format: "hh:mm aa") ?? ""
         }else{
             endTime = nil
         }

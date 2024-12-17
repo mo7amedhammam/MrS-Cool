@@ -13,8 +13,8 @@ struct StudentFinanceView: View {
     var dateFormatter: DateFormatter = {
         let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "dd MMM yyyy"
-        formatter.timeZone = TimeZone.current
-
+//        formatter.timeZone = TimeZone.current
+        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
 //        formatter.locale = Local(identifier: "en")
         return formatter
      }()

@@ -124,7 +124,7 @@ extension NewScheduleSlotsM {
         var dictionary: [String: Any] = [:]
 
         dictionary["dayId"] = day?.id
-        dictionary["timeFrom"] = fromTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: .current)
+        dictionary["timeFrom"] = fromTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current)
         return dictionary
     }
 }

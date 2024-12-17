@@ -15,6 +15,7 @@ struct TeacherHomeCellView: View {
     fileprivate let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
 //        formatter.timeZone = TimeZone(identifier: "GMT")
 //        formatter.locale = Locale(identifier: "en")
 
@@ -280,6 +281,7 @@ struct StudentHomeCellView: View {
     fileprivate let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
 //        formatter.timeZone = TimeZone(identifier: "GMT")
 //        formatter.locale = Locale(identifier: "en")
 
