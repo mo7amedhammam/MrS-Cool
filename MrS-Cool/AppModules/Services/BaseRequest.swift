@@ -105,7 +105,7 @@ final class BaseNetwork{
                        parameters: parameters.0,
                        encoding: parameters.1,
                        headers: headers)
-                .validate(statusCode: 200..<500) // Automatically validate acceptable response codes
+                .validate(statusCode: 200..<502) // Automatically validate acceptable response codes
                 .responseDecodable(of: M.self, decoder: JSONDecoder()) { response in
                     let elapsedTime = Date().timeIntervalSince(startTime)
                     print("Total API call time: \(elapsedTime) seconds")
@@ -175,7 +175,7 @@ final class BaseNetwork{
             encoding: parameters.1,
             headers: headers
         )
-        .validate(statusCode: 200..<500) // Validate status codes in the 200 range
+        .validate(statusCode: 200..<502) // Validate status codes in the 200 range
         .serializingDecodable(M.self) // Decode to BaseResponse
         .value
         

@@ -405,15 +405,21 @@ extension TeacherHomeVM{
 //                        clearExtraSession()
 //                        GetScheduals()
                         Task{ [weak self] in
-                            await self?.GetScheduals1()
+                            guard let self = self else {return}
+                            self.TeacherScheduals?.items?.removeAll()
+                            self.StudentScheduals?.items?.removeAll()
+                            self.skipCount = 0
+                            self.isLoading = true
+                            await self.GetScheduals1()
+                            self.isLoading = false
                         }
-                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
-                            var updatedItem = item
-                            if item.teacherLessonSessionSchedualSlotID == teachersubjectAcademicSemesterYearSlotId {
-                                updatedItem.isCancel = true
-                            }
-                            return updatedItem
-                        }
+//                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
+//                            var updatedItem = item
+//                            if item.teacherLessonSessionSchedualSlotID == teachersubjectAcademicSemesterYearSlotId {
+//                                updatedItem.isCancel = true
+//                            }
+//                            return updatedItem
+//                        }
                     })
                     isError =  true
 
