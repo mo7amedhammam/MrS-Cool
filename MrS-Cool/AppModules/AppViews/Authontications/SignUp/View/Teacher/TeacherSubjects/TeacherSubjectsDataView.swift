@@ -50,7 +50,7 @@ struct TeacherSubjectsDataView: View {
                             
                             CustomDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectvalid)
 
-                            CustomTextField(iconName:"img_group_black_900",placeholder: "Session Price *", text: $teachersubjectsvm.SessionPrice,keyboardType:.decimalPad,isvalid:teachersubjectsvm.isSessionPricevalid)
+                            CustomTextField(iconName:"img_group_black_900",placeholder: "Signup Session Price *", text: $teachersubjectsvm.SessionPrice,keyboardType:.decimalPad,isvalid:teachersubjectsvm.isSessionPricevalid)
                                 .onChange(of: teachersubjectsvm.SessionPrice) { newValue in
                                     teachersubjectsvm.SessionPrice = newValue.filter { $0.isEnglish }
                                 }

@@ -207,7 +207,7 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
-                                            guard subject.teacherCount ?? 0 > 0 else {return}
+//                                            guard subject.teacherCount ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
                                         }
