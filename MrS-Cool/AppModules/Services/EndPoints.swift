@@ -227,6 +227,9 @@ enum EndPoints: String {
 
     //MARK: - Delete Account -
     case DeleteAccount = "Settings/DeleteAccount"
+    
+//    MARK:  ----- Egyption DateTime -----
+    case GetEgyptDateTime = "Settings/GetEgyptDateTime"
 
 }
 

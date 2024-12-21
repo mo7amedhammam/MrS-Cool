@@ -59,6 +59,8 @@ class TeacherHomeVM: ObservableObject {
     //    @Published var error: Error?
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
     
+    @Published var EgyptDateTime : String?
+
     @Published var TeacherScheduals : TeacherHomeM?
     @Published var StudentScheduals : StudentHomeM?
 
@@ -153,6 +155,45 @@ extension TeacherHomeVM{
 //                .store(in: &cancellables)
 //        }
 //    }
+    
+    func GetEgyptDateTime() async{
+
+            let target = teacherServices.GetEgyptDateTime
+
+//                isLoadingComments = true
+                do{
+                    let response = try await BaseNetwork.shared.request(target, String.self)
+                    print(response)
+                    EgyptDateTime = response
+                    
+//                    if response.success == true {
+//                        
+//                        if skipCount == 0{
+//                            TeacherScheduals = response.data
+//                        }else{
+//                            TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+//                        }
+//                        
+//                    } else {
+//                        self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+//                        self.isError = true
+//                    }
+                    
+//                        self.isLoadingComments = false
+
+//                    } catch let error as NetworkError {
+//                        self.isLoadingComments = false
+//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        self.isError = true
+//        //                print("Network error: \(error.errorDescription)")
+                } catch {
+//                        self.isLoadingComments = false
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                    self.isError = true
+    //                print("Unexpected error: \(error.localizedDescription)")
+                }
+            
+        }
     
     func GetScheduals1() async{
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
@@ -357,6 +398,15 @@ extension TeacherHomeVM{
                 if receivedData.success == true {
                     //                    TeacherSubjects?.append(model)
                     //                            CalendarScheduals = receivedData.data?.convertToEvent() ?? []
+                    Task{ [weak self] in
+                        guard let self = self else {return}
+                        self.TeacherScheduals?.items?.removeAll()
+                        self.StudentScheduals?.items?.removeAll()
+                        self.skipCount = 0
+                        self.isLoading = true
+                        await self.GetScheduals1()
+                        self.isLoading = false
+                    }
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")

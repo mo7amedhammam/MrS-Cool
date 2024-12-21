@@ -100,7 +100,7 @@ struct TeacherHomeView: View {
 //                                .padding(.top)
                                 Group{
                                     Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
-                                    + Text(Date().formatDate(format: "dd MMM yyyy hh:mm a",inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,outputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current))
+                                    + Text("\(SchedualsVm.EgyptDateTime ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
                                 }
                                 .foregroundColor(ColorConstants.Red400)
                                 .font(Font.bold(size: 13))
@@ -255,6 +255,7 @@ struct TeacherHomeView: View {
 //            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
 
 //            SchedualsVm.clearFilter()
+            await SchedualsVm.GetEgyptDateTime()
            await applyFilter()
 //            SchedualsVm.GetScheduals()
         }

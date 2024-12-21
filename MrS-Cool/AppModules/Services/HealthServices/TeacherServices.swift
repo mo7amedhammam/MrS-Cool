@@ -9,6 +9,7 @@ import Alamofire
 
 enum teacherServices{
     case GetHomeScheduals(parameters : [String:Any])
+    case GetEgyptDateTime
 
     case GetTeacherProfile
     case UpdateTeacherProfile(parameters : [String:Any])
@@ -62,7 +63,9 @@ extension teacherServices:TargetType{
         switch self {
         case .GetHomeScheduals:
             return EndPoints.GetTeacherHomeCalenderSchedualPaged.rawValue
-
+        case .GetEgyptDateTime:
+            return EndPoints.GetEgyptDateTime.rawValue
+            
         case .GetTeacherProfile:
             return EndPoints.GetTeacherProfile.rawValue
         case .UpdateTeacherProfile:
@@ -183,6 +186,7 @@ extension teacherServices:TargetType{
     var method: Alamofire.HTTPMethod {
         switch self {
         case .GetTeacherProfile,
+                .GetEgyptDateTime,
                 .GetSubjectLessonsBrief,
                 .DeleteLessonMaterial,
                 .DeleteMySchedual,
@@ -215,6 +219,7 @@ extension teacherServices:TargetType{
     var parameter: parameterType {
         switch self {
         case .GetTeacherProfile,
+                .GetEgyptDateTime,
                 .GetTeacherFinance:
             return .plainRequest
             

@@ -12,90 +12,90 @@ struct TeacherHomeCellView: View {
     var cancelBtnAction : (()->())?
     var joinBtnAction : (()->())?
     
-    fileprivate let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
-//        formatter.timeZone = TimeZone(identifier: "GMT")
-//        formatter.locale = Locale(identifier: "en")
-
-//        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
-//        formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter
-    }()
+//    fileprivate let dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+////        formatter.timeZone = TimeZone(identifier: "GMT")
+////        formatter.locale = Locale(identifier: "en")
+//
+////        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
+////        formatter.locale = Locale(identifier: "en_US_POSIX")
+//        return formatter
+//    }()
     
     
     // Function to check if the event is in the past
-    func isEventInPast() -> Bool {
-        guard let eventDateStr = model.timeFrom , let timeToStr = model.timeTo else {
-            return false
-        }
-
-        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-        print("toDateTimestr: \(toDateTimeStr)")
-        
-        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-            print("Failed to parse toDateTime: \(toDateTimeStr)")
-            return false
-        }
-        print("toDateTime: \(toDateTime)")
-        
-        // Convert current time to local time zone
-         let currentTime = Date()
-
-        return toDateTime < currentTime
-    }
-
-    func isCurrentTimeWithinEventTime() -> Bool {
-        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom, let timeToStr = model.timeTo else {
-            print("One of the required date/time components is nil.")
-            return false
-        }
-
-        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-        
-//        print("From Date Time String: \(fromDateTimeStr)")
-//        print("To Date Time String: \(toDateTimeStr)")
+//    func isEventInPast() -> Bool {
+//        guard let eventDateStr = model.timeFrom , let timeToStr = model.timeTo else {
+//            return false
+//        }
 //
-        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
-              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-            print("Failed to parse fromDateTime or toDateTime.")
-            return false
-        }
-        
-        // Convert current time to local time zone
-        let currentTime = Date()
-//         let datestr = dateFormatter.string(from: Date())
-//        else{return false}
-//        guard let currentTime = dateFormatter.date(from: datestr)else{return false}
-        
-//        print("Current Time: \(currentTime)")
-//        print("Event From Time: \(fromDateTime)")
-//        print("Event To Time: \(toDateTime)")
-        
-        return currentTime >= fromDateTime && currentTime <= toDateTime
-    }
+//        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+//        print("toDateTimestr: \(toDateTimeStr)")
+//        
+//        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+//            print("Failed to parse toDateTime: \(toDateTimeStr)")
+//            return false
+//        }
+//        print("toDateTime: \(toDateTime)")
+//        
+//        // Convert current time to local time zone
+//         let currentTime = Date()
+//
+//        return toDateTime < currentTime
+//    }
+
+//    func isCurrentTimeWithinEventTime() -> Bool {
+//        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom, let timeToStr = model.timeTo else {
+//            print("One of the required date/time components is nil.")
+//            return false
+//        }
+//
+//        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+//        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+//        
+////        print("From Date Time String: \(fromDateTimeStr)")
+////        print("To Date Time String: \(toDateTimeStr)")
+////
+//        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
+//              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+//            print("Failed to parse fromDateTime or toDateTime.")
+//            return false
+//        }
+//        
+//        // Convert current time to local time zone
+//        let currentTime = Date()
+////         let datestr = dateFormatter.string(from: Date())
+////        else{return false}
+////        guard let currentTime = dateFormatter.date(from: datestr)else{return false}
+//        
+////        print("Current Time: \(currentTime)")
+////        print("Event From Time: \(fromDateTime)")
+////        print("Event To Time: \(toDateTime)")
+//        
+//        return currentTime >= fromDateTime && currentTime <= toDateTime
+//    }
     
     // Function to check if the event is not started yet
-    func isEventNotStartedYet() -> Bool {
-        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom else {
-            return false
-        }
-        
-        // Create full date string with event date and timeFrom
-        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-        
-        // Parse the date string into Date object
-        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
-            return false
-        }
-        
-        // Convert current time to local time zone
-         let currentTime = Date()
-
-        return currentTime < fromDateTime
-    }
+//    func isEventNotStartedYet() -> Bool {
+//        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom else {
+//            return false
+//        }
+//        
+//        // Create full date string with event date and timeFrom
+//        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+//        
+//        // Parse the date string into Date object
+//        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
+//            return false
+//        }
+//        
+//        // Convert current time to local time zone
+//         let currentTime = Date()
+//
+//        return currentTime < fromDateTime
+//    }
     
     var body: some View {
         VStack(alignment:.leading,spacing: 10){
@@ -154,7 +154,8 @@ struct TeacherHomeCellView: View {
 //                }
                 
                 
-                if model.isCancel == false && isCurrentTimeWithinEventTime(){
+//                if model.isCancel == false && isCurrentTimeWithinEventTime(){
+                if model.teamMeetingLink != nil {
                     Button(action: {
                         joinBtnAction?()
                     }, label: {
@@ -166,7 +167,8 @@ struct TeacherHomeCellView: View {
                     .buttonStyle(.plain)
                 }
                 
-                if model.isCancel != true && isEventNotStartedYet(){
+//                if model.isCancel != true && isEventNotStartedYet(){
+                if model.canCancel == true{
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {
@@ -187,9 +189,9 @@ struct TeacherHomeCellView: View {
                 if model.isCancel == true{
                     ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
                 }else{
-                    if isEventNotStartedYet(){
+//                    if isEventNotStartedYet(){
                         ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
-                    }
+//                    }
                 }
             }
             
@@ -278,90 +280,90 @@ struct StudentHomeCellView: View {
     var cancelBtnAction : (()->())?
     var joinBtnAction : (()->())?
     
-    fileprivate let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
-//        formatter.timeZone = TimeZone(identifier: "GMT")
-//        formatter.locale = Locale(identifier: "en")
-
-//        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
-//        formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter
-    }()
+//    fileprivate let dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+////        formatter.timeZone = TimeZone(identifier: "GMT")
+////        formatter.locale = Locale(identifier: "en")
+//
+////        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
+////        formatter.locale = Locale(identifier: "en_US_POSIX")
+//        return formatter
+//    }()
     
     
     // Function to check if the event is in the past
-    func isEventInPast() -> Bool {
-        guard let eventDateStr = model.timeFrom , let timeToStr = model.timeTo else {
-            return false
-        }
-
-        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-        print("toDateTimestr: \(toDateTimeStr)")
-        
-        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-            print("Failed to parse toDateTime: \(toDateTimeStr)")
-            return false
-        }
-        print("toDateTime: \(toDateTime)")
-        
-        // Convert current time to local time zone
-         let currentTime = Date()
-
-        return toDateTime < currentTime
-    }
-
-    func isCurrentTimeWithinEventTime() -> Bool {
-        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom, let timeToStr = model.timeTo else {
-            print("One of the required date/time components is nil.")
-            return false
-        }
-
-        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-        
-//        print("From Date Time String: \(fromDateTimeStr)")
-//        print("To Date Time String: \(toDateTimeStr)")
+//    func isEventInPast() -> Bool {
+//        guard let eventDateStr = model.timeFrom , let timeToStr = model.timeTo else {
+//            return false
+//        }
 //
-        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
-              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-            print("Failed to parse fromDateTime or toDateTime.")
-            return false
-        }
-        
-        // Convert current time to local time zone
-        let currentTime = Date()
-//         let datestr = dateFormatter.string(from: Date())
-//        else{return false}
-//        guard let currentTime = dateFormatter.date(from: datestr)else{return false}
-        
-//        print("Current Time: \(currentTime)")
-//        print("Event From Time: \(fromDateTime)")
-//        print("Event To Time: \(toDateTime)")
-        
-        return currentTime >= fromDateTime && currentTime <= toDateTime
-    }
+//        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+//        print("toDateTimestr: \(toDateTimeStr)")
+//        
+//        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+//            print("Failed to parse toDateTime: \(toDateTimeStr)")
+//            return false
+//        }
+//        print("toDateTime: \(toDateTime)")
+//        
+//        // Convert current time to local time zone
+//         let currentTime = Date()
+//
+//        return toDateTime < currentTime
+//    }
+
+//    func isCurrentTimeWithinEventTime() -> Bool {
+//        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom, let timeToStr = model.timeTo else {
+//            print("One of the required date/time components is nil.")
+//            return false
+//        }
+//
+//        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+//        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
+//        
+////        print("From Date Time String: \(fromDateTimeStr)")
+////        print("To Date Time String: \(toDateTimeStr)")
+////
+//        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
+//              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
+//            print("Failed to parse fromDateTime or toDateTime.")
+//            return false
+//        }
+//        
+//        // Convert current time to local time zone
+//        let currentTime = Date()
+////         let datestr = dateFormatter.string(from: Date())
+////        else{return false}
+////        guard let currentTime = dateFormatter.date(from: datestr)else{return false}
+//        
+////        print("Current Time: \(currentTime)")
+////        print("Event From Time: \(fromDateTime)")
+////        print("Event To Time: \(toDateTime)")
+//        
+//        return currentTime >= fromDateTime && currentTime <= toDateTime
+//    }
     
     // Function to check if the event is not started yet
-    func isEventNotStartedYet() -> Bool {
-        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom else {
-            return false
-        }
-        
-        // Create full date string with event date and timeFrom
-        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-        
-        // Parse the date string into Date object
-        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
-            return false
-        }
-        
-        // Convert current time to local time zone
-         let currentTime = Date()
-
-        return currentTime < fromDateTime
-    }
+//    func isEventNotStartedYet() -> Bool {
+//        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom else {
+//            return false
+//        }
+//        
+//        // Create full date string with event date and timeFrom
+//        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
+//        
+//        // Parse the date string into Date object
+//        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
+//            return false
+//        }
+//        
+//        // Convert current time to local time zone
+//         let currentTime = Date()
+//
+//        return currentTime < fromDateTime
+//    }
     
     var body: some View {
         VStack(alignment:.leading,spacing: 10){
@@ -378,7 +380,8 @@ struct StudentHomeCellView: View {
                     .foregroundColor(.mainBlue)
                 
                 Spacer()
-                if model.isCancel == false && isCurrentTimeWithinEventTime(){
+//                if model.isCancel == false && isCurrentTimeWithinEventTime(){
+                if model.teamMeetingLink != nil {
                     Button(action: {
                         joinBtnAction?()
                     }, label: {
@@ -390,7 +393,8 @@ struct StudentHomeCellView: View {
                     .buttonStyle(.plain)
                 }
                 
-                if model.isCancel != true && isEventNotStartedYet(){
+//                if model.isCancel != true && isEventNotStartedYet(){
+                if model.canCancel == true{
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {
@@ -404,10 +408,9 @@ struct StudentHomeCellView: View {
                 if model.isCancel == true{
                     ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
                 }else{
-                    if isEventNotStartedYet(){
+//                    if isEventNotStartedYet(){
                         ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
-
-                    }
+//                    }
                 }
             }
             HStack{
@@ -433,11 +436,9 @@ struct StudentHomeCellView: View {
 
                         Text(model.teacherName ?? "")
                             .fontWeight(.medium)
-
                     }
                     .font(Font.semiBold(size: 12.0))
 //                        .foregroundColor(ColorConstants.Black900)
-                    
                 }
                 
                 Spacer()

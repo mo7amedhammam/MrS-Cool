@@ -36,6 +36,13 @@ struct CompletedLessonCell: View {
                         .aspectRatio(contentMode: .fill)
                 })
                 .buttonStyle(.plain)
+                
+                if model.teacherAttended == false{
+                    ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                }else{
+                    ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
+                }
+                
             }
             HStack{
                 VStack (alignment:.leading,spacing: 10){

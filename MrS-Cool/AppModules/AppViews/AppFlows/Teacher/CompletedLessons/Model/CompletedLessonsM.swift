@@ -18,10 +18,12 @@ struct CompletedLessonItem: Codable,Hashable {
     var teacherLessonSessionSchedualSlotID: Int?
     var subjectName, lessonName, groupName, date: String?
     var timeFrom, timeTo: String?
+    var teacherAttended:Bool?
 
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case subjectName, lessonName, groupName, date, timeFrom, timeTo
+        case teacherAttended
     }
 }
 

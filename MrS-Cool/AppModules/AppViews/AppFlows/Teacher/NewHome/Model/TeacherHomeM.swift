@@ -25,6 +25,7 @@ struct TeacherHomeItemM: Codable,Hashable {
     var teacherAttended: Bool?
     var subjectName, sessionName: String?
     var students,groupDuration: Int?
+    var canCancel:Bool?
 
     enum CodingKeys: String, CodingKey {
         case teacherlessonID = "teacherlessonId"
@@ -32,6 +33,7 @@ struct TeacherHomeItemM: Codable,Hashable {
         case teachersubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, teacherAttended, subjectName, sessionName, students,groupDuration
+        case canCancel
     }
 }
 
@@ -51,10 +53,12 @@ struct StudentHomeItemM: Codable,Hashable {
     var lessonName, groupName, date, timeFrom,timeTo: String?
     var isCancel: Bool?
     var cancelDate, teamMeetingLink, subjectName, teacherName: String?
+    var canCancel:Bool?
     
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case bookTeacherlessonsessionDetailID = "bookTeacherlessonsessionDetailId"
         case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName
+        case canCancel
     }
 }
