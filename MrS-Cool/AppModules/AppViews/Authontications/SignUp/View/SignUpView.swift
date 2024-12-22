@@ -140,13 +140,14 @@ struct haveAccountView: View {
 
 struct SignUpHeaderTitle: View {
     var Title:String? = "Personal Information"
+    var TitleFontSize:CGFloat? = 18
     var subTitle:String?
     var subTitleView:AnyView?
 
     var body: some View {
         VStack (alignment: .leading,spacing: 5){
             Text(Title?.localized() ?? "")
-                .font(Font.bold(size:18))
+                .font(Font.bold(size:TitleFontSize ?? 18))
                 .fontWeight(.bold)
                 .lineSpacing(5)
 //                .foregroundColor(ColorConstants.Black900)

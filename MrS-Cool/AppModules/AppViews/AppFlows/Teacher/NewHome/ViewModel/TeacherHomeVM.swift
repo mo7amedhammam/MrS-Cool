@@ -51,6 +51,9 @@ class TeacherHomeVM: ObservableObject {
     }
     @Published var isextraTimevalid:Bool?
     
+    @Published var FilterAttend:Bool = false
+    @Published var FilterCancel:Bool = false
+
     //    MARK: --- outpust ---
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
@@ -156,54 +159,58 @@ extension TeacherHomeVM{
 //        }
 //    }
     
-    func GetEgyptDateTime() async{
-
-            let target = teacherServices.GetEgyptDateTime
-
-//                isLoadingComments = true
-                do{
-                    let response = try await BaseNetwork.shared.request(target, String.self)
-                    print(response)
-                    EgyptDateTime = response
-                    
-//                    if response.success == true {
-//                        
-//                        if skipCount == 0{
-//                            TeacherScheduals = response.data
-//                        }else{
-//                            TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
-//                        }
-//                        
-//                    } else {
-//                        self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
-//                        self.isError = true
-//                    }
-                    
-//                        self.isLoadingComments = false
-
-//                    } catch let error as NetworkError {
-//                        self.isLoadingComments = false
-//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                        self.isError = true
-//        //                print("Network error: \(error.errorDescription)")
-                } catch {
-//                        self.isLoadingComments = false
-                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
-                    self.isError = true
-    //                print("Unexpected error: \(error.localizedDescription)")
-                }
-            
-        }
+//    func GetEgyptDateTime() async{
+//
+//            let target = teacherServices.GetEgyptDateTime
+//
+////                isLoadingComments = true
+//                do{
+//                    let response = try await BaseNetwork.shared.request(target, String.self)
+//                    print(response)
+//                    EgyptDateTime = response
+//                    
+////                    if response.success == true {
+////                        
+////                        if skipCount == 0{
+////                            TeacherScheduals = response.data
+////                        }else{
+////                            TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+////                        }
+////                        
+////                    } else {
+////                        self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+////                        self.isError = true
+////                    }
+//                    
+////                        self.isLoadingComments = false
+//
+////                    } catch let error as NetworkError {
+////                        self.isLoadingComments = false
+////                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+////                        self.isError = true
+////        //                print("Network error: \(error.errorDescription)")
+//                } catch {
+////                        self.isLoadingComments = false
+//                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                    self.isError = true
+//    //                print("Unexpected error: \(error.localizedDescription)")
+//                }
+//            
+//        }
     
     func GetScheduals1() async{
-        var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount]
+        var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount, "isCancel":FilterCancel]
         if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
             parameters["dateFrom"] = filterstartdate
         }
         if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
             parameters["dateTo"] = filterenddate
         }
-
+        
+        if FilterAttend == true{
+            parameters["isAttend"] = FilterAttend
+        }
+        
 //        let target = teacherServices.GetAllComentsList(parameters: parameters)
 
         if Helper.shared.getSelectedUserType() == .Teacher{
@@ -493,6 +500,8 @@ extension TeacherHomeVM{
 
         filterstartdate = nil
         filterenddate = nil
+        FilterAttend = false
+        FilterCancel = false
     }
     
     private func checkValidExtraSessionfields()->Bool{

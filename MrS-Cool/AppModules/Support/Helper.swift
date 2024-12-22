@@ -180,6 +180,30 @@ extension Helper{
          }
          return "Unknown"
      }
+    
+    
+    func GetEgyptDateTime() async -> String{
+
+            let target = teacherServices.GetEgyptDateTime
+        var date = ""
+                do{
+                    let response = try await BaseNetwork.shared.request(target, String.self)
+                    print(response)
+//                    EgyptDateTime = response
+                    date = response
+
+//                    } catch let error as NetworkError {
+//                        self.isLoadingComments = false
+//                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+//                        self.isError = true
+//        //                print("Network error: \(error.errorDescription)")
+                } catch {
+//                        self.isLoadingComments = false
+                }
+            
+        return date
+        }
+    
 }
 
 //MARK: -- view helper --

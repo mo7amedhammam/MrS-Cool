@@ -26,6 +26,8 @@ struct TeacherHomeView: View {
     //    @State var destination = AnyView(EmptyView())
     @State var filterstartdate : String?
     @State var filterenddate : String?
+    @State var FilterAttend:Bool = false
+    @State var FilterCancel:Bool = false
     
     @State private var ScrollToTop = false
     
@@ -33,7 +35,9 @@ struct TeacherHomeView: View {
     func applyFilter() async {
         SchedualsVm.filterstartdate = filterstartdate
         SchedualsVm.filterenddate = filterenddate
-        
+        SchedualsVm.FilterAttend = FilterAttend
+        SchedualsVm.FilterCancel = FilterCancel
+
         SchedualsVm.skipCount = 0
 //        SchedualsVm.GetScheduals()
 //        Task{
@@ -45,9 +49,11 @@ struct TeacherHomeView: View {
     
     @MainActor
     func clearFilter() async {
-        if filterstartdate != nil || filterenddate != nil{
+        if filterstartdate != nil || filterenddate != nil || FilterAttend || FilterCancel{
             filterstartdate = nil
             filterenddate = nil
+            FilterAttend = false
+            FilterCancel = false
             
             SchedualsVm.skipCount = 0
             SchedualsVm.clearFilter()
@@ -58,6 +64,8 @@ struct TeacherHomeView: View {
 
         }
     }
+
+    @State var date:String = "\(Date().formatDate(format: "dd MMM yyyy hh:mm a"))"
 
     var body: some View {
         VStack {
@@ -98,16 +106,18 @@ struct TeacherHomeView: View {
 
                                 }
 //                                .padding(.top)
+                                
+                            }
+                            .padding(.horizontal)
+
                                 Group{
                                     Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
-                                    + Text("\(SchedualsVm.EgyptDateTime ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+                                    + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
                                 }
                                 .foregroundColor(ColorConstants.Red400)
                                 .font(Font.bold(size: 13))
                                 .lineSpacing(5)
 
-                            }
-                            .padding(.horizontal)
                             
                             if Helper.shared.getSelectedUserType() == .Teacher{
                                 ScrollViewReader{proxy in
@@ -251,15 +261,19 @@ struct TeacherHomeView: View {
             hideKeyboard()
         })
         .task {
-            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
-//            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
+            date = await Helper.shared.GetEgyptDateTime()
+            filterstartdate = date.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo:"dd MMM yyyy")
 
+//            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
+//            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
+            
+            FilterAttend = false
+            FilterCancel = false
 //            SchedualsVm.clearFilter()
-            await SchedualsVm.GetEgyptDateTime()
            await applyFilter()
 //            SchedualsVm.GetScheduals()
+//            await SchedualsVm.GetEgyptDateTime()
         }
-
         .onDisappear {
             showFilter = false
             //            completedlessonsvm.cleanup()
@@ -348,6 +362,16 @@ struct TeacherHomeView: View {
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Start Date", selectedDateStr:$filterstartdate,datePickerComponent:.date)
                                     CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "End Date", selectedDateStr:$filterenddate,datePickerComponent:.date)
                                     
+                                    HStack(spacing:30){
+                                        Toggle("Filter_Cancel".localized(), isOn: $FilterCancel)
+                                        Spacer()
+                                        Toggle("Filter_Attend".localized(), isOn: $FilterAttend)
+                                    }
+                                    .font(Font.bold(size: 13))
+                                    .padding([.horizontal,.top])
+                                    .toggleStyle(SwitchToggleStyle(tint: ColorConstants.MainColor))
+
+                                    
                                 }.padding(.top,5)
                                 
                                 Spacer()
@@ -373,7 +397,7 @@ struct TeacherHomeView: View {
                         }
                     }
                     .padding()
-                    .frame(height:300)
+                    .frame(height:360)
                     .keyboardAdaptive()
                 }
             }

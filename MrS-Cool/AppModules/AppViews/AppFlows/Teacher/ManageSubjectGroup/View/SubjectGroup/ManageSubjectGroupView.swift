@@ -173,6 +173,8 @@ struct ManageSubjectGroupView: View {
     @State var showzerocosthint = false
     @State var showsubjects = false
 
+    @State var date:String = "\(Date().formatDate(format: "dd MMM yyyy hh:mm a"))"
+
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Manage Groups For Subject",action: {
@@ -186,9 +188,19 @@ struct ManageSubjectGroupView: View {
                         Group{
                             VStack(alignment: .leading, spacing: 0){
                                 // -- Data Title --
-                                HStack(alignment: .top){
-                                    SignUpHeaderTitle(Title: "Add New Subject Group")
+                                Group{
+                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                    + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
                                 }
+                                .foregroundColor(ColorConstants.Red400)
+                                .font(Font.bold(size: 13))
+                                .lineSpacing(5)
+
+                                HStack(alignment: .top){
+                                    SignUpHeaderTitle(Title: "Add New Subject Group",TitleFontSize: 16)
+                                }
+                                .padding(.top,8)
+                                
                                 // -- inputs --
                                 Group {
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
@@ -323,7 +335,8 @@ struct ManageSubjectGroupView: View {
                                     .padding([.top])
                                 }
                                 
-                            }.padding(.top,20)
+                            }
+//                            .padding(.top,20)
                             
                             HStack {
                                 Group{
@@ -371,6 +384,8 @@ struct ManageSubjectGroupView: View {
                 subjectgroupvm.clearFilter()
 //                subjectgroupvm.GetTeacherSubjectGroups()
                 await subjectgroupvm.fetchSubjectGroups()
+                Task{date = await Helper.shared.GetEgyptDateTime()}
+
             }
             .onAppear(perform: {
                 lookupsvm.GetSubjestForList()

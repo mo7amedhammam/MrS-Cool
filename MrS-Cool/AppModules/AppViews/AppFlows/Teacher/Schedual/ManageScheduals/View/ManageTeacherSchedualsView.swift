@@ -41,6 +41,8 @@ struct ManageTeacherSchedualsView: View {
 //   }
     @State var showConfirmDelete : Bool = false
 
+    @State var date:String = "\(Date().formatDate(format: "dd MMM yyyy hh:mm a"))"
+
     var body: some View {
             VStack {
                 CustomTitleBarView(title: "Manage my Schedules")
@@ -51,9 +53,18 @@ struct ManageTeacherSchedualsView: View {
                             Group{
                                 VStack(alignment: .leading, spacing: 0){
                                     // -- Data Title --
+                                    Group{
+                                        Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                        + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+                                    }
+                                    .foregroundColor(ColorConstants.Red400)
+                                    .font(Font.bold(size: 13))
+                                    .lineSpacing(5)
+                                    
                                     HStack(alignment: .top){
                                         SignUpHeaderTitle(Title: "Add New Schedule")
                                     }
+                                    .padding(.top,5)
                                     // -- inputs --
                                     Group {
                                         CustomDropDownField(iconName:"img_vector",placeholder: "Day *", selectedOption: $manageteacherschedualsvm.day,options:lookupsvm.daysList,isvalid:manageteacherschedualsvm.isdayvalid)
@@ -76,7 +87,6 @@ struct ManageTeacherSchedualsView: View {
                                             .onChange(of: manageteacherschedualsvm.endDate){newval in
                                             guard newval != nil && manageteacherschedualsvm.startDate != nil else {return}
                                                 isStartDateBeforeEndDate = handleStartEndDate(startDate: manageteacherschedualsvm.startDate, endDate: newval)
-
                                         }
                                         
                                         CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,timeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
@@ -84,7 +94,8 @@ struct ManageTeacherSchedualsView: View {
                                         CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,timeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isendTimevalid)
                                     }
                                     .padding([.top])
-                                }.padding(.top,20)
+                                }
+//                                .padding(.top,20)
                                 
                                 HStack {
                                     Group{
@@ -138,6 +149,7 @@ struct ManageTeacherSchedualsView: View {
                 .onAppear(perform: {
                     lookupsvm.GetDays()
                     manageteacherschedualsvm.GetTeacherScheduals()
+                    Task{date = await Helper.shared.GetEgyptDateTime()}
                 })
             }
             .hideNavigationBar()
