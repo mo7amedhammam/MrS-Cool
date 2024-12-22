@@ -320,6 +320,7 @@ extension TeacherHomeVM{
                             var updatedItem = item
                             if item.teacherLessonSessionSchedualSlotID == id {
                                 updatedItem.isCancel = true
+                                updatedItem.canCancel = false
                             }
                             return updatedItem
                         }
@@ -357,7 +358,8 @@ extension TeacherHomeVM{
                         StudentScheduals?.items = StudentScheduals?.items?.map { item in
                             var updatedItem = item
                             if item.teacherLessonSessionSchedualSlotID == id {
-                                updatedItem.isCancel = true
+                                    updatedItem.isCancel = true
+                                    updatedItem.canCancel = false
                             }
                             return updatedItem
                         }
