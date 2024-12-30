@@ -108,7 +108,6 @@
 "Create New Account" = "إنشاء حساب جديد";
 "Create New Group For Lesson" = "إنشاء مجموعة جديدة للدرس";
 "Creating a new event" = "إنشاء حدث جديد";
-"Current Balance" = "الرصيد الحالي";
 "Current Time:" = "الوقت الحالي:";
 "Current Wallet Balance" = "رصيد المحفظة الحالي";
 "Current password *" = "كلمة المرور الحالية *";
@@ -575,7 +574,6 @@
 "Welcome To Mr.S-cool..." = "مرحبًا بك في مستر سكول...";
 "Welcome to Mr Scool" = "مرحبًا بك في مستر سكول";
 "Yes" = "نعم";
-"You Earned" = "لقد ربحت";
 "You Have To Select Child First" = "يجب عليك اختيار الطفل أولاً";
 "You Must Enter YOUR Subject Price First To Can Access To This Page" = "يجب إدخال سعر المادة الخاصة بك أولاً للوصول إلى هذه الصفحة";
 "You have to login first" = "يجب عليك تسجيل الدخول أولاً";
@@ -673,3 +671,11 @@
 "Filter_Attend" = "الحضور";
 
 "Join Now" = "انضم الآن";
+
+"Total Purchases" = "إجمالي المشتريات";
+"Current Balance" = "الرصيد الحالي";
+"You Earned" = "لقد ربحت";
+"Remaining" = "المتبقي";
+"Teacher Not Attend" = "إجمالي عدم حضوري";
+"Student Not Attend" = "الطلاب الذين لم يحضروا";
+"Total Canceled" = "إجمالي الملغي";

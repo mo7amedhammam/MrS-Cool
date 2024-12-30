@@ -117,7 +117,7 @@ struct TeacherHomeView: View {
                                 .foregroundColor(ColorConstants.Red400)
                                 .font(Font.bold(size: 13))
                                 .lineSpacing(5)
-
+                                .padding(.horizontal)
                             
                             if Helper.shared.getSelectedUserType() == .Teacher{
                                 ScrollViewReader{proxy in

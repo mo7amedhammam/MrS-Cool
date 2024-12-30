@@ -11,11 +11,13 @@ import Foundation
 struct TeacherFinanceM: Codable {
     var totalIncome:Double?
     var totalDue: Double?
-    var nextCycleDue: Double?
+    var remaining,totalStudentNotattend,totalTeacherNotattend,totalCanceled,totalPurchases: Double?
+//    var nextCycleDue: Double?
     enum CodingKeys: String, CodingKey {
         case totalIncome
         case totalDue
-        case nextCycleDue
+        case remaining,totalStudentNotattend,totalTeacherNotattend,totalCanceled,totalPurchases
+//        case nextCycleDue
     }
 }
 

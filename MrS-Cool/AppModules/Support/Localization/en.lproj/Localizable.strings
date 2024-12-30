@@ -108,7 +108,6 @@
 "Create New Account" = "Create New Account";
 "Create New Group For Lesson" = "Create New Group For Lesson";
 "Creating a new event" = "Creating a new event";
-"Current Balance" = "Current Balance";
 "Current Time:" = "Current Time:";
 "Current Wallet Balance" = "Current Wallet Balance";
 "Current password *" = "Current password *";
@@ -580,7 +579,6 @@
 "Welcome To Mr.S-cool..." = "Welcome To Mr.S-cool...";
 "Welcome to Mr Scool" = "Welcome to Mr Scool";
 "Yes" = "Yes";
-"You Earned" = "You Earned";
 "You Have To Select Child First" = "You Have To Select Child First";
 "You Must Enter YOUR  Subject Price First To Can Access To This Page" = "You Must Enter YOUR  Subject Price First To Can Access To This Page";
 "You have to login first" = "You have to login first";
@@ -678,3 +676,12 @@
 
 
 "Join Now" = "Join Now";
+
+"Total Purchases" = "Total purchases";
+"Current Balance" = "Current balance";
+"You Earned" = "You earned";
+"Remaining" = "Remaining";
+"Teacher Not Attend" = "Teacher not attend";
+"Student Not Attend" = "Student not attend";
+"Total Canceled" = "Total canceled";
+

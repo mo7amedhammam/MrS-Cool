@@ -93,6 +93,8 @@ struct TeacherFinanceView: View {
 //        }
 //    }
     
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+
     var body: some View {
         VStack {
                 VStack (alignment: .leading,spacing:0){
@@ -102,58 +104,181 @@ struct TeacherFinanceView: View {
                         .padding(.bottom)
                     
                     Group{
-                        HStack(spacing:10){
-                        VStack(spacing:0){
-                            HStack(spacing: 10){
-                                Image("moneyicon")
-                                    .resizable()
-                                    .renderingMode(.template)
-                                    .foregroundColor(.mainBlue )
-                                    .frame(width: 20,height: 20, alignment: .center)
-                                Text("Current Balance".localized())
-                                    .font(Font.regular(size: 12))
-                                    .foregroundColor(.mainBlue)
-                                Spacer()
-                            }
-                            .padding([.top,.leading],10)
+//                        VStack(spacing:10){
+                        LazyVGrid(columns: columns, spacing: 8) {
                             
-                            VStack(alignment:.trailing,spacing:0){
-                                HStack(spacing:0){
-                                    Text("\(financevm.Finance?.totalDue ?? 0,specifier:"%.2f") ")
-                                    Text("LE".localized())
-                                }
-                                .font(Font.bold(size: 24))
-                                .foregroundColor(.mainBlue)
-                            }
-                        }
-                        .padding(.bottom,10)
-                        .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+                            MoneyEarnedCell(Title: "Total Purchases", Value: financevm.Finance?.totalPurchases)
 
-                            VStack(spacing:0){
-                                HStack(spacing: 10){
-                                    Image("moneyicon")
-                                        .resizable()
-                                        .renderingMode(.template)
-                                        .foregroundColor(.mainBlue )
-                                        .frame(width: 20,height: 20, alignment: .center)
-                                    Text("You Earned".localized())
-                                        .font(Font.regular(size: 12))
-                                        .foregroundColor(ColorConstants.LightGreen800)
-                                    Spacer()
-                                }
-                                .padding([.top,.leading],10)
-                                
-                                VStack(alignment:.trailing,spacing:0){
-                                    HStack(spacing:0){
-                                        Text("\(financevm.Finance?.totalIncome ?? 0,specifier:"%.2f") ")
-                                        Text("LE".localized())
-                                    }
-                                    .font(Font.bold(size: 24))
-                                    .foregroundColor(ColorConstants.LightGreen800)
-                                }
-                            }
-                            .padding(.bottom,10)
-                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+                            MoneyEarnedCell(Title: "Current Balance", Value: financevm.Finance?.totalDue)
+                            
+                            MoneyEarnedCell(Title: "You Earned", Titlecolor: ColorConstants.LightGreen800, Value: financevm.Finance?.totalIncome, Valuecolor: ColorConstants.LightGreen800)
+
+                            MoneyEarnedCell(Title: "Remaining", Value: financevm.Finance?.remaining)
+
+                            MoneyEarnedCell(Title: "Teacher Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalTeacherNotattend, Valuecolor: ColorConstants.Red400)
+
+                            MoneyEarnedCell(Title: "Student Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalStudentNotattend, Valuecolor: ColorConstants.Red400)
+
+                            MoneyEarnedCell(Title: "Total Canceled", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalCanceled, Valuecolor: ColorConstants.Red400)
+
+
+                            
+//                            VStack(spacing:0){
+//                                HStack(spacing: 10){
+//                                    Image("moneyicon")
+//                                        .resizable()
+//                                        .renderingMode(.template)
+//                                        .foregroundColor(.mainBlue )
+//                                        .frame(width: 20,height: 20, alignment: .center)
+//                                    Text("You Earned".localized())
+//                                        .font(Font.regular(size: 12))
+//                                        .foregroundColor(ColorConstants.LightGreen800)
+//                                    Spacer()
+//                                }
+//                                .padding([.top,.leading],10)
+//                                
+//                                VStack(alignment:.trailing,spacing:0){
+//                                    HStack(spacing:0){
+//                                        Text("\(financevm.Finance?.totalIncome ?? 0,specifier:"%.2f") ")
+//                                        Text("LE".localized())
+//                                    }
+//                                    .font(Font.bold(size: 24))
+//                                    .foregroundColor(ColorConstants.LightGreen800)
+//                                }
+//                            }
+//                            .padding(.bottom,10)
+//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+//                            
+
+//                            VStack(spacing:0){
+//                                HStack(spacing: 10){
+//                                    Image("moneyicon")
+//                                        .resizable()
+//                                        .renderingMode(.template)
+//                                        .foregroundColor(.mainBlue )
+//                                        .frame(width: 20,height: 20, alignment: .center)
+//                                    Text("Remaining".localized())
+//                                        .font(Font.regular(size: 12))
+//                                        .foregroundColor(.mainBlue)
+//                                    Spacer()
+//                                }
+//                                .padding([.top,.leading],10)
+//                                
+//                                VStack(alignment:.trailing,spacing:0){
+//                                    HStack(spacing:0){
+//                                        Text("\(financevm.Finance?.remaining ?? 0,specifier:"%.2f") ")
+//                                        Text("LE".localized())
+//                                    }
+//                                    .font(Font.bold(size: 24))
+//                                    .foregroundColor(.mainBlue)
+//                                }
+//                            }
+//                            .padding(.bottom,10)
+//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+                            
+//                            VStack(spacing:0){
+//                                HStack(spacing: 10){
+//                                    Image("moneyicon")
+//                                        .resizable()
+//                                        .renderingMode(.template)
+//                                        .foregroundColor(.mainBlue )
+//                                        .frame(width: 20,height: 20, alignment: .center)
+//                                    Text("Student Not Attend".localized())
+//                                        .font(Font.regular(size: 12))
+//                                        .foregroundColor(ColorConstants.Red400)
+//                                    Spacer()
+//                                }
+//                                .padding([.top,.leading],10)
+//                                
+//                                VStack(alignment:.trailing,spacing:0){
+//                                    HStack(spacing:0){
+//                                        Text("\(financevm.Finance?.totalStudentNotattend ?? 0,specifier:"%.2f") ")
+//                                        Text("LE".localized())
+//                                    }
+//                                    .font(Font.bold(size: 24))
+//                                    .foregroundColor(ColorConstants.Red400)
+//                                }
+//                            }
+//                            .padding(.bottom,10)
+//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+                            
+//                            VStack(spacing:0){
+//                                HStack(spacing: 10){
+//                                    Image("moneyicon")
+//                                        .resizable()
+//                                        .renderingMode(.template)
+//                                        .foregroundColor(.mainBlue )
+//                                        .frame(width: 20,height: 20, alignment: .center)
+//                                    Text("Teacher Not Attend".localized())
+//                                        .font(Font.regular(size: 12))
+//                                        .foregroundColor(ColorConstants.Red400)
+//                                    Spacer()
+//                                }
+//                                .padding([.top,.leading],10)
+//                                
+//                                VStack(alignment:.trailing,spacing:0){
+//                                    HStack(spacing:0){
+//                                        Text("\(financevm.Finance?.totalTeacherNotattend ?? 0,specifier:"%.2f") ")
+//                                        Text("LE".localized())
+//                                    }
+//                                    .font(Font.bold(size: 24))
+//                                    .foregroundColor(ColorConstants.Red400)
+//                                }
+//                            }
+//                            .padding(.bottom,10)
+//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+                            
+//                            VStack(spacing:0){
+//                                HStack(spacing: 10){
+//                                    Image("moneyicon")
+//                                        .resizable()
+//                                        .renderingMode(.template)
+//                                        .foregroundColor(.mainBlue )
+//                                        .frame(width: 20,height: 20, alignment: .center)
+//                                    Text("Total Canceled".localized())
+//                                        .font(Font.regular(size: 12))
+//                                        .foregroundColor(ColorConstants.Red400)
+//                                    Spacer()
+//                                }
+//                                .padding([.top,.leading],10)
+//                                
+//                                VStack(alignment:.trailing,spacing:0){
+//                                    HStack(spacing:0){
+//                                        Text("\(financevm.Finance?.totalCanceled ?? 0,specifier:"%.2f") ")
+//                                        Text("LE".localized())
+//                                    }
+//                                    .font(Font.bold(size: 24))
+//                                    .foregroundColor(ColorConstants.Red400)
+//                                }
+//                            }
+//                            .padding(.bottom,10)
+//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+
+//                            VStack(spacing:0){
+//                                HStack(spacing: 10){
+//                                    Image("moneyicon")
+//                                        .resizable()
+//                                        .renderingMode(.template)
+//                                        .foregroundColor(.mainBlue )
+//                                        .frame(width: 20,height: 20, alignment: .center)
+//                                    Text("Total Purchases".localized())
+//                                        .font(Font.regular(size: 12))
+//                                        .foregroundColor(.mainBlue)
+//                                    Spacer()
+//                                }
+//                                .padding([.top,.leading],10)
+//                                
+//                                VStack(alignment:.trailing,spacing:0){
+//                                    HStack(spacing:0){
+//                                        Text("\(financevm.Finance?.totalPurchases ?? 0,specifier:"%.2f") ")
+//                                        Text("LE".localized())
+//                                    }
+//                                    .font(Font.bold(size: 24))
+//                                    .foregroundColor(.mainBlue)
+//                                }
+//                            }
+//                            .padding(.bottom,10)
+//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
                             
                             
 //                        VStack(spacing:0){
@@ -482,3 +607,41 @@ struct TeacherFinanceView: View {
 }
 
 
+
+
+struct MoneyEarnedCell : View {
+    var Title:String?
+    var Titlecolor:Color?
+    var TitleFont:Font?
+    var Value:Double?
+    var Valuecolor:Color?
+    var ValueFont:Font?
+
+    var body: some View {
+        VStack(spacing:0){
+            HStack(spacing: 10){
+                Image("moneyicon")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(.mainBlue )
+                    .frame(width: 20,height: 20, alignment: .center)
+                Text(Title?.localized() ?? "")
+                    .font(TitleFont ?? Font.regular(size: 12))
+                    .foregroundColor(Titlecolor ?? .mainBlue)
+                Spacer()
+            }
+            .padding([.top,.leading],10)
+            
+            VStack(alignment:.trailing,spacing:0){
+                HStack(spacing:0){
+                    Text("\(Value ?? 0,specifier:"%.2f") ")
+                    Text("LE".localized())
+                }
+                .font(ValueFont ?? Font.bold(size: 24))
+                .foregroundColor(Valuecolor ?? .mainBlue)
+            }
+        }
+        .padding(.bottom,10)
+        .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
+    }
+}

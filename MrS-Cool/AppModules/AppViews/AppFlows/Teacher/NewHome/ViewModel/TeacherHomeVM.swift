@@ -360,6 +360,7 @@ extension TeacherHomeVM{
                             if item.teacherLessonSessionSchedualSlotID == id {
                                     updatedItem.isCancel = true
                                     updatedItem.canCancel = false
+                                    updatedItem.teamMeetingLink = nil
                             }
                             return updatedItem
                         }
