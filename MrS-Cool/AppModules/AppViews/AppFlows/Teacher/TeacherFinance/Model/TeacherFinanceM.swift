@@ -26,7 +26,6 @@ struct TeacherFinanceSubjectsAndLessonsM: Codable {
     var items: [TeacherFinanceItem]?
     var totalCount: Int?
 }
-
 // MARK: - Item
 struct TeacherFinanceItem : Codable ,Equatable,Hashable{
     var subjectOrLessonID: Int?
@@ -35,10 +34,20 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
     var profit: Double?
     var count: Int?
 
+    var teacherLessonSessionId:Int?
+    var studentAttend:Int?
+    var studentNotAttend:Int?
+    var studentCanceled:Int?
+    var teacherCanceled:Int?
+    var teacherAttended:Bool?
+    var extraSession:Bool?
+
     enum CodingKeys: String, CodingKey {
         case subjectOrLessonID = "subjectId"
         case subjectOrLessonName = "subjectName"
         case profit,count
+        
+        case teacherLessonSessionId,studentAttend,studentNotAttend,studentCanceled,teacherCanceled,teacherAttended,extraSession
     }
     
     init() {
@@ -47,7 +56,15 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
 //           self.teacherName = nil
            self.profit = nil
            self.count = nil
-       }
+        
+        self.teacherLessonSessionId = nil
+        self.studentAttend = nil
+        self.studentNotAttend = nil
+        self.studentCanceled = nil
+        self.teacherCanceled = nil
+        self.teacherAttended = nil
+        self.extraSession = nil
+    }
     
     enum AlternativeCodingKeys: String, CodingKey {
         case lessonName
@@ -76,6 +93,14 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
             let alternativeContainer = try decoder.container(keyedBy: AlternativeCodingKeys.self)
             subjectOrLessonID = try? alternativeContainer.decodeIfPresent(Int.self, forKey: .lessonId)
         }
+        
+        teacherLessonSessionId = try? container.decodeIfPresent(Int.self, forKey: .teacherLessonSessionId)
+        studentAttend = try? container.decodeIfPresent(Int.self, forKey: .studentAttend)
+        studentCanceled = try? container.decodeIfPresent(Int.self, forKey: .studentCanceled)
+        studentNotAttend = try? container.decodeIfPresent(Int.self, forKey: .studentNotAttend)
+        teacherCanceled = try? container.decodeIfPresent(Int.self, forKey: .teacherCanceled)
+        teacherAttended = try? container.decodeIfPresent(Bool.self, forKey: .teacherAttended)
+        extraSession = try? container.decodeIfPresent(Bool.self, forKey: .extraSession)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -93,6 +118,15 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         if let subjectOrLessonID = subjectOrLessonID {
             try container.encode(subjectOrLessonID, forKey: .subjectOrLessonID)
         }
+        
+        try container.encodeIfPresent(teacherLessonSessionId, forKey: .teacherLessonSessionId)
+        try container.encodeIfPresent(studentAttend, forKey: .studentAttend)
+        try container.encodeIfPresent(studentNotAttend, forKey: .studentNotAttend)
+        try container.encodeIfPresent(studentCanceled, forKey: .studentCanceled)
+        try container.encodeIfPresent(teacherCanceled, forKey: .teacherCanceled)
+        try container.encodeIfPresent(teacherAttended, forKey: .teacherAttended)
+        try container.encodeIfPresent(extraSession, forKey: .extraSession)
+
     }
     
 }

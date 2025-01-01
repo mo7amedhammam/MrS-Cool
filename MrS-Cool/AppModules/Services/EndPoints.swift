@@ -221,6 +221,7 @@ enum EndPoints: String {
     case GetTeacherFinance = "Teacher/TeacherFinance"
     case GetTeacherdPurchasedFinanceLessons = "Teacher/TeacherPurchasedLessons"
     case GetTeacherPurchasedFinanceSubjects = "Teacher/TeacherPurchasedSubjects"
+    case GetTeacherLessonsForSubjectGroup = "Teacher/TeacherLessonsForSubjectGroup"
     
     //MARK: - Student Add Rate -
     case StudentAddRate = "TeacherLesson/StudentAddRate"

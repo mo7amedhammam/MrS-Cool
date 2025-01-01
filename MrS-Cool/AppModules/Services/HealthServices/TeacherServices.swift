@@ -54,6 +54,7 @@ enum teacherServices{
         
     case GetTeacherFinance
     case GetTeacherFinanceSubjects(FinanceFor : StudentFinanceCases ,parameters : [String:Any])
+    case GetTeacherLessonsForSubjectGroup(parameters : [String:Any])
 
     case GetTeacherRates(parameters : [String:Any])
 }
@@ -176,6 +177,8 @@ extension teacherServices:TargetType{
             case .Lessons:
                 return EndPoints.GetTeacherdPurchasedFinanceLessons.rawValue
             }
+        case .GetTeacherLessonsForSubjectGroup:
+            return EndPoints.GetTeacherLessonsForSubjectGroup.rawValue
 
         case .GetTeacherRates:
             return EndPoints.GetTeacherRates.rawValue
@@ -195,7 +198,7 @@ extension teacherServices:TargetType{
                 .GetMyCompletedLessonDetails,
                 .GetMyCalenderSchedual,.cancelMyCalenderSchedual,.AttendanceStudentCalenderSchedual,
                 .GetAllComentsList,.GetAllComentsListById,
-                .GetTeacherFinance:
+                .GetTeacherFinance,.GetTeacherLessonsForSubjectGroup:
             return .get
             
         case  .GetHomeScheduals,
@@ -232,9 +235,10 @@ extension teacherServices:TargetType{
                 .GetMyCompletedLessonDetails(parameters: let Parameters),
                 .GetMyCalenderSchedual(parameters:let Parameters),
                 .cancelMyCalenderSchedual(parameters: let Parameters),
-                .AttendanceStudentCalenderSchedual(parameters: let Parameters)
+                .AttendanceStudentCalenderSchedual(parameters: let Parameters),
 //                .GetAllComentsList(parameters: let Parameters),
 //                .GetAllComentsListById(parameters: let Parameters)
+                .GetTeacherLessonsForSubjectGroup(parameters: let Parameters)
             :
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             

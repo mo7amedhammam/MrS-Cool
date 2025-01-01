@@ -38,6 +38,7 @@ class TeacherFinanceVM: ObservableObject {
     @Published var Finance : TeacherFinanceM?
     @Published var PurchasedLessons : TeacherFinanceSubjectsAndLessonsM?
     @Published var PurchasedSubjects : TeacherFinanceSubjectsAndLessonsM?
+    @Published var TeacherLessonsForSubjectGroup : TeacherFinanceSubjectsAndLessonsM?
 
     init()  {
 //        GetFinance()
@@ -149,6 +150,41 @@ extension TeacherFinanceVM{
                             PurchasedLessons?.items?.append(contentsOf: receivedData.data?.items ?? [])
                         }
                     }
+                }else{
+                    isError =  true
+                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
+                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
+                }
+                isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+    
+    
+    func GetTeacherLessonsForSubjectGroup(TeacherLessonSessionId:Int){
+        var parameters:[String:Any] = ["TeacherLessonSessionId":TeacherLessonSessionId]
+
+        print("parameters",parameters)
+        let target = teacherServices.GetTeacherLessonsForSubjectGroup(parameters: parameters)
+        isLoading = true
+        BaseNetwork.CallApi(target, BaseResponse<TeacherFinanceSubjectsAndLessonsM>.self)
+//            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: {[weak self] completion in
+                guard let self = self else{return}
+                isLoading = false
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    isError =  true
+                    self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+                }
+            },receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+                if receivedData.success == true {
+                            TeacherLessonsForSubjectGroup = receivedData.data
+//                            print("PurchasedSubjects---------\n",PurchasedSubjects)
                 }else{
                     isError =  true
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
