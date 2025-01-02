@@ -38,7 +38,9 @@ class TeacherFinanceVM: ObservableObject {
     @Published var Finance : TeacherFinanceM?
     @Published var PurchasedLessons : TeacherFinanceSubjectsAndLessonsM?
     @Published var PurchasedSubjects : TeacherFinanceSubjectsAndLessonsM?
-    @Published var TeacherLessonsForSubjectGroup : TeacherFinanceSubjectsAndLessonsM?
+    
+//    @Published var showSubjectLessonsSheet = false
+    @Published var TeacherLessonsForSubjectGroup : [TeacherFinanceItem]?
 
     init()  {
 //        GetFinance()
@@ -160,14 +162,14 @@ extension TeacherFinanceVM{
             .store(in: &cancellables)
     }
     
-    
     func GetTeacherLessonsForSubjectGroup(TeacherLessonSessionId:Int){
-        var parameters:[String:Any] = ["TeacherLessonSessionId":TeacherLessonSessionId]
+//        showSubjectLessonsSheet = true
+        let parameters:[String:Any] = ["TeacherLessonSessionId":TeacherLessonSessionId]
 
         print("parameters",parameters)
         let target = teacherServices.GetTeacherLessonsForSubjectGroup(parameters: parameters)
         isLoading = true
-        BaseNetwork.CallApi(target, BaseResponse<TeacherFinanceSubjectsAndLessonsM>.self)
+        BaseNetwork.CallApi(target, BaseResponse<[TeacherFinanceItem]>.self)
 //            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}

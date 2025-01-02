@@ -94,7 +94,66 @@ struct TeacherFinanceView: View {
 //    }
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-
+    @State var showSubjectLessonsSheet = false
+    
+    @ViewBuilder
+    fileprivate func PurchasedLessonsList() -> some View {
+        if let lessons = financevm.PurchasedLessons?.items{
+            List(lessons, id:\.self) { lesson in
+                TeacherFinanceCellView(financese: .Lessons, model: lesson)
+                    .padding(.vertical,0)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .onAppear {
+                        guard lesson == lessons.last else {return}
+                        
+                        if let totalCount = financevm.PurchasedLessons?.totalCount, lessons.count < totalCount {
+                            // Load the next page if there are more items to fetch
+                            financevm.lessonsSkipCount += financevm.maxResultCount
+                            financevm.GetPurchasedFor(financese: .Lessons)
+                            //                                                financevm.GetPurchasedLessons()
+                        }
+                    }
+            }
+            .padding(.horizontal,-15)
+            .listStyle(.plain)
+            .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count)*80+30)
+            //                                .frame(minHeight: gr.size.height)
+        }
+    }
+    
+    @ViewBuilder
+    fileprivate func PurchasedSubjects() -> some View {
+        if let Subjects = financevm.PurchasedSubjects?.items{
+            List(Subjects, id:\.self) { Subject in
+                TeacherFinanceCellView(financese: .Subjects,model: Subject,reviewBtnAction: {
+                    guard let teacherLessonSessionId = Subject.teacherLessonSessionId else {return}
+                    showSubjectLessonsSheet = true
+                    financevm.GetTeacherLessonsForSubjectGroup(TeacherLessonSessionId: teacherLessonSessionId)
+                })
+                    .padding(.vertical,0)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .onAppear {
+                        guard Subject == Subjects.last else {return}
+                        
+                        if let totalCount = financevm.PurchasedSubjects?.totalCount, Subjects.count < totalCount {
+                            // Load the next page if there are more items to fetch
+                            financevm.subjectsSkipCount += financevm.maxResultCount
+                            financevm.GetPurchasedFor(financese: .Subjects)
+                            //                                                financevm.GetPurchasedSubjects()
+                            
+                        }
+                    }
+                    
+            }
+            .padding(.horizontal,-15)
+            .listStyle(.plain)
+            //                                .frame(minHeight: gr.size.height)
+            .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count)*80+30)
+        }
+    }
+    
     var body: some View {
         VStack {
                 VStack (alignment: .leading,spacing:0){
@@ -120,203 +179,12 @@ struct TeacherFinanceView: View {
                             MoneyEarnedCell(Title: "Student Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalStudentNotattend, Valuecolor: ColorConstants.Red400)
 
                             MoneyEarnedCell(Title: "Total Canceled", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalCanceled, Valuecolor: ColorConstants.Red400)
-
-
-                            
-//                            VStack(spacing:0){
-//                                HStack(spacing: 10){
-//                                    Image("moneyicon")
-//                                        .resizable()
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.mainBlue )
-//                                        .frame(width: 20,height: 20, alignment: .center)
-//                                    Text("You Earned".localized())
-//                                        .font(Font.regular(size: 12))
-//                                        .foregroundColor(ColorConstants.LightGreen800)
-//                                    Spacer()
-//                                }
-//                                .padding([.top,.leading],10)
-//                                
-//                                VStack(alignment:.trailing,spacing:0){
-//                                    HStack(spacing:0){
-//                                        Text("\(financevm.Finance?.totalIncome ?? 0,specifier:"%.2f") ")
-//                                        Text("LE".localized())
-//                                    }
-//                                    .font(Font.bold(size: 24))
-//                                    .foregroundColor(ColorConstants.LightGreen800)
-//                                }
-//                            }
-//                            .padding(.bottom,10)
-//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-//                            
-
-//                            VStack(spacing:0){
-//                                HStack(spacing: 10){
-//                                    Image("moneyicon")
-//                                        .resizable()
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.mainBlue )
-//                                        .frame(width: 20,height: 20, alignment: .center)
-//                                    Text("Remaining".localized())
-//                                        .font(Font.regular(size: 12))
-//                                        .foregroundColor(.mainBlue)
-//                                    Spacer()
-//                                }
-//                                .padding([.top,.leading],10)
-//                                
-//                                VStack(alignment:.trailing,spacing:0){
-//                                    HStack(spacing:0){
-//                                        Text("\(financevm.Finance?.remaining ?? 0,specifier:"%.2f") ")
-//                                        Text("LE".localized())
-//                                    }
-//                                    .font(Font.bold(size: 24))
-//                                    .foregroundColor(.mainBlue)
-//                                }
-//                            }
-//                            .padding(.bottom,10)
-//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-                            
-//                            VStack(spacing:0){
-//                                HStack(spacing: 10){
-//                                    Image("moneyicon")
-//                                        .resizable()
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.mainBlue )
-//                                        .frame(width: 20,height: 20, alignment: .center)
-//                                    Text("Student Not Attend".localized())
-//                                        .font(Font.regular(size: 12))
-//                                        .foregroundColor(ColorConstants.Red400)
-//                                    Spacer()
-//                                }
-//                                .padding([.top,.leading],10)
-//                                
-//                                VStack(alignment:.trailing,spacing:0){
-//                                    HStack(spacing:0){
-//                                        Text("\(financevm.Finance?.totalStudentNotattend ?? 0,specifier:"%.2f") ")
-//                                        Text("LE".localized())
-//                                    }
-//                                    .font(Font.bold(size: 24))
-//                                    .foregroundColor(ColorConstants.Red400)
-//                                }
-//                            }
-//                            .padding(.bottom,10)
-//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-                            
-//                            VStack(spacing:0){
-//                                HStack(spacing: 10){
-//                                    Image("moneyicon")
-//                                        .resizable()
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.mainBlue )
-//                                        .frame(width: 20,height: 20, alignment: .center)
-//                                    Text("Teacher Not Attend".localized())
-//                                        .font(Font.regular(size: 12))
-//                                        .foregroundColor(ColorConstants.Red400)
-//                                    Spacer()
-//                                }
-//                                .padding([.top,.leading],10)
-//                                
-//                                VStack(alignment:.trailing,spacing:0){
-//                                    HStack(spacing:0){
-//                                        Text("\(financevm.Finance?.totalTeacherNotattend ?? 0,specifier:"%.2f") ")
-//                                        Text("LE".localized())
-//                                    }
-//                                    .font(Font.bold(size: 24))
-//                                    .foregroundColor(ColorConstants.Red400)
-//                                }
-//                            }
-//                            .padding(.bottom,10)
-//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-                            
-//                            VStack(spacing:0){
-//                                HStack(spacing: 10){
-//                                    Image("moneyicon")
-//                                        .resizable()
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.mainBlue )
-//                                        .frame(width: 20,height: 20, alignment: .center)
-//                                    Text("Total Canceled".localized())
-//                                        .font(Font.regular(size: 12))
-//                                        .foregroundColor(ColorConstants.Red400)
-//                                    Spacer()
-//                                }
-//                                .padding([.top,.leading],10)
-//                                
-//                                VStack(alignment:.trailing,spacing:0){
-//                                    HStack(spacing:0){
-//                                        Text("\(financevm.Finance?.totalCanceled ?? 0,specifier:"%.2f") ")
-//                                        Text("LE".localized())
-//                                    }
-//                                    .font(Font.bold(size: 24))
-//                                    .foregroundColor(ColorConstants.Red400)
-//                                }
-//                            }
-//                            .padding(.bottom,10)
-//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-
-//                            VStack(spacing:0){
-//                                HStack(spacing: 10){
-//                                    Image("moneyicon")
-//                                        .resizable()
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.mainBlue )
-//                                        .frame(width: 20,height: 20, alignment: .center)
-//                                    Text("Total Purchases".localized())
-//                                        .font(Font.regular(size: 12))
-//                                        .foregroundColor(.mainBlue)
-//                                    Spacer()
-//                                }
-//                                .padding([.top,.leading],10)
-//                                
-//                                VStack(alignment:.trailing,spacing:0){
-//                                    HStack(spacing:0){
-//                                        Text("\(financevm.Finance?.totalPurchases ?? 0,specifier:"%.2f") ")
-//                                        Text("LE".localized())
-//                                    }
-//                                    .font(Font.bold(size: 24))
-//                                    .foregroundColor(.mainBlue)
-//                                }
-//                            }
-//                            .padding(.bottom,10)
-//                            .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-                            
-                            
-//                        VStack(spacing:0){
-//                            HStack(spacing: 10){
-//                                Image("moneyicon")
-//                                    .resizable()
-//                                    .renderingMode(.template)
-//                                    .foregroundColor(.mainBlue )
-//                                    .frame(width: 20,height: 20, alignment: .center)
-//                                Text("Next Payment".localized())
-//                                    .font(Font.regular(size: 12))
-//                                    .foregroundColor(.mainBlue)
-//                                Spacer()
-//                            }
-//                            .padding([.top,.leading],10)
-//                            
-//                            VStack(alignment:.trailing,spacing:0){
-//                                HStack(spacing:0){
-//                                    Text("\(financevm.Finance?.nextCycleDue ?? 0,specifier:"%.2f") ")
-//                                    Text("LE".localized())
-//                                }
-//                                .font(Font.bold(size: 24))
-//                                .foregroundColor(ColorConstants.LightGreen800)
-//                            }
-//                        }
-//                        .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])
-
                         }
                        }
                     .padding(.bottom,5)
-
                     
                     GeometryReader { gr in
                         ScrollView(.vertical,showsIndicators: false){
-//                            SignUpHeaderTitle(Title: "Purchased Lessons", subTitle: "Enter subtitle here")
-//                                .frame(maxWidth:.infinity,alignment:.leading)
-//                                .foregroundStyle(Color.mainBlue)
-//                                .padding(.vertical)
                             
                             HStack(){
                                 SignUpHeaderTitle(Title: "Purchased Lessons")
@@ -335,34 +203,8 @@ struct TeacherFinanceView: View {
                                     })
                             }.padding(.top)
                             
-                            if let lessons = financevm.PurchasedLessons?.items{
-                                List(lessons, id:\.self) { lesson in
-                                    TeacherFinanceCellView(financese: .Lessons, model: lesson)
-                                        .padding(.vertical,0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                        .onAppear {
-                                            guard lesson == lessons.last else {return}
-                                            
-                                            if let totalCount = financevm.PurchasedLessons?.totalCount, lessons.count < totalCount {
-                                                // Load the next page if there are more items to fetch
-                                                financevm.lessonsSkipCount += financevm.maxResultCount
-                                                financevm.GetPurchasedFor(financese: .Lessons)
-//                                                financevm.GetPurchasedLessons()
-                                            }
-                                        }
-                                }
-                                .padding(.horizontal,-15)
-                                .listStyle(.plain)
-                                .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count)*80+30)
-//                                .frame(minHeight: gr.size.height)
-                            }
-                            
-//                            SignUpHeaderTitle(Title: "Purchased Subjects", subTitle: "Enter subtitle here")
-//                                .frame(maxWidth:.infinity,alignment:.leading)
-//                                .foregroundStyle(Color.mainBlue)
-//                                .padding(.vertical)
-                            
+                            PurchasedLessonsList()
+                                                        
                             HStack(){
                                 SignUpHeaderTitle(Title: "Purchased Subjects")
                                     .frame(maxWidth:.infinity,alignment:.leading)
@@ -380,30 +222,7 @@ struct TeacherFinanceView: View {
                                     })
                             }
                             
-                            if let Subjects = financevm.PurchasedSubjects?.items{
-                                List(Subjects, id:\.self) { Subject in
-                                    TeacherFinanceCellView(financese: .Subjects,model: Subject)
-                                        .padding(.vertical,0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                        .onAppear {
-                                            guard Subject == Subjects.last else {return}
-                                            
-                                            if let totalCount = financevm.PurchasedSubjects?.totalCount, Subjects.count < totalCount {
-                                                // Load the next page if there are more items to fetch
-                                                financevm.subjectsSkipCount += financevm.maxResultCount
-                                                financevm.GetPurchasedFor(financese: .Subjects)
-//                                                financevm.GetPurchasedSubjects()
-
-                                            }
-                                        }
-                                }
-                                .padding(.horizontal,-15)
-                                .listStyle(.plain)
-//                                .frame(minHeight: gr.size.height)
-                                .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count)*80+30)
-
-                            }
+                            PurchasedSubjects()
                         }
                         .frame(minHeight: gr.size.height)
                         .padding(.top)
@@ -599,15 +418,18 @@ struct TeacherFinanceView: View {
                 }
             }
         }
+        .sheet(isPresented: $showSubjectLessonsSheet, onDismiss: {
+            financevm.GetPurchasedFor(financese: .Lessons)
+        }, content: {
+            TeacherLessonsForSubjectGroupView()
+                .environmentObject(financevm)
+        })
     }
 }
 
 #Preview {
     TeacherFinanceView()
 }
-
-
-
 
 struct MoneyEarnedCell : View {
     var Title:String?

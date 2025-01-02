@@ -143,6 +143,7 @@
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
 		C8AAF1672CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 in Resources */ = {isa = PBXBuildFile; fileRef = C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */; };
 		C8AAF16A2CC5028300F2F235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */; };
+		C8AC4E9A2D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AC4E992D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift */; };
 		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
 		C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */; };
 		C8B72C222B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C212B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift */; };
@@ -363,6 +364,7 @@
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MWKRLV5AU5.p8; sourceTree = "<group>"; };
 		C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C8AC4E992D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherLessonsForSubjectGroupView.swift; sourceTree = "<group>"; };
 		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		C8B72C212B322D7800E36C33 /* TeacherCalendarSvhedualsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherCalendarSvhedualsVM.swift; sourceTree = "<group>"; };
@@ -2263,6 +2265,7 @@
 			children = (
 				C8F938D42C92F4D400C4A0B4 /* TeacherFinanceView.swift */,
 				C8FD483C2C959C220019FA31 /* TeacherFinanceCellView.swift */,
+				C8AC4E992D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2747,6 +2750,7 @@
 				C899E3E72ADE8ED300593369 /* CustomTitleBarView.swift in Sources */,
 				C8A529B32BB4640A005F54BE /* AddExistingStudentPhone.swift in Sources */,
 				C8DDFB5E2B3B1B8200C785D4 /* ChatListVM.swift in Sources */,
+				C8AC4E9A2D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift in Sources */,
 				C87A49182B4ACA6D00C82945 /* StudentHomeM.swift in Sources */,
 				C89907DC2BA733D300FC6D23 /* ListChildrenM.swift in Sources */,
 				C83837062B1B4AFC00000DA3 /* GroupForLessonM.swift in Sources */,

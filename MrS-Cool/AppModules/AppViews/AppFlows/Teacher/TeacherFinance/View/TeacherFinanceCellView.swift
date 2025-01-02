@@ -10,6 +10,7 @@ import SwiftUI
 struct TeacherFinanceCellView: View {
     var financese:StudentFinanceCases = .Lessons
     var model = TeacherFinanceItem()
+    var reviewBtnAction : (()->())?
 
     var body: some View {
         VStack {
@@ -34,20 +35,45 @@ struct TeacherFinanceCellView: View {
                 
                 Spacer()
                 
+//                if financese == .Lessons{
+//                    Button(action: {
+//                        reviewBtnAction?()
+//                    }, label: {
+//                        Image("img_group8733_gray_908")
+//                            .resizable()
+//                            .frame(width: 20, height: 15,alignment: .leading)
+//                            .aspectRatio(contentMode: .fill)
+//                    })
+//                    .buttonStyle(.plain)
+//                }
+                
                 VStack(alignment: .trailing){
                     switch financese {
                     case .Subjects:
-                        Text(subjectOrLessonName)
-                            .font(Font.bold(size:12))
-                            .lineLimit(2)
-                            .lineSpacing(8)
-                        //                        HStack(spacing:0){
-                        //                            Text("\(Part4)").font(Font.semiBold(size:13.0))
-                        //                            Text(", ").font(Font.semiBold(size:13.0))
-                        //
-                        //                            Text("\(Part5)").font(Font.regular(size:13.0))
-                        //                        }
+                        HStack {
+                            Text(subjectOrLessonName)
+                                .font(Font.bold(size:12))
+                                .lineLimit(2)
+                                .lineSpacing(8)
+                            //                        HStack(spacing:0){
+                            //                            Text("\(Part4)").font(Font.semiBold(size:13.0))
+                            //                            Text(", ").font(Font.semiBold(size:13.0))
+                            //
+                            //                            Text("\(Part5)").font(Font.regular(size:13.0))
+                            //                        }
                             .foregroundColor(.mainBlue)
+                            
+                            Button(action: {
+                                reviewBtnAction?()
+                            }, label: {
+                                Image("img_group8733_gray_908")
+                                    .resizable()
+                                    .frame(width: 20, height: 15,alignment: .leading)
+                                    .aspectRatio(contentMode: .fill)
+                            })
+                            .buttonStyle(.plain)
+
+                        }
                         
                     case .Lessons:
                         
@@ -66,6 +92,7 @@ struct TeacherFinanceCellView: View {
                         
                         
                     }
+                    
                     HStack(spacing:2) {
                         Text("(".localized())
                         
@@ -78,6 +105,7 @@ struct TeacherFinanceCellView: View {
                     .font(Font.regular(size:13.0))
                     .padding(.top,5)
                     
+
                 }
                 
                 //                    VStack (alignment: .leading,spacing:financese == .Lessons ? 5 : 10){
