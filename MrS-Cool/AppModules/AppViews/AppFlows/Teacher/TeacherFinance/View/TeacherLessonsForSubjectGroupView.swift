@@ -52,6 +52,7 @@ struct TeacherLessonsForSubjectGroupView: View {
                     Spacer()
             }
             .padding()
+            .hideNavigationBar()
             .showHud(isShowing: $financevm.isLoading)
             .showAlert(hasAlert: $financevm.isError, alertType: financevm.error)
 

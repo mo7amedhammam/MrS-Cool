@@ -55,6 +55,7 @@ struct TeacherFinanceCellView: View {
                                 .font(Font.bold(size:12))
                                 .lineLimit(2)
                                 .lineSpacing(8)
+                                .multilineTextAlignment(.leading)
                             //                        HStack(spacing:0){
                             //                            Text("\(Part4)").font(Font.semiBold(size:13.0))
                             //                            Text(", ").font(Font.semiBold(size:13.0))
@@ -81,9 +82,9 @@ struct TeacherFinanceCellView: View {
                             .font(Font.bold(size:12))
                             .foregroundColor(.mainBlue)
                             .lineLimit(2)
-                            .multilineTextAlignment(.center)
                             .lineSpacing(8)
-                        
+                            .multilineTextAlignment(.leading)
+
                         
                         //                        Text("\(Part1)").font(Font.semiBold(size:13.0))
                         //                            .lineLimit(2)
@@ -183,7 +184,14 @@ struct TeacherFinanceCellView: View {
                 HStack {
                     Group{
                         Text( "Teacher Attended :".localized())
-                        Text(model.teacherAttended == true ? "Yes".localized() : "No".localized())
+//                        Text(model.teacherAttended == true ? "Yes".localized() : "No".localized())
+                        
+                        if model.teacherAttended == true {
+                            ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
+                        }else {
+                            ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                        }
+                        
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(model.teacherAttended == true ? ColorConstants.LightGreen800 : ColorConstants.Red400)
@@ -192,7 +200,13 @@ struct TeacherFinanceCellView: View {
                     
                     Group{
                         Text("Teacher Cancelled :".localized())
-                        Text(model.teacherCanceled == 1 ? "Yes".localized() : "No".localized())
+//                        Text(model.teacherCanceled == 1 ? "Yes".localized() : "No".localized())
+                        
+                        if model.teacherCanceled == 1 {
+                            ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
+                        }else {
+                            ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                        }
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(model.teacherCanceled == 1 ? ColorConstants.LightGreen800 : ColorConstants.Red400)
@@ -201,7 +215,6 @@ struct TeacherFinanceCellView: View {
 //                .padding(.horizontal)
                 .padding(.vertical,2)
                 .frame(maxWidth: .infinity,alignment: .leading)
-                
                 
                 HStack {
                     Group{
@@ -231,6 +244,25 @@ struct TeacherFinanceCellView: View {
                 }
                 .font(Font.bold(size:12))
                 .foregroundColor(.mainBlue)
+                    
+                    Spacer()
+
+                    if let extraSession = model.extraSession{
+                        Group{
+                            Text("Extra Session :".localized())
+                            
+                            if extraSession {
+                                ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
+                            }else{
+                                ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                            }
+                            
+                        }
+                        .font(Font.bold(size:12))
+                        .foregroundColor(extraSession ? ColorConstants.LightGreen800 : ColorConstants.Red400)
+
+
+                    }
             }
 //                .padding(.horizontal)
                 .padding(.top,2)

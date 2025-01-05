@@ -117,7 +117,7 @@ struct TeacherFinanceView: View {
             }
             .padding(.horizontal,-15)
             .listStyle(.plain)
-            .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count)*80+30)
+            .frame(minHeight: lessons.count*80 > 500 ? 400 : CGFloat(lessons.count) * 80 + (lessons.count > 0 ? 30:0))
             //                                .frame(minHeight: gr.size.height)
         }
     }
@@ -150,47 +150,53 @@ struct TeacherFinanceView: View {
             .padding(.horizontal,-15)
             .listStyle(.plain)
             //                                .frame(minHeight: gr.size.height)
-            .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count)*80+30)
+            .frame(minHeight: Subjects.count*80 > 500 ? 400 : CGFloat(Subjects.count) * 80 + (Subjects.count > 0 ? 30:0))
         }
     }
     
     var body: some View {
         VStack {
-                VStack (alignment: .leading,spacing:0){
-                    SignUpHeaderTitle(Title: "Finance")
-                        .frame(maxWidth:.infinity,alignment:.leading)
-                        .foregroundStyle(Color.mainBlue)
-                        .padding(.bottom)
-                    
-                    Group{
-//                        VStack(spacing:10){
-                        LazyVGrid(columns: columns, spacing: 8) {
+//                VStack (alignment: .leading,spacing:0){
+
+//                    GeometryReader { gr in
+//                        ScrollView(.vertical,showsIndicators: false){
+                        List{
                             
-                            MoneyEarnedCell(Title: "Total Purchases", Value: financevm.Finance?.totalPurchases)
-
-                            MoneyEarnedCell(Title: "Current Balance", Value: financevm.Finance?.totalDue)
+                            Section(header:
+                                        SignUpHeaderTitle(Title: "Finance")
+                                .frame(maxWidth:.infinity,alignment:.leading)
+                                .foregroundStyle(Color.mainBlue)
+//                                .padding(.bottom)
+                            ){
+                                Group{
+                                    //                        VStack(spacing:10){
+                                    LazyVGrid(columns: columns, spacing: 8) {
+                                        
+                                        MoneyEarnedCell(Title: "Total Purchases", Value: financevm.Finance?.totalPurchases)
+                                        
+                                        MoneyEarnedCell(Title: "Current Balance", Value: financevm.Finance?.totalDue)
+                                        
+                                        MoneyEarnedCell(Title: "You Earned", Titlecolor: ColorConstants.LightGreen800, Value: financevm.Finance?.totalIncome, Valuecolor: ColorConstants.LightGreen800)
+                                        
+                                        MoneyEarnedCell(Title: "Remaining", Value: financevm.Finance?.remaining)
+                                        
+                                        MoneyEarnedCell(Title: "Teacher Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalTeacherNotattend, Valuecolor: ColorConstants.Red400)
+                                        
+                                        MoneyEarnedCell(Title: "Student Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalStudentNotattend, Valuecolor: ColorConstants.Red400)
+                                        
+                                        MoneyEarnedCell(Title: "Total Canceled", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalCanceled, Valuecolor: ColorConstants.Red400)
+                                    }
+                                }
+                                .padding(.bottom,5)
+                            }
                             
-                            MoneyEarnedCell(Title: "You Earned", Titlecolor: ColorConstants.LightGreen800, Value: financevm.Finance?.totalIncome, Valuecolor: ColorConstants.LightGreen800)
-
-                            MoneyEarnedCell(Title: "Remaining", Value: financevm.Finance?.remaining)
-
-                            MoneyEarnedCell(Title: "Teacher Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalTeacherNotattend, Valuecolor: ColorConstants.Red400)
-
-                            MoneyEarnedCell(Title: "Student Not Attend", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalStudentNotattend, Valuecolor: ColorConstants.Red400)
-
-                            MoneyEarnedCell(Title: "Total Canceled", Titlecolor: ColorConstants.Red400, Value: financevm.Finance?.totalCanceled, Valuecolor: ColorConstants.Red400)
-                        }
-                       }
-                    .padding(.bottom,5)
-                    
-                    GeometryReader { gr in
-                        ScrollView(.vertical,showsIndicators: false){
-                            
-                            HStack(){
+                            Section(header:
+                                        
+                                        HStack(){
                                 SignUpHeaderTitle(Title: "Purchased Lessons")
                                     .frame(maxWidth:.infinity,alignment:.leading)
                                     .foregroundStyle(Color.mainBlue)
-                                    .padding(.vertical)
+//                                    .padding(.vertical)
                                 Spacer()
                                 Image("img_maskgroup62_clipped")
                                     .resizable()
@@ -199,17 +205,20 @@ struct TeacherFinanceView: View {
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
                                         showLessonsFilter = true
-//                                        validateFilterValues()
+                                        //                                        validateFilterValues()
                                     })
-                            }.padding(.top)
+                            }
+//                                .padding(.top)
+                            ){
+                                PurchasedLessonsList()
+                            }
                             
-                            PurchasedLessonsList()
-                                                        
-                            HStack(){
+                            Section(header:
+                                        HStack(){
                                 SignUpHeaderTitle(Title: "Purchased Subjects")
                                     .frame(maxWidth:.infinity,alignment:.leading)
                                     .foregroundStyle(Color.mainBlue)
-                                    .padding(.vertical)
+//                                    .padding(.vertical)
                                 Spacer()
                                 Image("img_maskgroup62_clipped")
                                     .resizable()
@@ -218,19 +227,23 @@ struct TeacherFinanceView: View {
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .onTapGesture(perform: {
                                         showSubjectsFilter = true
-//                                        validateFilterValues()
+                                        //                                        validateFilterValues()
                                     })
                             }
-                            
-                            PurchasedSubjects()
+                            ){
+                                
+                                PurchasedSubjects()
+                            }
                         }
-                        .frame(minHeight: gr.size.height)
-                        .padding(.top)
-                    }
-                    .padding(.top,-15)
+//                        .frame(minHeight: gr.size.height)
+//                        .padding(.top)
+                        .listStyle(.plain)
+//                        .padding(.horizontal,-15)
+//                    }
+//                    .padding(.top,-15)
 
-                }
-                .padding()
+//                }
+//                .padding()
 //                .onAppear(perform: {
 //                    guard selectedChild != nil || Helper.shared.getSelectedUserType() == .Student else{return}
 //                    let DispatchGroup = DispatchGroup()
@@ -419,7 +432,7 @@ struct TeacherFinanceView: View {
             }
         }
         .sheet(isPresented: $showSubjectLessonsSheet, onDismiss: {
-            financevm.GetPurchasedFor(financese: .Lessons)
+//            financevm.GetPurchasedFor(financese: .Lessons)
         }, content: {
             TeacherLessonsForSubjectGroupView()
                 .environmentObject(financevm)

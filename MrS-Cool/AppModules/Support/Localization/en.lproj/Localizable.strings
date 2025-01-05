@@ -685,3 +685,10 @@
 "Student Not Attend" = "Student not attend";
 "Total Canceled" = "Total canceled";
 
+
+"Teacher Attended :" = "Attendance Status :";
+"Teacher Cancelled :" = "My Cancellation :";
+"Student Attended :" = "Students Attended :";
+"student Didn't Attend :" = "students Didn't Attend :";
+"student Cancelled :" = "students Cancelled :";
+"Extra Session :" = "Extra Session :";
