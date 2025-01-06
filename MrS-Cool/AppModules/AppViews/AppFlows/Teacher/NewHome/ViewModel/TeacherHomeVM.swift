@@ -316,14 +316,18 @@ extension TeacherHomeVM{
 //                        GetScheduals()
                         //                        CalendarScheduals = receivedData.data
                         
-                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
-                            var updatedItem = item
-                            if item.teacherLessonSessionSchedualSlotID == id {
-                                updatedItem.isCancel = true
-                                updatedItem.canCancel = false
-                            }
-                            return updatedItem
-                        }
+
+                        TeacherScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
+                        
+//                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
+//                            var updatedItem = item
+//                            if item.teacherLessonSessionSchedualSlotID == id {
+//                                updatedItem.isCancel = true
+//                                updatedItem.canCancel = false
+//                                updatedItem.teamMeetingLink = nil
+//                            }
+//                            return updatedItem
+//                        }
 
                     }else{
                         isError =  true
@@ -355,15 +359,19 @@ extension TeacherHomeVM{
 //                        StudentScheduals?.items?.removeAll()
 //                        GetScheduals()
                         
-                        StudentScheduals?.items = StudentScheduals?.items?.map { item in
-                            var updatedItem = item
-                            if item.teacherLessonSessionSchedualSlotID == id {
-                                    updatedItem.isCancel = true
-                                    updatedItem.canCancel = false
-                                    updatedItem.teamMeetingLink = nil
-                            }
-                            return updatedItem
-                        }
+                    
+                        StudentScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
+
+                        
+//                        StudentScheduals?.items = StudentScheduals?.items?.map { item in
+//                            var updatedItem = item
+//                            if item.teacherLessonSessionSchedualSlotID == id {
+//                                    updatedItem.isCancel = true
+//                                    updatedItem.canCancel = false
+//                                    updatedItem.teamMeetingLink = nil
+//                            }
+//                            return updatedItem
+//                        }
 
                     }else{
                         isError =  true
