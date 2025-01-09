@@ -328,7 +328,6 @@ struct TeacherHomeView: View {
             .padding()
             
         }
-        
         .showHud(isShowing: $SchedualsVm.isLoading)
         .showAlert(hasAlert: $SchedualsVm.isError, alertType: SchedualsVm.error)
         .showAlert(hasAlert: $SchedualsVm.isConfirmError, alertType: SchedualsVm.error)

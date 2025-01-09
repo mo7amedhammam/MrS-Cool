@@ -199,6 +199,11 @@ extension TeacherHomeVM{
 //        }
     
     func GetScheduals1() async{
+        if skipCount == 0 {
+            TeacherScheduals?.items?.removeAll()
+            StudentScheduals?.items?.removeAll()
+        }
+        
         var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount, "isCancel":FilterCancel]
         if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
             parameters["dateFrom"] = filterstartdate

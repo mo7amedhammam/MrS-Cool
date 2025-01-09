@@ -67,7 +67,7 @@ struct TeacherSubjectCell: View {
                 }
                 Spacer()
                 VStack(alignment:.leading,spacing: 5){
-                    Text("Session Cost".localized())
+                    Text("Session Price".localized())
                         .font(Font.semiBold(size: 9))
                         .foregroundColor(.grayBtnText)
                     Group{

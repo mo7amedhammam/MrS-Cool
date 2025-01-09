@@ -64,6 +64,7 @@ struct CustomSuccessView: View {
             }
             NavigationLink(destination: destination, isActive: $isPush, label: {})
         }
+        .hideNavigationBar()
         .onAppear(perform: {
             switch successStep{
             case .teacherRegistered:
