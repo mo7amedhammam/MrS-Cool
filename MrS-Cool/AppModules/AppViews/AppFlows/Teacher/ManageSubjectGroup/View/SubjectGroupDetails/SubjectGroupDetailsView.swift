@@ -133,7 +133,7 @@ struct SubjectGroupDetailsView: View {
                                                 isvalid: isTotalPricevalid
                                             )
                                             .task{
-                                                TotalPrice = String(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0)
+                                                TotalPrice = String(format: "%.2f",subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0)
                                             }
                                             .onChange(of: TotalPrice) { newValue in
                                                 TotalPrice = newValue.filter { $0.isEnglish }
