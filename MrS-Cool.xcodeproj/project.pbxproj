@@ -76,6 +76,7 @@
 		C85397D82B0A16DE00164338 /* ManageTeacherSubjectLessonsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85397D72B0A16DE00164338 /* ManageTeacherSubjectLessonsM.swift */; };
 		C85397DB2B0A2B6800164338 /* ManageSubjectLessonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85397DA2B0A2B6800164338 /* ManageSubjectLessonCell.swift */; };
 		C854DE2D2B14B5600057C75F /* ManageLessonMaterialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C854DE2C2B14B5600057C75F /* ManageLessonMaterialCell.swift */; };
+		C858368C2D4104A100C1F771 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C858368B2D4104A100C1F771 /* GoogleService-Info.plist */; };
 		C85A71152B4D5D7300462277 /* StudentHomeSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A71142B4D5D7300462277 /* StudentHomeSubjectCell.swift */; };
 		C85B9FD72C90814500307E47 /* TeacherHomeAsAnonymous.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85B9FD62C90814500307E47 /* TeacherHomeAsAnonymous.swift */; };
 		C85BD3A62AE67B36008ECDF7 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */; };
@@ -142,7 +143,6 @@
 		C8A529B32BB4640A005F54BE /* AddExistingStudentPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */; };
 		C8AA98062AE40DAF0073442A /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */; };
 		C8AAF1672CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 in Resources */ = {isa = PBXBuildFile; fileRef = C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */; };
-		C8AAF16A2CC5028300F2F235 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */; };
 		C8AC4E9A2D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AC4E992D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift */; };
 		C8B1BB312AED5A50006451F7 /* SignInVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B1BB302AED5A50006451F7 /* SignInVM.swift */; };
 		C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */; };
@@ -296,6 +296,7 @@
 		C85397D72B0A16DE00164338 /* ManageTeacherSubjectLessonsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTeacherSubjectLessonsM.swift; sourceTree = "<group>"; };
 		C85397DA2B0A2B6800164338 /* ManageSubjectLessonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageSubjectLessonCell.swift; sourceTree = "<group>"; };
 		C854DE2C2B14B5600057C75F /* ManageLessonMaterialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLessonMaterialCell.swift; sourceTree = "<group>"; };
+		C858368B2D4104A100C1F771 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C85A71142B4D5D7300462277 /* StudentHomeSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentHomeSubjectCell.swift; sourceTree = "<group>"; };
 		C85B9FD62C90814500307E47 /* TeacherHomeAsAnonymous.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeAsAnonymous.swift; sourceTree = "<group>"; };
 		C85BD3A52AE67B36008ECDF7 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -363,7 +364,6 @@
 		C8A529B22BB4640A005F54BE /* AddExistingStudentPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExistingStudentPhone.swift; sourceTree = "<group>"; };
 		C8AA98052AE40DAF0073442A /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_MWKRLV5AU5.p8; sourceTree = "<group>"; };
-		C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C8AC4E992D26C27600142C68 /* TeacherLessonsForSubjectGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherLessonsForSubjectGroupView.swift; sourceTree = "<group>"; };
 		C8B1BB302AED5A50006451F7 /* SignInVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVM.swift; sourceTree = "<group>"; };
 		C8B72C1D2B31E10200E36C33 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
@@ -1746,7 +1746,7 @@
 				C829C9432C567C2C001B6BF0 /* Launch Screen.storyboard */,
 				C88E99362BD6F42300F063FA /* MrS-Cool.entitlements */,
 				C8AAF1662CC4F69100F2F235 /* AuthKey_MWKRLV5AU5.p8 */,
-				C8AAF1692CC5028300F2F235 /* GoogleService-Info.plist */,
+				C858368B2D4104A100C1F771 /* GoogleService-Info.plist */,
 				C8FB11CE2ADDA6610051715F /* Info.plist */,
 				C8FB11832ADD91BA0051715F /* AppMain */,
 				C8FB11882ADD99800051715F /* AppModules */,
@@ -2555,6 +2555,7 @@
 				C89EA8FF2ADD906300891D41 /* Frameworks */,
 				C89EA9002ADD906300891D41 /* Resources */,
 				8D67522ABDE551097F59D48C /* [CP] Embed Pods Frameworks */,
+				C858368A2D40F7F100C1F771 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2621,7 +2622,7 @@
 				C8B877FF2C9B08A700C18A57 /* ArbFONTS-LamaSans-ExtraLightItalic.ttf in Resources */,
 				C8FB11BE2ADD9C3B0051715F /* Localizable.strings in Resources */,
 				C8B877F82C9B08A700C18A57 /* ArbFONTS-LamaSans-BlackItalic.ttf in Resources */,
-				C8AAF16A2CC5028300F2F235 /* GoogleService-Info.plist in Resources */,
+				C858368C2D4104A100C1F771 /* GoogleService-Info.plist in Resources */,
 				C8B877FD2C9B08A700C18A57 /* ArbFONTS-LamaSans-LightItalic.ttf in Resources */,
 				C89EA90D2ADD906800891D41 /* Preview Assets.xcassets in Resources */,
 				C8B878002C9B08A700C18A57 /* LamaSans-RegularItalic.ttf in Resources */,
@@ -2672,6 +2673,29 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C858368A2D40F7F100C1F771 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(SRCROOT)/$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}.debug.dylib",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3016,6 +3040,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.7.1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
 				ENABLE_PREVIEWS = YES;

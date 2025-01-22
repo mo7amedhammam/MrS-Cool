@@ -13,8 +13,8 @@ target 'MrS-Cool' do
 #    pod 'IQKeyboardManagerSwift', '6.3.0'
     pod 'Firebase/Core', '10.5.0'
     pod 'Firebase/Messaging', '10.5.0'
-#    pod 'Firebase/Analytics'
-#    pod 'Firebase/Crashlytics'
+    pod 'Firebase/Analytics'   # Optional, but useful for detailed crash reports
+    pod 'Firebase/Crashlytics'
 #    pod 'ReadMoreTextView'
 #    pod 'lottie-ios'
 #    pod 'DropDown'

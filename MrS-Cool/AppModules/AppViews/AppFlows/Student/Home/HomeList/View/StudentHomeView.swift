@@ -448,6 +448,7 @@ struct StudentHomeView: View {
                 .padding(.horizontal)
                 .task {
                     await loadData()
+//                    fatalError("Crash was triggered again")
                 }
                 .onChange(of: studentsignupvm.academicYear) { _ in
                     updateDataForNewAcademicYear()
@@ -561,7 +562,8 @@ struct StudentHomeView: View {
     
     private func loadData() async {
         studenthomevm.clearselections()
-        guard (Helper.shared.CheckIfLoggedIn() && studenthomevm.academicYear != nil) || !Helper.shared.CheckIfLoggedIn() else { return }
+//        guard (Helper.shared.CheckIfLoggedIn() && studenthomevm.academicYear != nil) || !Helper.shared.CheckIfLoggedIn() else { return }
+
         await studenthomevm.GetStudentSubjects()
         await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
         await studenthomevm.GetStudentMostBookedTeachers()
