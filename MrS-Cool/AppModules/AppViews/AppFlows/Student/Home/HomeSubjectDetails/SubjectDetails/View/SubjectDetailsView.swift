@@ -77,10 +77,11 @@ struct SubjectDetailsView: View {
                                 Spacer().frame(height:20)
                                 
                                 HStack {
+                                    Spacer()
                                     Text("Teacher Info".localized())
                                         .font(.bold(size: 18))
                                         .foregroundColor(ColorConstants.WhiteA700)
-                                        .multilineTextAlignment(.leading)
+                                        .multilineTextAlignment(.center)
                                     Spacer()
                                 }
                                 .frame(height: 45)
