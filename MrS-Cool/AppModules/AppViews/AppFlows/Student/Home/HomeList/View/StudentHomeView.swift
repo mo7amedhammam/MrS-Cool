@@ -562,11 +562,16 @@ struct StudentHomeView: View {
     
     private func loadData() async {
         studenthomevm.clearselections()
-//        guard (Helper.shared.CheckIfLoggedIn() && studenthomevm.academicYear != nil) || !Helper.shared.CheckIfLoggedIn() else { return }
+        updateDataForNewAcademicYear()
+        
+//        guard Helper.shared.CheckIfLoggedIn(), let id = studentsignupvm.academicYear?.id else { return }
+//        studenthomevm.academicLevelId = id
 
-        await studenthomevm.GetStudentSubjects()
-        await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
-        await studenthomevm.GetStudentMostBookedTeachers()
+//        guard (Helper.shared.CheckIfLoggedIn() && studenthomevm.academicYear != nil) || !Helper.shared.CheckIfLoggedIn() else { return }
+//
+//        await studenthomevm.GetStudentSubjects()
+//        await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+//        await studenthomevm.GetStudentMostBookedTeachers()
     }
     
     private func updateDataForNewAcademicYear() {

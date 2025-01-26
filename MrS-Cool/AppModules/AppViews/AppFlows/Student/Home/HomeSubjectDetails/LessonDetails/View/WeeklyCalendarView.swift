@@ -75,7 +75,7 @@ struct WeeklyCalendarView: View {
             // Display selected date below the calendar
             if let selectedDate = selectedDate {
 //                Text("\(selectedDate, formatter: Self.taskDateFormat)")
-                Text("\(selectedDate)".ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy"))
+                Text("\(selectedDate)".ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, MMMM d, yyyy",inputTimeZone: .current,outputTimeZone: .current))
                     .font(.semiBold(size: 13))
                     .foregroundColor(.mainBlue)
             }
