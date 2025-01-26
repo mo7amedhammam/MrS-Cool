@@ -561,6 +561,7 @@ struct StudentHomeView: View {
     }
     
     private func loadData() async {
+        studentsignupvm.GetStudentProfile()
         studenthomevm.clearselections()
         updateDataForNewAcademicYear()
         
