@@ -125,16 +125,41 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
        // Handle receiving FCM notifications when the app is in the foreground
        func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
            print("Received FCM notification while app is in foreground:", userInfo)
+           handleRemoteNotificationForeground(userInfo: userInfo)
        }
 
        // Handle receiving FCM notifications when the app is in the background or terminated
        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
            let userInfo = notification.request.content.userInfo
+           handleRemoteNotificationForeground(userInfo: userInfo)
            print("Received FCM notification while app is in foreground/background/terminated:", userInfo)
-           completionHandler([.banner, .sound, .badge])
+           completionHandler([.banner, .sound, .badge,.list])
        }
     
     
+}
+
+extension AppDelegate {
+    func handleRemoteNotification(userInfo: [AnyHashable: Any]) {
+        if let aps = userInfo["aps"] as? [String: Any],
+           let alert = aps["alert"] as? [String: Any],
+           let body = alert["body"] as? String {
+            // Display the full notification body text
+            print("Received FCM notification with full body text: \(body)")
+        }
+    }
+
+    // Handle receiving FCM notifications when the app is in the foreground
+    func handleRemoteNotificationForeground(userInfo: [AnyHashable: Any]) {
+        print("Received FCM notification while app is in foreground:", userInfo)
+        handleRemoteNotification(userInfo: userInfo)
+    }
+
+    // Handle receiving FCM notifications when the app is in the background or terminated
+    func handleRemoteNotificationBackground(userInfo: [AnyHashable: Any]) {
+        print("Received FCM notification while app is in background/terminated:", userInfo)
+        handleRemoteNotification(userInfo: userInfo)
+    }
 }
 
 
