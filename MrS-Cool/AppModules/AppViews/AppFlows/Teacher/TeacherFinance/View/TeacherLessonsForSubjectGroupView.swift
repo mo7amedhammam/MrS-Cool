@@ -38,7 +38,7 @@ struct TeacherLessonsForSubjectGroupView: View {
 //                func PurchasedLessonsList() -> some View {
                     if let lessons = financevm.TeacherLessonsForSubjectGroup {
                         List(lessons, id:\.self) { lesson in
-                            TeacherFinanceCellView(financese: .Lessons, model: lesson)
+                            TeacherFinanceCellView(financese: .Lessons, model: lesson,isshowinglessonssheet: true)
                                 .padding(.vertical,0)
                                 .listRowSeparator(.hidden)
                                 .listRowBackground(Color.clear)

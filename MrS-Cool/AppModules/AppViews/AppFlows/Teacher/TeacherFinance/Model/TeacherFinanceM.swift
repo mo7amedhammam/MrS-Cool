@@ -41,13 +41,14 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
     var teacherCanceled:Int?
     var teacherAttended:Bool?
     var extraSession:Bool?
+    var alternateSession:Bool?
 
     enum CodingKeys: String, CodingKey {
         case subjectOrLessonID = "subjectId"
         case subjectOrLessonName = "subjectName"
         case profit,count
         
-        case teacherLessonSessionId,studentAttend,studentNotAttend,studentCanceled,teacherCanceled,teacherAttended,extraSession
+        case teacherLessonSessionId,studentAttend,studentNotAttend,studentCanceled,teacherCanceled,teacherAttended,extraSession,alternateSession
     }
     
     init() {
@@ -64,6 +65,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         self.teacherCanceled = nil
         self.teacherAttended = nil
         self.extraSession = nil
+        self.alternateSession = nil
     }
     
     enum AlternativeCodingKeys: String, CodingKey {
@@ -101,6 +103,8 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         teacherCanceled = try? container.decodeIfPresent(Int.self, forKey: .teacherCanceled)
         teacherAttended = try? container.decodeIfPresent(Bool.self, forKey: .teacherAttended)
         extraSession = try? container.decodeIfPresent(Bool.self, forKey: .extraSession)
+        alternateSession = try? container.decodeIfPresent(Bool.self, forKey: .alternateSession)
+        
     }
 
     func encode(to encoder: Encoder) throws {
@@ -126,6 +130,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         try container.encodeIfPresent(teacherCanceled, forKey: .teacherCanceled)
         try container.encodeIfPresent(teacherAttended, forKey: .teacherAttended)
         try container.encodeIfPresent(extraSession, forKey: .extraSession)
+        try container.encodeIfPresent(alternateSession, forKey: .alternateSession)
 
     }
     

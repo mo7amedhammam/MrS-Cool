@@ -11,6 +11,7 @@ struct TeacherFinanceCellView: View {
     var financese:StudentFinanceCases = .Lessons
     var model = TeacherFinanceItem()
     var reviewBtnAction : (()->())?
+    var isshowinglessonssheet : Bool = false
 
     var body: some View {
         VStack {
@@ -261,14 +262,34 @@ struct TeacherFinanceCellView: View {
                         .font(Font.bold(size:12))
                         .foregroundColor(extraSession ? ColorConstants.LightGreen800 : ColorConstants.Red400)
 
-
                     }
             }
 //                .padding(.horizontal)
                 .padding(.top,2)
             .frame(maxWidth: .infinity,alignment: .leading)
-
                 
+                if isshowinglessonssheet{
+                    HStack {
+                        Group{
+                            Text( "Alternate Session :".localized())
+                            
+                            if model.alternateSession == true {
+                                ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
+                            }else {
+                                ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                            }
+                            
+                        }
+                        .font(Font.bold(size:12))
+                        .foregroundColor(model.alternateSession == true ? ColorConstants.LightGreen800 : ColorConstants.Red400)
+                        
+                        Spacer()
+                        
+                    }
+                    .padding(.top,5)
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                }
+
             }
                 
         }
