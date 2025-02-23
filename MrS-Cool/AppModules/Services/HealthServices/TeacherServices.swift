@@ -9,6 +9,8 @@ import Alamofire
 
 enum teacherServices{
     case GetHomeScheduals(parameters : [String:Any])
+    case GetHomeAlternateSessions
+    case CreateAlternateSession(parameters : [String:Any])
     case GetEgyptDateTime
 
     case GetTeacherProfile
@@ -64,6 +66,10 @@ extension teacherServices:TargetType{
         switch self {
         case .GetHomeScheduals:
             return EndPoints.GetTeacherHomeCalenderSchedualPaged.rawValue
+        case .GetHomeAlternateSessions:
+            return EndPoints.GetMissedSessionList.rawValue
+        case .CreateAlternateSession:
+            return EndPoints.CreateAlternateSession.rawValue
         case .GetEgyptDateTime:
             return EndPoints.GetEgyptDateTime.rawValue
             
@@ -198,10 +204,12 @@ extension teacherServices:TargetType{
                 .GetMyCompletedLessonDetails,
                 .GetMyCalenderSchedual,.cancelMyCalenderSchedual,.AttendanceStudentCalenderSchedual,
                 .GetAllComentsList,.GetAllComentsListById,
-                .GetTeacherFinance,.GetTeacherLessonsForSubjectGroup:
+                .GetTeacherFinance,.GetTeacherLessonsForSubjectGroup,
+                .GetHomeAlternateSessions:
             return .get
             
         case  .GetHomeScheduals,
+                .CreateAlternateSession,
                 .UpdateTeacherProfile,
                 .UpdateTeacherSubject,
                 .GetTeacherSubjectLessons,
@@ -223,7 +231,8 @@ extension teacherServices:TargetType{
         switch self {
         case .GetTeacherProfile,
                 .GetEgyptDateTime,
-                .GetTeacherFinance:
+                .GetTeacherFinance,
+                .GetHomeAlternateSessions:
             return .plainRequest
             
         case .GetSubjectLessonsBrief(parameters: let Parameters),
@@ -243,6 +252,7 @@ extension teacherServices:TargetType{
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetHomeScheduals(parameters: let Parameters),
+                .CreateAlternateSession(parameters: let Parameters),
                 .UpdateTeacherProfile(parameters: let Parameters),
                 .UpdateTeacherSubject(parameters: let Parameters),
                 .GetTeacherSubjectLessons(parameters: let Parameters),

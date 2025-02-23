@@ -45,8 +45,6 @@ struct TeacherHomeView: View {
 //        }
     }
     
-    
-    
     @MainActor
     func clearFilter() async {
         if filterstartdate != nil || filterenddate != nil || FilterAttend || FilterCancel{
@@ -61,34 +59,54 @@ struct TeacherHomeView: View {
 //            Task{
                 await fetchScheduals()
 //            }
-
         }
     }
 
     @State var date:String = "\(Date().formatDate(format: "dd MMM yyyy hh:mm a"))"
-
+    @State private var selectedTab = 0
+    
     var body: some View {
         VStack {
             if hasNavBar ?? true{
                 CustomTitleBarView(title: "Schedual List")
             }
             
-            GeometryReader { gr in
-//                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
-//                    VStack{
-//                        Text("You Have To Select Child First".localized())
-//                            .frame(minHeight:gr.size.height)
-//                            .frame(width: gr.size.width,alignment: .center)
-//                            .font(.title2)
-//                            .foregroundColor(ColorConstants.MainColor)
-//                    }
-//                }else{
+            //            Picker("", selection: $selectedTab) {
+            //                Text("Schedual List".localized()).tag(0)
+            //                Text("Alternate Sessions".localized()).tag(1)
+            //                    }
+            //                    .pickerStyle(.segmented)
+            //                    .padding()
+            ////                    .scaleEffect(x: 1, y: 1.5) // Scale height
+            //                    .frame(height: 60) // Ensures the frame remains at 60
+            //                    .onAppear(perform: {
+            ////                                    UISegmentedControl.appearance().selectedSegmentTintColor = .orange
+            //                    })
+            
+    
+            
+            
+                GeometryReader { gr in
+                    //                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
+                    //                    VStack{
+                    //                        Text("You Have To Select Child First".localized())
+                    //                            .frame(minHeight:gr.size.height)
+                    //                            .frame(width: gr.size.width,alignment: .center)
+                    //                            .font(.title2)
+                    //                            .foregroundColor(ColorConstants.MainColor)
+                    //                    }
+                    //                }else{
+                    
                     ScrollView(.vertical,showsIndicators: false){
-                        
+                            
                         if Helper.shared.getSelectedUserType() == .Teacher{
                             KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
                                 .padding()
                         }
+                            
+                            CapsulePicker(selectedIndex: $selectedTab, titles: ["Schedual List", "Alternate Sessions"])
+                                .padding(.horizontal)
+                        if selectedTab == 0{
                         VStack{ // (Title - Data - Submit Button)
                             Group{
                                 HStack(){
@@ -103,21 +121,21 @@ struct TeacherHomeView: View {
                                             showFilter = true
                                             //                                        validateFilterValues()
                                         })
-
+                                    
                                 }
-//                                .padding(.top)
+                                //                                .padding(.top)
                                 
                             }
                             .padding(.horizontal)
-
-                                Group{
-                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
-                                    + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
-                                }
-                                .foregroundColor(ColorConstants.Red400)
-                                .font(Font.bold(size: 13))
-                                .lineSpacing(5)
-                                .padding(.horizontal)
+                            
+                            Group{
+                                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+                            }
+                            .foregroundColor(ColorConstants.Red400)
+                            .font(Font.bold(size: 13))
+                            .lineSpacing(5)
+                            .padding(.horizontal)
                             
                             if Helper.shared.getSelectedUserType() == .Teacher{
                                 ScrollViewReader{proxy in
@@ -172,7 +190,7 @@ struct TeacherHomeView: View {
                                             if let totalCount = SchedualsVm.TeacherScheduals?.totalCount, scheduals.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 SchedualsVm.skipCount += SchedualsVm.maxResultCount
-//                                                SchedualsVm.GetScheduals()
+                                                //                                                SchedualsVm.GetScheduals()
                                                 Task{
                                                     await fetchScheduals()
                                                 }
@@ -227,7 +245,7 @@ struct TeacherHomeView: View {
                                             if let totalCount = SchedualsVm.StudentScheduals?.totalCount, scheduals.count < totalCount {
                                                 // Load the next page if there are more items to fetch
                                                 SchedualsVm.skipCount += SchedualsVm.maxResultCount
-//                                                SchedualsVm.GetScheduals()
+                                                //                                                SchedualsVm.GetScheduals()
                                                 Task{
                                                     await fetchScheduals()
                                                 }
@@ -251,9 +269,77 @@ struct TeacherHomeView: View {
                             Spacer()
                         }
                         .frame(minHeight: gr.size.height)
+                        
+                        }else if selectedTab == 1{
+                            // ------- alternate sessions -------
+                            HStack(){
+                                SignUpHeaderTitle(Title: "Alternate Sessions")
+                                Spacer()
+                            }
+                            .padding(.horizontal)
+                            .padding(.top,4)
+                            .padding(.bottom,2)
+
+                            Group{
+                                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+                            }
+                            .foregroundColor(ColorConstants.Red400)
+                            .font(Font.bold(size: 13))
+                            .lineSpacing(5)
+                            .padding(.horizontal)
+                            
+                            if Helper.shared.getSelectedUserType() == .Teacher{
+                                ScrollViewReader{proxy in
+                                    let sessions = SchedualsVm.AlternateSessions ?? []
+                                    List(sessions, id:\.self){ session in
+                                        AlternateSessionCell(model: session, addBtnAction: {
+                                                // add extra session
+                                                SchedualsVm.clearExtraSession()
+                                            SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
+                                            SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
+                                            
+                                            SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: 0,lessonName: session.lessonName ?? ""))
+                                            
+                                                SchedualsVm.ShowAddExtraSession = true
+                                        })
+                                        //                                .frame(height: 120)
+                                        .listRowSpacing(0)
+                                        .listRowSeparator(.hidden)
+                                        .listRowBackground(Color.clear)
+                                        .onAppear{
+//                                            guard session == sessions.last else {return}
+                                            
+//                                            if let totalCount = SchedualsVm.TeacherScheduals?.totalCount, scheduals.count < totalCount {
+                                                // Load the next page if there are more items to fetch
+//                                                SchedualsVm.skipCount += SchedualsVm.maxResultCount
+                                                //                                                SchedualsVm.GetScheduals()
+                                                Task{
+                                                    await SchedualsVm.GetAlternateSessions()
+                                                }
+//                                            }
+                                        }
+                                        .id(session)
+                                        .onChange(of: ScrollToTop){ value in
+                                            if value == true {
+                                                withAnimation {
+                                                    proxy.scrollTo(sessions.first , anchor: .bottom)
+                                                }
+                                            }
+                                            ScrollToTop = false
+                                        }
+                                    }
+                                    .padding(.horizontal,-4)
+                                    .listStyle(.plain)
+                                    .frame(minHeight: gr.size.height/2)
+                                }
+                            }
+                        }
+                        
                     }
-//                }
-            }
+                    //                }
+                }
+            
         }
         .localizeView()
         .hideNavigationBar()
@@ -278,7 +364,13 @@ struct TeacherHomeView: View {
             showFilter = false
             //            completedlessonsvm.cleanup()
         }
-        
+        .onChange(of:selectedTab){newval in
+            if newval == 1{
+                Task{
+                    await SchedualsVm.GetAlternateSessions()
+                }
+            }
+        }
         .bottomSheet(isPresented: $SchedualsVm.ShowAddExtraSession){
             VStack{
                 ColorConstants.Bluegray100
@@ -305,8 +397,14 @@ struct TeacherHomeView: View {
                     HStack {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
-                                SchedualsVm.CreateExtraSession()
-//                                SchedualsVm.ShowAddExtraSession = false
+                                if selectedTab == 0{
+                                    SchedualsVm.CreateExtraSession()
+                                    //                                SchedualsVm.ShowAddExtraSession = false
+                                }else if selectedTab == 1{
+                                    Task{
+                                        await  SchedualsVm.CreateAlternateSession()
+                                    }
+                                }
                             })
                             
                             CustomBorderedButton(Title:"Cancel",IsDisabled: .constant(false), action: {
@@ -413,7 +511,9 @@ struct TeacherHomeView: View {
 }
 
 #Preview {
-    TeacherHomeView( selectedChild: .constant(nil))
+    TeacherHomeView(
+        selectedChild: .constant(nil)
+    )
         .environmentObject(StudentTabBarVM())
     //        .environmentObject(CompletedLessonsVM())
     
@@ -472,4 +572,82 @@ extension TeacherHomeView{
         }
     }
     
+}
+
+struct CapsulePicker: View {
+    @Binding var selectedIndex: Int
+    @State private var hoverIndex = 0
+    @State private var dragOffset: CGFloat = 0
+    @State private var optionWidth: CGFloat = 0
+    @State private var totalSize: CGSize = .zero
+    @State private var isDragging: Bool = false
+    let titles: [String]
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            Capsule()
+                .fill(ColorConstants.MainColor)
+                .padding(isDragging ? 2 : 0)
+                .frame(width: optionWidth, height: totalSize.height)
+                .offset(x: dragOffset)
+                .gesture(
+                    LongPressGesture(minimumDuration: 0.01)
+                        .sequenced(before: DragGesture())
+                        .onChanged { value in
+                            switch value {
+                            case .first(true):
+                                isDragging = true
+                            case .second(true, let drag):
+                                let translationWidth = (drag?.translation.width ?? 0) + CGFloat(selectedIndex) * optionWidth
+                                hoverIndex = Int(round(min(max(0, translationWidth), optionWidth * CGFloat(titles.count - 1)) / optionWidth))
+                            default:
+                                isDragging = false
+                            }
+                        }
+                        .onEnded { value in
+                            if case .second(true, let drag?) = value {
+                                let predictedEndOffset = drag.translation.width + CGFloat(selectedIndex) * optionWidth
+                                selectedIndex = Int(round(min(max(0, predictedEndOffset), optionWidth * CGFloat(titles.count - 1)) / optionWidth))
+                                hoverIndex = selectedIndex
+                            }
+                            isDragging = false
+                        }
+                        .simultaneously(with: TapGesture().onEnded { _ in isDragging = false })
+                )
+            
+                .animation(.spring(), value: dragOffset)
+                .animation(.spring(), value: isDragging)
+            
+            Capsule().fill(Color.accentColor).opacity(0.2)
+                .padding(-4)
+            
+            HStack(spacing: 0) {
+                ForEach(titles.indices, id: \.self) { index in
+                    Text(titles[index].localized())
+                        .frame(width: optionWidth, height: totalSize.height, alignment: .center)
+                        .foregroundColor(hoverIndex == index ? .white : .black)
+                        .animation(.easeInOut, value: hoverIndex)
+                        .font(Font.bold(size: 14))
+                    
+                        .contentShape(Capsule())
+                        .onTapGesture {
+                            selectedIndex = index
+                            hoverIndex = index
+                        }.allowsHitTesting(selectedIndex != index)
+                }
+            }
+            .onChange(of: hoverIndex) {i in
+                dragOffset =  CGFloat(i) * optionWidth
+            }
+            .onChange(of: selectedIndex) {i in
+                hoverIndex = i
+            }
+            .frame(width: totalSize.width, alignment: .leading)
+        }
+        .background(GeometryReader { proxy in Color.clear.onAppear { totalSize = proxy.size } })
+        .onChange(of: totalSize) { _ in optionWidth = totalSize.width/CGFloat(titles.count) }
+        .onAppear { hoverIndex = selectedIndex }
+        .frame(height: 50)
+        .padding([.leading, .trailing], 10)
+    }
 }

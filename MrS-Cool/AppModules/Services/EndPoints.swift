@@ -101,6 +101,8 @@ enum EndPoints: String {
     
     // MARK: -- Teacher Home --
     case GetTeacherHomeCalenderSchedualPaged = "TeacherCalenderSchedual/GetMyCalenderSchedualPaged"
+    case GetMissedSessionList = "TeacherSchedule/GetMissedSessionList"
+    case CreateAlternateSession = "TeacherSchedule/AlternateSession"
     
     // MARK: -- Teacher Subject --
     case UpdateTeacherSubject = "TeacherSubjectAcademicSemesterYear/Update"

@@ -62,3 +62,23 @@ struct StudentHomeItemM: Codable,Hashable {
         case canCancel
     }
 }
+
+
+// MARK: - AlternateSessoinM
+struct AlternateSessoinM: Codable,Hashable {
+    var teacherLessonSessionSlotID, absentStudentCount, teacherLessonSessionID, teacherSujectAcademicSemesterYearid: Int?
+    var subjectName: String?
+    var teacherLessonID: Int?
+    var groupName, lessonName, date: String?
+
+    enum CodingKeys: String, CodingKey {
+        case teacherLessonSessionSlotID = "teacherLessonSessionSlotId"
+        case absentStudentCount
+        case teacherLessonSessionID = "teacherLessonSessionId"
+        case teacherSujectAcademicSemesterYearid, subjectName
+        case teacherLessonID = "teacherLessonId"
+        case groupName, lessonName, date
+    }
+}
+
+
