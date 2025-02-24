@@ -21,6 +21,7 @@ enum StudentServices{
     case GetTeacherProfileView(parameters : [String:Any])
     
     case GetHomeScheduals(parameters : [String:Any])
+    case GetMyCalenderDetail(parameters: [String:Any])
 
     case GetHomeSubjectDetails(parameters : [String:Any])
     case GetSubjectOrLessonTeachers(parameters : [String:Any])
@@ -81,6 +82,8 @@ extension StudentServices:TargetType{
             
         case .GetHomeScheduals:
             return EndPoints.GetStudentHomeCalenderSchedualPaged.rawValue
+        case .GetMyCalenderDetail:
+            return EndPoints.GetMyCalenderDetail.rawValue
             
         case .GetHomeSubjectDetails:
             return EndPoints.GetHomeSubjectDetails.rawValue
@@ -149,7 +152,8 @@ extension StudentServices:TargetType{
                 .GetStudentCompletedLessonDetails,
                 .GetStudentProfile,
                 .GetTeacherProfileView,
-                .GetStudentFinance:
+                .GetStudentFinance,
+                .GetMyCalenderDetail:
             return .get
             
         case  .GetHomeScheduals,
@@ -184,7 +188,8 @@ extension StudentServices:TargetType{
                 .GetSubjectGroupDetails(parameters: let Parameters),
                 .GetLessonGroupDetails(parameters: let Parameters),.GetAvaliableScheduals(parameters: let Parameters),
                 .GetTeacherProfileView(parameters: let Parameters),
-                .GetStudentFinance(parameters: let Parameters):
+                .GetStudentFinance(parameters: let Parameters),
+                .GetMyCalenderDetail(parameters: let Parameters):
             return .BodyparameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetHomeScheduals(parameters: let Parameters),

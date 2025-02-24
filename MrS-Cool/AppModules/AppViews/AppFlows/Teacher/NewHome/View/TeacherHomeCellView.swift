@@ -11,92 +11,7 @@ struct TeacherHomeCellView: View {
     var model = TeacherHomeItemM()
     var cancelBtnAction : (()->())?
     var joinBtnAction : (()->())?
-    
-    //    fileprivate let dateFormatter: DateFormatter = {
-    //        let formatter = DateFormatter()
-    //        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-    //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
-    ////        formatter.timeZone = TimeZone(identifier: "GMT")
-    ////        formatter.locale = Locale(identifier: "en")
-    //
-    ////        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
-    ////        formatter.locale = Locale(identifier: "en_US_POSIX")
-    //        return formatter
-    //    }()
-    
-    
-    // Function to check if the event is in the past
-    //    func isEventInPast() -> Bool {
-    //        guard let eventDateStr = model.timeFrom , let timeToStr = model.timeTo else {
-    //            return false
-    //        }
-    //
-    //        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-    //        print("toDateTimestr: \(toDateTimeStr)")
-    //
-    //        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-    //            print("Failed to parse toDateTime: \(toDateTimeStr)")
-    //            return false
-    //        }
-    //        print("toDateTime: \(toDateTime)")
-    //
-    //        // Convert current time to local time zone
-    //         let currentTime = Date()
-    //
-    //        return toDateTime < currentTime
-    //    }
-    
-    //    func isCurrentTimeWithinEventTime() -> Bool {
-    //        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom, let timeToStr = model.timeTo else {
-    //            print("One of the required date/time components is nil.")
-    //            return false
-    //        }
-    //
-    //        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-    //        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-    //
-    ////        print("From Date Time String: \(fromDateTimeStr)")
-    ////        print("To Date Time String: \(toDateTimeStr)")
-    ////
-    //        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
-    //              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-    //            print("Failed to parse fromDateTime or toDateTime.")
-    //            return false
-    //        }
-    //
-    //        // Convert current time to local time zone
-    //        let currentTime = Date()
-    ////         let datestr = dateFormatter.string(from: Date())
-    ////        else{return false}
-    ////        guard let currentTime = dateFormatter.date(from: datestr)else{return false}
-    //
-    ////        print("Current Time: \(currentTime)")
-    ////        print("Event From Time: \(fromDateTime)")
-    ////        print("Event To Time: \(toDateTime)")
-    //
-    //        return currentTime >= fromDateTime && currentTime <= toDateTime
-    //    }
-    
-    // Function to check if the event is not started yet
-    //    func isEventNotStartedYet() -> Bool {
-    //        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom else {
-    //            return false
-    //        }
-    //
-    //        // Create full date string with event date and timeFrom
-    //        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-    //
-    //        // Parse the date string into Date object
-    //        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
-    //            return false
-    //        }
-    //
-    //        // Convert current time to local time zone
-    //         let currentTime = Date()
-    //
-    //        return currentTime < fromDateTime
-    //    }
-    
+
     var body: some View {
         VStack(alignment:.leading,spacing: 10){
             HStack(alignment: .top,spacing: 20) {
@@ -112,47 +27,6 @@ struct TeacherHomeCellView: View {
                     .foregroundColor(.mainBlue)
                 
                 Spacer()
-                
-                //                Menu {
-                //                    Button(action: {
-                //                        joinBtnAction?()
-                //                    }, label: {
-                //                        HStack {
-                //                            Text("Join Teams".localized())
-                //                                .font(Font.semiBold(size: 12.0))
-                //                                .fontWeight(.medium)
-                //                                .foregroundColor(ColorConstants.Black900)
-                //
-                //                            Image("microsoftteams")
-                //                                .resizable()
-                //                                .frame(width: 40,height: 40)
-                //                            .aspectRatio(contentMode: .fill)
-                //                        }
-                //                    })
-                //                    .disabled(!(model.isCancel == false && isCurrentTimeWithinEventTime()))
-                //
-                //                    Button(action: {
-                //                        cancelBtnAction?()
-                //                    }, label: {
-                //                        HStack {
-                //                            Text("Cancel & Edit".localized())
-                //                                .font(Font.semiBold(size: 12.0))
-                //                                .fontWeight(.medium)
-                //                                .foregroundColor(ColorConstants.MainColor)
-                //
-                //                            Image("img_group")
-                //                                .resizable()
-                //                                .frame(width: 20,height: 25)
-                //                            .aspectRatio(contentMode: .fill)
-                //                        }
-                //                    })
-                //                    .disabled(!(model.isCancel != true && isEventNotStartedYet()))
-                //                } label: {
-                //                    Image(systemName: "ellipsis")
-                //                        .foregroundColor(ColorConstants.MainColor)
-                //                        .padding(.top,5)
-                //                }
-                
                 
                 /// ---- join was here -------//
                 
@@ -287,97 +161,14 @@ struct TeacherHomeCellView: View {
 //------------- Student ----------------
 struct StudentHomeCellView: View {
     var model = StudentHomeItemM()
+    var isDetailCell = false
+    var detailsBtnAction : (()->Void)?
     var cancelBtnAction : (()->())?
     var joinBtnAction : (()->())?
     
-    //    fileprivate let dateFormatter: DateFormatter = {
-    //        let formatter = DateFormatter()
-    //        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-    //        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
-    ////        formatter.timeZone = TimeZone(identifier: "GMT")
-    ////        formatter.locale = Locale(identifier: "en")
-    //
-    ////        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Ensure GMT or appropriate time zone
-    ////        formatter.locale = Locale(identifier: "en_US_POSIX")
-    //        return formatter
-    //    }()
-    
-    
-    // Function to check if the event is in the past
-    //    func isEventInPast() -> Bool {
-    //        guard let eventDateStr = model.timeFrom , let timeToStr = model.timeTo else {
-    //            return false
-    //        }
-    //
-    //        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-    //        print("toDateTimestr: \(toDateTimeStr)")
-    //
-    //        guard let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-    //            print("Failed to parse toDateTime: \(toDateTimeStr)")
-    //            return false
-    //        }
-    //        print("toDateTime: \(toDateTime)")
-    //
-    //        // Convert current time to local time zone
-    //         let currentTime = Date()
-    //
-    //        return toDateTime < currentTime
-    //    }
-    
-    //    func isCurrentTimeWithinEventTime() -> Bool {
-    //        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom, let timeToStr = model.timeTo else {
-    //            print("One of the required date/time components is nil.")
-    //            return false
-    //        }
-    //
-    //        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-    //        let toDateTimeStr = "\(eventDateStr.prefix(10))T\(timeToStr)"
-    //
-    ////        print("From Date Time String: \(fromDateTimeStr)")
-    ////        print("To Date Time String: \(toDateTimeStr)")
-    ////
-    //        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr),
-    //              let toDateTime = dateFormatter.date(from: toDateTimeStr) else {
-    //            print("Failed to parse fromDateTime or toDateTime.")
-    //            return false
-    //        }
-    //
-    //        // Convert current time to local time zone
-    //        let currentTime = Date()
-    ////         let datestr = dateFormatter.string(from: Date())
-    ////        else{return false}
-    ////        guard let currentTime = dateFormatter.date(from: datestr)else{return false}
-    //
-    ////        print("Current Time: \(currentTime)")
-    ////        print("Event From Time: \(fromDateTime)")
-    ////        print("Event To Time: \(toDateTime)")
-    //
-    //        return currentTime >= fromDateTime && currentTime <= toDateTime
-    //    }
-    
-    // Function to check if the event is not started yet
-    //    func isEventNotStartedYet() -> Bool {
-    //        guard let eventDateStr = model.date, let timeFromStr = model.timeFrom else {
-    //            return false
-    //        }
-    //
-    //        // Create full date string with event date and timeFrom
-    //        let fromDateTimeStr = "\(eventDateStr.prefix(10))T\(timeFromStr)"
-    //
-    //        // Parse the date string into Date object
-    //        guard let fromDateTime = dateFormatter.date(from: fromDateTimeStr) else {
-    //            return false
-    //        }
-    //
-    //        // Convert current time to local time zone
-    //         let currentTime = Date()
-    //
-    //        return currentTime < fromDateTime
-    //    }
-    
     var body: some View {
         VStack(alignment:.leading,spacing: 10){
-            HStack(alignment: .top,spacing: 20) {
+            HStack(alignment: .center,spacing: 20) {
                 Image("img_group512382")
                     .scaleEffect(1.2, anchor: .center)
                     .background(
@@ -391,6 +182,17 @@ struct StudentHomeCellView: View {
                 
                 Spacer()
                 
+                if model.isAlternate == true && !isDetailCell{
+                    Button(action: {
+                        detailsBtnAction?()
+                    }, label: {
+                        Image("img_group8733_gray_908")
+                            .resizable()
+                            .frame(width:20,height: 15,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                }
                 
                 //                if model.isCancel != true && isEventNotStartedYet(){
                 if model.canCancel == true{
@@ -438,8 +240,29 @@ struct StudentHomeCellView: View {
                     }
                     .font(Font.semiBold(size: 12.0))
                     //                        .foregroundColor(ColorConstants.Black900)
+                    
+                    HStack {
+                        Group{
+                            Text( "Alternate Session :".localized())
+                            if model.isAlternate == true {
+                                Circle().fill(ColorConstants.LightGreen800).frame(width: 12,height: 12)
+                                
+//                                ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
+                            }else {
+                                Circle().fill(ColorConstants.Red400).frame(width: 12,height: 12)
+
+//                                ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                            }
+                        }
+                        .font(Font.bold(size:12))
+                        .foregroundColor(model.isAlternate == true ? ColorConstants.LightGreen800 : ColorConstants.Red400)
+                        
+                        Spacer()
+                    }
+                    .padding(.top,5)
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                    
                 }
-                
                 Spacer()
                 
                 VStack(alignment:.trailing){

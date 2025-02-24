@@ -102,10 +102,11 @@ struct TeacherHomeView: View {
                         if Helper.shared.getSelectedUserType() == .Teacher{
                             KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
                                 .padding()
-                        }
                             
                             CapsulePicker(selectedIndex: $selectedTab, titles: ["Schedual List", "Alternate Sessions"])
                                 .padding(.horizontal)
+                        }
+                        
                         if selectedTab == 0{
                         VStack{ // (Title - Data - Submit Button)
                             Group{
@@ -217,7 +218,14 @@ struct TeacherHomeView: View {
                                     let scheduals = SchedualsVm.StudentScheduals?.items ?? []
                                     List(scheduals, id:\.self){ schedual in
                                         
-                                        StudentHomeCellView(model: schedual, cancelBtnAction: {
+                                        StudentHomeCellView(model: schedual,detailsBtnAction: {
+                                            guard let BookDetailId = schedual.originalBookDetailId else {return}
+
+                                            SchedualsVm.ShowStudentCalendarDetails = true
+                                            Task{
+                                                await SchedualsVm.StudentGetCalendarDetails(BookDetailId: BookDetailId)
+                                            }
+                                        }, cancelBtnAction: {
                                             
                                             //                                        if schedual.teachersubjectAcademicSemesterYearID == nil{
                                             SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
@@ -308,16 +316,9 @@ struct TeacherHomeView: View {
                                         .listRowSeparator(.hidden)
                                         .listRowBackground(Color.clear)
                                         .onAppear{
-//                                            guard session == sessions.last else {return}
-                                            
-//                                            if let totalCount = SchedualsVm.TeacherScheduals?.totalCount, scheduals.count < totalCount {
-                                                // Load the next page if there are more items to fetch
-//                                                SchedualsVm.skipCount += SchedualsVm.maxResultCount
-                                                //                                                SchedualsVm.GetScheduals()
                                                 Task{
                                                     await SchedualsVm.GetAlternateSessions()
                                                 }
-//                                            }
                                         }
                                         .id(session)
                                         .onChange(of: ScrollToTop){ value in
@@ -365,7 +366,11 @@ struct TeacherHomeView: View {
             //            completedlessonsvm.cleanup()
         }
         .onChange(of:selectedTab){newval in
-            if newval == 1{
+            if newval == 0{
+                Task{
+                    await fetchScheduals()
+                }
+        }else if newval == 1{
                 Task{
                     await SchedualsVm.GetAlternateSessions()
                 }
@@ -378,7 +383,7 @@ struct TeacherHomeView: View {
                     .cornerRadius(2.5)
                     .padding(.top,2)
                 HStack {
-                    Text("Extra Session".localized())
+                    Text(selectedTab == 0 ? "Extra Session".localized() : "Alternate Session".localized())
                         .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
                 }.padding(8)
@@ -421,6 +426,41 @@ struct TeacherHomeView: View {
                     
                 }
                 .frame(height: 320)
+            }
+            .background(ColorConstants.WhiteA700.cornerRadius(8))
+            .padding()
+            
+        }
+        
+        .bottomSheet(isPresented: $SchedualsVm.ShowStudentCalendarDetails){
+            VStack{
+                ColorConstants.Bluegray100
+                    .frame(width:50,height:5)
+                    .cornerRadius(2.5)
+                    .padding(.top,2)
+                HStack {
+                    Text("Sessions".localized())
+                        .font(Font.bold(size: 18))
+                        .foregroundColor(.mainBlue)
+                }.padding(8)
+                
+//                ScrollView{
+                    
+                    let lessons = SchedualsVm.StudentSchedualDetails ?? []
+                    List(lessons, id:\.self){ lesson in
+                        
+                        StudentHomeCellView(model: lesson,isDetailCell: true)
+//                                                        .frame(height: 120)
+//                        .listRowSpacing(0)
+//                        .listRowSeparator(.hidden)
+//                        .listRowBackground(Color.clear)
+                    }
+                    .padding(.horizontal,-15)
+                    .listStyle(.plain)
+                   
+                    
+//                }
+                .frame(height: UIScreen.main.bounds.height * 0.7)
             }
             .background(ColorConstants.WhiteA700.cornerRadius(8))
             .padding()

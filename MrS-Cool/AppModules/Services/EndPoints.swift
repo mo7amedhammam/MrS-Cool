@@ -162,6 +162,7 @@ enum EndPoints: String {
     
     //    MARK: -- Student Home --
     case GetStudentHomeCalenderSchedualPaged = "StudentCalenderSchedule/GetMyCalenderSchedualPaged"
+    case GetMyCalenderDetail = "StudentCalenderSchedule/GetMyCalenderDetail"
     
     case GetStudentSubjects = "Student/GetStudentSubjects" // for loggedin student
     case GetAllAnonymousSubjects = "SubjectOrLessonTeachers/GetAllSubjects" // for anonymous

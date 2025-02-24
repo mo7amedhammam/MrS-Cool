@@ -21,6 +21,8 @@ class TeacherHomeVM: ObservableObject {
     @Published var filterenddate : String?
 
     @Published var ShowAddExtraSession = false
+    @Published var ShowStudentCalendarDetails = false
+
 //     var selectedGroup : SubjectGroupM?
     var teacherlessonsessionid : Int?
     var teacherLessonSessionSchedualSlotID: Int?
@@ -66,7 +68,8 @@ class TeacherHomeVM: ObservableObject {
 
     @Published var TeacherScheduals : TeacherHomeM?
     @Published var StudentScheduals : StudentHomeM?
-    
+    @Published var StudentSchedualDetails : [StudentHomeItemM]?
+
     @Published var AlternateSessions : [AlternateSessoinM]?
 
     //    @Published var StudentCalendarScheduals : [StudentEventM]?
@@ -303,6 +306,54 @@ extension TeacherHomeVM{
         }
     }
     
+    func StudentGetCalendarDetails(BookDetailId:Int?) async{
+        
+        guard let BookDetailId = BookDetailId else {return}
+        let parameters:[String:Any] = [
+            "BookDetailId": BookDetailId
+        ]
+        
+        print("parameters",parameters)
+        let target = StudentServices.GetMyCalenderDetail(parameters: parameters)
+        isLoading = true
+        do{
+            let response = try await BaseNetwork.shared.request(target, BaseResponse<[StudentHomeItemM]>.self)
+            print(response)
+            
+            if response.success == true {
+                //                        if skipCount == 0{
+                //                                AlternateSessions = response.data
+                Task{ [weak self] in
+                    guard let self = self else {return}
+                    self.StudentSchedualDetails = response.data
+                    //                            self.skipCount = 0
+                    ShowAddExtraSession = false
+                    self.isLoading = false
+                }
+                //                        }else{
+                //                            TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+                //                        }
+            } else {
+                self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
+                self.isError = true
+            }
+            isLoading = false
+
+            //                    } catch let error as NetworkError {
+            //                        self.isLoadingComments = false
+            //                        self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+            //                        self.isError = true
+            //        //                print("Network error: \(error.errorDescription)")
+        } catch {
+            isLoading = false
+            self.error = .error(image:nil, message: "\(error.localizedDescription)",buttonTitle:"Done")
+            self.isError = true
+            //                print("Unexpected error: \(error.localizedDescription)")
+        }
+        
+        
+
+    }
     func StudentAttendanceCalendarSchedual(id:Int){
         var parameters:[String:Any] = [:]
         //            if Helper.shared.getSelectedUserType() == .Parent {
@@ -477,69 +528,7 @@ extension TeacherHomeVM{
         }
         
         
-//        guard checkValidExtraSessionfields() else {return}
-//
-//        guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current) else {return}
-//        let parameters:[String:Any] = [
-//            "teacherLessonSessionScheduleSlotId": teachersubjectAcademicSemesterYearSlotId,
-//            "teacherlessonsessionId": teacherlessonsessionId,
-//            "teacherLessonId": lessonlessonid,
-//            "duration":duration ,
-//            "date": extradate,
-//            "timeFrom":extratime ,
-//            "isCancel":true
-//        ]
-//
-//        print("parameters",parameters)
-//        let target = teacherServices.CreateAlternateSession(parameters: parameters)
-//        isLoading = true
-//        BaseNetwork.CallApi(target, BaseResponse<SubjectGroupDeleteM>.self)
-//            .sink(receiveCompletion: {[weak self] completion in
-//                guard let self = self else{return}
-//                isLoading = false
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    self.error = .error( message: "\(error.localizedDescription)",buttonTitle:"Done")
-//                    isError =  true
-//                }
-//            },receiveValue: {[weak self] receivedData in
-//                guard let self = self else{return}
-//                print("receivedData",receivedData)
-//                if receivedData.success == true{
-//                    ShowAddExtraSession = false
-//                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
-//                        guard let self = self else {return}
-////                        clearExtraSession()
-////                        GetScheduals()
-//                        Task{ [weak self] in
-//                            guard let self = self else {return}
-//                            self.AlternateSessions?.removeAll()
-////                            self.skipCount = 0
-//                            self.isLoading = true
-//                            await self.GetAlternateSessions()
-//                            self.isLoading = false
-//                        }
-////                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
-////                            var updatedItem = item
-////                            if item.teacherLessonSessionSchedualSlotID == teachersubjectAcademicSemesterYearSlotId {
-////                                updatedItem.isCancel = true
-////                            }
-////                            return updatedItem
-////                        }
-//                    })
-//                    isError =  true
-//
-//                }else{
-//                    //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-//                    ShowAddExtraSession = false
-//                    error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
-//                    isError =  true
-//                }
-//                isLoading = false
-//            })
-//            .store(in: &cancellables)
+
     }
     
     

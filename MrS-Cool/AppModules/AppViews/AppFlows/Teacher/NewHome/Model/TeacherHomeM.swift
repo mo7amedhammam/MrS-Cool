@@ -53,15 +53,38 @@ struct StudentHomeItemM: Codable,Hashable {
     var lessonName, groupName, date, timeFrom,timeTo: String?
     var isCancel: Bool?
     var cancelDate, teamMeetingLink, subjectName, teacherName: String?
-    var canCancel:Bool?
+    var canCancel,isAlternate:Bool?
+    var originalBookDetailId:Int?
     
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case bookTeacherlessonsessionDetailID = "bookTeacherlessonsessionDetailId"
         case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName
-        case canCancel
+        case canCancel,isAlternate
+        case originalBookDetailId
     }
 }
+
+// MARK: - StudentCalendarDetailM
+//struct StudentCalendarDetailM: Codable {
+//    var teacherLessonSessionSchedualSlotID, bookTeacherlessonsessionDetailID: Int?
+//    var lessonName, groupName, date, timeFrom: String?
+//    var timeTo: String?
+//    var isCancel: Bool?
+//    var cancelDate, teamMeetingLink: String?
+//    var originalBookDetailID: Int?
+//    var isAlternate: Bool?
+//    var subjectName, teacherName: String?
+//    var canCancel: Bool?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
+//        case bookTeacherlessonsessionDetailID = "bookTeacherlessonsessionDetailId"
+//        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink
+//        case originalBookDetailID = "originalBookDetailId"
+//        case isAlternate, subjectName, teacherName, canCancel
+//    }
+//}
 
 
 // MARK: - AlternateSessoinM
