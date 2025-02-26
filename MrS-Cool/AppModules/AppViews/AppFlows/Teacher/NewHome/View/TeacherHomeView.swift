@@ -143,27 +143,46 @@ struct TeacherHomeView: View {
                                     let scheduals = SchedualsVm.TeacherScheduals?.items ?? []
                                     List(scheduals, id:\.self){ schedual in
                                         
-                                        TeacherHomeCellView(model: schedual, cancelBtnAction: {
-                                            
-                                            if !(schedual.teachersubjectAcademicSemesterYearID ?? 0 > 0){
+                                        TeacherHomeCellView(model: schedual,
+                                                            editBtnAction: {
+                                            if schedual.isAlternate == true{
+                                                SchedualsVm.sessoionMode = .rescheduleAlternateSession
                                                 
+                                            }else{
+                                                // call add extrasession -> iscancel = true
+                                                SchedualsVm.sessoionMode = .createextraSession
+
+                                            }
+                                            
+                                            SchedualsVm.clearExtraSession()
+                                            
+                                            SchedualsVm.teacherlessonsessionid = schedual.teacherlessonsessionID
+                                            SchedualsVm.teacherLessonSessionSchedualSlotID = schedual.teacherLessonSessionSchedualSlotID
+                                            SchedualsVm.extraLesson = DropDownOption(id: schedual.teacherlessonID ?? 0, Title: schedual.sessionName ?? "", LessonItem: LessonForListM(id: schedual.teacherlessonID ?? 0,groupDuration: schedual.groupDuration ?? 0,lessonName: schedual.sessionName ?? ""))
+                                            SchedualsVm.ShowAddExtraSession = true
+                                            
+                                        }, cancelBtnAction: {
+                                            //call new api here
+//                                            if !(schedual.teachersubjectAcademicSemesterYearID ?? 0 > 0){
                                                 SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
                                                     if let eventid = schedual.teacherLessonSessionSchedualSlotID{
                                                         SchedualsVm.CancelCalendarCheduals(id:eventid)
                                                     }
                                                 })
                                                 SchedualsVm.isConfirmError = true
-                                            }else {
-                                                // add extra session
-                                                SchedualsVm.clearExtraSession()
-                                                
-                                                SchedualsVm.teacherlessonsessionid = schedual.teacherlessonsessionID
-                                                SchedualsVm.teacherLessonSessionSchedualSlotID = schedual.teacherLessonSessionSchedualSlotID
-                                                
-                                                SchedualsVm.extraLesson = DropDownOption(id: schedual.teacherlessonID ?? 0, Title: schedual.sessionName ?? "", LessonItem: LessonForListM(id: schedual.teacherlessonID ?? 0,groupDuration: schedual.groupDuration ?? 0,lessonName: schedual.sessionName ?? ""))
-                                                
-                                                SchedualsVm.ShowAddExtraSession = true
-                                            }
+                                            
+                                            
+//                                            }else {
+//                                                // add extra session
+//                                                SchedualsVm.clearExtraSession()
+//                                                
+//                                                SchedualsVm.teacherlessonsessionid = schedual.teacherlessonsessionID
+//                                                SchedualsVm.teacherLessonSessionSchedualSlotID = schedual.teacherLessonSessionSchedualSlotID
+//                                                
+//                                                SchedualsVm.extraLesson = DropDownOption(id: schedual.teacherlessonID ?? 0, Title: schedual.sessionName ?? "", LessonItem: LessonForListM(id: schedual.teacherlessonID ?? 0,groupDuration: schedual.groupDuration ?? 0,lessonName: schedual.sessionName ?? ""))
+//                                                
+//                                                SchedualsVm.ShowAddExtraSession = true
+//                                            }
                                             
                                         }, joinBtnAction: {
                                             if let teamMeetingLink = schedual.teamMeetingLink{    joinMeeting(meetingLink: teamMeetingLink)
@@ -303,6 +322,7 @@ struct TeacherHomeView: View {
                                     List(sessions, id:\.self){ session in
                                         AlternateSessionCell(model: session, addBtnAction: {
                                                 // add extra session
+                                            SchedualsVm.sessoionMode = .newAlternateSession
                                                 SchedualsVm.clearExtraSession()
                                             SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
                                             SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
@@ -403,7 +423,14 @@ struct TeacherHomeView: View {
                         Group{
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
                                 if selectedTab == 0{
-                                    SchedualsVm.CreateExtraSession()
+                                    if SchedualsVm.sessoionMode == .createextraSession{
+//                                        SchedualsVm.CreateExtraSession()
+
+                                    }else if SchedualsVm.sessoionMode == .rescheduleAlternateSession{
+                                        Task{
+                                            await  SchedualsVm.CreateAlternateSession()
+                                        }
+                                    }
                                     //                                SchedualsVm.ShowAddExtraSession = false
                                 }else if selectedTab == 1{
                                     Task{

@@ -9,12 +9,13 @@ import SwiftUI
 
 struct TeacherHomeCellView: View {
     var model = TeacherHomeItemM()
+    var editBtnAction : (()->())?
     var cancelBtnAction : (()->())?
     var joinBtnAction : (()->())?
 
     var body: some View {
         VStack(alignment:.leading,spacing: 10){
-            HStack(alignment: .top,spacing: 20) {
+            HStack(alignment: .center,spacing: 20) {
                 Image("img_group512382")
                     .scaleEffect(1.2, anchor: .center)
                     .background(
@@ -29,16 +30,29 @@ struct TeacherHomeCellView: View {
                 Spacer()
                 
                 /// ---- join was here -------//
+                Button(action: {
+                    editBtnAction?()
+                }, label: {
+                    HStack{
+                        Image("img_vector_black_900_14x14")
+//                            .resizable()
+//                            .frame(width: 15,height: 20)
+                            .aspectRatio(contentMode: .fill)
+                    }
+                })
+                .buttonStyle(.plain)
+                
                 
                 //                if model.isCancel != true && isEventNotStartedYet(){
-                if model.canCancel == true{
+//                if model.canCancel == true{
+                if model.isAlternate == true{
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {
                         HStack{
-                            Text("Cancel & Edit".localized())
-                                .font(Font.bold(size: 12.0))
-                                .foregroundColor(ColorConstants.Red400)
+//                            Text("Cancel & Edit".localized())
+//                                .font(Font.bold(size: 12.0))
+//                                .foregroundColor(ColorConstants.Red400)
                             
                             Image("img_group")
                                 .resizable()

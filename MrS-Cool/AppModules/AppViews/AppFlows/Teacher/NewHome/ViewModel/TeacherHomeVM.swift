@@ -8,6 +8,10 @@
 import Foundation
 import Combine
 
+enum AlternateSessionType {
+case newAlternateSession, rescheduleAlternateSession, createextraSession
+}
+
 @MainActor
 class TeacherHomeVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -71,6 +75,7 @@ class TeacherHomeVM: ObservableObject {
     @Published var StudentSchedualDetails : [StudentHomeItemM]?
 
     @Published var AlternateSessions : [AlternateSessoinM]?
+    @Published var sessoionMode : AlternateSessionType? = .newAlternateSession
 
     //    @Published var StudentCalendarScheduals : [StudentEventM]?
     
@@ -350,8 +355,6 @@ extension TeacherHomeVM{
             self.isError = true
             //                print("Unexpected error: \(error.localizedDescription)")
         }
-        
-        
 
     }
     func StudentAttendanceCalendarSchedual(id:Int){
@@ -477,15 +480,21 @@ extension TeacherHomeVM{
         guard checkValidExtraSessionfields() else {return}
         
         guard let teachersubjectAcademicSemesterYearSlotId = teacherLessonSessionSchedualSlotID,let teacherlessonsessionId = teacherlessonsessionid ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current) else {return}
-        let parameters:[String:Any] = [
+        var parameters:[String:Any] = [
             "teacherLessonSessionScheduleSlotId": teachersubjectAcademicSemesterYearSlotId,
             "teacherlessonsessionId": teacherlessonsessionId,
             "teacherLessonId": lessonlessonid,
             "duration":duration ,
             "date": extradate,
-            "timeFrom":extratime ,
-            "isCancel":true
-        ]
+            "timeFrom":extratime
+            ]
+        
+        if sessoionMode == .createextraSession {
+            parameters["isCancel"] = false
+            
+        } else if sessoionMode == .rescheduleAlternateSession{
+            parameters["isCancel"] = true
+        }
         
         print("parameters",parameters)
         let target = teacherServices.CreateAlternateSession(parameters: parameters)
