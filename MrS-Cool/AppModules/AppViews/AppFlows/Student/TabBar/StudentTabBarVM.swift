@@ -12,7 +12,7 @@ class StudentTabBarVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //    MARK: --- inputs ---
-    @Published  var selectedIndex = Helper.shared.selectedchild == nil ? 2:0
+    @Published  var selectedIndex = Helper.shared.getSelectedUserType() == .Student ? 0 : 2 
     @Published var ispush : Bool = false
     @Published var destination = AnyView(EmptyView())
     

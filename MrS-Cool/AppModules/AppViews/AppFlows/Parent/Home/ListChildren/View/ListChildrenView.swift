@@ -35,7 +35,8 @@ struct ListChildrenView: View {
                                 //                            print(id)
                                 listchildrenvm.selectedChild = children
                                 Helper.shared.selectedchild = children
-                                
+                                tabbarvm.selectedIndex = 0
+
                                 //                            tabbarvm.destination = AnyView(SelectedStudentHome().environmentObject(listchildrenvm)
                                 //                            )
                                 //                            tabbarvm.ispush = true
@@ -130,6 +131,7 @@ struct ListChildrenView: View {
             .onChange(of: listchildrenvm.selectedChild, perform: { value in
                 guard value != nil else {return}
                 Helper.shared.selectedchild = value
+                tabbarvm.selectedIndex = 0
                 destination = AnyView(
                     SelectedStudentHome()
                         .environmentObject(listchildrenvm)
