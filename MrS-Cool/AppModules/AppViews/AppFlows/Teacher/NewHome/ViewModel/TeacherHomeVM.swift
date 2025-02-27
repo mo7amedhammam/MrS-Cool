@@ -238,23 +238,17 @@ extension TeacherHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
-                        //                        skipCount = 0
-                        //                        TeacherScheduals?.items?.removeAll()
-                        //                        GetScheduals()
-                        //                        CalendarScheduals = receivedData.data
                         
-                        
-                        TeacherScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
-                        
-                        //                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
-                        //                            var updatedItem = item
-                        //                            if item.teacherLessonSessionSchedualSlotID == id {
-                        //                                updatedItem.isCancel = true
-                        //                                updatedItem.canCancel = false
-                        //                                updatedItem.teamMeetingLink = nil
-                        //                            }
-                        //                            return updatedItem
-                        //                        }
+//                        TeacherScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
+                        Task{ [weak self] in
+                            guard let self = self else {return}
+                            self.TeacherScheduals?.items?.removeAll()
+                            self.StudentScheduals?.items?.removeAll()
+                            self.skipCount = 0
+                            self.isLoading = true
+                            await self.GetScheduals1()
+                            self.isLoading = false
+                        }
                         
                     }else{
                         isError =  true

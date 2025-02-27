@@ -247,10 +247,10 @@ struct ChatsListView: View {
 }
 
 // MARK: - Supporting Views
-private struct ChildSelectionView: View {
+struct ChildSelectionView: View {
     var body: some View {
         Text("You Have To Select Child First")
-            .font(.system(size: 18, weight: .semibold))
+            .font(.semiBold(size: 18))
             .foregroundColor(ColorConstants.MainColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

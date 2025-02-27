@@ -37,12 +37,12 @@ struct TeacherHomeView: View {
         SchedualsVm.filterenddate = filterenddate
         SchedualsVm.FilterAttend = FilterAttend
         SchedualsVm.FilterCancel = FilterCancel
-
+        
         SchedualsVm.skipCount = 0
-//        SchedualsVm.GetScheduals()
-//        Task{
-            await fetchScheduals()
-//        }
+        //        SchedualsVm.GetScheduals()
+        //        Task{
+        await fetchScheduals()
+        //        }
     }
     
     @MainActor
@@ -55,15 +55,19 @@ struct TeacherHomeView: View {
             
             SchedualsVm.skipCount = 0
             SchedualsVm.clearFilter()
-//            SchedualsVm.GetScheduals()
-//            Task{
-                await fetchScheduals()
-//            }
+            //            SchedualsVm.GetScheduals()
+            //            Task{
+            await fetchScheduals()
+            //            }
         }
     }
-
+    
     @State var date:String = "\(Date().formatDate(format: "dd MMM yyyy hh:mm a"))"
     @State private var selectedTab = 0
+    
+    private var shouldShowChildSelection: Bool {
+        Helper.shared.getSelectedUserType() == .Parent &&  selectedChild == nil
+    }
     
     var body: some View {
         VStack {
@@ -71,74 +75,36 @@ struct TeacherHomeView: View {
                 CustomTitleBarView(title: "Schedual List")
             }
             
-            //            Picker("", selection: $selectedTab) {
-            //                Text("Schedual List".localized()).tag(0)
-            //                Text("Alternate Sessions".localized()).tag(1)
-            //                    }
-            //                    .pickerStyle(.segmented)
-            //                    .padding()
-            ////                    .scaleEffect(x: 1, y: 1.5) // Scale height
-            //                    .frame(height: 60) // Ensures the frame remains at 60
-            //                    .onAppear(perform: {
-            ////                                    UISegmentedControl.appearance().selectedSegmentTintColor = .orange
-            //                    })
             
-    
-            
-            
-                GeometryReader { gr in
-                    //                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
-                    //                    VStack{
-                    //                        Text("You Have To Select Child First".localized())
-                    //                            .frame(minHeight:gr.size.height)
-                    //                            .frame(width: gr.size.width,alignment: .center)
-                    //                            .font(.title2)
-                    //                            .foregroundColor(ColorConstants.MainColor)
-                    //                    }
-                    //                }else{
+            GeometryReader { gr in
+                //                if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
+                //                    VStack{
+                //                        Text("You Have To Select Child First".localized())
+                //                            .frame(minHeight:gr.size.height)
+                //                            .frame(width: gr.size.width,alignment: .center)
+                //                            .font(.title2)
+                //                            .foregroundColor(ColorConstants.MainColor)
+                //                    }
+                //                }else{
+                
+                ScrollView(.vertical,showsIndicators: false){
                     
-                    ScrollView(.vertical,showsIndicators: false){
-                            
-                        if Helper.shared.getSelectedUserType() == .Teacher{
-                            KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
-                                .padding()
-                            
-                            CapsulePicker(selectedIndex: $selectedTab, titles: ["Schedual List", "Alternate Sessions"])
-                                .padding(.horizontal)
-                        }
+                    if Helper.shared.getSelectedUserType() == .Teacher{
+                        KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
+                            .padding()
                         
-                        if selectedTab == 0{
+                        CapsulePicker(selectedIndex: $selectedTab, titles: ["Schedual List", "Alternate Sessions"])
+                            .padding(.horizontal)
+                    }
+                    
+                    if selectedTab == 0{
                         VStack{ // (Title - Data - Submit Button)
-                            Group{
-                                HStack(){
-                                    SignUpHeaderTitle(Title: "Manage My Scheduals")
-                                    Spacer()
-                                    Image("img_maskgroup62_clipped")
-                                        .resizable()
-                                        .renderingMode(.template)
-                                        .foregroundColor(ColorConstants.MainColor)
-                                        .frame(width: 25, height: 25, alignment: .center)
-                                        .onTapGesture(perform: {
-                                            showFilter = true
-                                            //                                        validateFilterValues()
-                                        })
-                                    
-                                }
-                                //                                .padding(.top)
-                                
-                            }
-                            .padding(.horizontal)
                             
-                            Group{
-                                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
-                                + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
-                            }
-                            .foregroundColor(ColorConstants.Red400)
-                            .font(Font.bold(size: 13))
-                            .lineSpacing(5)
-                            .padding(.horizontal)
                             
                             if Helper.shared.getSelectedUserType() == .Teacher{
+                                header
+                                
+                                
                                 ScrollViewReader{proxy in
                                     let scheduals = SchedualsVm.TeacherScheduals?.items ?? []
                                     List(scheduals, id:\.self){ schedual in
@@ -151,7 +117,7 @@ struct TeacherHomeView: View {
                                             }else{
                                                 // call add extrasession -> iscancel = true
                                                 SchedualsVm.sessoionMode = .createextraSession
-
+                                                
                                             }
                                             
                                             SchedualsVm.clearExtraSession()
@@ -163,26 +129,26 @@ struct TeacherHomeView: View {
                                             
                                         }, cancelBtnAction: {
                                             //call new api here
-//                                            if !(schedual.teachersubjectAcademicSemesterYearID ?? 0 > 0){
-                                                SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
-                                                    if let eventid = schedual.teacherLessonSessionSchedualSlotID{
-                                                        SchedualsVm.CancelCalendarCheduals(id:eventid)
-                                                    }
-                                                })
-                                                SchedualsVm.isConfirmError = true
+                                            //                                            if !(schedual.teachersubjectAcademicSemesterYearID ?? 0 > 0){
+                                            SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
+                                                if let eventid = schedual.teacherLessonSessionSchedualSlotID{
+                                                    SchedualsVm.CancelCalendarCheduals(id:eventid)
+                                                }
+                                            })
+                                            SchedualsVm.isConfirmError = true
                                             
                                             
-//                                            }else {
-//                                                // add extra session
-//                                                SchedualsVm.clearExtraSession()
-//                                                
-//                                                SchedualsVm.teacherlessonsessionid = schedual.teacherlessonsessionID
-//                                                SchedualsVm.teacherLessonSessionSchedualSlotID = schedual.teacherLessonSessionSchedualSlotID
-//                                                
-//                                                SchedualsVm.extraLesson = DropDownOption(id: schedual.teacherlessonID ?? 0, Title: schedual.sessionName ?? "", LessonItem: LessonForListM(id: schedual.teacherlessonID ?? 0,groupDuration: schedual.groupDuration ?? 0,lessonName: schedual.sessionName ?? ""))
-//                                                
-//                                                SchedualsVm.ShowAddExtraSession = true
-//                                            }
+                                            //                                            }else {
+                                            //                                                // add extra session
+                                            //                                                SchedualsVm.clearExtraSession()
+                                            //
+                                            //                                                SchedualsVm.teacherlessonsessionid = schedual.teacherlessonsessionID
+                                            //                                                SchedualsVm.teacherLessonSessionSchedualSlotID = schedual.teacherLessonSessionSchedualSlotID
+                                            //
+                                            //                                                SchedualsVm.extraLesson = DropDownOption(id: schedual.teacherlessonID ?? 0, Title: schedual.sessionName ?? "", LessonItem: LessonForListM(id: schedual.teacherlessonID ?? 0,groupDuration: schedual.groupDuration ?? 0,lessonName: schedual.sessionName ?? ""))
+                                            //
+                                            //                                                SchedualsVm.ShowAddExtraSession = true
+                                            //                                            }
                                             
                                         }, joinBtnAction: {
                                             if let teamMeetingLink = schedual.teamMeetingLink{    joinMeeting(meetingLink: teamMeetingLink)
@@ -234,132 +200,141 @@ struct TeacherHomeView: View {
                                 // ------ Student -----
                                 
                                 ScrollViewReader{proxy in
-                                    let scheduals = SchedualsVm.StudentScheduals?.items ?? []
-                                    List(scheduals, id:\.self){ schedual in
+                                    
+                                    if shouldShowChildSelection {
+                                        ChildSelectionView()
+                                    } else {
+                                        header
                                         
-                                        StudentHomeCellView(model: schedual,detailsBtnAction: {
-                                            guard let BookDetailId = schedual.originalBookDetailId else {return}
-
-                                            SchedualsVm.ShowStudentCalendarDetails = true
-                                            Task{
-                                                await SchedualsVm.StudentGetCalendarDetails(BookDetailId: BookDetailId)
-                                            }
-                                        }, cancelBtnAction: {
+                                        
+                                        let scheduals = SchedualsVm.StudentScheduals?.items ?? []
+                                        List(scheduals, id:\.self){ schedual in
                                             
-                                            //                                        if schedual.teachersubjectAcademicSemesterYearID == nil{
-                                            SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
-                                                if let eventid = schedual.teacherLessonSessionSchedualSlotID{
-                                                    SchedualsVm.CancelCalendarCheduals(id:eventid)
+                                            StudentHomeCellView(model: schedual,detailsBtnAction: {
+                                                guard let BookDetailId = schedual.originalBookDetailId else {return}
+                                                
+                                                SchedualsVm.ShowStudentCalendarDetails = true
+                                                Task{
+                                                    await SchedualsVm.StudentGetCalendarDetails(BookDetailId: BookDetailId)
+                                                }
+                                            }, cancelBtnAction: {
+                                                
+                                                //                                        if schedual.teachersubjectAcademicSemesterYearID == nil{
+                                                SchedualsVm.error = .question( image: "img_group", message: "Are you sure you want to cancel this event ?", buttonTitle: "Confirm", secondButtonTitle: "Cancel", mainBtnAction: {
+                                                    if let eventid = schedual.teacherLessonSessionSchedualSlotID{
+                                                        SchedualsVm.CancelCalendarCheduals(id:eventid)
+                                                    }
+                                                })
+                                                SchedualsVm.isConfirmError = true
+                                                
+                                            }, joinBtnAction: {
+                                                if let teamMeetingLink = schedual.teamMeetingLink{    joinMeeting(meetingLink: teamMeetingLink)
+                                                }
+                                                
+                                                if let eventid = schedual.bookTeacherlessonsessionDetailID{
+                                                    SchedualsVm.StudentAttendanceCalendarSchedual(id: eventid)
                                                 }
                                             })
-                                            SchedualsVm.isConfirmError = true
-                                            
-                                        }, joinBtnAction: {
-                                            if let teamMeetingLink = schedual.teamMeetingLink{    joinMeeting(meetingLink: teamMeetingLink)
-                                            }
-                                            
-                                            if let eventid = schedual.bookTeacherlessonsessionDetailID{
-                                                SchedualsVm.StudentAttendanceCalendarSchedual(id: eventid)
-                                            }
-                                        })
-                                        //                                .frame(height: 120)
-                                        .listRowSpacing(0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                        .onAppear {
-                                            guard schedual == scheduals.last else {return}
-                                            
-                                            if let totalCount = SchedualsVm.StudentScheduals?.totalCount, scheduals.count < totalCount {
-                                                // Load the next page if there are more items to fetch
-                                                SchedualsVm.skipCount += SchedualsVm.maxResultCount
-                                                //                                                SchedualsVm.GetScheduals()
-                                                Task{
-                                                    await fetchScheduals()
+                                            //                                .frame(height: 120)
+                                            .listRowSpacing(0)
+                                            .listRowSeparator(.hidden)
+                                            .listRowBackground(Color.clear)
+                                            .onAppear {
+                                                guard schedual == scheduals.last else {return}
+                                                
+                                                if let totalCount = SchedualsVm.StudentScheduals?.totalCount, scheduals.count < totalCount {
+                                                    // Load the next page if there are more items to fetch
+                                                    SchedualsVm.skipCount += SchedualsVm.maxResultCount
+                                                    //                                                SchedualsVm.GetScheduals()
+                                                    Task{
+                                                        await fetchScheduals()
+                                                    }
                                                 }
                                             }
-                                        }
-                                        .id(schedual)
-                                        .onChange(of: ScrollToTop) { value in
-                                            if value == true {
-                                                withAnimation {
-                                                    proxy.scrollTo(scheduals.first , anchor: .bottom)
+                                            .id(schedual)
+                                            .onChange(of: ScrollToTop) { value in
+                                                if value == true {
+                                                    withAnimation {
+                                                        proxy.scrollTo(scheduals.first , anchor: .bottom)
+                                                    }
                                                 }
+                                                ScrollToTop = false
                                             }
-                                            ScrollToTop = false
                                         }
+                                        .padding(.horizontal,-4)
+                                        .listStyle(.plain)
+                                        .frame(minHeight: gr.size.height/2)
+                                        
                                     }
-                                    .padding(.horizontal,-4)
-                                    .listStyle(.plain)
-                                    .frame(minHeight: gr.size.height/2)
                                 }
                             }
                             Spacer()
                         }
                         .frame(minHeight: gr.size.height)
                         
-                        }else if selectedTab == 1{
-                            // ------- alternate sessions -------
-                            HStack(){
-                                SignUpHeaderTitle(Title: "Alternate Sessions")
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                            .padding(.top,4)
-                            .padding(.bottom,2)
-
-                            Group{
-                                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
-                                + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
-                            }
-                            .foregroundColor(ColorConstants.Red400)
-                            .font(Font.bold(size: 13))
-                            .lineSpacing(5)
-                            .padding(.horizontal)
-                            
-                            if Helper.shared.getSelectedUserType() == .Teacher{
-                                ScrollViewReader{proxy in
-                                    let sessions = SchedualsVm.AlternateSessions ?? []
-                                    List(sessions, id:\.self){ session in
-                                        AlternateSessionCell(model: session, addBtnAction: {
-                                                // add extra session
-                                            SchedualsVm.sessoionMode = .newAlternateSession
-                                                SchedualsVm.clearExtraSession()
-                                            SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
-                                            SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
-                                            
-                                            SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: 0,lessonName: session.lessonName ?? ""))
-                                            
-                                                SchedualsVm.ShowAddExtraSession = true
-                                        })
-                                        //                                .frame(height: 120)
-                                        .listRowSpacing(0)
-                                        .listRowSeparator(.hidden)
-                                        .listRowBackground(Color.clear)
-                                        .onAppear{
-                                                Task{
-                                                    await SchedualsVm.GetAlternateSessions()
-                                                }
-                                        }
-                                        .id(session)
-                                        .onChange(of: ScrollToTop){ value in
-                                            if value == true {
-                                                withAnimation {
-                                                    proxy.scrollTo(sessions.first , anchor: .bottom)
-                                                }
-                                            }
-                                            ScrollToTop = false
+                    }else if selectedTab == 1{
+                        // ------- alternate sessions -------
+                        HStack(){
+                            SignUpHeaderTitle(Title: "Alternate Sessions")
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .padding(.top,4)
+                        .padding(.bottom,2)
+                        
+                        Group{
+                            Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                            + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+                        }
+                        .foregroundColor(ColorConstants.Red400)
+                        .font(Font.bold(size: 13))
+                        .lineSpacing(5)
+                        .padding(.horizontal)
+                        
+                        if Helper.shared.getSelectedUserType() == .Teacher{
+                            ScrollViewReader{proxy in
+                                let sessions = SchedualsVm.AlternateSessions ?? []
+                                List(sessions, id:\.self){ session in
+                                    AlternateSessionCell(model: session, addBtnAction: {
+                                        // add extra session
+                                        SchedualsVm.sessoionMode = .newAlternateSession
+                                        SchedualsVm.clearExtraSession()
+                                        SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
+                                        SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
+                                        
+                                        SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: 0,lessonName: session.lessonName ?? ""))
+                                        
+                                        SchedualsVm.ShowAddExtraSession = true
+                                    })
+                                    //                                .frame(height: 120)
+                                    .listRowSpacing(0)
+                                    .listRowSeparator(.hidden)
+                                    .listRowBackground(Color.clear)
+                                    .onAppear{
+                                        Task{
+                                            await SchedualsVm.GetAlternateSessions()
                                         }
                                     }
-                                    .padding(.horizontal,-4)
-                                    .listStyle(.plain)
-                                    .frame(minHeight: gr.size.height/2)
+                                    .id(session)
+                                    .onChange(of: ScrollToTop){ value in
+                                        if value == true {
+                                            withAnimation {
+                                                proxy.scrollTo(sessions.first , anchor: .bottom)
+                                            }
+                                        }
+                                        ScrollToTop = false
+                                    }
                                 }
+                                .padding(.horizontal,-4)
+                                .listStyle(.plain)
+                                .frame(minHeight: gr.size.height/2)
                             }
                         }
-                        
                     }
-                    //                }
+                    
                 }
+                //                }
+            }
             
         }
         .localizeView()
@@ -370,16 +345,18 @@ struct TeacherHomeView: View {
         .task {
             date = await Helper.shared.GetEgyptDateTime()
             filterstartdate = date.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo:"dd MMM yyyy")
-
-//            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
-//            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
+            
+            //            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
+            //            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
             
             FilterAttend = false
             FilterCancel = false
-//            SchedualsVm.clearFilter()
-           await applyFilter()
-//            SchedualsVm.GetScheduals()
-//            await SchedualsVm.GetEgyptDateTime()
+            //            SchedualsVm.clearFilter()
+            if Helper.shared.getSelectedUserType() == .Teacher || Helper.shared.getSelectedUserType() == .Student || selectedChild != nil {
+                await applyFilter()
+                //            SchedualsVm.GetScheduals()
+                //            await SchedualsVm.GetEgyptDateTime()
+            }
         }
         .onDisappear {
             showFilter = false
@@ -390,7 +367,7 @@ struct TeacherHomeView: View {
                 Task{
                     await fetchScheduals()
                 }
-        }else if newval == 1{
+            }else if newval == 1{
                 Task{
                     await SchedualsVm.GetAlternateSessions()
                 }
@@ -424,8 +401,8 @@ struct TeacherHomeView: View {
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
                                 if selectedTab == 0{
                                     if SchedualsVm.sessoionMode == .createextraSession{
-//                                        SchedualsVm.CreateExtraSession()
-
+                                        //                                        SchedualsVm.CreateExtraSession()
+                                        
                                     }else if SchedualsVm.sessoionMode == .rescheduleAlternateSession{
                                         Task{
                                             await  SchedualsVm.CreateAlternateSession()
@@ -471,22 +448,22 @@ struct TeacherHomeView: View {
                         .foregroundColor(.mainBlue)
                 }.padding(8)
                 
-//                ScrollView{
+                //                ScrollView{
+                
+                let lessons = SchedualsVm.StudentSchedualDetails ?? []
+                List(lessons, id:\.self){ lesson in
                     
-                    let lessons = SchedualsVm.StudentSchedualDetails ?? []
-                    List(lessons, id:\.self){ lesson in
-                        
-                        StudentHomeCellView(model: lesson,isDetailCell: true)
-//                                                        .frame(height: 120)
-//                        .listRowSpacing(0)
-//                        .listRowSeparator(.hidden)
-//                        .listRowBackground(Color.clear)
-                    }
-                    .padding(.horizontal,-15)
-                    .listStyle(.plain)
-                   
-                    
-//                }
+                    StudentHomeCellView(model: lesson,isDetailCell: true)
+                    //                                                        .frame(height: 120)
+                    //                        .listRowSpacing(0)
+                    //                        .listRowSeparator(.hidden)
+                    //                        .listRowBackground(Color.clear)
+                }
+                .padding(.horizontal,-15)
+                .listStyle(.plain)
+                
+                
+                //                }
                 .frame(height: UIScreen.main.bounds.height * 0.7)
             }
             .background(ColorConstants.WhiteA700.cornerRadius(8))
@@ -534,7 +511,7 @@ struct TeacherHomeView: View {
                                     .font(Font.bold(size: 13))
                                     .padding([.horizontal,.top])
                                     .toggleStyle(SwitchToggleStyle(tint: ColorConstants.MainColor))
-
+                                    
                                     
                                 }.padding(.top,5)
                                 
@@ -566,27 +543,58 @@ struct TeacherHomeView: View {
                 }
             }
         }
- 
+        
     }
     
     @MainActor
-       private func fetchScheduals() async {
-           SchedualsVm.isLoading = true // Start the loading animation
-           await SchedualsVm.GetScheduals1()
-           SchedualsVm.isLoading = false // Stop the loading animation
-       }
+    private func fetchScheduals() async {
+        SchedualsVm.isLoading = true // Start the loading animation
+        await SchedualsVm.GetScheduals1()
+        SchedualsVm.isLoading = false // Stop the loading animation
+    }
 }
 
 #Preview {
     TeacherHomeView(
         selectedChild: .constant(nil)
     )
-        .environmentObject(StudentTabBarVM())
+    .environmentObject(StudentTabBarVM())
     //        .environmentObject(CompletedLessonsVM())
     
 }
 
 extension TeacherHomeView{
+    var header : some View {
+        return  Group{
+            HStack(){
+                SignUpHeaderTitle(Title: "Manage My Scheduals")
+                Spacer()
+                Image("img_maskgroup62_clipped")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(ColorConstants.MainColor)
+                    .frame(width: 25, height: 25, alignment: .center)
+                    .onTapGesture(perform: {
+                        showFilter = true
+                        //                                        validateFilterValues()
+                    })
+            }
+            //                                .padding(.top)
+            //        }
+            //        .padding(.horizontal)
+            
+            Group{
+                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+            }
+            .foregroundColor(ColorConstants.Red400)
+            .font(Font.bold(size: 13))
+            .lineSpacing(5)
+        }
+        .padding(.horizontal)
+
+    }
+    
     
     private func joinMeeting( meetingLink: String) {
         backgroundTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {

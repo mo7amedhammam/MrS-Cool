@@ -60,7 +60,12 @@ struct ParentTabBarView: View {
             
             TabView(selection: $tabbarvm.selectedIndex){
                 //                    StudentHomeView()
-                Text("") // dashboard
+//                Text("") // dashboard
+                TeacherHomeView(hasNavBar:false,selectedChild: $listchildrenvm.selectedChild)
+                    .environmentObject(StudentEditProfileVM())
+                    .gesture(DragGesture().onChanged { _ in })
+                    .padding(.top, 20)
+
                     .tag(0)
                     .gesture(
                         DragGesture().onChanged { _ in
@@ -119,10 +124,10 @@ struct ParentTabBarView: View {
         .task {
             parentProfilevm.GetParentProfile()
         }
-        .onChange(of: tabbarvm.selectedIndex){newval in
-            guard newval == 0 else {return}
-                presentSideMenu = true
-        }
+//        .onChange(of: tabbarvm.selectedIndex){newval in
+//            guard newval == 0 else {return}
+//                presentSideMenu = true
+//        }
 //        .task(id: localizeHelper.currentLanguage, {
 //            parentProfilevm.GetParentProfile()
 //            listchildrenvm.GetMyChildren()

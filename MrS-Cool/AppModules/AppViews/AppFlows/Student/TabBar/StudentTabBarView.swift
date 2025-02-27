@@ -235,7 +235,9 @@ struct StudentTabBarView: View {
     @State private var presentSideMenu = false
     
     private let tabBarItems = [
-        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
+//        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
+        TabBarItem(icon: "checkoutcaltime", selectedicon: "checkoutcaltime", title: ""),
+        
         TabBarItem(icon: "tab1", selectedicon: "tab1selected", title: ""),
         TabBarItem(icon: "tab2", selectedicon: "tab2selected", title: ""),
         TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),
@@ -249,9 +251,12 @@ struct StudentTabBarView: View {
             
             // Main Content
             TabView(selection: $studenttabbarvm.selectedIndex) {
-                Text("")
+//                Text("")
+                TeacherHomeView(hasNavBar:false,selectedChild: .constant(nil))
+                    .environmentObject(studentsignupvm)
                     .tag(0)
                     .gesture(DragGesture().onChanged { _ in })
+                    .padding(.top, 20)
                 
                 StudentFinanceView(selectedChild: .constant(nil))
                     .tag(1)
@@ -282,11 +287,11 @@ struct StudentTabBarView: View {
         .task {
             await studentsignupvm.GetStudentProfile()
         }
-        .onChange(of: studenttabbarvm.selectedIndex) { newValue in
-            if newValue == 0 {
-                presentSideMenu = true
-            }
-        }
+//        .onChange(of: studenttabbarvm.selectedIndex) { newValue in
+//            if newValue == 0 {
+//                presentSideMenu = true
+//            }
+//        }
         .overlay {
             SideMenuView()
         }
