@@ -16,7 +16,8 @@ struct ParentTabBarView: View {
     @State private var selectedDestination : Parentdestinations?
     
     private let tabBarItems = [
-        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
+//        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
+        TabBarItem(icon: "newtab0", selectedicon: "newtab0selected", title: ""),
         TabBarItem(icon: "tab1", selectedicon: "tab1selected", title: ""),
         TabBarItem(icon: "tab2", selectedicon: "tab2selected", title: ""),
         TabBarItem(icon: "tab3", selectedicon: "tab3selected", title: ""),

@@ -227,7 +227,7 @@ struct TeacherHomeView: View {
                                                 SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
                                                 SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
                                                 
-                                                SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: Int(session.duration ?? "0") ,lessonName: session.lessonName ?? ""))
+                                                SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: session.duration ?? 0 ,lessonName: session.lessonName ?? ""))
                                                 
                                                 SchedualsVm.ShowAddExtraSession = true
                                             })
@@ -445,10 +445,31 @@ struct TeacherHomeView: View {
                     .cornerRadius(2.5)
                     .padding(.top,2)
                 HStack {
+                    
+                    Spacer().frame(width:40,height: 40)
+                    Spacer()
+                    
                     Text("Sessions".localized())
                         .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)
-                }.padding(8)
+                    Spacer()
+                        Button(action: {
+                            SchedualsVm.ShowStudentCalendarDetails =  false
+                        }) {
+                            Image(systemName: "xmark")
+                                .padding(7)
+                                .font(.system(size: 22))
+                                .foregroundStyle(ColorConstants.WhiteA700)
+                        }
+                        .background{
+                            Color.black.opacity(0.2)
+                                .clipShape(.circle)
+                        }
+                        
+                        .frame(width:30,height: 30)
+                     
+                }
+//                .padding(8)
                 
                 //                ScrollView{
                 

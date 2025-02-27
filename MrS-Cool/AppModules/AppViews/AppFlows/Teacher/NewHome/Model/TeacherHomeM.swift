@@ -91,8 +91,8 @@ struct StudentHomeItemM: Codable,Hashable {
 struct AlternateSessoinM: Codable,Hashable {
     var teacherLessonSessionSlotID, absentStudentCount, teacherLessonSessionID, teacherSujectAcademicSemesterYearid: Int?
     var subjectName: String?
-    var teacherLessonID: Int?
-    var groupName, lessonName, date, duration: String?
+    var teacherLessonID, duration: Int?
+    var groupName, lessonName, date: String?
 
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSlotID = "teacherLessonSessionSlotId"

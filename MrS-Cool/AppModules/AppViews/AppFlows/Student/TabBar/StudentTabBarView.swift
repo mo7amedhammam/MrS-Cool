@@ -236,7 +236,7 @@ struct StudentTabBarView: View {
     
     private let tabBarItems = [
 //        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
-        TabBarItem(icon: "checkoutcaltime", selectedicon: "checkoutcaltime", title: ""),
+        TabBarItem(icon: "newtab0", selectedicon: "newtab0selected", title: ""),
         
         TabBarItem(icon: "tab1", selectedicon: "tab1selected", title: ""),
         TabBarItem(icon: "tab2", selectedicon: "tab2selected", title: ""),
