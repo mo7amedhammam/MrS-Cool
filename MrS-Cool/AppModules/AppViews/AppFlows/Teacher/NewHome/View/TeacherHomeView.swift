@@ -97,14 +97,14 @@ struct TeacherHomeView: View {
                             .padding(.horizontal)
                     }
                     
-                    if selectedTab == 0{
                         VStack{ // (Title - Data - Submit Button)
                             
                             
                             if Helper.shared.getSelectedUserType() == .Teacher{
-                                header
                                 
-                                
+                                if selectedTab == 0{
+                                    header
+
                                 ScrollViewReader{proxy in
                                     let scheduals = SchedualsVm.TeacherScheduals?.items ?? []
                                     List(scheduals, id:\.self){ schedual in
@@ -196,6 +196,66 @@ struct TeacherHomeView: View {
                                     .listStyle(.plain)
                                     .frame(minHeight: gr.size.height/2)
                                 }
+                                
+                            }else if selectedTab == 1{
+                                // ------- alternate sessions -------
+                                HStack(){
+                                    SignUpHeaderTitle(Title: "Alternate Sessions")
+                                    Spacer()
+                                }
+                                .padding(.horizontal)
+                                .padding(.top,4)
+                                .padding(.bottom,2)
+                                
+                                Group{
+                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                    + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
+                                }
+                                .foregroundColor(ColorConstants.Red400)
+                                .font(Font.bold(size: 13))
+                                .lineSpacing(5)
+                                .padding(.horizontal)
+                                
+//                                if Helper.shared.getSelectedUserType() == .Teacher{
+                                    ScrollViewReader{proxy in
+                                        let sessions = SchedualsVm.AlternateSessions ?? []
+                                        List(sessions, id:\.self){ session in
+                                            AlternateSessionCell(model: session, addBtnAction: {
+                                                // add extra session
+                                                SchedualsVm.sessoionMode = .newAlternateSession
+                                                SchedualsVm.clearExtraSession()
+                                                SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
+                                                SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
+                                                
+                                                SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: Int(session.duration ?? "0") ,lessonName: session.lessonName ?? ""))
+                                                
+                                                SchedualsVm.ShowAddExtraSession = true
+                                            })
+                                            //                                .frame(height: 120)
+                                            .listRowSpacing(0)
+                                            .listRowSeparator(.hidden)
+                                            .listRowBackground(Color.clear)
+                                            .onAppear{
+                                                Task{
+                                                    await SchedualsVm.GetAlternateSessions()
+                                                }
+                                            }
+                                            .id(session)
+                                            .onChange(of: ScrollToTop){ value in
+                                                if value == true {
+                                                    withAnimation {
+                                                        proxy.scrollTo(sessions.first , anchor: .bottom)
+                                                    }
+                                                }
+                                                ScrollToTop = false
+                                            }
+                                        }
+                                        .padding(.horizontal,-4)
+                                        .listStyle(.plain)
+                                        .frame(minHeight: gr.size.height/2)
+                                    }
+                                
+                            }
                             }else{
                                 // ------ Student -----
                                 
@@ -272,65 +332,7 @@ struct TeacherHomeView: View {
                         }
                         .frame(minHeight: gr.size.height)
                         
-                    }else if selectedTab == 1{
-                        // ------- alternate sessions -------
-                        HStack(){
-                            SignUpHeaderTitle(Title: "Alternate Sessions")
-                            Spacer()
-                        }
-                        .padding(.horizontal)
-                        .padding(.top,4)
-                        .padding(.bottom,2)
-                        
-                        Group{
-                            Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
-                            + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
-                        }
-                        .foregroundColor(ColorConstants.Red400)
-                        .font(Font.bold(size: 13))
-                        .lineSpacing(5)
-                        .padding(.horizontal)
-                        
-                        if Helper.shared.getSelectedUserType() == .Teacher{
-                            ScrollViewReader{proxy in
-                                let sessions = SchedualsVm.AlternateSessions ?? []
-                                List(sessions, id:\.self){ session in
-                                    AlternateSessionCell(model: session, addBtnAction: {
-                                        // add extra session
-                                        SchedualsVm.sessoionMode = .newAlternateSession
-                                        SchedualsVm.clearExtraSession()
-                                        SchedualsVm.teacherlessonsessionid = session.teacherLessonSessionID
-                                        SchedualsVm.teacherLessonSessionSchedualSlotID = session.teacherLessonSessionSlotID
-                                        
-                                        SchedualsVm.extraLesson = DropDownOption(id: session.teacherLessonID ?? 0, Title: session.lessonName ?? "", LessonItem: LessonForListM(id: session.teacherLessonID ?? 0,groupDuration: 0,lessonName: session.lessonName ?? ""))
-                                        
-                                        SchedualsVm.ShowAddExtraSession = true
-                                    })
-                                    //                                .frame(height: 120)
-                                    .listRowSpacing(0)
-                                    .listRowSeparator(.hidden)
-                                    .listRowBackground(Color.clear)
-                                    .onAppear{
-                                        Task{
-                                            await SchedualsVm.GetAlternateSessions()
-                                        }
-                                    }
-                                    .id(session)
-                                    .onChange(of: ScrollToTop){ value in
-                                        if value == true {
-                                            withAnimation {
-                                                proxy.scrollTo(sessions.first , anchor: .bottom)
-                                            }
-                                        }
-                                        ScrollToTop = false
-                                    }
-                                }
-                                .padding(.horizontal,-4)
-                                .listStyle(.plain)
-                                .frame(minHeight: gr.size.height/2)
-                            }
-                        }
-                    }
+
                     
                 }
                 //                }
