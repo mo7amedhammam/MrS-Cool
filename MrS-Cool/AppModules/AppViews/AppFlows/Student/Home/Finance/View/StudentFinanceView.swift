@@ -23,13 +23,15 @@ struct StudentFinanceView: View {
 //            CustomTitleBarView(title: "Completed Lessons")
             
             if Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil{
-                VStack{
-                    Text("You Have To Select Child First".localized())
-                        .frame(minHeight:UIScreen.main.bounds.height)
-                        .frame(width: UIScreen.main.bounds.width,alignment: .center)
-                        .font(Font.semiBold(size: 18))
-                        .foregroundColor(ColorConstants.MainColor)
-                }
+                ChildSelectionView()
+//                VStack{
+//                    Text("You Have To Select Child First".localized())
+//                        .frame(minHeight:UIScreen.main.bounds.height)
+//                        .frame(width: UIScreen.main.bounds.width,alignment: .center)
+//                        .font(Font.semiBold(size: 18))
+//                        .foregroundColor(ColorConstants.MainColor)
+//                }
+                
             }else{
                 VStack (alignment: .leading,spacing:0){
                     SignUpHeaderTitle(Title: "Finance")

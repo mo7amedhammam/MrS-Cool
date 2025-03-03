@@ -74,6 +74,7 @@ struct TeacherSignUpView: View {
                         currentStep = .documentsData
                         
                     case .documentsData:
+                        FirebaseNotificationsVM.shared.SendFirebaseToken()
                         isFinish.toggle()
                     }
                 })

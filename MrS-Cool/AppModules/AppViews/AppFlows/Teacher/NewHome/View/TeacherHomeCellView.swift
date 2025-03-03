@@ -44,7 +44,7 @@ struct TeacherHomeCellView: View {
                 
                 //                if model.isCancel != true && isEventNotStartedYet(){
 //                if model.canCancel == true{
-                if model.canCancel == true && model.isAlternate == true{
+                if model.canCancel == true && (model.isAlternate == true || model .teachersubjectAcademicSemesterYearID ?? 0 == 0){
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {

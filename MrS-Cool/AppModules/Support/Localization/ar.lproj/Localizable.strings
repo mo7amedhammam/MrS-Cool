@@ -686,8 +686,11 @@
 "student Didn't Attend :" = "طلاب لم يحضرو :";
 "student Cancelled :" = "طلاب ألغو تسجيلهم";
 "Extra Session :" = "حصة جديده :";
-"Extra Session" = "حصة تعويضيه";
 "Alternate Session :" = "حصة تعويضيه :";
+
 "Alternate Sessions" = "حصص تعويضيه";
+"Alternate Session" = "حصة تعويضيه";
+
+"Add Alternate" = "إنشاء درس بديل";
 
 "Sessions" = "الحصص";

@@ -692,8 +692,10 @@
 "student Didn't Attend :" = "students Didn't Attend :";
 "student Cancelled :" = "students Cancelled :";
 "Extra Session :" = "Extra Session :";
-"Extra Session" = "Alternate Session";
 "Alternate Session :" = "Alternate Session :";
+
 "Alternate Sessions" = "Alternate Sessions";
+"Alternate Session" = "Alternate Session";
+"Add Alternate" = "Add Alternate";
 
 "Sessions" = "Sessions";

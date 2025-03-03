@@ -330,11 +330,11 @@ struct StudentTabBarView: View {
                 studenttabbarvm.showDeleteConfirm = true
             }
         }
-        .onChange(of: presentSideMenu, perform: { value in
-            if value == false && studenttabbarvm.selectedIndex == 0{
-                studenttabbarvm.selectedIndex = 2
-            }
-        })
+//        .onChange(of: presentSideMenu, perform: { value in
+//            if value == false && studenttabbarvm.selectedIndex == 0{
+//                studenttabbarvm.selectedIndex = 2
+//            }
+//        })
         .showAlert(hasAlert: $studenttabbarvm.isError, alertType: studenttabbarvm.error)
         .showAlert(hasAlert: $studenttabbarvm.showSignOutConfirm, alertType: studenttabbarvm.error)
         .showAlert(hasAlert: $studenttabbarvm.showDeleteConfirm, alertType: studenttabbarvm.error)

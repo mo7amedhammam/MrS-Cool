@@ -69,6 +69,23 @@ struct TeacherHomeView: View {
         Helper.shared.getSelectedUserType() == .Parent &&  selectedChild == nil
     }
     
+    fileprivate func GetStartData() async {
+        date = await Helper.shared.GetEgyptDateTime()
+        filterstartdate = date.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo:"dd MMM yyyy")
+        
+        //            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
+        //            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
+        
+        FilterAttend = false
+        FilterCancel = false
+        //            SchedualsVm.clearFilter()
+        if Helper.shared.getSelectedUserType() == .Teacher || Helper.shared.getSelectedUserType() == .Student || selectedChild != nil {
+            await applyFilter()
+            //            SchedualsVm.GetScheduals()
+            //            await SchedualsVm.GetEgyptDateTime()
+        }
+    }
+    
     var body: some View {
         VStack {
             if hasNavBar ?? true{
@@ -131,7 +148,6 @@ struct TeacherHomeView: View {
                                                 }
                                             })
                                             SchedualsVm.isConfirmError = true
-                                            
                                             
                                             //                                            }else {
                                             //                                                // add extra session
@@ -265,11 +281,11 @@ struct TeacherHomeView: View {
                                         List(scheduals, id:\.self){ schedual in
                                             
                                             StudentHomeCellView(model: schedual,detailsBtnAction: {
-//                                                guard let BookDetailId = schedual.originalBookDetailId else {return}
+                                                guard let BookDetailId = schedual.bookTeacherlessonsessionDetailID else {return}
                                                 
                                                 SchedualsVm.ShowStudentCalendarDetails = true
                                                 Task{
-                                                    await SchedualsVm.StudentGetCalendarDetails(BookDetailId: schedual.originalBookDetailId)
+                                                    await SchedualsVm.StudentGetCalendarDetails(BookDetailId: BookDetailId)
                                                 }
                                             }, cancelBtnAction: {
                                                 
@@ -339,33 +355,20 @@ struct TeacherHomeView: View {
             hideKeyboard()
         })
         .task {
-            date = await Helper.shared.GetEgyptDateTime()
-            filterstartdate = date.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo:"dd MMM yyyy")
-            
-            //            filterstartdate = String(Date().formatDate(format: "dd MMM yyyy"))
-            //            filterenddate = String(Date().formatDate(format: "dd MMM yyyy"))
-            
-            FilterAttend = false
-            FilterCancel = false
-            //            SchedualsVm.clearFilter()
-            if Helper.shared.getSelectedUserType() == .Teacher || Helper.shared.getSelectedUserType() == .Student || selectedChild != nil {
-                await applyFilter()
-                //            SchedualsVm.GetScheduals()
-                //            await SchedualsVm.GetEgyptDateTime()
-            }
+            await GetStartData()
         }
         .onDisappear {
             showFilter = false
             //            completedlessonsvm.cleanup()
         }
         .onChange(of:selectedTab){newval in
+            Task{
             if newval == 0{
-                Task{
-                    await fetchScheduals()
-                }
+                await GetStartData()
+
             }else if newval == 1{
-                Task{
                     await SchedualsVm.GetAlternateSessions()
+                date = await Helper.shared.GetEgyptDateTime()
                 }
             }
         }
@@ -376,6 +379,7 @@ struct TeacherHomeView: View {
                     .cornerRadius(2.5)
                     .padding(.top,2)
                 HStack {
+                    
                     Text(selectedTab == 0 ? "Extra Session".localized() : "Alternate Session".localized())
                         .font(Font.bold(size: 18))
                         .foregroundColor(.mainBlue)

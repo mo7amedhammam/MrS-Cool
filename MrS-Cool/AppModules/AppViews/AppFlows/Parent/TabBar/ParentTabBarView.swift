@@ -65,7 +65,7 @@ struct ParentTabBarView: View {
                 TeacherHomeView(hasNavBar:false,selectedChild: $listchildrenvm.selectedChild)
                     .environmentObject(StudentEditProfileVM())
                     .gesture(DragGesture().onChanged { _ in })
-                    .padding(.top, 20)
+//                    .padding(.top, 20)
 
                     .tag(0)
                     .gesture(
@@ -84,6 +84,8 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
+//                    .padding(.top, 20)
+
                 
                 ListChildrenView() // home
                     .tag(2)
@@ -94,6 +96,8 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
+//                    .padding(.top, 20)
+
                 
                 ChatsListView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // chats
                     .tag(3)
@@ -103,6 +107,8 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
+//                    .padding(.top, 20)
+
                 
                 StudentCompletedLessonsView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // completed lessons
                     .tag(4)
@@ -112,9 +118,11 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
+//                    .padding(.top, 20)
+
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .padding(.top,-8)
+//            .padding(.top,-8)
             .padding(.bottom,-15)
             
             Spacer()
@@ -165,7 +173,10 @@ struct ParentTabBarView: View {
                 tabbarvm.destination = AnyView(CalView1(selectedChild: $listchildrenvm.selectedChild))
                 
             }else if newval == .schedualsList{
-                tabbarvm.destination = AnyView(TeacherHomeView(selectedChild: .constant(nil)).environmentObject(tabbarvm))
+               
+
+                tabbarvm.destination = AnyView( TeacherHomeView(hasNavBar:true,selectedChild: $listchildrenvm.selectedChild)
+                    .environmentObject(StudentEditProfileVM()))
                 
             }else if newval == .changePassword { // change password
                 tabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))
@@ -198,11 +209,11 @@ struct ParentTabBarView: View {
 
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
         
-            .onChange(of: presentSideMenu, perform: { value in
-                if value == false && tabbarvm.selectedIndex == 0{
-                    tabbarvm.selectedIndex = 2
-                }
-            })
+//            .onChange(of: presentSideMenu, perform: { value in
+//                if value == false && tabbarvm.selectedIndex == 0{
+//                    tabbarvm.selectedIndex = 2
+//                }
+//            })
         
     }
     
