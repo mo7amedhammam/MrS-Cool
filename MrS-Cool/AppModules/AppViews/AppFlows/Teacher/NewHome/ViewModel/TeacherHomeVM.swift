@@ -446,6 +446,7 @@ extension TeacherHomeVM{
                             self.skipCount = 0
                             self.isLoading = true
                             await self.GetScheduals1()
+                            await self.GetAlternateSessions()
                             self.isLoading = false
                         }
                         //                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
@@ -506,6 +507,7 @@ extension TeacherHomeVM{
                     //                            self.skipCount = 0
 //                    self.isLoading = true
                     await self.GetAlternateSessions()
+                    await self.GetScheduals1()
                     ShowAddExtraSession = false
                     self.isLoading = false
                 }

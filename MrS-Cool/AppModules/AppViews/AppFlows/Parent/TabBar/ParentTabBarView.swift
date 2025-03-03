@@ -174,6 +174,7 @@ struct ParentTabBarView: View {
             }else if newval == .signOut { // signout
                 
                 tabbarvm.error = .question( image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+                    listchildrenvm.selectedChild = nil
                     Helper.shared.selectedchild = nil
                     Helper.shared.changeRoot(toView: AnonymousHomeView())
                     Helper.shared.logout()

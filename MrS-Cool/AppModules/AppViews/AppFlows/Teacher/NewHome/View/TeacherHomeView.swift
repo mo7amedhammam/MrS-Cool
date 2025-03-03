@@ -99,12 +99,9 @@ struct TeacherHomeView: View {
                     
                         VStack{ // (Title - Data - Submit Button)
                             
-                            
                             if Helper.shared.getSelectedUserType() == .Teacher{
-                                
                                 if selectedTab == 0{
                                     header
-
                                 ScrollViewReader{proxy in
                                     let scheduals = SchedualsVm.TeacherScheduals?.items ?? []
                                     List(scheduals, id:\.self){ schedual in
@@ -113,11 +110,9 @@ struct TeacherHomeView: View {
                                                             editBtnAction: {
                                             if schedual.isAlternate == true{
                                                 SchedualsVm.sessoionMode = .rescheduleAlternateSession
-                                                
                                             }else{
                                                 // call add extrasession -> iscancel = true
                                                 SchedualsVm.sessoionMode = .createextraSession
-                                                
                                             }
                                             
                                             SchedualsVm.clearExtraSession()
@@ -266,16 +261,15 @@ struct TeacherHomeView: View {
                                     } else {
                                         header
                                         
-                                        
                                         let scheduals = SchedualsVm.StudentScheduals?.items ?? []
                                         List(scheduals, id:\.self){ schedual in
                                             
                                             StudentHomeCellView(model: schedual,detailsBtnAction: {
-                                                guard let BookDetailId = schedual.originalBookDetailId else {return}
+//                                                guard let BookDetailId = schedual.originalBookDetailId else {return}
                                                 
                                                 SchedualsVm.ShowStudentCalendarDetails = true
                                                 Task{
-                                                    await SchedualsVm.StudentGetCalendarDetails(BookDetailId: BookDetailId)
+                                                    await SchedualsVm.StudentGetCalendarDetails(BookDetailId: schedual.originalBookDetailId)
                                                 }
                                             }, cancelBtnAction: {
                                                 
@@ -403,7 +397,7 @@ struct TeacherHomeView: View {
                             CustomButton(Title:"Save",IsDisabled: .constant(false), action:{
                                 if selectedTab == 0{
                                     if SchedualsVm.sessoionMode == .createextraSession{
-                                        //                                        SchedualsVm.CreateExtraSession()
+                                        SchedualsVm.CreateExtraSession()
                                         
                                     }else if SchedualsVm.sessoionMode == .rescheduleAlternateSession{
                                         Task{

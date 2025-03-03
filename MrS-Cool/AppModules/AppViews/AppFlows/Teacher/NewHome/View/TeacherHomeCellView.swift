@@ -29,23 +29,22 @@ struct TeacherHomeCellView: View {
                 
                 Spacer()
                 
-                /// ---- join was here -------//
-                Button(action: {
-                    editBtnAction?()
-                }, label: {
-                    HStack{
-                        Image("img_vector_black_900_14x14")
-//                            .resizable()
-//                            .frame(width: 15,height: 20)
-                            .aspectRatio(contentMode: .fill)
-                    }
-                })
-                .buttonStyle(.plain)
+                if model.canCancel == true{
+                    Button(action: {
+                        editBtnAction?()
+                    }, label: {
+                        HStack{
+                            Image("img_vector_black_900_14x14")
+                                .aspectRatio(contentMode: .fill)
+                        }
+                    })
+                    .buttonStyle(.plain)
+                }
                 
                 
                 //                if model.isCancel != true && isEventNotStartedYet(){
 //                if model.canCancel == true{
-                if model.isAlternate == true{
+                if model.canCancel == true && model.isAlternate == true{
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {
@@ -78,7 +77,6 @@ struct TeacherHomeCellView: View {
                         .font(Font.semiBold(size: 12.0))
                         .fontWeight(.medium)
                         .foregroundColor(ColorConstants.Black900)
-                    //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .lineSpacing(5)
                     
@@ -86,7 +84,6 @@ struct TeacherHomeCellView: View {
                         .font(Font.semiBold(size: 12.0))
                         .fontWeight(.medium)
                         .foregroundColor(ColorConstants.Black900)
-                    //                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .lineSpacing(5)
                     
@@ -156,6 +153,27 @@ struct TeacherHomeCellView: View {
                 }
             }
             .padding(.leading,30)
+            
+            
+            if model.isAlternate == true {
+                HStack {
+                    Group{
+                        Text( "Alternate Session :".localized())
+                        Circle().fill(ColorConstants.LightGreen800).frame(width: 12,height: 12)
+                        
+                        //                            }else {
+                        //                                Circle().fill(ColorConstants.Red400).frame(width: 12,height: 12)
+                        //
+                        //                            }
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor( ColorConstants.LightGreen800 )
+                    
+                    Spacer()
+                }
+                .padding(.top,5)
+                .frame(maxWidth: .infinity,alignment: .leading)
+            }
             
         }
         .padding()
@@ -255,26 +273,25 @@ struct StudentHomeCellView: View {
                     .font(Font.semiBold(size: 12.0))
                     //                        .foregroundColor(ColorConstants.Black900)
                     
-                    HStack {
-                        Group{
-                            Text( "Alternate Session :".localized())
-                            if model.isAlternate == true {
+                    if model.isAlternate == true {
+                        HStack {
+                            Group{
+                                Text( "Alternate Session :".localized())
                                 Circle().fill(ColorConstants.LightGreen800).frame(width: 12,height: 12)
                                 
-//                                ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
-                            }else {
-                                Circle().fill(ColorConstants.Red400).frame(width: 12,height: 12)
-
-//                                ColorConstants.Red400.frame(width: 12,height: 12).clipShape(Circle())
+                                //                            }else {
+                                //                                Circle().fill(ColorConstants.Red400).frame(width: 12,height: 12)
+                                //
+                                //                            }
                             }
+                            .font(Font.bold(size:12))
+                            .foregroundColor( ColorConstants.LightGreen800 )
+
+                            Spacer()
                         }
-                        .font(Font.bold(size:12))
-                        .foregroundColor(model.isAlternate == true ? ColorConstants.LightGreen800 : ColorConstants.Red400)
-                        
-                        Spacer()
+                        .padding(.top,5)
+                        .frame(maxWidth: .infinity,alignment: .leading)
                     }
-                    .padding(.top,5)
-                    .frame(maxWidth: .infinity,alignment: .leading)
                     
                 }
                 Spacer()
