@@ -147,6 +147,7 @@ struct TeacherTabBarView: View {
                 hideKeyboard()
             })
             .onChange(of: selectedDestination) {newval in
+                
                 if newval == .editProfile{ //edit Profile
                     tabbarvm.destination = AnyView(ManageTeacherProfileView().environmentObject(teacherProfilevm))
                     
@@ -208,11 +209,11 @@ struct TeacherTabBarView: View {
             .showAlert(hasAlert: $tabbarvm.showDeleteConfirm, alertType: tabbarvm.error)
 
         NavigationLink(destination: tabbarvm.destination, isActive: $tabbarvm.ispush, label: {})
-//            .onChange(of: presentSideMenu, perform: { value in
-//                if value == false && tabbarvm.selectedIndex == 0{
-//                    tabbarvm.selectedIndex = 2
-//                }
-//            })
+            .onChange(of: presentSideMenu, perform: { value in
+                if value == false && tabbarvm.selectedIndex == 0{
+                    tabbarvm.selectedIndex = 2
+                }
+            })
         
     }
     

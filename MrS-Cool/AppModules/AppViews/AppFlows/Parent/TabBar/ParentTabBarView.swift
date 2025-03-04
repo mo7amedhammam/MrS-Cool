@@ -29,7 +29,7 @@ struct ParentTabBarView: View {
     @State var presentSideMenu = false
     var body: some View {
         //        NavigationView{
-        VStack(spacing:0) {
+        VStack(spacing:0){
             HStack {
                 VStack(alignment: .leading){
                     Group{
@@ -73,6 +73,8 @@ struct ParentTabBarView: View {
                             // Disable swipe gestures
                         }
                     )
+                    .padding(.top,15)
+
 //                    .onAppear(perform: {
 //                        presentSideMenu = true
 //                    })
@@ -97,6 +99,8 @@ struct ParentTabBarView: View {
                         }
                     )
 //                    .padding(.top, 20)
+                    .padding(.top,listchildrenvm.selectedChild == nil ? -15 : 0)
+
 
                 
                 ChatsListView(hasNavBar : false,selectedChild:$listchildrenvm.selectedChild) // chats
@@ -122,7 +126,7 @@ struct ParentTabBarView: View {
 
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-//            .padding(.top,-8)
+            .padding(.top,listchildrenvm.selectedChild == nil ? 8 : -8)
             .padding(.bottom,-15)
             
             Spacer()

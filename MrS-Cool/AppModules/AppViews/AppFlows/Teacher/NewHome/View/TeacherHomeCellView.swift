@@ -29,7 +29,7 @@ struct TeacherHomeCellView: View {
                 
                 Spacer()
                 
-                if model.canCancel == true{
+                if model.canCancel == true && model.teachersubjectAcademicSemesterYearID ?? 0 != 0{
                     Button(action: {
                         editBtnAction?()
                     }, label: {
@@ -79,6 +79,7 @@ struct TeacherHomeCellView: View {
                         .foregroundColor(ColorConstants.Black900)
                         .multilineTextAlignment(.leading)
                         .lineSpacing(5)
+                        .lineLimit(nil)
                     
                     Text(model.sessionName ?? "session 1")
                         .font(Font.semiBold(size: 12.0))

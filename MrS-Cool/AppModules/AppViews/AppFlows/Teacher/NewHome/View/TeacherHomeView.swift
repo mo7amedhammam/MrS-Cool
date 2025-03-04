@@ -334,16 +334,12 @@ struct TeacherHomeView: View {
                                         .padding(.horizontal,-4)
                                         .listStyle(.plain)
                                         .frame(minHeight: gr.size.height/2)
-                                        
                                     }
                                 }
                             }
                             Spacer()
                         }
                         .frame(minHeight: gr.size.height)
-                        
-
-                    
                 }
                 //                }
             }
@@ -359,6 +355,8 @@ struct TeacherHomeView: View {
         }
         .onDisappear {
             showFilter = false
+            SchedualsVm.ShowAddExtraSession = false
+            SchedualsVm.ShowStudentCalendarDetails = false
             //            completedlessonsvm.cleanup()
         }
         .onChange(of:selectedTab){newval in

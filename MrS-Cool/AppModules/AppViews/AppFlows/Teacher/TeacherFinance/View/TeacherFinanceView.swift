@@ -302,6 +302,8 @@ struct TeacherFinanceView: View {
                 }
                 .onDisappear(perform: {
                     financevm.cleanup()
+                    showLessonsFilter = false
+                    showSubjectsFilter = false
                 })
                 Spacer()
 //            }

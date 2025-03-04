@@ -233,7 +233,8 @@ struct StudentTabBarView: View {
     @StateObject private var studentsignupvm = StudentEditProfileVM()
     @State private var selectedDestination: Studentdestinations?
     @State private var presentSideMenu = false
-    
+    var homeIndex : Int?
+
     private let tabBarItems = [
 //        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
         TabBarItem(icon: "newtab0", selectedicon: "newtab0selected", title: ""),
@@ -256,7 +257,7 @@ struct StudentTabBarView: View {
                     .environmentObject(studentsignupvm)
                     .tag(0)
                     .gesture(DragGesture().onChanged { _ in })
-                    .padding(.top, 20)
+                    .padding(.top, 10)
                 
                 StudentFinanceView(selectedChild: .constant(nil))
                     .tag(1)
@@ -279,13 +280,17 @@ struct StudentTabBarView: View {
                     .gesture(DragGesture().onChanged { _ in })
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .padding(.top, -8)
+//            .padding(.top, -8)
             .padding(.bottom, -15)
             
             CustomTabBarView(selectedIndex: $studenttabbarvm.selectedIndex, tabBarItems: tabBarItems)
         }
         .task {
-            await studentsignupvm.GetStudentProfile()
+            if let homeIndex = homeIndex {
+                studenttabbarvm.selectedIndex = homeIndex
+            }
+            
+             studentsignupvm.GetStudentProfile()
         }
 //        .onChange(of: studenttabbarvm.selectedIndex) { newValue in
 //            if newValue == 0 {
@@ -297,7 +302,10 @@ struct StudentTabBarView: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .hideNavigationBar()
-        .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
+        .background(
+//            ColorConstants.Gray50
+            Color.clear
+                .ignoresSafeArea().onTapGesture {
             hideKeyboard()
         })
         .onChange(of: selectedDestination) {newval in
@@ -340,7 +348,6 @@ struct StudentTabBarView: View {
         .showAlert(hasAlert: $studenttabbarvm.showDeleteConfirm, alertType: studenttabbarvm.error)
         
         NavigationLink(destination: studenttabbarvm.destination, isActive: $studenttabbarvm.ispush, label: {})
-        
     }
     
     @ViewBuilder
