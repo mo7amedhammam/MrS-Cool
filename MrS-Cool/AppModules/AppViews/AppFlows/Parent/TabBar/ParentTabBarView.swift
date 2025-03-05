@@ -62,6 +62,7 @@ struct ParentTabBarView: View {
             TabView(selection: $tabbarvm.selectedIndex){
                 //                    StudentHomeView()
 //                Text("") // dashboard
+                
                 TeacherHomeView(hasNavBar:false,selectedChild: $listchildrenvm.selectedChild)
                     .environmentObject(StudentEditProfileVM())
                     .gesture(DragGesture().onChanged { _ in })

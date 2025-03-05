@@ -68,7 +68,7 @@ struct AlternateSessionCell: View {
                     HStack{
                         Text("Add Alternate".localized())
                             .fontWeight(.bold)
-                            .foregroundColor(.mainBlue)
+                            .foregroundColor(ColorConstants.MainColor)
                             .font(Font.semiBold(size: 12))
                         //
                         Image("clockadd")

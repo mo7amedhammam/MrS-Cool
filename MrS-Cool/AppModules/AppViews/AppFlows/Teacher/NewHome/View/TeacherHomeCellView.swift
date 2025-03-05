@@ -228,7 +228,7 @@ struct StudentHomeCellView: View {
                 }
                 
                 //                if model.isCancel != true && isEventNotStartedYet(){
-                if model.canCancel == true{
+                if model.canCancel == true && !isDetailCell{
                     Button(action: {
                         cancelBtnAction?()
                     }, label: {

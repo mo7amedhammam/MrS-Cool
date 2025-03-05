@@ -70,6 +70,7 @@ struct TeacherHomeView: View {
     }
     
     fileprivate func GetStartData() async {
+        SchedualsVm.StudentScheduals?.items?.removeAll()
         date = await Helper.shared.GetEgyptDateTime()
         filterstartdate = date.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo:"dd MMM yyyy")
         
