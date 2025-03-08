@@ -245,9 +245,12 @@ extension TeacherHomeVM{
                             self.TeacherScheduals?.items?.removeAll()
                             self.StudentScheduals?.items?.removeAll()
                             self.skipCount = 0
+                            self.error = .success(image:"iconSuccess", imgrendermode:.original,message: receivedData.message ?? "",buttonTitle:"Done")
+                            self.isError = true
                             self.isLoading = true
                             await self.GetScheduals1()
                             self.isLoading = false
+                            
                         }
                         
                     }else{
@@ -280,7 +283,9 @@ extension TeacherHomeVM{
                         //                        StudentScheduals?.items?.removeAll()
                         //                        GetScheduals()
                         
-                        
+                        self.isError = true
+                        self.error = .success(image:"iconSuccess",imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done")
+
                         StudentScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
                         
                         
@@ -444,9 +449,12 @@ extension TeacherHomeVM{
                             self.TeacherScheduals?.items?.removeAll()
                             self.StudentScheduals?.items?.removeAll()
                             self.skipCount = 0
+                            self.error = .success(image:"iconSuccess",imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done")
+                            self.isError = true
+
                             self.isLoading = true
                             await self.GetScheduals1()
-                            await self.GetAlternateSessions()
+//                            await self.GetAlternateSessions()
                             self.isLoading = false
                         }
                         //                        TeacherScheduals?.items = TeacherScheduals?.items?.map { item in
@@ -506,8 +514,11 @@ extension TeacherHomeVM{
                     self.AlternateSessions?.removeAll()
                     //                            self.skipCount = 0
 //                    self.isLoading = true
+                    self.error = .success(image:"iconSuccess",imgrendermode:.original, message: response.message ?? "",buttonTitle:"Done")
+                    self.isError = true
+
                     await self.GetAlternateSessions()
-                    await self.GetScheduals1()
+//                    await self.GetScheduals1()
                     ShowAddExtraSession = false
                     self.isLoading = false
                 }

@@ -163,12 +163,14 @@ struct TeacherHomeView: View {
                                             //                                            }
                                             
                                         }, joinBtnAction: {
-                                            if let teamMeetingLink = schedual.teamMeetingLink{    joinMeeting(meetingLink: teamMeetingLink)
-                                            }
-                                            
                                             if let eventid = schedual.teacherLessonSessionSchedualSlotID {
                                                 SchedualsVm.StudentAttendanceCalendarSchedual(id: eventid)
                                             }
+                                            
+                                            if let teamMeetingLink = schedual.teamMeetingLink{    joinMeeting(meetingLink: teamMeetingLink)
+                                            }
+                                            
+
                                             //                                        else{
                                             //                                            // if teacher
                                             //                                            if Helper.shared.getSelectedUserType() == .Teacher,let eventid = schedual.id{
