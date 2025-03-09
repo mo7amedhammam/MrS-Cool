@@ -42,7 +42,7 @@ struct PaymentStatusView: View {
 
             Spacer()
             CustomButton(Title: "Go To Home", IsDisabled: .constant(false), action: {
-                Helper.shared.getSelectedUserType() == .Parent ? Helper.shared.changeRoot(toView:ParentTabBarView()):Helper.shared.changeRoot(toView:StudentTabBarView(homeIndex: 2))
+                Helper.shared.getSelectedUserType() == .Parent ? Helper.shared.changeRoot(toView:ParentTabBarView(homeIndex:2)) : Helper.shared.changeRoot(toView:StudentTabBarView(homeIndex: 2))
 
 //                destination = Helper.shared.getSelectedUserType() == .Parent ? AnyView(ParentTabBarView()):AnyView(StudentTabBarView())
 //                isPush = true

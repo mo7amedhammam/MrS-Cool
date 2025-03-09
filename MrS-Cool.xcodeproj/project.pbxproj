@@ -3043,7 +3043,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.9;
+				CURRENT_PROJECT_VERSION = 1.7.4.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
@@ -3068,7 +3068,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.3;
+				MARKETING_VERSION = 1.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3090,7 +3090,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.9;
+				CURRENT_PROJECT_VERSION = 1.7.4.0;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
 				ENABLE_PREVIEWS = YES;
@@ -3114,7 +3114,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.3;
+				MARKETING_VERSION = 1.7.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wecancityagency.MrS-Cool";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

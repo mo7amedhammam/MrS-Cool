@@ -36,11 +36,11 @@ class StudentHomeVM: ObservableObject {
     }
     @Published var isacademicYearvalid : Bool = true
     
-    @Published var term : DropDownOption?{
-        didSet{
-            isacademicYearvalid = term != nil && academicYear != nil
-        }
-    }
+//    @Published var term : DropDownOption?{
+//        didSet{
+//            isacademicYearvalid = term != nil && academicYear != nil
+//        }
+//    }
     
     
     //    MARK: -  for student -
@@ -137,9 +137,9 @@ extension StudentHomeVM{
             if let educationLevelid = academicYear?.id {
                 parameters["academicEducationLevelId"] = educationLevelid
             }
-            if let termid = term?.id{
-                parameters["semesterId"] = termid
-            }
+//            if let termid = term?.id{
+//                parameters["semesterId"] = termid
+//            }
             
             let target = StudentServices.GetStudentSubjects(parameters: parameters)
             //        isLoading = true
@@ -391,7 +391,7 @@ extension StudentHomeVM{
     }
     func clearsearch(){
         educationType = nil
-        term = nil
+//        term = nil
         isacademicYearvalid = true
     }
     

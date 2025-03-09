@@ -238,20 +238,25 @@ extension TeacherHomeVM{
                     guard let self = self else{return}
                     print("receivedData",receivedData)
                     if receivedData.success == true {
+                        self.error = .success(image:"iconSuccess", imgrendermode:.original,message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
+                            guard let self = self else {return}
+                            Task{ [weak self] in
+                                guard let self = self else {return}
+                                self.TeacherScheduals?.items?.removeAll()
+                                self.StudentScheduals?.items?.removeAll()
+                                self.skipCount = 0
+                                self.isLoading = true
+                                await self.GetScheduals1()
+                                self.isLoading = false
+                            }
+
+                        })
+                        self.isError = true
+
+                        
                         
 //                        TeacherScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
-                        Task{ [weak self] in
-                            guard let self = self else {return}
-                            self.TeacherScheduals?.items?.removeAll()
-                            self.StudentScheduals?.items?.removeAll()
-                            self.skipCount = 0
-                            self.error = .success(image:"iconSuccess", imgrendermode:.original,message: receivedData.message ?? "",buttonTitle:"Done")
-                            self.isError = true
-                            self.isLoading = true
-                            await self.GetScheduals1()
-                            self.isLoading = false
-                            
-                        }
+                     
                         
                     }else{
                         isError =  true
@@ -283,10 +288,11 @@ extension TeacherHomeVM{
                         //                        StudentScheduals?.items?.removeAll()
                         //                        GetScheduals()
                         
+                        self.error = .success(image:"iconSuccess",imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
+                            guard let self = self else {return}
+                            StudentScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
+                        })
                         self.isError = true
-                        self.error = .success(image:"iconSuccess",imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done")
-
-                        StudentScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
                         
                         
                         //                        StudentScheduals?.items = StudentScheduals?.items?.map { item in
@@ -440,7 +446,7 @@ extension TeacherHomeVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true{
                     ShowAddExtraSession = false
-                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
+                    error = .success(image:"iconSuccess", imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
                         guard let self = self else {return}
                         //                        clearExtraSession()
                         //                        GetScheduals()
@@ -449,8 +455,8 @@ extension TeacherHomeVM{
                             self.TeacherScheduals?.items?.removeAll()
                             self.StudentScheduals?.items?.removeAll()
                             self.skipCount = 0
-                            self.error = .success(image:"iconSuccess",imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done")
-                            self.isError = true
+//                            self.error = .success(image:"iconSuccess",imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done")
+//                            self.isError = true
 
                             self.isLoading = true
                             await self.GetScheduals1()
@@ -509,19 +515,24 @@ extension TeacherHomeVM{
             if response.success == true {
                 //                        if skipCount == 0{
                 //                                AlternateSessions = response.data
-                Task{ [weak self] in
-                    guard let self = self else {return}
-                    self.AlternateSessions?.removeAll()
-                    //                            self.skipCount = 0
-//                    self.isLoading = true
-                    self.error = .success(image:"iconSuccess",imgrendermode:.original, message: response.message ?? "",buttonTitle:"Done")
-                    self.isError = true
+                
+                self.error = .success(image:"iconSuccess",imgrendermode:.original, message: response.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
+                    Task{ [weak self] in
+                        guard let self = self else {return}
+                        self.AlternateSessions?.removeAll()
+                        //                            self.skipCount = 0
+    //                    self.isLoading = true
 
-                    await self.GetAlternateSessions()
-//                    await self.GetScheduals1()
-                    ShowAddExtraSession = false
-                    self.isLoading = false
-                }
+                        await self.GetAlternateSessions()
+                        await self.GetScheduals1()
+                        ShowAddExtraSession = false
+                        self.isLoading = false
+                    }
+                    
+                })
+                self.isError = true
+
+ 
                 //                        }else{
                 //                            TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
                 //                        }

@@ -149,6 +149,7 @@ struct OTPVerificationView: View {
             dismiss()
             isVerified = true
         })
+        
         .fullScreenCover(isPresented: $otpvm.isOTPVerified, onDismiss: {
             print("dismissed ")
             //            isVerified = true

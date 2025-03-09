@@ -12,6 +12,7 @@ enum Parentdestinations{
 }
 struct ParentTabBarView: View {
     @StateObject var tabbarvm = StudentTabBarVM()
+    @State var homeIndex : Int?
 //    @StateObject var localizeHelper = LocalizeHelper.shared
     @State private var selectedDestination : Parentdestinations?
     
@@ -136,6 +137,9 @@ struct ParentTabBarView: View {
         }
         .localizeView()
         .task {
+            if let homeIndex = homeIndex {
+                tabbarvm.selectedIndex = homeIndex
+            }
             parentProfilevm.GetParentProfile()
         }
 //        .onChange(of: tabbarvm.selectedIndex){newval in
@@ -166,6 +170,7 @@ struct ParentTabBarView: View {
             hideKeyboard()
         })
         .onChange(of: selectedDestination) {newval in
+            homeIndex = nil
             if newval == .editProfile{ //edit Profile
                 
                 tabbarvm.destination = AnyView(EditParentProfileView().environmentObject(parentProfilevm))

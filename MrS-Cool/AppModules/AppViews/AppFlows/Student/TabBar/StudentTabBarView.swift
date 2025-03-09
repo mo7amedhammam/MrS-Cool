@@ -233,7 +233,7 @@ struct StudentTabBarView: View {
     @StateObject private var studentsignupvm = StudentEditProfileVM()
     @State private var selectedDestination: Studentdestinations?
     @State private var presentSideMenu = false
-    var homeIndex : Int?
+    @State var homeIndex : Int?
 
     private let tabBarItems = [
 //        TabBarItem(icon: "tab0", selectedicon: "tab0selected", title: ""),
@@ -246,7 +246,7 @@ struct StudentTabBarView: View {
     ]
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 0){
             // Header
             HeaderView(presentSideMenu: $presentSideMenu, name: studentsignupvm.name)
             
@@ -309,6 +309,7 @@ struct StudentTabBarView: View {
             hideKeyboard()
         })
         .onChange(of: selectedDestination) {newval in
+            homeIndex = nil
             if newval == .editProfile{ //edit Profile
                 studenttabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(studentsignupvm))
             }else if newval == .calendar { //calendar
