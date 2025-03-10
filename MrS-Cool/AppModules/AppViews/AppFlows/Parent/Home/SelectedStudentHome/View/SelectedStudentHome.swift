@@ -409,6 +409,7 @@ struct SelectedStudentHome: View {
 //            CustomTabBarView(selectedIndex: $selectedIndex,tabBarItems:tabBarItems)
             
         }
+        .interactiveDismissDisabled(true)
         .edgesIgnoringSafeArea(.bottom)
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {

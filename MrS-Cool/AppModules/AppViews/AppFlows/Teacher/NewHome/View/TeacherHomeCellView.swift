@@ -327,7 +327,7 @@ struct StudentHomeCellView: View {
                     
                     Spacer()
                     //                if model.isCancel == false && isCurrentTimeWithinEventTime(){
-                    if model.teamMeetingLink != nil {
+                    if model.teamMeetingLink != nil && !isDetailCell {
                         Button(action: {
                             joinBtnAction?()
                         }, label: {

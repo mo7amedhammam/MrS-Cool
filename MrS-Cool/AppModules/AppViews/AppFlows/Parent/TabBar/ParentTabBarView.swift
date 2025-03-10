@@ -95,6 +95,7 @@ struct ParentTabBarView: View {
                     .tag(2)
                     .environmentObject(tabbarvm)
                     .environmentObject(listchildrenvm)
+                    .interactiveDismissDisabled(true)
                     .gesture(
                         DragGesture().onChanged { _ in
                             // Disable swipe gestures
@@ -164,6 +165,7 @@ struct ParentTabBarView: View {
         .overlay(content: {
             SideMenuView()
         })
+        .interactiveDismissDisabled(true)
         .edgesIgnoringSafeArea(.bottom)
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {

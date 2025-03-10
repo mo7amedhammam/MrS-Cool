@@ -475,7 +475,7 @@ extension TeacherHomeVM{
                     
                 }else{
                     //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
-                    ShowAddExtraSession = false
+//                    ShowAddExtraSession = false
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")
                     isError =  true
                 }
@@ -515,7 +515,7 @@ extension TeacherHomeVM{
             if response.success == true {
                 //                        if skipCount == 0{
                 //                                AlternateSessions = response.data
-                
+                ShowAddExtraSession = false
                 self.error = .success(image:"iconSuccess",imgrendermode:.original, message: response.message ?? "",buttonTitle:"Done",mainBtnAction: {[weak self] in
                     Task{ [weak self] in
                         guard let self = self else {return}
@@ -525,7 +525,6 @@ extension TeacherHomeVM{
 
                         await self.GetAlternateSessions()
                         await self.GetScheduals1()
-                        ShowAddExtraSession = false
                         self.isLoading = false
                     }
                     

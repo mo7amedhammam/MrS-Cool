@@ -15,7 +15,8 @@ struct ListChildrenView: View {
     @State var destination = AnyView(EmptyView())
 
     var body: some View {
-        CustomNavigationView{
+//        CustomNavigationView{
+       NavigationView{
             VStack {
                 ScrollView {
                     KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Parent.jpg"),placeholder: Image("Parent-Panner"), shouldRefetch: true)
@@ -143,6 +144,7 @@ struct ListChildrenView: View {
             .showAlert(hasAlert: $listchildrenvm.isError, alertType: listchildrenvm.error)
 
         }
+        .interactiveDismissDisabled(true)
         .edgesIgnoringSafeArea(.vertical)
         .hideNavigationBar()
         .localizeView()
