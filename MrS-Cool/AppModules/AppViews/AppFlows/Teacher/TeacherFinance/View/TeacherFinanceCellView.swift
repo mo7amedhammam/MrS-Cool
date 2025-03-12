@@ -45,15 +45,7 @@ struct TeacherFinanceCellView: View {
                     case .Subjects:
                         HStack {
                             
-                            Button(action: {
-                                reviewBtnAction?()
-                            }, label: {
-                                Image("img_group8733_gray_908")
-                                    .resizable()
-                                    .frame(width: 20, height: 15,alignment: .leading)
-                                    .aspectRatio(contentMode: .fill)
-                            })
-                            .buttonStyle(.plain)
+                         
                             
                             Text(subjectOrLessonName)
                                 .font(Font.bold(size:12))
@@ -112,6 +104,17 @@ struct TeacherFinanceCellView: View {
                 
                 Image(.dollarIcon)
 
+                if financese == .Subjects{
+                    Button(action: {
+                        reviewBtnAction?()
+                    }, label: {
+                        Image("img_group8733_gray_908")
+                            .resizable()
+                            .frame(width: 20, height: 15,alignment: .leading)
+                            .aspectRatio(contentMode: .fill)
+                    })
+                    .buttonStyle(.plain)
+                }
                 
                 
                 //                    VStack (alignment: .leading,spacing:financese == .Lessons ? 5 : 10){
