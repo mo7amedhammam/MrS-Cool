@@ -80,6 +80,7 @@ struct TeacherHomeCellView: View {
                         .multilineTextAlignment(.leading)
                         .lineSpacing(5)
                         .lineLimit(nil)
+                        .minimumScaleFactor(0.5)
                     
                     Text(model.sessionName ?? "session 1")
                         .font(Font.semiBold(size: 12.0))

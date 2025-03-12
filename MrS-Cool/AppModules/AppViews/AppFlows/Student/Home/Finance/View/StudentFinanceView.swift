@@ -60,6 +60,7 @@ struct StudentFinanceView: View {
                             HStack(spacing:0){
                                 Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ")
                                 Text("LE".localized())
+                                    .padding(.trailing,12)
                             }
                             .font(Font.bold(size: 48))
                             .foregroundColor(ColorConstants.MainColor)
@@ -70,10 +71,12 @@ struct StudentFinanceView: View {
                             }
                             .font(Font.regular(size: 12))
                             .foregroundColor(.mainBlue)
-                            .padding(.trailing,-20)
+//                            .padding(.trailing,-3)
                             .padding(.bottom,5)
 
                         }
+//                        .padding(.trailing,-20)
+
 //                        Spacer()
                     }
                     .borderRadius(ColorConstants.Bluegray20099, width: 1, cornerRadius: 8, corners: [.allCorners])

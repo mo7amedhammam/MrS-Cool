@@ -59,7 +59,8 @@
 "Add New Material" = "Add New Material";
 "Add New Schedule" = "Add New Schedule";
 "Add New Student Account" = "Add New Student Account";
-"Add New Subject Group" = "Creating a course group for the term - Please note that the first date of the group start does not include today’s date. The actual start date is counted from the day following the group creation. Please take this into account when planning your course schedules.";
+//"Add New Subject Group" = "Creating a course group for the term - Please note that the first date of the group start does not include today’s date. The actual start date is counted from the day following the group creation. Please take this into account when planning your course schedules.";
+"Add New Subject Group" = "Creating a course group for the term.";
 "Amount" = "Amount";
 "An authentication code has been sent to" = "An authentication code has been sent to";
 "Anonymous" = "Anonymous";

@@ -15,7 +15,7 @@ struct TeacherFinanceCellView: View {
 
     var body: some View {
         VStack {
-            HStack{
+            HStack(){
                 let subjectOrLessonName = model.subjectOrLessonName ?? ""
                 //            let name = subjectOrLessonName.split(separator: ",").map{ String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
                 
@@ -27,14 +27,6 @@ struct TeacherFinanceCellView: View {
                 //            let Part6 = name.indices.contains(5) ? name[5] : ""
                 
                 //                HStack(spacing: 20) {
-                Image(.dollarIcon)
-                
-                Text(model.profit ?? 0,format: .number)
-                    .font(Font.bold(size:13.0))
-                    .foregroundColor(.mainBlue)
-                    .frame(minWidth: 40,alignment: .leading)
-                
-                Spacer()
                 
 //                if financese == .Lessons{
 //                    Button(action: {
@@ -48,10 +40,21 @@ struct TeacherFinanceCellView: View {
 //                    .buttonStyle(.plain)
 //                }
                 
-                VStack(alignment: .trailing){
+                VStack(alignment: .leading){
                     switch financese {
                     case .Subjects:
                         HStack {
+                            
+                            Button(action: {
+                                reviewBtnAction?()
+                            }, label: {
+                                Image("img_group8733_gray_908")
+                                    .resizable()
+                                    .frame(width: 20, height: 15,alignment: .leading)
+                                    .aspectRatio(contentMode: .fill)
+                            })
+                            .buttonStyle(.plain)
+                            
                             Text(subjectOrLessonName)
                                 .font(Font.bold(size:12))
                                 .lineLimit(2)
@@ -65,16 +68,6 @@ struct TeacherFinanceCellView: View {
                             //                        }
                             .foregroundColor(.mainBlue)
                             
-                            Button(action: {
-                                reviewBtnAction?()
-                            }, label: {
-                                Image("img_group8733_gray_908")
-                                    .resizable()
-                                    .frame(width: 20, height: 15,alignment: .leading)
-                                    .aspectRatio(contentMode: .fill)
-                            })
-                            .buttonStyle(.plain)
-
                         }
                         
                     case .Lessons:
@@ -109,6 +102,17 @@ struct TeacherFinanceCellView: View {
                     
 
                 }
+                
+                Spacer()
+                
+                Text(model.profit ?? 0,format: .number)
+                    .font(Font.bold(size:13.0))
+                    .foregroundColor(.mainBlue)
+                    .frame(minWidth: 40,alignment: .trailing)
+                
+                Image(.dollarIcon)
+
+                
                 
                 //                    VStack (alignment: .leading,spacing:financese == .Lessons ? 5 : 10){
                 //                        switch financese {

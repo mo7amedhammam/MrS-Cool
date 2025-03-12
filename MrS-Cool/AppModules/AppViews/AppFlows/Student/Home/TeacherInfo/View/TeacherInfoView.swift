@@ -39,12 +39,12 @@ struct TeacherInfoView: View {
                                     StarsView(rating:rate)
                             }
 
-                            Group{
-                                Text("\(teacher.totalReviews ?? 0) ")
-                                + Text("Reviews".localized())
-                            }
-                            .foregroundColor(Color.mainBlue)
-                            .font(.semiBold(size: 12))
+//                            Group{
+//                                Text("\(teacher.totalReviews ?? 0) ")
+//                                + Text("Reviews".localized())
+//                            }
+//                            .foregroundColor(Color.mainBlue)
+//                            .font(.semiBold(size: 12))
                             
                         }
                         .foregroundColor(.mainBlue)
