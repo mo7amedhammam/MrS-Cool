@@ -76,7 +76,7 @@ struct AnonymousHomeView: View {
                                 
                                 CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studenthomevm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:studenthomevm.isacademicYearvalid)
                                 
-//                                CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
+                                //                                CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
                                 CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant((studenthomevm.academicYear == nil || !studenthomevm.isacademicYearvalid)) , action: {
                                     withAnimation{
@@ -119,10 +119,10 @@ struct AnonymousHomeView: View {
                                     SignUpHeaderTitle(Title: "Showing Results For", subTitleView: AnyView(
                                         ZStack{
                                             
-//                                            let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")".removingTrailingComma()
-
+                                            //                                            let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? ""), \(studenthomevm.term?.Title ?? "")".removingTrailingComma()
+                                            
                                             let searchselections = "\(studenthomevm.educationType?.Title ?? ""), \(studenthomevm.educationLevel?.Title ?? ""), \(studenthomevm.academicYear?.Title ?? "")".removingTrailingComma()
-
+                                            
                                             Text(searchselections)
                                                 .font(Font.regular(size: 10.0))
                                                 .foregroundColor(ColorConstants.Red400)
@@ -209,7 +209,7 @@ struct AnonymousHomeView: View {
                                     
                                     ForEach(studenthomevm.StudentMostBookedsubjects ,id:\.self){subject in
                                         StudentMostViewedSubjectCell(subject: subject, selectedsubject: $studenthomevm.SelectedStudentMostBookedSubject){
-//                                            guard subject.teacherCount ?? 0 > 0 else {return}
+                                            //                                            guard subject.teacherCount ?? 0 > 0 else {return}
                                             destination = AnyView(SubjectTeachersListView(selectedsubjectorlessonid: subject.id ?? 0, bookingcase: .subject))
                                             isPush = true
                                         }
@@ -613,11 +613,13 @@ struct AnonymousSideMenuContent: View {
 
 struct ChangeLanguage: View {
     @StateObject var localizeHelper = LocalizeHelper.shared
-    
+
     var body: some View {
         Button(action: {
-            LocalizeHelper.shared.setLanguage(language: localizeHelper.currentLanguage == "en" ? .arabic:.english_us)
-            
+            LocalizeHelper.shared.setLanguage(language:
+                                                localizeHelper.currentLanguage == "en" ? Language(id: "ar", name: "عربى", flag: "egyflag") :
+                                                Language(id: "en", name: "English", flag: "usaflag"))
+
             Helper.shared.changeRoot(toView: destinationview)
         }, label: {
             HStack{
@@ -633,7 +635,7 @@ struct ChangeLanguage: View {
             .padding()
         })
     }
-    
+
     @ViewBuilder
     var destinationview: some View{
         switch Helper.shared.getUser()?.roleID ?? 0{
@@ -650,3 +652,183 @@ struct ChangeLanguage: View {
         }
     }
 }
+
+
+//struct ChangeLanguage: View {
+//    @StateObject var localizeHelper = LocalizeHelper.shared
+//    
+//    // List of supported languages
+//    private let supportedLanguages: [Language] = [
+//        Language(id: "en", name: "English", flag: "usaflag"),
+//        Language(id: "ar", name: "عربى", flag: "egyflag"),
+//        Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
+//    ]
+//    
+//    var body: some View {
+//            // Language Picker
+//            Picker("", selection: $localizeHelper.currentLanguage) {
+//                ForEach(supportedLanguages, id: \.id) { language in
+// 
+//                    HStack {
+//                        Image(language.flag)
+//                            .renderingMode(.original)
+//                            .resizable()
+//                            .frame(width: 25, height: 20)
+//                        Text(language.name)
+//                            .font(.bold(size: 13))
+//                            .foregroundStyle(ColorConstants.WhiteA700)
+//                        Spacer()
+//
+//                    }
+//                    .tag(language.id)
+//                }
+//            }
+//            .pickerStyle(MenuPickerStyle()) // Use a menu-style picker
+//            .onChange(of: localizeHelper.currentLanguage) { newLanguage in
+//                // Change the app's language and refresh the UI
+//                //                LocalizeHelper.shared.setLanguage(language: newLanguage)
+//                
+//                LocalizationManager.shared.setLanguage(newLanguage) { success in
+//                    if success {
+//                        print("Language set to \(newLanguage)")
+//                        let welcomeMessage = "welcome_message".localized
+//                        print(welcomeMessage) // Output: "مرحبًا!"
+//                    } else {
+//                        print("Failed to set language")
+//                    }
+//                }
+//                
+//                Helper.shared.changeRoot(toView: destinationview)
+//            }
+//            
+//    }
+//    
+//    @ViewBuilder
+//    var destinationview: some View {
+//        switch Helper.shared.getUser()?.roleID ?? 0 {
+//        case 1: // teacher
+//            TeacherTabBarView()
+//        case 2: // student
+//            StudentTabBarView()
+//        case 3: // parent
+//            ParentTabBarView()
+//        case 0: // anon
+//            AnonymousHomeView()
+//        default:
+//            AnonymousHomeView() // Handle any unexpected cases
+//        }
+//    }
+//}
+
+// Language Model
+struct Language: Identifiable {
+    let id: String // Language code (e.g., "en", "ar", "fr")
+    let name: String // Language name (e.g., "English", "Arabic", "French")
+    let flag: String // Flag image name (e.g., "usaflag", "egyflag", "frenchflag")
+}
+
+
+
+//struct ChangeLanguage: View {
+//    @StateObject var localizeHelper = LocalizeHelper.shared
+//    
+//    // List of supported languages
+//    private let supportedLanguages: [Language] = [
+//        Language(id: "en", name: "English", flag: "usaflag"),
+//        Language(id: "ar", name: "عربى", flag: "egyflag"),
+//        Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
+//    ]
+//    
+//    @State private var isExpanded: Bool = false // Controls whether the menu is expanded
+//    
+//    var body: some View {
+//        VStack {
+//            // Language Selection Button
+//            Button(action: {
+//                withAnimation {
+//                    isExpanded.toggle() // Toggle the expanded state
+//                }
+//            }) {
+//                HStack {
+//                    Image(localizeHelper.currentLanguage == "en" ? "usaflag" :
+//                          localizeHelper.currentLanguage == "ar" ? "egyflag" :
+//                          "frenchflag")
+//                        .renderingMode(.original)
+//                        .resizable()
+//                        .frame(width: 25, height: 20)
+//                    
+//                    Text(supportedLanguages.first { $0.id == localizeHelper.currentLanguage }?.name ?? "English")
+//                        .font(.bold(size: 13))
+//                        .foregroundStyle(ColorConstants.WhiteA700)
+//                    
+//                    Spacer()
+//                    
+//                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+//                        .foregroundColor(.gray)
+//                }
+//                .padding()
+//            }
+//            
+//            // Expandable Language Options
+//            if isExpanded {
+//                ForEach(supportedLanguages, id: \.id) { language in
+//                    Button(action: {
+//                        withAnimation {
+//                            localizeHelper.currentLanguage = language.id
+//                            isExpanded = false // Collapse the menu after selection
+//                            
+//                            // Change the app's language and refresh the UI
+//                            LocalizationManager.shared.setLanguage(language.id) { success in
+//                                if success {
+//                                    print("Language set to \(language.id)")
+//                                    let welcomeMessage = "welcome_message".localized
+//                                    print(welcomeMessage) // Output: "مرحبًا!"
+//                                } else {
+//                                    print("Failed to set language")
+//                                }
+//                            }
+//                            
+//                            Helper.shared.changeRoot(toView: destinationview)
+//                        }
+//                    }) {
+//                        HStack {
+//                            Image(language.flag)
+//                                .renderingMode(.original)
+//                                .resizable()
+//                                .frame(width: 25, height: 20)
+//                            
+//                            Text(language.name)
+//                                .font(.bold(size: 13))
+//                                .foregroundStyle(ColorConstants.WhiteA700)
+//                            
+//                            Spacer()
+//                        }
+//                        .padding(.horizontal)
+//                        .padding(.vertical, 8)
+//                    }
+//                }
+//                .padding(.leading)
+//            }
+//        }
+//        .background(Color.white.opacity(0.1))
+//        .cornerRadius(10)
+//        .shadow(radius: 5)
+//        .padding(.horizontal)
+//    }
+//    
+//    @ViewBuilder
+//    var destinationview: some View {
+//        switch Helper.shared.getUser()?.roleID ?? 0 {
+//        case 1: // teacher
+//            TeacherTabBarView()
+//        case 2: // student
+//            StudentTabBarView()
+//        case 3: // parent
+//            ParentTabBarView()
+//        case 0: // anon
+//            AnonymousHomeView()
+//        default:
+//            AnonymousHomeView() // Handle any unexpected cases
+//        }
+//    }
+//}

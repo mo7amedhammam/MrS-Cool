@@ -11,6 +11,8 @@ import SwiftUI
 enum Languages: String {
     case english_us = "en"
     case arabic = "ar"
+    case france = "fr"
+
 }
 
 //MARK:  --- observable for Any changes in languages ---
@@ -29,8 +31,8 @@ class LocalizeHelper: ObservableObject {
         self.currentLanguage =  Helper.shared.getLanguage()
     }
     
-    func setLanguage(language: Languages) {
-        self.currentLanguage = language.rawValue
+    func setLanguage(language: Language) {
+        self.currentLanguage = language.id
     }
 }
 

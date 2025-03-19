@@ -193,7 +193,6 @@ struct CustomAlertView: View {
                             .renderingMode(alertType.image() == nil ? .original : alertType.imagerendermode() ?? .template)
                         //                                .foregroundColor(Color("Second_Color"))
                             .foregroundColor(ColorConstants.MainColor)
-                        
                             .aspectRatio( contentMode: .fill)
                             .frame(width: 70, height: 70, alignment: .center)
                     }
@@ -298,8 +297,12 @@ struct CustomAlertView: View {
     
 //        CustomAlert(presentAlert: .constant(true),alertType:.question(title: "Title", message: "Are you sure you want to delete this item ?",lefttext: "Save",righttext: "Clear"),haveTwoButtons: true)
     
-    CustomAlertView(presentAlert: .constant(true),alertType:.success(title: "Title", imgrendermode:.original, message: "succeeded",buttonTitle: "Done",secondButtonTitle: "OK"))
+//    CustomAlertView(presentAlert: .constant(true),alertType:.success(title: "Title", imgrendermode:.original, message: "succeeded",buttonTitle: "Done",secondButtonTitle: "OK"))
 
+    CustomAlertView(presentAlert: .constant(true),alertType: .question( image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+        
+    },secondBtnAction:{
+    }))
 
 //    CustomAlertView(presentAlert: .constant(true),alertType:.success (title: "Are you sure you want to delete this item ?", image: "studenticon",imgrendermode: .original, message: "Are you want to create a new \naccount ?", buttonTitle: "Create New Account", secondButtonTitle: "No, Connect to my son account",isVertical:true, mainBtnAction: {
 //        tabbarvm.destination = AnyView( StudentSignUpView()

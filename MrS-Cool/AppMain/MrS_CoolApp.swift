@@ -64,11 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch
         do {
-//             print("app started")
              print("app started: For :", Helper.shared.getSelectedUserType()?.rawValue ?? "")
-//             print("app in: loged in :", Helper.shared.CheckIfLoggedIn())
             
-             try registerForRemoteNotifications(application: application)
+//            LocalizationInit()
+
+            try registerForRemoteNotifications(application: application)
              FirebaseApp.configure()
              Messaging.messaging().delegate = self
              UNUserNotificationCenter.current().delegate = self
@@ -136,7 +136,6 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
            completionHandler([.banner, .sound, .badge,.list])
        }
     
-    
 }
 
 extension AppDelegate {
@@ -197,3 +196,19 @@ class NotificationManager: ObservableObject{
     }
 }
 
+
+//MARK: --- Localization ---
+extension AppDelegate{
+    func LocalizationInit() {
+        LocalizationManager.shared.setLanguage(Helper.shared.getLanguage()) { _ in }
+        
+//        let currentLanguage = Locale.current.languageCode ?? "en" // Detect user's language
+//        LocalizationManager.shared.fetchTranslations(language: currentLanguage) { success in
+//            if success {
+//                print("✅ Localization updated successfully")
+//            } else {
+//                print("❌ Failed to update localization")
+//            }
+//        }
+    }
+}
