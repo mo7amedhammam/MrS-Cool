@@ -33,6 +33,8 @@ class LocalizeHelper: ObservableObject {
     
     func setLanguage(language: Language) {
         self.currentLanguage = language.id
+        LocalizationManager.shared.setLanguage(language.id) {_ in} // Calls translations from api 
+
     }
 }
 

@@ -299,7 +299,7 @@ struct CustomAlertView: View {
     
 //    CustomAlertView(presentAlert: .constant(true),alertType:.success(title: "Title", imgrendermode:.original, message: "succeeded",buttonTitle: "Done",secondButtonTitle: "OK"))
 
-    CustomAlertView(presentAlert: .constant(true),alertType: .question( image: "MenuSt_signout", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
+    CustomAlertView(presentAlert: .constant(true),alertType: .question( image: "MenuSt_signout_new", message: "Are you sure you want to sign out ?", buttonTitle: "Sign Out", secondButtonTitle: "Cancel", mainBtnAction: {
         
     },secondBtnAction:{
     }))

@@ -620,6 +620,7 @@ struct ChangeLanguage: View {
                                                 localizeHelper.currentLanguage == "en" ? Language(id: "ar", name: "عربى", flag: "egyflag") :
                                                 Language(id: "en", name: "English", flag: "usaflag"))
 
+            
             Helper.shared.changeRoot(toView: destinationview)
         }, label: {
             HStack{
@@ -734,9 +735,9 @@ struct Language: Identifiable {
 //    
 //    // List of supported languages
 //    private let supportedLanguages: [Language] = [
-//        Language(id: "en", name: "English", flag: "usaflag"),
-//        Language(id: "ar", name: "عربى", flag: "egyflag"),
-//        Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
+//        Language(id: "en", name: "English", flag: "usaflag")
+//        ,Language(id: "ar", name: "عربى", flag: "egyflag")
+////        ,Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
 //    ]
 //    
 //    @State private var isExpanded: Bool = false // Controls whether the menu is expanded

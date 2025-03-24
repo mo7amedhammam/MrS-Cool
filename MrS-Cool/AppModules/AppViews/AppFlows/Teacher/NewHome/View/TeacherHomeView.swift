@@ -112,7 +112,7 @@ struct TeacherHomeView: View {
                         KFImageLoader(url:URL(string:  "https://platform.mrscool.app/assets/images/Anonymous/Teacher.jpg"), placeholder: Image("Teacher-Panner"),shouldRefetch: true)
                             .padding()
                         
-                        CapsulePicker(selectedIndex: $selectedTab, titles: ["Schedual List", "Alternate Sessions"])
+                        CapsulePicker(selectedIndex: $selectedTab, titles: ["Schedual List".localized, "Alternate Sessions".localized])
                             .padding(.horizontal)
                     }
                     
@@ -215,7 +215,7 @@ struct TeacherHomeView: View {
                             }else if selectedTab == 1{
                                 // ------- alternate sessions -------
                                 HStack(){
-                                    SignUpHeaderTitle(Title: "Alternate Sessions")
+                                    SignUpHeaderTitle(Title: "Alternate Sessions".localized)
                                     Spacer()
                                 }
                                 .padding(.horizontal)
@@ -611,7 +611,7 @@ extension TeacherHomeView{
     var header : some View {
         return  Group{
             HStack(){
-                SignUpHeaderTitle(Title: "Manage My Scheduals")
+                SignUpHeaderTitle(Title: "Manage My Scheduals".localized)
                 Spacer()
                 Image("img_maskgroup62_clipped")
                     .resizable()
@@ -700,7 +700,7 @@ struct CapsulePicker: View {
     @State private var optionWidth: CGFloat = 0
     @State private var totalSize: CGSize = .zero
     @State private var isDragging: Bool = false
-    let titles: [String]
+    var titles: [String]
     
     var body: some View {
         ZStack(alignment: .leading) {

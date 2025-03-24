@@ -38,6 +38,7 @@ struct MrS_CoolApp: App {
                 // App becomes inactive (background)
                 print("App is inactive")
                 // Perform any necessary actions here when the app goes into the background
+                
             case .background:
                 // App moves to the background
                 print("App moved to the background")
@@ -86,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("app became active")
+        LocalizationInit()
     }
     
     
