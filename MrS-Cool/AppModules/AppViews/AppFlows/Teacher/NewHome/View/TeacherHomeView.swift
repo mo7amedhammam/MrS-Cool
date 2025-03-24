@@ -64,7 +64,8 @@ struct TeacherHomeView: View {
     
     @State var date:String = "\(Date().formatDate(format: "dd MMM yyyy hh:mm a"))"
     @State private var selectedTab = 0
-    
+    @State private var timer: Timer?
+
     private var shouldShowChildSelection: Bool {
         Helper.shared.getSelectedUserType() == .Parent &&  selectedChild == nil
     }
@@ -355,20 +356,23 @@ struct TeacherHomeView: View {
         })
         .task {
             await GetStartData()
+            startTimer()
         }
         .onDisappear {
             showFilter = false
             SchedualsVm.ShowAddExtraSession = false
             SchedualsVm.ShowStudentCalendarDetails = false
             //            completedlessonsvm.cleanup()
+            stopTimer()
         }
         .onChange(of:selectedTab){newval in
             Task{
             if newval == 0{
                 await GetStartData()
-
+                startTimer()
             }else if newval == 1{
-                    await SchedualsVm.GetAlternateSessions()
+                stopTimer()
+                await SchedualsVm.GetAlternateSessions()
                 date = await Helper.shared.GetEgyptDateTime()
                 }
             }
@@ -393,7 +397,6 @@ struct TeacherHomeView: View {
                         CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$SchedualsVm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: SchedualsVm.isextraDatevalid)
                         
                         CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$SchedualsVm.extraTime,timeZone:TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid: SchedualsVm.isextraTimevalid)
-                        
                     }
                     .padding(.top,5)
                     
@@ -428,7 +431,6 @@ struct TeacherHomeView: View {
                     }
                     .padding(.horizontal,3)
                     .padding(.top)
-                    
                 }
                 .frame(height: 320)
             }
@@ -573,6 +575,26 @@ struct TeacherHomeView: View {
         SchedualsVm.isLoading = true // Start the loading animation
         await SchedualsVm.GetScheduals1()
         SchedualsVm.isLoading = false // Stop the loading animation
+    }
+    
+    private func startTimer() {
+        // Invalidate the existing timer if any
+        timer?.invalidate()
+        print("timer started")
+        // Start a new timer that fires every 60 seconds
+        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
+            print("timer action fired")
+            Task {
+                date = await Helper.shared.GetEgyptDateTime()
+                await SchedualsVm.GetScheduals1()
+            }
+        }
+    }
+
+    private func stopTimer() {
+        timer?.invalidate()
+        print("timer stopped")
+        timer = nil
     }
 }
 

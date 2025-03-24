@@ -66,8 +66,8 @@ extension View {
 }
 
 //MARK:  --- String Ectension to retun localized string ---
-extension String {
-    func localized() -> LocalizedStringKey{
-        return LocalizedStringKey(self)
-    }
-}
+//extension String {
+//    func localized() -> LocalizedStringKey{
+//        return LocalizedStringKey(self)
+//    }
+//}

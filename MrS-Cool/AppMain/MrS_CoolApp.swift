@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
              print("app started: For :", Helper.shared.getSelectedUserType()?.rawValue ?? "")
             
-//            LocalizationInit()
+            LocalizationInit()
 
             try registerForRemoteNotifications(application: application)
              FirebaseApp.configure()

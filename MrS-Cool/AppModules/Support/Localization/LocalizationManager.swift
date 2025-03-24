@@ -158,12 +158,12 @@ class LocalizationManager {
 
 import Foundation
 
-//extension String {
-//    var localized: String {
-//        return LocalizationManager.shared.localizedString(forKey: self)
-//    }
-//    
-//    func localized(with arguments: CVarArg...) -> String {
-//        return String(format: self.localized, arguments: arguments)
-//    }
-//}
+extension String {
+    var localized: String {
+        return LocalizationManager.shared.localizedString(forKey: self)
+    }
+    
+    func localized(with arguments: CVarArg...) -> String {
+        return String(format: self.localized, arguments: arguments)
+    }
+}
