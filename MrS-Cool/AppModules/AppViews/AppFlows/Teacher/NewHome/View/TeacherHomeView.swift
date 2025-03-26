@@ -586,7 +586,7 @@ struct TeacherHomeView: View {
             print("timer action fired")
             Task {
                 date = await Helper.shared.GetEgyptDateTime()
-                await SchedualsVm.GetScheduals1()
+                await SchedualsVm.GetScheduals1(isrefreshing: true)
             }
         }
     }

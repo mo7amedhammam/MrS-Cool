@@ -85,8 +85,8 @@ class TeacherHomeVM: ObservableObject {
 }
 
 extension TeacherHomeVM{
-    func GetScheduals1() async{
-        if skipCount == 0 {
+    func GetScheduals1(isrefreshing:Bool? = false) async{
+        if skipCount == 0 && isrefreshing == false{
             TeacherScheduals?.items?.removeAll()
             StudentScheduals?.items?.removeAll()
         }

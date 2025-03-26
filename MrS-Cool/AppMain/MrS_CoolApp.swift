@@ -34,6 +34,7 @@ struct MrS_CoolApp: App {
                 // App becomes active (foreground)
                 print("App is active")
                 // Perform any necessary actions here
+                appDelegate.LocalizationInit()
             case .inactive:
                 // App becomes inactive (background)
                 print("App is inactive")
@@ -87,7 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("app became active")
-        LocalizationInit()
     }
     
     
