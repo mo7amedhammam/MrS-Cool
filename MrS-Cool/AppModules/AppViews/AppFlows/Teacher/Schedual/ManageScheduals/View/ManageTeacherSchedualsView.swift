@@ -54,7 +54,7 @@ struct ManageTeacherSchedualsView: View {
                                 VStack(alignment: .leading, spacing: 0){
                                     // -- Data Title --
                                     Group{
-                                        Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                        Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt".localized())
                                         + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
                                     }
                                     .foregroundColor(ColorConstants.Red400)

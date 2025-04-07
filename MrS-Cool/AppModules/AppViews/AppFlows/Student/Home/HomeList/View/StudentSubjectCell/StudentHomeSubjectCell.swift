@@ -89,7 +89,7 @@ struct StudentHomeSubjectCell: View {
 }
 
 #Preview {
-    StudentHomeSubjectCell(subject:.init(id: 0,name: "general-English namr",teacherSubject: .init(subjectAcademicYear:"name2",subjectLevel:" middle school")),selectedSubject: .constant(HomeSubject.init()))
+    StudentHomeSubjectCell(subject:.init(id: 0,name: "general-English namr",teacherSubject: .init(subjectAcademicYear:"name2",subjectLevel:"middle school")),selectedSubject: .constant(HomeSubject.init()))
         .frame(width: (UIScreen.main.bounds.width/3)-20)
 
 }

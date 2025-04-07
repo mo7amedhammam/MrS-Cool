@@ -88,7 +88,7 @@ struct CustomSuccessView: View {
             case .childrenAccountAdded:
                 title = "Phone Verification"
                 subtitle = "Account Added !"
-                describtion = "Your Student mobile number had\nbeed verified successfully."
+                describtion = "Your Student mobile number had\nbeed verified successfully"
                 
             }
         })

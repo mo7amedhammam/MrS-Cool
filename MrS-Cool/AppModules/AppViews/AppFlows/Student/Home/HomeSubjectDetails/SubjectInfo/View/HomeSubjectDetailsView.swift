@@ -88,7 +88,7 @@ struct HomeSubjectDetailsView: View {
                             HStack(){
                                 SignUpHeaderTitle(Title:"Subject Content",subTitleView: AnyView(
                                     Text("\(details.getSubjectLessonsDetailsDtoList?.count ?? 0)")                                .fontWeight(.medium) +
-                                    Text(" units .".localized())                                .fontWeight(.medium) +
+                                    Text("units".localized())                                .fontWeight(.medium) +
                                     Text(" \(details.lessonsCount ?? 0) ")                                .fontWeight(.medium) +
                                     Text("Lessons".localized())                                .fontWeight(.medium)))
                                 .foregroundColor(.mainBlue)

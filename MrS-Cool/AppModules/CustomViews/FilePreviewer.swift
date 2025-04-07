@@ -28,11 +28,11 @@ struct FilePreviewerSheet: View {
                         ImageView(url: imageURL)
                         
                     } else {
-                        Text("Invalid Image URL")
+                        Text("Invalid Image URL".localized)
                     }
                     
                 } else {
-                    Text("Unsupported file type")
+                    Text("Unsupported file type".localized)
                     
 //                    Button(action: {
 //                        if let url = URL(string: url) {

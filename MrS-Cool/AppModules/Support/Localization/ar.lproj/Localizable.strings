@@ -6,7 +6,6 @@
   
 */
 
-"Hello, World!" = "مرحبا";
 "sign_in" = "تسجيل دخول";
 "Don't have an account ?" = "ليس لديك حساب ؟";
 "Forget password ?" = "نسيت كلمة المرور ؟";
@@ -30,11 +29,9 @@
 
 " - \(" = " - \(";
 " /   " = " /   ";
-" EGP" = " EGP";
-"No Available Times on" = "لا توجد أوقات متاحة في";
 "Teachers" = "المعلمين";
 " of 5 " = " من ٥ ";
-" units ." = " الوحدات .";
+"units" = " الوحدات .";
 "(" = ")";
 "(1 / 3)" = "(1 / 3)";
 "(2 / 3)" = "(2 / 3)";
@@ -48,7 +45,6 @@
 "Academic" = "أكاديمي";
 "Academic Year" = "صف الدراسي";
 "Academic Year *" = "صف الدراسي *";
-"Accept" = "قبول";
 "Account Created" = "تم إنشاء الحساب";
 "Account Created!" = "تم إنشاء الحساب!";
 "Active" = "نشط";
@@ -59,7 +55,6 @@
 "Add New Material" = "إضافة مادة جديدة";
 "Add New Schedule" = "إضافة جدول جديد";
 "Add New Student Account" = "إضافة حساب طالب جديد";
-//"Add New Subject Group" = "إنشاء مجموعة دراسية للتيرم - يبدأ احتساب تاريخ البداية من اليوم التالي، ولا يشمل اليوم الحالي. يرجى مراعاة ذلك عند تخطيط الجداول.";
 "Add New Subject Group" = "إنشاء مجموعة دراسية للتيرم.";
 
 "Amount" = "المبلغ";
@@ -68,7 +63,7 @@
 "Apply Filter" = "تطبيق الفلتر";
 "Apply Sort" = "تطبيق الترتيب";
 "Approved" = "مقبول";
-"Aproved" = "مقبول";
+
 "Are You Teacher ? *" = "هل أنت معلم؟ *";
 "Are you sure you want to Save ?" = "هل أنت متأكد أنك تريد الحفظ؟";
 "Are you sure you want to delete this item ?" = "هل أنت متأكد أنك تريد حذف هذا العنصر؟";
@@ -81,7 +76,7 @@
 "Birthdate" = "تاريخ الميلاد";
 "Birthdate *" = "تاريخ الميلاد *";
 "Book Now" = "احجز الان";
-"Booked" = "Booked";
+
 "Booking Full Subject" = "حجز الشهر مع المدرس";
 "Booking Group Lesson" = "حجز درس جماعي";
 "Booking Individual Lesson" = "حجز درس فردي";
@@ -90,17 +85,14 @@
 "Camera" = "الكاميرا";
 "Cancel" = "إلغاء";
 "Cancel Event" = "إلغاء الحدث";
-"Certificate" = "شهادة";
+
 "Change Password" = "تغيير كلمة المرور";
 "Change Your New Password" = "تغيير كلمة المرور الجديدة";
-"Chat" = "الدردشة";
 "Choose Files" = "اختر الملفات";
 "Choose_File_Type" = "اختر نوع الملف";
 "Choose_Image_From" = "اختيار صوره من";
 "Clear" = "مسح";
 "Click For Prev" = "انقر للمعاينة";
-"Close" = "Close";
-"Code:" = "Code:";
 "Comment is empty or only contains spaces" = "التعليق فارغ أو يحتوي فقط على مسافات";
 "Completed Lessons" = "الدروس المكتملة";
 "Confirm Password *" = "تأكيد كلمة المرور *";
@@ -109,11 +101,9 @@
 "Country *" = "البلد *";
 "Create New Account" = "إنشاء حساب جديد";
 "Create New Group For Lesson" = "إنشاء مجموعة جديدة للدرس";
-"Creating a new event" = "إنشاء حدث جديد";
 "Current Time:" = "الوقت الحالي:";
 "Current Wallet Balance" = "رصيد المحفظة الحالي";
 "Current password *" = "كلمة المرور الحالية *";
-"DELETE" = "حذف";
 "Date" = "التاريخ";
 "Day" = "اليوم";
 "Day *" = "اليوم *";
@@ -136,13 +126,13 @@
 "Education Level *" = "المرحلة الدراسية *";
 "Education Type" = "نوع التعليم";
 "Education Type *" = "نوع التعليم *";
-"Email" = "البريد الإلكتروني";
+
 "Email *" = "البريد الإلكتروني *";
 "Email Address" = "عنوان البريد الإلكتروني";
 "End" = "ينتهي";
 "End Date" = "تاريخ الانتهاء";
 "End Time" = "وقت الانتهاء";
-"End Time Is " = "وقت الانتهاء هو ";
+"End Time Is" = "وقت الانتهاء هو ";
 "End date must be greater than start date" = "يجب أن يكون تاريخ الانتهاء أكبر من تاريخ البداية";
 "Enter subtitle here" = "";
 "FeMale" = "أنثى";
@@ -165,7 +155,7 @@
 "Group Time" = "Group Time";
 "Hi, " = " اهلاً,";
 "Highest Price :" = "أعلى سعر :";
-"I didn't receive code." = "لم أتلقَ الرمز.";
+"I didn't receive code" = "لم أتلقَ الرمز.";
 "In Review" = "قيد المراجعة";
 "Individual" = "فردي";
 "Individual Booking" = "حجز فردي";
@@ -188,7 +178,7 @@
 "Lessons :" = "حجز درس واحد فقط مع المدرس :";
 "Lessons Materials" = "ملفات الدرس";
 "Lessons Schedule" = "جدول الدروس";
-"Lets Start Learning! " = "Lets Start Learning! ";
+
 "Log Out" = "تسجيل خروج";
 "Lowest Price :" = "أقل سعر: :";
 "Male" = "ذكر";
@@ -222,10 +212,7 @@
 "Maximum Size: 2MB" = "الحجم الأقصى: 2 ميجابايت";
 "Me" = "أنا";
 "Meeting" = "اجتماع";
-"Meeting Code" = "Meeting Code";
-"Meeting ID" = "Meeting ID";
-"Meeting Link" = "Meeting Link";
-"Meeting Topic" = "Meeting Topic";
+
 "Message cannot be empty" = "Message cannot be empty";
 "Message sent" = "Message sent";
 "Messages" = "الرسائل";
@@ -243,112 +230,26 @@
 "Name" = "الاسم";
 "Name :" = "الاسم :";
 "Name *" = "الاسم *";
-"New Group For Lesson Created" = "تم إنشاء مجموعة جديدة للدرس";
-"New Group For Lesson Deleted" = "تم حذف مجموعة الدرس الجديدة";
-"New Group For Lesson Updated" = "تم تحديث مجموعة الدرس الجديدة";
-"New Group For Subject Created" = "تم إنشاء مجموعة جديدة للمادة";
-"New Group For Subject Deleted" = "تم حذف مجموعة المادة الجديدة";
-"New Group For Subject Updated" = "تم تحديث مجموعة المادة الجديدة";
-"New Password" = "كلمة المرور الجديدة";
-"New Schedule Added" = "تمت إضافة جدول جديد";
-"New Schedule Deleted" = "تم حذف الجدول الجديد";
-"New Schedule Updated" = "تم تحديث الجدول الجديد";
-"New Student Account" = "حساب طالب جديد";
-"New Subject Group Added" = "تمت إضافة مجموعة مواد جديدة";
-"New Subject Group Deleted" = "تم حذف مجموعة المواد الجديدة";
-"New Subject Group Updated" = "تم تحديث مجموعة المواد الجديدة";
-"New student account" = "حساب طالب جديد";
-"No Available Times" = "لا توجد أوقات متاحة";
-"No Available Times on" = "لا توجد أوقات متاحة في";
-"No available times for this week" = "لا توجد أوقات متاحة لهذا الأسبوع";
-"No data found" = "لم يتم العثور على بيانات";
-"No lessons found" = "لم يتم العثور على دروس";
-"No subjects found" = "لا توجد مواد دراسية";
-"Number of students *" = "عدد الطلاب *";
+
 "OK" = "موافق";
-"Okay" = "Okay";
-"One account is allowed only" = "يُسمح بحساب واحد فقط";
-"Or" = "أو";
-"Owner" = "المالك";
-"Payment Completed" = "تم الدفع";
-"Pending" = "قيد الانتظار";
-"Phone Number" = "رقم الهاتف";
-"Phone number must be at least 6 digits long" = "يجب أن يكون رقم الهاتف مكوناً من 6 أرقام على الأقل";
-"Please agree the terms and conditions" = "يرجى الموافقة على الشروط والأحكام";
-"Please choose a file" = "يرجى اختيار ملف";
-"Please enter group name" = "من فضلك ادخل اسم المجموعة";
-"Please enter your Password" = "يرجى إدخال كلمة المرور الخاصة بك";
-"Please enter your email" = "يرجى إدخال بريدك الإلكتروني";
-"Please enter your password" = "يرجى إدخال كلمة المرور الخاصة بك";
-"Please enter your password again" = "يرجى إدخال كلمة المرور مرة أخرى";
-"Please insert start time and end time" = "يرجى إدخال وقت البدء ووقت الانتهاء";
-"Please re-enter your password again" = "يرجى إعادة إدخال كلمة المرور مرة أخرى";
-"Please upload file" = "يرجى تحميل الملف";
-"Profile" = "الملف الشخصي";
-"Register" = "تسجيل";
-"Register Now" = "سجل الآن";
-"Register new account" = "تسجيل حساب جديد";
-"Registration" = "التسجيل";
 "Rejected" = "مرفوض";
-"Remaining Balance" = "الرصيد المتبقي";
 "Resend Code" = "إعادة إرسال الرمز";
-"Resend code" = "إعادة إرسال الرمز";
-"Reset" = "إعادة تعيين";
 "Reset Password" = "إعادة تعيين كلمة المرور";
-"Reset your password" = "إعادة تعيين كلمة المرور الخاصة بك";
-"Reviewing" = "قيد المراجعة";
-"Schedule Added" = "تمت إضافة جدول جديد";
-"Schedule Date" = "تاريخ الجدول";
-"Schedule Deleted" = "تم حذف الجدول";
-"Schedule Updated" = "تم تحديث الجدول";
-"Schedule for Today" = "جدول اليوم";
-"Scheduled" = "مجدول";
 "Search" = "بحث";
-"Select" = "اختر";
-"Select Education Level *" = "اختر المرحلة الدراسية *";
-"Select Gender *" = "اختر الجنس *";
-"Select Lesson Type" = "اختر نوع الدرس";
-"Select Payment Method" = "اختر طريقة الدفع";
-"Select Your Birthdate" = "اختر تاريخ ميلادك";
-"Select an education level" = "اختر المرحلة الدراسية";
-"Select an image from gallery" = "اختر صورة من المعرض";
-"Select document type" = "اختر نوع الملف";
-"Select education level" = "اختر المرحلة الدراسية";
-"Select gender" = "اختر الجنس";
-"Select governorate" = "اختر المحافظة";
-"Select image from camera" = "اختر صورة من الكاميرا";
-"Select image from gallery" = "اختر صورة من المعرض";
-"Select payment method" = "اختر طريقة الدفع";
-"Send" = "إرسال";
-"Send Message" = "إرسال رسالة";
-"Send Verification Code" = "إرسال رمز التحقق";
-"Send message" = "إرسال رسالة";
-"Sending" = "جاري الإرسال";
-"Session Time" = "مدة الجلسة";
+
 "Sign In" = "تسجيل دخول";
-"Sign In Now" = "سجل الدخول الآن";
 "Sign Out" =  "خروج";
 "Sign Out-menu" = "تسجيل خروج";
 "Sign Up" = "إنشاء حساب جديد";
-//"Sign in" = "دخول";
-"Sign in now" = "سجل الدخول الآن";
-//"Sign up" = "تسجيل";
-"Sign up now" = "سجل الآن";
-"Start" = "بدء";
 "Start Date" = "تاريخ البدء";
 "Start Time" = "وقت البدء";
-"Start Time :" = "وقت البدء :";
-"Status" = "الحالة";
-"Student Name" = "اسم الطالب";
-"Students" = "الطلاب";
+
+
 "Students :" = "الطلاب :";
 "Subject" = "المواد الدراسية";
 "Subject Info" = "تفاصيل المادة";
 "Subject Information" = "معلومات المادة";
-"Subject Title" = "عنوان المادة";
-"Subject Types" = "أنواع المواد";
-"Subject_Group" = "Subject_Group";
-"Subject_Id" = "Subject_Id";
+
 "Subjects" = "المواد الدراسية";
 "Subjects Information" = "معلومات المواد الدراسية";
 "Teacher Account" = "حساب المعلم";
@@ -359,61 +260,6 @@
 "Terms and conditions" = "الشروط والأحكام";
 "The maximum price must be higher than the minimum price" = "يجب أن يكون السعر الأقصى أعلى من السعر الأدنى";
 "Title" = "العنوان";
-"Title *" = "العنوان *";
-"Today" = "اليوم";
-"Today Lessons" = "دروس اليوم";
-"Total" = "الإجمالي";
-"Type" = "النوع";
-"Type :" = "النوع :";
-"Upload" = "تحميل";
-"Upload an image" = "تحميل صورة";
-"Upload certificate" = "تحميل شهادة";
-"Upload document" = "تحميل مستند";
-"Upload file" = "تحميل ملف";
-"Upload file here" = "تحميل الملف هنا";
-"Upload material" = "تحميل المادة";
-"Upload photo" = "تحميل صورة";
-"User Name" = "اسم المستخدم";
-"UserName" = "UserName";
-"Verification Code" = "رمز التحقق";
-"Verification code has been sent to your email" = "تم إرسال رمز التحقق إلى بريدك الإلكتروني";
-"View" = "عرض";
-"View Document" = "عرض المستند";
-"View Group For Lessons" = "عرض مجموعة الدروس";
-"View Groups" = "عرض المجموعات";
-"View Individual Lessons" = "عرض الدروس الفردية";
-"View Lesson Information" = "عرض معلومات الدرس";
-"View Lesson Materials" = "عرض مواد الدرس";
-"View Lessons" = "عرض الدروس";
-"View Profile" = "عرض الملف الشخصي";
-"View Schedules" = "عرض الجداول";
-"View Subject Information" = "عرض معلومات المادة";
-"View Subject Lessons" = "عرض دروس المادة";
-"View Subjects" = "عرض المواد الدراسية";
-"Wallet Balance" = "رصيد المحفظة";
-"We have sent a verification code to your email address, Please check your inbox and type code" = "تم إرسال رمز التحقق إلى بريدك الإلكتروني، يرجى التحقق من صندوق الوارد وكتابة الرمز";
-"Welcome" = "مرحبًا";
-"Year" = "السنة";
-"You already have an account, please sign in." = "لديك حساب بالفعل، يرجى تسجيل الدخول.";
-"You have no available times" = "ليس لديك أوقات متاحة";
-"Your Account Created Successfully" = "تم إنشاء حسابك بنجاح";
-"Your certificate deleted successfully" = "تم حذف شهادتك بنجاح";
-"Your certificate upload successfully" = "تم تحميل شهادتك بنجاح";
-"Your document deleted successfully" = "تم حذف المستند بنجاح";
-"Your document upload successfully" = "تم تحميل المستند بنجاح";
-"Your file deleted successfully" = "تم حذف الملف بنجاح";
-"Your file upload successfully" = "تم تحميل الملف بنجاح";
-"Your new password saved successfully" = "تم حفظ كلمة المرور الجديدة بنجاح";
-"Your new profile image saved successfully" = "تم حفظ صورتك الشخصية الجديدة بنجاح";
-"Your new profile updated successfully" = "تم تحديث ملفك الشخصي بنجاح";
-"Your request has been sent successfully" = "تم إرسال طلبك بنجاح";
-"and" = "و";
-"characters minimum" = "الحد الأدنى من الأحرف";
-"days" = "أيام";
-"minutes" = "دقائق";
-"seconds" = "ثواني";
-"week" = "أسبوع";
-"weeks" = "أسابيع";
 
 "English" = "Engilsh";
 "Version:" = "نسخة";
@@ -422,8 +268,7 @@
 //---
 //------
 " : " = " : ";
-" middle school" = " middle school";
-"%.2f" = "%.2f";
+
 "," = ",";
 ", " = ", ";
 "Are you sure you want to Delete Your Account ?" = "هل أنت متأكد أنك تريد حذف حسابك؟";
@@ -478,8 +323,6 @@
 "Not Now" = "ليس الآن";
 "Num Of Lessons" = "عدد الدروس";
 "OTP Verification" = "التحقق باستخدام OTP";
-"Order" = "Order";
-"Order *" = "Order *";
 "PDF" = "بى دى اف";
 "Parent Name *" = "اسم ولي الأمر *";
 "Password *" = "كلمة المرور *";
@@ -494,7 +337,7 @@
 "Price High To Low" = "السعر من الأعلى إلى الأدنى";
 "Price Low To High" = "السعر من الأدنى إلى الأعلى";
 "Price To" = "السعر إلى";
-"Primary" = "Primary";
+
 "Purchased Lessons" = "الدروس المشتراة";
 "Purchased Subjects" = "المواد المشتراة";
 "Rate" = " التقييم";
@@ -584,14 +427,7 @@
 "Your payment had beed Failed." = "فشلت عملية الدفع الخاصة بك.";
 "birthDate" = "تاريخ الميلاد";
 "brief" = "brief";
-"chat" = "chat";
-"current:" = "الحالي:";
-"day name" = "اسم اليوم";
-"downloadmaterial" = "downloadmaterial";
-"en" = "en";
-"endDate" = "endDate";
-"favorite" = "favorite";
-"home" = "home";
+
 "hrs" = "س";
 "menue" = "menue";
 "mins" = "د";
@@ -604,13 +440,12 @@
 "photo" = "صوره";
 "photo_Library" = "الصور";
 "preview : " = "preview : ";
-"profile" = "profile";
+
+
 "sendmessage" = "sendmessage";
 "startDate" = "startDate";
 "subjects name" = "اسم المادة";
 "teacher name" = "اسم المعلم";
-"upload pdf" = "تحميل ملف PDF";
-"url" = "url";
 "ِBank" = "البنوك والمحافظ الالكترونية";
 "ِCity *" = "المدينة *";
 "ِLesson" = "الدرس";
@@ -638,7 +473,7 @@
 
 
 "Your Payment Approve\n Successfully" = "تم الدفع\n بنجاح";
-"Your payment had been done \nsuccessfully." = "تمت عملية الدفع \nبنجاح.";
+"Your payment had been done \nsuccessfully" = "تمت عملية الدفع \nبنجاح.";
 "Please back to your account and \nenjoy" = "الرجاء العودة إلى حسابك \nوالإستمتاع";
 "Please back to your account and try \nagain" = "الرجاء العودة إلى حسابك والمحاولة \nمرة أخرى";
 
@@ -657,7 +492,7 @@
 "Your password had beed reset\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "تم تغيير كلمة المرور الخاصة بك \nبنجاح\nيرجى تسجيل الدخول لإستخدام\nحسابك والإستمتاع";
 "Your password had beed changed\nsuccessfully\nPlease sign in to use your\naccount and enjoy" = "تم تغيير كلمة المرور الخاصة بك \nبنجاح\nيرجى العودة إلى حسابك والإستمتاع";
 
-"Your Student mobile number had\nbeed verified successfully." = "تم التحقق من رقم\nهاتفك بنجاح.";
+"Your Student mobile number had\nbeed verified successfully" = "تم التحقق من رقم\nهاتفك بنجاح.";
 
 "Date: " = "التاريخ: ";
 "Cancel & Edit" = "إلغاء وتعديل";
@@ -665,7 +500,7 @@
 "You Can Change Group Cost" = "يمكنك تعديل سعر المجموعة.";
 "Click Here" = "إضغط هنا";
 
-"Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt " = "تنوية : جميع مواعيد الحصص بتوقيت جمهورية مصر العربية: التوقيت الآن في مصر ";
+"Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt" = "تنوية : جميع مواعيد الحصص بتوقيت جمهورية مصر العربية: التوقيت الآن في مصر ";
 
 "Signup Session Price *" = "تكلفة الحصه الجماعية *";
 
@@ -696,3 +531,190 @@
 "Add Alternate" = "إنشاء درس بديل";
 
 "Sessions" = "الحصص";
+
+"Default" = "إفتراضي";
+
+//~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
+
+//"Accept" = "قبول";
+//"Add New Subject Group" = "إنشاء مجموعة دراسية للتيرم - يبدأ احتساب تاريخ البداية من اليوم التالي، ولا يشمل اليوم الحالي. يرجى مراعاة ذلك عند تخطيط الجداول.";
+//"Aproved" = "مقبول";
+//"Booked" = "Booked";
+//"Certificate" = "شهادة";
+//"Chat" = "الدردشة";
+//"Close" = "Close";
+//"Code:" = "Code:";
+//"Creating a new event" = "إنشاء حدث جديد";
+//"DELETE" = "حذف";
+
+//"Email" = "البريد الإلكتروني";
+//"Lets Start Learning! " = "Lets Start Learning! ";
+//"Meeting Code" = "Meeting Code";
+//"Meeting ID" = "Meeting ID";
+//"Meeting Link" = "Meeting Link";
+//"Meeting Topic" = "Meeting Topic";
+//"New Group For Lesson Created" = "تم إنشاء مجموعة جديدة للدرس";
+//"New Group For Lesson Deleted" = "تم حذف مجموعة الدرس الجديدة";
+//"New Group For Lesson Updated" = "تم تحديث مجموعة الدرس الجديدة";
+//"New Group For Subject Created" = "تم إنشاء مجموعة جديدة للمادة";
+//"New Group For Subject Deleted" = "تم حذف مجموعة المادة الجديدة";
+//"New Group For Subject Updated" = "تم تحديث مجموعة المادة الجديدة";
+//"New Password" = "كلمة المرور الجديدة";
+//"New Schedule Added" = "تمت إضافة جدول جديد";
+//"New Schedule Deleted" = "تم حذف الجدول الجديد";
+//"New Schedule Updated" = "تم تحديث الجدول الجديد";
+//"New Student Account" = "حساب طالب جديد";
+//"New Subject Group Added" = "تمت إضافة مجموعة مواد جديدة";
+//"New Subject Group Deleted" = "تم حذف مجموعة المواد الجديدة";
+//"New Subject Group Updated" = "تم تحديث مجموعة المواد الجديدة";
+//"New student account" = "حساب طالب جديد";
+//"No Available Times" = "لا توجد أوقات متاحة";
+//"No Available Times on" = "لا توجد أوقات متاحة في";
+//"No available times for this week" = "لا توجد أوقات متاحة لهذا الأسبوع";
+//"No data found" = "لم يتم العثور على بيانات";
+//"No lessons found" = "لم يتم العثور على دروس";
+//"No subjects found" = "لا توجد مواد دراسية";
+//"Number of students *" = "عدد الطلاب *";
+//"Okay" = "Okay";
+//"One account is allowed only" = "يُسمح بحساب واحد فقط";
+//"Or" = "أو";
+//"Owner" = "المالك";
+//"Payment Completed" = "تم الدفع";
+//"Pending" = "قيد الانتظار";
+//"Phone Number" = "رقم الهاتف";
+//"Phone number must be at least 6 digits long" = "يجب أن يكون رقم الهاتف مكوناً من 6 أرقام على الأقل";
+//"Please agree the terms and conditions" = "يرجى الموافقة على الشروط والأحكام";
+//"Please choose a file" = "يرجى اختيار ملف";
+//"Please enter group name" = "من فضلك ادخل اسم المجموعة";
+//"Please enter your Password" = "يرجى إدخال كلمة المرور الخاصة بك";
+//"Please enter your email" = "يرجى إدخال بريدك الإلكتروني";
+//"Please enter your password" = "يرجى إدخال كلمة المرور الخاصة بك";
+//"Please enter your password again" = "يرجى إدخال كلمة المرور مرة أخرى";
+//"Please insert start time and end time" = "يرجى إدخال وقت البدء ووقت الانتهاء";
+//"Please re-enter your password again" = "يرجى إعادة إدخال كلمة المرور مرة أخرى";
+//"Please upload file" = "يرجى تحميل الملف";
+//"Profile" = "الملف الشخصي";
+//"Register" = "تسجيل";
+//"Register Now" = "سجل الآن";
+//"Register new account" = "تسجيل حساب جديد";
+//"Registration" = "التسجيل";
+
+//"Remaining Balance" = "الرصيد المتبقي";
+//"Resend code" = "إعادة إرسال الرمز";
+//"Reset" = "إعادة تعيين";
+//"Reset your password" = "إعادة تعيين كلمة المرور الخاصة بك";
+//"Reviewing" = "قيد المراجعة";
+//"Schedule Added" = "تمت إضافة جدول جديد";
+//"Schedule Date" = "تاريخ الجدول";
+//"Schedule Deleted" = "تم حذف الجدول";
+//"Schedule Updated" = "تم تحديث الجدول";
+//"Schedule for Today" = "جدول اليوم";
+//"Scheduled" = "مجدول";
+//"Select" = "اختر";
+//"Select Education Level *" = "اختر المرحلة الدراسية *";
+//"Select Gender *" = "اختر الجنس *";
+//"Select Lesson Type" = "اختر نوع الدرس";
+//"Select Payment Method" = "اختر طريقة الدفع";
+//"Select Your Birthdate" = "اختر تاريخ ميلادك";
+//"Select an education level" = "اختر المرحلة الدراسية";
+//"Select an image from gallery" = "اختر صورة من المعرض";
+//"Select document type" = "اختر نوع الملف";
+//"Select education level" = "اختر المرحلة الدراسية";
+//"Select gender" = "اختر الجنس";
+//"Select governorate" = "اختر المحافظة";
+//"Select image from camera" = "اختر صورة من الكاميرا";
+//"Select image from gallery" = "اختر صورة من المعرض";
+//"Select payment method" = "اختر طريقة الدفع";
+//"Send" = "إرسال";
+//"Send Message" = "إرسال رسالة";
+//"Send Verification Code" = "إرسال رمز التحقق";
+//"Send message" = "إرسال رسالة";
+//"Sending" = "جاري الإرسال";
+//"Session Time" = "مدة الجلسة";
+//"Sign In Now" = "سجل الدخول الآن";
+
+//"Sign in" = "دخول";
+//"Sign in now" = "سجل الدخول الآن";
+//"Sign up" = "تسجيل";
+//"Sign up now" = "سجل الآن";
+//"Start" = "بدء";
+//"Start Time :" = "وقت البدء :";
+//"Status" = "الحالة";
+//"Student Name" = "اسم الطالب";
+//"Students" = "الطلاب";
+//"Subject Title" = "عنوان المادة";
+//"Subject Types" = "أنواع المواد";
+//"Subject_Group" = "Subject_Group";
+//"Subject_Id" = "Subject_Id";
+//"Title *" = "العنوان *";
+//"Today" = "اليوم";
+//"Today Lessons" = "دروس اليوم";
+//"Total" = "الإجمالي";
+//"Type" = "النوع";
+//"Type :" = "النوع :";
+//"Upload" = "تحميل";
+//"Upload an image" = "تحميل صورة";
+//"Upload certificate" = "تحميل شهادة";
+//"Upload document" = "تحميل مستند";
+//"Upload file" = "تحميل ملف";
+//"Upload file here" = "تحميل الملف هنا";
+//"Upload material" = "تحميل المادة";
+//"Upload photo" = "تحميل صورة";
+//"User Name" = "اسم المستخدم";
+//"UserName" = "UserName";
+//"Verification Code" = "رمز التحقق";
+//"Verification code has been sent to your email" = "تم إرسال رمز التحقق إلى بريدك الإلكتروني";
+//"View" = "عرض";
+//"View Document" = "عرض المستند";
+//"View Group For Lessons" = "عرض مجموعة الدروس";
+//"View Groups" = "عرض المجموعات";
+//"View Individual Lessons" = "عرض الدروس الفردية";
+//"View Lesson Information" = "عرض معلومات الدرس";
+//"View Lesson Materials" = "عرض مواد الدرس";
+//"View Lessons" = "عرض الدروس";
+//"View Profile" = "عرض الملف الشخصي";
+//"View Schedules" = "عرض الجداول";
+//"View Subject Information" = "عرض معلومات المادة";
+//"View Subject Lessons" = "عرض دروس المادة";
+//"View Subjects" = "عرض المواد الدراسية";
+//"Wallet Balance" = "رصيد المحفظة";
+//"We have sent a verification code to your email address, Please check your inbox and type code" = "تم إرسال رمز التحقق إلى بريدك الإلكتروني، يرجى التحقق من صندوق الوارد وكتابة الرمز";
+//"Welcome" = "مرحبًا";
+//"Year" = "السنة";
+//"You already have an account, please sign in." = "لديك حساب بالفعل، يرجى تسجيل الدخول.";
+//"You have no available times" = "ليس لديك أوقات متاحة";
+//"Your Account Created Successfully" = "تم إنشاء حسابك بنجاح";
+//"Your certificate deleted successfully" = "تم حذف شهادتك بنجاح";
+//"Your certificate upload successfully" = "تم تحميل شهادتك بنجاح";
+//"Your document deleted successfully" = "تم حذف المستند بنجاح";
+//"Your document upload successfully" = "تم تحميل المستند بنجاح";
+//"Your file deleted successfully" = "تم حذف الملف بنجاح";
+//"Your file upload successfully" = "تم تحميل الملف بنجاح";
+//"Your new password saved successfully" = "تم حفظ كلمة المرور الجديدة بنجاح";
+//"Your new profile image saved successfully" = "تم حفظ صورتك الشخصية الجديدة بنجاح";
+//"Your new profile updated successfully" = "تم تحديث ملفك الشخصي بنجاح";
+//"Your request has been sent successfully" = "تم إرسال طلبك بنجاح";
+//"and" = "و";
+//"characters minimum" = "الحد الأدنى من الأحرف";
+//"days" = "أيام";
+//"minutes" = "دقائق";
+//"seconds" = "ثواني";
+//"week" = "أسبوع";
+//"weeks" = "أسابيع";
+
+//"middle school" = " middle school";
+//"%.2f" = "%.2f";
+//"Order" = "Order";
+//"Order *" = "Order *";
+//"Primary" = "Primary";
+//"chat" = "chat";
+//"current:" = "الحالي:";
+//"day name" = "اسم اليوم";
+//"downloadmaterial" = "downloadmaterial";
+//"en" = "en";
+//"endDate" = "endDate";
+//"favorite" = "favorite";
+//"home" = "home";
+//"profile" = "profile";
+//"upload pdf" = "تحميل ملف PDF";
+//"url" = "url";

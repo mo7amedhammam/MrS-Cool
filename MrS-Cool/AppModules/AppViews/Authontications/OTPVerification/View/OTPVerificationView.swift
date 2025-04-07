@@ -63,7 +63,7 @@ struct OTPVerificationView: View {
 
                         
                         HStack {
-                            Text("I didn't receive code.".localized())
+                            Text("I didn't receive code".localized())
                                 .font(Font.regular(size: 12.0))
                                 .fontWeight(.regular)
                                 .foregroundColor(ColorConstants.Black900)

@@ -101,7 +101,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                         //                                    Text("Status".localized())
                                         //                                        .font(Font.semiBold(size: 16))
                                         //
-                                        //                                    Text(currentSubject?.statusIDName ?? "Aproved")
+                                        //                                    Text(currentSubject?.statusIDName ?? "Approved")
                                         //                                        .font(Font.regular(size: 14))
                                         //                                        .padding(.bottom)
                                     }

@@ -223,7 +223,7 @@ struct TeacherHomeView: View {
                                 .padding(.bottom,2)
                                 
                                 Group{
-                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt".localized())
                                     + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
                                 }
                                 .foregroundColor(ColorConstants.Red400)
@@ -628,7 +628,7 @@ extension TeacherHomeView{
             //        .padding(.horizontal)
             
             Group{
-                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt".localized())
                 + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
             }
             .foregroundColor(ColorConstants.Red400)

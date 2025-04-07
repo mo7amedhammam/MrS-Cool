@@ -133,7 +133,7 @@ struct GroupForLessonView: View {
                             VStack(alignment: .leading, spacing: 0){
                                 // -- Data Title --
                                 Group{
-                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt ".localized())
+                                    Text("Notice : All lesson schedules are in Egypt Standard Time: The current time in Egypt".localized())
                                     + Text("\( date )".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd MMM yyyy hh:mm a"))
                                 }
                                 .foregroundColor(ColorConstants.Red400)
@@ -221,7 +221,7 @@ struct GroupForLessonView: View {
                                                     HStack {
                                                         Spacer()
                                                         HStack(spacing:1){
-                                                            Text("End Time Is ".localized())
+                                                            Text("End Time Is".localized())
                                                             Text("\(groupsforlessonvm.endTime ?? "")")
                                                         }     
                                                         .font(Font.bold(size: 9))
