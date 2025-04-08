@@ -306,7 +306,7 @@
 "No available most booked lessons yet" = "No available most booked lessons yet";
 "No available most booked subjects yet" = "No available most booked subjects yet";
 "No available most booked teachers yet" = "No available most booked teachers yet";
-"No available most viewd teachers yet" = "No available most viewd teachers yet";
+"No available most viewed teachers yet" = "No available most viewd teachers yet";
 "No available most viewed lessons yet" = "No available most viewed lessons yet";
 "No available most viewed subjects yet" = "No available most viewed subjects yet";
 "No available most viewed teachers yet" = "No available most viewed teachers yet";
@@ -387,9 +387,9 @@
 "The price to should be greater than or equal the price from" = "The price to should be greater than or equal the price from";
 "This Lesson Takes" = "This Lesson Takes";
 "This Service Available For Student Only" = "This Service Available For Student Only";
-"This event is active." = "This event is active.";
-"This event is canceled." = "This event is canceled.";
-"This event is in the past." = "This event is in the past.";
+"This event is active" = "This event is active.";
+"This event is canceled" = "This event is canceled.";
+"This event is in the past" = "This event is in the past.";
 "Tickets" = "Tickets";
 "Till " = "Till ";
 "Time" = "Time";
@@ -410,7 +410,7 @@
 "Verify" = "Verify";
 "Week" = "Week";
 "Welcome Back!" = "Welcome Back!";
-"Welcome To Mr.S-cool..." = "Welcome To Mr.S-cool...";
+"Welcome To Mr.S-cool" = "Welcome To Mr.S-cool...";
 "Welcome to Mr Scool" = "Welcome to Mr Scool";
 "Yes" = "Yes";
 "You Have To Select Child First" = "You Have To Select Child First";
@@ -418,9 +418,8 @@
 "You have to login first" = "You have to login first";
 "Your Payment Failed" = "Your Payment Failed";
 "Your file uploaded successfully" = "Your file uploaded successfully";
-"Your payment had beed Failed." = "Your payment had been Failed.";
+"Your payment had beed Failed" = "Your payment had been Failed.";
 "birthDate" = "birthDate";
-"booktypecheckout" = "booktypecheckout";
 "brief" = "brief";
 
 "hrs" = "hrs";

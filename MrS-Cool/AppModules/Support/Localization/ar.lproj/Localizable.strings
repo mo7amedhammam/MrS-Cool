@@ -393,9 +393,9 @@
 "The price to should be greater than or equal the price from" = "يجب أن يكون السعر النهائي أكبر من أو يساوي السعر الابتدائي";
 "This Lesson Takes" = "يستغرق هذا الدرس";
 "This Service Available For Student Only" = "هذه الخدمة متاحة للطلاب فقط";
-"This event is active." = "هذا الحدث نشط.";
-"This event is canceled." = "تم إلغاء هذا الحدث.";
-"This event is in the past." = "هذا الحدث في الماضي.";
+"This event is active" = "هذا الحدث نشط.";
+"This event is canceled" = "تم إلغاء هذا الحدث.";
+"This event is in the past" = "هذا الحدث في الماضي.";
 "Tickets" = "تذاكر";
 "Till " = "حتى ";
 "Time" = "الموعد";
@@ -416,7 +416,7 @@
 "Verify" = "تحقق";
 "Week" = "أسبوع";
 "Welcome Back!" = "مرحباً بعودتك!";
-"Welcome To Mr.S-cool..." = "مرحبًا بك في مستر سكول...";
+"Welcome To Mr.S-cool" = "مرحبًا بك في مستر سكول...";
 "Welcome to Mr Scool" = "مرحبًا بك في مستر سكول";
 "Yes" = "نعم";
 "You Have To Select Child First" = "يجب عليك اختيار الطفل أولاً";
@@ -424,7 +424,7 @@
 "You have to login first" = "يجب عليك تسجيل الدخول أولاً";
 "Your Payment Failed" = "فشلت عملية الدفع";
 "Your file uploaded successfully" = "تم رفع الملف بنجاح";
-"Your payment had beed Failed." = "فشلت عملية الدفع الخاصة بك.";
+"Your payment had beed Failed" = "فشلت عملية الدفع الخاصة بك.";
 "birthDate" = "تاريخ الميلاد";
 "brief" = "brief";
 

@@ -598,7 +598,7 @@ struct EventDetailsView: View {
                 
                 
                 // Display event status
-                Text(event.isCancel == true ? "This event is canceled.".localized() : isEventInPast() ? "This event is in the past.".localized() : "This event is active.".localized())
+                Text(event.isCancel == true ? "This event is canceled".localized() : isEventInPast() ? "This event is in the past".localized() : "This event is active".localized())
                     .foregroundColor(event.isCancel == true || isEventInPast() ? .red : .green)
                     .font(.body)
             }

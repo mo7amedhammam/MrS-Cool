@@ -26,7 +26,7 @@ struct EnterMobileView: View {
                         VStack{
                             VStack(alignment: .leading, spacing: 0) {
                                 Group {
-                                    Text("Welcome To Mr.S-cool...".localized())
+                                    Text("Welcome To Mr.S-cool".localized())
                                         .foregroundColor(Color.mainBlue)
                                         .font(.bold(size: 18))
 
