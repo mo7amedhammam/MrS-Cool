@@ -87,13 +87,13 @@ struct StudentCompletedLessonsView: View {
                 ScrollView{
                     VStack{
                         Group {
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.BookedSubjectsForList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.BookedSubjectsForList)
                                 .onChange(of: filtersubject){newval in
                                     filterlesson = nil
                                     lookupsvm.SelectedBookedSubjectForList = newval
                                 }
                             
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.BookedLessonsForList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.BookedLessonsForList)
                             
                             CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                             

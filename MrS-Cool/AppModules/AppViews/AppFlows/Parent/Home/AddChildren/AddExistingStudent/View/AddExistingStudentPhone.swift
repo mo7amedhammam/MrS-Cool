@@ -38,7 +38,7 @@ struct AddExistingStudentPhone: View {
                                             }
                                         }
 
-                                    Text("We will send  you otp to your mobile number\nto reset a new password".localized())
+                                    Text("NewStudent_We will send  you otp to your mobile number\nto reset a new password".localized())
                                         .foregroundColor(Color.mainBlue)
                                         .font(.regular(size: 13))
                                         .frame(maxWidth:.infinity,alignment:.center)

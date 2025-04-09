@@ -113,7 +113,7 @@ struct ManageTeacherProfileView: View {
                                 
                                 CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $manageprofilevm.governorte,options:lookupsvm.GovernoratesList,isvalid:manageprofilevm.isgovernortevalid)
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $manageprofilevm.city,options:lookupsvm.CitiesList,isvalid:manageprofilevm.iscityvalid)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "City *", selectedOption: $manageprofilevm.city,options:lookupsvm.CitiesList,isvalid:manageprofilevm.iscityvalid)
                                 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $manageprofilevm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid:manageprofilevm.isemailvalid)
                                 
@@ -122,7 +122,7 @@ struct ManageTeacherProfileView: View {
 
                                 CustomDatePickerField(iconName:"img_group148",rightIconName: "img_daterange",placeholder: "Birthdate *", selectedDateStr:$manageprofilevm.birthDateStr,endDate: endDate,isvalid:manageprofilevm.isbirthDateStrvalid)
                                                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِBank", selectedOption: $manageprofilevm.bank,options:lookupsvm.BanksList)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "Bank", selectedOption: $manageprofilevm.bank,options:lookupsvm.BanksList)
 
                                 CustomTextField(iconName:"img_group_512411",placeholder: "IBAN", text: $manageprofilevm.iban,keyboardType: .alphabet)
                                     .onChange(of: manageprofilevm.iban) { newValue in

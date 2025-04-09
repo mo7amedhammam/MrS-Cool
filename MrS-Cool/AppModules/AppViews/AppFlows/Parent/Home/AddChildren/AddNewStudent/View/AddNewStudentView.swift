@@ -112,7 +112,7 @@ struct AddNewStudentView: View {
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $addnewstudentvm.city,options:lookupsvm.CitiesList,isvalid: addnewstudentvm.iscityvalid)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "City *", selectedOption: $addnewstudentvm.city,options:lookupsvm.CitiesList,isvalid: addnewstudentvm.iscityvalid)
                                 
                                 CustomTextField(fieldType:.Password,placeholder: "Password *", text: $addnewstudentvm.Password,isvalid: addnewstudentvm.isPasswordvalid)
                                     .onChange(of: addnewstudentvm.Password) { newValue in

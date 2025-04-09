@@ -317,6 +317,8 @@
 "Not Now" = "Not Now";
 "Num Of Lessons" = "Num Of Lessons";
 "OTP Verification" = "OTP Verification";
+"ForgrtPassword_We will send  you otp to your mobile number\nto reset a new password" = "we will send you otp to your mobile number to reset a new password";
+"NewStudent_We will send  you otp to your mobile number\nto reset a new password" = "we will send you otp to your student  mobile number to add student ";
 
 "PDF" = "PDF";
 "Parent Name *" = "Parent Name *";
@@ -429,8 +431,6 @@
 "parent " = "parent ";
 "password" = "password";
 "payment done :" = "payment done :";
-"payment_approved" = "payment_approved";
-"payment_failed" = "payment_failed";
 "photo" = "photo";
 "photo_Library" = "photo_Library";
 "preview : " = "preview : ";
@@ -439,13 +439,14 @@
 "subjects name" = "subjects name";
 "teacher name" = "teacher name";
 
-"ِBank" = "ِBank";
-"ِCity *" = "ِCity *";
-"ِLesson" = "ِLesson";
-"ِSubject" = "ِSubject";
-"ِSubject *" = "ِSubject *";
-"ِSubject Status" = "ِSubject Status";
-"ِTerm *" = "ِTerm *";
+"Bank" = "Bank";
+"City *" = "City *";
+"Lesson" = "Lesson";
+"Subject" = "Subject";
+"Subject *" = "Subject *";
+"Subject Status" = "Subject Status";
+"Term *" = "Term *";
+"Student / Parent Info" = "Student / Parent Info";
 
 //-------- some adds on subject group ---
 "Lesson No" = "Lesson No";
@@ -462,7 +463,6 @@
 "You must choose at least one lesson" =  "You must choose at least one lesson";
 "What is the file type you will add" = "What is the file type you will add";
 
-
 "Your Payment Approve\n Successfully" = "Your Payment Approve\n Successfully";
 "Your payment had been done \nsuccessfully" = "Your payment had been done \nsuccessfully.";
 "Please back to your account and \nenjoy" = "Please back to your account and \nenjoy";
@@ -471,7 +471,7 @@
 "Session Price *" = "Session Price *";
 "Session Price cannot be 0" = "Session Price cannot be 0";
 "Total Cost" = "Total Cost";
-"ِStudy materials for the stages *" = "ِStudy materials for the stage *";
+"Study materials for the stages *" = "Study materials for the stage *";
 "Session Price" = "Session Price";
 
 "Group Price *" = "Group Price *";

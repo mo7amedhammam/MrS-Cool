@@ -84,7 +84,7 @@ struct TeacherPersonalDataView: View {
                             
                             CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $signupvm.governorte,options:lookupsvm.GovernoratesList)
                             
-                            CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
+                            CustomDropDownField(iconName:"img_group_512374",placeholder: "City *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password,isvalid: signupvm.isPasswordvalid)
                                 .onChange(of: signupvm.Password) { newValue in

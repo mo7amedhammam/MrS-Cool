@@ -85,8 +85,8 @@ struct ManageTeacherSubjectsView: View {
                                     lookupsvm.FilterSelectedAcademicYear = val
                                     
                                 }
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filterSubject,options:lookupsvm.FilterSubjectsList)
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject Status", selectedOption: $filterSubjectStatus,options:lookupsvm.StatusList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filterSubject,options:lookupsvm.FilterSubjectsList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject Status", selectedOption: $filterSubjectStatus,options:lookupsvm.StatusList)
                         }
                         .padding(.top,5)
                         Spacer()
@@ -147,7 +147,7 @@ struct ManageTeacherSubjectsView: View {
                                         //                                            lookupsvm.GetSubjectsByAcademicLevel(academicYearId: manageteachersubjectsvm.academicYear?.id ?? 0)
                                         //                                        }
                                         
-                                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
+                                        CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject *", selectedOption: $manageteachersubjectsvm.subject,options:lookupsvm.SubjectsList,Disabled:manageteachersubjectsvm.isEditing,isdimmed:manageteachersubjectsvm.isEditing,isvalid:manageteachersubjectsvm.issubjectvalid)
                                         
                                         ZStack(alignment:.bottomTrailing){
                                             CustomTextField(iconName:"img_group_black_900",placeholder: "Session Price *", text: $manageteachersubjectsvm.groupCost,keyboardType:.decimalPad,isvalid:manageteachersubjectsvm.isgroupCostvalid)
@@ -272,7 +272,7 @@ struct ManageTeacherSubjectsView: View {
                                     if subject.groupSessionCost == 0
 //                                        || subject.individualCost == 0
                                     {
-                                        manageteachersubjectsvm.error = .error( message: "You Must Enter YOUR  Subject Price First To Can Access To This Page", buttonTitle: "Ok", mainBtnAction: {
+                                        manageteachersubjectsvm.error = .error( message: "You Must Enter YOUR  Subject Price First To Can Access To This Page".localized, buttonTitle: "Ok", mainBtnAction: {
                                         })
                                         manageteachersubjectsvm.isError.toggle()
                                     }else{

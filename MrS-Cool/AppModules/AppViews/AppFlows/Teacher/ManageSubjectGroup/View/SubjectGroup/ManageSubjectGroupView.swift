@@ -65,7 +65,7 @@ struct ManageSubjectGroupView: View {
             }.padding(8)
             ScrollView{
                 Group {
-                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList,isvalid: subjectgroupvm.isextraLessonvalid)
+                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Lesson", selectedOption: $subjectgroupvm.extraLesson,options:lookupsvm.AllLessonsForList,isvalid: subjectgroupvm.isextraLessonvalid)
                     
                     let startDate = Date()
                     CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$subjectgroupvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: subjectgroupvm.isextraDatevalid)
@@ -122,7 +122,7 @@ struct ManageSubjectGroupView: View {
                 ScrollView {
                     VStack{
                         Group {
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.filtersubject,options:lookupsvm.SubjectsForList)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $subjectgroupvm.filtersubject,options:lookupsvm.SubjectsForList)
                             
                             CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $subjectgroupvm.filtergroupName)
                             
@@ -203,7 +203,7 @@ struct ManageSubjectGroupView: View {
                                 
                                 // -- inputs --
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $subjectgroupvm.subject,options:lookupsvm.SubjectsForList,isvalid:subjectgroupvm.issubjectvalid)
                                         .onChange(of: subjectgroupvm.subject){newval in
                                             guard let newval = newval,let id = newval.id else {return}
                                             if newval.subject?.groupSessionCost == 0{

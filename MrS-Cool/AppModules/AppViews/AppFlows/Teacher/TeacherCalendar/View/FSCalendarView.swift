@@ -317,7 +317,7 @@ struct CalView1: View {
                 }.padding(8)
                 ScrollView{
                     Group {
-                        CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $calendarschedualsvm.extraLesson,options:[],Disabled: true)
+                        CustomDropDownField(iconName:"img_group_512380",placeholder: "Lesson", selectedOption: $calendarschedualsvm.extraLesson,options:[],Disabled: true)
                         
                         let startDate = Date()
                         CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$calendarschedualsvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: calendarschedualsvm.isextraDatevalid)

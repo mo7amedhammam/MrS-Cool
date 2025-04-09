@@ -218,7 +218,7 @@ struct CompletedLessonsList: View {
                         ScrollView{
                             VStack{
                                 Group {
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $filtersubject,options:lookupsvm.SubjectsForList)
                                         .onChange(of: filtersubject){newval in
                                             guard let newval = newval,let id = newval.id else {return}
 //                                            if                                                     lookupsvm.SelectedSubjectForList != completedlessonsvm.filtersubject
@@ -234,7 +234,7 @@ struct CompletedLessonsList: View {
                                             }
                                         }
                                     
-                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "ِLesson", selectedOption: $filterlesson,options:lookupsvm.AllLessonsForList)
+                                    CustomDropDownField(iconName:"img_group_512380",placeholder: "Lesson", selectedOption: $filterlesson,options:lookupsvm.AllLessonsForList)
                                     
                                     CustomTextField(iconName:"img_group58",placeholder: "Group Name", text: $filtergroupName)
                                     

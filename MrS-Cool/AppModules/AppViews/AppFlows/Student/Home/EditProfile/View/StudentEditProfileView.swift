@@ -122,7 +122,7 @@ struct StudentEditProfileView: View {
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $studentsignupvm.city,options:lookupsvm.CitiesList,isvalid:studentsignupvm.iscityvalid)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "City *", selectedOption: $studentsignupvm.city,options:lookupsvm.CitiesList,isvalid:studentsignupvm.iscityvalid)
                             }
                             .padding([.top])
                         }

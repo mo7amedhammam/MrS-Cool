@@ -37,7 +37,7 @@ struct TeacherHomeAsAnonymous: View {
                                 
                                 CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studenthomevm.academicYear,options:lookupsvm.AcademicYearsList,isvalid:studenthomevm.isacademicYearvalid)
                                 
-//                                CustomDropDownField(iconName:"img_group_512380",placeholder: "ِTerm *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
+//                                CustomDropDownField(iconName:"img_group_512380",placeholder: "Term *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
                                 CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant((studenthomevm.academicYear == nil || !studenthomevm.isacademicYearvalid)) , action: {
                                     withAnimation{

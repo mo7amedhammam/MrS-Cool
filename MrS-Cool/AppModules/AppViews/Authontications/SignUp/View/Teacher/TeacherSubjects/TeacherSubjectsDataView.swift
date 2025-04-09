@@ -42,13 +42,13 @@ struct TeacherSubjectsDataView: View {
                             
 //                            CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $teachersubjectsvm.academicYear,options:lookupsvm.AcademicYearsList,isvalid: teachersubjectsvm.isacademicYearvalid)
 //                            
-//                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِSubject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid: teachersubjectsvm.issubjectvalid)
+//                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectsList,isvalid: teachersubjectsvm.issubjectvalid)
 
                             CustomDropDownField(iconName:"img_group148",placeholder: "Subjects *", selectedOption: $teachersubjectsvm.academicYear ,options:lookupsvm.SubjectListByEducationLevelIdList,isvalid: teachersubjectsvm.isacademicYearvalid)
                             
-//                            MultiSelectDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOptions: $teachersubjectsvm.subjectsArr,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectsArrvalid)
+//                            MultiSelectDropDownField(iconName:"img_group_512380",placeholder: "Study materials for the stages *", selectedOptions: $teachersubjectsvm.subjectsArr,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectsArrvalid)
                             
-                            CustomDropDownField(iconName:"img_group_512380",placeholder: "ِStudy materials for the stages *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectvalid)
+                            CustomDropDownField(iconName:"img_group_512380",placeholder: "Study materials for the stages *", selectedOption: $teachersubjectsvm.subject,options:lookupsvm.SubjectListBySubjectIdAndEducationLevelIdList,isvalid: teachersubjectsvm.issubjectvalid)
 
                             CustomTextField(iconName:"img_group_black_900",placeholder: "Signup Session Price *", text: $teachersubjectsvm.SessionPrice,keyboardType:.decimalPad,isvalid:teachersubjectsvm.isSessionPricevalid)
                                 .onChange(of: teachersubjectsvm.SessionPrice) { newValue in

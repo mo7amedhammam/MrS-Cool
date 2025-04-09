@@ -97,7 +97,7 @@ struct EditParentProfileView: View {
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
-                                CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $parentprofilevm.city,options:lookupsvm.CitiesList,isvalid: parentprofilevm.iscityvalid)
+                                CustomDropDownField(iconName:"img_group_512374",placeholder: "City *", selectedOption: $parentprofilevm.city,options:lookupsvm.CitiesList,isvalid: parentprofilevm.iscityvalid)
                             }
                             .padding([.top])
                         }

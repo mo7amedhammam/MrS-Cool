@@ -55,7 +55,7 @@ struct ParentSignUpView: View {
                                     signupvm.city = nil
                                 })
                             
-                            CustomDropDownField(iconName:"img_group_512374",placeholder: "ِCity *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
+                            CustomDropDownField(iconName:"img_group_512374",placeholder: "City *", selectedOption: $signupvm.city,options:lookupsvm.CitiesList)
                             
                             CustomTextField(fieldType:.Password,placeholder: "Password *", text: $signupvm.Password,isvalid:signupvm.isPasswordvalid)
                                 .onChange(of: signupvm.Password) { newValue in

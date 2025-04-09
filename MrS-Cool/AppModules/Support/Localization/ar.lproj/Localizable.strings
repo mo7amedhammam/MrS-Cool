@@ -323,6 +323,9 @@
 "Not Now" = "ليس الآن";
 "Num Of Lessons" = "عدد الدروس";
 "OTP Verification" = "التحقق باستخدام OTP";
+"ForgrtPassword_We will send  you otp to your mobile number\nto reset a new password" = "سنرسل لك رمز التحقق إلى رقم جوالك  لاعادة تعيين كلمة المرور";
+"NewStudent_We will send  you otp to your mobile number\nto reset a new password" = "سنرسل لك رمز التحقق إلى رقم هاتف الطالب لاضافة الطالب";
+
 "PDF" = "بى دى اف";
 "Parent Name *" = "اسم ولي الأمر *";
 "Password *" = "كلمة المرور *";
@@ -420,7 +423,7 @@
 "Welcome to Mr Scool" = "مرحبًا بك في مستر سكول";
 "Yes" = "نعم";
 "You Have To Select Child First" = "يجب عليك اختيار الطفل أولاً";
-"You Must Enter YOUR Subject Price First To Can Access To This Page" = "يجب إدخال سعر المادة الخاصة بك أولاً للوصول إلى هذه الصفحة";
+"You Must Enter YOUR  Subject Price First To Can Access To This Page" = "يجب إدخال سعر المادة الخاصة بك أولاً للوصول إلى هذه الصفحة";
 "You have to login first" = "يجب عليك تسجيل الدخول أولاً";
 "Your Payment Failed" = "فشلت عملية الدفع";
 "Your file uploaded successfully" = "تم رفع الملف بنجاح";
@@ -435,8 +438,6 @@
 "parent " = "ولي الأمر ";
 "password" = "كلمة المرور";
 "payment done :" = "تم الدفع:";
-"payment_approved" = "payment_approved";
-"payment_failed" = "payment_failed";
 "photo" = "صوره";
 "photo_Library" = "الصور";
 "preview : " = "preview : ";
@@ -446,13 +447,14 @@
 "startDate" = "startDate";
 "subjects name" = "اسم المادة";
 "teacher name" = "اسم المعلم";
-"ِBank" = "البنوك والمحافظ الالكترونية";
-"ِCity *" = "المدينة *";
-"ِLesson" = "الدرس";
-"ِSubject" = "المادة";
-"ِSubject *" = "المادة *";
-"ِSubject Status" = "حالة المادة";
-"ِTerm *" = "الفصل الدراسي *";
+"Bank" = "البنوك والمحافظ الالكترونية";
+"City *" = "المدينة *";
+"Lesson" = "الدرس";
+"Subject" = "المادة";
+"Subject *" = "المادة *";
+"Subject Status" = "حالة المادة";
+"Term *" = "الفصل الدراسي *";
+"Student / Parent Info" = "معلومات الطالب /ولي الأمر";
 
 //-------- some adds on subject group ---
 "Lesson No" = "عدد الحصص";
@@ -471,7 +473,6 @@
 "* Note: Must be enter one item at least" = "* ملحوظه: يجب عليك إدخال ماده واحده على الاقل";
 " No Available Times on " = " لا توجد أوقات متاحة في ";
 
-
 "Your Payment Approve\n Successfully" = "تم الدفع\n بنجاح";
 "Your payment had been done \nsuccessfully" = "تمت عملية الدفع \nبنجاح.";
 "Please back to your account and \nenjoy" = "الرجاء العودة إلى حسابك \nوالإستمتاع";
@@ -480,7 +481,7 @@
 "Session Price *" = "سعر الحصه الواحده *";
 "Session Price cannot be 0" = "لا يمكن أن يكون سعر الحصه 0";
 "Total Cost" = "التكلفه الاجماليه";
-"ِStudy materials for the stages *" = "ِالمواد الدراسيه للمرحله *";
+"Study materials for the stages *" = "المواد الدراسيه للمرحله *";
 "Session Price" = "سعر الحصه";
 
 "Group Price *" = "السعر للمجموعة *";
