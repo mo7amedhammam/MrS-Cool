@@ -194,7 +194,7 @@ struct TeacherHomeAsAnonymous: View {
                                 .padding()
                             //                                .resizable()
                             //                                .aspectRatio(contentMode: .fit)
-                            Text("No available  most booked teachers yet".localized())
+                            Text("No available most booked teachers yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
                         }else{
@@ -232,7 +232,7 @@ struct TeacherHomeAsAnonymous: View {
                                 .padding()
                             //                                .resizable()
                             //                                .aspectRatio(contentMode: .fit)
-                            Text("No available  most booked lessons yet".localized())
+                            Text("No available most booked lessons yet".localized())
                                 .font(Font.regular(size: 15))
                                 .foregroundColor(ColorConstants.Bluegray400)
                         }else{
