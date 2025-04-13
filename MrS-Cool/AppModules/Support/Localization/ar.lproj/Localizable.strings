@@ -72,7 +72,6 @@
 "Are you want to delete this child account ?" = "هل تريد حذف حساب الطفل هذا؟";
 "Attendance" = "الحضور";
 "Available Teachers" = "المعلمين المتاحين";
-"Bio" = "Bio";
 "Birthdate" = "تاريخ الميلاد";
 "Birthdate *" = "تاريخ الميلاد *";
 "Book Now" = "احجز الان";
@@ -134,7 +133,6 @@
 "End Time" = "وقت الانتهاء";
 "End Time Is" = "وقت الانتهاء هو ";
 "End date must be greater than start date" = "يجب أن يكون تاريخ الانتهاء أكبر من تاريخ البداية";
-"Enter subtitle here" = "";
 "FeMale" = "أنثى";
 "Female" = "أنثى";
 "File or image not selected" = "لم يتم اختيار ملف أو صورة";
@@ -163,7 +161,6 @@
 "Individual Price" = "السعر الفردي";
 "Individual Time" = "الوقت الفردي";
 "Invalid Image URL" = "رابط الصورة غير صالح";
-"IsTeacher" = "IsTeacher";
 "Join Meeting" = "الانضمام إلى الدرس";
 "LE" = "جنية";
 "Lesson" = "الدرس";
@@ -213,8 +210,6 @@
 "Me" = "أنا";
 "Meeting" = "اجتماع";
 
-"Message cannot be empty" = "Message cannot be empty";
-"Message sent" = "Message sent";
 "Messages" = "الرسائل";
 "Mobile Number *" = "رقم الموبايل *";
 "More Details" = "مزيد من التفاصيل";
@@ -429,10 +424,8 @@
 "Your file uploaded successfully" = "تم رفع الملف بنجاح";
 "Your payment had beed Failed" = "فشلت عملية الدفع الخاصة بك.";
 "birthDate" = "تاريخ الميلاد";
-"brief" = "brief";
 
 "hrs" = "س";
-"menue" = "menue";
 "mins" = "د";
 "no slots to display" = "لا توجد أوقات متاحة للعرض";
 "parent " = "ولي الأمر ";
@@ -440,11 +433,7 @@
 "payment done :" = "تم الدفع:";
 "photo" = "صوره";
 "photo_Library" = "الصور";
-"preview : " = "preview : ";
 
-
-"sendmessage" = "sendmessage";
-"startDate" = "startDate";
 "subjects name" = "اسم المادة";
 "teacher name" = "اسم المعلم";
 "Bank" = "البنوك والمحافظ الالكترونية";
@@ -719,3 +708,6 @@
 //"profile" = "profile";
 //"upload pdf" = "تحميل ملف PDF";
 //"url" = "url";
+//"Message cannot be empty" = "Message cannot be empty";
+//"Message sent" = "Message sent";
+//"preview : " = "preview : ";

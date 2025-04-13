@@ -178,7 +178,7 @@ struct ManageMyDocumentsView: View {
                                 teacherdocumentsvm.isshowingConfirmation = true
 
                             }){
-                                print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
+//                                print("preview : ",Constants.baseURL + (document.documentPath ?? ""))
                                     previewurl = Constants.baseURL + (document.documentPath ?? "")
                                 previewurl.openAsURL()
 

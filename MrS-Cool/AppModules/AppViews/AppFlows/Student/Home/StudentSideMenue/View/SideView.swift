@@ -42,7 +42,7 @@ struct SideView: View {
 }
 
 #Preview {
-    SideView(isShowing: .constant(true), content: AnyView(Text("menue")), direction: .leading)
+    SideView(isShowing: .constant(true), content: AnyView(Text("")), direction: .leading)
 }
 
 //#Preview {
