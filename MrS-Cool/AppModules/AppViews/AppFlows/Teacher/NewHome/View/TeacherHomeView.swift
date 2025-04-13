@@ -14,7 +14,7 @@ struct TeacherHomeView: View {
     @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @StateObject var SchedualsVm = TeacherHomeVM()
-//    @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
+    @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
     
     @State var showFilter : Bool = false
     //    var currentSubject:TeacherSubjectM?
@@ -578,15 +578,27 @@ struct TeacherHomeView: View {
     }
     
     private func startTimer() {
-        // Invalidate the existing timer if any
+        // Invalidate any existing timer
         timer?.invalidate()
-        print("timer started")
-        // Start a new timer that fires every 60 seconds
-        timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
-            print("timer action fired")
-            Task {
-                date = await Helper.shared.GetEgyptDateTime()
-                await SchedualsVm.GetScheduals1(isrefreshing: true)
+        
+        let now = Date()
+        let calendar = Calendar.current
+
+        // Get next whole minute
+        if let nextMinute = calendar.nextDate(after: now, matching: DateComponents(second: 0), matchingPolicy: .nextTime) {
+            let intervalToNextMinute = nextMinute.timeIntervalSince(now)
+
+            print("Timer will align with system minute in \(intervalToNextMinute) seconds")
+
+            // Schedule one-time timer to sync with start of next minute
+            Timer.scheduledTimer(withTimeInterval: intervalToNextMinute, repeats: false) { [ self] _ in
+//                guard let self = self else { return }
+                fireTimerAction() // First fire
+
+                // Start repeating timer every 60s from now
+                timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
+                    fireTimerAction()
+                }
             }
         }
     }
@@ -596,6 +608,15 @@ struct TeacherHomeView: View {
         print("timer stopped")
         timer = nil
     }
+
+    private func fireTimerAction() {
+        print("Synced timer fired at exact start of minute")
+        Task {
+            date = await Helper.shared.GetEgyptDateTime()
+            await SchedualsVm.GetScheduals1(isrefreshing: true)
+        }
+    }
+
 }
 
 #Preview {
