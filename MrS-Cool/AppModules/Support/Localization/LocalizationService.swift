@@ -26,14 +26,16 @@ class LocalizeHelper: ObservableObject {
             print("helper:",Helper.shared.getLanguage())
         }
     }
-    
+    @Published var isLoading : Bool?
+
     private init() {
         self.currentLanguage =  Helper.shared.getLanguage()
     }
     
     func setLanguage(language: Language) {
         self.currentLanguage = language.id
-        LocalizationManager.shared.setLanguage(language.id) {_ in} // Calls translations from api 
+        LocalizationManager.shared.setLanguage(language.id) { _ in
+        } // Calls translations from api
 
     }
 }

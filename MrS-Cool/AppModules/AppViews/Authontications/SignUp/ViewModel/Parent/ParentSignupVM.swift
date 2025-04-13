@@ -46,6 +46,7 @@ class ParentSignupVM: ObservableObject {
     @Published var city : DropDownOption?
 
     @Published var birthDateStr : String?
+    
     @Published var Password = ""{
         didSet{
             if Password.count >= 6{
@@ -163,7 +164,7 @@ extension ParentSignupVM{
         acceptTerms = false
         
         //        birthDate = nil
-        birthDateStr = ""
+        birthDateStr = nil
     }
 }
 

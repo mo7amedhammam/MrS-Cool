@@ -14,7 +14,7 @@ struct TeacherHomeView: View {
     @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @StateObject var SchedualsVm = TeacherHomeVM()
-    @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
+//    @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
     
     @State var showFilter : Bool = false
     //    var currentSubject:TeacherSubjectM?
