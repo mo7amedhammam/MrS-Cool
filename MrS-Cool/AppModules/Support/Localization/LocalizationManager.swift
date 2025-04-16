@@ -104,8 +104,7 @@ class LocalizationManager {
 //            completion(true)
 //            return
 //        }
-        
-        let urlString = "https://alnada-devmrsapi.azurewebsites.net/api/\(currentLanguage)/Translations/GetTranslationFile/ios"
+        let urlString = Constants.baseURL + "api/\(currentLanguage)/Translations/GetTranslationFile/ios"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
