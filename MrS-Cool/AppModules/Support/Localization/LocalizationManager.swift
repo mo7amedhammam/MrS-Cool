@@ -104,7 +104,13 @@ class LocalizationManager {
 //            completion(true)
 //            return
 //        }
-        let urlString = Constants.baseURL + "api/\(currentLanguage)/Translations/GetTranslationFile/ios"
+        
+        let urlString = switch Constants.apiType{
+        case .testing:
+            "https://alnada-devmrsapi.azurewebsites.net/api/\(currentLanguage)/Translations/GetTranslationFile/ios"
+        case .production:
+            "https://alnada-mrsapi.azurewebsites.net/api/\(currentLanguage)/Translations/GetTranslationFile/ios"
+        }
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
