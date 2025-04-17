@@ -12,11 +12,12 @@ struct TeacherHomeM: Codable {
 }
 
 // MARK: - TeacherHomeItemM
-struct TeacherHomeItemM: Codable,Hashable {
+struct TeacherHomeItemM: Codable,Hashable,Identifiable {
 //        static func == (lhs: TeacherHomeItemM, rhs: TeacherHomeItemM) -> Bool {
 //            return lhs.teacherlessonID == rhs.teacherlessonID
 //        }
-
+    var id: ObjectIdentifier?
+    
     var teacherlessonID, teacherlessonsessionID, teacherLessonSessionSchedualSlotID: Int?
     var teachersubjectAcademicSemesterYearID: Int?
     var groupName, date, timeFrom, timeTo: String?
@@ -44,10 +45,11 @@ struct StudentHomeM: Codable {
     var totalCount: Int?
 }
 // MARK: - StudentHomeItemM
-struct StudentHomeItemM: Codable,Hashable {
+struct StudentHomeItemM: Codable,Hashable,Identifiable {
 //    static func == (lhs: StudentHomeItemM, rhs: StudentHomeItemM) -> Bool {
 //        return lhs.teacherLessonSessionSchedualSlotID == rhs.teacherLessonSessionSchedualSlotID
 //    }
+    var id: ObjectIdentifier?
 
     var teacherLessonSessionSchedualSlotID, bookTeacherlessonsessionDetailID: Int?
     var lessonName, groupName, date, timeFrom,timeTo: String?

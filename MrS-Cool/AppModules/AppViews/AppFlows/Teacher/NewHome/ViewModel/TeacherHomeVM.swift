@@ -12,6 +12,22 @@ enum AlternateSessionType {
 case newAlternateSession, rescheduleAlternateSession, createextraSession
 }
 
+func mergeOrAppend<T: Equatable>(
+    existingArray: inout [T],
+    newItems: [T],
+    idSelector: (T) -> Int?
+) {
+    for newItem in newItems {
+        if let index = existingArray.firstIndex(where: { idSelector($0) == idSelector(newItem) }) {
+            existingArray[index] = newItem // Replace
+        } else {
+            existingArray.append(newItem) // Append
+        }
+    }
+}
+
+
+
 @MainActor
 class TeacherHomeVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
@@ -118,7 +134,15 @@ extension TeacherHomeVM{
                     if skipCount == 0{
                         TeacherScheduals = response.data
                     }else{
-                        TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+//                        TeacherScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+                        
+                            if var existing = TeacherScheduals?.items, let newItems = response.data?.items {
+                                mergeOrAppend(existingArray: &existing, newItems: newItems){ item in
+                                    return item.teacherLessonSessionSchedualSlotID
+                                }
+                                TeacherScheduals?.items = existing
+                            
+                        }
                     }
                     
                 } else {
@@ -158,7 +182,13 @@ extension TeacherHomeVM{
                     if skipCount == 0{
                         StudentScheduals = response.data
                     }else{
-                        StudentScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+//                        StudentScheduals?.items?.append(contentsOf: response.data?.items ?? [])
+                        if var existing = StudentScheduals?.items, let newItems = response.data?.items {
+                            mergeOrAppend(existingArray: &existing, newItems: newItems){ item in
+                                return item.teacherLessonSessionSchedualSlotID
+                            }
+                            StudentScheduals?.items = existing
+                        }
                     }
                 } else {
                     self.error = .error(image:nil, message: response.message ?? "",buttonTitle:"Done")
@@ -252,12 +282,9 @@ extension TeacherHomeVM{
 
                         })
                         self.isError = true
-
-                        
                         
 //                        TeacherScheduals?.items?.removeAll(where: {$0.teacherLessonSessionSchedualSlotID == id } )
                      
-                        
                     }else{
                         isError =  true
                         //                    error = NetworkError.apiError(code: receivedData.messageCode ?? 0, error: receivedData.message ?? "")
