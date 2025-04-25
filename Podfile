@@ -6,7 +6,7 @@ target 'MrS-Cool' do
   use_frameworks!
 
   # Pods for MrS-Cool
-  pod 'Alamofire', '~> 5.8.1'                     # Updated for privacy manifest
+  pod 'Alamofire', '~> 5.9.0'                     # Updated for privacy manifest
   pod 'FSCalendar', '~> 2.8.4'                    # No update needed (not flagged)
   pod 'CalendarKit', '~> 1.1.9'                   # No update needed (not flagged)
   pod 'Kingfisher', '~> 7.10.0'                   # Updated for privacy manifest

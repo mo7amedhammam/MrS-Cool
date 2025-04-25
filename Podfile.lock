@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.8.1)
+  - Alamofire (5.9.1)
   - CalendarKit (1.1.9)
   - Firebase (10.22.0):
     - Firebase/Core (= 10.22.0)
@@ -137,7 +137,7 @@ PODS:
     - PromisesObjC (= 2.4.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.8.1)
+  - Alamofire (~> 5.9.0)
   - CalendarKit (~> 1.1.9)
   - Firebase (~> 10.22.0)
   - Firebase/Analytics (~> 10.22.0)
@@ -170,7 +170,7 @@ SPEC REPOS:
     - PromisesSwift
 
 SPEC CHECKSUMS:
-  Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   CalendarKit: 0c19eabfc09a6d2b32d2e7fe392e2fe5996622af
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
   FirebaseAnalytics: 8d0ff929c63b7f72260f332b86ccf569776b75d3
@@ -190,6 +190,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
 
-PODFILE CHECKSUM: 9298b8086688459f9dc9de7747ca7246d32bda0d
+PODFILE CHECKSUM: 00feb550a55c3719e79b614e2fe7e1f717b882f0
 
 COCOAPODS: 1.16.2
