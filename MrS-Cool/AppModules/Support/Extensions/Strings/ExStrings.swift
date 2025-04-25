@@ -105,6 +105,9 @@ extension String {
 //        print("Formatter Locale: \(formatter.locale?.identifier ?? "nil")")
 //        print("Formatter TimeZone: \(formatter.timeZone?.identifier ?? "nil")")
         
+        // Add this to help parsing ambiguous/invalid DST dates
+        formatter.isLenient = true
+
         guard let date = formatter.date(from: self) else {
             print("Failed to parse date")
             return self

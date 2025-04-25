@@ -91,11 +91,36 @@ class LocalizationManager {
     }
     
     private func loadDefaultTranslations() -> [String: String] {
-        guard let path = Bundle.main.path(forResource: "Localizable", ofType: "strings"),
-              let dictionary = NSDictionary(contentsOfFile: path) as? [String: String] else {
-            return [:]
+        if let cachedTranslations = loadCachedTranslations(for: currentLanguage){
+            self.updateTranslations(cachedTranslations)
+//            completion(true)
+            return cachedTranslations
+        }else{
+            
+            // 1. Try to load the specific language file first
+            if let path = Bundle.main.path(forResource: "ar", ofType: "lproj"),
+               let bundle = Bundle(path: path),
+               let path = bundle.path(forResource: "Localizable", ofType: "strings"),
+               let dictionary = NSDictionary(contentsOfFile: path) as? [String: String] {
+                return dictionary
+            }
+            
+            // 2. Fall back to base localization (English)
+            guard let path = Bundle.main.path(forResource: "en", ofType: "lproj"),
+                  let bundle = Bundle(path: path),
+                  let path = bundle.path(forResource: "Localizable", ofType: "strings"),
+                  let dictionary = NSDictionary(contentsOfFile: path) as? [String: String] else {
+                return [:] // Final fallback
+            }
+            
+            return dictionary
         }
-        return dictionary
+        
+//        guard let path = Bundle.main.path(forResource: "Localizable", ofType: "strings"),
+//              let dictionary = NSDictionary(contentsOfFile: path) as? [String: String] else {
+//            return [:]
+//        }
+//        return dictionary
     }
     
     private func fetchTranslations(completion: @escaping (Bool) -> Void) {
