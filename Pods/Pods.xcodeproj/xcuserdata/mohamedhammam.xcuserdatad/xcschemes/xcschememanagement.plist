@@ -34,7 +34,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseCore-FirebaseCore_Privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseCoreExtension-FirebaseCoreExtension_Privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseCoreExtension.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -45,6 +60,11 @@
 			<false/>
 		</dict>
 		<key>FirebaseCoreInternal.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseCrashlytics-FirebaseCrashlytics_Privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -64,7 +84,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseMessaging-FirebaseMessaging_Privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseMessaging.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseSessions.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -94,6 +124,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Kingfisher-Kingfisher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -110,6 +145,21 @@
 			<false/>
 		</dict>
 		<key>PromisesObjC.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PromisesSwift-Promises_Privacy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PromisesSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>nanopb-nanopb_Privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

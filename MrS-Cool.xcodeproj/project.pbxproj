@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */; };
+		5F85B4B055EB1690873DCB27 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0A99ED45700C7D7425D8A1E /* Pods_MrS_Cool.framework */; };
 		9090A1302D88ECD000D9E20B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090A12F2D88ECD000D9E20B /* LocalizationManager.swift */; };
 		9090A1322D88EEC400D9E20B /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090A1312D88EEC400D9E20B /* AppKeys.swift */; };
 		C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */; };
@@ -228,11 +228,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
+		5A8E2B0D8671741D70A8EDBB /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
 		9090A12F2D88ECD000D9E20B /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		9090A1312D88EEC400D9E20B /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
-		C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.release.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.release.xcconfig"; sourceTree = "<group>"; };
+		C0A99ED45700C7D7425D8A1E /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C724B10DACD4322DE6601BF7 /* Pods-MrS-Cool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MrS-Cool.debug.xcconfig"; path = "Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool.debug.xcconfig"; sourceTree = "<group>"; };
 		C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentsVM.swift; sourceTree = "<group>"; };
 		C80403432B554E3D003279AD /* HomeSubjectDetailsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsM.swift; sourceTree = "<group>"; };
 		C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsVM.swift; sourceTree = "<group>"; };
@@ -459,8 +459,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41C210F0B25CB5A9D3ED1D96 /* Pods_MrS_Cool.framework in Frameworks */,
 				C84A6DFC2CCA54F4006D3F8E /* StoreKit.framework in Frameworks */,
+				5F85B4B055EB1690873DCB27 /* Pods_MrS_Cool.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,8 +470,8 @@
 		8794A11A3647421028230701 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */,
-				C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */,
+				C724B10DACD4322DE6601BF7 /* Pods-MrS-Cool.debug.xcconfig */,
+				5A8E2B0D8671741D70A8EDBB /* Pods-MrS-Cool.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -480,7 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				C84A6DFB2CCA54F4006D3F8E /* StoreKit.framework */,
-				23B27A1B6A65B18FCFD88562 /* Pods_MrS_Cool.framework */,
+				C0A99ED45700C7D7425D8A1E /* Pods_MrS_Cool.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2559,12 +2559,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C89EA9102ADD906800891D41 /* Build configuration list for PBXNativeTarget "MrS-Cool" */;
 			buildPhases = (
-				353A83D6A4B462FADEEDD119 /* [CP] Check Pods Manifest.lock */,
+				42379E48A3BA05DA92BE8F8D /* [CP] Check Pods Manifest.lock */,
 				C89EA8FE2ADD906300891D41 /* Sources */,
 				C89EA8FF2ADD906300891D41 /* Frameworks */,
 				C89EA9002ADD906300891D41 /* Resources */,
-				8D67522ABDE551097F59D48C /* [CP] Embed Pods Frameworks */,
 				C858368A2D40F7F100C1F771 /* ShellScript */,
+				32DD678F3292AC507E2A0EE1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2644,7 +2644,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		353A83D6A4B462FADEEDD119 /* [CP] Check Pods Manifest.lock */ = {
+		32DD678F3292AC507E2A0EE1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42379E48A3BA05DA92BE8F8D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2664,27 +2685,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8D67522ABDE551097F59D48C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MrS-Cool/Pods-MrS-Cool-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C858368A2D40F7F100C1F771 /* ShellScript */ = {
@@ -3048,14 +3048,14 @@
 		};
 		C89EA9112ADD906800891D41 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 747642AF184B8ED6C5D966CF /* Pods-MrS-Cool.debug.xcconfig */;
+			baseConfigurationReference = C724B10DACD4322DE6601BF7 /* Pods-MrS-Cool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.8;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
@@ -3095,14 +3095,14 @@
 		};
 		C89EA9122ADD906800891D41 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C32E76EA1E910F81EDF3CB3E /* Pods-MrS-Cool.release.xcconfig */;
+			baseConfigurationReference = 5A8E2B0D8671741D70A8EDBB /* Pods-MrS-Cool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.8;
+				CURRENT_PROJECT_VERSION = 1.7.9;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
 				ENABLE_PREVIEWS = YES;
