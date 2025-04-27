@@ -124,11 +124,11 @@ class LocalizationManager {
     }
     
     private func fetchTranslations(completion: @escaping (Bool) -> Void) {
-//        if let cachedTranslations = loadCachedTranslations(for: currentLanguage){
-//            self.updateTranslations(cachedTranslations)
-//            completion(true)
+        if let cachedTranslations = loadCachedTranslations(for: currentLanguage){
+            self.updateTranslations(cachedTranslations)
+            completion(true)
 //            return
-//        }
+        }
         
         let urlString = switch Constants.apiType{
         case .testing:
