@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TeacherHomeView: View {
     @State private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-    
+//    @State private var timerTask: Task<Void, Never>?
+
     @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
@@ -362,7 +363,7 @@ struct TeacherHomeView: View {
             showFilter = false
             SchedualsVm.ShowAddExtraSession = false
             SchedualsVm.ShowStudentCalendarDetails = false
-            //            completedlessonsvm.cleanup()
+            SchedualsVm.cleanup()
             stopTimer()
         }
         .onChange(of:selectedTab){newval in
@@ -572,9 +573,18 @@ struct TeacherHomeView: View {
     
     @MainActor
     private func fetchScheduals() async {
-        SchedualsVm.isLoading = true // Start the loading animation
-        await SchedualsVm.GetScheduals1()
-        SchedualsVm.isLoading = false // Stop the loading animation
+        SchedualsVm.isLoading = true
+        defer {
+            SchedualsVm.isLoading = false
+        }
+        do {
+            try Task.checkCancellation()
+           await SchedualsVm.GetScheduals1()
+        } catch {
+//            SchedualsVm.isLoading = false
+            if error is CancellationError { return }
+            // Handle other errors
+        }
     }
     
     private func startTimer() {

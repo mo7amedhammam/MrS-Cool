@@ -143,64 +143,167 @@ final class BaseNetwork{
         }
     }
     
-    private let session: Session
-        
-        private init() {
-            let configuration = URLSessionConfiguration.default
-            configuration.timeoutIntervalForRequest = 30
-            configuration.timeoutIntervalForResource = 30
-            self.session = Session(configuration: configuration)
-        }
-    
-
-    func request<T: TargetType, M: Codable>(_ target: T, _ Model: M.Type) async throws -> M {
-        guard Helper.shared.isConnectedToNetwork() else {
-            throw NetworkError.noConnection
-        }
-        
-        let url = try target.asURL()
-        
-        let parameters = buildparameter(paramaters: target.parameter)
-        let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
-        
-        print(target.requestURL)
-        print(target.method)
-        print(parameters)
-        print(headers ?? [:])
-
-        let response = try await session.request(
-            url,
-            method: target.method,
-            parameters: parameters.0,
-            encoding: parameters.1,
-            headers: headers
-        )
-        .validate(statusCode: 200..<502) // Validate status codes in the 200 range
-        .serializingDecodable(M.self) // Decode to BaseResponse
-        .value
-        
-        print("response : \n", response)
-        
-        // Check the success property of the BaseResponse
-//        if let success = response.success, success == false {
-//            throw NetworkError.unknown(
-//                code: response.messageCode ?? 0,
-//                error: response.message ?? "Unknown error"
-//            )
+//    private let session: Session
+//        
+//        private init() {
+//            let configuration = URLSessionConfiguration.default
+//            configuration.timeoutIntervalForRequest = 30
+//            configuration.timeoutIntervalForResource = 30
+//            self.session = Session(configuration: configuration)
 //        }
-        
-        // Return the data if there's no error
-//        guard let data = response.data else {
-//            throw NetworkError.unknown(
-//                code: response.messageCode ?? 0,
-//                error: response.message ?? "No data received"
-//            )
+//    
+//
+//    func request<T: TargetType, M: Codable>(_ target: T, _ Model: M.Type) async throws -> M {
+//        guard Helper.shared.isConnectedToNetwork() else {
+//            throw NetworkError.noConnection
 //        }
-        
-        return response
+//        
+//        let url = try target.asURL()
+//        
+//        let parameters = buildparameter(paramaters: target.parameter)
+//        let headers: HTTPHeaders? = Alamofire.HTTPHeaders(target.headers ?? [:])
+//        
+//        print(target.requestURL)
+//        print(target.method)
+//        print(parameters)
+//        print(headers ?? [:])
+//
+//        let response = try await session.request(
+//            url,
+//            method: target.method,
+//            parameters: parameters.0,
+//            encoding: parameters.1,
+//            headers: headers
+//        )
+//        .validate(statusCode: 200..<502) // Validate status codes in the 200 range
+//        .serializingDecodable(M.self) // Decode to BaseResponse
+//        .value
+//        
+//        print("response : \n", response)
+//        
+//        // Check the success property of the BaseResponse
+////        if let success = response.success, success == false {
+////            throw NetworkError.unknown(
+////                code: response.messageCode ?? 0,
+////                error: response.message ?? "Unknown error"
+////            )
+////        }
+//        
+//        // Return the data if there's no error
+////        guard let data = response.data else {
+////            throw NetworkError.unknown(
+////                code: response.messageCode ?? 0,
+////                error: response.message ?? "No data received"
+////            )
+////        }
+//        
+//        return response
+//    }
+
+
+    private let session: URLSession = {
+           let config = URLSessionConfiguration.default
+           config.timeoutIntervalForRequest = 30
+           config.timeoutIntervalForResource = 30
+           return URLSession(configuration: config)
+       }()
+       
+       private var activeTasks: [URLSessionTask] = []
+       private let taskQueue = DispatchQueue(label: "network.tasks.queue")
+       
+    func cancelAllRequests() {
+           taskQueue.sync {
+               activeTasks.forEach { $0.cancel() }
+               activeTasks.removeAll()
+           }
+       }
+       
+        func request<T: TargetType, M: Codable>(_ target: T, _ modelType: M.Type) async throws -> M {
+           // Check for cancellation first
+           try Task.checkCancellation()
+           
+           guard Helper.shared.isConnectedToNetwork() else {
+               throw NetworkError.noConnection
+           }
+           
+           let url = try target.asURL()
+           var request = URLRequest(url: url)
+           request.httpMethod = target.method.rawValue
+           
+           // Add headers
+           target.headers?.forEach { key, value in
+               request.addValue(value, forHTTPHeaderField: key)
+           }
+           
+           // Handle parameters
+           let params = buildparameter(paramaters: target.parameter).0
+           let parameters = buildparameters(paramaters: buildparameter(paramaters: target.parameter).0)
+            switch (target.method, parameters.1) {
+                case (.get, _), (_, .urlEncoding):
+                    var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                    components?.queryItems = parameters.0?.map {
+                        URLQueryItem(name: $0.key, value: "\($0.value)")
+                    }
+                    if let urlWithQuery = components?.url {
+                        request.url = urlWithQuery
+                    }
+                default:
+                    if let params = parameters.0 {
+                        request.httpBody = try JSONSerialization.data(withJSONObject: params)
+                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    }
+                }
+            
+           // Check cancellation again before making request
+           try Task.checkCancellation()
+           
+           let task = session.dataTask(with: request)
+           
+           taskQueue.sync {
+               activeTasks.append(task)
+           }
+           
+           do {
+               let (data, response) = try await session.data(for: request)
+
+               taskQueue.sync {
+                   activeTasks.removeAll { $0 == task }
+               }
+               
+               guard let httpResponse = response as? HTTPURLResponse else {
+                   throw NetworkError.invalidJSON("invalid response")
+               }
+               
+               guard (200..<502).contains(httpResponse.statusCode) else {
+                   throw NetworkError.serverError(code:  httpResponse.statusCode, error: "serverError")
+               }
+               
+               return try JSONDecoder().decode(M.self, from: data)
+           } catch {
+//               taskQueue.sync {
+//                   activeTasks.removeAll { $0 == task }
+//               }
+               
+               if let urlError = error as? URLError, urlError.code == .cancelled {
+                   throw NetworkError.requestCancelled
+               }
+               throw error
+           }
+       }
+
+    // Helper enum to match Alamofire's ParameterEncoding
+    enum ParameterEncoding {
+        case jsonEncoding
+        case urlEncoding
+        // Add other encoding types as needed
     }
 
-
+    // Modified buildparameter to return URLSession-compatible types
+    private func buildparameters(paramaters: [String: Any]?) -> (parameters: [String: Any]?, encoding: ParameterEncoding) {
+        // Your existing parameter building logic
+        // Return appropriate encoding type based on your needs
+        return (paramaters, .jsonEncoding) // Default to JSON encoding
+    }
 
 
 
@@ -548,6 +651,8 @@ public enum NetworkError: Error, Equatable {
     case unableToParseData(_ error: String)
     case unknown(code: Int, error: String)
     case noConnection
+    case requestCancelled
+
 }
 
 extension NetworkError: LocalizedError {
@@ -575,6 +680,8 @@ extension NetworkError: LocalizedError {
             return "tokenExpired"
         case .noConnection:
             return "noConnection"
+        case .requestCancelled:
+            return "request Cancelled"
             
         }
     }

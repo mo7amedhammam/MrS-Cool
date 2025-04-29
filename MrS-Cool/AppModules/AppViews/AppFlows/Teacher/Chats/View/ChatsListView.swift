@@ -131,6 +131,7 @@
 //    
 //}
 //
+
 struct CustomSearchBar: View {
     var placeHolder: String? = ""
     @Binding var searchText: String
@@ -177,17 +178,12 @@ var body: some View {
     CustomSearchBar(placeHolder: "Search",searchText: .constant(""))
 }
 
-
-
-
-
-
 import SwiftUI
 
 struct ChatsListView: View {
     @EnvironmentObject var studentHomeTabBarVM: StudentTabBarVM
     @StateObject var chatListVM = ChatListVM()
-    
+
     @State private var searchQuery = ""
     @State private var isPush = false
     @State private var destination = AnyView(EmptyView())
@@ -230,11 +226,21 @@ struct ChatsListView: View {
         .background(backgroundView)
         .showHud(isShowing: $chatListVM.isLoading)
         .showAlert(hasAlert: $chatListVM.isError, alertType: chatListVM.error)
+//        .onDisappear{
+//                   cancelRequests()
+//               }
+        .onChange(of: chatListVM.isLoading) { loading in
+            print("Loading state changed to: \(loading)")
+        }
         if hasNavBar == true{
                     NavigationLink(destination: destination, isActive: $isPush, label: {})
                 }
     }
-    
+      
+//    private func cancelRequests(){
+//        fetchTask?.cancel()
+//        chatListVM.cleanup()
+//    }
     private var shouldShowChildSelection: Bool {
         Helper.shared.getSelectedUserType() == .Parent && selectedChild == nil
     }
@@ -258,6 +264,7 @@ struct ChildSelectionView: View {
 
 private struct ChatListContent: View {
     let geometry: GeometryProxy
+    @State private var fetchTask: Task<Void, Never>?
     @ObservedObject var chatListVM: ChatListVM
     @Binding var searchQuery: String
     @Binding var selectedChatId: Int?
@@ -288,8 +295,20 @@ private struct ChatListContent: View {
             Spacer()
         }
         .frame(minHeight: geometry.size.height)
-        .task { await fetchChats() }
-        .onDisappear { chatListVM.cleanup() }
+        .task {
+//            cancelRequests()
+            fetchTask = Task {
+                await fetchChats()
+            }
+        }
+        .onDisappear {
+            cancelRequests()
+        }
+    }
+    
+    private func cancelRequests() {
+        fetchTask?.cancel()
+//        chatListVM.cleanup()
     }
     
     private var filteredChats: [ChatListM]? {
@@ -300,9 +319,17 @@ private struct ChatListContent: View {
     
     @MainActor
        private func fetchChats() async {
-           chatListVM.isLoading = true // Start the loading animation
-           await chatListVM.GetChatsList1()
-           chatListVM.isLoading = false // Stop the loading animation
+                      
+//           chatListVM.isLoading = true
+//           defer { chatListVM.isLoading = false }
+
+           do{
+               try Task.checkCancellation()
+            chatListVM.GetChatsList()
+       } catch {
+           if error is CancellationError { return }
+           // Handle other errors
+       }
        }
 }
 
@@ -387,7 +414,6 @@ private struct ChatsList: View {
     private func handleLessonSelection() {
         let messagesView = MessagesListView(selectedLessonId: selectedLessonId)
             .environmentObject(chatListVM)
-        
         if hasNavBar {
             destination = AnyView(messagesView)
             isPush = true
@@ -396,6 +422,7 @@ private struct ChatsList: View {
             studentHomeTabBarVM.ispush = true
         }
     }
+
 }
 
 private struct ChatRow: View {

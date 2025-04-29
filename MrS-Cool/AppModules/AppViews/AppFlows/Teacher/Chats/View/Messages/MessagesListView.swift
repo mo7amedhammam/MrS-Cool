@@ -10,6 +10,8 @@ import SwiftUI
 struct MessagesListView: View {
     @EnvironmentObject var chatlistvm : ChatListVM
     var selectedLessonId : Int
+    // Add a task reference for cancellation
+      @State private var fetchTask: Task<Void, Never>?
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Messages")
@@ -41,12 +43,11 @@ struct MessagesListView: View {
                         Divider().padding(.horizontal)
                         
                         MessageInputField(comment: $chatlistvm.comment) {
-                            Task{
-                                chatlistvm.CreateChatComment(chatid: selectedLessonId) }
+                        Task{
+                             chatlistvm.CreateChatComment(chatid: selectedLessonId) }
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 8)
-                        
                     }
                     .overlay(RoundedCorners(topLeft: 10.0, topRight: 10.0, bottomLeft: 10.0, bottomRight: 10.0)
                         .stroke(ColorConstants.Bluegray100,
@@ -66,9 +67,22 @@ struct MessagesListView: View {
 ////                chatlistvm.selectedChatId = selectedLessonId
 //                    chatlistvm.GetChatComments(chatid: selectedLessonId)
 //            })
+//            .task {
+//                await fetchComments()
+//            }
             .task {
-                await fetchComments()
+                cancelRequests()
+                fetchTask = Task {
+                    chatlistvm.isLoading = true
+                    await fetchComments()
+                    chatlistvm.isLoading = false
+                }
             }
+            .onDisappear {
+                cancelRequests()
+            }
+        
+        
             
         }
         .hideNavigationBar()
@@ -82,11 +96,34 @@ struct MessagesListView: View {
         .showAlert(hasAlert: $chatlistvm.isError, alertType: chatlistvm.error)
         
     }
+    
+    private func cancelRequests() {
+        fetchTask?.cancel()
+        chatlistvm.cleanup()
+    }
+
+//    @MainActor
+//       private func fetchComments() async {
+//           chatlistvm.isLoadingComments = true // Start the loading animation
+//           await chatlistvm.GetChatComments(chatid: selectedLessonId)
+//           chatlistvm.isLoadingComments = false // Stop the loading animation
+//       }
+    
     @MainActor
        private func fetchComments() async {
            chatlistvm.isLoadingComments = true // Start the loading animation
-           await chatlistvm.GetChatComments(chatid: selectedLessonId)
-           chatlistvm.isLoadingComments = false // Stop the loading animation
+           defer { chatlistvm.isLoadingComments = false }
+
+           do{
+               try Task.checkCancellation()
+
+               await chatlistvm.GetChatComments(chatid: selectedLessonId)
+
+       } catch {
+//           chatlistvm.isLoadingComments = false
+           if error is CancellationError { return }
+           // Handle other errors
+       }
        }
 }
 
