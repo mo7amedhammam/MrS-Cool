@@ -137,7 +137,7 @@ extension TeacherHomeVM{
             
             //        let target = teacherServices.GetAllComentsList(parameters: parameters)
 //            try Task.checkCancellation()
-
+print("parameters",parameters)
             if Helper.shared.getSelectedUserType() == .Teacher{
                 let target = teacherServices.GetHomeScheduals(parameters: parameters)
                 
