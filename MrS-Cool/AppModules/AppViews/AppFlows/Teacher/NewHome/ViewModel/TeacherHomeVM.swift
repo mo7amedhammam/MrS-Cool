@@ -95,7 +95,9 @@ class TeacherHomeVM: ObservableObject {
     @Published var sessoionMode : AlternateSessionType? = .newAlternateSession
 
     //    @Published var StudentCalendarScheduals : [StudentEventM]?
-    
+
+    @Published var isViewVisible = false
+
     init()  {
 //        GetScheduals()
     }

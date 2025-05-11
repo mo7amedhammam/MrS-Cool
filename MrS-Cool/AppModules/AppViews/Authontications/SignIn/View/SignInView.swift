@@ -152,7 +152,7 @@ struct SignInView: View {
             //                    Helper.shared.setSelectedUserType(userType: .Teacher)
             //                }
         })
-        .showHud(isShowing: $teachersigninvm.isLoading)
+        .showHud2(isShowing: $teachersigninvm.isLoading)
         .showAlert(hasAlert: $teachersigninvm.isError, alertType: .error( message: "\(teachersigninvm.error?.localizedDescription ?? "")",buttonTitle:"Done"))
         .navigationViewStyle(StackNavigationViewStyle()) // Disable swipe back gesture
         

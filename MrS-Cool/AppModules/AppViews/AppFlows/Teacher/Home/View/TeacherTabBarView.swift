@@ -60,6 +60,24 @@ struct TeacherTabBarView: View {
                     .edgesIgnoringSafeArea(.top)
             )
             
+//            switch tabbarvm.selectedIndex {
+//                case 0:
+//                EmptyView()
+//                case 1:
+//                TeacherFinanceView()
+//                case 2:
+//                TeacherHomeView(hasNavBar:false, selectedChild: .constant(nil))
+//                    .environmentObject(tabbarvm)
+//                case 3:
+//                ChatsListView(hasNavBar : false, selectedChild: .constant(nil)) // chats
+//                    .environmentObject(tabbarvm)
+//                case 4:
+//                CompletedLessonsList(hasNavBar : false)
+//                    .environmentObject(tabbarvm)
+//            default:
+//                EmptyView()
+//            }
+            
             TabView(selection: $tabbarvm.selectedIndex) {
                 Text("") // dashboard
                     .tag(0)

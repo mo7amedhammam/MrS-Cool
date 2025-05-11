@@ -15,6 +15,8 @@ struct TeacherHomeView: View {
     @StateObject var lookupsvm = LookUpsVM()
     //    @EnvironmentObject var signupvm : SignUpViewModel
     @StateObject var SchedualsVm = TeacherHomeVM()
+    @Environment(\.scenePhase) var scenePhase
+
     @StateObject var subjectgroupvm = ManageSubjectGroupVM.shared
     
     @State var showFilter : Bool = false
@@ -362,32 +364,77 @@ struct TeacherHomeView: View {
 //                    guard isTimerActive else { return }
 //                    fireTimerAction()
 //                }
-        .task {
-//            isTimerActive = true
-            await GetStartData()
-            startTimer()
+//        .task {
+////            isTimerActive = true
+//            await GetStartData()
+////            startTimer()
+//
+//            SchedualsVm.isViewVisible = true
+//            SchedualsVm.startTimer()
+//        }
+        
+        .onAppear {
+            print("TeacherHomeView appeared")
+
+            SchedualsVm.isViewVisible = true
+            Task {
+                await updateDateTime()
+                await GetStartData()
+
+//                if selectedTab == 0 {
+                    startTimer()
+//                }
+            }
         }
+
         .onDisappear {
+            print("TeacherHomeView disappeared")
+
             showFilter = false
             SchedualsVm.ShowAddExtraSession = false
             SchedualsVm.ShowStudentCalendarDetails = false
-            SchedualsVm.cleanup()
+            SchedualsVm.isViewVisible = false
             stopTimer()
+            SchedualsVm.cleanup()
+//            stopTimer()
         }
+//        .onChange(of: scenePhase) { newPhase in
+//                 switch newPhase {
+//                 case .active:
+//                     SchedualsVm.isViewVisible = true
+//                     if selectedTab == 0 {
+//                         SchedualsVm.startTimer()
+//                     }
+//                 case .inactive, .background:
+//                     SchedualsVm.isViewVisible = false
+//                     SchedualsVm.stopTimer()
+//                 @unknown default:
+//                     break
+//                 }
+//             }
         .onChange(of:selectedTab){newval in
             Task{
             if newval == 0{
                 await GetStartData()
-                startTimer()
+
             }else if newval == 1{
-                stopTimer()
                 await SchedualsVm.GetAlternateSessions()
                 date = await Helper.shared.GetEgyptDateTime()
-            }else{
-                stopTimer() // Make sure this is called
             }
             }
         }
+        
+        .onChange(of: tabbarvm.selectedIndex) { newTab in
+               if newTab == 2 { // Adjust this to match your actual tab enum
+                   print("Selected Teacher tab")
+                   SchedualsVm.isViewVisible = true
+                   startTimer()
+               } else {
+                   print("Selected other tab")
+                   SchedualsVm.isViewVisible = false
+                   stopTimer()
+               }
+           }
         
         .bottomSheet(isPresented: $SchedualsVm.ShowAddExtraSession){
             VStack{
@@ -606,13 +653,13 @@ struct TeacherHomeView: View {
 //        }
 //    
 //    }
-    private func fireTimerAction() {
-        print("Synced timer fired at exact start of minute")
-        Task {
-            date = await Helper.shared.GetEgyptDateTime()
-            await SchedualsVm.GetScheduals1(isrefreshing: true)
-        }
-    }
+//    private func fireTimerAction() {
+//        print("Synced timer fired at exact start of minute")
+//        Task {
+//            date = await Helper.shared.GetEgyptDateTime()
+//            await SchedualsVm.GetScheduals1(isrefreshing: true)
+//        }
+//    }
                                               
     @MainActor
     private func fetchScheduals() async {
@@ -629,40 +676,110 @@ struct TeacherHomeView: View {
         }
     }
     
-    private func startTimer() {
-        // Invalidate any existing timer
-        timer?.invalidate()
+//    private func startTimer() {
+//        // Invalidate any existing timer
+//        timer?.invalidate()
+//        
+//        let now = Date()
+//        let calendar = Calendar.current
+//
+//        // Get next whole minute
+//        if let nextMinute = calendar.nextDate(after: now, matching: DateComponents(second: 0), matchingPolicy: .nextTime) {
+//            let intervalToNextMinute = nextMinute.timeIntervalSince(now)
+//
+//            print("Timer will align with system minute in \(intervalToNextMinute) seconds")
+//
+//            // Schedule one-time timer to sync with start of next minute
+//            Timer.scheduledTimer(withTimeInterval: intervalToNextMinute, repeats: false) { [ self] _ in
+//                fireTimerAction() // First fire
+//
+//                // Start repeating timer every 60s from now
+//                timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) {[ self] _ in
+//                    fireTimerAction()
+//                }
+//            }
+//        }
+//    }
+
+//    private func stopTimer() {
+//        timer?.invalidate()
+//        print("timer stopped")
+//        timer = nil
+//        
+////        timer.upstream.connect().cancel()
+//    }
+
+//--------------------
+    
+    func startTimer() {
+        guard SchedualsVm.isViewVisible else { return }
+        stopTimer() // Always stop existing timer first
         
+        print("Starting timer...")
+        
+        // Get next whole minute
         let now = Date()
         let calendar = Calendar.current
-
-        // Get next whole minute
-        if let nextMinute = calendar.nextDate(after: now, matching: DateComponents(second: 0), matchingPolicy: .nextTime) {
-            let intervalToNextMinute = nextMinute.timeIntervalSince(now)
-
-            print("Timer will align with system minute in \(intervalToNextMinute) seconds")
-
-            // Schedule one-time timer to sync with start of next minute
-            Timer.scheduledTimer(withTimeInterval: intervalToNextMinute, repeats: false) { [ self] _ in
-                fireTimerAction() // First fire
-
-                // Start repeating timer every 60s from now
-                timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) {[ self] _ in
-                    fireTimerAction()
-                }
+        
+        // Calculate next minute with second = 0
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: now)
+        guard let nextMinute = calendar.date(from: components)?.addingTimeInterval(60) else {
+            // Fallback - start immediately with 60s interval
+            fireTimerAction()
+            timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [ self] _ in
+                self.fireTimerAction()
+            }
+            return
+        }
+        
+        let intervalToNextMinute = nextMinute.timeIntervalSince(now)
+        
+        print("Timer will align with system minute in \(intervalToNextMinute) seconds")
+        
+        // Schedule initial timer
+        Timer.scheduledTimer(withTimeInterval: intervalToNextMinute, repeats: false) { [ self] _ in
+            self.fireTimerAction()
+            
+            // Start repeating timer
+            self.timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [ self] _ in
+                self.fireTimerAction()
             }
         }
     }
-
-    private func stopTimer() {
+    
+    func stopTimer() {
         timer?.invalidate()
-        print("timer stopped")
         timer = nil
-        
-//        timer.upstream.connect().cancel()
+        print("Timer fully stopped")
     }
+    
+    private func fireTimerAction() {
+        guard SchedualsVm.isViewVisible else {
+            stopTimer()
+            return
+        }
+        
+        print("Timer fired at \(Date())")
+        Task {
+            await updateDateTime()
+            await refreshScheduals()
+        }
+    }
+    
+    @MainActor
+    func updateDateTime() async {
+                    date = await Helper.shared.GetEgyptDateTime()
+        //            await SchedualsVm.GetScheduals1(isrefreshing: true)
 
+//        currentDateTime = await Helper.shared.GetEgyptDateTime()
+    }
+    
+    @MainActor
+    private func refreshScheduals() async {
+                    await SchedualsVm.GetScheduals1(isrefreshing: true)
 
+//        await GetScheduals1(isrefreshing: true)
+    }
 
 }
 
