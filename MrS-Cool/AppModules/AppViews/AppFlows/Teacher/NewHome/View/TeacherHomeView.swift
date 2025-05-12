@@ -424,17 +424,17 @@ struct TeacherHomeView: View {
             }
         }
         
-        .onChange(of: tabbarvm.selectedIndex) { newTab in
-               if newTab == 2 { // Adjust this to match your actual tab enum
-                   print("Selected Teacher tab")
-                   SchedualsVm.isViewVisible = true
-                   startTimer()
-               } else {
-                   print("Selected other tab")
-                   SchedualsVm.isViewVisible = false
-                   stopTimer()
-               }
-           }
+//        .onChange(of: tabbarvm.selectedIndex) { newTab in
+//               if newTab == 2 { // Adjust this to match your actual tab enum
+//                   print("Selected Teacher tab")
+//                   SchedualsVm.isViewVisible = true
+//                   startTimer()
+//               } else {
+//                   print("Selected other tab")
+//                   SchedualsVm.isViewVisible = false
+//                   stopTimer()
+//               }
+//           }
         
         .bottomSheet(isPresented: $SchedualsVm.ShowAddExtraSession){
             VStack{
