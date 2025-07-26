@@ -36,7 +36,10 @@ class TeacherInfoVM: ObservableObject {
 
 extension TeacherInfoVM{
     func GetTeacherInfo(TeacherId:Int){
-        let parameters:[String:Any] = ["TeacherProfileId" : TeacherId]
+        var parameters:[String:Any] = ["TeacherProfileId" : TeacherId]
+        if let AppCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["AppCountryId"] = AppCountryId
+        }
         print("parameters",parameters)
         let target = StudentServices.GetTeacherProfileView(parameters: parameters)
         isLoading = true

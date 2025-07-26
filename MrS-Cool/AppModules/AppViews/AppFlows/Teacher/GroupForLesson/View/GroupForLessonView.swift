@@ -385,9 +385,10 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
     @Binding var isPresented: Bool
     let sheetContent: SheetContent
     @State private var sheetHeight: CGFloat = .zero
-
-    init(isPresented: Binding<Bool>, @ViewBuilder content: () -> SheetContent) {
+    var tapToDismiss:Bool = true
+    init(isPresented: Binding<Bool>,tapToDismiss:Bool ,@ViewBuilder content: () -> SheetContent) {
         self._isPresented = isPresented
+        self.tapToDismiss = tapToDismiss
         self.sheetContent = content()
     }
 
@@ -399,7 +400,9 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
                         withAnimation {
-                            isPresented = false
+                            if tapToDismiss{
+                                isPresented = false
+                            }
                         }
                     }
 
@@ -429,9 +432,10 @@ struct BottomSheetModifier<SheetContent: View>: ViewModifier {
 extension View {
     func bottomSheet<SheetContent: View>(
         isPresented: Binding<Bool>,
+        tapToDismiss: Bool=true,
         @ViewBuilder content: @escaping () -> SheetContent
     ) -> some View {
-        self.modifier(BottomSheetModifier(isPresented: isPresented, content: content))
+        self.modifier(BottomSheetModifier(isPresented: isPresented,tapToDismiss:tapToDismiss, content: content))
     }
 }
 

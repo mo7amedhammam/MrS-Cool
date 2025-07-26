@@ -511,6 +511,9 @@
 
 "Default" = "Default";
 
+"select_app_country" = "select app country";
+"Change_app_country" = "Change app country";
+
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "Accept";

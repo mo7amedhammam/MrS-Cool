@@ -10,13 +10,17 @@ import SwiftUI
 enum AnonymousDestinations{
     case login
     case signup
+    case changeAppCountry
 }
 
 struct AnonymousHomeView: View {
     //    @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
-    
+  
+    @State var showAppCountry = false
+    @State var selectedAppCountry:AppCountryM? = Helper.shared.getAppCountry()
+
     @State var isSearch = false
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -35,12 +39,12 @@ struct AnonymousHomeView: View {
                     }
                     .font(Font.bold(size: 18))
                     .foregroundColor(.whiteA700)
-                    
                 }
                 
                 Spacer()
                 Button(action: {
                     presentSideMenu.toggle()
+                    showAppCountry = false
                 }, label: {
                     Image("sidemenue")
                         .padding(.vertical,15)
@@ -514,6 +518,8 @@ struct AnonymousHomeView: View {
                             destination =                           AnyView(SignInView(hideimage:false,skipToSignUp:true))
                             Helper.shared.logout()
                             isPush = true
+                        }else if newval == .changeAppCountry{
+                            showAppCountry = true
                         }
                         
                     }
@@ -525,12 +531,91 @@ struct AnonymousHomeView: View {
             .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
                 hideKeyboard()
             })
+            
+            .bottomSheet(isPresented: $showAppCountry){
+                VStack(){
+                    ColorConstants.Bluegray100
+                        .frame(width:50,height:5)
+                        .cornerRadius(2.5)
+                        .padding(.top,2)
+                    HStack {
+                        
+                        Text("select_app_country".localized())
+                            .font(Font.bold(size: 18))
+                            .foregroundColor(.mainBlue)
+                    }.padding(8)
+                    Spacer()
+                    
+                    if let countries = lookupsvm.AppCountriesList{
+                        //                    ScrollView{
+                        List(countries,id:\.self,selection: $selectedAppCountry) { country in
+                            HStack{
+                                // Radio button indicator
+                                Image(systemName: selectedAppCountry == country ? "largecircle.fill.circle" : "circle")
+                                    .foregroundColor(.mainBlue) // or use a custom color
+                                    .font(.system(size: 15))
+                                
+                                Text(country.name ?? "")
+                                    .font(Font.semiBold(size: 16))
+                                    .foregroundColor(.mainBlue)
+                                
+                                Spacer()
+                                
+                                let imageURL : URL? = URL(string: Constants.baseURL+(country.image ?? "").reverseSlaches())
+                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 40,height: 40)
+//                                    .padding(.horizontal)
+                                //                                    .clipShape(Circle())
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading) // 👈 Important
+                            .listRowSpacing(0)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                        }.listStyle(.plain)
+                        
+                        //                    }
+                        CustomButton(Title:"Save",IsDisabled:.constant(selectedAppCountry == nil || selectedAppCountry == Helper.shared.getAppCountry()) , action: {
+                            DispatchQueue.main.async {
+                                guard let country = selectedAppCountry else { return }
+                                Helper.shared.saveAppCountry(country: country)
+                                showAppCountry = false
+                                Helper.shared.changeRoot(toView: AnonymousHomeView())
+                            }
+                        })
+                        .frame(height: 50)
+                        
+                    }
+                    else {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    
+                }
+                .localizeView()
+                .frame(height: 240)
+                .background(ColorConstants.WhiteA700.cornerRadius(8))
+                .padding()
+                .onAppear(){
+                    Task {
+                        await lookupsvm.GetAppCountries()
+                    }
+                }
+                .onDisappear{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                    })
+                }
+
+            }
         }
         .localizeView()
         .overlay(content: {
             SideMenuView()
         })
         NavigationLink(destination: destination, isActive: $isPush, label: {})
+        
+
     }
     
     @ViewBuilder
@@ -574,10 +659,33 @@ struct AnonymousSideMenuContent: View {
                         selectedDestination = .login // sign out
                         presentSideMenu =  false
                     }
+                    
                     SideMenuButton(image: "MenuSt_signout", title: "Sign Up"){
                         selectedDestination = .signup // sign up
                         presentSideMenu =  false
                     }
+                    
+                    SideMenuButton(content:AnyView(
+                        HStack{
+                            let country = Helper.shared.getAppCountry()
+                            let imageURL : URL? = URL(string: Constants.baseURL+(country?.image ?? "").reverseSlaches())
+                            KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 22,height: 22)
+//                                .padding(.horizontal)
+                            //                                    .clipShape(Circle())
+                            
+                            Text(country?.name ?? "Change_app_country")
+                                .font(.bold(size: 13))
+                                .foregroundStyle(ColorConstants.WhiteA700)
+                            Spacer()
+                        }
+                        .padding()
+                    )){
+                        selectedDestination = .changeAppCountry // sign out
+                        presentSideMenu =  false
+                    }
+                    
                     
                     ChangeLanguage()
                     

@@ -97,6 +97,9 @@ extension StudentHomeVM{
     func GetStudentSubjects(){
         var parameters:[String:Any] = [:]
         print("parameters",parameters) // id
+        if Helper.shared.CheckIfLoggedIn() == false, let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
         if Helper.shared.CheckIfLoggedIn() == true && !(Helper.shared.getSelectedUserType() == .Teacher){
             if Helper.shared.getSelectedUserType() == .Parent{
                 parameters["id"] = Helper.shared.selectedchild?.id ?? 0
@@ -185,7 +188,10 @@ extension StudentHomeVM{
         }else if let educationLevelid = academicYear?.id{
             parameters["academicLevelId"] = educationLevelid
         }
-        print("parameters",parameters)
+        if mostType == .mostBooked, let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
+            print("parameters",parameters)
         
         let target = StudentServices.GetMostSubjects(mostType: mostType, parameters: parameters)
         //        isLoading = true
@@ -319,6 +325,9 @@ extension StudentHomeVM{
         }else if let educationLevelid = academicYear?.id {
             parameters["academicLevelId"] = educationLevelid
         }
+        if let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
         print("parameters",parameters)
         let target = StudentServices.GetMostBookedTeachers(parameters: parameters)
         //        isLoading = true
@@ -360,18 +369,18 @@ extension StudentHomeVM{
         
         GetStudentSubjects()
         
-        DispatchGroup.enter()
+//        DispatchGroup.enter()
         // Perform the background task here
-        GetStudentLessons(mostType: .mostviewed)
-        GetStudentLessons(mostType: .mostBooked)
+//        GetStudentLessons(mostType: .mostviewed)
+//        GetStudentLessons(mostType: .mostBooked)
         
         DispatchGroup.enter()
-        GetStudentMostSubjects(mostType: .mostviewed)
+//        GetStudentMostSubjects(mostType: .mostviewed)
         GetStudentMostSubjects(mostType: .mostBooked)
         
         DispatchGroup.enter()
-        GetStudentTeachers(mostType: .mostviewed)
-        GetStudentTeachers(mostType: .topRated)
+//        GetStudentTeachers(mostType: .mostviewed)
+//        GetStudentTeachers(mostType: .topRated)
         GetStudentMostBookedTeachers()
         DispatchGroup.leave()
         

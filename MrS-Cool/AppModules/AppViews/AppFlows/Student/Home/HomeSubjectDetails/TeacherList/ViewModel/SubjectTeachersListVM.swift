@@ -114,7 +114,9 @@ extension SubjectTeachersListVM{
         if let sortColumn = sortColumn {
             parameters["sortColumn"] = sortColumn
         }
-        
+        if let appCountryId = Helper.shared.getAppCountry()?.id {
+            parameters["appCountryId"] = appCountryId
+        }
 //        print("parameters",parameters)
         let target = StudentServices.GetSubjectOrLessonTeachers(parameters: parameters)
                 isLoading = true

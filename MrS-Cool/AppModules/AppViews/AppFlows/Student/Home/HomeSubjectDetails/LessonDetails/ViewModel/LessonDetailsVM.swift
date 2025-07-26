@@ -104,7 +104,10 @@ extension LessonDetailsVM{
     }
 
     func GetAvailableScheduals(startDate:String){
-        let parameters:[String:Any] = ["teacherid":lessonDetails?.teacherID ?? 0,"lessonDuration":lessonDetails?.individualDuration ?? 0,"startDate":startDate]
+        var parameters:[String:Any] = ["teacherid":lessonDetails?.teacherID ?? 0,"lessonDuration":lessonDetails?.individualDuration ?? 0,"startDate":startDate]
+        if let AppCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["AppCountryId"] = AppCountryId
+        }
         print("parameters",parameters)
         let target = StudentServices.GetAvaliableScheduals(parameters: parameters)
         isLoading = true

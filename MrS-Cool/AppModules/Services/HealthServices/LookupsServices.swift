@@ -13,7 +13,7 @@ enum LookupsServices {
     case GetGovernorates(parameters : [String:Any])
     case GetCities(parameters : [String:Any])
     
-    case GetEducationTypes
+    case GetEducationTypes(parameters : [String:Any])
     case GetEducationLevels(parameters : [String:Any])
     case GetAcademicYears(parameters : [String:Any])
     case GetAllSubjects(parameters : [String:Any])
@@ -37,6 +37,8 @@ enum LookupsServices {
     case GetBookedStudentLessons(parameters : [String:Any])
 
     case GetBankForList
+    case GetAppCountriesList
+
 }
 
 
@@ -94,6 +96,10 @@ extension LookupsServices : TargetType {
 
         case .GetBankForList:
             return EndPoints.GetBankForList.rawValue
+
+        case .GetAppCountriesList:
+            return EndPoints.GetAppCountriesList.rawValue
+
         }
     }
     
@@ -110,7 +116,8 @@ extension LookupsServices : TargetType {
                 .GetSemesters,
                 .GetStatus,
                 .GetBookedStudentSubjects,.GetBookedStudentLessons,
-                .GetBankForList:
+                .GetBankForList,
+                .GetAppCountriesList:
             return .get
             
         case .GetAllSubjectBySubjectIdAndEducationLevelId:
@@ -122,15 +129,17 @@ extension LookupsServices : TargetType {
         switch self {
         case .GetGenders,
                 .GetCountries,
-                .GetEducationTypes,
+//                .GetEducationTypes,
                 .GetDocumentTypes,
                 .GetMaterialTypes,
                 .GetDays,
                 .GetSubjectsForList,
                 .GetSemesters,
                 .GetStatus,
-                .GetBankForList:
+                .GetBankForList,
+                .GetAppCountriesList:
             return .plainRequest
+            
         case .GetGovernorates(parameters: let parameters),
                 .GetCities(parameters: let parameters),
                 .GetEducationLevels(parameters: let parameters),
@@ -138,10 +147,13 @@ extension LookupsServices : TargetType {
                 .GetLessonsForList(parameters: let parameters),.GetAllTeacherLessonForList(parameters: let parameters),
                 .GetAllForListByEducationLevelId(parameters: let parameters),
                 .GetBookedStudentSubjects(parameters: let parameters),
-                .GetBookedStudentLessons(parameters: let parameters):
+                .GetBookedStudentLessons(parameters: let parameters),
+                .GetEducationTypes(parameters: let parameters):
             return .BodyparameterRequest(Parameters: parameters, Encoding: .default)
+            
         case .GetAllSubjectBySubjectIdAndEducationLevelId(parameters: let parameters):
             return .parameterRequest(Parameters: parameters, Encoding: .default)
+            
         case .GetAllSubjects(parameters: let parameters):
             return .parameterdGetRequest(Parameters: parameters, Encoding: .default)
         }

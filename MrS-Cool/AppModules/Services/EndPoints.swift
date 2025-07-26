@@ -8,7 +8,10 @@
 import Foundation
 
 enum apiType:String{
-    case testing = "https://alnada-devmrsapi.azurewebsites.net/"
+//    case testing = "https://alnada-devmrsapi.azurewebsites.net/"
+//    case production = "https://api.mrscool.app/"
+    
+    case testing = "https://alnada-devmrsnewapi.azurewebsites.net/"
     case production = "https://api.mrscool.app/"
 }
 struct Constants {
@@ -44,6 +47,7 @@ enum EndPoints: String {
     case GetAcademicSemester = "AcademicSemester/Get"
     case GetStatus = "Lookups/GetStatus"
     case GetBankForList = "Bank/GetBankForList"
+    case GetAppCountriesList = "AppCountry/GetAppCountryForList"
 
     // ... new Change for teacher register/ subjects ...
     case GetAllForListByEducationLevelId = "Subject/GetAllForListByEducationLevelId"

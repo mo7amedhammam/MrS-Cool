@@ -22,6 +22,7 @@ class Helper: NSObject {
     let UserDataKey = "UserDataKey"
     let Languagekey = "languagekey"
     let UserTypeKey = "setSelectedUserTypeKey"
+    let AppCountryKey = "AppCountryIdKey"
     
     func saveUser(user: TeacherModel?) {
 //        print("LoginModel : ",user)
@@ -71,17 +72,46 @@ class Helper: NSObject {
         return UserDefaults.standard.bool(forKey: LoggedInKey)
     }
     
-    //save password
-    func setPassword(password : String){
-        let def = UserDefaults.standard
-        def.setValue(password, forKey: "password")
-        def.synchronize()
+    
+    func saveAppCountry(country: AppCountryM){
+       let encoder = JSONEncoder()
+       if let encoded = try? encoder.encode(country) {
+           userDef.set(encoded, forKey: AppCountryKey)
+           userDef.synchronize()
+       }
+   }
+
+    func getAppCountry() -> AppCountryM?{
+       if let data = userDef.object(forKey: AppCountryKey) as? Data {
+           let decoder = JSONDecoder()
+           if let user = try? decoder.decode(AppCountryM.self, from: data) {
+               return user
+           }
+       }
+       return nil
+   }
+    func removeAppCountry() {
+        userDef.removeObject(forKey:AppCountryKey )
     }
     
-    func getPassword()->String{
-        let def = UserDefaults.standard
-        return (def.object(forKey: "password") as! String)
-    }
+//    func AppCountryId(AppCountry:AppCountryM?) {
+//       UserDefaults.standard.set(AppCountry, forKey: AppCountryKey)
+//   }
+//    func AppCountryId() -> AppCountryM? {
+//       return UserDefaults.standard.integer(forKey: AppCountryKey)
+//   }
+    
+    //save password
+//    func setPassword(password : String){
+//        let def = UserDefaults.standard
+//        def.setValue(password, forKey: "password")
+//        def.synchronize()
+//    }
+    
+//    func getPassword()->String{
+//        let def = UserDefaults.standard
+//        return (def.object(forKey: "password") as! String)
+//    }
     
     func setLanguage(currentLanguage: String) {
         userDef.set(currentLanguage, forKey: Languagekey)

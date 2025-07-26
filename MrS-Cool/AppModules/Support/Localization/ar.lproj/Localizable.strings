@@ -524,6 +524,10 @@
 
 "Default" = "إفتراضي";
 
+"select_app_country" = "اختر دولة التطبيق";
+"Change_app_country" = "تغيير دولة التطبيق";
+
+
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "قبول";

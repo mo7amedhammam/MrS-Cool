@@ -145,7 +145,7 @@ extension StudentServices:TargetType{
             }
 
         case .GetMostLessons,
-                .GetMostSubjects,
+//                .GetMostSubjects,
                 .GetMostTeachers,
                 .GetHomeSubjectDetails,
                 .GetSubjectGroupDetails,.GetLessonGroupDetails,.GetAvaliableScheduals,
@@ -163,7 +163,8 @@ extension StudentServices:TargetType{
                 .GetStudentCompletedLessons,
                 .UpdateStudentProfile,
                 .GetStudentFinanceSubjects,
-                .StudentAddRate:
+                .StudentAddRate,
+                .GetMostSubjects:
             return .post
             
         }
@@ -182,7 +183,7 @@ extension StudentServices:TargetType{
             
         case .GetStudentProfile(parameters: let Parameters),
                 .GetMostLessons(_,parameters: let Parameters),
-                .GetMostSubjects(_,parameters: let Parameters),
+//                .GetMostSubjects(_,parameters: let Parameters),
                 .GetMostTeachers(_,parameters: let Parameters),
                 .GetHomeSubjectDetails(parameters: let Parameters),
                 .GetSubjectGroupDetails(parameters: let Parameters),
@@ -200,7 +201,8 @@ extension StudentServices:TargetType{
                 .GetStudentCompletedLessons(parameters: let Parameters),
                 .UpdateStudentProfile(parameters: let Parameters),
                 .GetStudentFinanceSubjects(_, parameters: let Parameters),
-                .StudentAddRate(parameters: let Parameters):
+                .StudentAddRate(parameters: let Parameters),
+                .GetMostSubjects(_,let Parameters):
             return .parameterRequest(Parameters: Parameters, Encoding: .default)
             
         case .GetStudentCompletedLessonDetails(parameters: let Parameters):

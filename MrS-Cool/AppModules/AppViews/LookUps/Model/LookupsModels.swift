@@ -127,3 +127,15 @@ struct BookedStudentLessonsM: Codable {
         case name = "lessonName"
     }
 }
+
+
+//MARK: --- app country ---
+struct AppCountryM: Codable,Hashable {
+    var id,mobileLength: Int?
+    var name,image: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id,mobileLength
+        case name,image
+    }
+}

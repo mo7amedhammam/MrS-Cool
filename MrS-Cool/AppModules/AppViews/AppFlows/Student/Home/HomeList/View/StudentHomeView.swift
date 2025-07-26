@@ -579,9 +579,11 @@ struct StudentHomeView: View {
         guard Helper.shared.CheckIfLoggedIn(), let id = studentsignupvm.academicYear?.id else { return }
         studenthomevm.academicLevelId = id
         Task {
-            await studenthomevm.GetStudentSubjects()
-            await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
-            await studenthomevm.GetStudentMostBookedTeachers()
+            async let subjects:() = studenthomevm.GetStudentSubjects()
+            async let MostBookedSubjects:() = studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+            async let MostBookedTeachers:() = studenthomevm.GetStudentMostBookedTeachers()
+            
+            await _ = (subjects,MostBookedSubjects,MostBookedTeachers)
         }
     }
 }

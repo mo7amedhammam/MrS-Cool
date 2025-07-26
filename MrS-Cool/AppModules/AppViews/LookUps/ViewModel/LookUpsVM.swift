@@ -505,6 +505,16 @@ class LookUpsVM: ObservableObject {
     }
     @Published var BanksList: [DropDownOption] = []
 
+//    @Published var AppCountiesArr: [AppCountryM] = []{
+//        didSet{
+//            AppCountriesList = AppCountiesArr.map { country in
+//                return DropDownOption(id: country.id, Title: country.name)
+//            }
+//        }
+//    }
+    @Published var AppCountriesList: [AppCountryM]?
+//    = [.init(id: 1, mobileLength: 9, name: "مصر",image:"Images/AppCountry\\a5a494a0-60db-4dbd-9d56-792a52404ed5.png"),.init(id: 5, mobileLength: 9, name: "المملكة العربية السعودية",image:"Images/AppCountry\\9501ef7a-d346-4488-b54a-379275ca566f.png")]
+
     
     @Published private var error: Error?
     
@@ -606,7 +616,12 @@ extension LookUpsVM{
 
 extension LookUpsVM {
     func GetEducationTypes() {
-        let target = LookupsServices.GetEducationTypes
+        var parameter : [String:Any] = [:]
+        if let AppCountryId = Helper.shared.getAppCountry()?.id {
+            parameter["AppCountryId"] = AppCountryId
+        }
+        let target = LookupsServices.GetEducationTypes(parameters: parameter)
+
         BaseNetwork.CallApi(target, BaseResponse<[EducationTypeM]>.self)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -1019,6 +1034,25 @@ extension LookUpsVM {
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 SubjectListBySubjectIdAndEducationLevelIdArray = receivedData.data ?? []
+            })
+            .store(in: &cancellables)
+    }
+    
+    func GetAppCountries()async{
+        let target = LookupsServices.GetAppCountriesList
+        BaseNetwork.CallApi(target, BaseResponse<[AppCountryM]>.self)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.error = error
+                }
+            }, receiveValue: {[weak self] receivedData in
+                guard let self = self else{return}
+                print("receivedData",receivedData)
+//                SubjectListBySubjectIdAndEducationLevelIdArray = receivedData.data ?? []
+                self.AppCountriesList = receivedData.data ?? []
             })
             .store(in: &cancellables)
     }

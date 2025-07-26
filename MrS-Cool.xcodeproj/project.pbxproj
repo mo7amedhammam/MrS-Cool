@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A91EFE0A791AE5F3D3D4C78 /* Pods_MrS_Cool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 305E3A60BFD1E90B25FC0AC4 /* Pods_MrS_Cool.framework */; };
+		9063C5F52E2FB66A00B92E0D /* SelectLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9063C5F42E2FB66A00B92E0D /* SelectLanguageView.swift */; };
 		9090A1302D88ECD000D9E20B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090A12F2D88ECD000D9E20B /* LocalizationManager.swift */; };
 		9090A1322D88EEC400D9E20B /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090A1312D88EEC400D9E20B /* AppKeys.swift */; };
 		C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */; };
@@ -229,6 +230,7 @@
 
 /* Begin PBXFileReference section */
 		305E3A60BFD1E90B25FC0AC4 /* Pods_MrS_Cool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MrS_Cool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9063C5F42E2FB66A00B92E0D /* SelectLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageView.swift; sourceTree = "<group>"; };
 		9090A12F2D88ECD000D9E20B /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		9090A1312D88EEC400D9E20B /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
 		C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentsVM.swift; sourceTree = "<group>"; };
@@ -474,6 +476,22 @@
 				FD40C85EAA65608BDB30FC98 /* Pods-MrS-Cool.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		9063C5EE2E2FB5D700B92E0D /* SelectLanguage */ = {
+			isa = PBXGroup;
+			children = (
+				9063C5F32E2FB60300B92E0D /* View */,
+			);
+			path = SelectLanguage;
+			sourceTree = "<group>";
+		};
+		9063C5F32E2FB60300B92E0D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9063C5F42E2FB66A00B92E0D /* SelectLanguageView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A185DE38C796146E2464A6B1 /* Frameworks */ = {
@@ -807,6 +825,7 @@
 		C82A96C92AE56E7E00A63134 /* Authontications */ = {
 			isa = PBXGroup;
 			children = (
+				9063C5EE2E2FB5D700B92E0D /* SelectLanguage */,
 				C81A2EC12BBEE92D00B4CE99 /* FirebaseNotifications */,
 				C8C66BE92BAB1D3100636038 /* ForgetPassword */,
 				C8D7C06F2B063C98009D5533 /* ChangePassword */,
@@ -2826,6 +2845,7 @@
 				C85168A52BA5B60000B83E4A /* ParentTabBarView.swift in Sources */,
 				C89EA9082ADD906300891D41 /* ContentView.swift in Sources */,
 				C8438EF72B94816200D9412D /* StudentEditProfileView.swift in Sources */,
+				9063C5F52E2FB66A00B92E0D /* SelectLanguageView.swift in Sources */,
 				C8F0E0212B1638B400B7A3C5 /* ManageTeacherSchedualsView.swift in Sources */,
 				C815A0212B84C14A00416A2A /* StudentCompletedLessonM.swift in Sources */,
 				C8F649F22C3AB7E1002C4A63 /* NavigationController.swift in Sources */,

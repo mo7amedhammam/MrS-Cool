@@ -654,25 +654,39 @@ struct SideMenuSectionTitle: View {
 }
 
 struct SideMenuButton: View {
-    var image : String
+    var image : String?
     var imagecolor:Color?
-    var title : String
+    var title : String?
     var titleColor : Color?
+    var content: AnyView?
     var action : () -> ()
     var body: some View {
-        Button(action: {
-            action()
-        }, label: {
-            HStack{
-                Image(image)
-                    .renderingMode(.template)
-                    .foregroundStyle(Color("StudentBtnBg"))
-                Text(title.localized())
-                    .font(.bold(size: 13))
-                    .foregroundStyle(titleColor ?? ColorConstants.WhiteA700)
-                Spacer()
-            }
-            .padding()
-        })
+        if let content = content {
+            Button(action: {
+                action()
+            },label: {
+                content
+            })
+        }else{
+            Button(action: {
+                action()
+            }, label: {
+                HStack{
+                    if let image = image {
+                        Image(image)
+                            .renderingMode(.template)
+                            .foregroundStyle(Color("StudentBtnBg"))
+                    }
+                    
+                    if let title = title {
+                        Text(title.localized())
+                            .font(.bold(size: 13))
+                            .foregroundStyle(titleColor ?? ColorConstants.WhiteA700)
+                    }
+                    Spacer()
+                }
+                .padding()
+            })
+        }
     }
 }
