@@ -183,7 +183,40 @@ struct TeacherFinanceCellView: View {
                 }
                 .font(Font.bold(size:12))
                 .foregroundColor(.mainBlue)
-            }
+                }
+//                .padding(.horizontal)
+//                .padding(.top,2)
+                .padding(.vertical,2)
+            .frame(maxWidth: .infinity,alignment: .leading)
+
+                HStack {
+                Group{
+                    Text("App Country :".localized())
+                    Text(model.appCountry ?? "")
+                }
+                .font(Font.bold(size:12))
+                .foregroundColor(.mainBlue)
+                    Spacer()
+                    Group{
+                        Text("Currency :".localized())
+                        Text(model.currency ?? "")
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
+
+                }
+//                .padding(.horizontal)
+                .padding(.vertical,2)
+            .frame(maxWidth: .infinity,alignment: .leading)
+                
+                HStack {
+                    Group{
+                        Text("Rate :".localized())
+                        Text(model.rate ?? 0,format: .number)
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
+                }
 //                .padding(.horizontal)
                 .padding(.top,2)
             .frame(maxWidth: .infinity,alignment: .leading)
@@ -272,9 +305,43 @@ struct TeacherFinanceCellView: View {
                     }
             }
 //                .padding(.horizontal)
-                .padding(.top,2)
+//                .padding(.top,2)
+                .padding(.vertical,2)
             .frame(maxWidth: .infinity,alignment: .leading)
                 
+                HStack {
+                Group{
+                    Text("App Country :".localized())
+                    Text(model.appCountry ?? "")
+                }
+                .font(Font.bold(size:12))
+                .foregroundColor(.mainBlue)
+                    Spacer()
+                    Group{
+                        Text("Currency :".localized())
+                        Text(model.currency ?? "")
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
+
+                }
+//                .padding(.horizontal)
+//                .padding(.top,2)
+                .padding(.vertical,2)
+
+            .frame(maxWidth: .infinity,alignment: .leading)
+                HStack {
+                    Group{
+                        Text("Rate :".localized())
+                        Text(model.rate ?? 0,format: .number)
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
+                }
+//                .padding(.horizontal)
+                .padding(.top,2)
+            .frame(maxWidth: .infinity,alignment: .leading)
+
                 if isshowinglessonssheet{
                     HStack {
                         Group{

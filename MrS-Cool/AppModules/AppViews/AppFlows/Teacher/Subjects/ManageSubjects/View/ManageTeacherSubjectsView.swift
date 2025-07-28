@@ -162,7 +162,7 @@ struct ManageTeacherSubjectsView: View {
                                                     Text(String(cost.groupCostFrom ?? 0))
                                                     Text("To".localized())
                                                     Text(String(cost.groupCostTo ?? 0))
-                                                    Text("EGP".localized())
+                                                    Text(cost.currency ?? "EGP".localized())
                                                 }
                                                 .font(Font.semiBold(size: 9))
                                                 .foregroundColor(ColorConstants.Bluegray402)

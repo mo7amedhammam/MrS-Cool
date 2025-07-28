@@ -97,6 +97,7 @@ struct TeacherSubjectM: Codable,Hashable {
     var statusIDName, brief, teacherBrief, teacherBriefEn: String?
     var groupCostFrom,groupCostTo,individualCostFrom,individualCostTo : Float?
     var groupSessionCost : Float?
+    var currency:String?
 
     enum CodingKeys: String, CodingKey {
         case subjectSemesterYearID = "subjectSemesterYearId"
@@ -110,6 +111,7 @@ struct TeacherSubjectM: Codable,Hashable {
         case brief, teacherBrief, teacherBriefEn
         case groupCostFrom,groupCostTo,individualCostFrom,individualCostTo
         case groupSessionCost
+        case currency
     }
 }
 

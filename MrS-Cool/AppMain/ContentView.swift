@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var lookupsvm = LookUpsVM()
-    @State var showAppCountry = Helper.shared.getAppCountry() == nil
+    @State var showAppCountry = Helper.shared.getAppCountry() == nil && Helper.shared.CheckIfLoggedIn() == false
     @State var selectedAppCountry:AppCountryM? = Helper.shared.getAppCountry()
     
     var body: some View {

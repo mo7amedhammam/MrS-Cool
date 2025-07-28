@@ -33,7 +33,7 @@ struct ManageTeacherSubjectsM: Codable {
     var educationTypeID, educationLevelID, academicYearID: Int?
     var statusIDName, brief, teacherBrief, teacherBriefEn: String?
     var groupCostFrom,groupCostTo,individualCostFrom,individualCostTo : Float?
-
+//    var currency:String?
 
     enum CodingKeys: String, CodingKey {
         case groupCost, individualCost, minGroup, maxGroup
@@ -45,6 +45,6 @@ struct ManageTeacherSubjectsM: Codable {
         case statusIDName = "statusIdName"
         case brief, teacherBrief, teacherBriefEn
         case groupCostFrom,groupCostTo,individualCostFrom,individualCostTo
-
+//        case currency
     }
 }

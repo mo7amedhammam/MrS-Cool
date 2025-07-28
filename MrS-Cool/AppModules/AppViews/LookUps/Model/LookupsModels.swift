@@ -44,6 +44,8 @@ struct CityM: Codable {
 struct EducationTypeM: Codable {
     var name: String?
     var order, id: Int?
+    var currency:String?
+    var appCountryId:Int?
 }
 
 

@@ -91,7 +91,7 @@ class LookUpsVM: ObservableObject {
             if !EducationTypesArray.isEmpty {
                 // Use map to transform GendersM into DropDownOption
                 EducationTypesList = EducationTypesArray.map { gender in
-                    return DropDownOption(id: gender.id, Title: gender.name)
+                    return DropDownOption(id: gender.id, Title: gender.name,subject: SubjectsByAcademicLevelM(name:gender.currency))
                 }
             }else{
                 EducationTypesList.removeAll()
@@ -988,6 +988,7 @@ struct SubjectsByAcademicLevelM: Codable,Hashable {
     var groupDurationFrom, groupDurationTo: Int?
     var individualCostFrom, individualCostTo, groupCostFrom, groupCostTo: Float?
     var groupSessionCost:Float?
+    var currency:String?
 }
 
 

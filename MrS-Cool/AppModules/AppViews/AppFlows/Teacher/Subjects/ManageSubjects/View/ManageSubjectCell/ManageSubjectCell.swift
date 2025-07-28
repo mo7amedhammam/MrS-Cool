@@ -97,7 +97,7 @@ struct ManageSubjectCell: View {
                             .font(Font.semiBold(size: 9))
                             .foregroundColor(.grayBtnText)
                         Group{
-                            Text("\(model.groupSessionCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                            Text("\(model.groupSessionCost ?? 0,specifier:"%.2f") ")+Text(model.currency ?? "EGP".localized())
                         }
                     .font(Font.bold(size: 10))
                     .foregroundColor(.mainBlue)

@@ -33,7 +33,6 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
 //    var teacherName: String?
     var profit: Double?
     var count: Int?
-
     var teacherLessonSessionId:Int?
     var studentAttend:Int?
     var studentNotAttend:Int?
@@ -42,13 +41,16 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
     var teacherAttended:Bool?
     var extraSession:Bool?
     var alternateSession:Bool?
-
+    var appCountry,currency:String?
+    var rate:Double?
+    
     enum CodingKeys: String, CodingKey {
         case subjectOrLessonID = "subjectId"
         case subjectOrLessonName = "subjectName"
         case profit,count
         
         case teacherLessonSessionId,studentAttend,studentNotAttend,studentCanceled,teacherCanceled,teacherAttended,extraSession,alternateSession
+        case appCountry,currency,rate
     }
     
     init() {
@@ -66,6 +68,9 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         self.teacherAttended = nil
         self.extraSession = nil
         self.alternateSession = nil
+        self.appCountry = nil
+        self.currency = nil
+        self.rate = nil
     }
     
     enum AlternativeCodingKeys: String, CodingKey {
@@ -104,6 +109,10 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         teacherAttended = try? container.decodeIfPresent(Bool.self, forKey: .teacherAttended)
         extraSession = try? container.decodeIfPresent(Bool.self, forKey: .extraSession)
         alternateSession = try? container.decodeIfPresent(Bool.self, forKey: .alternateSession)
+        appCountry = try? container.decodeIfPresent(String.self, forKey: .appCountry)
+        currency = try? container.decodeIfPresent(String.self, forKey: .currency)
+        rate = try? container.decodeIfPresent(Double.self, forKey: .rate)
+
         
     }
 
@@ -131,6 +140,9 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         try container.encodeIfPresent(teacherAttended, forKey: .teacherAttended)
         try container.encodeIfPresent(extraSession, forKey: .extraSession)
         try container.encodeIfPresent(alternateSession, forKey: .alternateSession)
+        try container.encodeIfPresent(appCountry, forKey: .appCountry)
+        try container.encodeIfPresent(currency, forKey: .currency)
+        try container.encodeIfPresent(rate, forKey: .rate)
 
     }
     

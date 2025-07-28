@@ -46,5 +46,13 @@
 		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
+    <!-- English versions -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>This app needs microphone access to participate in audio calls and meetings through Microsoft Teams.</string>
+
+    <key>NSCameraUsageDescription</key>
+    <string>This app needs camera access to participate in video calls and meetings through Microsoft Teams.</string>
+
+
 </dict>
 </plist>

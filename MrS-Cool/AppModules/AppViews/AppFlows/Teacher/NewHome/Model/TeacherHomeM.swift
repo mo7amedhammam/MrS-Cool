@@ -22,7 +22,7 @@ struct TeacherHomeItemM: Codable,Hashable,Identifiable {
     var teachersubjectAcademicSemesterYearID: Int?
     var groupName, date, timeFrom, timeTo: String?
     var isCancel: Bool?
-    var cancelDate, teamMeetingLink: String?
+    var cancelDate, teamMeetingLink,teamLink: String?
     var teacherAttended: Bool?
     var subjectName, sessionName: String?
     var students,groupDuration: Int?
@@ -33,7 +33,7 @@ struct TeacherHomeItemM: Codable,Hashable,Identifiable {
         case teacherlessonsessionID = "teacherlessonsessionId"
         case teachersubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
-        case groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, teacherAttended, subjectName, sessionName, students,groupDuration
+        case groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, teamLink, teacherAttended, subjectName, sessionName, students,groupDuration
         case canCancel,isAlternate
     }
 }
@@ -54,14 +54,14 @@ struct StudentHomeItemM: Codable,Hashable,Identifiable {
     var teacherLessonSessionSchedualSlotID, bookTeacherlessonsessionDetailID: Int?
     var lessonName, groupName, date, timeFrom,timeTo: String?
     var isCancel: Bool?
-    var cancelDate, teamMeetingLink, subjectName, teacherName: String?
+    var cancelDate, teamMeetingLink, teamLink, subjectName, teacherName: String?
     var canCancel,isAlternate:Bool?
     var originalBookDetailId:Int?
     
     enum CodingKeys: String, CodingKey {
         case teacherLessonSessionSchedualSlotID = "teacherLessonSessionSchedualSlotId"
         case bookTeacherlessonsessionDetailID = "bookTeacherlessonsessionDetailId"
-        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink, subjectName, teacherName
+        case lessonName, groupName, date, timeFrom, timeTo, isCancel, cancelDate, teamMeetingLink,teamLink , subjectName, teacherName
         case canCancel,isAlternate
         case originalBookDetailId
     }
