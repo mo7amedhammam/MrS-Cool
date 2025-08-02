@@ -15,7 +15,7 @@ class AddExistingStudentVM: ObservableObject {
     //    MARK: --- inputs ---
     @Published var phone = ""{
         didSet{
-            if phone.count == 11 {
+            if phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11 {
                 isPhoneValid = true
             }else{
                 isPhoneValid = false

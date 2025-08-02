@@ -34,7 +34,7 @@ class SignUpViewModel: ObservableObject {
     @Published var name = ""
     @Published var phone = ""{
         didSet{
-            if phone.count == 11{
+            if phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11{
                 isphonevalid = true
             }
         }
@@ -115,6 +115,9 @@ extension SignUpViewModel{
         guard let teacherImage = image,let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
         var parameters:[String:Any] = ["TeacherImage":teacherImage,"Name":name,"Mobile":phone,"PasswordHash":Password,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher]
         parameters["TeacherBio"] = bio
+        if let AppCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["AppCountryId"] = AppCountryId
+        }
 //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
         let target = Authintications.Register(user: .Teacher, parameters: parameters)
@@ -308,7 +311,7 @@ extension SignUpViewModel{
     
     private func checkValidfields()->Bool{
         isimagevalid = image?.size.width ?? 0 > 0
-        isphonevalid = phone.count == 11
+        isphonevalid = phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11
         isPasswordvalid = Password.count >= 5
         isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
         return isimagevalid ?? true && isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true

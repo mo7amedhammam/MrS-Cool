@@ -59,7 +59,7 @@ struct StudentFinanceView: View {
                         VStack(alignment:.trailing,spacing:5){
                             HStack(spacing:0){
                                 Text("\(financevm.Finance?.currentBalance ?? 0,specifier:"%.2f") ")
-                                Text("LE".localized())
+                                Text(appCurrency ?? "LE".localized())
                                     .padding(.trailing,12)
                             }
                             .font(Font.bold(size: 48))

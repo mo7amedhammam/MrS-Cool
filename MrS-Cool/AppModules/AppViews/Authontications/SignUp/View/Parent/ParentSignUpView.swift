@@ -16,6 +16,7 @@ struct ParentSignUpView: View {
     //    @State var destination = AnyView(ParentTabBarView())
     @State private var isVerified = false
     @State private var showTermsSheet = false
+    @State var mobileLength:Int = Helper.shared.getAppCountry()?.mobileLength ?? 11
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -30,8 +31,8 @@ struct ParentSignUpView: View {
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $signupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad,isvalid:signupvm.isphonevalid)
                                 .onChange(of: signupvm.phone) { newValue in
-                                    if newValue.count > 11 {
-                                        signupvm.phone = String(newValue.prefix(11))
+                                    if newValue.count > mobileLength {
+                                        signupvm.phone = String(newValue.prefix(mobileLength))
                                     }
                                 }
                             

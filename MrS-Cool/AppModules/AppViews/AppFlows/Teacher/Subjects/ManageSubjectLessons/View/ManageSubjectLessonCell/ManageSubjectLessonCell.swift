@@ -98,7 +98,7 @@ struct ManageSubjectLessonCell: View {
                         Group{
                             Text("\(model.groupDuration?.formattedTime() ?? "00:00")")
                                 .font(Font.bold(size: 13))
-                            Text(String(format: "%.2f",(model.groupCost ?? 0)))+Text("EGP".localized())
+                            Text(String(format: "%.2f",(model.groupCost ?? 0)))+Text(model.currency ?? "EGP".localized())
                         }
                     .font(Font.semiBold(size: 12))
                     .foregroundColor(.mainBlue)
@@ -110,7 +110,6 @@ struct ManageSubjectLessonCell: View {
 //                            Text("Student".localized())
 //                                .font(Font.regular(size: 9))
 //                                .foregroundColor(.mainBlue)
-//                            
 //                        }
 
                     }
@@ -124,7 +123,7 @@ struct ManageSubjectLessonCell: View {
                             Text("\(model.individualDuration?.formattedTime() ?? "00:00")")
                                 .font(Font.bold(size: 13))
 
-                            Text(String(format: "%.2f",(model.individualCost  ?? 0)))+Text("EGP".localized())
+                            Text(String(format: "%.2f",(model.individualCost  ?? 0)))+Text(model.currency ?? "EGP".localized())
                         }
                     .font(Font.semiBold(size: 12))
                     .foregroundColor(.mainBlue)

@@ -158,7 +158,7 @@ struct SubjectDetailsView: View {
                                                 Label(title: {
                                                     HStack (spacing:2){
                                                         Text("Group Price".localized())
-                                                        Text(" : ")+Text("\(slot.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                                                        Text(" : ")+Text("\(slot.groupCost ?? 0,specifier:"%.2f") ")+Text(appCurrency ?? "EGP".localized())
                                                     }
                                                     .font(.bold(size: 9))
                                                     .foregroundColor(.mainBlue)
@@ -442,7 +442,7 @@ struct SubjectTeacherInfoView : View {
                              }
                         Text("\(teacher.maxPrice ?? 0,specifier:"%.2f")")
 
-                        Text("EGP".localized())
+                        Text(appCurrency ?? "EGP".localized())
                     }
                     .font(Font.bold(size: 17))
                     .foregroundColor(ColorConstants.MainColor)

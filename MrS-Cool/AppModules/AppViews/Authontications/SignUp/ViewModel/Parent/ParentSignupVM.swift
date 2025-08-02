@@ -18,7 +18,7 @@ class ParentSignupVM: ObservableObject {
     @Published var name = ""
     @Published var phone = ""{
         didSet{
-            if phone.count == 11{
+            if phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11{
                 isphonevalid = true
             }
         }
@@ -111,7 +111,10 @@ extension ParentSignupVM{
     func RegisterParent(){
         guard checkValidfields() else{return}
         guard let genderid = selectedGender?.id,let cityid = city?.id ,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current) else {return}
-        let parameters:[String:Any] = ["name":name,"mobile":phone,"email":email,"passwordHash":Password,"genderId":genderid,"cityId":cityid,"birthdate":birthdate]
+        var parameters:[String:Any] = ["name":name,"mobile":phone,"email":email,"passwordHash":Password,"genderId":genderid,"cityId":cityid,"birthdate":birthdate]
+        if let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
         
         print("parameters",parameters)
         let target = Authintications.Register(user: .Parent, parameters: parameters)
@@ -309,7 +312,7 @@ extension ParentSignupVM{
     }
     
     private func checkValidfields()->Bool{
-            isphonevalid = phone.count == 11
+            isphonevalid = phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11
             isPasswordvalid = Password.count >= 5
             isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
         return isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true

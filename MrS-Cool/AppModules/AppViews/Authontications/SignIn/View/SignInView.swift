@@ -16,7 +16,8 @@ struct SignInView: View {
     @State var destination = AnyView(StudentTabBarView())
     var hideimage:Bool? = true
     @State var skipToSignUp:Bool = false
-    
+    @State var mobileLenght:Int = Helper.shared.getAppCountry()?.mobileLength ?? 11
+
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "sign_in",hideImage: hideimage)
@@ -58,8 +59,8 @@ struct SignInView: View {
                                 Group {
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $teachersigninvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad, isvalid:teachersigninvm.isphonevalid)
                                         .onChange(of: teachersigninvm.phone){ newValue in
-                                            if newValue.count > 11 {
-                                                teachersigninvm.phone = String(newValue.prefix(11))
+                                            if newValue.count > mobileLenght {
+                                                teachersigninvm.phone = String(newValue.prefix(mobileLenght))
                                             }
                                         }
                                     CustomTextField(fieldType:.Password,placeholder: "Password *", text: $teachersigninvm.Password,isvalid:teachersigninvm.isPasswordvalid)

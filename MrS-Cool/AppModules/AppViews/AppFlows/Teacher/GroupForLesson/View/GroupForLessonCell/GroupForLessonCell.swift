@@ -60,7 +60,8 @@ struct GroupForLessonCell: View {
 //                            .font(Font.semiBold(size: 9))
 //                            .foregroundColor(.grayBtnText)
                         Group{
-                            Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                            Text("\(model.groupCost ?? 0,specifier:"%.2f") ")+Text(appCurrency ?? "EGP".localized())
+
                         }
                     .font(Font.bold(size: 12))
                     .foregroundColor(.mainBlue)

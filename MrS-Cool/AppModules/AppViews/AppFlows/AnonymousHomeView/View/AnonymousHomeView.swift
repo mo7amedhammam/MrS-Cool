@@ -17,10 +17,10 @@ struct AnonymousHomeView: View {
     //    @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
-  
+    
     @State var showAppCountry = false
     @State var selectedAppCountry:AppCountryM? = Helper.shared.getAppCountry()
-
+    
     @State var isSearch = false
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
@@ -547,34 +547,42 @@ struct AnonymousHomeView: View {
                     Spacer()
                     
                     if let countries = lookupsvm.AppCountriesList{
-                        //                    ScrollView{
-                        List(countries,id:\.self,selection: $selectedAppCountry) { country in
-                            HStack{
-                                // Radio button indicator
-                                Image(systemName: selectedAppCountry == country ? "largecircle.fill.circle" : "circle")
-                                    .foregroundColor(.mainBlue) // or use a custom color
-                                    .font(.system(size: 15))
+                        ScrollView{
+                            ForEach(countries,id:\.self) { country in
                                 
-                                Text(country.name ?? "")
-                                    .font(Font.semiBold(size: 16))
-                                    .foregroundColor(.mainBlue)
+                                HStack{
+                                    // Radio button indicator
+                                    Image(systemName: selectedAppCountry == country ? "largecircle.fill.circle" : "circle")
+                                        .foregroundColor(.mainBlue) // or use a custom color
+                                        .font(.system(size: 15))
+                                    
+                                    Text(country.name ?? "")
+                                        .font(Font.semiBold(size: 16))
+                                        .foregroundColor(.mainBlue)
+                                    
+                                    Spacer()
+                                    
+                                    let imageURL : URL? = URL(string: Constants.baseURL+(country.image ?? "").reverseSlaches())
+                                    KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 40,height: 40)
+                                        .padding(.horizontal)
+                                    //                                    .clipShape(Circle())
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading) // 👈 Important
+                                .padding(.vertical, 10) // Optional: for better tap target
+                                .contentShape(Rectangle()) // 👈 Optional
+                                .onTapGesture {
+                                    selectedAppCountry = country
+                                }
+                                .listRowSpacing(0)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
                                 
-                                Spacer()
-                                
-                                let imageURL : URL? = URL(string: Constants.baseURL+(country.image ?? "").reverseSlaches())
-                                KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 40,height: 40)
-//                                    .padding(.horizontal)
-                                //                                    .clipShape(Circle())
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading) // 👈 Important
-                            .listRowSpacing(0)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                        }.listStyle(.plain)
+                            }.listStyle(.plain)
+                        }
                         
-                        //                    }
+                        
                         CustomButton(Title:"Save",IsDisabled:.constant(selectedAppCountry == nil || selectedAppCountry == Helper.shared.getAppCountry()) , action: {
                             DispatchQueue.main.async {
                                 guard let country = selectedAppCountry else { return }
@@ -606,7 +614,7 @@ struct AnonymousHomeView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     })
                 }
-
+                
             }
         }
         .localizeView()
@@ -615,7 +623,7 @@ struct AnonymousHomeView: View {
         })
         NavigationLink(destination: destination, isActive: $isPush, label: {})
         
-
+        
     }
     
     @ViewBuilder
@@ -672,7 +680,7 @@ struct AnonymousSideMenuContent: View {
                             KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 22,height: 22)
-//                                .padding(.horizontal)
+                            //                                .padding(.horizontal)
                             //                                    .clipShape(Circle())
                             
                             Text(country?.name ?? "Change_app_country")
@@ -680,7 +688,7 @@ struct AnonymousSideMenuContent: View {
                                 .foregroundStyle(ColorConstants.WhiteA700)
                             Spacer()
                         }
-                        .padding()
+                            .padding()
                     )){
                         selectedDestination = .changeAppCountry // sign out
                         presentSideMenu =  false
@@ -721,13 +729,13 @@ struct AnonymousSideMenuContent: View {
 
 struct ChangeLanguage: View {
     @StateObject var localizeHelper = LocalizeHelper.shared
-
+    
     var body: some View {
         Button(action: {
             LocalizeHelper.shared.setLanguage(language:
                                                 localizeHelper.currentLanguage == "en" ? Language(id: "ar", name: "عربى", flag: "egyflag") :
                                                 Language(id: "en", name: "English", flag: "usaflag"))
-
+            
             
             Helper.shared.changeRoot(toView: destinationview)
         }, label: {
@@ -744,7 +752,7 @@ struct ChangeLanguage: View {
             .padding()
         })
     }
-
+    
     @ViewBuilder
     var destinationview: some View{
         switch Helper.shared.getUser()?.roleID ?? 0{
@@ -765,19 +773,19 @@ struct ChangeLanguage: View {
 
 //struct ChangeLanguage: View {
 //    @StateObject var localizeHelper = LocalizeHelper.shared
-//    
+//
 //    // List of supported languages
 //    private let supportedLanguages: [Language] = [
 //        Language(id: "en", name: "English", flag: "usaflag"),
 //        Language(id: "ar", name: "عربى", flag: "egyflag"),
 //        Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
 //    ]
-//    
+//
 //    var body: some View {
 //            // Language Picker
 //            Picker("", selection: $localizeHelper.currentLanguage) {
 //                ForEach(supportedLanguages, id: \.id) { language in
-// 
+//
 //                    HStack {
 //                        Image(language.flag)
 //                            .renderingMode(.original)
@@ -796,7 +804,7 @@ struct ChangeLanguage: View {
 //            .onChange(of: localizeHelper.currentLanguage) { newLanguage in
 //                // Change the app's language and refresh the UI
 //                //                LocalizeHelper.shared.setLanguage(language: newLanguage)
-//                
+//
 //                LocalizationManager.shared.setLanguage(newLanguage) { success in
 //                    if success {
 //                        print("Language set to \(newLanguage)")
@@ -806,12 +814,12 @@ struct ChangeLanguage: View {
 //                        print("Failed to set language")
 //                    }
 //                }
-//                
+//
 //                Helper.shared.changeRoot(toView: destinationview)
 //            }
-//            
+//
 //    }
-//    
+//
 //    @ViewBuilder
 //    var destinationview: some View {
 //        switch Helper.shared.getUser()?.roleID ?? 0 {
@@ -840,16 +848,16 @@ struct Language: Identifiable {
 
 //struct ChangeLanguage: View {
 //    @StateObject var localizeHelper = LocalizeHelper.shared
-//    
+//
 //    // List of supported languages
 //    private let supportedLanguages: [Language] = [
 //        Language(id: "en", name: "English", flag: "usaflag")
 //        ,Language(id: "ar", name: "عربى", flag: "egyflag")
 ////        ,Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
 //    ]
-//    
+//
 //    @State private var isExpanded: Bool = false // Controls whether the menu is expanded
-//    
+//
 //    var body: some View {
 //        VStack {
 //            // Language Selection Button
@@ -865,19 +873,19 @@ struct Language: Identifiable {
 //                        .renderingMode(.original)
 //                        .resizable()
 //                        .frame(width: 25, height: 20)
-//                    
+//
 //                    Text(supportedLanguages.first { $0.id == localizeHelper.currentLanguage }?.name ?? "English")
 //                        .font(.bold(size: 13))
 //                        .foregroundStyle(ColorConstants.WhiteA700)
-//                    
+//
 //                    Spacer()
-//                    
+//
 //                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
 //                        .foregroundColor(.gray)
 //                }
 //                .padding()
 //            }
-//            
+//
 //            // Expandable Language Options
 //            if isExpanded {
 //                ForEach(supportedLanguages, id: \.id) { language in
@@ -885,7 +893,7 @@ struct Language: Identifiable {
 //                        withAnimation {
 //                            localizeHelper.currentLanguage = language.id
 //                            isExpanded = false // Collapse the menu after selection
-//                            
+//
 //                            // Change the app's language and refresh the UI
 //                            LocalizationManager.shared.setLanguage(language.id) { success in
 //                                if success {
@@ -896,7 +904,7 @@ struct Language: Identifiable {
 //                                    print("Failed to set language")
 //                                }
 //                            }
-//                            
+//
 //                            Helper.shared.changeRoot(toView: destinationview)
 //                        }
 //                    }) {
@@ -905,11 +913,11 @@ struct Language: Identifiable {
 //                                .renderingMode(.original)
 //                                .resizable()
 //                                .frame(width: 25, height: 20)
-//                            
+//
 //                            Text(language.name)
 //                                .font(.bold(size: 13))
 //                                .foregroundStyle(ColorConstants.WhiteA700)
-//                            
+//
 //                            Spacer()
 //                        }
 //                        .padding(.horizontal)
@@ -924,7 +932,7 @@ struct Language: Identifiable {
 //        .shadow(radius: 5)
 //        .padding(.horizontal)
 //    }
-//    
+//
 //    @ViewBuilder
 //    var destinationview: some View {
 //        switch Helper.shared.getUser()?.roleID ?? 0 {

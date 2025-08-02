@@ -16,7 +16,7 @@ struct EnterMobileView: View {
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     @State var passwordresset = false
-
+@State var mobilLength : Int = Helper.shared.getAppCountry()?.mobileLength ?? 11
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "Forget Password",hideImage: hideImage)
@@ -32,8 +32,8 @@ struct EnterMobileView: View {
 
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $resetpasswordvm.phone ,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad)
                                         .onChange(of: resetpasswordvm.phone) { newValue in
-                                            if newValue.count > 11 {
-                                                resetpasswordvm.phone = String(newValue.prefix(11))
+                                            if newValue.count > mobilLength {
+                                                resetpasswordvm.phone = String(newValue.prefix(mobilLength))
                                             }
                                         }
 

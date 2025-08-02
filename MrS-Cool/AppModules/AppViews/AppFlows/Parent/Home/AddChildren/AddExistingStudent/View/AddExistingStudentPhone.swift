@@ -15,7 +15,7 @@ struct AddExistingStudentPhone: View {
     @State private var isVerified : Bool = false
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
-
+@State var mobileLength : Int = Helper.shared.getAppCountry()?.mobileLength ?? 11
     var body: some View {
         VStack(spacing:0) {
             CustomTitleBarView(title: "Add Existing Account",hideImage: hideImage)                      
@@ -33,8 +33,8 @@ struct AddExistingStudentPhone: View {
 
                                     CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $verifystudentvm.phone ,textContentType:.telephoneNumber,keyboardType:.numberPad)
                                         .onChange(of: verifystudentvm.phone) { newValue in
-                                            if newValue.count > 11 {
-                                                verifystudentvm.phone = String(newValue.prefix(11))
+                                            if newValue.count > mobileLength {
+                                                verifystudentvm.phone = String(newValue.prefix(mobileLength))
                                             }
                                         }
 

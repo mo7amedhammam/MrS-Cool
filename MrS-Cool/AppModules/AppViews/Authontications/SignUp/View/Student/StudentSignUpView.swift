@@ -16,7 +16,8 @@ struct StudentSignUpView: View {
     //    @State var destination = AnyView(EmptyView())
     @State private var isVerified = false
     @State private var showTermsSheet = false // State to control sheet presentation
-    
+    @State var mobileLength:Int = Helper.shared.getAppCountry()?.mobileLength ?? 11
+
     var body: some View {
         GeometryReader { gr in
             ScrollView(.vertical,showsIndicators: false){
@@ -31,8 +32,8 @@ struct StudentSignUpView: View {
                             
                             CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $studentsignupvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad,isvalid: studentsignupvm.isphonevalid)
                                 .onChange(of: studentsignupvm.phone) { newValue in
-                                    if newValue.count > 11 {
-                                        studentsignupvm.phone = String(newValue.prefix(11))
+                                    if newValue.count > mobileLength {
+                                        studentsignupvm.phone = String(newValue.prefix(mobileLength))
                                     }
                                 }
                             

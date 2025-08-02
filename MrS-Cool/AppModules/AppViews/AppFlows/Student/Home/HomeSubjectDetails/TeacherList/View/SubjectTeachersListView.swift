@@ -739,7 +739,7 @@ struct TeacherCellView : View {
                                  }
                             Text("\(teacher.maxPrice ?? 0,specifier:"%.2f")")
 
-                            Text("EGP".localized())
+                            Text(appCurrency ?? "EGP".localized())
                         }
                         .font(Font.bold(size: 12))
                         .foregroundColor(ColorConstants.MainColor)

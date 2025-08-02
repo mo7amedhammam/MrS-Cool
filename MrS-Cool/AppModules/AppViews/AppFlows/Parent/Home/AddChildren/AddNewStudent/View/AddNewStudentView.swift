@@ -19,7 +19,7 @@ struct AddNewStudentView: View {
     @State private var showImageSheet = false
     @State private var imagesource: UIImagePickerController.SourceType? = .photoLibrary // Track the selected file type
     @State private var startPickingImage = false
-
+@State var mobileLength: Int = Helper.shared.getAppCountry()?.mobileLength ?? 11
     var body: some View {
         VStack {
             CustomTitleBarView(title: "Add New Student Account")
@@ -77,8 +77,8 @@ struct AddNewStudentView: View {
                                 
                                 CustomTextField(iconName:"img_group172",placeholder: "Mobile Number *", text: $addnewstudentvm.phone,textContentType:.telephoneNumber,keyboardType:.asciiCapableNumberPad,isvalid: addnewstudentvm.isphonevalid)
                                     .onChange(of: addnewstudentvm.phone) { newValue in
-                                        if newValue.count > 11 {
-                                            addnewstudentvm.phone = String(newValue.prefix(11))
+                                        if newValue.count > mobileLength {
+                                            addnewstudentvm.phone = String(newValue.prefix(mobileLength))
                                         }
                                     }
                                 

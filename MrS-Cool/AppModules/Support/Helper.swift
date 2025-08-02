@@ -11,6 +11,10 @@ import MapKit
 import Foundation
 import SwiftUI
 
+var appCurrency : String? {
+    Helper.shared.getAppCountry()?.currency
+}
+
 class Helper: NSObject {
     static let shared = Helper()
     

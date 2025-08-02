@@ -137,7 +137,7 @@ struct BookingCheckoutView: View {
                         HStack(spacing: 0){
                             Group {
                                 Text(String(format: "%.2f",details.paymentAmount ?? 0))
-                                Text("EGP".localized())
+                                Text(appCurrency ?? "EGP".localized())
                             }
                             .foregroundColor(ColorConstants.MainColor)
                             .font(Font.bold(size: 18))
@@ -399,7 +399,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f", details.price ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f", details.price ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -416,7 +416,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -433,7 +433,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -452,7 +452,7 @@ struct CheckOutFullSubjectInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -572,7 +572,7 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f",details.price ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f",details.price ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -589,7 +589,7 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f", details.taxAmount ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -606,7 +606,7 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f", details.totalPriceWithTax ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -625,7 +625,7 @@ struct CheckOutLessonInfo: View {
                 
                 Spacer()
                 Group{
-                    Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text("EGP".localized())
+                    Text("\(String(format: "%.2f",details.currentBalance ?? 0)) ")+Text(appCurrency ?? "EGP".localized())
                 }.foregroundColor(ColorConstants.MainColor)
                     .font(Font.bold(size: 12))
             }
@@ -646,7 +646,6 @@ struct CheckOutLessonInfo: View {
 //}
 
 
-import SwiftUI
 import WebKit
 
 //struct WebView: UIViewRepresentable {

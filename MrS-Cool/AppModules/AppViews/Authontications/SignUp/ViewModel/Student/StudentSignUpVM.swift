@@ -18,7 +18,8 @@ class StudentSignUpVM: ObservableObject {
     @Published var name = ""
     @Published var phone = ""{
         didSet{
-            if phone.count == 11{
+            if phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11
+{
                 isphonevalid = true
             }
         }
@@ -104,7 +105,10 @@ extension StudentSignUpVM{
     func RegisterStudent(){
         guard checkValidfields() else{return}
         guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current), let academicYearId = academicYear?.id else {return}
-        let parameters:[String:Any] = ["name":name,"mobile":phone,"passwordHash":Password,"genderId":genderid,"birthdate":birthdate, "academicYearEducationLevelId":academicYearId]
+        var parameters:[String:Any] = ["name":name,"mobile":phone,"passwordHash":Password,"genderId":genderid,"birthdate":birthdate, "academicYearEducationLevelId":academicYearId]
+        if let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
         
         //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
@@ -291,7 +295,7 @@ extension StudentSignUpVM{
     }
     
     private func checkValidfields()->Bool{
-            isphonevalid = phone.count == 11
+            isphonevalid = phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11
             isPasswordvalid = Password.count >= 5
             isconfirmPasswordvalid = confirmPassword.count >= 5 && Password == confirmPassword
         return isphonevalid ?? true && isPasswordvalid ?? true && isconfirmPasswordvalid ?? true

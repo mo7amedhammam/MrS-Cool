@@ -274,7 +274,7 @@ struct LessonDetailsView: View {
                                                     Label(title: {
                                                         HStack (spacing:2){
                                                             Text("Group Price".localized())
-                                                            Text(" : ")+Text("\(slot.groupCost ?? 0,specifier:"%.2f") ")+Text("EGP".localized())
+                                                            Text(" : ")+Text("\(slot.groupCost ?? 0,specifier:"%.2f") ")+Text(appCurrency ?? "EGP".localized())
                                                         }
                                                         .font(.bold(size: 9))
                                                         .foregroundColor(.mainBlue)
@@ -348,7 +348,7 @@ struct LessonDetailsView: View {
                                             .frame(width: 20,height: 20, alignment: .center)
                                         HStack (spacing:2){
                                             Text("  \(details.individualCost ?? 0,specifier:"%.2f") ")
-                                             Text("EGP".localized())
+                                             Text(appCurrency ?? "EGP".localized())
                                         }
                                         .font(Font.bold(size: 18))
                                         .foregroundColor(ColorConstants.MainColor)

@@ -33,7 +33,8 @@ struct TeacherUnitLesson: Codable,Hashable {
     var individualDuration,groupDuration: Int?
     var teacherBrief,teacherBriefEn: String?
     var educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName: String? //not in api but edded to handle design
-
+    var currency:String?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case teacherID = "teacherId"
@@ -42,6 +43,7 @@ struct TeacherUnitLesson: Codable,Hashable {
         case groupCost, groupDuration, individualCost, individualDuration, teacherBrief, teacherBriefEn
 
         case educationTypeName, educationLevelName, academicYearName, subjectSemesterYearName  //not in api but edded to handle design
+        case currency
     }
 }
 

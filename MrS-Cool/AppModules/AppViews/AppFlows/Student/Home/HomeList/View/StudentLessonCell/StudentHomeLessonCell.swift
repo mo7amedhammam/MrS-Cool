@@ -99,7 +99,7 @@ struct StudentHomeLessonCell: View {
                                 .fontWeight(.medium)
                             Text("\(lesson.minPrice ?? 0,specifier: "%.2f")")
                                 .font(Font.bold(size: 9))
-                             Text("EGP".localized())
+                             Text(appCurrency ?? "EGP".localized())
                                 .font(Font.bold(size: 9))
                         }
                         .font(Font.semiBold(size: 9))
@@ -121,7 +121,7 @@ struct StudentHomeLessonCell: View {
                                 .fontWeight(.medium)
                              Text("  \(lesson.maxPrice ?? 250,specifier: "%.2f") ")
                                 .font(Font.bold(size: 9))
-                             Text("EGP".localized())
+                             Text(appCurrency ?? "EGP".localized())
                                 .font(Font.bold(size: 9))
                         }
                         .font(Font.semiBold(size: 9))

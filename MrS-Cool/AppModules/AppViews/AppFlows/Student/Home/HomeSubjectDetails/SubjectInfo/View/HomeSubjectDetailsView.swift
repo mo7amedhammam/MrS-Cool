@@ -184,7 +184,7 @@ struct HomeSubjectDetailsView: View {
                                                 .fontWeight(.medium)
                                              Text("  \(details.maxPrice ?? 0,specifier: "%.1f") ")
                                                 .font(Font.bold(size: 12))
-                                             Text("EGP".localized())
+                                             Text(appCurrency ?? "EGP".localized())
                                                 .font(Font.bold(size: 12))
 
                                         }
@@ -203,7 +203,7 @@ struct HomeSubjectDetailsView: View {
                                                 .fontWeight(.medium)
                                              Text("  \(details.minPrice ?? 0,specifier: "%.1f") ")
                                                 .font(Font.bold(size: 12))
-                                             Text("EGP".localized())
+                                             Text(appCurrency ?? "EGP".localized())
                                                 .font(Font.bold(size: 12))
 
                                         }
@@ -341,7 +341,7 @@ struct UnitListCell: View {
                                             .fontWeight(.medium)
                                          Text("  \(lesson.minPrice ?? 0,specifier: "%.1f") ")
                                             .font(Font.bold(size: 12))
-                                         Text("EGP".localized())
+                                         Text(appCurrency ?? "EGP".localized())
                                             .font(Font.bold(size: 12))
 
                                     }
@@ -361,7 +361,7 @@ struct UnitListCell: View {
                                             .fontWeight(.medium)
                                          Text("  \(lesson.maxPrice ?? 0,specifier: "%.1f") ")
                                             .font(Font.bold(size: 12))
-                                         Text("EGP".localized())
+                                         Text(appCurrency ?? "EGP".localized())
                                             .font(Font.bold(size: 12))
                                     }
                                     .font(Font.semiBold(size: 12))

@@ -140,7 +140,7 @@ struct SubjectGroupDetailsView: View {
                                                 subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = Float(TotalPrice)
                                             }
                                         }else{
-                                            Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text("EGP".localized()).fontWeight(.medium)
+                                            Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text(appCurrency ?? "EGP".localized()).fontWeight(.medium)
                                         }
                                     }
                                 }

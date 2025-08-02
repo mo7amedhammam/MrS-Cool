@@ -51,15 +51,9 @@ struct ContentView: View {
                 Spacer()
                 
                 if let countries = lookupsvm.AppCountriesList{
-                    //                    ScrollView{
-                    List(countries,id:\.self,selection: $selectedAppCountry) { country in
-                        //                                Button(action:{
-                        //                                    DispatchQueue.main.async {
-                        ////                                        country = country
-                        //                                        selectedAppCountry = country
-                        ////                                        Helper.shared.saveAppCountry(country: country)
-                        //                                    }
-                        //                                },label: {
+                                        ScrollView{
+                    ForEach(countries,id:\.self) { country in
+               
                         HStack{
                             // Radio button indicator
                             Image(systemName: selectedAppCountry == country ? "largecircle.fill.circle" : "circle")
@@ -80,17 +74,18 @@ struct ContentView: View {
                             //                                    .clipShape(Circle())
                         }
                         .frame(maxWidth: .infinity, alignment: .leading) // 👈 Important
-                        //                                    .padding(.vertical, 10) // Optional: for better tap target
+                        .padding(.vertical, 10) // Optional: for better tap target
+                        .contentShape(Rectangle()) // 👈 Optional
+                        .onTapGesture {
+                                   selectedAppCountry = country
+                               }
                         .listRowSpacing(0)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                        
-                        //                                })
-                        //                                .buttonStyle(.plain)
-                        //                                .contentShape(Rectangle()) // 👈 Optional
+
                     }.listStyle(.plain)
+                }
                     
-                    //                    }
                     CustomButton(Title:"Save",IsDisabled:.constant(selectedAppCountry == nil) , action: {
                         DispatchQueue.main.async {
                             guard let country = selectedAppCountry else { return }

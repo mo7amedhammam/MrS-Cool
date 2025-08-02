@@ -30,7 +30,7 @@ class AddNewStudentVM: ObservableObject {
 
     @Published var phone = ""{
         didSet{
-            if phone.count == 11{
+            if phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11{
                 isphonevalid = true
             }
         }
@@ -172,6 +172,9 @@ extension AddNewStudentVM{
         if let image = image {
             parameters["StudentImage"] = image
         }
+        if let AppCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["AppCountryId"] = AppCountryId
+        }
         print("parameters",parameters)
         let target = ParentServices.AddNewChild(parameters: parameters)
         isLoading = true
@@ -213,7 +216,7 @@ extension AddNewStudentVM{
         
     private func checkValidfields()->Bool{
         isnamevalid = name.count > 0
-        isphonevalid = phone.count == 11
+        isphonevalid = phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11
         isemailvalid = email.count > 0
         isbirthDateStrvalid = birthDateStr != nil
         iseducationTypevalid = educationType != nil

@@ -19,7 +19,7 @@ class SignInVM: ObservableObject {
 
     @Published var phone = "" {
         didSet{
-            if phone.count == 11{
+            if phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11{
                 isphonevalid = true
             }
         }
@@ -115,6 +115,7 @@ extension SignInVM{
         // Combine publishers for form validation
         Publishers.CombineLatest($phone, $Password)
             .map { [weak self] phone, password in
+                guard let self else { return false }
                 // Perform the validation checks
                 let isPhoneValid = !phone.isEmpty
                 let isPasswordValid = !password.isEmpty
@@ -126,7 +127,8 @@ extension SignInVM{
     }
     
     private func checkValidfields()->Bool{
-        isphonevalid = phone.count == 11
+        isphonevalid = phone.count == Helper.shared.getAppCountry()?.mobileLength ?? 11
+
         isPasswordvalid = Password.count >= 6
         // Publisher for checking if the phone is 11 char
         //        var isPhoneValidPublisher: AnyPublisher<Bool, Never> {
