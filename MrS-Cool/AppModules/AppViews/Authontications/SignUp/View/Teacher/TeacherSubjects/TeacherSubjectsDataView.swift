@@ -102,7 +102,7 @@ struct TeacherSubjectsDataView: View {
             }
         }.onAppear(perform: {
             signupvm.isUserChangagble = false
-            lookupsvm.GetEducationTypes()
+            lookupsvm.GetEducationTypes(withAppCountryId: false)
             teachersubjectsvm.clearTeachersSubject()
             teachersubjectsvm.GetTeacherSubjects()
         })

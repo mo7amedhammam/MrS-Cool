@@ -417,7 +417,7 @@ struct SelectedStudentHome: View {
         })
         .onChange(of: tabbarvm.selectedIndex, perform: { value in
             if value == 2 && Helper.shared.getSelectedUserType() == .Parent{
-                studentsignupvm.GetStudentProfile()
+                Task{await studentsignupvm.GetStudentProfile()}
             }
 
         })
@@ -426,18 +426,30 @@ struct SelectedStudentHome: View {
             if let id = Helper.shared.selectedchild?.academicYearEducationLevelID{
                 studenthomevm.academicLevelId = id
             }
-            studenthomevm.clearselections()
+           // studenthomevm.clearselections()
 //            studenthomevm.getHomeData()
-            studenthomevm.GetStudentSubjects()
-            studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
-            studenthomevm.GetStudentMostBookedTeachers()
+            
+//            //studenthomevm.GetStudentSubjects()
+//            //studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+//            //studenthomevm.GetStudentMostBookedTeachers()
+            
+            Task {
+                async let clear:() = studenthomevm.clearselections()
+                async let subjects:() = studenthomevm.GetStudentSubjects()
+                async let MostBookedSubjects:() = studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+                async let MostBookedTeachers:() = studenthomevm.GetStudentMostBookedTeachers()
+               
+                await _ = (clear,subjects,MostBookedSubjects,MostBookedTeachers)
+            }
         }
         .onChange(of: studentsignupvm.academicYear, perform: { value in
                 if let id = value?.id{
                     print("id",id)
                     Helper.shared.selectedchild?.academicYearEducationLevelID = id
                     studenthomevm.academicLevelId = id
-                    studenthomevm.getHomeData()
+                    Task{
+                        await studenthomevm.getHomeData()
+                    }
                 }
         })
 

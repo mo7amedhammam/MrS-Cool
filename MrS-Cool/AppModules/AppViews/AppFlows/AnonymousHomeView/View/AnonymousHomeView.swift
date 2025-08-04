@@ -83,9 +83,11 @@ struct AnonymousHomeView: View {
                                 //                                CustomDropDownField(iconName:"img_group_512380",placeholder: "Term *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
                                 CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant((studenthomevm.academicYear == nil || !studenthomevm.isacademicYearvalid)) , action: {
-                                    withAnimation{
-                                        studenthomevm.getHomeData()
-                                        isSearch = true
+                                    Task{
+//                                    withAnimation{
+                                        await studenthomevm.getHomeData()
+                                            isSearch = true
+//                                        }
                                     }
                                 })
                                 .frame(height: 50)
@@ -112,7 +114,9 @@ struct AnonymousHomeView: View {
                                             withAnimation{
                                                 isSearch = false
                                                 studenthomevm.clearsearch()
-                                                studenthomevm.getHomeData()
+                                                Task{
+                                                    await studenthomevm.getHomeData()
+                                                }
                                             }
                                         }
                                         .padding()
@@ -479,13 +483,13 @@ struct AnonymousHomeView: View {
                         
                         //                        DispatchGroup.enter()
                         //                        studenthomevm.GetStudentMostSubjects(mostType: .mostviewed)
-                        studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+                       await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
                         //                        await studenthomevm.GetStudentMostSubjects1(mostType: .mostBooked)
                         
                         //                        DispatchGroup.enter()
                         //                        studenthomevm.GetStudentTeachers(mostType: .mostviewed)
                         //                        studenthomevm.GetStudentTeachers(mostType: .topRated)
-                        studenthomevm.GetStudentMostBookedTeachers()
+                       await studenthomevm.GetStudentMostBookedTeachers()
                         
                         
                         //                        DispatchGroup.leave()

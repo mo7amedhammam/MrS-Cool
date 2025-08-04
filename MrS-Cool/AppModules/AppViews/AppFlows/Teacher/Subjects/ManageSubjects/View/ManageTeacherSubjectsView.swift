@@ -309,7 +309,7 @@ struct ManageTeacherSubjectsView: View {
             .onAppear(perform: {
                 manageteachersubjectsvm.GetTeacherSubjects()
                 //                                signupvm.isUserChangagble = false
-                lookupsvm.GetEducationTypes()
+                lookupsvm.GetEducationTypes(withAppCountryId: false)
                 lookupsvm.GetStatus()
             })
             .onChange(of: manageteachersubjectsvm.educationType, perform: { value in

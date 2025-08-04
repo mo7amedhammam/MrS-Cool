@@ -146,7 +146,7 @@ struct StudentEditProfileView: View {
             hideKeyboard()
         })
         .onAppear(perform: {
-            studentsignupvm.GetStudentProfile()
+            Task{ await studentsignupvm.GetStudentProfile()}
             Task(priority: .background, operation: {
                 // if parent is editing student profile
                 studentsignupvm.image = nil

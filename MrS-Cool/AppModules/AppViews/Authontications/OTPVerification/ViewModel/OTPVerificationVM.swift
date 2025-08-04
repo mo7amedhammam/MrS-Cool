@@ -53,7 +53,10 @@ class OTPVerificationVM: ObservableObject {
             // Handle missing username or password
             return
         }
-        let parametersarr : [String : Any] =  ["mobile" : mobile ]
+        var parametersarr : [String : Any] =  ["mobile" : mobile ]
+        if let appCountryId = Helper.shared.getAppCountry()?.id{
+            parametersarr["appCountryId"] = appCountryId
+        }
         isLoading = true
         // Create your API request with the username and password
 //        let target = Authintications.SendOtp(user: Helper.shared.getSelectedUserType() ?? .Teacher,parameters: parametersarr)

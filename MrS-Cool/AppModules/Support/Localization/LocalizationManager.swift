@@ -132,9 +132,11 @@ class LocalizationManager {
         
         let urlString = switch Constants.apiType{
         case .testing:
-            "https://alnada-devmrsapi.azurewebsites.net/api/\(currentLanguage)/Translations/GetTranslationFile/ios"
+//            "https://alnada-devmrsnewapi.azurewebsites.net/"
+            "\(apiType.testing.rawValue)api/\(currentLanguage)/Translations/GetTranslationFile/ios"
         case .production:
-            "https://alnada-mrsapi.azurewebsites.net/api/\(currentLanguage)/Translations/GetTranslationFile/ios"
+//            "https://alnada-mrsapi.azurewebsites.net/"
+            "\(apiType.production.rawValue)api/\(currentLanguage)/Translations/GetTranslationFile/ios"
         }
         
         guard let url = URL(string: urlString) else {

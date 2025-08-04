@@ -15,6 +15,7 @@ enum studentTeacherMostCases{
     case mostviewed, topRated
 }
 
+@MainActor
 class StudentHomeVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
@@ -94,7 +95,7 @@ class StudentHomeVM: ObservableObject {
 
 extension StudentHomeVM{
     
-    func GetStudentSubjects(){
+    func GetStudentSubjects() async {
         var parameters:[String:Any] = [:]
         print("parameters",parameters) // id
         if Helper.shared.CheckIfLoggedIn() == false, let appCountryId = Helper.shared.getAppCountry()?.id{
@@ -181,7 +182,7 @@ extension StudentHomeVM{
         
     }
     
-    func GetStudentMostSubjects(mostType:studentLessonMostCases){
+    func GetStudentMostSubjects(mostType:studentLessonMostCases)async{
         var parameters:[String:Any] = [:]
         if let academicLevelId = academicLevelId{
             parameters["academicLevelId"] = academicLevelId
@@ -318,7 +319,7 @@ extension StudentHomeVM{
             .store(in: &cancellables)
     }
     
-    func GetStudentMostBookedTeachers(){
+    func GetStudentMostBookedTeachers()async{
         var parameters:[String:Any] = [:]
         if let academicLevelId = academicLevelId{
             parameters["academicLevelId"] = academicLevelId
@@ -360,14 +361,14 @@ extension StudentHomeVM{
             .store(in: &cancellables)
     }
     
-    func getHomeData(){
+    func getHomeData() async{
         //    DispatchQueue.global(qos: .background).async {[weak self] in
         
         //        guard let self = self else{return}
         let DispatchGroup = DispatchGroup()
         DispatchGroup.enter()
         
-        GetStudentSubjects()
+       await GetStudentSubjects()
         
 //        DispatchGroup.enter()
         // Perform the background task here
@@ -376,18 +377,18 @@ extension StudentHomeVM{
         
         DispatchGroup.enter()
 //        GetStudentMostSubjects(mostType: .mostviewed)
-        GetStudentMostSubjects(mostType: .mostBooked)
+       await GetStudentMostSubjects(mostType: .mostBooked)
         
         DispatchGroup.enter()
 //        GetStudentTeachers(mostType: .mostviewed)
 //        GetStudentTeachers(mostType: .topRated)
-        GetStudentMostBookedTeachers()
+      await GetStudentMostBookedTeachers()
         DispatchGroup.leave()
         
         //    }
     }
     
-    func clearselections(){
+    func clearselections()async{
         SelectedStudentSubjects = HomeSubject()
         newSSelectedStudentSubjects = StudentMostViewedSubjectsM()
         SelectedStudentMostViewedLesson = StudentMostViewedLessonsM()

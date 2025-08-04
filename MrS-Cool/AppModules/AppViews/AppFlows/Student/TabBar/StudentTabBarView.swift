@@ -290,7 +290,7 @@ struct StudentTabBarView: View {
                 studenttabbarvm.selectedIndex = homeIndex
             }
             
-             studentsignupvm.GetStudentProfile()
+            await studentsignupvm.GetStudentProfile()
         }
 //        .onChange(of: studenttabbarvm.selectedIndex) { newValue in
 //            if newValue == 0 {

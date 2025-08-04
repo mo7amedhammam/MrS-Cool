@@ -615,10 +615,13 @@ extension LookUpsVM{
 }
 
 extension LookUpsVM {
-    func GetEducationTypes() {
+    func GetEducationTypes( withAppCountryId: Bool = true) {
         var parameter : [String:Any] = [:]
-        if let AppCountryId = Helper.shared.getAppCountry()?.id {
-            parameter["AppCountryId"] = AppCountryId
+        
+        if withAppCountryId {
+            if let AppCountryId = Helper.shared.getAppCountry()?.id {
+                parameter["AppCountryId"] = AppCountryId
+            }
         }
         let target = LookupsServices.GetEducationTypes(parameters: parameter)
 

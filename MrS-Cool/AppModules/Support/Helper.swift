@@ -12,7 +12,7 @@ import Foundation
 import SwiftUI
 
 var appCurrency : String? {
-    Helper.shared.getAppCountry()?.currency
+    Helper.shared.getLanguage().lowercased() == "ar" ? Helper.shared.getAppCountry()?.currencyAr: Helper.shared.getAppCountry()?.currency
 }
 
 class Helper: NSObject {

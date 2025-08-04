@@ -32,7 +32,9 @@ struct TeacherFinanceView: View {
         financevm.filtersubjectsdatefrom = filtersubjectsdatefrom
         financevm.filtersubjectsdateto = filtersubjectsdateto
         financevm.subjectsSkipCount = 0
-        financevm.GetPurchasedFor(financese: .Subjects)
+        Task{
+            await financevm.GetPurchasedFor(financese: .Subjects)
+        }
     }
     func clearSubjectsFilterValues(){
         filtersubjectsdatefrom = nil
@@ -41,7 +43,9 @@ struct TeacherFinanceView: View {
         financevm.filtersubjectsdateto = nil
         financevm.PurchasedSubjects?.items?.removeAll()
         financevm.subjectsSkipCount = 0
-        financevm.GetPurchasedFor(financese: .Subjects)
+        Task{
+            await financevm.GetPurchasedFor(financese: .Subjects)
+        }
         //        financevm.clearFilter()
 
     }
@@ -65,7 +69,9 @@ struct TeacherFinanceView: View {
         financevm.filterlessonsdatefrom = filterlessonsdatefrom
         financevm.filterlessonsdateto = filterlessonsdateto
         financevm.lessonsSkipCount = 0
-        financevm.GetPurchasedFor(financese: .Lessons)
+        Task{
+            await financevm.GetPurchasedFor(financese: .Lessons)
+        }
     }
 
     func clearLessonsFilterValues(){
@@ -75,7 +81,9 @@ struct TeacherFinanceView: View {
         financevm.filterlessonsdateto = nil
         financevm.PurchasedLessons?.items?.removeAll()
         financevm.lessonsSkipCount = 0
-        financevm.GetPurchasedFor(financese: .Lessons)
+        Task{
+            await financevm.GetPurchasedFor(financese: .Lessons)
+        }
     }
 //    func validateLessonsFilterValues(){
 //       if groupsforlessonvm.filtersubject != filtersubject {
@@ -110,8 +118,10 @@ struct TeacherFinanceView: View {
                         if let totalCount = financevm.PurchasedLessons?.totalCount, lessons.count < totalCount {
                             // Load the next page if there are more items to fetch
                             financevm.lessonsSkipCount += financevm.maxResultCount
-                            financevm.GetPurchasedFor(financese: .Lessons)
-                            //                                                financevm.GetPurchasedLessons()
+                            Task{
+                                await financevm.GetPurchasedFor(financese: .Lessons)
+                                //                                                financevm.GetPurchasedLessons()
+                            }
                         }
                     }
             }
@@ -140,9 +150,10 @@ struct TeacherFinanceView: View {
                         if let totalCount = financevm.PurchasedSubjects?.totalCount, Subjects.count < totalCount {
                             // Load the next page if there are more items to fetch
                             financevm.subjectsSkipCount += financevm.maxResultCount
-                            financevm.GetPurchasedFor(financese: .Subjects)
-                            //                                                financevm.GetPurchasedSubjects()
-                            
+                            Task{
+                                await financevm.GetPurchasedFor(financese: .Subjects)
+                                //                                                financevm.GetPurchasedSubjects()
+                            }
                         }
                     }
                     
@@ -272,33 +283,38 @@ struct TeacherFinanceView: View {
 //                })
 
                 .task {
-                    let DispatchGroup = DispatchGroup()
-                    DispatchGroup.enter()
-//                    financevm.subjectsSkipCount = 0
-//                    financevm.lessonsSkipCount = 0
-//                    financevm.PurchasedSubjects = nil
-//                    financevm.PurchasedLessons = nil
-                    DispatchGroup.leave()
-
-                    DispatchGroup.enter()
-                    financevm.GetFinance()
-                    DispatchGroup.leave()
-
-                    DispatchGroup.enter()
-                    clearLessonsFilterValues()
-//                    financevm.GetPurchasedFor(financese: .Lessons)
-//                    financevm.GetPurchasedLessons()
-                    DispatchGroup.leave()
-
-                    DispatchGroup.enter()
-                    clearSubjectsFilterValues()
-//                    financevm.GetPurchasedFor(financese: .Subjects)
-//                    financevm.GetPurchasedSubjects()
-                    DispatchGroup.leave()
-
-                    DispatchGroup.notify(queue: .main, execute: {
-                        print("DispatchGroup ended")
-                    })
+                    async let finance : () = financevm.GetFinance()
+                    async let lessons : () = clearLessonsFilterValues()
+                    async let subjects : () = clearSubjectsFilterValues()
+                    await _ = (finance,lessons,subjects)
+                    
+//                    let DispatchGroup = DispatchGroup()
+//                    DispatchGroup.enter()
+////                    financevm.subjectsSkipCount = 0
+////                    financevm.lessonsSkipCount = 0
+////                    financevm.PurchasedSubjects = nil
+////                    financevm.PurchasedLessons = nil
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.enter()
+//                    financevm.GetFinance()
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.enter()
+//                    clearLessonsFilterValues()
+////                    financevm.GetPurchasedFor(financese: .Lessons)
+////                    financevm.GetPurchasedLessons()
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.enter()
+//                    clearSubjectsFilterValues()
+////                    financevm.GetPurchasedFor(financese: .Subjects)
+////                    financevm.GetPurchasedSubjects()
+//                    DispatchGroup.leave()
+//
+//                    DispatchGroup.notify(queue: .main, execute: {
+//                        print("DispatchGroup ended")
+//                    })
                 }
                 .onDisappear(perform: {
                     financevm.cleanup()

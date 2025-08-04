@@ -529,7 +529,11 @@
 "App Country :" = "بلد التطبيق :";
 "Currency :" = "العملة :";
 "Rate :" = "التقييم :";
-"Close" = "Close";
+"ProfitAfterRate :" = "العائد بعد التقييم :";
+
+"Close" = "اغلاق";
+"Open_In_Teams" = "فتح في تيمز";
+"Open_In_MrS-Cool" = "فتح في مستر اس";
 
 
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~

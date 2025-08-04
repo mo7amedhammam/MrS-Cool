@@ -144,16 +144,16 @@ struct TeacherFinanceCellView: View {
             case .Subjects:
                 
                 HStack {
-                Group{
-                    Text("Teacher Cancelled :".localized())
-                    Text(model.teacherCanceled ?? 0,format: .number)
+                    Group{
+                        Text("Teacher Cancelled :".localized())
+                        Text(model.teacherCanceled ?? 0,format: .number)
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                 }
-                .font(Font.bold(size:12))
-                .foregroundColor(.mainBlue)
-            }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical,2)
-            .frame(maxWidth: .infinity,alignment: .leading)
+                .frame(maxWidth: .infinity,alignment: .leading)
                 
                 HStack {
                     Group{
@@ -172,30 +172,31 @@ struct TeacherFinanceCellView: View {
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical,2)
                 .frame(maxWidth: .infinity,alignment: .leading)
-        
+                
                 HStack {
-                Group{
-                    Text("student Cancelled :".localized())
-                    Text(model.studentCanceled ?? 0,format: .number)
+                    Group{
+                        Text("student Cancelled :".localized())
+                        Text(model.studentCanceled ?? 0,format: .number)
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                 }
-                .font(Font.bold(size:12))
-                .foregroundColor(.mainBlue)
-                }
-//                .padding(.horizontal)
-//                .padding(.top,2)
+                //                .padding(.horizontal)
+                //                .padding(.top,2)
                 .padding(.vertical,2)
-            .frame(maxWidth: .infinity,alignment: .leading)
-
+                .frame(maxWidth: .infinity,alignment: .leading)
+                
+                if !isshowinglessonssheet{
                 HStack {
-                Group{
-                    Text("App Country :".localized())
-                    Text(model.appCountry ?? "")
-                }
-                .font(Font.bold(size:12))
-                .foregroundColor(.mainBlue)
+                    Group{
+                        Text("App Country :".localized())
+                        Text(model.appCountry ?? "")
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                     Spacer()
                     Group{
                         Text("Currency :".localized())
@@ -203,11 +204,11 @@ struct TeacherFinanceCellView: View {
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
-
+                    
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical,2)
-            .frame(maxWidth: .infinity,alignment: .leading)
+                .frame(maxWidth: .infinity,alignment: .leading)
                 
                 HStack {
                     Group{
@@ -216,16 +217,24 @@ struct TeacherFinanceCellView: View {
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
+                    Spacer()
+                    Group{
+                        Text("ProfitAfterRate :".localized())
+                        Text(model.profitAfterRate ?? 0,format: .number.precision(.fractionLength(1)))
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.top,2)
-            .frame(maxWidth: .infinity,alignment: .leading)
-
+                .frame(maxWidth: .infinity,alignment: .leading)
+            }
+                
             case .Lessons:
                 HStack {
                     Group{
                         Text( "Teacher Attended :".localized())
-//                        Text(model.teacherAttended == true ? "Yes".localized() : "No".localized())
+                        //                        Text(model.teacherAttended == true ? "Yes".localized() : "No".localized())
                         
                         if model.teacherAttended == true {
                             ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
@@ -236,12 +245,12 @@ struct TeacherFinanceCellView: View {
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(model.teacherAttended == true ? ColorConstants.LightGreen800 : ColorConstants.Red400)
-                   
+                    
                     Spacer()
                     
                     Group{
                         Text("Teacher Cancelled :".localized())
-//                        Text(model.teacherCanceled == 1 ? "Yes".localized() : "No".localized())
+                        //                        Text(model.teacherCanceled == 1 ? "Yes".localized() : "No".localized())
                         
                         if model.teacherCanceled == 1 {
                             ColorConstants.LightGreen800.frame(width: 12,height: 12).clipShape(Circle())
@@ -253,7 +262,7 @@ struct TeacherFinanceCellView: View {
                     .foregroundColor(model.teacherCanceled == 1 ? ColorConstants.LightGreen800 : ColorConstants.Red400)
                     
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical,2)
                 .frame(maxWidth: .infinity,alignment: .leading)
                 
@@ -274,20 +283,20 @@ struct TeacherFinanceCellView: View {
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.vertical,2)
                 .frame(maxWidth: .infinity,alignment: .leading)
                 
                 HStack {
-                Group{
-                    Text("student Cancelled :".localized())
-                    Text(model.studentCanceled ?? 0,format: .number)
-                }
-                .font(Font.bold(size:12))
-                .foregroundColor(.mainBlue)
+                    Group{
+                        Text("student Cancelled :".localized())
+                        Text(model.studentCanceled ?? 0,format: .number)
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                     
                     Spacer()
-
+                    
                     if let extraSession = model.extraSession{
                         Group{
                             Text("Extra Session :".localized())
@@ -301,21 +310,23 @@ struct TeacherFinanceCellView: View {
                         }
                         .font(Font.bold(size:12))
                         .foregroundColor(extraSession ? ColorConstants.LightGreen800 : ColorConstants.Red400)
-
+                        
                     }
-            }
-//                .padding(.horizontal)
-//                .padding(.top,2)
-                .padding(.vertical,2)
-            .frame(maxWidth: .infinity,alignment: .leading)
-                
-                HStack {
-                Group{
-                    Text("App Country :".localized())
-                    Text(model.appCountry ?? "")
                 }
-                .font(Font.bold(size:12))
-                .foregroundColor(.mainBlue)
+                //                .padding(.horizontal)
+                //                .padding(.top,2)
+                .padding(.vertical,2)
+                .frame(maxWidth: .infinity,alignment: .leading)
+                
+                if !isshowinglessonssheet{
+
+                HStack {
+                    Group{
+                        Text("App Country :".localized())
+                        Text(model.appCountry ?? "")
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                     Spacer()
                     Group{
                         Text("Currency :".localized())
@@ -323,13 +334,11 @@ struct TeacherFinanceCellView: View {
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
-
+                    
                 }
-//                .padding(.horizontal)
-//                .padding(.top,2)
                 .padding(.vertical,2)
-
-            .frame(maxWidth: .infinity,alignment: .leading)
+                .frame(maxWidth: .infinity,alignment: .leading)
+                
                 HStack {
                     Group{
                         Text("Rate :".localized())
@@ -337,11 +346,19 @@ struct TeacherFinanceCellView: View {
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
+                    Spacer()
+                    Group{
+                        Text("ProfitAfterRate :".localized())
+                        Text(model.profitAfterRate ?? 0,format: .number.precision(.fractionLength(1)))
+                    }
+                    .font(Font.bold(size:12))
+                    .foregroundColor(.mainBlue)
                 }
-//                .padding(.horizontal)
+                //                .padding(.horizontal)
                 .padding(.top,2)
-            .frame(maxWidth: .infinity,alignment: .leading)
-
+                .frame(maxWidth: .infinity,alignment: .leading)
+            }
+                
                 if isshowinglessonssheet{
                     HStack {
                         Group{

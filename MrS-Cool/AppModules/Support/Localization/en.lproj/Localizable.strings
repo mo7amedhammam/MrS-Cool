@@ -516,7 +516,9 @@
 "App Country :" = "App Country :";
 "Currency :" = "Currency :";
 "Rate :" = "Rate :";
+"ProfitAfterRate :" = "ProfitAfterRate :";
 
+"Close" = "Close";
 "Open_In_Teams" = "Open In Teams";
 "Open_In_MrS-Cool" = "Open In MrS-Cool";
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~

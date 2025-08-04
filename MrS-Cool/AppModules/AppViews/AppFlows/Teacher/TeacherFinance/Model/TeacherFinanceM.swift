@@ -31,7 +31,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
     var subjectOrLessonID: Int?
     var subjectOrLessonName:String?
 //    var teacherName: String?
-    var profit: Double?
+    var profit,profitAfterRate: Double?
     var count: Int?
     var teacherLessonSessionId:Int?
     var studentAttend:Int?
@@ -47,7 +47,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
     enum CodingKeys: String, CodingKey {
         case subjectOrLessonID = "subjectId"
         case subjectOrLessonName = "subjectName"
-        case profit,count
+        case profit,profitAfterRate,count
         
         case teacherLessonSessionId,studentAttend,studentNotAttend,studentCanceled,teacherCanceled,teacherAttended,extraSession,alternateSession
         case appCountry,currency,rate

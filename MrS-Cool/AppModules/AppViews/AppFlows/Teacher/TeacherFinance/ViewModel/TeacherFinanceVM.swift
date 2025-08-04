@@ -57,7 +57,8 @@ class TeacherFinanceVM: ObservableObject {
 
 extension TeacherFinanceVM{
     
-    func GetFinance(){
+    @MainActor
+    func GetFinance()async{
 //        var parameters:[String:Any] = [:]
 //        
 //        print("parameters",parameters)
@@ -91,7 +92,8 @@ extension TeacherFinanceVM{
             .store(in: &cancellables)
     }
     
-    func GetPurchasedFor(financese:StudentFinanceCases){
+    @MainActor
+    func GetPurchasedFor(financese:StudentFinanceCases)async{
         var parameters:[String:Any] = ["maxResultCount":maxResultCount]
 //        if Helper.shared.getSelectedUserType() == .Parent {
 //            parameters["studentId"] = Helper.shared.selectedchild?.id

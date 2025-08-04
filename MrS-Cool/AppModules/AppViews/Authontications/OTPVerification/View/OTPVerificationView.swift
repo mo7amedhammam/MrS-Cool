@@ -46,7 +46,7 @@ struct OTPVerificationView: View {
                             .multilineTextAlignment(.leading)
                             .padding(.top, getRelativeHeight(17.0))
                             .padding(.horizontal, getRelativeWidth(26.0))
-                        Text("(+2) \(PhoneNumber ?? "")")
+                        Text("(+\(Helper.shared.getAppCountry()?.code ?? "2") \(PhoneNumber ?? "")")
                             .font(Font.regular(size: 13.0))
                             .fontWeight(.regular)
                             .foregroundColor(ColorConstants.Bluegray402)

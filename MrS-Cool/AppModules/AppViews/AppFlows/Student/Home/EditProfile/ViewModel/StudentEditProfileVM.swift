@@ -138,8 +138,8 @@ class StudentEditProfileVM: ObservableObject {
 }
 
 extension StudentEditProfileVM{
-    
-    func GetStudentProfile(){
+    @MainActor
+    func GetStudentProfile()async{
         var parameters:[String:Any] = [:]
         if Helper.shared.getSelectedUserType() == .Parent {
             parameters["id"] = Helper.shared.selectedchild?.id

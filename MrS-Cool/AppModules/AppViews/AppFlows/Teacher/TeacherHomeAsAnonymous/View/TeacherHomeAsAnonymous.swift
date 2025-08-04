@@ -40,9 +40,11 @@ struct TeacherHomeAsAnonymous: View {
 //                                CustomDropDownField(iconName:"img_group_512380",placeholder: "Term *", selectedOption: $studenthomevm.term,options:lookupsvm.SemestersList)
                                 
                                 CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant((studenthomevm.academicYear == nil || !studenthomevm.isacademicYearvalid)) , action: {
-                                    withAnimation{
-                                        studenthomevm.getHomeData()
-                                        isSearch = true
+                                    Task{
+//                                        withAnimation{
+                                          await studenthomevm.getHomeData()
+                                            isSearch = true
+//                                        }
                                     }
                                 })
                                 .frame(height: 50)
@@ -66,10 +68,13 @@ struct TeacherHomeAsAnonymous: View {
                                         .foregroundColor(ColorConstants.MainColor)
                                         .clipped()
                                         .onTapGesture {
+                                            
                                             withAnimation{
                                                 isSearch = false
                                                 studenthomevm.clearsearch()
-                                                studenthomevm.getHomeData()
+                                                Task{
+                                                   await studenthomevm.getHomeData()
+                                                }
                                             }
                                         }
                                         .padding()
@@ -417,7 +422,9 @@ struct TeacherHomeAsAnonymous: View {
                     .onAppear {
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
-                        studenthomevm.getHomeData()
+                        Task{
+                           await studenthomevm.getHomeData()
+                        }
                         //                        studenthomevm.GetStudentSubjects()
                     }
                     .onDisappear{
@@ -429,7 +436,9 @@ struct TeacherHomeAsAnonymous: View {
                     .onChange(of: localizeHelper.currentLanguage, perform: {_ in
                         lookupsvm.GetEducationTypes()
                         lookupsvm.GetSemesters()
-                        studenthomevm.getHomeData()
+                        Task{
+                          await studenthomevm.getHomeData()
+                        }
                     })
                     
                     .onChange(of: studenthomevm.educationType, perform: { value in

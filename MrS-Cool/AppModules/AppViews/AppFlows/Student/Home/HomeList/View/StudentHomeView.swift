@@ -451,7 +451,9 @@ struct StudentHomeView: View {
 //                    fatalError("Crash was triggered again")
                 }
                 .onChange(of: studentsignupvm.academicYear) { _ in
-                    updateDataForNewAcademicYear()
+                    Task{
+                        await updateDataForNewAcademicYear()
+                    }
                 }
                 .onDisappear {
                     studenthomevm.cleanup()
@@ -561,10 +563,10 @@ struct StudentHomeView: View {
     }
     
     private func loadData() async {
-        studentsignupvm.GetStudentProfile()
-        studenthomevm.clearselections()
-        updateDataForNewAcademicYear()
-        
+        async let profile:() = studentsignupvm.GetStudentProfile()
+        async let clear:() = studenthomevm.clearselections()
+        async let updateDataForNewAcademicYear:() = updateDataForNewAcademicYear()
+         await _ = (profile,clear,updateDataForNewAcademicYear)
 //        guard Helper.shared.CheckIfLoggedIn(), let id = studentsignupvm.academicYear?.id else { return }
 //        studenthomevm.academicLevelId = id
 
@@ -575,14 +577,18 @@ struct StudentHomeView: View {
 //        await studenthomevm.GetStudentMostBookedTeachers()
     }
     
-    private func updateDataForNewAcademicYear() {
+    private func updateDataForNewAcademicYear()async {
         guard Helper.shared.CheckIfLoggedIn(), let id = studentsignupvm.academicYear?.id else { return }
         studenthomevm.academicLevelId = id
         Task {
+//             studenthomevm.GetStudentSubjects()
+//             studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+//             studenthomevm.GetStudentMostBookedTeachers()
+            
             async let subjects:() = studenthomevm.GetStudentSubjects()
             async let MostBookedSubjects:() = studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
             async let MostBookedTeachers:() = studenthomevm.GetStudentMostBookedTeachers()
-            
+           
             await _ = (subjects,MostBookedSubjects,MostBookedTeachers)
         }
     }

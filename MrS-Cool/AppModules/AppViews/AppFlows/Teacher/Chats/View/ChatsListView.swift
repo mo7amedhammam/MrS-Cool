@@ -229,9 +229,9 @@ struct ChatsListView: View {
 //        .onDisappear{
 //                   cancelRequests()
 //               }
-        .onChange(of: chatListVM.isLoading) { loading in
-            print("Loading state changed to: \(loading)")
-        }
+//        .onChange(of: chatListVM.isLoading) { loading in
+//            print("Loading state changed to: \(loading)")
+//        }
         if hasNavBar == true{
                     NavigationLink(destination: destination, isActive: $isPush, label: {})
                 }
