@@ -310,7 +310,7 @@ struct ManageMyDocumentsView: View {
                       ScrollView{
                           VStack{
                               Group {
-                                  CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $filterdocumentType,options:lookupsvm.documentTypesList)
+                                  CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type", selectedOption: $filterdocumentType,options:lookupsvm.documentTypesList)
                               }.padding(.top,5)
                               
                                   Spacer()

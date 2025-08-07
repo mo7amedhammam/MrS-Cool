@@ -83,7 +83,7 @@ struct OTPVerificationView: View {
                             .disabled(otpvm.remainingSeconds > 0)
                         }
                         
-                        Text("\(otpvm.remainingSeconds.formattedTime() ) Sec left")
+                        Text("\(otpvm.remainingSeconds.formattedTime() ) \("Sec left".localized())")
                             .font(Font.semiBold(size: 13.0))
                             .fontWeight(.semibold)
                             .foregroundColor(ColorConstants.Bluegray901)

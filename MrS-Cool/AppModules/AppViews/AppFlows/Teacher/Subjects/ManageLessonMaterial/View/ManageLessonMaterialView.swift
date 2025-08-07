@@ -127,7 +127,7 @@ struct ManageLessonMaterialView: View {    //        @Environment(\.dismiss) var
                                                                     }
                                                                 
                                                                 
-                                                                CustomTextField(iconName:"img_group_512388",placeholder: "اسم المحتوى", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid).reversLocalizeView()
+                                                                CustomTextField(iconName:"img_group_512388",placeholder: "Material TitleAr", text: $managelessonmaterialvm.materialName,isvalid:managelessonmaterialvm.ismaterialNamevalid).reversLocalizeView()
                                                                     .onChange(of: managelessonmaterialvm.materialName) { newValue in
                                                                         managelessonmaterialvm.materialName = newValue.filter { $0.isArabic }
                                                                     }

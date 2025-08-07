@@ -182,7 +182,7 @@ struct SubjectGroupDetailsView: View {
                             guard isTotalPricevalid == true else {return}
                             // Use a localized format string for the title
                             let isArabic = LocalizeHelper.shared.currentLanguage == "ar"
-                            let title = isArabic ? "تكلفة المجموعه للطالب \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) جنيه" : "Cost for student is \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) EGP" 
+                            let title = isArabic ? "تكلفة المجموعه للطالب \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) \(appCurrency ?? "EGP".localized)" : "Cost for student is \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) \(appCurrency ?? "EGP".localized)"
 
                             subjectgroupvm.error = .question(title: title, image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
                                 subjectgroupvm.CreateTeacherGroup()

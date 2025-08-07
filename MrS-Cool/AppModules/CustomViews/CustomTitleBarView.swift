@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomTitleBarView: View {
 
     var imageName: String?
+    var imgColor: Color?
     var title: String
     var hideImage: Bool? = false
     var action: (() -> Void)? // Use (() -> Void)? for optional closure
@@ -26,7 +27,7 @@ struct CustomTitleBarView: View {
                         .frame(width: 12.0,
                                height: 20.0, alignment: .center)
                         .scaledToFit()
-                        .foregroundColor(ColorConstants.MainColor)
+                        .foregroundColor(imgColor ?? ColorConstants.MainColor)
                         .clipped()
                         .onTapGesture {
                             if action != nil{

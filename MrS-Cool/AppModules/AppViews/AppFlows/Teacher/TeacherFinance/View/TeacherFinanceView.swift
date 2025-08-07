@@ -488,7 +488,7 @@ struct MoneyEarnedCell : View {
             VStack(alignment:.trailing,spacing:0){
                 HStack(spacing:0){
                     Text("\(Value ?? 0,specifier:"%.2f") ")
-                    Text(appCurrency ?? "LE".localized())
+                    Text("LE".localized())
                 }
                 .font(ValueFont ?? Font.bold(size: 24))
                 .foregroundColor(Valuecolor ?? .mainBlue)

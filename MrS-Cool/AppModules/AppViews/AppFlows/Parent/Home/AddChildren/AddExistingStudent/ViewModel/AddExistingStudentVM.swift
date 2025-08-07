@@ -50,7 +50,11 @@ class AddExistingStudentVM: ObservableObject {
 extension AddExistingStudentVM{
     func SendVerifyOtp(){
         //        guard let genderid = selectedGender?.id, let cityid = city?.id else {return}
-        let parameters:[String:Any] = ["mobile":phone]
+        var parameters:[String:Any] = ["mobile":phone]
+        
+        if let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
         
         print("parameters",parameters)
 //        guard let user = Helper.shared.getSelectedUserType() else {return}
