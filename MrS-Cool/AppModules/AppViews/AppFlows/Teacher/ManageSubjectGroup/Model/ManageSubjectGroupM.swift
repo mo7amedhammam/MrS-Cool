@@ -13,12 +13,14 @@ struct SubjectGroupM: Codable,Hashable,Identifiable{
     var id, teacherSubjectAcademicSemesterYearID: Int?
     var teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate: String?
     var groupCost: Float?
+    var currency:String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case teacherSubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate
         case groupCost
+        case currency
     }
 }
 
@@ -29,12 +31,14 @@ struct SubjectGroupDetailsM: Codable {
     var numLessons: Int?
     var groupCost:Float?
     var scheduleSlots: [ScheduleSlot]?
+    var currency:String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case teacherSubjectAcademicSemesterYearID = "teacherSubjectAcademicSemesterYearId"
         case teacherSubjectAcademicSemesterYearName, groupName, startDate, endDate, numLessons, scheduleSlots
         case groupCost
+        case currency
     }
 }
 

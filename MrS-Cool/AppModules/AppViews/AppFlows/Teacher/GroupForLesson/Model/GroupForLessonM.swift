@@ -13,9 +13,11 @@ struct GroupForLessonM: Codable, Hashable {
     var lessonName, groupName, date,timeFrom, timeTo: String?
     var teacherSubjectAcademicSemesterYearName: String?
     var groupCost:Float?
+    var currency:String?
     enum CodingKeys: String, CodingKey {
         case lessonName, groupName,date, timeFrom, timeTo, id
         case teacherSubjectAcademicSemesterYearName
         case groupCost
+        case currency
     }
 }

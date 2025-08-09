@@ -140,7 +140,7 @@ struct SubjectGroupDetailsView: View {
                                                 subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost = Float(TotalPrice)
                                             }
                                         }else{
-                                            Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text(appCurrency ?? "EGP".localized()).fontWeight(.medium)
+                                            Text("\(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0,specifier:"%.2f") ").fontWeight(.medium)+Text(subjectgroupvm.TeacherSubjectGroupsDetails?.currency ?? "EGP".localized()).fontWeight(.medium)
                                         }
                                     }
                                 }
@@ -182,7 +182,7 @@ struct SubjectGroupDetailsView: View {
                             guard isTotalPricevalid == true else {return}
                             // Use a localized format string for the title
                             let isArabic = LocalizeHelper.shared.currentLanguage == "ar"
-                            let title = isArabic ? "تكلفة المجموعه للطالب \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) \(appCurrency ?? "EGP".localized)" : "Cost for student is \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) \(appCurrency ?? "EGP".localized)"
+                            let title = isArabic ? "تكلفة المجموعه للطالب \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) \(subjectgroupvm.TeacherSubjectGroupsDetails?.currency ?? "EGP".localized)" : "Cost for student is \(subjectgroupvm.TeacherSubjectGroupsDetails?.groupCost ?? 0) \(subjectgroupvm.TeacherSubjectGroupsDetails?.currency ?? "EGP".localized)"
 
                             subjectgroupvm.error = .question(title: title, image: "savegroupIcon", message: "Are you sure you want to Save ?", buttonTitle: "Save", secondButtonTitle: "Clear", mainBtnAction: {
                                 subjectgroupvm.CreateTeacherGroup()

@@ -87,7 +87,10 @@ extension ResetPasswordVM{
     
     func ResetPassword(){
         //        guard let genderid = selectedGender?.id, let cityid = city?.id else {return}
-        let parameters:[String:Any] = ["mobile":phone,"newPassword":newPassword]
+        var parameters:[String:Any] = ["mobile":phone,"newPassword":newPassword]
+        if let appCountryId = Helper.shared.getAppCountry()?.id{
+            parameters["appCountryId"] = appCountryId
+        }
         
         //        let parameters:[String:Any] = ["Mobile": "00000000001", "PasswordHash": "123456", "TeacherBio": "Bio", "Name": "nnnnnn", "GenderId": 1, "CityId": 1, "IsTeacher": true]
         print("parameters",parameters)
