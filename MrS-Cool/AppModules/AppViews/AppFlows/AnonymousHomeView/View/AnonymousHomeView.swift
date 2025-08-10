@@ -559,6 +559,15 @@ struct AnonymousHomeView: View {
                     if let countries = lookupsvm.AppCountriesList{
                         
                         ScrollView {
+                            ZStack(){
+                                Image(.countrySelectHeader)
+                                    .resizable()
+                                    .frame(height: 194)
+                                    .scaledToFit()
+                            }
+                            .frame(height: UIScreen.main.bounds.height / 3.3,alignment: .top)
+                            .padding(.top)
+                            
                             LazyVGrid(
                                 columns: [
                                         GridItem(.flexible(minimum: 100, maximum: 150)),
