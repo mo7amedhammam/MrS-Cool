@@ -637,7 +637,8 @@ struct CustomDatePickerField: View {
     var startDate: Date? = nil
     var endDate: Date? = nil
 //    var timeZone:TimeZone? = .init(identifier: "GMT")
-    var timeZone:TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+//    var timeZone:TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current ] \\ok
+    var timeZone:TimeZone? = appTimeZone ?? TimeZone.current
     var local:SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic
 
     @State private var isCalenderVisible = false
@@ -844,7 +845,7 @@ extension View {
 
 
 extension Date{
-    func formatDate(format: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, inputTimeZone: TimeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current, outputLocal: SupportedLocale = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, outputTimeZone: TimeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current) -> String {
+    func formatDate(format: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, inputTimeZone: TimeZone = appTimeZone ?? .current, outputLocal: SupportedLocale = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, outputTimeZone: TimeZone = appTimeZone ?? .current) -> String {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
 

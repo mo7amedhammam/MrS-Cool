@@ -89,9 +89,9 @@ struct ManageTeacherSchedualsView: View {
                                                 isStartDateBeforeEndDate = handleStartEndDate(startDate: manageteacherschedualsvm.startDate, endDate: newval)
                                         }
                                         
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,timeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
+                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "Start Time", selectedDateStr:$manageteacherschedualsvm.startTime,timeZone: appTimeZone ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isstartTimevalid)
                                         
-                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,timeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isendTimevalid)
+                                        CustomDatePickerField(iconName:"img_maskgroup7cl",rightIconName: "",placeholder: "End Time", selectedDateStr:$manageteacherschedualsvm.endTime,timeZone:appTimeZone ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid:manageteacherschedualsvm.isendTimevalid)
                                     }
                                     .padding([.top])
                                 }

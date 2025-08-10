@@ -182,13 +182,13 @@ struct ContentView: View {
                 Task {
                     await lookupsvm.GetAppCountries()
                 }
-                print("appcountry is :",Helper.shared.getAppCountry())
+//                print("appcountry is :",Helper.shared.getAppCountry())
             }
-            .onDisappear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                    print("new appcountry is :",Helper.shared.getAppCountry())
-                })
-            }
+//            .onDisappear{
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+//                    print("new appcountry is :",Helper.shared.getAppCountry())
+//                })
+//            }
             
         }
 //        .onAppear {

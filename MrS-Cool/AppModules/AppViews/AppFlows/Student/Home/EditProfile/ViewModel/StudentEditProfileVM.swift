@@ -183,7 +183,7 @@ extension StudentEditProfileVM{
     func UpdateStudentProfile(){
         academicYear = dummyAcademicYear
         guard checkValidfields() else {return}
-        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
+        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName]
 
         if let image = image {

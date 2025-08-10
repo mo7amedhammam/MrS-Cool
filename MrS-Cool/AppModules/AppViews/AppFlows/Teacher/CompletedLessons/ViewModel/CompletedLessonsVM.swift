@@ -55,7 +55,7 @@ extension CompletedLessonsVM{
         if filtergroupName.count > 0{
             parameters["groupName"] = filtergroupName
         }
-        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
+        if let filterdate = filterdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
             parameters["lessonDate"] = filterdate
         }
         

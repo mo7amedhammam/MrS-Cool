@@ -14,6 +14,28 @@ import SwiftUI
 var appCurrency : String? {
     Helper.shared.getLanguage().lowercased() == "ar" ? Helper.shared.getAppCountry()?.currencyAr: Helper.shared.getAppCountry()?.currency
 }
+//var appTimeZone : TimeZone? {
+//    Helper.shared.getAppCountry()?.id == 5 ? TimeZone(identifier: "Asia/Riyadh") ?? TimeZone.current : TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+//
+////    Helper.shared.getLanguage().lowercased() == "ar" ? Helper.shared.getAppCountry()?.currencyAr: Helper.shared.getAppCountry()?.currency
+//}
+
+var appTimeZone: TimeZone {
+      if let utc = Helper.shared.getAppCountry()?.countryUTC  {
+        return TimeZone(secondsFromGMT: Int(utc * 3600)) ?? TimeZone.current
+    } else {
+         return Helper.shared.getAppCountry()?.id == 5 ? TimeZone(identifier: "Asia/Riyadh") ?? TimeZone.current : TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+
+//        if Helper.shared.getAppCountry()?.id == 5{
+//            // KSA — UTC+3
+//            return TimeZone(secondsFromGMT: 3 * 3600) ?? TimeZone.current
+//        }else{
+//            // Egypt — UTC+2
+//            return TimeZone(secondsFromGMT: 2 * 3600) ?? TimeZone.current
+//        }
+    }
+}
+
 
 class Helper: NSObject {
     static let shared = Helper()

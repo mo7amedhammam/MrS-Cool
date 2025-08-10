@@ -78,10 +78,10 @@ extension ManageTeacherSchedualsVM{
         guard checkValidfields() else {return}
         guard let dayId = day?.id,let startDate = startDate,let endDate = endDate,let startTime = startTime ,let endTime = endTime else {return}
         let parameters:[String:Any] = ["dayId":dayId,
-                                       "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),
-                                       "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),
-                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),
-                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current)]
+                                       "fromStartDate":startDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),
+                                       "toEndDate":endDate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),
+                                       "fromTime":startTime.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),
+                                       "toTime":endTime.ChangeDateFormat(FormatFrom: "hh:mm aa", FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current)]
         
         print("parameters",parameters)
         let target = teacherServices.CreateMyNewSchedual(parameters: parameters)
@@ -127,10 +127,10 @@ extension ManageTeacherSchedualsVM{
             parameters["dayId"] = filterDay.id
         }
         
-        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),isFiltering{
+        if let filterStartDate = filterStartDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),isFiltering{
             parameters["fromStartDate"] = filterStartDate
         }
-        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current),isFiltering{
+        if let filterEndDate = filterEndDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),isFiltering{
             parameters["toEndDate"] = filterEndDate
         }
         print("parameters",parameters)

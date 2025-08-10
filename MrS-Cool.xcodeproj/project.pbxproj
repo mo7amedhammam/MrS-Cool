@@ -2360,8 +2360,8 @@
 		C8FB11882ADD99800051715F /* AppModules */ = {
 			isa = PBXGroup;
 			children = (
-				C8FB11962ADD99800051715F /* Support */,
 				C8FB118B2ADD99800051715F /* Services */,
+				C8FB11962ADD99800051715F /* Support */,
 				C8FB118A2ADD99800051715F /* CustomViews */,
 				C8FB11892ADD99800051715F /* AppViews */,
 			);
@@ -3075,7 +3075,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-Cool.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.19;
+				CURRENT_PROJECT_VERSION = 1.7.20;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
@@ -3122,7 +3122,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MrS-Cool/MrS-CoolRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7.19;
+				CURRENT_PROJECT_VERSION = 1.7.20;
 				DEVELOPMENT_ASSET_PATHS = "\"MrS-Cool/Preview Content\"";
 				DEVELOPMENT_TEAM = BGRWN8V6Q2;
 				ENABLE_PREVIEWS = YES;

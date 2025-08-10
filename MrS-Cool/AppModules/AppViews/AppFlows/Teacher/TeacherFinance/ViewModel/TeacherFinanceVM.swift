@@ -101,19 +101,19 @@ extension TeacherFinanceVM{
         switch financese {
         case .Subjects:
             parameters["skipCount"] = subjectsSkipCount
-            if let filtersubjectdatefrom = filtersubjectsdatefrom?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
+            if let filtersubjectdatefrom = filtersubjectsdatefrom?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
                 parameters["dateFrom"] = filtersubjectdatefrom
             }
-            if let filtersubjectsdateto = filtersubjectsdateto?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
+            if let filtersubjectsdateto = filtersubjectsdateto?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
                 parameters["dateTo"] = filtersubjectsdateto
             }
             
         case .Lessons:
             parameters["skipCount"] = lessonsSkipCount
-            if let filterlessonstdatefrom = filterlessonsdatefrom?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
+            if let filterlessonstdatefrom = filterlessonsdatefrom?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
                 parameters["dateFrom"] = filterlessonstdatefrom
             }
-            if let filterlessonstdateto = filterlessonsdateto?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current){
+            if let filterlessonstdateto = filterlessonsdateto?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
                 parameters["dateTo"] = filterlessonstdateto
             }
         }

@@ -514,7 +514,7 @@ struct AnonymousHomeView: View {
                     .onChange(of: selectedDestination) {newval in
                         if newval == .login { // sign in
                             
-                            destination =                           AnyView(SignInView(hideimage:false))
+                            destination = AnyView(SignInView(hideimage:false))
                             Helper.shared.logout()
                             isPush = true
                             
@@ -828,7 +828,11 @@ struct ChangeLanguage: View {
     var destinationview: some View{
         switch Helper.shared.getUser()?.roleID ?? 0{
         case 1: // teacher
-            TeacherTabBarView()
+            if Helper.shared.CheckIfLoggedIn(){
+                TeacherTabBarView()
+            }else{
+                AnonymousHomeView()
+            }
         case 2: // student
             StudentTabBarView()
         case 3: // parent

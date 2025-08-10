@@ -16,7 +16,7 @@ struct StudentFinanceView: View {
         formatter.dateStyle = .medium
         formatter.dateFormat = "dd MMM yyyy"
 //        formatter.timeZone = TimeZone.current
-        formatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+        formatter.timeZone = appTimeZone ?? TimeZone.current
 //        formatter.locale = Local(identifier: "en")
         return formatter.string(from: Date())
      }()

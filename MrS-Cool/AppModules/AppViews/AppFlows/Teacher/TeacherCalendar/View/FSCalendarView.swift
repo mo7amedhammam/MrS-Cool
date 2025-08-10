@@ -322,7 +322,7 @@ struct CalView1: View {
                         let startDate = Date()
                         CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$calendarschedualsvm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: calendarschedualsvm.isextraDatevalid)
                         
-                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$calendarschedualsvm.extraTime,timeZone:TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid: calendarschedualsvm.isextraTimevalid)
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$calendarschedualsvm.extraTime,timeZone:appTimeZone ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid: calendarschedualsvm.isextraTimevalid)
                         
                     }
                     .padding(.top,5)

@@ -93,7 +93,7 @@ extension String {
 //        return newdate
 //    }
     
-    func ChangeDateFormat(FormatFrom: String, FormatTo: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic,outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic , inputTimeZone: TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current, outputTimeZone: TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current) -> String {
+    func ChangeDateFormat(FormatFrom: String, FormatTo: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic,outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic , inputTimeZone: TimeZone? = appTimeZone, outputTimeZone: TimeZone? = appTimeZone) -> String {
 //        let formatter = DateFormatter()
         let formatter = DateFormatter.cachedFormatter
 
@@ -122,7 +122,7 @@ extension String {
     }
     
     
-    func toDate(withFormat format: String, inputTimeZone: TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic, outputTimeZone: TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current, outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic) -> Date? {
+    func toDate(withFormat format: String, inputTimeZone: TimeZone? = appTimeZone, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic, outputTimeZone: TimeZone? = appTimeZone, outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic) -> Date? {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
 
@@ -153,7 +153,7 @@ extension String {
 
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
 //        dateFormatter.timeZone = TimeZone(identifier: "GMT")
-        dateFormatter.timeZone = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
+        dateFormatter.timeZone = appTimeZone
         return dateFormatter.date(from: self)
     }
     
