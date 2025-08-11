@@ -45,11 +45,11 @@ struct LessonDetailsView: View {
         self.weekDayFormatter.dateFormat = "EEE"
     }
     
-    static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter.cachedFormatter
-        formatter.dateFormat = "EEEE dd, MMM yyyy"
-        return formatter
-    }()
+//    static let taskDateFormat: DateFormatter = {
+//        let formatter = DateFormatter.cachedFormatter
+//        formatter.dateFormat = "EEEE dd, MMM yyyy"
+//        return formatter
+//    }()
     
     var body: some View {
         VStack {
@@ -358,6 +358,7 @@ struct LessonDetailsView: View {
                                         .padding(.horizontal)
                                     
                                     WeeklyCalendarView(selectedDate: $selectedDate)
+                                    
                                     ColorConstants.Bluegray30066.frame(height: 0.5).padding(.vertical,8)
                                         .padding(.horizontal)
                                     
@@ -369,7 +370,7 @@ struct LessonDetailsView: View {
                                     if (lessoncase == .Individual && lessondetailsvm.availableScheduals == []){
                                         VStack (spacing:5){
                                             Text("No Available Times on".localized())
-                                            Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, d MMMM, yyyy",inputTimeZone: .current,outputTimeZone: .current)
+                                            Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, d MMMM, yyyy",inputTimeZone: appTimeZone,outputTimeZone: appTimeZone)
                                         )
                                     }
                                         .font(Font.bold(size: 15))
@@ -444,7 +445,10 @@ struct LessonDetailsView: View {
             if lessoncase == .Group {
                 lessondetailsvm.GetLessonDetails(lessonId: selectedlessonid)
             }else{
-                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",outputLocal: .english)
+                print("appe selectedDate",selectedDate)
+                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",inputTimeZone: appTimeZone,outputLocal: .english,outputTimeZone: appTimeZone)
+                print("appe selectedDate",date)
+
                 lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
             }
         })
@@ -452,8 +456,10 @@ struct LessonDetailsView: View {
             lessondetailsvm.cleanup()
         }
         .onChange(of: selectedDate){newdate in
-            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",outputLocal: .english)
+            print("ch newdate",newdate)
+            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",inputTimeZone: appTimeZone,outputLocal: .english,outputTimeZone: appTimeZone)
 //            if newdate != Data(){
+            print("ch date",date)
             lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
             lessondetailsvm.selectedsched = nil //clear individual selected sched
         }

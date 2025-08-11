@@ -845,7 +845,7 @@ extension View {
 
 
 extension Date{
-    func formatDate(format: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, inputTimeZone: TimeZone = appTimeZone ?? .current, outputLocal: SupportedLocale = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, outputTimeZone: TimeZone = appTimeZone ?? .current) -> String {
+    func formatDate(format: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, inputTimeZone: TimeZone = appTimeZone, outputLocal: SupportedLocale = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, outputTimeZone: TimeZone = appTimeZone) -> String {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
 

@@ -19,6 +19,9 @@ extension Date {
 extension DateFormatter {
     static let cachedFormatter: DateFormatter = {
         let formatter = DateFormatter()
+        // Add this to help parsing ambiguous/invalid DST dates
+        formatter.isLenient = true
+
         return formatter
     }()
 }

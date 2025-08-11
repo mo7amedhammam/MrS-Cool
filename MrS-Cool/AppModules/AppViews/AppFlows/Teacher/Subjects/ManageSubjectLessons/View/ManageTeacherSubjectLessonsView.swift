@@ -220,7 +220,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                         HStack(spacing:5){
                                             Text("Recommended".localized())
                                              Text(manageteachersubjectlessonsvm.recommendedgroupCost)
-                                             Text(appCurrency ?? "EGP".localized())
+                                            Text(manageteachersubjectlessonsvm.recommendedCostCurrency ?? "EGP".localized())
                                         }
                                         .font(Font.semiBold(size: 9))
                                         .foregroundColor(ColorConstants.Bluegray402)
@@ -242,7 +242,7 @@ struct ManageTeacherSubjectLessonsView: View {    //        @Environment(\.dismi
                                     HStack(spacing:5){
                                         Text("Recommended".localized())
                                          Text(manageteachersubjectlessonsvm.recommendedindividualCost)
-                                        Text(appCurrency ?? "EGP".localized())
+                                        Text(manageteachersubjectlessonsvm.recommendedCostCurrency ?? "EGP".localized())
                                     }
                                     .font(Font.regular(size: 9))
                                     .foregroundColor(ColorConstants.Bluegray402)

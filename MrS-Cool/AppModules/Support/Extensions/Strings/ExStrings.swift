@@ -125,6 +125,8 @@ extension String {
     func toDate(withFormat format: String, inputTimeZone: TimeZone? = appTimeZone, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic, outputTimeZone: TimeZone? = appTimeZone, outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic) -> Date? {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
+        // Add this to help parsing ambiguous/invalid DST dates
+        dateFormatter.isLenient = true
 
         // Set up the input formatter
         dateFormatter.dateFormat = format

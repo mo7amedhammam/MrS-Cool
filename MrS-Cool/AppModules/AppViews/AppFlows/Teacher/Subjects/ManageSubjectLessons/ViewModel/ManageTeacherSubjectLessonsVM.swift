@@ -74,6 +74,7 @@ class ManageTeacherSubjectLessonsVM: ObservableObject {
     
     @Published var recommendedgroupCost : String = ""
     @Published var recommendedindividualCost: String = ""
+    @Published var recommendedCostCurrency : String?
 
     @Published var minGroup : String = ""{
         didSet{
@@ -353,6 +354,7 @@ extension ManageTeacherSubjectLessonsVM{
             individualCost = String(indcost)
             recommendedindividualCost = String(rindcost)
         }
+        recommendedCostCurrency = item.currency
 
         if let groupDuration = item.groupDuration{
 //            groupTime = groupDuration.formattedTime()
