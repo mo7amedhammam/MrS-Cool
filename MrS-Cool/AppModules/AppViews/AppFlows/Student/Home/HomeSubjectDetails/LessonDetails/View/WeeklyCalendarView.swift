@@ -261,7 +261,7 @@ extension Date {
         outputLocal: SupportedLocale? = nil,
         outputTimeZone: TimeZone = appTimeZone
     ) -> String {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = format
         formatter.timeZone = outputTimeZone
         formatter.locale = outputLocal?.locale ?? Locale.current
@@ -277,9 +277,10 @@ extension Date {
     
     /// Debug description with timezone info
     var debugDescription: String {
-        let formatter = DateFormatter()
+        let formatter = DateFormatter.cachedFormatter
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z (EEEE)"
         formatter.timeZone = appTimeZone
+        formatter.isLenient = true
         return formatter.string(from: self)
     }
 }
@@ -293,22 +294,23 @@ extension String {
         outputTimeZone: TimeZone = appTimeZone,
         locale: Locale = .current
     ) -> String {
-        let inputFormatter = DateFormatter()
+        let inputFormatter = DateFormatter.cachedFormatter
         inputFormatter.dateFormat = inputFormat
         inputFormatter.timeZone = inputTimeZone
         inputFormatter.locale = locale
-        
+        inputFormatter.isLenient = true
         guard let date = inputFormatter.date(from: self) else {
             print("❌ Failed to parse date: '\(self)' with format: '\(inputFormat)'")
             print("Expected format example: \(inputFormatter.string(from: Date()))")
             return self
         }
         
-        let outputFormatter = DateFormatter()
+        let outputFormatter = DateFormatter.cachedFormatter
         outputFormatter.dateFormat = outputFormat
         outputFormatter.timeZone = outputTimeZone
         outputFormatter.locale = locale
-        
+        outputFormatter.isLenient = true
+
         let result = outputFormatter.string(from: date)
         print("✅ Date conversion: '\(self)' -> '\(result)'")
         return result
