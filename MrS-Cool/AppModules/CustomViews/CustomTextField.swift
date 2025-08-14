@@ -623,6 +623,205 @@ struct CustomTextEditor: View {
     CustomTextEditor(iconName:"img_group172", placeholder: "Teacher BIO *", text: .constant("gooo"), charLimit: 1000)
 }
 
+//struct CustomDatePickerField: View {
+//    var fieldType: inputfields? = .Default
+//    var iconName: String? = ""
+//    var rightIconName: String?
+//    var iconColor: Color?
+//
+//    var placeholder: String
+//    var placeholderColor: Color? = ColorConstants.Bluegray402
+//
+//    @State private var selectedDate: Date? = nil
+//    @Binding var selectedDateStr: String?
+//    var startDate: Date? = nil
+//    var endDate: Date? = nil
+////    var timeZone:TimeZone? = .init(identifier: "GMT")
+////    var timeZone:TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current ] \\ok
+//    var timeZone:TimeZone? = appTimeZone
+//    var local:SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic
+//
+//    @State private var isCalenderVisible = false
+//    var datePickerComponent: DatePickerComponents = .date
+//    var Disabled : Bool?
+//    var isdimmed : Bool?
+//    var isvalid: Bool? = true
+//    
+//    var body: some View {
+//        VStack(alignment: .leading, spacing: -15) {
+//            Button(action: {
+//                isCalenderVisible.toggle()
+//            }, label: {
+//                HStack(spacing: 0) {
+//                    if iconName != "" || iconName != nil {
+//                        Image(iconName ?? "img_group148")
+//                            .renderingMode(.template)
+//                            .foregroundColor(ColorConstants.MainColor)
+//                            .font(.system(size: 15))
+//                            .padding(.horizontal, 10)
+//                    }
+//                    HStack() {
+//                        ZStack(alignment: .leading) {
+//                            Text(placeholder.localized())
+//                                .font(Font.regular(size: 12))
+//                                .foregroundColor(placeholderColor == .red ? .red : placeholderColor)
+//                                .offset(y: selectedDateStr == nil ? 0 : -20)
+//                                .scaleEffect(selectedDateStr == nil ? 1.2 : 0.8, anchor: .leading)
+//
+//                            TextField("", text: .constant(selectedDateStr ?? ""))
+//                                .multilineTextAlignment(.leading)
+//                                .frame(minHeight: 57.0, alignment: .leading)
+//                                .disabled(true)
+//                        }
+//                        .frame(height: 57.0, alignment: .leading)
+//                        .font(Font.regular(size: 14))
+//                        .foregroundColor(ColorConstants.Black900)
+//
+//                        Spacer()
+//                    }
+//                    .frame(minWidth: 0, maxWidth: .infinity)
+//
+//                    if rightIconName?.count ?? 0 > 0 || rightIconName != nil {
+//                        Image(rightIconName ?? "img_daterange")
+//                            .renderingMode(.template)
+//                            .frame(width: 30, height: 30, alignment: .center)
+//                            .foregroundColor(ColorConstants.MainColor)
+//                            .font(.system(size: 15))
+//                            .padding(.horizontal, 10)
+//                    }
+//                }
+//            })
+//
+//            if isCalenderVisible {
+//                DatePicker(
+//                    "birthDate",
+////                    selection: Binding(
+////                        get: { selectedDate ?? Date() },
+////                        set: { newDate in
+//////                            print("newDate",newDate)
+////                            selectedDate = newDate
+//////                            updateSelectedDateStr(with: newDate)
+////                            
+////                            print("newDate raw:", newDate.formatDate(format:datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a" ))//"yyyy-MM-dd'T'HH:mm:ss'Z'")) // Always UTC internally
+////
+////                              // Local display
+////                              let localFormatter = DateFormatter.cachedFormatter
+////                              localFormatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a"// "dd MMM yyyy"
+////                              localFormatter.timeZone = appTimeZone
+////                              selectedDateStr = localFormatter.string(from: newDate)
+////
+////                              // UTC for API
+////                              let utcFormatter = DateFormatter.cachedFormatter
+////                              utcFormatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a" // "yyyy-MM-dd'T'HH:mm:ss'Z'"
+//////                              utcFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+////                                utcFormatter.timeZone = appTimeZone
+////                              let apiDate = utcFormatter.string(from: newDate)
+////
+////                              print("Selected date (local):", selectedDateStr ?? "")
+////                              print("API startDate (UTC):", apiDate)
+////                            
+////                        }
+////                    )
+//                    selection: Binding(
+//                        get: { selectedDate ?? Date() },
+//                        set: { newDate in
+//                            selectedDate = newDate
+//                            // Only format for display here
+//                            let formatter = DateFormatter.cachedFormatter
+//                            formatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a"
+//                            formatter.timeZone = appTimeZone
+//                            selectedDateStr = formatter.string(from: newDate)
+//                        }
+//                    )
+//                    ,
+//                    in: (startDate ?? Date.distantPast)...(endDate ?? Date.distantFuture),
+//                    displayedComponents: datePickerComponent
+//                )
+//                .padding(.horizontal)
+//                .tint(ColorConstants.MainColor)
+//                .labelsHidden()
+//                .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
+////                .onAppear {
+//////                    print("selectedDate",selectedDate)
+//////                    print("selectedDateStr",selectedDateStr)
+//////                    print("startDate",startDate)
+//////                    print("endDate",endDate)
+////                    
+////                    // Ensure selectedDateStr is initialized correctly on appear
+////                    if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
+////                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",inputTimeZone:timeZone,inputLocal:local)
+////                    }else{
+////
+////                        if startDate == nil {
+////                            print("Date",Date())
+////                            selectedDate = Date()
+////                            selectedDateStr = Date().formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+////                        }else{
+//////                            print("startDate",startDate)
+////                            selectedDate = startDate
+////                        }
+////                    }
+////                    
+////                    if let startdate = startDate, selectedDateStr == nil {
+////                        selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+////                    }else{
+////                    
+////                      if let startdate = startDate,let seldate = selectedDate, startdate > seldate{
+////                          selectedDate = startdate
+////                        selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
+////                      }
+////                    }
+////                }
+////                .onAppear {
+////                    if selectedDate == nil {
+////                        if let startDate = startDate {
+////                            selectedDate = startDate
+////                        } else {
+////                            selectedDate = Date()
+////                        }
+////                    }
+////                }
+//                .onAppear {
+//                    if selectedDate == nil {
+//                        selectedDate = startDate ?? Date()
+//                    }
+//                    // Always refresh string based on current timezone
+//                    updateDisplayString()
+//                }
+//                .onChange(of: appTimeZone) { _ in
+//                    updateDisplayString()
+//                }
+//                .onChange(of: selectedDate) { _ in
+//                    updateDisplayString()
+//                }
+//                
+////                .onDisappear{
+////                    print("selectedDate",selectedDate)
+//////                    print("selectedDateStr",selectedDateStr)
+////                    print("startDate",startDate)
+////                    print("endDate",endDate)
+////
+////                }
+//            }
+//        }
+//        .disabled(Disabled == true ? true:false)
+//        .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066 : ColorConstants.Red400, lineWidth: 1))
+//        .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(Disabled == true ? ColorConstants.Bluegray30066.opacity(0.6) : ColorConstants.WhiteA700))
+//    }
+//    private func updateDisplayString() {
+//        guard let date = selectedDate else { return }
+//        let formatter = DateFormatter.cachedFormatter
+//        formatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a"
+//        formatter.timeZone = appTimeZone
+//        selectedDateStr = formatter.string(from: date)
+//    }
+//    // Function to update the selected date string and print the date
+////    private func updateSelectedDateStr(with date: Date) {
+////        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",inputLocal: local)
+////        print("Selected date: \(selectedDateStr ?? "")")
+////    }
+//}
+
 struct CustomDatePickerField: View {
     var fieldType: inputfields? = .Default
     var iconName: String? = ""
@@ -636,15 +835,13 @@ struct CustomDatePickerField: View {
     @Binding var selectedDateStr: String?
     var startDate: Date? = nil
     var endDate: Date? = nil
-//    var timeZone:TimeZone? = .init(identifier: "GMT")
-//    var timeZone:TimeZone? = TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current ] \\ok
-    var timeZone:TimeZone? = appTimeZone
-    var local:SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic
+    var timeZone: TimeZone? = appTimeZone
+    var local: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic
 
     @State private var isCalenderVisible = false
     var datePickerComponent: DatePickerComponents = .date
-    var Disabled : Bool?
-    var isdimmed : Bool?
+    var Disabled: Bool?
+    var isdimmed: Bool?
     var isvalid: Bool? = true
     
     var body: some View {
@@ -695,45 +892,13 @@ struct CustomDatePickerField: View {
             if isCalenderVisible {
                 DatePicker(
                     "birthDate",
-//                    selection: Binding(
-//                        get: { selectedDate ?? Date() },
-//                        set: { newDate in
-////                            print("newDate",newDate)
-//                            selectedDate = newDate
-////                            updateSelectedDateStr(with: newDate)
-//                            
-//                            print("newDate raw:", newDate.formatDate(format:datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a" ))//"yyyy-MM-dd'T'HH:mm:ss'Z'")) // Always UTC internally
-//
-//                              // Local display
-//                              let localFormatter = DateFormatter.cachedFormatter
-//                              localFormatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a"// "dd MMM yyyy"
-//                              localFormatter.timeZone = appTimeZone
-//                              selectedDateStr = localFormatter.string(from: newDate)
-//
-//                              // UTC for API
-//                              let utcFormatter = DateFormatter.cachedFormatter
-//                              utcFormatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a" // "yyyy-MM-dd'T'HH:mm:ss'Z'"
-////                              utcFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-//                                utcFormatter.timeZone = appTimeZone
-//                              let apiDate = utcFormatter.string(from: newDate)
-//
-//                              print("Selected date (local):", selectedDateStr ?? "")
-//                              print("API startDate (UTC):", apiDate)
-//                            
-//                        }
-//                    )
                     selection: Binding(
                         get: { selectedDate ?? Date() },
                         set: { newDate in
                             selectedDate = newDate
-                            // Only format for display here
-                            let formatter = DateFormatter.cachedFormatter
-                            formatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a"
-                            formatter.timeZone = appTimeZone
-                            selectedDateStr = formatter.string(from: newDate)
+                            updateSelectedDateString(from: newDate)
                         }
-                    )
-                    ,
+                    ),
                     in: (startDate ?? Date.distantPast)...(endDate ?? Date.distantFuture),
                     displayedComponents: datePickerComponent
                 )
@@ -741,66 +906,68 @@ struct CustomDatePickerField: View {
                 .tint(ColorConstants.MainColor)
                 .labelsHidden()
                 .conditionalDatePickerStyle(datePickerComponent: datePickerComponent)
-//                .onAppear {
-////                    print("selectedDate",selectedDate)
-////                    print("selectedDateStr",selectedDateStr)
-////                    print("startDate",startDate)
-////                    print("endDate",endDate)
-//                    
-//                    // Ensure selectedDateStr is initialized correctly on appear
-//                    if let selectedDateStr = selectedDateStr, !selectedDateStr.isEmpty {
-//                        selectedDate = selectedDateStr.toDate(withFormat: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",inputTimeZone:timeZone,inputLocal:local)
-//                    }else{
-//
-//                        if startDate == nil {
-//                            print("Date",Date())
-//                            selectedDate = Date()
-//                            selectedDateStr = Date().formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-//                        }else{
-////                            print("startDate",startDate)
-//                            selectedDate = startDate
-//                        }
-//                    }
-//                    
-//                    if let startdate = startDate, selectedDateStr == nil {
-//                        selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-//                    }else{
-//                    
-//                      if let startdate = startDate,let seldate = selectedDate, startdate > seldate{
-//                          selectedDate = startdate
-//                        selectedDateStr = startdate.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a")
-//                      }
-//                    }
-//                }
+                .environment(\.timeZone, timeZone ?? TimeZone.current) // Ensure consistent timezone
                 .onAppear {
-                    if selectedDate == nil {
-                        if let startDate = startDate {
-                            selectedDate = startDate
-                        } else {
-                            selectedDate = Date()
-                        }
-                    }
+                    initializeSelectedDate()
                 }
-//                .onDisappear{
-//                    print("selectedDate",selectedDate)
-////                    print("selectedDateStr",selectedDateStr)
-//                    print("startDate",startDate)
-//                    print("endDate",endDate)
-//
-//                }
             }
         }
-        .disabled(Disabled == true ? true:false)
+        .disabled(Disabled == true ? true : false)
         .overlay(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).stroke(isvalid ?? true ? ColorConstants.Bluegray30066 : ColorConstants.Red400, lineWidth: 1))
         .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0).fill(Disabled == true ? ColorConstants.Bluegray30066.opacity(0.6) : ColorConstants.WhiteA700))
     }
-
-    // Function to update the selected date string and print the date
-//    private func updateSelectedDateStr(with date: Date) {
-//        selectedDateStr = date.formatDate(format: datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a",inputLocal: local)
-//        print("Selected date: \(selectedDateStr ?? "")")
-//    }
+    
+    // MARK: - Helper Methods
+    
+    private func updateSelectedDateString(from date: Date) {
+        let formatter = createFormatter()
+        selectedDateStr = formatter.string(from: date)
+        
+        print("Selected date raw:", date)
+        print("Selected date formatted:", selectedDateStr ?? "")
+        print("Formatter timezone:", formatter.timeZone?.identifier ?? "Unknown")
+    }
+    
+    private func initializeSelectedDate() {
+        // If we already have a string value, parse it back to a date
+        if let dateString = selectedDateStr, !dateString.isEmpty {
+            selectedDate = parseDateString(dateString)
+        } else if let startDate = startDate {
+            // Use start date as default if no value is set
+            selectedDate = startDate
+            updateSelectedDateString(from: startDate)
+        } else {
+            // Default to current date
+            selectedDate = Date()
+            updateSelectedDateString(from: Date())
+        }
+        
+        // Ensure selected date is within bounds
+        if let start = startDate, let selected = selectedDate, selected < start {
+            selectedDate = start
+            updateSelectedDateString(from: start)
+        }
+        
+        if let end = endDate, let selected = selectedDate, selected > end {
+            selectedDate = end
+            updateSelectedDateString(from: end)
+        }
+    }
+    
+    private func createFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = datePickerComponent == .date ? "dd MMM yyyy" : "hh:mm a"
+        formatter.timeZone = timeZone ?? TimeZone.current
+        formatter.locale = local?.locale ?? Locale.current
+        return formatter
+    }
+    
+    private func parseDateString(_ dateString: String) -> Date? {
+        let formatter = createFormatter()
+        return formatter.date(from: dateString)
+    }
 }
+
 
 
 #Preview {
