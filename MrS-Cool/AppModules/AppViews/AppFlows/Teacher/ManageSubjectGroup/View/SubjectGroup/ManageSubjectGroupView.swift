@@ -314,7 +314,7 @@ struct ManageSubjectGroupView: View {
                                         CustomDropDownField(iconName:"img_group148",placeholder: "Day", selectedOption: $subjectgroupvm.day,options:lookupsvm.daysList)
                                         
                                         HStack {
-                                            CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,timeZone:appTimeZone ?? TimeZone.current,datePickerComponent:.hourAndMinute)
+                                            CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$subjectgroupvm.startTime,timeZone:appTimeZone,datePickerComponent:.hourAndMinute)
                                         }
                                         
                                         HStack{

@@ -122,29 +122,42 @@ extension String {
     }
     
     
-    func toDate(withFormat format: String, inputTimeZone: TimeZone? = appTimeZone, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic, outputTimeZone: TimeZone? = appTimeZone, outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic) -> Date? {
-//        let dateFormatter = DateFormatter()
+//    func toDate(withFormat format: String, inputTimeZone: TimeZone? = appTimeZone, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic, outputTimeZone: TimeZone? = appTimeZone, outputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic) -> Date? {
+////        let dateFormatter = DateFormatter()
+//        let dateFormatter = DateFormatter.cachedFormatter
+//        // Add this to help parsing ambiguous/invalid DST dates
+//        dateFormatter.isLenient = true
+//
+//        // Set up the input formatter
+//        dateFormatter.dateFormat = format
+//        dateFormatter.locale = inputLocal?.locale ?? .current
+//        dateFormatter.timeZone = inputTimeZone
+//        
+//        // Parse the date using the input formatter
+//        if let date = dateFormatter.date(from: self) {
+//            // Set up the output formatter
+//            dateFormatter.locale = outputLocal?.locale ?? .current
+//            dateFormatter.timeZone = outputTimeZone
+//            
+//            // Convert the date to the output time zone
+//            let dateString = dateFormatter.string(from: date)
+//            return dateFormatter.date(from: dateString)
+//        }
+//        
+//        return nil
+//    }
+    
+    func toDate(
+        withFormat format: String,
+        inputTimeZone: TimeZone? = appTimeZone,
+        inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english : .arabic
+    ) -> Date? {
         let dateFormatter = DateFormatter.cachedFormatter
-        // Add this to help parsing ambiguous/invalid DST dates
         dateFormatter.isLenient = true
-
-        // Set up the input formatter
         dateFormatter.dateFormat = format
         dateFormatter.locale = inputLocal?.locale ?? .current
         dateFormatter.timeZone = inputTimeZone
-        
-        // Parse the date using the input formatter
-        if let date = dateFormatter.date(from: self) {
-            // Set up the output formatter
-            dateFormatter.locale = outputLocal?.locale ?? .current
-            dateFormatter.timeZone = outputTimeZone
-            
-            // Convert the date to the output time zone
-            let dateString = dateFormatter.string(from: date)
-            return dateFormatter.date(from: dateString)
-        }
-        
-        return nil
+        return dateFormatter.date(from: self)
     }
 
     

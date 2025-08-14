@@ -533,7 +533,7 @@ struct CheckOutLessonInfo: View {
                     .font(Font.bold(size: 12))
                 
                 Spacer()
-                Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ssZ", FormatTo: "EEEE d, MMMM yyyy"))
+                Text("\(details.startDate ?? "")".ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "EEEE d, MMMM yyyy"))
                     .foregroundColor(.mainBlue)
                     .font(Font.semiBold(size: 12))
                     .fontWeight(.medium)

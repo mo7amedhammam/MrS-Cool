@@ -14,27 +14,33 @@ import SwiftUI
 var appCurrency : String? {
     Helper.shared.getLanguage().lowercased() == "ar" ? Helper.shared.getAppCountry()?.currencyAr: Helper.shared.getAppCountry()?.currency
 }
-//var appTimeZone : TimeZone? {
-//    Helper.shared.getAppCountry()?.id == 5 ? TimeZone(identifier: "Asia/Riyadh") ?? TimeZone.current : TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
-//
-////    Helper.shared.getLanguage().lowercased() == "ar" ? Helper.shared.getAppCountry()?.currencyAr: Helper.shared.getAppCountry()?.currency
-//}
 
+
+extension DateFormatter {
+    static let cachedFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        // Add this to help parsing ambiguous/invalid DST dates
+        formatter.isLenient = true
+//        formatter.timeZone = appTimeZone
+        return formatter
+    }()
+}
 var appTimeZone: TimeZone {
       if let utc = Helper.shared.getAppCountry()?.countryUTC  {
+//          print("utc",utc,"timezone",Int(utc * 3600))
+//          print("timezone",TimeZone(secondsFromGMT: Int(utc * 3600)) ?? TimeZone.current)
+//          print(DateFormatter.cachedFormatter.timeZone)
+//          
+          //          DateFormatter.cachedFormatter.calendar.timeZone = TimeZone(secondsFromGMT: Int(utc * 3600)) ?? TimeZone.current
+//          print("cachedFormatter tz",DateFormatter.cachedFormatter.timeZone)
+//          print(Date())
         return TimeZone(secondsFromGMT: Int(utc * 3600)) ?? TimeZone.current
     } else {
          return Helper.shared.getAppCountry()?.id == 5 ? TimeZone(identifier: "Asia/Riyadh") ?? TimeZone.current : TimeZone(identifier: "Africa/Cairo") ?? TimeZone.current
-
-//        if Helper.shared.getAppCountry()?.id == 5{
-//            // KSA — UTC+3
-//            return TimeZone(secondsFromGMT: 3 * 3600) ?? TimeZone.current
-//        }else{
-//            // Egypt — UTC+2
-//            return TimeZone(secondsFromGMT: 2 * 3600) ?? TimeZone.current
-//        }
     }
+    
 }
+
 
 
 class Helper: NSObject {

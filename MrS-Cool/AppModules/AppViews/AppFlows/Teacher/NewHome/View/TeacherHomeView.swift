@@ -528,7 +528,7 @@ struct TeacherHomeView: View {
                         let startDate = Date()
                         CustomDatePickerField(iconName:"img_group148",placeholder: "Date", selectedDateStr:$SchedualsVm.extraDate,startDate: startDate,datePickerComponent:.date,isvalid: SchedualsVm.isextraDatevalid)
                         
-                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$SchedualsVm.extraTime,timeZone:appTimeZone ?? TimeZone.current,datePickerComponent:.hourAndMinute,isvalid: SchedualsVm.isextraTimevalid)
+                        CustomDatePickerField(iconName:"img_maskgroup7cl",placeholder: "Start Time", selectedDateStr:$SchedualsVm.extraTime,timeZone:appTimeZone,datePickerComponent:.hourAndMinute,isvalid: SchedualsVm.isextraTimevalid)
                     }
                     .padding(.top,5)
                     
