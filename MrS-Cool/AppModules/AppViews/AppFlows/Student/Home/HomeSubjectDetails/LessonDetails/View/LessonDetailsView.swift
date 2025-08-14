@@ -32,7 +32,28 @@ struct LessonDetailsView: View {
     private let dayFormatter: DateFormatter
     private let weekDayFormatter: DateFormatter
     
-    @State var selectedDate : Date? = Date()
+    // Fixed initialization - properly create start of today in app timezone
+     @State var selectedDate: Date? = {
+         var calendar = Calendar.current
+         calendar.timeZone = appTimeZone
+         
+         // Get current date components in app timezone
+         let now = Date()
+         let components = calendar.dateComponents([.year, .month, .day], from: now)
+         
+         // Create start of today in app timezone
+         var todayComponents = DateComponents()
+         todayComponents.year = components.year
+         todayComponents.month = components.month
+         todayComponents.day = components.day
+         todayComponents.hour = 0
+         todayComponents.minute = 0
+         todayComponents.second = 0
+         todayComponents.timeZone = appTimeZone
+         
+         return calendar.date(from: todayComponents) ?? calendar.startOfDay(for: now)
+     }()
+
     @State private var ispastdate:Bool = false
 //    @State var isselected = false
 
@@ -370,8 +391,9 @@ struct LessonDetailsView: View {
                                     if (lessoncase == .Individual && lessondetailsvm.availableScheduals == []){
                                         VStack (spacing:5){
                                             Text("No Available Times on".localized())
-                                            Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, d MMMM, yyyy",inputTimeZone: appTimeZone,outputTimeZone: appTimeZone)
-                                        )
+//                                            Text("\(selectedDate ?? Date())" .ChangeDateFormat(FormatFrom: "yyyy-MM-dd HH:mm:ss Z", FormatTo: "EEEE, d MMMM, yyyy",inputTimeZone: appTimeZone,outputTimeZone: appTimeZone))
+                                            Text(formatSelectedDateForDisplay())
+
                                     }
                                         .font(Font.bold(size: 15))
                                         .foregroundColor(ColorConstants.MainColor)
@@ -445,23 +467,40 @@ struct LessonDetailsView: View {
             if lessoncase == .Group {
                 lessondetailsvm.GetLessonDetails(lessonId: selectedlessonid)
             }else{
-                print("appe selectedDate",selectedDate)
-                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",inputTimeZone: appTimeZone,outputLocal: .english,outputTimeZone: appTimeZone)
-                print("appe selectedDate",date)
-
-                lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
+//                print("appe selectedDate",selectedDate)
+//                let date = selectedDate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",inputTimeZone: appTimeZone,outputLocal: .english,outputTimeZone: appTimeZone)
+//                print("appe selectedDate",date)
+//
+//                lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
+                
+                print("appear selectedDate: \(selectedDate?.description ?? "nil")")
+                              let apiDateString = formatDateForAPI(selectedDate)
+                              print("appear API date: \(apiDateString)")
+                              lessondetailsvm.GetAvailableScheduals(startDate: apiDateString)
+                
             }
         })
         .onDisappear {
             lessondetailsvm.cleanup()
         }
         .onChange(of: selectedDate){newdate in
-            print("ch newdate",newdate)
-            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",inputTimeZone: appTimeZone,outputLocal: .english,outputTimeZone: appTimeZone)
-//            if newdate != Data(){
-            print("ch date",date)
-            lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
-            lessondetailsvm.selectedsched = nil //clear individual selected sched
+//            print("ch newdate",newdate)
+//            let date = newdate?.formatDate(format: "yyyy-MM-dd'T'hh:mm:ss'Z'",inputTimeZone: appTimeZone,outputLocal: .english,outputTimeZone: appTimeZone)
+////            if newdate != Data(){
+//            print("ch date",date)
+//            lessondetailsvm.GetAvailableScheduals(startDate:date ?? "")
+//            lessondetailsvm.selectedsched = nil //clear individual selected sched
+            
+            print("onChange selectedDate: \(newdate?.description ?? "nil")")
+                    
+                    guard newdate != nil else { return }
+                    
+                    let apiDateString = formatDateForAPI(newdate)
+                    print("onChange API date: \(apiDateString)")
+                    
+                    lessondetailsvm.GetAvailableScheduals(startDate: apiDateString)
+                    lessondetailsvm.selectedsched = nil // clear individual selected sched
+            
         }
                 .showHud(isShowing: $lessondetailsvm.isLoading)
                 .showAlert(hasAlert: $lessondetailsvm.isError, alertType: lessondetailsvm.error)
@@ -469,6 +508,35 @@ struct LessonDetailsView: View {
         NavigationLink(destination: destination, isActive: $isPush, label: {})
     }
     
+    
+    /// Formats the selected date for display to user
+       private func formatSelectedDateForDisplay() -> String {
+           guard let date = selectedDate else { return "" }
+           
+           let formatter = DateFormatter.cachedFormatter
+           formatter.dateFormat = "EEEE, d MMMM, yyyy"
+           formatter.timeZone = appTimeZone
+           formatter.locale = LocalizeHelper.shared.currentLanguage == "en" ?
+               Locale(identifier: "en") : Locale(identifier: "ar")
+           
+           return formatter.string(from: date)
+       }
+       
+       /// Formats date for API calls - ensures proper timezone handling
+       private func formatDateForAPI(_ date: Date?) -> String {
+           guard let date = date else { return "" }
+           
+           // Create a formatter for the API format
+           let formatter = DateFormatter.cachedFormatter
+           formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'" // Fixed: HH instead of hh
+//           formatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC for API
+//           formatter.locale = Locale(identifier: "en_US_POSIX")
+           formatter.timeZone = appTimeZone
+           formatter.locale = LocalizeHelper.shared.currentLanguage == "en" ?
+               Locale(identifier: "en") : Locale(identifier: "ar")
+
+           return formatter.string(from: date)
+       }
 }
 
 #Preview {

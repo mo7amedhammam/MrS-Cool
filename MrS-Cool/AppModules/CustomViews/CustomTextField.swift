@@ -1055,7 +1055,7 @@ extension Date{
     func formatDate(format: String, inputLocal: SupportedLocale? = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, inputTimeZone: TimeZone = appTimeZone, outputLocal: SupportedLocale = LocalizeHelper.shared.currentLanguage == "en" ? .english:.arabic, outputTimeZone: TimeZone = appTimeZone) -> String {
 //        let dateFormatter = DateFormatter()
         let dateFormatter = DateFormatter.cachedFormatter
-
+        dateFormatter.isLenient = true
         
         // Set up the input formatter
         dateFormatter.dateFormat = format
