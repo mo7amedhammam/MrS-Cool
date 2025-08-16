@@ -38,6 +38,7 @@ enum EndPoints: String {
     case GetGovernorates = "Governorate/Get"///get
     case GetCities = "City/Get" ///get
     case GetEducationType = "EducationType/Get" ///get
+    case GetEducationTypeHome = "EducationType/GetEducationTypeHome" /// get
     case GetEducationLevel = "EducationLevel/GetByEducationType" /// get
     case GetAcademicYear = "AcademicYear/GetByEducationLevel" ///get
     case GetAllSubject = "SubjectSemesterYear/GetAllSubjectByAcademicEducationLevelId" /// get

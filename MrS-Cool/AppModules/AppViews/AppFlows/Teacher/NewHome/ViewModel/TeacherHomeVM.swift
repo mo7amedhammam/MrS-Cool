@@ -126,10 +126,10 @@ extension TeacherHomeVM{
             }
             
             var parameters:[String:Any] = ["maxResultCount":maxResultCount,"skipCount":skipCount, "isCancel":FilterCancel]
-            if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
+        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: appTimeZone){
                 parameters["dateFrom"] = filterstartdate
             }
-            if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
+        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: appTimeZone){
                 parameters["dateTo"] = filterenddate
             }
             

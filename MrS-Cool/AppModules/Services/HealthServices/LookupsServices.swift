@@ -55,7 +55,7 @@ extension LookupsServices : TargetType {
         case .GetCities:
             return EndPoints.GetCities.rawValue
         case .GetEducationTypes:
-            return EndPoints.GetEducationType.rawValue
+            return Helper.shared.CheckIfLoggedIn() ? EndPoints.GetEducationType.rawValue : EndPoints.GetEducationTypeHome.rawValue
         case .GetEducationLevels:
             return EndPoints.GetEducationLevel.rawValue
         case .GetAcademicYears:

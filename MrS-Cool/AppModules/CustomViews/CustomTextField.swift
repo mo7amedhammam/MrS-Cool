@@ -211,7 +211,11 @@ struct DropDownOption:Hashable{
     var isSelected: Bool? = false
 }
 
-struct CustomDropDownField: View {
+struct CustomDropDownField: View,Equatable {
+    static func == (lhs: CustomDropDownField, rhs: CustomDropDownField) -> Bool {
+        return lhs.placeholder == rhs.placeholder && lhs.options == rhs.options
+    }
+    
     var fieldType : inputfields? = .Default
     var iconName : String? = ""
     var rightIconName : String?

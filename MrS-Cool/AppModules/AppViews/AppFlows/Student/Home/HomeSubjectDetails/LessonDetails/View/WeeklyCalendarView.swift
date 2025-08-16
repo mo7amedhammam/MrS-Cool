@@ -255,18 +255,18 @@ struct WeeklyCalendarRepresentableView: UIViewRepresentable {
 // MARK: - Enhanced Date Extension
 extension Date {
     /// Formats date with proper timezone handling for API calls
-    func formatDate(
-        format: String,
-        inputTimeZone: TimeZone = appTimeZone,
-        outputLocal: SupportedLocale? = nil,
-        outputTimeZone: TimeZone = appTimeZone
-    ) -> String {
-        let formatter = DateFormatter.cachedFormatter
-        formatter.dateFormat = format
-        formatter.timeZone = outputTimeZone
-        formatter.locale = outputLocal?.locale ?? Locale.current
-        return formatter.string(from: self)
-    }
+//    func formatDate(
+//        format: String,
+//        inputTimeZone: TimeZone = appTimeZone,
+//        outputLocal: SupportedLocale? = nil,
+//        outputTimeZone: TimeZone = appTimeZone
+//    ) -> String {
+//        let formatter = DateFormatter.cachedFormatter
+//        formatter.dateFormat = format
+//        formatter.timeZone = outputTimeZone
+//        formatter.locale = outputLocal?.locale ?? Locale.current
+//        return formatter.string(from: self)
+//    }
     
     /// Returns start of day in specified timezone
     func startOfDay(in timeZone: TimeZone) -> Date {
@@ -286,33 +286,33 @@ extension Date {
 }
 
 // MARK: - Fixed String Extension
-extension String {
-    func ChangeDateFormat(
-        FormatFrom inputFormat: String,
-        FormatTo outputFormat: String,
-        inputTimeZone: TimeZone = appTimeZone,
-        outputTimeZone: TimeZone = appTimeZone,
-        locale: Locale = .current
-    ) -> String {
-        let inputFormatter = DateFormatter.cachedFormatter
-        inputFormatter.dateFormat = inputFormat
-        inputFormatter.timeZone = inputTimeZone
-        inputFormatter.locale = locale
-        inputFormatter.isLenient = true
-        guard let date = inputFormatter.date(from: self) else {
-            print("❌ Failed to parse date: '\(self)' with format: '\(inputFormat)'")
-            print("Expected format example: \(inputFormatter.string(from: Date()))")
-            return self
-        }
-        
-        let outputFormatter = DateFormatter.cachedFormatter
-        outputFormatter.dateFormat = outputFormat
-        outputFormatter.timeZone = outputTimeZone
-        outputFormatter.locale = locale
-        outputFormatter.isLenient = true
-
-        let result = outputFormatter.string(from: date)
-        print("✅ Date conversion: '\(self)' -> '\(result)'")
-        return result
-    }
-}
+//extension String {
+//    func ChangeDateFormat(
+//        FormatFrom inputFormat: String,
+//        FormatTo outputFormat: String,
+//        inputTimeZone: TimeZone = appTimeZone,
+//        outputTimeZone: TimeZone = appTimeZone,
+//        locale: Locale = .current
+//    ) -> String {
+//        let inputFormatter = DateFormatter.cachedFormatter
+//        inputFormatter.dateFormat = inputFormat
+//        inputFormatter.timeZone = inputTimeZone
+//        inputFormatter.locale = locale
+//        inputFormatter.isLenient = true
+//        guard let date = inputFormatter.date(from: self) else {
+//            print("❌ Failed to parse date: '\(self)' with format: '\(inputFormat)'")
+//            print("Expected format example: \(inputFormatter.string(from: Date()))")
+//            return self
+//        }
+//        
+//        let outputFormatter = DateFormatter.cachedFormatter
+//        outputFormatter.dateFormat = outputFormat
+//        outputFormatter.timeZone = outputTimeZone
+//        outputFormatter.locale = locale
+//        outputFormatter.isLenient = true
+//
+//        let result = outputFormatter.string(from: date)
+//        print("✅ Date conversion: '\(self)' -> '\(result)'")
+//        return result
+//    }
+//}

@@ -528,7 +528,7 @@ struct LessonDetailsView: View {
            
            // Create a formatter for the API format
            let formatter = DateFormatter.cachedFormatter
-           formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'" // Fixed: HH instead of hh
+           formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss" // Fixed: HH instead of hh
 //           formatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC for API
 //           formatter.locale = Locale(identifier: "en_US_POSIX")
            formatter.timeZone = appTimeZone
