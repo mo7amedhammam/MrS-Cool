@@ -230,7 +230,7 @@ enum Studentdestinations{
 //
 struct StudentTabBarView: View {
     @StateObject private var studenttabbarvm = StudentTabBarVM()
-    @StateObject private var studentsignupvm = StudentEditProfileVM()
+    @StateObject private var studentsignupvm = StudentEditProfileVM.shared
     @State private var selectedDestination: Studentdestinations?
     @State private var presentSideMenu = false
     @State var homeIndex : Int?

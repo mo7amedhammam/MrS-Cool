@@ -266,6 +266,20 @@ extension Helper{
         return date
         }
     
+     func openChat(phoneNumber: String, message: String = "") {
+          let cleaned = phoneNumber.replacingOccurrences(of: " ", with: "")
+          let urlString = "https://wa.me/\(cleaned)?text=\(message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+          
+          if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+              UIApplication.shared.open(url)
+          } else {
+              // WhatsApp not installed → open App Store
+              if let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id310633997") {
+                  UIApplication.shared.open(appStoreURL)
+              }
+          }
+      }
+    
 }
 
 //MARK: -- view helper --

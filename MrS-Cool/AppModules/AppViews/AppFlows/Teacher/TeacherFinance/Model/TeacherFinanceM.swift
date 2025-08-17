@@ -71,6 +71,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         self.appCountry = nil
         self.currency = nil
         self.rate = nil
+        self.profitAfterRate = nil
     }
     
     enum AlternativeCodingKeys: String, CodingKey {
@@ -112,6 +113,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         appCountry = try? container.decodeIfPresent(String.self, forKey: .appCountry)
         currency = try? container.decodeIfPresent(String.self, forKey: .currency)
         rate = try? container.decodeIfPresent(Double.self, forKey: .rate)
+        profitAfterRate = try? container.decodeIfPresent(Double.self, forKey: .profitAfterRate)
 
         
     }
@@ -143,6 +145,7 @@ struct TeacherFinanceItem : Codable ,Equatable,Hashable{
         try container.encodeIfPresent(appCountry, forKey: .appCountry)
         try container.encodeIfPresent(currency, forKey: .currency)
         try container.encodeIfPresent(rate, forKey: .rate)
+        try container.encodeIfPresent(profitAfterRate, forKey: .profitAfterRate)
 
     }
     

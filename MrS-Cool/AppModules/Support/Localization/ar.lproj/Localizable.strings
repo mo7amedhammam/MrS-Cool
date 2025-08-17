@@ -540,6 +540,16 @@
 "Material TitleAr" = "اسم المحتوى";
 "Document Type" = "نوع المستند";
 
+"Bank_Transfare_Title" = "تعليمات";
+"Bank_Transfare_HeadTitle" = "تعليمات الدفع عن طريق التحويل البنكي";
+"Bank_Transfare_SubTitle" = "يرجى تحميل صورة من التحويل البنكي باستخدام مربع رفع الملفات أدناه، وإضافة أي ملاحظات في خانة الوصف.";
+"Bank_Transfare_CommentPlaceholder" = "أخبرنا بملاحظاتك";
+"Bank_Transfare_GeneralNote" = "سيقوم فريقنا المختص بمراجعة التحويل خلال 24 ساعة، وسيتم تفعيل الدورة مباشرة بعد تأكيد العملية.";
+"Bank_Transfare_UrgentNote" = "للاستفسارات العاجلة، يرجى التواصل معنا عبر الواتساب على الرقم ";
+"UrgetWhatsapp_number" = "0569927760";
+"Bank_Transfare_choose_Btn" = "اختر الملف";
+"Send_Btn" = "إرسال";
+
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "قبول";

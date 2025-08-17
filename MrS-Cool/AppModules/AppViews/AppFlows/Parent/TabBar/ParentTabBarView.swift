@@ -178,7 +178,7 @@ struct ParentTabBarView: View {
                 tabbarvm.destination = AnyView(EditParentProfileView().environmentObject(parentProfilevm))
                 
             }else if newval == .editStudentProfile{
-                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM()))
+                tabbarvm.destination = AnyView(StudentEditProfileView().environmentObject(StudentEditProfileVM.shared))
                 
                 
             }else if newval == .calendar { //calendar
@@ -188,7 +188,7 @@ struct ParentTabBarView: View {
                
 
                 tabbarvm.destination = AnyView( TeacherHomeView(hasNavBar:true,selectedChild: $listchildrenvm.selectedChild)
-                    .environmentObject(StudentEditProfileVM()))
+                    .environmentObject(StudentEditProfileVM.shared))
                 
             }else if newval == .changePassword { // change password
                 tabbarvm.destination = AnyView(ChangePasswordView(hideImage: false).environmentObject(ChangePasswordVM()))

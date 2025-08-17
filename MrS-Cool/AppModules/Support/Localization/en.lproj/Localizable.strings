@@ -527,6 +527,15 @@
 "Material TitleAr" = "اسم المحتوى";
 "Document Type" = "Document Type";
 
+"Bank_Transfare_Title" = "Instructions";
+"Bank_Transfare_HeadTitle" = "Bank Transfer Payment Instructions";
+"Bank_Transfare_SubTitle" = "Please upload a photo of your bank transfer using the file upload box below, and add any notes in the description box.";
+"Bank_Transfare_CommentPlaceholder" = "Tell us about your notes";
+"Bank_Transfare_GeneralNote" = "Our specialized team will review the transfer within 24 hours, and the course will be activated immediately after the transaction is confirmed.";
+"Bank_Transfare_UrgentNote" = "For urgent inquiries, please contact us via WhatsApp at ";
+"UrgetWhatsapp_number" = "0569927760";
+"Bank_Transfare_choose_Btn" = "Choose Files";
+"Send_Btn" = "Send";
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "Accept";

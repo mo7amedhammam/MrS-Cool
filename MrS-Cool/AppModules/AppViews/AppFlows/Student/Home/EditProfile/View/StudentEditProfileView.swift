@@ -94,31 +94,32 @@ struct StudentEditProfileView: View {
                                 
                                 CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $studentsignupvm.educationType,options:lookupsvm.EducationTypesList)
                                     .onChange(of: studentsignupvm.educationType, perform: { val in
-                                        guard !studentsignupvm.isFillingData else {return}
+//                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedEducationType = val
                                     })
                                 
                                 CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $studentsignupvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid:studentsignupvm.iseducationLevelvalid)
                                     .onChange(of: studentsignupvm.educationLevel, perform: { val in
-                                        guard !studentsignupvm.isFillingData else {return}
+//                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedEducationLevel = val
                                     })
                                 
                                 CustomDropDownField(iconName:"img_group148",placeholder: "Academic Year *", selectedOption: $studentsignupvm.dummyAcademicYear,options:lookupsvm.AcademicYearsList,isvalid:studentsignupvm.isdummyacademicYearvalid)
-                                
+                                    .id(studentsignupvm.dummyAcademicYear)
+
                                 CustomTextField(iconName:"img_group_512411",placeholder: "Email Address", text: $studentsignupvm.email,textContentType:.emailAddress,keyboardType: .emailAddress,isvalid:studentsignupvm.isemailvalid)
                                 
                                 CustomTextField(iconName:"img_group51",placeholder: "School Name *", text: $studentsignupvm.SchoolName,textContentType:.name,isvalid:studentsignupvm.isSchoolNamevalid)
 
                                 CustomDropDownField(iconName:"img_group_512370",placeholder: "Country *", selectedOption: $studentsignupvm.country,options:lookupsvm.CountriesList,isvalid:studentsignupvm.iscountryvalid)
                                     .onChange(of: studentsignupvm.country, perform: { val in
-                                        guard !studentsignupvm.isFillingData else {return}
+//                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedCountry = val
                                     })
                                 
                                 CustomDropDownField(iconName:"img_group_512372",placeholder: "Governorate *", selectedOption: $studentsignupvm.governorte,options:lookupsvm.GovernoratesList,isvalid:studentsignupvm.isgovernortevalid)
                                     .onChange(of: studentsignupvm.governorte, perform: { val in
-                                        guard !studentsignupvm.isFillingData else {return}
+//                                        guard !studentsignupvm.isFillingData else {return}
                                         lookupsvm.SelectedGovernorate = val
                                     })
                                 
@@ -147,24 +148,22 @@ struct StudentEditProfileView: View {
         })
         .onAppear(perform: {
             Task{ await studentsignupvm.GetStudentProfile()}
-            Task(priority: .background, operation: {
+                            Task(priority: .background, operation: {
                 // if parent is editing student profile
                 studentsignupvm.image = nil
                 lookupsvm.getGendersArr()
                 lookupsvm.GetEducationTypes()
                 lookupsvm.getCountriesArr()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+//                DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
                     lookupsvm.SelectedCountry = studentsignupvm.country
                     lookupsvm.SelectedGovernorate = studentsignupvm.governorte
                     lookupsvm.SelectedEducationType = studentsignupvm.educationType
                     lookupsvm.SelectedEducationLevel = studentsignupvm.educationLevel
-                })
-            })
+//                })
+                            })
+//            }
         })
-//        .onChange(of: studentsignupvm.academicYear, perform: { value in
-//            academicYear = value
-//        })
         .onChange(of: studentsignupvm.isDataUpdated, perform: { value in
             if value == true{
                 dismiss()
@@ -174,32 +173,11 @@ struct StudentEditProfileView: View {
         .showHud(isShowing: $studentsignupvm.isLoading)
         .showAlert(hasAlert: $studentsignupvm.isError, alertType: studentsignupvm.error)
 
-//        //MARK: -------- imagePicker From Camera and Library ------
-//        .confirmationDialog("Choose_Image_From".localized(), isPresented: $showImageSheet) {
-//            Button("photo_Library".localized()) {
-//                self.imagesource = .photoLibrary
-//                self.showImageSheet = false
-//                self.startPickingImage = true
-//            }
-//            Button("Camera".localized()) {
-//                self.imagesource = .camera
-//                self.showImageSheet = false
-//                self.startPickingImage = true
-//            }
-//            Button("Cancel".localized(), role: .cancel) { }
-//        } message: {Text("Choose_Image_From".localized())}
-//            .sheet(isPresented: $startPickingImage) {
-//                if let sourceType = imagesource {
-//                    // Pick an image from the photo library:
-//                    ImagePicker(sourceType: sourceType , selectedImage: $studentsignupvm.image)
-//                }
-//            }
-
     }
 }
 #Preview{
     StudentEditProfileView()
 //        .environmentObject(LookUpsVM())
-        .environmentObject(StudentEditProfileVM())
+        .environmentObject(StudentEditProfileVM.shared)
 }
 

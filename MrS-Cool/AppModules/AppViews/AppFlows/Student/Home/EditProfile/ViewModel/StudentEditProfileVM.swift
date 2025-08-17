@@ -8,6 +8,7 @@ import Foundation
 import Combine
 import UIKit
 
+@MainActor
 class StudentEditProfileVM: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     static let shared = StudentEditProfileVM()
@@ -166,9 +167,9 @@ extension StudentEditProfileVM{
                 print("receivedData",receivedData)
                 if let model = receivedData.data{
 //                    OtpM = model
-                    DispatchQueue.main.async { [self] in
+//                    DispatchQueue.main.async { [self] in
                         self.fillTeacherData(model: model)
-                    }
+//                    }
                 }else{
                     isError =  true
 //                    error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")
@@ -183,7 +184,7 @@ extension StudentEditProfileVM{
     func UpdateStudentProfile(){
         academicYear = dummyAcademicYear
         guard checkValidfields() else {return}
-        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
+        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone), let academicYearId = academicYear?.id,let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"mobile":phone,"GenderId":genderid,"Birthdate":birthdate, "AcademicYearEducationLevelId":academicYearId,"CityId":cityid,"Email":email,"SchoolName":SchoolName]
 
         if let image = image {
@@ -236,44 +237,48 @@ extension StudentEditProfileVM{
     }
     private func fillTeacherData(model:StudentProfileM){
         isFillingData = true
-        name = model.name ?? ""
-        imageStr =  model.image ?? ""
-        code = model.code ?? ""
-        phone = model.mobile ?? ""
-        selectedGender = .init(id:model.genderID,Title:model.genderName )
-        if let countryID = model.countryID, let countryName = model.countryName{
-            country = .init(id:countryID,Title: countryName)
-        }else{
-            country = nil
-            iscountryvalid = true
+        DispatchQueue.main.async {
+            
+            self.name = model.name ?? ""
+            self.imageStr =  model.image ?? ""
+            self.code = model.code ?? ""
+            self.phone = model.mobile ?? ""
+            self.selectedGender = .init(id:model.genderID,Title:model.genderName )
+            if let countryID = model.countryID, let countryName = model.countryName{
+                self.country = .init(id:countryID,Title: countryName)
+            }else{
+                self.country = nil
+                self.iscountryvalid = true
+            }
+            if let governorateID = model.governorateID, let governorateName = model.governorateName{
+                self.governorte = .init(id: governorateID,Title: governorateName)
+            }else{
+                self.governorte = nil
+                self.isgovernortevalid = true
+            }
+            if let cityID = model.cityID, let cityName = model.cityName{
+                self.city = .init(id: cityID,Title: cityName)
+            }else{
+                self.city = nil
+                self.iscityvalid = true
+            }
+            
+            self.educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
+            self.educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
+            self.dummyAcademicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
+            self.academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
+            self.birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
+            self.email =  model.email ?? ""
+            self.SchoolName = model.schoolName ?? ""
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
+                isFillingData = false
+                isDataUpdated = false
+            })
+            
+            Helper.shared.selectedchild = ChildrenM.init(id:  model.id , code: model.code, image: model.image ?? "", academicYearEducationLevelName: model.academicYearName, academicYearEducationLevelID: model.academicYearEducationLevelID, name: model.name ?? "")
+            
         }
-        if let governorateID = model.governorateID, let governorateName = model.governorateName{
-            governorte = .init(id: governorateID,Title: governorateName)
-        }else{
-            governorte = nil
-            isgovernortevalid = true
-        }
-        if let cityID = model.cityID, let cityName = model.cityName{
-            city = .init(id: cityID,Title: cityName)
-        }else{
-            city = nil
-            iscityvalid = true
-        }
-        
-        educationType = .init(id:model.educationTypeID ,Title:model.educationTypeName)
-        educationLevel = .init(id:model.educationLevelID,Title:model.educationLevelName)
-        dummyAcademicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
-        academicYear = .init(id:model.academicYearEducationLevelID,Title:model.academicYearName)
-        birthDateStr = model.birthdate?.ChangeDateFormat(FormatFrom: "yyyy-MM-dd'T'HH:mm:ss", FormatTo: "dd  MMM  yyyy")
-        email =  model.email ?? ""
-        SchoolName = model.schoolName ?? ""
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: { [self] in
-            isFillingData = false
-            isDataUpdated = false
-        })
-        
-        Helper.shared.selectedchild = ChildrenM.init(id:  model.id , code: model.code, image: model.image ?? "", academicYearEducationLevelName: model.academicYearName, academicYearEducationLevelID: model.academicYearEducationLevelID, name: model.name ?? "")
         
 //        if var student = Helper.shared.getUser(),student.academicYearId != model.academicYearEducationLevelID {
 //            student.academicYearId = model.academicYearEducationLevelID

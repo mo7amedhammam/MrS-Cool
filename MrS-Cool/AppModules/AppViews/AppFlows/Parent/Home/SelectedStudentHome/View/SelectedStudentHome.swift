@@ -19,7 +19,7 @@ struct SelectedStudentHome: View {
     @StateObject var teacherProfilevm = ManageTeacherProfileVM()
     @StateObject var studenthomevm = StudentHomeVM()
     @EnvironmentObject var listchildrenvm : ListChildrenVM
-    @StateObject var studentsignupvm = StudentEditProfileVM()
+    @StateObject var studentsignupvm = StudentEditProfileVM.shared
 
     //    @StateObject var completedlessonsvm = StudentCompletedLessonsVM()
     //    @StateObject var chatListvm = ChatListVM()

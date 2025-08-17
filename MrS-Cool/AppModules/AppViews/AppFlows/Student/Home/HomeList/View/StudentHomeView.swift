@@ -600,7 +600,7 @@ struct StudentHomeView: View {
 #Preview{
     StudentHomeView()
         .environmentObject(StudentTabBarVM())
-        .environmentObject(StudentEditProfileVM())
+        .environmentObject(StudentEditProfileVM.shared)
         .environment(\.layoutDirection, .rightToLeft) // For RTL preview
     
 }
