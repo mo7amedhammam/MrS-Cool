@@ -273,7 +273,7 @@ extension Helper{
                 cleaned.removeFirst()
             }
             // Prefix with Saudi country code
-            cleaned = "966" + cleaned
+//            cleaned = "966" + cleaned
 
           let urlString = "https://wa.me/\(cleaned)?text=\(message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
           
