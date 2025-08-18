@@ -536,6 +536,12 @@
 "UrgetWhatsapp_number" = "0569927760";
 "Bank_Transfare_choose_Btn" = "Choose Files";
 "Send_Btn" = "Send";
+
+"payment_pending_title" = "Payment Approve";
+"payment_pending_headtitle" = "Your information has bee\n successfully submitted.";
+"payment_pending_subtitle1" = "Our specialized team will review the transfer within 24 hours, and the course will be activated immediately after the transaction is confirmed.";
+"payment_pending_subtitle2" = "Our specialized team will review the transfer within 24 hours, and the course will be activated immediately after the transaction is confirmed.";
+
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "Accept";

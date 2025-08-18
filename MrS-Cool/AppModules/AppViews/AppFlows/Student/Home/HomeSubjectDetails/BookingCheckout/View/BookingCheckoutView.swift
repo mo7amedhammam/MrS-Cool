@@ -181,7 +181,7 @@ struct BookingCheckoutView: View {
         })
         
         .onAppear(perform: {
-            checkoutvm.bookingcase =  bookingcase
+            checkoutvm.bookingcase = bookingcase
             checkoutvm.selectedDataToBook = selectedgroupid
             checkoutvm.GetBookCheckout(Id: selectedgroupid.selectedId ?? 0)
         })
@@ -190,7 +190,11 @@ struct BookingCheckoutView: View {
         }
         .onChange(of: checkoutvm.isCheckoutSuccess, perform: { value in
             guard checkoutvm.CreatedBooking?.paymentURL == nil else{return}
-            destination = AnyView(PaymentStatusView(paymentsuccess: value))
+            if checkoutvm.CreatedBooking?.withoutPaymentGateway == true {
+                destination = AnyView(BankTransferView().environmentObject(checkoutvm))
+            }else{
+                destination = AnyView(PaymentStatusView(paymentsuccess:value ? .success:.failed))
+            }
             isPush = true
         })
 //        .sheet(isPresented: $checkoutvm.isCheckoutSuccess) {
@@ -201,7 +205,7 @@ struct BookingCheckoutView: View {
         
         .fullScreenCover(isPresented: .constant(checkoutvm.isCheckoutSuccess && checkoutvm.CreatedBooking?.paymentURL != nil),onDismiss: {
             guard isPaymentSuccessful != nil, let isSuccess = isPaymentSuccessful else {return}
-            destination = AnyView(PaymentStatusView(paymentsuccess: isSuccess))
+            destination = AnyView(PaymentStatusView(paymentsuccess:isSuccess ? .success:.failed))
             isPush = true
         }) {
                   if let strurl = checkoutvm.CreatedBooking?.paymentURL, let url = URL(string: strurl) {

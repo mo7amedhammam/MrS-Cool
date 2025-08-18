@@ -194,6 +194,7 @@ enum EndPoints: String {
     
     case GetCheckOutBookTeacherSession = "BookTeacherLessonSession/GetCheckOutBookTeacherSession"
     case CreateBookTeacherSession = "BookTeacherLessonSession/CreateBookTeacherLessonSession"
+    case UpdateOfflinePayment = "Payment/UpdateOfflinePayment"
 
     // MARK: -- student completed lessons --
     case GetStudentCompletedLessons = "StudentCompletedLesson/GetStudentCompletedLessons"

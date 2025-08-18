@@ -11,26 +11,26 @@ struct BankTransferView: View {
     @Environment(\.dismiss) var dismiss
 //    @StateObject var lookupsvm = LookUpsVM()
 //    @StateObject var signupvm = SignUpViewModel()
-    @StateObject var viewmodel = BookingCheckoutVM()
+    @EnvironmentObject var viewmodel : BookingCheckoutVM
 
     @State var isPush = false
     @State var destination = AnyView(EmptyView())
     
     @State private var isSheetPresented = false
-    @State private var selectedFileType: fileTypesList = .image // Track the selected file type
+//    @State private var selectedFileType: fileTypesList = .image // Track the selected file type
     
     @State private var showImageSheet = false
     @State private var imagesource: UIImagePickerController.SourceType? = .camera // Track the selected file type
     @State private var startPickingImage = false
     @State private var startPickingPdf = false
     
-    @State private var isPreviewPresented = false
-    @State var previewurl : String = ""
+//    @State private var isPreviewPresented = false
+//    @State var previewurl : String = ""
 
-    @State var confirmDelete : Bool = false
+//    @State var confirmDelete : Bool = false
 
-    @State var sussessStep : successSteps = .accountCreated
-    @Binding var isFinish : Bool
+//    @State var sussessStep : successSteps = .accountCreated
+//    @State var isFinish : Bool = false
     
 //    @State var showFilter : Bool = false
 //    @State var filterdocumentType : DropDownOption?
@@ -156,7 +156,7 @@ struct BankTransferView: View {
                         
                         Spacer()
                         
-                        CustomButton(Title:"Send_Btn",IsDisabled: .constant(viewmodel.documentImg == nil), action: {
+                        CustomButton(Title:"Send_Btn",IsDisabled: .constant(viewmodel.documentImg == nil && viewmodel.documentPdf == nil ), action: {
 //                            clearDocumentsFilter()
                             //                                        teacherdocumentsvm.clearFilter()
                             viewmodel.UploadTransferImage()
@@ -167,21 +167,21 @@ struct BankTransferView: View {
                     .frame(minHeight: gr.size.height)
                 }
             }
-            .onAppear(perform: {
-//                lookupsvm.GetDocumentTypes()
-//                teacherdocumentsvm.GetTeacherDocument()
-            })
+//            .onAppear(perform: {
+////                lookupsvm.GetDocumentTypes()
+////                teacherdocumentsvm.GetTeacherDocument()
+//            })
             
             //MARK: -------- imagePicker From Camera and Library ------
             .confirmationDialog(Text("Choose_File_Type".localized()), isPresented: $isSheetPresented) {
                 Button("Image".localized()) {
-                    selectedFileType = .image
+//                    selectedFileType = .image
                     showImageSheet = true
                     print("upload image")
                     // Call a function to show an image picker
                 }
                 Button("PDF".localized()) {
-                    selectedFileType = .pdf
+//                    selectedFileType = .pdf
                     startPickingPdf = true
                     print("upload pdf")
                     // Call a function to add a PDF document
@@ -219,24 +219,29 @@ struct BankTransferView: View {
                         print("Importer error: \(failure)")
                     }
                 })
-            
+                .onChange(of: viewmodel.isTransferUploaded){newval in
+                    if newval == true{
+                        destination = AnyView(PaymentStatusView(paymentsuccess: .pending))
+                        isPush = true
+                    }
+                }
 //                .fullScreenCover(isPresented: $isPreviewPresented, onDismiss: {
 //                // Optional: Handle actions on closing the preview sheet
 //            }, content: {
 //                FilePreviewerSheet(url:$previewurl)
 //            })
             
-            .fullScreenCover(isPresented: $isFinish, onDismiss: {
-                print("dismissed ")
-    //            destination = AnyView(SignInView())
-    ////            isPush.toggle()
-    //            dismiss()
-            }, content: {
-                CustomSuccessView(action: {
-    //                destination = AnyView(SignInView())
-                    dismiss()
-                }, successStep: .constant(.accountCreated))
-        })
+//            .fullScreenCover(isPresented: $isFinish, onDismiss: {
+//                print("dismissed ")
+//    //            destination = AnyView(SignInView())
+//    ////            isPush.toggle()
+//    //            dismiss()
+//            }, content: {
+//                CustomSuccessView(action: {
+//    //                destination = AnyView(SignInView())
+//                    dismiss()
+//                }, successStep: .constant(.accountCreated))
+//        })
         }
         .hideNavigationBar()
         .background(ColorConstants.Gray50.ignoresSafeArea().onTapGesture {
@@ -245,14 +250,15 @@ struct BankTransferView: View {
         
       .showHud(isShowing: $viewmodel.isLoading)
       .showAlert(hasAlert: $viewmodel.isError, alertType: viewmodel.error)
+        NavigationLink(destination: destination, isActive: $isPush, label: {})
 
     }
 }
 
 //@available(iOS 16.0, *)
 #Preview{
-    BankTransferView(isFinish: .constant(false))
-//        .environmentObject(LookUpsVM())
+    BankTransferView()
+        .environmentObject(BookingCheckoutVM())
 //        .environmentObject(SignUpViewModel())
 //        .environmentObject(TeacherDocumentsVM())
 }

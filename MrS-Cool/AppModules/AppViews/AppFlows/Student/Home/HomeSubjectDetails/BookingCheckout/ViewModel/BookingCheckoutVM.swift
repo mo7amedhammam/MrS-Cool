@@ -41,6 +41,7 @@ class BookingCheckoutVM: ObservableObject {
     @Published var isLoading : Bool?
     @Published var isError : Bool = false
     @Published var error: AlertType = .error(title: "", image: "", message: "", buttonTitle: "", secondButtonTitle: "")
+    @Published var isTransferUploaded : Bool = false
 
     @Published var Checkout:BookingCheckoutM? = BookingCheckoutM.init()
     @Published var CreatedBooking:BookingCreateM? = BookingCreateM.init()
@@ -164,29 +165,27 @@ extension BookingCheckoutVM{
         }
         cancellables.removeAll()
     }
-    
 }
-
 
 extension BookingCheckoutVM{
     func UploadTransferImage(){
         guard checkValidfields() else {return}
-        
-        var parameters:[String:Any] = [:]
+        guard let paymentId = CreatedBooking?.paymentId else {return}
+        var parameters:[String:Any] = ["PaymentId":paymentId]
         if Comment.count > 0{
             parameters["Comment"] = Comment
         }
         if let documentImg = documentImg {
-            parameters["Document"] = documentImg
+            parameters["ImagePath"] = documentImg
 
         }else if let documentpdf = documentPdf{
-            parameters["Document"] = documentpdf
+            parameters["ImagePath"] = documentpdf
 
         }
         print("parameters",parameters)
-        let target = Authintications.TeacherRegisterDocuments(parameters: parameters)
+        let target = StudentServices.UpdateOfflinePayment(parameters: parameters)
         isLoading = true
-        BaseNetwork.uploadApi(target, BaseResponse<TeacherDocumentM>.self,progressHandler: {progress in})
+        BaseNetwork.uploadApi(target, BaseResponse<OfflinePaymentM>.self,progressHandler: {progress in})
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: {[weak self] completion in
                 guard let self = self else{return}
@@ -203,7 +202,8 @@ extension BookingCheckoutVM{
                 print("receivedData",receivedData)
                 if receivedData.success == true {
                     error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
-//                        guard let self = self else {return}
+                        guard let self = self else {return}
+                        self.isTransferUploaded = true
 //                        GetTeacherDocument()
 //                        clearTeachersDocument()
                     })
@@ -223,8 +223,8 @@ extension BookingCheckoutVM{
     
     func ClearTransfer(){
         documentImg = nil
+        documentPdf = nil
         Comment.removeAll()
-        //            documentPdf = nil
         
         //            isdocumentTypevalid = true
         //            isdocumentTitlevalid = true

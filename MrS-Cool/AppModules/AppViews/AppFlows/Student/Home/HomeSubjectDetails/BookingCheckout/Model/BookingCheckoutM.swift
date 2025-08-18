@@ -51,6 +51,8 @@ struct BookingCreateM: Codable {
     var studentID, teacherlessonsessionID, bookTeacherLessonSessionID: Int?
     var paymentURL: String?
     var amount: Float?
+    var paymentId:Int?
+    var withoutPaymentGateway: Bool?
 
     enum CodingKeys: String, CodingKey {
         case studentID = "studentId"
@@ -58,5 +60,36 @@ struct BookingCreateM: Codable {
         case bookTeacherLessonSessionID = "bookTeacherLessonSessionId"
         case paymentURL = "paymentUrl"
         case amount
+        case paymentId,withoutPaymentGateway
+    }
+}
+
+// MARK: - OfflinePaymentM
+struct OfflinePaymentM: Codable {
+    var teacherlessonsessionID, bookTeacherlessonsessionID, studentID, parentID: Int?
+    var amount: Int?
+    var paid: Bool?
+    var language, sessionID: String?
+    var appCountryID: Int?
+    var orderID, merchantReferenceID: String?
+    var rate, paymentGatewayID, statusID: Int?
+    var paymentURL: String?
+    var withoutPaymentGateway: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case teacherlessonsessionID = "teacherlessonsessionId"
+        case bookTeacherlessonsessionID = "bookTeacherlessonsessionId"
+        case studentID = "studentId"
+        case parentID = "parentId"
+        case amount, paid, language
+        case sessionID = "sessionId"
+        case appCountryID = "appCountryId"
+        case orderID = "orderId"
+        case merchantReferenceID = "merchantReferenceId"
+        case rate
+        case paymentGatewayID = "paymentGatewayId"
+        case statusID = "statusId"
+        case paymentURL = "paymentUrl"
+        case withoutPaymentGateway
     }
 }

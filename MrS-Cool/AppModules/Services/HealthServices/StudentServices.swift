@@ -31,6 +31,7 @@ enum StudentServices{
     case GetAvaliableScheduals(parameters : [String:Any])
     case GetCheckOutBookTeacherSession(parameters : [String:Any])
     case CreateOutBookTeacherSession(parameters : [String:Any])
+    case UpdateOfflinePayment(parameters : [String:Any])
 
     case GetStudentCompletedLessons(parameters : [String:Any])
     case GetStudentCompletedLessonDetails(parameters : [String:Any])
@@ -101,6 +102,9 @@ extension StudentServices:TargetType{
             return EndPoints.GetCheckOutBookTeacherSession.rawValue
         case .CreateOutBookTeacherSession:
             return EndPoints.CreateBookTeacherSession.rawValue
+        case .UpdateOfflinePayment:
+            return EndPoints.UpdateOfflinePayment.rawValue
+            
             
         case .GetStudentCompletedLessons:
             return EndPoints.GetStudentCompletedLessons.rawValue
@@ -159,7 +163,7 @@ extension StudentServices:TargetType{
         case  .GetHomeScheduals,
                 .GetSubjectOrLessonTeachers,
                 .GetMostBookedTeachers,
-                .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,
+                .GetCheckOutBookTeacherSession,.CreateOutBookTeacherSession,.UpdateOfflinePayment,
                 .GetStudentCompletedLessons,
                 .UpdateStudentProfile,
                 .GetStudentFinanceSubjects,
@@ -198,6 +202,7 @@ extension StudentServices:TargetType{
                 .GetMostBookedTeachers(parameters: let Parameters),
                 .GetCheckOutBookTeacherSession(parameters: let Parameters),
                 .CreateOutBookTeacherSession(parameters: let Parameters),
+                .UpdateOfflinePayment(parameters: let Parameters),
                 .GetStudentCompletedLessons(parameters: let Parameters),
                 .UpdateStudentProfile(parameters: let Parameters),
                 .GetStudentFinanceSubjects(_, parameters: let Parameters),

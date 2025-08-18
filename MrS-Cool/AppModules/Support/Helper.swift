@@ -267,7 +267,14 @@ extension Helper{
         }
     
      func openChat(phoneNumber: String, message: String = "") {
-          let cleaned = phoneNumber.replacingOccurrences(of: " ", with: "")
+         // Ensure number is in international format (no leading 0)
+            var cleaned = phoneNumber.replacingOccurrences(of: " ", with: "")
+            if cleaned.hasPrefix("0") {
+                cleaned.removeFirst()
+            }
+            // Prefix with Saudi country code
+            cleaned = "966" + cleaned
+
           let urlString = "https://wa.me/\(cleaned)?text=\(message.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
           
           if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
