@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var locationvm = LocationService.shared
     @StateObject var lookupsvm = LookUpsVM()
     @State var showAppCountry = Helper.shared.getAppCountry() == nil && Helper.shared.CheckIfLoggedIn() == false
     @State var selectedAppCountry:AppCountryM? = Helper.shared.getAppCountry()
@@ -32,6 +33,9 @@ struct ContentView: View {
                 }
             }
         }
+//        .onAppear{
+//            detectCountry()
+//        }
         .environment(\.locale, Locale(identifier: LocalizeHelper.shared.currentLanguage))
         .environment(\.layoutDirection,LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft:.leftToRight)
         .edgesIgnoringSafeArea(.vertical)
@@ -77,7 +81,8 @@ struct ContentView: View {
                             alignment: .center,
                             spacing: 10
                         ) {
-                            ForEach(countries,id:\.self) { country in
+                            let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
+                            ForEach(filtered,id:\.self) { country in
                                 
                                 //                                ZStack{
                                 //                                    ColorConstants.MainColor
@@ -215,4 +220,26 @@ struct ContentView: View {
 }
 #Preview {
     ContentView()
+}
+
+extension ContentView{
+    
+//     func detectCountry() {
+////        locationService = LocationService() // keep a strong reference
+//
+//         LocationService.shared.onCountryDetected = { countryCode in
+//            if let code = countryCode {
+//                print("Detected Country: \(code)")
+//
+//                // Example: Set global flags or variables
+//                if code == "EG" {
+//                    print("🇪🇬 User is in Egypt")
+//                } else if code == "SA" {
+//                    print("🇸🇦 User is in Saudi Arabia")
+//                }
+//            } else {
+//                print("❌ Failed to detect country")
+//            }
+//        }
+//    }
 }

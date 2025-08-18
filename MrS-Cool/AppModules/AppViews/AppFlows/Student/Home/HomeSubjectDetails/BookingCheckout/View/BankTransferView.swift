@@ -62,7 +62,7 @@ struct BankTransferView: View {
                                     .foregroundColor(Color("teacher-tint"))
                                     .multilineTextAlignment(.center)
                                 
-                                if viewmodel.documentImg != nil {
+                                if viewmodel.documentImg != nil || viewmodel.documentPdf != nil {
                                     VStack(alignment: .center,spacing:15) {
                                         Image("img_maskgroup192")
                                         HStack(alignment:.top,spacing: 10){
@@ -161,6 +161,7 @@ struct BankTransferView: View {
                             //                                        teacherdocumentsvm.clearFilter()
                             viewmodel.UploadTransferImage()
                         })
+                        .frame(height: 50)
                         .padding(.horizontal)
                         
                     }

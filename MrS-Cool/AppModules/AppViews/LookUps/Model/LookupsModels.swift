@@ -137,10 +137,14 @@ struct AppCountryM: Codable,Hashable {
     var name,image,currency: String?
     var currencyAr,currencyImage,code:String?
     var countryUTC:Double?
+    var checkRegion : Bool?
+    var abbreviation : String?
+
     enum CodingKeys: String, CodingKey {
         case id,mobileLength
         case name,image,currency
         case currencyAr,currencyImage,code
         case countryUTC
+        case checkRegion, abbreviation
     }
 }

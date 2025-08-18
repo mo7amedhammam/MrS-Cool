@@ -15,6 +15,8 @@ enum AnonymousDestinations{
 
 struct AnonymousHomeView: View {
     //    @EnvironmentObject var tabbarvm : StudentTabBarVM
+    @StateObject var locationvm = LocationService.shared
+
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
     
@@ -576,7 +578,8 @@ struct AnonymousHomeView: View {
                                 alignment: .center,
                                 spacing: 10
                             ) {
-                                ForEach(countries,id:\.self) { country in
+                                let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
+                                ForEach(filtered,id:\.self) { country in
                                     
                                     //                                ZStack{
                                     //                                    ColorConstants.MainColor

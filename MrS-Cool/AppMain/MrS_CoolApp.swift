@@ -61,6 +61,7 @@ import FirebaseMessaging
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 //    var window: UIWindow?
+//    var locationService: LocationService? = LocationService.shared
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -213,4 +214,24 @@ extension AppDelegate{
 //            }
 //        }
     }
+    
+//    func detectCountry() {
+////        locationService = LocationService() // keep a strong reference
+//
+//        LocationService.shared.onCountryDetected = { countryCode in
+//           if let code = countryCode {
+//               print("Detected Country: \(code)")
+//
+//               // Example: Set global flags or variables
+//               if code == "EG" {
+//                   print("🇪🇬 User is in Egypt")
+//               } else if code == "SA" {
+//                   print("🇸🇦 User is in Saudi Arabia")
+//               }
+//           } else {
+//               print("❌ Failed to detect country")
+//           }
+//       }
+//   }
+    
 }

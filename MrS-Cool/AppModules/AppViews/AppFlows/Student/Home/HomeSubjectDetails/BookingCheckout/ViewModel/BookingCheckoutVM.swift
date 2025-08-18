@@ -180,8 +180,8 @@ extension BookingCheckoutVM{
 
         }else if let documentpdf = documentPdf{
             parameters["ImagePath"] = documentpdf
-
         }
+        
         print("parameters",parameters)
         let target = StudentServices.UpdateOfflinePayment(parameters: parameters)
         isLoading = true
@@ -201,15 +201,13 @@ extension BookingCheckoutVM{
                 guard let self = self else{return}
                 print("receivedData",receivedData)
                 if receivedData.success == true {
-                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
-                        guard let self = self else {return}
-                        self.isTransferUploaded = true
-//                        GetTeacherDocument()
-//                        clearTeachersDocument()
-                    })
-                    isError =  true
-                    //                    TeacherDocuments?.append(model)
-                    //                    GetTeacherDocument()
+                    self.isTransferUploaded = true
+
+//                    error = .success( imgrendermode:.original, message: receivedData.message ?? "",buttonTitle:"Done",mainBtnAction: { [weak self] in
+//                        guard let self = self else {return}
+//                        self.isTransferUploaded = true
+//                    })
+//                    isError =  true
 
                 }else{
                     error = .error(image:nil,  message: receivedData.message ?? "",buttonTitle:"Done")

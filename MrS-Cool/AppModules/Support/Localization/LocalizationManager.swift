@@ -163,7 +163,7 @@ class LocalizationManager {
             
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] {
-                    print("Localization updated for : \(self.currentLanguage)")
+//                    print("Localization updated for : \(self.currentLanguage)")
                     self.updateTranslations(json)
                     self.cacheTranslations(json, for: self.currentLanguage)
                     completion(true)
@@ -182,7 +182,7 @@ class LocalizationManager {
     
     private func updateTranslations(_ newTranslations: [String: String]) {
         queue.async(flags: .barrier) {
-            print("newTranslations",newTranslations)
+//            print("newTranslations",newTranslations)
             self.translations = newTranslations
         }
     }

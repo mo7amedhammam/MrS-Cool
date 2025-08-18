@@ -67,12 +67,12 @@ struct BookingCreateM: Codable {
 // MARK: - OfflinePaymentM
 struct OfflinePaymentM: Codable {
     var teacherlessonsessionID, bookTeacherlessonsessionID, studentID, parentID: Int?
-    var amount: Int?
+    var amount: Double?
     var paid: Bool?
     var language, sessionID: String?
     var appCountryID: Int?
     var orderID, merchantReferenceID: String?
-    var rate, paymentGatewayID, statusID: Int?
+    var paymentGatewayID, statusID: Int?
     var paymentURL: String?
     var withoutPaymentGateway: Bool?
 
@@ -86,7 +86,6 @@ struct OfflinePaymentM: Codable {
         case appCountryID = "appCountryId"
         case orderID = "orderId"
         case merchantReferenceID = "merchantReferenceId"
-        case rate
         case paymentGatewayID = "paymentGatewayId"
         case statusID = "statusId"
         case paymentURL = "paymentUrl"

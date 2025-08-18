@@ -53,6 +53,8 @@
     <key>NSCameraUsageDescription</key>
     <string>This app needs camera access to participate in video calls and meetings through Microsoft Teams.</string>
 
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need to access your location to display content relevant to your country.</string>
 
 </dict>
 </plist>
