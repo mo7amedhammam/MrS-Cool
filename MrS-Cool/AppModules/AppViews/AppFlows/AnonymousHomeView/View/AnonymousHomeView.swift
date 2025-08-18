@@ -578,8 +578,8 @@ struct AnonymousHomeView: View {
                                 alignment: .center,
                                 spacing: 10
                             ) {
-                                let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
-                                ForEach(filtered,id:\.self) { country in
+//                                let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
+                                ForEach(countries,id:\.self) { country in
                                     
                                     //                                ZStack{
                                     //                                    ColorConstants.MainColor
