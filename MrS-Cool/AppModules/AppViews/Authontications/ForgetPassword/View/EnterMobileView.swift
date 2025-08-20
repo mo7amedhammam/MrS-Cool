@@ -91,7 +91,7 @@ struct EnterMobileView: View {
                 
             }
         }, content: {
-            OTPVerificationView(PhoneNumber:resetpasswordvm.phone,CurrentOTP: resetpasswordvm.OtpM?.otp ?? 0, verifycase: .ressetingpassword, secondsCount:resetpasswordvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
+            OTPVerificationView(PhoneNumber:resetpasswordvm.phone,CurrentOTP: resetpasswordvm.OtpM?.otp ?? 0,  ShowOTP: resetpasswordvm.OtpM?.showOtp ?? false,verifycase: .ressetingpassword, secondsCount:resetpasswordvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
                 .hideNavigationBar()
         })
         .onChange(of: passwordresset, perform: { value in

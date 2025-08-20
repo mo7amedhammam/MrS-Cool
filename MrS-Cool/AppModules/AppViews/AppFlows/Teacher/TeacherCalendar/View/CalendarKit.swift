@@ -101,7 +101,7 @@ final class CustomCalendarExampleController: DayViewController {
         guard let firstDayOfWeek = calendar.date(from: components) else { return }
         
         // Generate localized day names for the week
-        let dayNames = (0..<7).map { dayOffset -> String in
+        _ = (0..<7).map { dayOffset -> String in
             guard let date = calendar.date(byAdding: .day, value: dayOffset, to: firstDayOfWeek) else {
                 return weekdaySymbols[dayOffset]
             }

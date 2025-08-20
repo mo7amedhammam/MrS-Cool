@@ -135,7 +135,7 @@ extension ManageTeacherProfileVM{
     func UpdateTeacherProfile(){
         guard checkValidfields() else{return}
 
-        guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
+        guard let birthDateStr = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone),let IsTeacher = isTeacher,let genderid = selectedGender?.id, let cityid = city?.id else {return}
         var parameters:[String:Any] = ["Name":name,"Email":email,"Birthdate":birthDateStr,"GenderId":genderid, "CityId":cityid,"IsTeacher":IsTeacher,"TeacherBio":bio]
         if let image = image {
             parameters["TeacherImage"] = image

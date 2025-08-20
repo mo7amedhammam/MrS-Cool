@@ -89,6 +89,9 @@ class OTPVerificationVM: ObservableObject {
                     CurrentOtp = String(receivedData.data?.otp ?? 0)
                     remainingSeconds = receivedData.data?.secondsCount ?? 0
                     startCountdownTimer(seconds: remainingSeconds)
+                    if receivedData.data?.showOtp == true, let otp = receivedData.data?.otp{
+                        EnteredOtp = String(otp)
+                    }
                     }else{
                         isError =  true
                         error = NetworkError.apiError(code: 5, error: receivedData.message ?? "")

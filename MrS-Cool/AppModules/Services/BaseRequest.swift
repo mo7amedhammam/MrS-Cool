@@ -236,7 +236,7 @@ final class BaseNetwork{
            }
            
            // Handle parameters
-           let params = buildparameter(paramaters: target.parameter).0
+//           let params = buildparameter(paramaters: target.parameter).0
            let parameters = buildparameters(paramaters: buildparameter(paramaters: target.parameter).0)
             switch (target.method, parameters.1) {
                 case (.get, _), (_, .urlEncoding):

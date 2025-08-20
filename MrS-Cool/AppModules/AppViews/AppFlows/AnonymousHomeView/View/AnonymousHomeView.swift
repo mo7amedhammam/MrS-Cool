@@ -16,7 +16,7 @@ enum AnonymousDestinations{
 struct AnonymousHomeView: View {
     //    @EnvironmentObject var tabbarvm : StudentTabBarVM
     @StateObject var locationvm = LocationService.shared
-
+    
     @StateObject var lookupsvm = LookUpsVM()
     @StateObject var studenthomevm = StudentHomeVM()
     
@@ -86,10 +86,10 @@ struct AnonymousHomeView: View {
                                 
                                 CustomButton(Title:"Search",bgColor:Color.mainBlue,IsDisabled:.constant((studenthomevm.academicYear == nil || !studenthomevm.isacademicYearvalid)) , action: {
                                     Task{
-//                                    withAnimation{
+                                        //                                    withAnimation{
                                         await studenthomevm.getHomeData()
-                                            isSearch = true
-//                                        }
+                                        isSearch = true
+                                        //                                        }
                                     }
                                 })
                                 .frame(height: 50)
@@ -485,13 +485,13 @@ struct AnonymousHomeView: View {
                         
                         //                        DispatchGroup.enter()
                         //                        studenthomevm.GetStudentMostSubjects(mostType: .mostviewed)
-                       await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
+                        await studenthomevm.GetStudentMostSubjects(mostType: .mostBooked)
                         //                        await studenthomevm.GetStudentMostSubjects1(mostType: .mostBooked)
                         
                         //                        DispatchGroup.enter()
                         //                        studenthomevm.GetStudentTeachers(mostType: .mostviewed)
                         //                        studenthomevm.GetStudentTeachers(mostType: .topRated)
-                       await studenthomevm.GetStudentMostBookedTeachers()
+                        await studenthomevm.GetStudentMostBookedTeachers()
                         
                         
                         //                        DispatchGroup.leave()
@@ -538,19 +538,19 @@ struct AnonymousHomeView: View {
                 hideKeyboard()
             })
             
-//            .bottomSheet(isPresented: $showAppCountry){
+            //            .bottomSheet(isPresented: $showAppCountry){
             .fullScreenCover(isPresented: $showAppCountry){
                 VStack(){
-//                    ColorConstants.Bluegray100
-//                        .frame(width:50,height:5)
-//                        .cornerRadius(2.5)
-//                        .padding(.top,2)
-//                    HStack {
-//                        
-//                        Text("select_app_country".localized())
-//                            .font(Font.bold(size: 18))
-//                            .foregroundColor(.mainBlue)
-//                    }.padding(8)
+                    //                    ColorConstants.Bluegray100
+                    //                        .frame(width:50,height:5)
+                    //                        .cornerRadius(2.5)
+                    //                        .padding(.top,2)
+                    //                    HStack {
+                    //                        
+                    //                        Text("select_app_country".localized())
+                    //                            .font(Font.bold(size: 18))
+                    //                            .foregroundColor(.mainBlue)
+                    //                    }.padding(8)
                     
                     CustomTitleBarView(imgColor:.mainBlue,title: "select_app_country"){
                         showAppCountry = false
@@ -567,17 +567,18 @@ struct AnonymousHomeView: View {
                                     .frame(height: 194)
                                     .scaledToFit()
                             }
-                            .frame(height: UIScreen.main.bounds.height / 3.3,alignment: .top)
-                            .padding(.top)
+                            //                            .frame(height: UIScreen.main.bounds.height / 3.3,alignment: .top)
+                            .padding(.vertical)
                             
-                            LazyVGrid(
-                                columns: [
-                                        GridItem(.flexible(minimum: 100, maximum: 150)),
-                                        GridItem(.flexible(minimum: 100, maximum: 150))
-                                ],
-                                alignment: .center,
-                                spacing: 10
-                            ) {
+                            //                            LazyVGrid(
+                            //                                columns: [
+                            //                                        GridItem(.flexible(minimum: 100, maximum: 150)),
+                            //                                        GridItem(.flexible(minimum: 100, maximum: 150))
+                            //                                ],
+                            //                                alignment: .center,
+                            //                                spacing: 10
+                            //                            ) {
+                            VStack(spacing:10){
                                 let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
                                 ForEach(filtered,id:\.self) { country in
                                     
@@ -603,7 +604,7 @@ struct AnonymousHomeView: View {
                                             //                                        .clipShape(Circle())
                                         }
                                         .frame(width: 82,height: 82)
-
+                                        
                                         Spacer()
                                         
                                         Text(country.name ?? "")
@@ -618,52 +619,52 @@ struct AnonymousHomeView: View {
                                     .background{
                                         (selectedAppCountry == country ? Color(.mainBlue) : Color("StudentDisableBg").opacity(0.5)).cornerRadius(10)
                                     }
-    //                                .padding(.vertical, 10) // Optional: for better tap target
+                                    //                                .padding(.vertical, 10) // Optional: for better tap target
                                     .padding(.horizontal,3)
                                     .contentShape(Rectangle()) // 👈 Optional
                                     .onTapGesture {
-                                               selectedAppCountry = country
-                                           }
-
+                                        selectedAppCountry = country
+                                    }
+                                    
                                 }
                             }
                             .padding()
                         }
                         
-//                        ScrollView{
-//                            ForEach(countries,id:\.self) { country in
-//                                
-//                                HStack{
-//                                    // Radio button indicator
-//                                    Image(systemName: selectedAppCountry == country ? "largecircle.fill.circle" : "circle")
-//                                        .foregroundColor(.mainBlue) // or use a custom color
-//                                        .font(.system(size: 15))
-//                                    
-//                                    Text(country.name ?? "")
-//                                        .font(Font.semiBold(size: 16))
-//                                        .foregroundColor(.mainBlue)
-//                                    
-//                                    Spacer()
-//                                    
-//                                    let imageURL : URL? = URL(string: Constants.baseURL+(country.image ?? "").reverseSlaches())
-//                                    KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
-//                                        .aspectRatio(contentMode: .fill)
-//                                        .frame(width: 40,height: 40)
-//                                        .padding(.horizontal)
-//                                    //                                    .clipShape(Circle())
-//                                }
-//                                .frame(maxWidth: .infinity, alignment: .leading) // 👈 Important
-//                                .padding(.vertical, 10) // Optional: for better tap target
-//                                .contentShape(Rectangle()) // 👈 Optional
-//                                .onTapGesture {
-//                                    selectedAppCountry = country
-//                                }
-//                                .listRowSpacing(0)
-//                                .listRowSeparator(.hidden)
-//                                .listRowBackground(Color.clear)
-//                                
-//                            }.listStyle(.plain)
-//                        }
+                        //                        ScrollView{
+                        //                            ForEach(countries,id:\.self) { country in
+                        //                                
+                        //                                HStack{
+                        //                                    // Radio button indicator
+                        //                                    Image(systemName: selectedAppCountry == country ? "largecircle.fill.circle" : "circle")
+                        //                                        .foregroundColor(.mainBlue) // or use a custom color
+                        //                                        .font(.system(size: 15))
+                        //                                    
+                        //                                    Text(country.name ?? "")
+                        //                                        .font(Font.semiBold(size: 16))
+                        //                                        .foregroundColor(.mainBlue)
+                        //                                    
+                        //                                    Spacer()
+                        //                                    
+                        //                                    let imageURL : URL? = URL(string: Constants.baseURL+(country.image ?? "").reverseSlaches())
+                        //                                    KFImageLoader(url: imageURL, placeholder: Image("img_younghappysmi"))
+                        //                                        .aspectRatio(contentMode: .fill)
+                        //                                        .frame(width: 40,height: 40)
+                        //                                        .padding(.horizontal)
+                        //                                    //                                    .clipShape(Circle())
+                        //                                }
+                        //                                .frame(maxWidth: .infinity, alignment: .leading) // 👈 Important
+                        //                                .padding(.vertical, 10) // Optional: for better tap target
+                        //                                .contentShape(Rectangle()) // 👈 Optional
+                        //                                .onTapGesture {
+                        //                                    selectedAppCountry = country
+                        //                                }
+                        //                                .listRowSpacing(0)
+                        //                                .listRowSeparator(.hidden)
+                        //                                .listRowBackground(Color.clear)
+                        //                                
+                        //                            }.listStyle(.plain)
+                        //                        }
                         
                         
                         CustomButton(Title:"Confirm",bgColor: .mainBlue,IsDisabled:.constant(selectedAppCountry == nil || selectedAppCountry == Helper.shared.getAppCountry()) , action: {
@@ -685,7 +686,7 @@ struct AnonymousHomeView: View {
                     
                 }
                 .localizeView()
-//                .frame(height: 240)
+                //                .frame(height: 240)
                 .background(ColorConstants.WhiteA700.cornerRadius(8))
                 .padding()
                 .onAppear(){
@@ -766,7 +767,7 @@ struct AnonymousSideMenuContent: View {
                             //                                .padding(.horizontal)
                             //                                    .clipShape(Circle())
                             
-                            Text(country?.name ?? "Change_app_country")
+                            Text("Change_app_country".localized)
                                 .font(.bold(size: 13))
                                 .foregroundStyle(ColorConstants.WhiteA700)
                             Spacer()
@@ -812,28 +813,78 @@ struct AnonymousSideMenuContent: View {
 
 struct ChangeLanguage: View {
     @StateObject var localizeHelper = LocalizeHelper.shared
-    
+         let supportedLanguages: [Language] = [
+            Language(id: "en", name: "English_", flag: "usaflag")
+           , Language(id: "ar", name: "Arabic_", flag: "egyflag")
+//            ,Language(id: "fr", name: "French", flag: "frenchflag") // Add a flag for French
+        ]
+
     var body: some View {
-        Button(action: {
-            LocalizeHelper.shared.setLanguage(language:
-                                                localizeHelper.currentLanguage == "en" ? Language(id: "ar", name: "عربى", flag: "egyflag") :
-                                                Language(id: "en", name: "English", flag: "usaflag"))
-            
-            
-            Helper.shared.changeRoot(toView: destinationview)
-        }, label: {
+        VStack{
             HStack{
-                Image(localizeHelper.currentLanguage == "en" ? .egyflag : .usaflag)
+                Image(.langIcon)
                     .renderingMode(.original)
                     .resizable()
-                    .frame(width: 25,height: 20)
-                Text("English".localized())
+                    .frame(width: 20,height: 20)
+                Text("Change_app_language".localized())
                     .font(.bold(size: 13))
                     .foregroundStyle(ColorConstants.WhiteA700)
                 Spacer()
             }
             .padding()
-        })
+            
+            HStack{
+
+                                ForEach(supportedLanguages, id: \.id) { language in
+                                    let isselected = language.id.lowercased() == Helper.shared.getLanguage().lowercased()
+                                    
+                                    CustomButton(Title:language.name,fgColor:isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor, bgColor:isselected ? ColorConstants.MainColor : ColorConstants.WhiteA700,IsDisabled:.constant(false) , action: {
+//                                        DispatchQueue.main.async {
+                                            LocalizeHelper.shared.setLanguage(language: language)
+                                            Helper.shared.changeRoot(toView: destinationview)
+//                                        }
+                                    })
+                                    .frame(height: 45)
+//                                    .tag(language.id)
+
+//                                    Button(action:{
+//                                        
+//                                    },label: {
+//                                        HStack {
+//                                            Text(language.name)
+//                                                .font(.bold(size: 13))
+//                                                .foregroundStyle(ColorConstants.WhiteA700)
+//                                        }
+//                                        .tag(language.id)
+//                                        
+//                                    })
+                                    
+                                    .frame(maxWidth:.infinity)
+                                }
+                
+//                Button(action: {
+//                    LocalizeHelper.shared.setLanguage(language:
+//                                                        localizeHelper.currentLanguage == "en" ? Language(id: "ar", name: "عربى", flag: "egyflag") :
+//                                                        Language(id: "en", name: "English", flag: "usaflag"))
+//                    
+//                    Helper.shared.changeRoot(toView: destinationview)
+//                }, label: {
+//                    HStack{
+////                        Image(localizeHelper.currentLanguage == "en" ? .egyflag : .usaflag)
+////                            .renderingMode(.original)
+////                            .resizable()
+////                            .frame(width: 25,height: 20)
+//                        Text("English".localized())
+//                            .font(.bold(size: 13))
+//                            .foregroundStyle(ColorConstants.WhiteA700)
+//                        Spacer()
+//                    }
+//                    .padding()
+//                })
+                
+            }
+            .padding(.horizontal)
+        }
     }
     
     @ViewBuilder

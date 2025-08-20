@@ -195,10 +195,10 @@ extension ManageSubjectGroupVM{
             parameters["groupName"] = filtergroupName
         }
         
-        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
+        if let filterstartdate = filterstartdate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone){
             parameters["startDate"] = filterstartdate
         }
-        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current){
+        if let filterenddate = filterenddate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone){
             parameters["endDate"] = filterenddate
         }
         
@@ -241,7 +241,7 @@ extension ManageSubjectGroupVM{
                                         "teacherSubjectAcademicSemesterYearName":subjectname,
                                         "groupName":groupName,
                                         "groupCost":totalCost,
-                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),
+                                        "startDate":startdate.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd'T'HH:mm:ss",outputLocal: .english,inputTimeZone: appTimeZone),
                                         "scheduleSlots":CreateSchedualSlotsArr,
                                         "teacherLessonList":CreateTeacherLessonList]
         print("parameters",parameters)
@@ -394,7 +394,7 @@ extension ManageSubjectGroupVM{
     func CreateExtraSession(){
         guard checkValidExtraSessionfields() else {return}
         
-        guard let group = selectedGroup ,let teacherlessonsessionid = group.id ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current) else {return}
+        guard let group = selectedGroup ,let teacherlessonsessionid = group.id ,let lessonlessonid = extraLesson?.LessonItem?.id,let duration = extraLesson?.LessonItem?.groupDuration,let extradate = extraDate?.ChangeDateFormat(FormatFrom: "dd MMM yyyy", FormatTo:"yyyy-MM-dd",outputLocal: .english,inputTimeZone: appTimeZone),let extratime = extraTime?.ChangeDateFormat(FormatFrom: "hh:mm aa",FormatTo:"HH:mm",outputLocal: .english,inputTimeZone: appTimeZone) else {return}
         let parameters:[String:Any] = [
 //            "teacherLessonSessionScheduleSlotId": 0,
             "teacherlessonsessionId": teacherlessonsessionid,

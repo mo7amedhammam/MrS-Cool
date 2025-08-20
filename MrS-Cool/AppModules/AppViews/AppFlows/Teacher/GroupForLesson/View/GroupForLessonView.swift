@@ -148,6 +148,7 @@ struct GroupForLessonView: View {
                                 Group {
                                     
                                     CustomDropDownField(iconName:"img_group_512380",placeholder: "Subject", selectedOption: $groupsforlessonvm.subject,options:lookupsvm.SubjectsForList,isvalid:groupsforlessonvm.issubjectvalid)
+                                        .id(groupsforlessonvm.subject)
                                         .onChange(of: groupsforlessonvm.subject){newvalue in
                                             if lookupsvm.SelectedSubjectForList != groupsforlessonvm.subject{
                                                 lookupsvm.SelectedSubjectForList = groupsforlessonvm.subject
@@ -355,7 +356,8 @@ struct DynamicHeightSheet<Content: View>: View {
         .localizeView()
         .frame(maxWidth: .infinity, maxHeight: isPresented ? .infinity:0)
         .opacity(isPresented ? 1 : 0)
-        .animation(.easeInOut)
+        .animation(.easeInOut, value: isPresented)
+//        .animation(.easeInOut){isPresented.toggle()}
     }
 }
 

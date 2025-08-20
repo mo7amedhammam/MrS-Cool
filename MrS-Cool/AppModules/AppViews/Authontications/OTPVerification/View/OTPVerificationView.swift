@@ -15,6 +15,7 @@ struct OTPVerificationView: View {
     //    @State var destination = AnyView(Text(""))
     var PhoneNumber : String?
     var CurrentOTP : Int?
+    var ShowOTP : Bool?
     var verifycase : VerifyCases
 
     @State var secondsCount : Int? = 110
@@ -134,6 +135,9 @@ struct OTPVerificationView: View {
                 otpvm.CurrentOtp = String(CurrentOTP ?? 0)
                 otpvm.remainingSeconds = secondsCount ?? 0
                 otpvm.startCountdownTimer(seconds: otpvm.remainingSeconds)
+                if ShowOTP == true,let otp = CurrentOTP{
+                    otpvm.EnteredOtp = String(CurrentOTP ?? 0)
+                }
             }
         })
 //        .onChange(of: otpvm.remainingSeconds, perform: { value in

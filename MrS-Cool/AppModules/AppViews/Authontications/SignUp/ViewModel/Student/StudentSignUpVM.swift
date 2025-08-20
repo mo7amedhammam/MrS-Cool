@@ -104,7 +104,7 @@ class StudentSignUpVM: ObservableObject {
 extension StudentSignUpVM{
     func RegisterStudent(){
         guard checkValidfields() else{return}
-        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone ?? TimeZone.current), let academicYearId = academicYear?.id else {return}
+        guard let genderid = selectedGender?.id,let birthdate = birthDateStr?.ChangeDateFormat(FormatFrom: "dd  MMM  yyyy", FormatTo: "yyyy-MM-dd'T'HH:mm:ss.SSS",outputLocal: .english,inputTimeZone: appTimeZone), let academicYearId = academicYear?.id else {return}
         var parameters:[String:Any] = ["name":name,"mobile":phone,"passwordHash":Password,"genderId":genderid,"birthdate":birthdate, "academicYearEducationLevelId":academicYearId]
         if let appCountryId = Helper.shared.getAppCountry()?.id{
             parameters["appCountryId"] = appCountryId

@@ -13,6 +13,7 @@ struct CustomButton: View {
     var imageName:String?
 //    var imageColor:Color?
     var Title = ""
+    var fgColor:Color?
     var bgColor:Color?
     @Binding var IsDisabled:Bool
     var action: () -> Void
@@ -44,7 +45,7 @@ struct CustomButton: View {
             .frame(minHeight: 0, maxHeight: .infinity)
 
             .padding()
-            .foregroundColor(IsDisabled ? ColorConstants.Bluegray400:ColorConstants.WhiteA700)
+            .foregroundColor(IsDisabled ? ColorConstants.Bluegray400:fgColor ?? ColorConstants.WhiteA700)
 
             .background(
                 RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)

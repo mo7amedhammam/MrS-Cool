@@ -542,6 +542,10 @@
 "payment_pending_subtitle1" = "Our specialized team will review the transfer within 24 hours, and the course will be activated immediately after the transaction is confirmed.";
 "payment_pending_subtitle2" = "Our specialized team will review the transfer within 24 hours, and the course will be activated immediately after the transaction is confirmed.";
 
+"Change_app_language" = "Change language";
+"English_" = "English";
+"Arabic_" = "العربية";
+
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "Accept";

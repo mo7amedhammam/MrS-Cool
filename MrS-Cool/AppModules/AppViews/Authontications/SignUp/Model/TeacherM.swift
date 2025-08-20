@@ -11,6 +11,7 @@ import Foundation
 /// OtopM
 struct OtpM: Codable ,Equatable{
     var otp, secondsCount: Int?
+    var showOtp: Bool?
 }
 
 //// MARK: -- send teacher otp Response  --

@@ -427,7 +427,7 @@ struct CustomTabBarView: View {
         VStack(spacing: 0) {
             
             HStack(spacing: 0) {
-                ForEach(0..<tabBarItems.count) { index in
+                ForEach(tabBarItems.indices,id: \.self) { index in
                     TabBarItemView(
                         item: tabBarItems[index],
                         isSelected: selectedIndex == index,

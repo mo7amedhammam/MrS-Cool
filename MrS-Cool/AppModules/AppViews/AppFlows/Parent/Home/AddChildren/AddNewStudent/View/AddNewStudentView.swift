@@ -187,7 +187,7 @@ struct AddNewStudentView: View {
                     Helper.shared.changeRoot(toView: ParentTabBarView())
                 }
             }, content: {
-                OTPVerificationView(PhoneNumber:addnewstudentvm.phone,CurrentOTP: addnewstudentvm.OtpM?.otp ?? 0, verifycase: .addnewstudent, secondsCount:addnewstudentvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.childrenAccountAdded))
+                OTPVerificationView(PhoneNumber:addnewstudentvm.phone,CurrentOTP: addnewstudentvm.OtpM?.otp ?? 0, ShowOTP: addnewstudentvm.OtpM?.showOtp ?? false,verifycase: .addnewstudent, secondsCount:addnewstudentvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.childrenAccountAdded))
                     .hideNavigationBar()
             })
         

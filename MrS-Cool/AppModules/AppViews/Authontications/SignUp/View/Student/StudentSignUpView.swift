@@ -103,7 +103,7 @@ struct StudentSignUpView: View {
                     Helper.shared.changeRoot(toView: StudentTabBarView(homeIndex: 2)) // after signup go home
                 }
             }, content: {
-                OTPVerificationView(PhoneNumber:studentsignupvm.phone,CurrentOTP: studentsignupvm.OtpM?.otp ?? 0, verifycase: .creatinguser, secondsCount:studentsignupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
+                OTPVerificationView(PhoneNumber:studentsignupvm.phone,CurrentOTP: studentsignupvm.OtpM?.otp ?? 0, ShowOTP: studentsignupvm.OtpM?.showOtp ?? false, verifycase: .creatinguser, secondsCount:studentsignupvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.accountCreated))
                     .hideNavigationBar()
             })
         }

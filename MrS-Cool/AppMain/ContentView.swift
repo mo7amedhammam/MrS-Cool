@@ -68,19 +68,19 @@ struct ContentView: View {
                                 .resizable()
                                 .frame(height: 194)
                                 .scaledToFit()
-
                         }
-                        .frame(height: UIScreen.main.bounds.height / 3.3,alignment: .top)
-                        .padding(.top)
+//                        .frame(height: UIScreen.main.bounds.height / 3.3,alignment: .top)
+                        .padding(.vertical)
 
-                        LazyVGrid(
-                            columns: [
-                                    GridItem(.flexible(minimum: 100, maximum: 150)),
-                                    GridItem(.flexible(minimum: 100, maximum: 150))
-                            ],
-                            alignment: .center,
-                            spacing: 10
-                        ) {
+//                        LazyVGrid(
+//                            columns: [
+//                                    GridItem(.flexible(minimum: 100, maximum: 150)),
+//                                    GridItem(.flexible(minimum: 100, maximum: 150))
+//                            ],
+//                            alignment: .center,
+//                            spacing: 10
+//                        ) {
+                        VStack(spacing:10){
                             let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
                             ForEach(filtered,id:\.self) { country in
                                 

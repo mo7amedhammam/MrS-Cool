@@ -83,7 +83,7 @@ struct AddExistingStudentPhone: View {
 
             }
         }, content: {
-            OTPVerificationView(PhoneNumber:verifystudentvm.phone,CurrentOTP: verifystudentvm.OtpM?.otp ?? 0, verifycase: .addexistingstudent, secondsCount:verifystudentvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.childrenAccountAdded))
+            OTPVerificationView(PhoneNumber:verifystudentvm.phone,CurrentOTP: verifystudentvm.OtpM?.otp ?? 0, ShowOTP: verifystudentvm.OtpM?.showOtp ?? false,verifycase: .addexistingstudent, secondsCount:verifystudentvm.OtpM?.secondsCount ?? 0, isVerified: $isVerified, sussessStep: .constant(.childrenAccountAdded))
                 .hideNavigationBar()
         })
         

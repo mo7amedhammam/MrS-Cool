@@ -47,8 +47,11 @@ class JSONNull: Codable, Hashable {
         return true
     }
 
-    public var hashValue: Int {
-        return 0
+//    public var hashValue: Int {
+//        return 0
+//    }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(0) // هنا بتحط أي قيمة تستخدمها في التمييز
     }
 
     public init() {}
