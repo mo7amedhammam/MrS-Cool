@@ -838,13 +838,15 @@ struct ChangeLanguage: View {
                                 ForEach(supportedLanguages, id: \.id) { language in
                                     let isselected = language.id.lowercased() == Helper.shared.getLanguage().lowercased()
                                     
-                                    CustomButton(Title:language.name,fgColor:isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor, bgColor:isselected ? ColorConstants.MainColor : ColorConstants.WhiteA700,IsDisabled:.constant(false) , action: {
+                                    CustomButton(Title:language.name,fgColor:isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor, bgColor:isselected ? Color("StudentBtnBg") :  Color("StudentDisableBg"),IsDisabled:.constant(false) , action: {
 //                                        DispatchQueue.main.async {
+                                        guard !isselected else { return }
                                             LocalizeHelper.shared.setLanguage(language: language)
                                             Helper.shared.changeRoot(toView: destinationview)
 //                                        }
                                     })
                                     .frame(height: 45)
+                                    
 //                                    .tag(language.id)
 
 //                                    Button(action:{
