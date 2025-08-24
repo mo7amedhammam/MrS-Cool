@@ -532,8 +532,7 @@ struct LessonDetailsView: View {
 //           formatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC for API
 //           formatter.locale = Locale(identifier: "en_US_POSIX")
            formatter.timeZone = appTimeZone
-           formatter.locale = LocalizeHelper.shared.currentLanguage == "en" ?
-               Locale(identifier: "en") : Locale(identifier: "ar")
+           formatter.locale = Locale(identifier: SupportedLocale.english.rawValue)
 
            return formatter.string(from: date)
        }

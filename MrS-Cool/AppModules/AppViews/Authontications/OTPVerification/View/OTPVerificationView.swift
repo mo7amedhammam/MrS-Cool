@@ -136,7 +136,7 @@ struct OTPVerificationView: View {
                 otpvm.remainingSeconds = secondsCount ?? 0
                 otpvm.startCountdownTimer(seconds: otpvm.remainingSeconds)
                 if ShowOTP == true,let otp = CurrentOTP{
-                    otpvm.EnteredOtp = String(CurrentOTP ?? 0)
+                    otpvm.EnteredOtp = String(otp)
                 }
             }
         })

@@ -142,5 +142,5 @@ struct PaymentStatusView: View {
     }
 }
 #Preview {
-    PaymentStatusView(paymentsuccess: .success)
+    PaymentStatusView(paymentsuccess: .pending)
 }

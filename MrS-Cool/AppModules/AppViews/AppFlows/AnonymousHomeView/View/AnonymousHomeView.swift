@@ -692,6 +692,7 @@ struct AnonymousHomeView: View {
                 .onAppear(){
                     Task {
                         await lookupsvm.GetAppCountries()
+                        selectedAppCountry = Helper.shared.getAppCountry()
                     }
                 }
                 .onDisappear{
@@ -837,8 +838,9 @@ struct ChangeLanguage: View {
 
                                 ForEach(supportedLanguages, id: \.id) { language in
                                     let isselected = language.id.lowercased() == Helper.shared.getLanguage().lowercased()
+                                    let bgColor = isselected ? Helper.shared.getSelectedUserType() == .Parent ? Color(.parentBtnBg) :  Color("StudentBtnBg") :  Color("StudentDisableBg")
                                     
-                                    CustomButton(Title:language.name,fgColor:isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor, bgColor:isselected ? Color("StudentBtnBg") :  Color("StudentDisableBg"),IsDisabled:.constant(false) , action: {
+                                    CustomButton(Title:language.name,fgColor:isselected ? ColorConstants.WhiteA700:ColorConstants.MainColor, bgColor:bgColor,IsDisabled:.constant(false) , action: {
 //                                        DispatchQueue.main.async {
                                         guard !isselected else { return }
                                             LocalizeHelper.shared.setLanguage(language: language)

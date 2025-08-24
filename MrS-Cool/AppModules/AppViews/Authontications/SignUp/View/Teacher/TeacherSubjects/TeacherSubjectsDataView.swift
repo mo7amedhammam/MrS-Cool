@@ -37,6 +37,7 @@ struct TeacherSubjectsDataView: View {
                         // -- inputs --
                         Group {
                             CustomDropDownField(iconName:"img_vector",placeholder: "Education Type *", selectedOption: $teachersubjectsvm.educationType,options:lookupsvm.EducationTypesList,isvalid: teachersubjectsvm.iseducationTypevalid)
+                                .id(teachersubjectsvm.educationType)
                             
                             CustomDropDownField(iconName:"img_vector_black_900",placeholder: "Education Level *", selectedOption: $teachersubjectsvm.educationLevel,options:lookupsvm.EducationLevelsList,isvalid: teachersubjectsvm.iseducationLevelvalid)
                             

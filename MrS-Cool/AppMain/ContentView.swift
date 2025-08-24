@@ -196,6 +196,7 @@ struct ContentView: View {
             .onAppear(){
                 Task {
                     await lookupsvm.GetAppCountries()
+                    selectedAppCountry = Helper.shared.getAppCountry()
                 }
 //                print("appcountry is :",Helper.shared.getAppCountry())
             }

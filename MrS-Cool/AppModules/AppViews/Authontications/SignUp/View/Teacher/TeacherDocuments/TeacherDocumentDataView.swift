@@ -58,7 +58,7 @@ struct TeacherDocumentDataView: View {
                             // -- inputs --
                             Group {
                                 CustomDropDownField(iconName:"img_group_512390",placeholder: "Document Type *", selectedOption: $teacherdocumentsvm.documentType,options:lookupsvm.documentTypesList,isvalid: teacherdocumentsvm.isdocumentTypevalid)
-                                
+                                    .id(teacherdocumentsvm.documentType)
                                 CustomTextField(iconName:"img_group_512388",placeholder: "Documents Title *", text: $teacherdocumentsvm.documentTitle,isvalid:teacherdocumentsvm.isdocumentTitlevalid)
                                 
 //                                CustomTextField(iconName:"img_group_512386",placeholder: "Order *", text: $teacherdocumentsvm.documentOrder,keyboardType: .asciiCapableNumberPad,isvalid:teacherdocumentsvm.isdocumentOrdervalid)

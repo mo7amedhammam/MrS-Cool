@@ -520,6 +520,7 @@ struct UploadedFileView: View {
 }
 
 #Preview {
-    BankTransferView()
-        .environmentObject(BookingCheckoutVM())
+//    BankTransferView()
+//        .environmentObject(BookingCheckoutVM())
+    
 }
