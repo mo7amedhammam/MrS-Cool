@@ -17,7 +17,7 @@ enum apiType:String{
 struct Constants {
 // MARK: - APIs Constants
     
-    static var apiType : apiType = .production
+    static var apiType : apiType = .testing
 //     var testBaseURL:String {return "https://alnada-devmrsapi.azurewebsites.net/"} //TEST
 //     var liveBaseURL:String {return "https://api.mrscool.app/"} //LIVE
     

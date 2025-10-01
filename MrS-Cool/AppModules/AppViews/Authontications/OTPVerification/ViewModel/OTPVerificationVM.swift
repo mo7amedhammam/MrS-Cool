@@ -106,7 +106,10 @@ class OTPVerificationVM: ObservableObject {
             // Handle missing username or password
             return
         }
-        let parametersarr : [String : Any] =  ["otp" : otp,"mobile" : mobile ]
+        var parametersarr : [String : Any] =  ["otp" : otp,"mobile" : mobile ]
+        if let AppCountryId = Helper.shared.getAppCountry()?.id{
+            parametersarr["appCountryId"] = AppCountryId
+        }
         isLoading = true
         // Create your API request with the username and password
         let target = switch verifycase {
