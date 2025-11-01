@@ -220,7 +220,7 @@ struct TeacherFinanceCellView: View {
                     Spacer()
                     Group{
                         Text("ProfitAfterRate :".localized())
-                        Text(model.profitAfterRate ?? 0,format: .number.precision(.fractionLength(1)))
+                        Text(model.profitAfterRate ?? 0,format: .number)
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)
@@ -349,7 +349,7 @@ struct TeacherFinanceCellView: View {
                     Spacer()
                     Group{
                         Text("ProfitAfterRate :".localized())
-                        Text(model.profitAfterRate ?? 0,format: .number.precision(.fractionLength(1)))
+                        Text(model.profitAfterRate ?? 0,format: .number)
                     }
                     .font(Font.bold(size:12))
                     .foregroundColor(.mainBlue)

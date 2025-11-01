@@ -81,6 +81,8 @@ struct ContentView: View {
 //                            spacing: 10
 //                        ) {
                         VStack(spacing:10){
+//                            "SA","KW","EG", "QA","BH","AE","OM"
+
                             let filtered = countries.first?.checkRegion == false ? countries : countries.filter{ $0.abbreviation == locationvm.countryCode }
                             ForEach(filtered,id:\.self) { country in
                                 
