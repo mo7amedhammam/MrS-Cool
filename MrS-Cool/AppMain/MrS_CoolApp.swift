@@ -13,6 +13,8 @@ struct MrS_CoolApp: App {
         @Environment(\.scenePhase) private var scenePhase
         @StateObject var notificationManager = NotificationManager()
 
+    @State var showForceUpdate : Bool = false
+    
     var body: some Scene {
         WindowGroup {
 //            NavigationView{
@@ -24,8 +26,12 @@ struct MrS_CoolApp: App {
                         }
                     }
                     .environment(\.layoutDirection, LocalizeHelper.shared.currentLanguage == "ar" ? .rightToLeft : .leftToRight)
-
-//            }
+                    .fullScreenCover(isPresented: $showForceUpdate) {
+//                        if let url = versionManager.updateURL {
+                            ForceUpdateView()
+//                        }
+                    }
+            //            }
         }
         
         .onChange(of: scenePhase) { newScenePhase in
@@ -35,6 +41,7 @@ struct MrS_CoolApp: App {
                 print("App is active")
                 // Perform any necessary actions here
                 appDelegate.LocalizationInit()
+                checkAppUpdate()
             case .inactive:
                 // App becomes inactive (background)
                 print("App is inactive")
@@ -50,6 +57,20 @@ struct MrS_CoolApp: App {
             }
         }
         
+    }
+    
+    func checkAppUpdate(){
+        //            .onAppear {
+                Helper.shared.checkAppStoreVersion { updateAvailable, appStoreVersion in
+                    print("Checking for app updates...")
+                            if updateAvailable {
+                                DispatchQueue.main.async {
+                                    showForceUpdate = true
+                                }
+                            }
+                        }
+        //            }
+
     }
 }
 
@@ -215,6 +236,7 @@ extension AppDelegate{
 //        }
     }
     
+    
 //    func detectCountry() {
 ////        locationService = LocationService() // keep a strong reference
 //
@@ -235,3 +257,4 @@ extension AppDelegate{
 //   }
     
 }
+

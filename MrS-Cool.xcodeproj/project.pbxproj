@@ -13,6 +13,7 @@
 		9088674A2E535A1900F758AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908867492E535A1800F758AB /* LocationManager.swift */; };
 		9090A1302D88ECD000D9E20B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090A12F2D88ECD000D9E20B /* LocalizationManager.swift */; };
 		9090A1322D88EEC400D9E20B /* AppKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090A1312D88EEC400D9E20B /* AppKeys.swift */; };
+		90FF5BC42EE86D2F00B8B421 /* ForceUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FF5BC32EE86D2F00B8B421 /* ForceUpdateView.swift */; };
 		C8002C002AEFD9310082DA40 /* TeacherDocumentsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */; };
 		C80403442B554E3E003279AD /* HomeSubjectDetailsM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403432B554E3D003279AD /* HomeSubjectDetailsM.swift */; };
 		C80403462B554ED9003279AD /* HomeSubjectDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */; };
@@ -237,6 +238,7 @@
 		908867492E535A1800F758AB /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9090A12F2D88ECD000D9E20B /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		9090A1312D88EEC400D9E20B /* AppKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeys.swift; sourceTree = "<group>"; };
+		90FF5BC32EE86D2F00B8B421 /* ForceUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateView.swift; sourceTree = "<group>"; };
 		C8002BFF2AEFD9310082DA40 /* TeacherDocumentsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherDocumentsVM.swift; sourceTree = "<group>"; };
 		C80403432B554E3D003279AD /* HomeSubjectDetailsM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsM.swift; sourceTree = "<group>"; };
 		C80403452B554ED9003279AD /* HomeSubjectDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubjectDetailsVM.swift; sourceTree = "<group>"; };
@@ -504,6 +506,14 @@
 				908867492E535A1800F758AB /* LocationManager.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		90FF5BC22EE86D1A00B8B421 /* AppUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				90FF5BC32EE86D2F00B8B421 /* ForceUpdateView.swift */,
+			);
+			path = AppUpdate;
 			sourceTree = "<group>";
 		};
 		A185DE38C796146E2464A6B1 /* Frameworks */ = {
@@ -2394,6 +2404,7 @@
 		C8FB118A2ADD99800051715F /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				90FF5BC22EE86D1A00B8B421 /* AppUpdate */,
 				C865641E2C61128600BE2E34 /* keyBoardAdaptive */,
 				C863C72A2AF1332D004322F2 /* FilePreviewer */,
 				C883058A2AF10C770030B2A8 /* Pickers */,
@@ -2895,6 +2906,7 @@
 				C899E3F72ADF10EF00593369 /* UserTypeCell.swift in Sources */,
 				C85A71152B4D5D7300462277 /* StudentHomeSubjectCell.swift in Sources */,
 				C8F987842CA840EA00CCB817 /* TeacherHomeCellView.swift in Sources */,
+				90FF5BC42EE86D2F00B8B421 /* ForceUpdateView.swift in Sources */,
 				C8526AC32B03C18B001F8196 /* ManageSubjectCell.swift in Sources */,
 				C8D7C0762B063D6B009D5533 /* ChangePasswordVM.swift in Sources */,
 				C8B72C1E2B31E10200E36C33 /* CalendarHelper.swift in Sources */,

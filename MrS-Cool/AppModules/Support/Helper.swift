@@ -287,6 +287,46 @@ extension Helper{
           }
       }
     
+    func checkAppStoreVersion(completion: @escaping (Bool, String?) -> Void) {
+//        let locale = Locale(identifier: Locale.preferredLanguages.first ?? "en_US")
+//        let countryCode = locale.regionCode?.lowercased() ?? "us"
+//        let appId = "6737163953"
+        let bundleId = Bundle.main.bundleIdentifier ?? ""
+
+        //        guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=com.wecancityagency.MrS-Cool") else {
+//            completion(false, nil)
+//            return
+//        }
+        
+        guard let url = URL(string: "https://itunes.apple.com/eg/lookup?bundleId=\(bundleId)") else {
+            completion(false, nil)
+            return
+        }
+        
+        print(url)
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard
+                let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                let results = json["results"] as? [[String: Any]],
+                let appStoreVersion = results.first?["version"] as? String
+            else {
+                completion(false, nil)
+                return
+            }
+            print("JSON:", json)
+            let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+            print(currentVersion, appStoreVersion)
+
+            if currentVersion.compare(appStoreVersion, options: .numeric) == .orderedAscending {
+                completion(true, appStoreVersion) // Update available
+            } else {
+                completion(false, nil)
+            }
+        }
+        .resume()
+    }
+    
 }
 
 //MARK: -- view helper --
