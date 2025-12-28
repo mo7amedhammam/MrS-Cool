@@ -19,7 +19,7 @@ struct ForceUpdateView: View {
             Text("Update_Required".localized)
                 .font(.bold(size: 26))
 
-            Text("A new version is available. You must update to continue using the app._".localized)
+            Text("A new version is AvailableYou must update to continue using the app".localized)
                 .font(.regular(size: 16))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

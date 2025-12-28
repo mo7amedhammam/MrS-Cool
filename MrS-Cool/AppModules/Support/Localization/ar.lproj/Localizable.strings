@@ -559,7 +559,7 @@
 "English_" = "انجليزي";
 "Arabic_" = "Arabic";
 "Update_Required" = "التحديث مطلوب";
-"A new version is available. You must update to continue using the app._" = "يتوفر إصدار جديد. يجب عليك التحديث لمواصلة استخدام التطبيق.";
+"A new version is AvailableYou must update to continue using the app" = "يتوفر إصدار جديد. يجب عليك التحديث لمواصلة استخدام التطبيق.";
 "Update_Now" = "تحديث_الآن";
 
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~

@@ -546,8 +546,9 @@
 "English_" = "English";
 "Arabic_" = "العربية";
 "Update_Required" = "Update Required";
-"A new version is available. You must update to continue using the app._" = "A new version is available. You must update to continue using the app.";
+"A new version is AvailableYou must update to continue using the app" = "A new version is available. You must update to continue using the app.";
 "Update_Now" = "Update_Now";
+
 //~~~~~~~~~~~~~~commented ~~~~~~~~~~~~~~~
 
 //"Accept" = "Accept";
